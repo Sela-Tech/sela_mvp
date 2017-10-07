@@ -41,8 +41,8 @@ h5 {
 
 .btn:hover, .btn:focus {
   color: #fff;
-  border-color: #FF5274;
-  background-color: #FF5274; }
+  border-color: #0099ff;
+  background-color: #0099ff; }
 
 .btn-white {
   font-size: 13px;
@@ -52,16 +52,16 @@ h5 {
   border-color: #fff; }
 
 .btn-white:hover, .btn-white:focus {
-  color: #FF5274;
-  border-color: #FF5274; }
+  color: #0099ff;
+  border-color: #0099ff; }
 
 .btn-fill {
   color: #fff;
-  border: solid 2px #FF5274;
+  border: solid 2px #0099ff;
   border-radius: 40px;
   display: inline-block;
   text-transform: uppercase;
-  background-color: #FF5274; }
+  background-color: #0099ff; }
 
 .btn-fill:hover, .btn-fill:focus {
   color: #fff;
@@ -98,7 +98,7 @@ Global Styles
   margin: 0; }
 
 a {
-  color: #FF5274;
+  color: #0099ff;
   -webkit-transition-timing-function: ease;
   transition-timing-function: ease;
   -webkit-transition-duration: 200ms;
@@ -402,7 +402,7 @@ header {
         color: #fff;
         padding-right: 25px; }
         header ul.primary-nav li a:hover {
-          color: #FF5274; }
+          color: #0099ff; }
       header ul.primary-nav li:last-child a {
         padding-right: 0px; }
   header ul.member-actions li {
@@ -410,7 +410,7 @@ header {
     header ul.member-actions li a {
       color: #fff; }
       header ul.member-actions li a:hover {
-        color: #FF5274; }
+        color: #0099ff; }
   header .header-nav {
     display: inline-block; }
   header .member-actions {
@@ -435,7 +435,7 @@ Intro
 ========================================================================== */
 .intro span.icon {
   font-size: 40px;
-  color: #FF5274;
+  color: #0099ff;
   font-weight: bold; }
 
 .intro-icon {
@@ -461,7 +461,7 @@ Features-stack
     margin: 0 0 20px 0; }
   .features span.icon {
     font-size: 35px;
-    color: #FF5274;
+    color: #0099ff;
     font-weight: bold; }
   .features .feature-icon {
     display: inline-block;
@@ -678,7 +678,7 @@ Sign up form
   text-align: left;
   position: relative; }
   .sign-up .signup-form .form-input-group i {
-    color: #FF5274;
+    color: #0099ff;
     font-size: 14px; }
   .sign-up .signup-form .form-input-group i:after {
     content: "";
@@ -760,7 +760,7 @@ footer {
   footer a {
     color: #fff; }
   footer a:hover {
-    color: #FF5274; }
+    color: #0099ff; }
   footer ul.footer-group {
     border-top: solid 1px #4E566C;
     padding-top: 25px;
@@ -771,7 +771,7 @@ footer {
     font-size: 13px;
     text-transform: uppercase; }
   footer ul.footer-group li a:hover {
-    color: #FF5274; }
+    color: #0099ff; }
   footer ul.footer-group li {
     margin-right: 30px; }
   footer ul.footer-group li:last-child {
