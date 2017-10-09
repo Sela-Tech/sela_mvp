@@ -348,7 +348,7 @@ Hero
 ========================================================================== */
 .hero {
   min-height: 750px;
-  background: url("../img/hero.jpg") center center;
+  background: url("../img/sela-bg.png") center center;
   background-size: cover;
   position: relative; }
   .hero .down-arrow a {
