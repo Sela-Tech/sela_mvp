@@ -21,8 +21,8 @@ app.get("/", (req, res) => {
     res.sendFile(__dirname + "/index.html");
 });
 
-app.get("/splash", (req, res) => {
-    res.sendFile(__dirname + "/splash.html");
+app.get("/project", (req, res) => {
+    res.sendFile(__dirname + "/project.html");
 });
 
 app.post("/addname", (req, res) => {
