@@ -2,12 +2,15 @@ var express = require("express");
 var app = express();
 var port = 3000;
 var bodyParser = require('body-parser');
+var dotenv = require('dotenv');
+
+dotenv.config();
 app.use(bodyParser.json());
 app.use(bodyParser.urlencoded({ extended: true }));
 
 var mongoose = require("mongoose");
 mongoose.Promise = global.Promise;
-mongoose.connect("mongodb://localhost:27017/node-demo");
+mongoose.connect(process.env.MONGOLAB_URI);
 var nameSchema = new mongoose.Schema({
     projectName: String,
     villageName: String
