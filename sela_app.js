@@ -22,7 +22,7 @@ app.get("/", (req, res) => {
 });
 
 app.get("/project", (req, res) => {
-    res.sendFile(__dirname + "/project.html");
+    res.sendFile(__dirname + "/material.html");
 });
 
 app.post("/addname", (req, res) => {
