@@ -1,0 +1,46 @@
+.container
+	form
+		h1 Material Design formular
+		.form-group
+			select
+				option Value 1
+				option Value 2
+			label.control-label(for="select") Selectbox
+			i.bar
+		.form-group
+			input(type="text" required)
+			label.control-label(for="input") Textfield
+			i.bar
+		.form-group
+			textarea(required)
+			label.control-label(for="textarea") Textarea
+			i.bar
+
+		.checkbox
+			label
+				input(type="checkbox" checked)
+				i.helper
+				|I'm the label from a checkbox
+		.checkbox
+			label
+				input(type="checkbox")
+				i.helper
+				|I'm the label from a checkbox
+		.form-radio
+			.radio
+				label
+					input(type="radio" name="radio" checked)
+					i.helper
+					|I'm the label from a radio button
+			.radio
+				label
+					input(type="radio" name="radio")
+					i.helper
+					|I'm the label from a radio button
+		.checkbox
+			label
+				input(type="checkbox")
+				i.helper
+				|I'm the label from a checkbox
+	.button-container
+		button.button(type="button"): span Submit

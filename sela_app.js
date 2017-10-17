@@ -3,10 +3,14 @@ var app = express();
 var port = 3000;
 var bodyParser = require('body-parser');
 var dotenv = require('dotenv');
+var path = require('path')
+
+
 
 dotenv.config();
-app.use(bodyParser.json());
-app.use(bodyParser.urlencoded({ extended: true }));
+
+app.use(express.static('public'));
+
 
 var mongoose = require("mongoose");
 mongoose.Promise = global.Promise;
@@ -18,11 +22,11 @@ var nameSchema = new mongoose.Schema({
 var User = mongoose.model("User", nameSchema);
 
 app.get("/", (req, res) => {
-    res.sendFile(__dirname + "/index.html");
+    res.sendFile(__dirname + "/public/index/index.html");
 });
 
 app.get("/project", (req, res) => {
-    res.sendFile(__dirname + "/material.html");
+    res.sendFile(__dirname + "/public/project_creation/material_project.html");
 });
 
 app.post("/addname", (req, res) => {

@@ -1,0 +1,71 @@
+<!DOCTYPE html>
+<html >
+<head>
+  <meta charset="UTF-8">
+  <title>Form fields with material design, in pure CSS</title>
+  
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/meyer-reset/2.0/reset.min.css">
+
+  
+      <link rel="stylesheet" href="css/material_project_style.css">
+
+  
+</head>
+
+<body>
+  
+<div class="container">
+  <form>
+    <h1>Material Design formular</h1>
+    <div class="form-group">
+      <select>
+        <option>Value 1</option>
+        <option>Value 2</option>
+      </select>
+      <label class="control-label" for="select">Selectbox</label><i class="bar"></i>
+    </div>
+    <div class="form-group">
+      <input type="text" required="required"/>
+      <label class="control-label" for="input">Textfield</label><i class="bar"></i>
+    </div>
+    <div class="form-group">
+      <textarea required="required"></textarea>
+      <label class="control-label" for="textarea">Textarea</label><i class="bar"></i>
+    </div>
+    <div class="checkbox">
+      <label>
+        <input type="checkbox" checked="checked"/><i class="helper"></i>I'm the label from a checkbox
+      </label>
+    </div>
+    <div class="checkbox">
+      <label>
+        <input type="checkbox"/><i class="helper"></i>I'm the label from a checkbox
+      </label>
+    </div>
+    <div class="form-radio">
+      <div class="radio">
+        <label>
+          <input type="radio" name="radio" checked="checked"/><i class="helper"></i>I'm the label from a radio button
+        </label>
+      </div>
+      <div class="radio">
+        <label>
+          <input type="radio" name="radio"/><i class="helper"></i>I'm the label from a radio button
+        </label>
+      </div>
+    </div>
+    <div class="checkbox">
+      <label>
+        <input type="checkbox"/><i class="helper"></i>I'm the label from a checkbox
+      </label>
+    </div>
+  </form>
+  <div class="button-container">
+    <button class="button" type="button"><span>Submit</span></button>
+  </div>
+</div>
+  
+    <script  src="js/index.js"></script>
+
+</body>
+</html>
