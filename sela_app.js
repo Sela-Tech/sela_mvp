@@ -14,7 +14,7 @@ app.use(express.static('public'));
 
 var mongoose = require("mongoose");
 mongoose.Promise = global.Promise;
-mongoose.connect(process.env.MONGOLAB_URI);
+mongoose.connect(process.env.MONGOLAB_URI,  { useMongoClient: true });
 var nameSchema = new mongoose.Schema({
     projectName: String,
     villageName: String
@@ -22,7 +22,7 @@ var nameSchema = new mongoose.Schema({
 var User = mongoose.model("User", nameSchema);
 
 app.get("/", (req, res) => {
-    res.sendFile(__dirname + "/public/index/index.html");
+    res.sendFile(__dirname + "/public/index/");
 });
 
 app.get("/project", (req, res) => {
