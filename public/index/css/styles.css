@@ -265,7 +265,7 @@ Animations
     -webkit-transform: translate(-50%, 0);
             transform: translate(-50%, 0); } }
 /* ==========================================================================
-Waypoinsts
+Waypoints
 ========================================================================== */
 .wp1, .wp2, .wp3, .wp4, .wp5, .wp6, .wp7, .wp8, .wp9 {
   visibility: hidden; }
@@ -521,11 +521,11 @@ Features-stack
   z-index: 3; }
   .features-extra .btn {
     margin-top: 20px; }
-  .features-extra .macbook-wrap {
+  .features-extra .ethereum-wrap {
     position: absolute;
-    width: 916px;
-    height: 540px;
-    background: url("../img/macbook-pro.png") no-repeat center center;
+    width: 720px;
+    height: 525px;
+    background: url("../img/ethereum-network.png") no-repeat center center;
     top: 114px;
     z-index: 4;
     left: 50%; }
