@@ -9,7 +9,7 @@ var path = require('path')
 
 dotenv.config();
 
-app.use(express.static('public'));
+app.use(express.static(__dirname + '/public/'));
 
 
 var mongoose = require("mongoose");
