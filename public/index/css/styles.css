@@ -80,8 +80,11 @@ h5 {
 section.intro, section.features-extra, section.sign-up {
   background: #fff; }
 
-section.features, section.blog-intro, section.blog section.about {
+section.features, section.blog-intro, section.blog {
   background: #F3F4F8; }
+
+section.about {
+  background: #CCFFFF; }
 
 /* ==========================================================================
 Global Styles
