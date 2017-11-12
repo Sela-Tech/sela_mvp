@@ -489,7 +489,7 @@ Features-stack
   .features ul.features-stack li:last-child {
     padding-bottom: 0px;
     border-bottom: none; }
-  .features .ipad-wrap {
+  /*.features .ipad-wrap {
     width: 706px;
     height: 1002px;
     background: url("../img/ipad-device.png") no-repeat center center;
@@ -501,7 +501,7 @@ Features-stack
     position: absolute;
     left: 530px;
     bottom: 129px;
-    z-index: 2; }
+    z-index: 2; }*/
   .features .device-showcase {
     position: absolute;
     bottom: -365px;
