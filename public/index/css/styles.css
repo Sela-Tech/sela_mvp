@@ -80,7 +80,7 @@ h5 {
 section.intro, section.features-extra, section.sign-up {
   background: #fff; }
 
-section.features, section.blog-intro, section.blog {
+section.features, section.blog-intro, section.blog section.about {
   background: #F3F4F8; }
 
 /* ==========================================================================
