@@ -84,7 +84,19 @@ section.features, section.blog-intro, section.blog {
   background: #F3F4F8; }
 
 section.about {
-  background: #CCFFFF; }
+  background: #CCFFFF;
+  position: relative;
+  z-index: 3; }
+  .about .btn {
+    margin-top: 20px; }
+  .about .about-wrap {
+    position: absolute;
+    width: 720px;
+    height: 525px;
+    background: url("../img/sela-about.png") no-repeat center center;
+    top: 114px;
+    z-index: 4;
+    left: 50%; }
 
 /* ==========================================================================
 Global Styles
