@@ -44,6 +44,10 @@ h5 {
   border-color: #0099ff;
   background-color: #0099ff; }
 
+.btn-nav-login {
+  margin-top: 10px;
+}
+
 .btn-white {
   font-size: 13px;
   border: solid 2px;
@@ -77,6 +81,17 @@ h5 {
 .btn-margin-right {
   margin-right: 20px; }
 
+.lndg-tagline {
+  font-weight: 600;
+  font-size: 5em;
+}
+
+.hero-content p.intro.lndg-sec-tagline {
+  font-weight: 300;
+  font-size: 2.2em;
+  line-height: 1.2;
+}
+
 section.intro, section.features-extra, section.sign-up {
   background: #fff; }
 
@@ -91,12 +106,13 @@ section.about {
     margin-top: 20px; }
   .about .about-wrap {
     position: absolute;
+    max-width: 43%;
     width: 720px;
     height: 525px;
-    background: url("../img/sela-about.png") no-repeat center center;
+    background: url("../img/sela-about.png") no-repeat 100% center;
     top: 114px;
     z-index: 4;
-    left: 50%; }
+    right: 0; }
 
 /* ==========================================================================
 Global Styles
@@ -182,6 +198,28 @@ ul li {
   text-transform: capitalize;
   background-color: #000;
   border-radius: 4px; }
+
+.overlay {
+  background-color: black; /* fallback */}
+div.overlay {
+  background-color: rgba(0,0,0,.6);
+  position: absolute;
+  top: 0;
+  bottom: 0;
+  left: 0;
+  right: 0; }
+
+.bg-accent1 {
+  background-color: #cb7c3c;
+}
+
+.bg-accent2 {
+  background-color: #6e6b6a;
+}
+
+.bg-accent3 {
+  background-color: #424e7b;
+}
 
 /* ==========================================================================
 Animations
@@ -377,6 +415,7 @@ Hero
     font-weight: 300;
     margin-bottom: 80px; }
   .hero .hero-content {
+    font-size: 16px;
     padding-top: 26%; }
 
 .navigation {
@@ -394,7 +433,7 @@ Hero
 
 header {
   padding: 50px 0;
-  border-bottom: solid 1px rgba(255, 255, 255, 0.2);
+  border-bottom: solid 3px rgba(255, 255, 255, 0.2);
   position: relative;
   width: 1170px;
   margin: 0 auto;
@@ -415,6 +454,7 @@ header {
       display: inline; }
       header ul.primary-nav li a {
         color: #fff;
+        font-size: 16px;
         padding-right: 25px; }
         header ul.primary-nav li a:hover {
           color: #0099ff; }
@@ -487,9 +527,9 @@ Features-stack
     padding: 6px 0 0 0;
     margin-right: 20px;
     width: 35px; }
-  .features .feature-content {
+  /*.features .feature-content {
     display: inline-block;
-    width: 75%; }
+    width: 75%; }*/
   .features .intro-icon {
     display: inline-block;
     vertical-align: top;
@@ -524,6 +564,14 @@ Features-stack
     position: absolute;
     bottom: -365px;
     right: 61%; }
+
+.feature-number {
+  height: 31px;
+  font-size: 21px;
+  width: 31px;
+  border-radius: 50%;
+  padding-top: 5px;
+}
 
 .features .responsive-feature-img, .features-extra .responsive-feature-img {
   display: none; }
