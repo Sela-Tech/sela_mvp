@@ -157,6 +157,21 @@ ul li {
 .section-padding {
   padding: 120px 0; }
 
+.section-header {
+  margin-bottom: 24px;
+  padding: 16px 8px 24px 8px;}
+  .section-header h1 {
+    color: white;
+    font-size: 24px;}
+  .section-header .section-header-img {
+    height: 80px;
+    width: auto;
+    max-width: 80%;}
+
+#press .card {
+  margin-top: 12px;
+}
+
 .tooltip {
   position: absolute;
   z-index: 1070;
@@ -590,11 +605,12 @@ Features-stack
   .features-extra .ethereum-wrap {
     position: absolute;
     width: 720px;
+    max-width: 43%;
     height: 525px;
     background: url("../img/ethereum-network.png") no-repeat center center;
     top: 114px;
     z-index: 4;
-    left: 50%; }
+    right: 0; }
 
 /* ==========================================================================
 .hero-strip
