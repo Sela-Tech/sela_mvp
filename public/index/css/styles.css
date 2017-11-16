@@ -478,6 +478,9 @@ Features-stack
     font-size: 35px;
     color: #0099ff;
     font-weight: bold; }
+  .features .feature-image {
+    display: inline-block;
+    vertical-align: middle; }
   .features .feature-icon {
     display: inline-block;
     vertical-align: top;
