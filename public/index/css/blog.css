@@ -1,0 +1,83 @@
+/* Typography 
+*/
+li, li a {
+  color: inherit;}
+
+/* Cards
+*/
+.article-card > a {
+  color: initial;
+  display: inline-block;}
+
+.card {
+  background-color: #fff;
+  font-size: 16px;
+  max-width: 360px;
+  margin:16px auto;}
+
+.card .card-title {
+  font-size: 1.2em;
+  font-weight: 500;
+  padding: 16px;
+}
+
+.card .card-image {
+  padding: 8px;
+  text-align: center;}
+
+.card .overlay {
+  background-color: #fff;}
+
+.card .card-image .overlay {
+  background-color: rgba(255, 255, 255, 0.6);}
+
+.card img {
+  height: 190px;
+  width: 100%;}
+
+/* Tabs 
+*/
+.nav-tabs {
+  border-bottom: none;
+}
+
+.nav-tabs>li.active>a, .nav-tabs>li.active>a:hover, .nav-tabs>li.active>a:focus {
+    color: #555;
+    cursor: default;
+    background-color: transparent;
+    border: none;
+    border-bottom: 2px solid #8ac514;
+    font-weight: 600;
+}
+
+/* Global style 
+*/
+#main {
+  background-color: #f5f5f5;
+}
+
+.fullwidth {
+  width: 100%;}
+
+.section-padding {
+  padding-left: 16px;
+  padding-right: 16px;}
+
+.hero {
+  background: none;
+  min-height: 90px;}
+
+.padding-sm {
+  padding: 8px;}
+
+.padding-md {
+  padding: 16px;}
+
+.padding-lg {
+  padding: 24px;}
+
+@media (max-width: 728px){
+  #main {
+    padding-top: 60px;
+  } 
+}

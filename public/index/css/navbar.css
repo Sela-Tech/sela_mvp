@@ -1,0 +1,48 @@
+/** Custom navbar styles **/
+
+/* Links
+*/
+header.light-background .nav-toggle span, header.light-background ul.primary-nav li a, header.light-background ul.member-actions li a {
+  color: #000;}
+
+.fixed header.light-background ul li a{
+  color: #fff;}
+
+header ul.member-actions li a:hover, header ul.primary-nav li a:hover {
+  border-color: #0099ff;  
+  color: #0099ff;}
+
+/* Buttons
+*/
+header.light-background .btn-white {
+  border-color: #000;}
+
+.fixed header .btn-white {
+  border-color: #fff;}
+
+header.light-background .nav-toggle span {
+  background-color: #000;}
+
+header.light-background .nav-toggle.active span, .fixed header.light-background .nav-toggle.active span {
+  background-color: transparent;}
+
+.fixed header.light-background .nav-toggle span, .fixed header.light-background .nav-toggle span:before, .fixed header.light-background .nav-toggle span:after {
+  background-color: #fff;}
+
+/* General 
+*/
+.light {
+    background-color: #fff;
+    border-bottom: 1px solid #e5e5e5;
+    box-shadow: #e5e5e5 1px 1px 1px;}
+
+.fixed.light {
+  background-color: #232731;
+  border-bottom: initial;
+  box-shadow: initial;}
+
+@media (max-width: 728px){
+  .logo {
+    position: relative;
+    top: -20px;}
+}
