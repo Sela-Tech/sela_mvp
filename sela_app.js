@@ -12,17 +12,17 @@ dotenv.config();
 app.use(express.static(__dirname + '/public/'));
 
 
-var mongoose = require("mongoose");
+/*var mongoose = require("mongoose");
 mongoose.Promise = global.Promise;
 mongoose.connect(process.env.MONGOLAB_URI,  { useMongoClient: true });
 var nameSchema = new mongoose.Schema({
     projectName: String,
     villageName: String
 });
-var User = mongoose.model("User", nameSchema);
+var User = mongoose.model("User", nameSchema);*/
 
 app.get("/", (req, res) => {
-    res.sendFile(__dirname + "/public/index/");
+    res.redirect("/index");
 });
 
 app.get("/project", (req, res) => {
