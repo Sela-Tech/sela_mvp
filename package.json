@@ -5,9 +5,9 @@
   "engines": {
     "node": "8.9.1"
   },
-  "main": "sela_lab.js",
+  "main": "sela_app.js",
   "scripts": {
-    "start": "node sela_lab.js",
+    "start": "node sela_app.js",
     "test": "echo"
   },
   "dependencies": {
