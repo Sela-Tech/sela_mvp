@@ -17,6 +17,7 @@
     "express": "^4.15.2"
   },
   "devDependencies": {
+    "mongoose": "^4.13.5",
     "request": "^2.81.0",
     "tape": "^4.7.0"
   },
