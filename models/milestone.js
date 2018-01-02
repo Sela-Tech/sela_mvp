@@ -7,6 +7,7 @@ var milestoneSchema = new Schema(
   {
     tasks: {type: [Schema.Types.ObjectId]},
     status: {type: Boolean},
+    project: {type: Schema.ObjectId, ref: 'Project'},
   }
 );
 
