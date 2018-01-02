@@ -7,8 +7,7 @@ var taskSchema = new Schema(
   {
     task_name: {type: String, required: true, max: 100},
     task_description: {type: String, required: true, max: 100},
-    milestone: {type: Schema.ObjectId, ref: 'Milestone'} //reference to associated milestone
-    due_date: {type: Date},
+    milestone: {type: Schema.ObjectId, ref: 'Milestone'}, //reference to associated milestone
     end_date: {type: Date},
     status: {type: Boolean},
   }

@@ -5,9 +5,10 @@ var Schema = mongoose.Schema;
 
 var milestoneSchema = new Schema(
   {
+    name: {type: String, required: true},
     tasks: {type: [Schema.Types.ObjectId]},
     status: {type: Boolean},
-    project: {type: Schema.ObjectId, ref: 'Project'},
+    project: {type: Schema.ObjectId, ref: 'Project', required: true},
   }
 );
 
