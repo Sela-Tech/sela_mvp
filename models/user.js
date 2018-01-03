@@ -78,7 +78,7 @@ var userSchema = new Schema({
     autoIndex: false,
     safe: true,
     discriminatorKey: '__t',
-    collection: 'v1User', // Sets Collection Name
+    collection: 'User', // Sets Collection Name
     strict: process.env.ENVIRONMENT !== 'development', // Only use strict in production
 });
 
