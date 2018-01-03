@@ -1,15 +1,7 @@
-/**
- * @file 
- * Verification Model
- *
- * The extra line between the end of the @file docblock
- * and the file-closure is important.
- */
-//
 var moment = require('moment');
 var mongoose = require('mongoose');
 var Schema = mongoose.Schema;
-var ObjectId = Schema.ObjectId;
+var ObjectId = Schema.Types.ObjectId;
 
 var verificationStructure = {
     // TODO: needs to handle pdf, url, audio, video or photo
@@ -52,7 +44,6 @@ var verificationStructure = {
 var schemaOptions = {
     collection: 'verification',
     minimize: false,
-    id: false,
     toJSON: {
         getters: true,
         virtuals: true,
@@ -98,20 +89,6 @@ VerificationSchema.pre('update', true, function(next, done) {
             updated: new Date()
         }
     });
-
-    done();
-});
-
-VerificationSchema.pre('findOneAndUpdate', true, function(next, done) {
-
-    next();
-
-    this.findOneAndUpdate({}, {
-        $set: {
-            updated: new Date()
-        }
-    });
-
 
     done();
 });

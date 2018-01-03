@@ -15,13 +15,13 @@ var userSchema = new Schema({
     first_name: {
         type: String,
         required: true,
-        minlength: 1,
-        maxlength: 100
+        min: 1,
+        max: 100
     },
     family_name: {
         type: String,
         required: true,
-        maxlength: 100
+        max: 100
     },
     user_name: {
         type: String,
@@ -30,7 +30,7 @@ var userSchema = new Schema({
     },
     password: {
         type: String,
-        minlength: [8, 'Password must me longer than 8 characters'],
+        min: [8, 'Password must me longer than 8 characters'],
         set: function(value) {
             if (value.length < 8) {
                 return null;
@@ -60,7 +60,6 @@ var userSchema = new Schema({
     },
 }, {
     minimize: false,
-    id: false,
     toJSON: {
         getters: true,
         virtuals: true,
@@ -78,8 +77,7 @@ var userSchema = new Schema({
     },
     autoIndex: false,
     safe: true,
-    discriminatorKey: '__t',
-    collection: 'User', // Sets Collection Name
+    collection: 'user', // Sets Collection Name
     strict: process.env.ENVIRONMENT !== 'development', // Only use strict in production
 });
 
