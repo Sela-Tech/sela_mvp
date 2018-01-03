@@ -8,7 +8,7 @@ var userSchema = new Schema({
         type: String,
         required: [true, 'User needs an Account type'],
         enum: {
-            values: ['', ''], // set the different types
+            values: ['projectFunder', 'contractor', 'communityObservers'], // set the different types
             message: 'Incorrect Acount Type'
         },
     },
@@ -53,6 +53,7 @@ var userSchema = new Schema({
             return new Date();
         },
     },
+    // TODO: Can a user be deleted?
     deleted: {
         type: Boolean,
         default: false,

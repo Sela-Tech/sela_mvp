@@ -3,7 +3,7 @@ var app = express();
 var port = 3000;
 var bodyParser = require('body-parser');
 var dotenv = require('dotenv');
-var path = require('path')
+var path = require('path');
 
 
 
@@ -14,7 +14,7 @@ app.use(express.static(__dirname + '/public/'));
 
 var mongoose = require("mongoose");
 mongoose.Promise = global.Promise;
-mongoose.connect(process.env.MONGOLAB_URI,  { useMongoClient: true });
+mongoose.connect(process.env.MONGOLAB_URI, { useMongoClient: true });
 var nameSchema = new mongoose.Schema({
     projectName: String,
     villageName: String
