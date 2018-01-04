@@ -41,11 +41,11 @@ var schemaOptions = {
         versionKey: false,
         retainKeyOrder: true,
     },
-    autoIndex: process.env.ENVIRONMENT === 'development',
-    strict: process.env.ENVIRONMENT !== 'development',
+    autoIndex: process.env.NODE_ENV === 'development',
+    strict: process.env.NODE_ENV !== 'development',
 };
 
-if (process.env.ENVIRONMENT === 'development') {
+if (process.env.NODE_ENV === 'development') {
     milestoneStructure.test = {
         type: Boolean,
         default: true,
@@ -55,4 +55,10 @@ if (process.env.ENVIRONMENT === 'development') {
 var milestoneSchema = new Schema(milestoneStructure, schemaOptions);
 
 //Export model
-module.exports = mongoose.model('Milestone', milestoneSchema);
+module.exports = function(connection) {
+
+    if (!connection) {
+        connection = mongoose;
+    }
+    connection.model('Milestone', milestoneSchema);
+};

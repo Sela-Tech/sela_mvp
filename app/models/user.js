@@ -3,7 +3,7 @@ var mongoose = require('mongoose');
 var Schema = mongoose.Schema;
 
 
-var userSchema = new Schema({
+var userStructure = {
     accountType: {
         type: String,
         required: [true, 'User needs an Account type'],
@@ -54,7 +54,8 @@ var userSchema = new Schema({
         type: Boolean,
         default: false,
     },
-}, {
+};
+var schemaOptions = {
     minimize: false,
     toJSON: {
         getters: true,
@@ -74,8 +75,47 @@ var userSchema = new Schema({
     autoIndex: false,
     safe: true,
     collection: 'user', // Sets Collection Name
-    strict: process.env.ENVIRONMENT !== 'development', // Only use strict in production
+    strict: process.env.NODE_ENV !== 'development', // Only use strict in production
+};
+
+if (process.env.NODE_ENV === 'development') {
+    userStructure.test = {
+        type: Boolean,
+        default: true,
+    };
+}
+
+var transformer = function(doc, ret) {};
+
+var UserSchema = new Schema(userStructure, schemaOptions);
+
+UserSchema.pre('save', true, function(next, done) {
+
+    next();
+
+    this.updated = new Date();
+
+    done();
+});
+
+UserSchema.pre('update', true, function(next, done) {
+
+    next();
+
+    this.updated({}, {
+        $set: {
+            updated: new Date()
+        }
+    });
+
+    done();
 });
 
 //Export model
-module.exports = mongoose.model('User', userSchema);
+module.exports = function(connection) {
+
+    if (!connection) {
+        connection = mongoose;
+    }
+    connection.model('User', UserSchema);
+};

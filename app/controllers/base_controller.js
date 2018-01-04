@@ -59,4 +59,6 @@ Controller.prototype.before = function(routes, fn) {
             })(self, key);
         }
     }
-}
+};
+
+module.exports = Controller;

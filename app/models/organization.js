@@ -53,11 +53,11 @@ var schemaOptions = {
         versionKey: false,
         retainKeyOrder: true,
     },
-    autoIndex: process.env.ENVIRONMENT === 'development',
-    strict: process.env.ENVIRONMENT !== 'development',
+    autoIndex: process.env.NODE_ENV === 'development',
+    strict: process.env.NODE_ENV !== 'development',
 };
 
-if (process.env.ENVIRONMENT === 'development') {
+if (process.env.NODE_ENV === 'development') {
     organizationStructure.test = {
         type: Boolean,
         default: true,
@@ -94,4 +94,10 @@ OrganizationSchema.pre('update', true, function(next, done) {
     done();
 });
 
-module.exports = mongoose.model('organization', OrganizationSchema);
+module.exports = function(connection) {
+
+    if (!connection) {
+        connection = mongoose;
+    }
+    connection.model('organization', OrganizationSchema);
+};

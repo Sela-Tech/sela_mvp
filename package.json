@@ -27,9 +27,11 @@
     "express-session": "^1.15.6",
     "moment": "^2.20.1",
     "mongoose": "^4.12.0",
+    "multer": "^1.3.0",
     "nodemon": "^1.12.1",
     "passport": "^0.4.0",
     "react": "^16.0.0",
+    "request-param": "^1.0.1",
     "session": "^0.1.0",
     "underscore": "^1.8.3"
   }

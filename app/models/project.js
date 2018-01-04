@@ -73,11 +73,11 @@ var schemaOptions = {
         versionKey: false,
         retainKeyOrder: true,
     },
-    autoIndex: process.env.ENVIRONMENT === 'development',
-    strict: process.env.ENVIRONMENT !== 'development',
+    autoIndex: process.env.NODE_ENV === 'development',
+    strict: process.env.NODE_ENV !== 'development',
 };
 
-if (process.env.ENVIRONMENT === 'development') {
+if (process.env.NODE_ENV === 'development') {
     projectStructure.test = {
         type: Boolean,
         default: true,
@@ -93,4 +93,10 @@ ProjectSchema.method.delete = function(cb) {
 };
 
 //Export model
-module.exports = mongoose.model('Project', ProjectSchema);
+module.exports = function(connection) {
+
+    if (!connection) {
+        connection = mongoose;
+    }
+    connection.model('Project', ProjectSchema);
+};

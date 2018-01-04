@@ -54,11 +54,11 @@ var schemaOptions = {
         versionKey: false,
         retainKeyOrder: true,
     },
-    autoIndex: process.env.ENVIRONMENT === 'development',
-    strict: process.env.ENVIRONMENT !== 'development',
+    autoIndex: process.env.NODE_ENV === 'development',
+    strict: process.env.NODE_ENV !== 'development',
 };
 
-if (process.env.ENVIRONMENT === 'development') {
+if (process.env.NODE_ENV === 'development') {
     verificationStructure.test = {
         type: Boolean,
         default: true,
@@ -89,4 +89,10 @@ VerificationSchema.pre('update', true, function(next, done) {
     done();
 });
 
-module.exports = mongoose.model('verification', VerificationSchema);
+module.exports = function(connection) {
+
+    if (!connection) {
+        connection = mongoose;
+    }
+    connection.model('verification', VerificationSchema);
+};
