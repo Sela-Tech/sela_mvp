@@ -33,7 +33,7 @@ module.exports = function(done) {
     passport.serializeUser(function(user, done) {
 
         done(null, {
-            '_id': user._id,
+            'id': user.id,
             'accountType': user.accountType,
         });
 
@@ -47,7 +47,7 @@ module.exports = function(done) {
 
         UserModel
             .findOne({
-                _id: id,
+                id: id,
                 deleted: false,
             })
             .select('-password')
