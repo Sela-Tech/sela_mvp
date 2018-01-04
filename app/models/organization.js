@@ -24,15 +24,11 @@ var organizationStructure = {
     },
     created: {
         type: Date,
-        default: function() {
-            return new Date();
-        }
+        default: Date.now()
     },
     updated: {
         type: Date,
-        default: function() {
-            return new Date();
-        }
+        default: Date.now()
     },
     deleted: {
         type: Boolean,
@@ -73,7 +69,7 @@ var OrganizationSchema = new Schema(organizationStructure, schemaOptions);
 OrganizationSchema.method.delete = function(cb) {
     var self = this;
     self.deleted = true;
-    self.svae(cb);
+    self.save(cb);
 };
 
 OrganizationSchema.pre('save', true, function(next, done) {

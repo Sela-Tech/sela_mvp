@@ -29,15 +29,11 @@ var verificationStructure = {
     },
     created: {
         type: Date,
-        default: function() {
-            return new Date();
-        }
+        default: Date.now()
     },
     updated: {
         type: Date,
-        default: function() {
-            return new Date();
-        }
+        default: Date.now()
     }
 };
 

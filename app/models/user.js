@@ -43,15 +43,11 @@ var userSchema = new Schema({
     },
     created: {
         type: Date,
-        default: function() {
-            return new Date();
-        },
+        default: Date.now(),
     },
     updated: {
         type: Date,
-        default: function() {
-            return new Date();
-        },
+        default: Date.now(),
     },
     // TODO: Can a user be deleted?
     deleted: {

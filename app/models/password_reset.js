@@ -3,44 +3,29 @@ var mongoose = require('mongoose');
 var Schema = mongoose.Schema;
 var ObjectId = Schema.Types.ObjectId;
 
-var projectStructure = {
-    project_name: {
+var passwordResetStructure = {
+    accountType: {
+        type: String,
+        default: '',
+        required: true,
+    },
+    email: {
         type: String,
         required: true,
-        max: 100
+        lowercase: true,
+        trim: true,
+        match: /^(([^<>()[\]\\.,;:\s@\"]+(\.[^<>()[\]\\.,;:\s@\"]+)*)|(\".+\"))@((\[[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\])|(([a-zA-Z\-0-9]+\.)+[a-zA-Z]{2,}))$/,
     },
-    project_description: {
+    linkHash: {
         type: String,
-        required: true,
-        max: 100
+        unique: true,
+        default: function() {
+            return require('crypto').randomBytes(32).toString('hex');
+        },
     },
-    start_date: {
+    completed: {
         type: Date,
         default: null,
-    },
-    end_date: {
-        type: Date,
-        default: null,
-    },
-    location: {
-        name: {
-            type: String,
-        },
-        lat: {
-            type: Number,
-        },
-        long: {
-            type: Number
-        },
-    },
-    milestones: {
-        type: [ObjectId],
-        ref: 'Milestone'
-    },
-    owner: {
-        type: ObjectId,
-        ref: 'Organization',
-        required: true,
     },
     created: {
         type: Date,
@@ -57,7 +42,7 @@ var projectStructure = {
 };
 
 var schemaOptions = {
-    collection: 'project',
+    collection: 'task',
     minimize: false,
     toJSON: {
         getters: true,
@@ -78,19 +63,20 @@ var schemaOptions = {
 };
 
 if (process.env.ENVIRONMENT === 'development') {
-    projectStructure.test = {
+    passwordResetStructure.test = {
         type: Boolean,
         default: true,
     };
 }
 
-var ProjectSchema = new Schema(projectStructure, schemaOptions);
+var passwordResetSchema = new Schema(passwordResetStructure, schemaOptions);
 
-ProjectSchema.method.delete = function(cb) {
+passwordResetSchema.method.delete = function(cb) {
     var self = this;
     self.deleted = true;
     self.save(cb);
 };
 
+
 //Export model
-module.exports = mongoose.model('Project', ProjectSchema);
+module.exports = mongoose.model('PasswordReset', passwordResetSchema);

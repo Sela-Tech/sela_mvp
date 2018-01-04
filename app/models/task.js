@@ -31,15 +31,11 @@ var taskStructure = {
     },
     created: {
         type: Date,
-        default: function() {
-            return new Date();
-        }
+        default: Date.now()
     },
     updated: {
         type: Date,
-        default: function() {
-            return new Date();
-        }
+        default: Date.now()
     },
     deleted: {
         type: Boolean,
@@ -77,10 +73,10 @@ if (process.env.ENVIRONMENT === 'development') {
 
 var taskSchema = new Schema(taskStructure, schemaOptions);
 
-taskSchemamethod.delete = function(cb) {
+taskSchema.method.delete = function(cb) {
     var self = this;
     self.deleted = true;
-    self.svae(cb);
+    self.save(cb);
 };
 
 
