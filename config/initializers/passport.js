@@ -16,7 +16,7 @@ module.exports = function(done) {
 
             UserModel
                 .findOne({
-                    user_name: username,
+                    email: username,
                     deleted: false
                 })
                 .exec(function(err, user) {
