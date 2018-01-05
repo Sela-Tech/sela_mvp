@@ -29,7 +29,7 @@ controller.signup = function(req, res, next) {
     record.email = req.body.email;
     record.password = req.body.password;
 
-    // record.accountType = 'projectFunder';
+    record.accountType = req.body.accountType;
 
     var confirm = req.body.confirm;
 

@@ -48,14 +48,16 @@ $('#signup-btn').on('click', function(e) {
     var lastname = $('#signup-last').val();
     var email = $('#signup-email').val();
     var password = $('#signup-password').val();
-    var confirm = $('#signup-confirm').val();;
+    var confirm = $('#signup-confirm').val();
+    var accountType = $('#signup-account').val();
 
     var jqxhr = $.post("/api/v1/signup.json", {
             firstname: firstname,
             lastname: lastname,
             email: email,
             password: password,
-            confirm: confirm
+            confirm: confirm,
+            accountType: accountType
         })
         .done(function() {
             alert("second success");

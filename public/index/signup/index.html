@@ -22,6 +22,7 @@
                 <h1>Welcome To Sela!</h1>
 
                 <form>
+
                     <div class="top-row">
                         <div class="field-wrap">
                             <label>First Name<span class="req">*</span></label>
@@ -32,6 +33,16 @@
                             <label>Last Name<span class="req">*</span></label>
                             <input type="text" id="signup-last" name="lastname" required autocomplete="off" />
                         </div>
+                    </div>
+
+                    <div class="field-wrap">
+                        <!-- <label>What will you be?<span class="req">*</span></label> -->
+                        <select name="accont-type" id="signup-account" required>
+                                <option value="null" disabled selected>What will you be?</option>
+                                <option value="projectFunder">Project Founder</option>
+                                <option value="contractor"> Contractor</option>
+                                <option value="communityObservers">Community Observer</option>
+                            </select>
                     </div>
 
                     <div class="field-wrap">
