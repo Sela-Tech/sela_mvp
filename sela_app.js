@@ -22,8 +22,9 @@ var nameSchema = new mongoose.Schema({
 var User = mongoose.model("User", nameSchema);
 
 app.get("/", (req, res) => {
-    res.sendFile(__dirname + "/public/index/");
+    res.redirect("/index");
 });
+
 
 app.get("/project", (req, res) => {
     res.sendFile(__dirname + "/public/project_creation/material_project.html");
