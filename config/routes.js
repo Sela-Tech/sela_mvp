@@ -9,6 +9,7 @@ module.exports = function routes() {
     this.get('/project', public.project);
 
     // access
+    this.post('/api/v1/signup.json', public.signup);
     this.post('/api/v1/login.json', public.login);
     this.get('/api/v1/logout', passport.authenticate('local-user', { session: false }), public.logout);
 
