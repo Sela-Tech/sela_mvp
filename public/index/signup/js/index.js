@@ -82,3 +82,18 @@ $('#login-btn').on('click', function(e) {
         });
 
 });
+
+$('#reset-btn').on('click', function(e) {
+    e.preventDefault();
+
+    var email = $('#reset-email').val();
+
+    var jqxhr = $.post("/api/v1/passwordReset.json", { email: email })
+        .done(function() {
+            alert("second success");
+        })
+        .fail(function() {
+            alert("error");
+        });
+
+});

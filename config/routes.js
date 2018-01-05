@@ -2,6 +2,7 @@ var fs = require('fs');
 var passport = require('passport');
 
 var public = require(ROOT + '/app/controllers/public_controller');
+var v1PasswordReset = require(ROOT + '/app/controllers/password_reset_controller');
 module.exports = function routes() {
 
     // working sites
@@ -14,6 +15,8 @@ module.exports = function routes() {
     this.get('/api/v1/logout', passport.authenticate('local-user', { session: false }), public.logout);
 
     // reset
+    this.post('/api/v1/passwordReset.json', v1PasswordReset.start);
+    this.put('/api/v1/passwordVerify.json', v1PasswordReset.verify);
 
     // API ROUTES
 
