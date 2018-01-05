@@ -23,7 +23,8 @@ module.exports = function(done) {
                     if (err) return done(err, false);
                     if (!user) return done(null, false);
 
-                    bcrypt.compareSync(password, user.password);
+                    if (!bcrypt.compareSync(password, user.password))
+                        return done(null, false);
 
                     return done(true, null);
                 });

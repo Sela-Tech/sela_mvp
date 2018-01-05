@@ -22,8 +22,6 @@ controller.project = function(req, res, next) {
 };
 
 controller.signup = function(req, res, next) {
-    console.log('Sign up');
-    console.log(req.body);
 
     var record = {};
     record.first_name = req.body.firstname;
@@ -31,31 +29,37 @@ controller.signup = function(req, res, next) {
     record.email = req.body.email;
     record.password = req.body.password;
 
+    // record.accountType = 'projectFunder';
+
     var confirm = req.body.confirm;
 
-    if (!confirm || confirm !== record.password) {
+    if (confirm !== record.password) {
         // return error
+        console.log('bad pass');
+        res.status(400);
         res.json({
             error: 'password do not match'
         });
         return;
     }
 
-    var UserModel = mongoose.model('User');
 
+    var UserModel = mongoose.model('User');
     var user = new UserModel(record);
     user.save(function(err, result) {
         if (err) {
+            console.log('bad save');
             // return error
             res.status(500);
             res.json({
-                error: err
+                error: err.errors
             });
             return;
         }
 
         if (!result) {
             // return error
+            console.log('no result');
             res.status(404);
             res.json({
                 error: 'error'
@@ -70,8 +74,6 @@ controller.signup = function(req, res, next) {
 };
 
 controller.login = function(req, res, next) {
-    console.log('Log In');
-    console.log(req.body);
     // uncomment this if you want to add validation
     // var username = req.body.username;
     // var password = req.body.password;
