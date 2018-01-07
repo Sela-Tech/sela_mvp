@@ -25,6 +25,7 @@ app.get("/", (req, res) => {
     res.redirect("/index");
 });
 
+
 app.get("/project", (req, res) => {
     res.sendFile(__dirname + "/public/project_creation/material_project.html");
 });
