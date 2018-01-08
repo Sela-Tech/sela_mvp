@@ -6,7 +6,7 @@ var Controller = require('./base_controller');
 // instances
 var controller = new Controller();
 var UserModel = mongoose.model('User');
-var PasswordResetModel = mongoose.model('PasswordReset');
+var ProjectModel = mongoose.model('Project');
 
 controller.create = function(req, res, next) {};
 
