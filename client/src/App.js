@@ -1,69 +1,132 @@
 import React, { Component } from 'react';
 import logo from './logo.svg';
+import loading from './loading.png';
 import './App.css';
+import 'fullcalendar-reactwrapper/dist/css/fullcalendar.min.css';
+import CountUp from 'react-countup';
+import Calendar from 'fullcalendar-reactwrapper';
+
+
 
 class App extends Component {
   constructor(props){
     super(props);
     this.state = {
       projectId: null,
+      projects: [],
+      fetched: false
     };
   }
 
-  switchProject = () => {
-    this.setState({projectId: 1});
+  componentDidMount(){
+    this.fetchProjects();
+  }
+
+  fetchProjects = () => {
+    let _self = this;
+    
+    fetch('/projects').then(function(response) {
+      var contentType = response.headers.get("content-type");
+      if(contentType && contentType.includes("application/json")) {
+        return response.json();
+      }
+      throw new TypeError("Oops, we haven't got JSON!");
+    })
+    .then(function(json) {_self.setState(json); console.log(json);})
+    .catch(function(error) {console.log(error);})
+    .then(function(){_self.setState({fetched: true})});
   };
 
-  render() {
-    return (
-      !this.state.projectId ? <div onClick={this.switchProject} class="col-lg-8 col-md-8 col-sm-12 col-xs-12">
-        <div class="col-lg-3 col-md-3 col-sm-6 col-xs-12">
-            <div class="panel cardbox bg-primary">
-                <div class="panel-body card-item panel-refresh">
-                    <div><span class="timer" data-to="50" data-speed="1500">50</span><small>%</small></div>
+  switchProject = (projectId) => {
+    /* Changes currently displayed project */
+    this.setState({projectId: projectId});
+  };
+
+  getDefaultDate(){
+    return this.state.projects[this.state.projectId].start_date;
+  }
+
+  getMilestones(projectId){
+    /*Mocked:: Gets the milestones of a project as Calendar events
+    * title -> name
+    * start -> first task of event
+    * end -> last task of event
+    * tasks: [0, 0, 0].map(function(_, j){return {
+            start: `2018-0${(i % 8) + 1}-0${j}`,
+            end: `2018-0${(i % 8) + 1}-0${j+3}`,
+        };}),
+    */
+
+    let milestones = [];
+    if (!projectId){return milestones;}
+    // mocked:: variable to adjust milestones end dates
+    let joker = 0;
+    for (let i=0; i < 5; i++){
+      milestones.push({
+        title: `Milestone ${i}`,
+        start: this.state.projects[projectId].start_date,
+        end: joker++ % 2 ? this.state.projects[projectId].end_date :
+          this.state.projects[projectId].start_date,
+        status: !!milestones[i] && !milestones[i].status,
+      })
+    }
+    return milestones;
+  }
+
+  renderProjects(){
+    let projectEls = [],
+    _self = this,
+    proj;
+    Object.keys(this.state.projects).map(function(_id, i){
+      proj = _self.state.projects[_id];
+      projectEls.push(
+        <div onClick={_self.switchProject.bind(_self, _id)} style={{cursor: 'pointer'}} className="col-lg-3 col-md-4 col-sm-6 col-xs-12">
+            <div className="panel cardbox bg-primary">
+                <div className="panel-body card-item panel-refresh">
+                    <span className="timer"><CountUp start={0} end={50} suffix="%" /></span>
                     
-                    <div class="cardbox-icon">
-                        <i class="material-icons">visibility</i>
+                    <div className="cardbox-icon">
+                        <i className="material-icons">visibility</i>
                     </div>
-                    <div class="card-details">
-                        <h4>My-Project</h4>
-                        <span class="label label-success">In progress</span>
+                    <div className="card-details">
+                        <h4>{proj.project_name}</h4>
+                        <span className="label label-success">In progress</span>
                     </div>
                 </div>
             </div>
-        </div>
-      </div> :
-      <div class="col-lg-8 col-md-8 col-sm-12 col-xs-12">
-          <div class="card">
-              <div class="card-header">
-                  <i class="fa fa-list fa-lg"></i>
-                  <h2>{"Milestones"}</h2>
-              </div>
-              <div class="card-content">
-                  
-                  <ul class="activity-list list-unstyled">
-                      
-                      <li class="activity-success">
-                          <span class="label label-success green"><i class="fa fa-clock-o"></i> {"6 months ago"}</span>
-                          <p class="text-darken-1">{"Milestone 1"}</p>
-                          <ul class="activity-list list-unstyled">
-                      
-                            <li class="activity-success">
-                                <span class="label label-success green"><i class="fa fa-clock-o"></i> {"6 months ago"}</span>
-                                <p class="text-darken-1">{"Task 1 of Milestone 1"}</p>
-                            </li>
-                          </ul>
-                      </li>
-                      <li class="activity-primary">
-                          <span class="label label-default teal"><i class="fa fa-clock-o"></i> {"May 2018"}</span>
-                          <p class="text-darken-1">{"Milestone 2"}</p>
-                      </li>
-                      <li>
-                          <span class="label label-default indigo"><i class="fa fa-clock-o"></i> {"June 2018"}</span>
-                          <p>{"Milestone 3"}</p>
-                      </li>
+        </div>);
+      if (i + 1 % 4 === 0){
+        projectEls.push(<div className="clearfix visible-lg visible-md"></div>);
+      }
+      return null;
+    });
+    return projectEls ? React.Children.toArray(projectEls) : '';
+  }
 
-                  </ul>
+  render() {
+
+    return (
+      !this.state.fetched ? <div className="col-md-12 text-center">
+        <p className="lead">Loading projects...</p>
+      </div> :
+      !this.state.projectId ? <div className="col-lg-8 col-md-12 col-sm-12 col-xs-12">
+        {this.renderProjects()}
+      </div> :
+      <div className="col-lg-8 col-md-8 col-sm-12 col-xs-12">
+          <div className="card">
+              <div className="card-content">
+                  <Calendar
+                     id = "timelineID"
+                     header = {{
+                      left: 'prev,next today myCustomButton',
+                      center: 'title',
+                      right: 'month,basicWeek,basicDay'
+                    }}
+                    defaultDate={this.getDefaultDate()}
+                    navLinks= {true} // can click day/week names to navigate views
+                    editable= {false}
+                    eventLimit= {true} // allow "more" link when too many events
+                    events = {this.getMilestones(this.state.projectId)} />                 
               </div>
           </div>
       </div>

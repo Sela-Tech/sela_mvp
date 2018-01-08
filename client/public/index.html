@@ -186,8 +186,6 @@
              =====================================================================-->
         <!-- Sparkline js -->
         <script src="%PUBLIC_URL%/index/assets/plugins/sparkline/sparkline.min.js" type="text/javascript"></script>
-        <!-- Counter js -->
-        <script src="%PUBLIC_URL%/index/assets/plugins/counterup/jquery.counterup.min.js" type="text/javascript"></script>
         <!-- ChartJs JavaScript -->
         <script src="%PUBLIC_URL%/index/assets/plugins/chartJs/Chart.min.js" type="text/javascript"></script>
         <!-- Monthly js -->
@@ -205,105 +203,105 @@
             $(document).ready(function () {
                 "use strict";
                 // Message
-                function slscroll() {
-                    $('.chat_list , .activity-list , .message_inner').slimScroll({
-                        size: '3px',
-                        height: '320px',
-                        allowPageScroll: true,
-                        railVisible: true
-                    });
-                }
-                slscroll();
-                function chatscroll() {
-                    $('.chat_list').slimScroll({
-                        size: '3px',
-                        height: '290px'
-                    });
-                }
-                chatscroll();
+                // function slscroll() {
+                //     $('.chat_list , .activity-list , .message_inner').slimScroll({
+                //         size: '3px',
+                //         height: '320px',
+                //         allowPageScroll: true,
+                //         railVisible: true
+                //     });
+                // }
+                // slscroll();
+                // function chatscroll() {
+                //     $('.chat_list').slimScroll({
+                //         size: '3px',
+                //         height: '290px'
+                //     });
+                // }
+                // chatscroll();
 
-                //monthly calender
-                $('#m_calendar').monthly({
-                    mode: 'event',
-                    //jsonUrl: 'events.json',
-                    //dataType: 'json'
-                    xmlUrl: 'events.xml'
-                });
+                // //monthly calender
+                // $('#m_calendar').monthly({
+                //     mode: 'event',
+                //     //jsonUrl: 'events.json',
+                //     //dataType: 'json'
+                //     xmlUrl: 'events.xml'
+                // });
 
                 //panel refresh
-                $.fn.refreshMe = function (opts) {
-                    var $this = this,
-                            defaults = {
-                                ms: 1500,
-                                started: function () {},
-                                completed: function () {}
-                            },
-                            settings = $.extend(defaults, opts);
+            //     $.fn.refreshMe = function (opts) {
+            //         var $this = this,
+            //                 defaults = {
+            //                     ms: 1500,
+            //                     started: function () {},
+            //                     completed: function () {}
+            //                 },
+            //                 settings = $.extend(defaults, opts);
 
-                    var panelToRefresh = $this.parents('.panel').find('.refresh-container');
-                    var dataToRefresh = $this.parents('.panel').find('.refresh-data');
-                    var ms = settings.ms;
-                    var started = settings.started;   //function before timeout
-                    var completed = settings.completed; //function after timeout
+            //         var panelToRefresh = $this.parents('.panel').find('.refresh-container');
+            //         var dataToRefresh = $this.parents('.panel').find('.refresh-data');
+            //         var ms = settings.ms;
+            //         var started = settings.started;   //function before timeout
+            //         var completed = settings.completed; //function after timeout
 
-                    $this.click(function () {
-                        $this.addClass("fa-spin");
-                        panelToRefresh.show();
-                        started(dataToRefresh);
-                        setTimeout(function () {
-                            completed(dataToRefresh);
-                            panelToRefresh.fadeOut(800);
-                            $this.removeClass("fa-spin");
-                        }, ms);
-                        return false;
-                    });
-                };
+            //         $this.click(function () {
+            //             $this.addClass("fa-spin");
+            //             panelToRefresh.show();
+            //             started(dataToRefresh);
+            //             setTimeout(function () {
+            //                 completed(dataToRefresh);
+            //                 panelToRefresh.fadeOut(800);
+            //                 $this.removeClass("fa-spin");
+            //             }, ms);
+            //             return false;
+            //         });
+            //     };
 
-                $(document).ready(function () {
-                    $('.refresh, .refresh2').refreshMe({
-                        started: function (ele) {
-                            ele.html("Getting new data..");
-                        },
-                        completed: function (ele) {
-                            ele.html("This is the new data after refresh..");
-                        }
-                    });
-                });
+            //     $(document).ready(function () {
+            //         $('.refresh, .refresh2').refreshMe({
+            //             started: function (ele) {
+            //                 ele.html("Getting new data..");
+            //             },
+            //             completed: function (ele) {
+            //                 ele.html("This is the new data after refresh..");
+            //             }
+            //         });
+            //     });
 
-                //line chart
-                var ctx = document.getElementById("lineChart");
-                var myChart = new Chart(ctx, {
-                    type: 'line',
-                    data: {
-                        labels: ["January", "February", "March", "April", "May", "June", "July", "August", "September", "October", "November", "December"],
-                        datasets: [{
-                                label: "Total income",
-                                borderColor: "#73879C",
-                                borderWidth: "1",
-                                backgroundColor: "#73879C",
-                                data: [22, 44, 67, 43, 76, 45, 12, 45, 65, 55, 42, 61, 73]
-                            }, {
-                                label: "Total Expense",
-                                borderColor: "rgba(26, 187, 156, 0.64)",
-                                borderWidth: "1",
-                                backgroundColor: "rgba(26, 187, 156, 0.64)",
-                                pointHighlightStroke: "rgba(26, 187, 156, 0.64)",
-                                data: [16, 32, 18, 26, 42, 33, 44, 24, 19, 16, 67, 71, 65]
-                            }]
-                    },
-                    options: {
-                        responsive: true,
-                        tooltips: {
-                            mode: 'index',
-                            intersect: false
-                        },
-                        hover: {
-                            mode: 'nearest',
-                            intersect: true
-                        }
+            //     //line chart
+            //     var ctx = document.getElementById("lineChart");
+            //     var myChart = new Chart(ctx, {
+            //         type: 'line',
+            //         data: {
+            //             labels: ["January", "February", "March", "April", "May", "June", "July", "August", "September", "October", "November", "December"],
+            //             datasets: [{
+            //                     label: "Total income",
+            //                     borderColor: "#73879C",
+            //                     borderWidth: "1",
+            //                     backgroundColor: "#73879C",
+            //                     data: [22, 44, 67, 43, 76, 45, 12, 45, 65, 55, 42, 61, 73]
+            //                 }, {
+            //                     label: "Total Expense",
+            //                     borderColor: "rgba(26, 187, 156, 0.64)",
+            //                     borderWidth: "1",
+            //                     backgroundColor: "rgba(26, 187, 156, 0.64)",
+            //                     pointHighlightStroke: "rgba(26, 187, 156, 0.64)",
+            //                     data: [16, 32, 18, 26, 42, 33, 44, 24, 19, 16, 67, 71, 65]
+            //                 }]
+            //         },
+            //         options: {
+            //             responsive: true,
+            //             tooltips: {
+            //                 mode: 'index',
+            //                 intersect: false
+            //             },
+            //             hover: {
+            //                 mode: 'nearest',
+            //                 intersect: true
+            //             }
 
-                    }
-                });
+            //         }
+            //     });
 
             });
         </script>

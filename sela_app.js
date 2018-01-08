@@ -1,9 +1,12 @@
 var express = require("express");
 var app = express();
-var port = process.env.PORT || 3000;
+var port = process.env.PORT || process.argv[2] || 3000;
 var bodyParser = require('body-parser');
 var dotenv = require('dotenv');
-var path = require('path')
+var path = require('path');
+
+var mongoose = require("mongoose");
+var Project = require('./models/project');
 
 
 
@@ -12,7 +15,7 @@ dotenv.config();
 app.use(express.static(__dirname + '/public/'));
 
 
-/*var mongoose = require("mongoose");
+/*
 mongoose.Promise = global.Promise;
 mongoose.connect(process.env.MONGOLAB_URI,  { useMongoClient: true });
 var nameSchema = new mongoose.Schema({
@@ -39,6 +42,19 @@ app.post("/addname", (req, res) => {
         .catch(err => {
             res.status(400).send("Unable to save to database");
         });
+});
+
+app.get('/projects', function(req, res) {
+    var mongoDB = "mongodb://sela_dev:sela_dev2017@ds113785.mlab.com:13785/sela_mvp";
+    mongoose.connect(mongoDB, {
+      useMongoClient: true
+    });
+    mongoose.Promise = global.Promise;
+    Project.find({}, function(err, projects){
+     projectsMap = {};
+     projects.map(function(p){projectsMap[p._id] = p;});
+     res.json({projects: projectsMap});  
+    });
 });
 
 app.listen(port, () => {

@@ -36,12 +36,12 @@ function projectCreate(project_name, project_description, start_date, end_date, 
        
   project.save(function (err) {
     if (err) {
-      cb(err, null)
+      cb && cb(err, null)
       return
     }
     console.log('New Project: ' + project);
     projects.push(project)
-    cb(null, project)
+    cb && cb(null, project)
   }  );
 }
 
@@ -50,12 +50,12 @@ function milestoneCreate(name,project, cb) {
        
   milestone.save(function (err) {
     if (err) {
-      cb(err, null);
+      cb && cb(err, null);
       return;
     }
     console.log('New Milestone: ' + milestone);
     milestones.push(milestone)
-    cb(null, milestone);
+    cb && cb(null, milestone);
   }   );
 }
 
@@ -71,12 +71,12 @@ function taskCreate(title, summary, milestone, due_date, cb) {
   var task = new Task(taskdetail);    
   task.save(function (err) {
     if (err) {
-      cb(err, null)
+      cb && cb(err, null)
       return
     }
     console.log('New Task: ' + task);
     tasks.push(task)
-    cb(null, task)
+    cb && cb(null, task)
   }  );
 }
 
