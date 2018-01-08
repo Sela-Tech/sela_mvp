@@ -54,7 +54,7 @@ class App extends Component {
     * tasks: [0, 0, 0].map(function(_, j){return {
             start: `2018-0${(i % 8) + 1}-0${j}`,
             end: `2018-0${(i % 8) + 1}-0${j+3}`,
-        };}),
+      };}),
     */
 
     let milestones = [];
