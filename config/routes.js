@@ -7,6 +7,9 @@ module.exports = function routes() {
 
     // working sites
     this.get('/', public.index);
+    this.get('/tutorial', public.tutorial);
+    this.get('/blog', public.blog);
+    this.get('/signup', public.begin);
     this.get('/project', public.project);
 
     // access

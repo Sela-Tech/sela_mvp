@@ -15,8 +15,26 @@ controller.index = function(req, res, next) {
 
 };
 
+controller.tutorial = function(req, res, next) {
+    res.sendFile('tutorial.html', {
+        root: FRONTEND + '/index'
+    });
+};
+
+controller.blog = function(req, res, next) {
+    res.sendFile('blog.html', {
+        root: FRONTEND + '/index'
+    });
+};
+
+controller.begin = function(req, res, next) {
+    res.sendFile('index.html', {
+        root: FRONTEND + '/index/signup'
+    });
+};
+
 controller.project = function(req, res, next) {
-    res.sendFile('material_project.html', {
+    res.sendFile('form.html', {
         root: FRONTEND + '/project_creation'
     });
 };
