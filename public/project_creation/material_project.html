@@ -15,15 +15,20 @@
 <body>
 
 <div class="container">
-  <form>
+  <form action="../project_post" method="post"> 
     <h1>Sela Project Creation </h1>
     <div class="form-group">
-      <input type="text" required="required"/>
+      <input type="text" name="projectName" required="required"/>
       <label class="control-label" for="input">Project Name</label><i class="bar"></i>
     </div>
     <div class="form-group">
     <div class="form-group">
-      <input type="text" required="required"/>
+      <input type="text" name="projectOwner"/>
+      <label class="control-label" for="input">Project Owner</label><i class="bar"></i>
+    </div>
+    <div class="form-group">
+    <div class="form-group">
+      <input type="text" name="projectDescription"/>
       <label class="control-label" for="input">Project Description</label><i class="bar"></i>
     </div>
     <div class="form-group">
@@ -35,12 +40,12 @@
       <label class="control-label" for="input">Projected start date</label><i class="bar"></i>
     </div>
     <div class="form-group">
-      <input type="date" required="required"/>
+      <input type="date"/>
       <label class="control-label" for="input">Projected end date</label><i class="bar"></i>
     </div>
   </form>
   <div class="button-container">
-    <button class="button" type="button"><span>Submit</span></button>
+    <button class="button" type="Submit"><span>Submit</span></button>
   </div>
 </div>
 
