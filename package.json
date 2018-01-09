@@ -1,19 +1,30 @@
 {
-  "name": "sela_mvp",
-  "version": "1.0.0",
-  "description": "",
+  "name": "sela-labs",
+  "version": "0.3.0",
+  "description": "A Blockchain company",
+  "engines": {
+    "node": "8.9.1"
+  },
   "main": "sela_app.js",
   "scripts": {
-    "test": "echo \"Error: no test specified\" && exit 1"
+    "start": "node sela_app.js",
+    "test": "echo"
+  },
+  "dependencies": {
+    "body-parser": "^1.18.2",
+    "dotenv": "^4.0.0",
+    "ejs": "^2.5.6",
+    "express": "^4.15.2",
+    "mongoose": "^4.13.5"
+  },
+  "devDependencies": {
+    "mongoose": "^4.13.5",
+    "request": "^2.81.0",
+    "tape": "^4.7.0"
   },
   "repository": {
     "type": "git",
-    "url": "git+https://github.com/mhkane/sela_mvp.git"
-  },
-  "author": "",
-  "license": "ISC",
-  "bugs": {
-    "url": "https://github.com/mhkane/sela_mvp/issues"
+    "url": "https://github.com/heroku/node-js-getting-started"
   },
   "homepage": "https://github.com/mhkane/sela_mvp#readme",
   "dependencies": {
