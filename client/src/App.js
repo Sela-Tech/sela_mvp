@@ -122,6 +122,7 @@ class App extends Component {
                       center: 'title',
                       right: 'month,basicWeek,basicDay'
                     }}
+                    themeSystem="bootstrap3"
                     defaultDate={this.getDefaultDate()}
                     navLinks= {true} // can click day/week names to navigate views
                     editable= {false}
