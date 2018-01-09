@@ -9,6 +9,7 @@ Goal is to allow an institution to create a project instance, manage its project
 Enter data required by Institution including expense reports, Media (PDF, Image, Text Files) and allow institution to access it <br />
 # Installation and step-by-step guide : <br />
 1) run npm install
+2) add .env file with NODE_ENV=development and PORT=3000
 3) After installing everthing, running <br /> 
 node sela_app.js should start a node server <br />
 4) The index page is accessible at localhost:3000/ <br />
