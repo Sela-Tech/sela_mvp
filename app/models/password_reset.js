@@ -42,7 +42,7 @@ var passwordResetStructure = {
 };
 
 var schemaOptions = {
-    collection: 'task',
+    collection: 'password_resets',
     minimize: false,
     toJSON: {
         getters: true,

@@ -44,7 +44,7 @@ var taskStructure = {
 };
 
 var schemaOptions = {
-    collection: 'task',
+    collection: 'tasks',
     minimize: false,
     toJSON: {
         getters: true,

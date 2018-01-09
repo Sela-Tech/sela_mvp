@@ -75,7 +75,7 @@ var schemaOptions = {
     },
     autoIndex: false,
     safe: true,
-    collection: 'user', // Sets Collection Name
+    collection: 'users', // Sets Collection Name
     strict: process.env.NODE_ENV !== 'development', // Only use strict in production
 };
 

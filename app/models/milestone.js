@@ -25,7 +25,7 @@ var milestoneStructure = {
     }
 };
 var schemaOptions = {
-    collection: 'milestone',
+    collection: 'milestones',
     minimize: false,
     toJSON: {
         getters: true,

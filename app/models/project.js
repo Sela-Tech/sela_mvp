@@ -57,7 +57,7 @@ var projectStructure = {
 };
 
 var schemaOptions = {
-    collection: 'project',
+    collection: 'projects',
     minimize: false,
     toJSON: {
         getters: true,

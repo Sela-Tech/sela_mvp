@@ -37,7 +37,7 @@ var organizationStructure = {
 };
 
 var schemaOptions = {
-    collection: 'organization',
+    collection: 'organizations',
     minimize: false,
     toJSON: {
         getters: true,

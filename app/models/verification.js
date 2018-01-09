@@ -38,7 +38,7 @@ var verificationStructure = {
 };
 
 var schemaOptions = {
-    collection: 'verification',
+    collection: 'verifications',
     minimize: false,
     toJSON: {
         getters: true,
