@@ -3,6 +3,8 @@ var passport = require('passport');
 
 var public = require(ROOT + '/app/controllers/public_controller');
 var v1PasswordReset = require(ROOT + '/app/controllers/password_reset_controller');
+var v1Project = require(ROOT + '/app/controllers/project_controller');
+
 module.exports = function routes() {
 
     // working sites
@@ -23,5 +25,8 @@ module.exports = function routes() {
 
     // API ROUTES
 
+    // projects
+    this.post('/api/v1/project.json', v1Project.create);
+    this.get('/api/v1/project.json', v1Project.read);
 
 };

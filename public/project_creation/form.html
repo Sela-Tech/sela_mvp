@@ -1,6 +1,7 @@
 <!doctype html>
 <html lang="en">
-  <head>
+
+<head>
     <!-- Required meta tags -->
     <meta charset="utf-8">
     <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
@@ -8,42 +9,43 @@
     <!-- Bootstrap CSS -->
     <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0-beta.3/css/bootstrap.min.css" integrity="sha384-Zug+QiDoJOrZ5t4lssLdxGhVrurbmBWopoEl+M6BdEfwnCJZtKxi1KgxUyJq13dy" crossorigin="anonymous">
 
-    <title>Hello, world!</title>
-  </head>
-  <body>
+    <title>Create Project</title>
+</head>
+
+<body>
     <div class="container">
-      <h1>Create a new Project</h1>
-      <form action="../addname" method="post">
-        <div class="form-row">
-          <div class="form-group col-md-6">
-            <label for="projectName">Name</label>
-            <input type="text" class="form-control" name="projectName" id="projectName" placeholder="Project Name">
-          </div>
-          <div class="form-group col-md-6">
-            <label for="inputPassword4">Owner</label>
-            <input type="text" class="form-control" id="projectOwner" placeholder="Owner">
-          </div>
-        </div>
-         <div class="form-group">
-          <label for="description">Description</label>
-          <textarea class="form-control" rows="5" id="projectDescription" placeholder="Describe your project"></textarea>
-        </div>
-        <div class="form-group">
-          <label for="inputAddress">Location</label>
-          <input type="text" class="form-control" id="inputAddress" placeholder="1234 Main St">
-        </div>
-        <div class="form-row">
-          <div class="form-group col-md-6">
-            <label for="inputCity">Start Date</label>
-            <input type="date" class="form-control" id="startDate">
-          </div>
-           <div class="form-group col-md-6">
-            <label for="inputCity">End Date</label>
-            <input type="date" class="form-control" id="endDate">
-          </div>
-        </div>
-        <button type="submit" class="btn btn-primary">Submit</button>
-      </form>
+        <h1>Create a new Project</h1>
+        <form action="../api/v1/project.json" method="post">
+            <div class="form-row">
+                <div class="form-group col-md-6">
+                    <label for="projectName">Name</label>
+                    <input type="text" class="form-control" name="projectName" id="projectName" placeholder="Project Name">
+                </div>
+                <div class="form-group col-md-6">
+                    <label for="inputPassword4">Owner</label>
+                    <input type="text" class="form-control" id="projectOwner" name="projectOwner" placeholder="Owner">
+                </div>
+            </div>
+            <div class="form-group">
+                <label for="description">Description</label>
+                <textarea class="form-control" rows="5" id="projectDescription" name="projectDescription" placeholder="Describe your project"></textarea>
+            </div>
+            <div class="form-group">
+                <label for="inputAddress">Location</label>
+                <input type="text" class="form-control" id="inputAddress" name="inputAddress" placeholder="1234 Main St">
+            </div>
+            <div class="form-row">
+                <div class="form-group col-md-6">
+                    <label for="inputCity">Start Date</label>
+                    <input type="date" class="form-control" name="startDate" id="startDate">
+                </div>
+                <div class="form-group col-md-6">
+                    <label for="inputCity">End Date</label>
+                    <input type="date" class="form-control" name="endDate" id="endDate">
+                </div>
+            </div>
+            <button type="submit" class="btn btn-primary">Submit</button>
+        </form>
     </div>
 
     <!-- Optional JavaScript -->
@@ -51,5 +53,6 @@
     <script src="https://code.jquery.com/jquery-3.2.1.slim.min.js" integrity="sha384-KJ3o2DKtIkvYIK3UENzmM7KCkRr/rE9/Qpg6aAZGJwFDMVNA/GpGFF93hXpG5KkN" crossorigin="anonymous"></script>
     <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.12.9/umd/popper.min.js" integrity="sha384-ApNbgh9B+Y1QKtv3Rn7W3mgPxhU9K/ScQsAP7hUibX39j7fakFPskvXusvfa0b4Q" crossorigin="anonymous"></script>
     <script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0-beta.3/js/bootstrap.min.js" integrity="sha384-a5N7Y/aK3qNeh15eJKGWxsqtnX/wWdSZSKp+81YjTmS15nvnvxKHuzaWwXHDli+4" crossorigin="anonymous"></script>
-  </body>
+</body>
+
 </html>
