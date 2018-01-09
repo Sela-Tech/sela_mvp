@@ -40,6 +40,7 @@ var verificationStructure = {
 var schemaOptions = {
     collection: 'verifications',
     minimize: false,
+    id: false,
     toJSON: {
         getters: true,
         virtuals: true,

@@ -58,6 +58,7 @@ var userStructure = {
 };
 var schemaOptions = {
     minimize: false,
+    id: false,
     toJSON: {
         getters: true,
         virtuals: true,

@@ -44,6 +44,7 @@ var passwordResetStructure = {
 var schemaOptions = {
     collection: 'password_resets',
     minimize: false,
+    id: false,
     toJSON: {
         getters: true,
         virtuals: true,

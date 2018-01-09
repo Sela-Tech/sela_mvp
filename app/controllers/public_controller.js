@@ -98,24 +98,24 @@ controller.login = function(req, res, next) {
 
     passport.authenticate('local-user', function(err, result, info) {
 
-        req.logIn(result, {}, function(err) {
+        req.logIn(result, function(err) {
 
             if (err) {
-                console.log("WHAT!!!");
+                console.log(err);
                 res.status(500);
                 res.json({
-                    errors: errors,
+                    errors: err,
                 });
                 return;
             }
 
             res.json({
-                user: result,
+                user: result.toJSON(),
             });
 
         });
 
-    })(req, res);
+    })(req, res, next);
 };
 
 controller.logout = function(req, res, next) {

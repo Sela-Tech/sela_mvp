@@ -21,12 +21,12 @@ module.exports = function(done) {
                 })
                 .exec(function(err, user) {
                     if (err) return done(err, false);
-                    if (!user) return done(null, false);
+                    if (!user) return done(null, false, { message: 'Incorrect username.' });
 
                     if (!bcrypt.compareSync(password, user.password))
-                        return done(null, false);
+                        return done(null, false, { message: 'Incorrect password.' });
 
-                    return done(true, null);
+                    return done(null, user);
                 });
 
         }));
@@ -34,7 +34,7 @@ module.exports = function(done) {
     passport.serializeUser(function(user, done) {
 
         done(null, {
-            'id': user.id,
+            '_id': user._id,
             'accountType': user.accountType,
         });
 
