@@ -35,7 +35,7 @@ controller.begin = function(req, res, next) {
 
 controller.project = function(req, res, next) {
     res.sendFile('form.html', {
-        root: FRONTEND + '/project_creation'
+        root: FRONTEND + '/dashboard'
     });
 };
 
