@@ -11,23 +11,6 @@
     "test": "echo"
   },
   "dependencies": {
-    "body-parser": "^1.18.2",
-    "dotenv": "^4.0.0",
-    "ejs": "^2.5.6",
-    "express": "^4.15.2",
-    "mongoose": "^4.13.5"
-  },
-  "devDependencies": {
-    "mongoose": "^4.13.5",
-    "request": "^2.81.0",
-    "tape": "^4.7.0"
-  },
-  "repository": {
-    "type": "git",
-    "url": "https://github.com/heroku/node-js-getting-started"
-  },
-  "homepage": "https://github.com/mhkane/sela_mvp#readme",
-  "dependencies": {
     "bcrypt": "1.0.3",
     "body-parser": "1.18.2",
     "bootstrap-material-design": "^4.0.0-beta.3",
@@ -40,6 +23,7 @@
     "moment": "2.20.1",
     "mongoose": "4.12.0",
     "multer": "1.3.0",
+    "node-telegram-bot-api": "^0.30.0",
     "nodemailer": "4.4.1",
     "nodemon": "1.12.1",
     "passport": "0.4.0",
@@ -48,5 +32,15 @@
     "request-param": "^1.0.1",
     "session": "0.1.0",
     "underscore": "1.8.3"
-  }
+  },
+  "devDependencies": {
+    "mongoose": "^4.13.5",
+    "request": "^2.81.0",
+    "tape": "^4.7.0"
+  },
+  "repository": {
+    "type": "git",
+    "url": "https://github.com/heroku/node-js-getting-started"
+  },
+  "homepage": "https://github.com/mhkane/sela_mvp#readme"
 }
