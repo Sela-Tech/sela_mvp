@@ -5,6 +5,7 @@ var path = require('path');
 module.exports = function() {
 
     this.use(express.static(FRONTEND + '/index'));
+    this.use(express.static(FRONTEND + '/dashboard'));
     this.use(express.static(FRONTEND + '/project_creation'));
 
     // adds additional logging information to the console

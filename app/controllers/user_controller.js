@@ -9,6 +9,12 @@ var Controller = require('./base_controller');
 var controller = new Controller();
 var UserModel = mongoose.model('User');
 
+controller.dashboard = function(req, res, next) {
+    res.sendFile('index.html', {
+        root: FRONTEND + '/dashboard'
+    });
+};
+
 controller.read = function(req, res, next) {
     var user = req.user || {};
 

@@ -14,6 +14,7 @@ module.exports = function routes() {
     this.get('/blog', public.blog);
     this.get('/signup', public.begin);
     this.get('/project', public.project);
+    this.get('/dashboard', v1User.dashboard);
 
     // access
     this.post('/api/v1/signup.json', public.signup);
@@ -27,10 +28,10 @@ module.exports = function routes() {
     // API ROUTES
 
     // projects
-    this.post('/api/v1/project.json', v1Project.create);
-    this.get('/api/v1/project.json', v1Project.read);
+    this.post('/api/v1/project.json', passport.authenticate('local-user', { session: false }), v1Project.create);
+    this.get('/api/v1/project.json', passport.authenticate('local-user', { session: false }), v1Project.read);
 
     // user
-    this.get('/api/v1/user.json', v1User.read);
+    this.get('/api/v1/user.json', passport.authenticate('local-user', { session: false }), v1User.read);
 
 };
