@@ -1,12 +1,15 @@
+// libraries
 import React, { Component } from 'react';
+import CountUp from 'react-countup';
+import Calendar from 'fullcalendar-reactwrapper';
+// assets
 import logo from './logo.svg';
 import loading from './loading.png';
 import './App.css';
 import 'fullcalendar-reactwrapper/dist/css/fullcalendar.min.css';
-import CountUp from 'react-countup';
-import Calendar from 'fullcalendar-reactwrapper';
 
-
+const PROJECTS_ENDPOINT = '/api/v1/projects.json';
+const PROJECT_ENDPOINT = '/api/v1/project.json';
 
 class App extends Component {
   constructor(props){
@@ -25,7 +28,7 @@ class App extends Component {
   fetchProjects = () => {
     let _self = this;
     
-    fetch('/projects').then(function(response) {
+    fetch(PROJECTS_ENDPOINT).then(function(response) {
       var contentType = response.headers.get("content-type");
       if(contentType && contentType.includes("application/json")) {
         return response.json();
@@ -116,11 +119,11 @@ class App extends Component {
           <div className="card">
               <div className="card-content">
                   <Calendar
-                     id = "timelineID"
-                     header = {{
-                      left: 'prev,next today myCustomButton',
-                      center: 'title',
-                      right: 'month,basicWeek,basicDay'
+                   id = "timelineID"
+                   header = {{
+                    left: 'prev,next today myCustomButton',
+                    center: 'title',
+                    right: 'month,basicWeek,basicDay'
                     }}
                     themeSystem="bootstrap3"
                     defaultDate={this.getDefaultDate()}

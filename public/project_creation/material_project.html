@@ -1,50 +1,57 @@
 <!DOCTYPE html>
-<html >
+<html>
+
 <head>
-  <meta charset="UTF-8">
-  <title>Form fields with material design, in pure CSS</title>
+    <meta charset="UTF-8">
+    <title>Form fields with material design, in pure CSS</title>
 
-  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/meyer-reset/2.0/reset.min.css">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/meyer-reset/2.0/reset.min.css">
 
 
-      <link rel="stylesheet" href="project_creation/material_project_style.css">
+    <link rel="stylesheet" href="project_creation/material_project_style.css">
 
 
 </head>
 
 <body>
 
-<div class="container">
-  <form>
-    <h1>Sela Project Creation </h1>
-    <div class="form-group">
-      <input type="text" required="required"/>
-      <label class="control-label" for="input">Project Name</label><i class="bar"></i>
-    </div>
-    <div class="form-group">
-    <div class="form-group">
-      <input type="text" required="required"/>
-      <label class="control-label" for="input">Project Description</label><i class="bar"></i>
-    </div>
-    <div class="form-group">
-      <input type="text" required="required"/>
-      <label class="control-label" for="input">Location</label><i class="bar"></i>
-    </div>
-     <div class="form-group">
-      <input type="date" required="required"/>
-      <label class="control-label" for="input">Projected start date</label><i class="bar"></i>
-    </div>
-    <div class="form-group">
-      <input type="date" required="required"/>
-      <label class="control-label" for="input">Projected end date</label><i class="bar"></i>
-    </div>
-  </form>
-  <div class="button-container">
-    <button class="button" type="button"><span>Submit</span></button>
-  </div>
-</div>
+    <div class="container">
+        <form action="../api/v1/project.json" method="post">
+            <h1>Sela Project Creation </h1>
+            <div class="form-group">
+                <input type="text" name="projectName" required="required" />
+                <label class="control-label" for="input">Project Name</label><i class="bar"></i>
+            </div>
+            <div class="form-group">
+                <div class="form-group">
+                    <input type="text" name="projectOwner" />
+                    <label class="control-label" for="input">Project Owner</label><i class="bar"></i>
+                </div>
+                <div class="form-group">
+                    <div class="form-group">
+                        <input type="text" name="projectDescription" />
+                        <label class="control-label" for="input">Project Description</label><i class="bar"></i>
+                    </div>
+                    <div class="form-group">
+                        <input type="text" required="required" />
+                        <label class="control-label" for="input">Location</label><i class="bar"></i>
+                    </div>
+                    <div class="form-group">
+                        <input type="date" required="required" />
+                        <label class="control-label" for="input">Projected start date</label><i class="bar"></i>
+                    </div>
+                    <div class="form-group">
+                        <input type="date" />
+                        <label class="control-label" for="input">Projected end date</label><i class="bar"></i>
+                    </div>
+        </form>
+        <div class="button-container">
+            <button class="button" type="Submit"><span>Submit</span></button>
+        </div>
+        </div>
 
-    <script  src="project_creation/material_project.js"></script>
+        <script src="project_creation/material_project.js"></script>
 
 </body>
+
 </html>

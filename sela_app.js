@@ -1,62 +1,68 @@
-var express = require("express");
-var app = express();
-var port = process.env.PORT || process.argv[2] || 3000;
-var bodyParser = require('body-parser');
+ROOT = __dirname;
+FRONTEND = __dirname + '/public';
+
 var dotenv = require('dotenv');
-var path = require('path');
-
-var mongoose = require("mongoose");
-var Project = require('./models/project');
-
-
+var express = require("express");
+var http = require('http');
 
 dotenv.config();
 
-app.use(express.static(__dirname + '/public/'));
+var mongosseInit = require(ROOT + '/config/initializers/mongoose');
+var passportInit = require(ROOT + '/config/initializers/passport');
 
+var environmentsAll = require(ROOT + '/config/environments/all');
+var environmentsDev = require(ROOT + '/config/environments/development');
+var environmentsPro = require(ROOT + '/config/environments/production');
 
-/*
-mongoose.Promise = global.Promise;
-mongoose.connect(process.env.MONGOLAB_URI,  { useMongoClient: true });
-var nameSchema = new mongoose.Schema({
-    projectName: String,
-    villageName: String
-});
-var User = mongoose.model("User", nameSchema);*/
-
-app.get("/", (req, res) => {
-    res.redirect("/index");
+mongosseInit(function() {
+    passportInit();
 });
 
+var routes = require('./config/routes');
 
-app.get("/project", (req, res) => {
-    res.sendFile(__dirname + "/public/project_creation/material_project.html");
+var app = express();
+
+if (process.env.NODE_ENV === 'development') {
+    environmentsDev.call(app);
+} else if (process.env.NODE_ENV === 'production') {
+    environmentsPro.call(app);
+}
+
+environmentsAll.call(app);
+
+
+// var mongoose = require("mongoose");
+// mongoose.Promise = global.Promise;
+// mongoose.connect(process.env.MONGOLAB_URI, { useMongoClient: true });
+// var nameSchema = new mongoose.Schema({
+//     projectName: String,
+//     villageName: String
+// });
+// var User = mongoose.model("User", nameSchema);
+
+// app.get("/", (req, res) => {
+//     res.redirect("/index");
+// });
+
+// app.get("/project", (req, res) => {
+//     res.sendFile(__dirname + "/public/project_creation/material_project.html");
+// });
+
+// app.post("/addname", (req, res) => {
+//     var myData = new User(req.body);
+//     myData.save()
+//         .then(item => {
+//             res.send("Project saved to database");
+//         })
+//         .catch(err => {
+//             res.status(400).send("Unable to save to database");
+//         });
+// });
+var server = http.createServer(app);
+
+server.listen(process.env.PORT, () => {
+    console.log("Server listening on port " + process.env.PORT);
 });
 
-app.post("/addname", (req, res) => {
-    var myData = new User(req.body);
-    myData.save()
-        .then(item => {
-            res.send("Project saved to database");
-        })
-        .catch(err => {
-            res.status(400).send("Unable to save to database");
-        });
-});
+routes.call(app);
 
-app.get('/projects', function(req, res) {
-    var mongoDB = "mongodb://sela_dev:sela_dev2017@ds113785.mlab.com:13785/sela_mvp";
-    mongoose.connect(mongoDB, {
-      useMongoClient: true
-    });
-    mongoose.Promise = global.Promise;
-    Project.find({}, function(err, projects){
-     projectsMap = {};
-     projects.map(function(p){projectsMap[p._id] = p;});
-     res.json({projects: projectsMap});  
-    });
-});
-
-app.listen(port, () => {
-    console.log("Server listening on port " + port);
-});

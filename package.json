@@ -7,33 +7,45 @@
   },
   "main": "sela_app.js",
   "scripts": {
-    "start": "node sela_app.js",
+    "start": "concurrently \"npm run server\" \"npm run client\"",
+    "server": "node sela_app.js",
+    "client": "node start-client.js",
+    "dev": "echo \"This command has been deprecated. Use 'npm start'\" && exit 1",
+    "lint": "eslint .",
     "test": "echo"
   },
-  "dependencies": {
-    "bcrypt": "^1.0.3",
-    "body-parser": "^1.18.2",
-    "bootstrap-material-design": "^4.0.0-beta.3",
-    "connect-mongo": "^2.0.0",
-    "dotenv": "4.0.0",
-    "envs": "0.1.6 ",
-    "express": "^4.16.1",
-    "express-session": "^1.15.6",
-    "moment": "^2.20.1",
-    "mongoose": "^4.12.0",
-    "nodemon": "^1.12.1",
-    "passport": "^0.4.0",
-    "react": "^16.0.0",
-    "session": "^0.1.0"
-  },
-  "devDependencies": {
-    "mongoose": "^4.13.5",
-    "request": "^2.81.0",
-    "tape": "^4.7.0"
-  },
+  "proxy": "http://localhost:3001/",
   "repository": {
     "type": "git",
     "url": "https://github.com/heroku/node-js-getting-started"
   },
-  "homepage": "https://github.com/mhkane/sela_mvp#readme"
+  "homepage": "https://github.com/mhkane/sela_mvp#readme",
+  "devDependencies": {
+    "concurrently": "^3.5.1",
+    "mongoose": "^4.13.5",
+    "request": "^2.81.0",
+    "tape": "^4.7.0"
+  },
+  "dependencies": {
+    "bcrypt": "1.0.3",
+    "body-parser": "1.18.2",
+    "bootstrap-material-design": "^4.0.0-beta.3",
+    "connect-mongo": "2.0.0",
+    "dotenv": "4.0.0",
+    "envs": "0.1.6 ",
+    "express": "4.16.1",
+    "express-session": "1.15.6",
+    "joi": "^13.1.0",
+    "moment": "2.20.1",
+    "mongoose": "4.12.0",
+    "multer": "1.3.0",
+    "nodemailer": "4.4.1",
+    "nodemon": "1.12.1",
+    "passport": "0.4.0",
+    "passport-local": "1.0.0",
+    "react": "16.0.0",
+    "request-param": "^1.0.1",
+    "session": "0.1.0",
+    "underscore": "1.8.3"
+  }
 }
