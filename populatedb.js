@@ -24,9 +24,7 @@ mongoose.Promise = global.Promise;
 var db = mongoose.connection;
 mongoose.connection.on('error', console.error.bind(console, 'MongoDB connection error:'));
 // Compiling models
-require('./app/models/project')(db);
-require('./app/models/milestone')(db);
-require('./app/models/task')(db);
+require('./app/models')(db);
 var Project = db.model('Project');
 var Milestone = db.model('Milestone');
 var Task = db.model('Task');
