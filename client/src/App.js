@@ -1,7 +1,14 @@
 // libraries
 import React, { Component } from 'react';
-import CountUp from 'react-countup';
-import Calendar from 'fullcalendar-reactwrapper';
+// components
+// import { CSSTransitionGroup } from 'react-transition-group';
+import {
+  BrowserRouter as Router,
+  Route,
+  Link,
+  Redirect
+} from 'react-router-dom';
+import {AllProjects, Project} from './components/project';
 // assets
 import logo from './logo.svg';
 import loading from './loading.png';
@@ -9,7 +16,32 @@ import './App.css';
 import 'fullcalendar-reactwrapper/dist/css/fullcalendar.min.css';
 
 const PROJECTS_ENDPOINT = '/api/v1/projects.json';
-const PROJECT_ENDPOINT = '/api/v1/project.json';
+
+// wrap <Route> and use this everywhere instead, then when
+// sub routes are added to any route it'll work
+const RouteWithSubRoutes = (route) => (
+  <Route path={route.path} render={props => (
+    // pass the sub-routes down to keep nesting
+    <route.component {...props} 
+      setHeader={route.setHeader}
+      header={route.header}
+      parentState={route.parentState} 
+      routes={route.routes}/>
+  )}/>
+);
+
+const TopHeader = ({title, icon, description}) => (
+  <section className="content-header">
+      <div className="header-icon">
+          <i className="material-icons">{icon}</i>
+      </div>
+      <div className="header-title">
+          <h1> {title}</h1>
+          <small>{description}</small>
+      </div>
+  </section>
+);
+
 
 class App extends Component {
   constructor(props){
@@ -17,7 +49,12 @@ class App extends Component {
     this.state = {
       projectId: null,
       projects: [],
-      fetched: false
+      fetched: false,
+      header: {
+        icon: 'dashboard',
+        title: 'Dashboard',
+        description: 'Summary of your account activity'
+      }
     };
   }
 
@@ -45,97 +82,45 @@ class App extends Component {
     this.setState({projectId: projectId});
   };
 
-  getDefaultDate(){
-    return this.state.projects[this.state.projectId].start_date;
-  }
-
-  getMilestones(projectId){
-    /*Mocked:: Gets the milestones of a project as Calendar events
-    * title -> name
-    * start -> first task of event
-    * end -> last task of event
-    * tasks: [0, 0, 0].map(function(_, j){return {
-            start: `2018-0${(i % 8) + 1}-0${j}`,
-            end: `2018-0${(i % 8) + 1}-0${j+3}`,
-      };}),
-    */
-
-    let milestones = [];
-    if (!projectId){return milestones;}
-    // mocked:: variable to adjust milestones end dates
-    let joker = 0;
-    for (let i=0; i < 5; i++){
-      milestones.push({
-        title: `Milestone ${i}`,
-        start: this.state.projects[projectId].start_date,
-        end: joker++ % 2 ? this.state.projects[projectId].end_date :
-          this.state.projects[projectId].start_date,
-        status: !!milestones[i] && !milestones[i].status,
-      })
-    }
-    return milestones;
-  }
-
-  renderProjects(){
-    let projectEls = [],
-    _self = this,
-    proj;
-    Object.keys(this.state.projects).map(function(_id, i){
-      proj = _self.state.projects[_id];
-      projectEls.push(
-        <div onClick={_self.switchProject.bind(_self, _id)} style={{cursor: 'pointer'}} className="col-lg-3 col-md-4 col-sm-6 col-xs-12">
-            <div className="panel cardbox bg-primary">
-                <div className="panel-body card-item panel-refresh">
-                    <span className="timer"><CountUp start={0} end={50} suffix="%" /></span>
-                    
-                    <div className="cardbox-icon">
-                        <i className="material-icons">visibility</i>
-                    </div>
-                    <div className="card-details">
-                        <h4>{proj.project_name}</h4>
-                        <span className="label label-success">In progress</span>
-                    </div>
-                </div>
-            </div>
-        </div>);
-      if (i + 1 % 4 === 0){
-        projectEls.push(<div className="clearfix visible-lg visible-md"></div>);
-      }
-      return null;
-    });
-    return projectEls ? React.Children.toArray(projectEls) : '';
-  }
+  setHeader = (header) => {
+    this.setState({header: header});
+  };
 
   render() {
-
-    return (
-      !this.state.fetched ? <div className="col-md-12 text-center">
-        <p className="lead">Loading projects...</p>
-      </div> :
-      !this.state.projectId ? <div className="col-lg-8 col-md-12 col-sm-12 col-xs-12">
-        {this.renderProjects()}
-      </div> :
-      <div className="col-lg-8 col-md-8 col-sm-12 col-xs-12">
-          <div className="card">
-              <div className="card-content">
-                  <Calendar
-                   id = "timelineID"
-                   header = {{
-                    left: 'prev,next today myCustomButton',
-                    center: 'title',
-                    right: 'month,basicWeek,basicDay'
-                    }}
-                    themeSystem="bootstrap3"
-                    defaultDate={this.getDefaultDate()}
-                    navLinks= {true} // can click day/week names to navigate views
-                    editable= {false}
-                    eventLimit= {true} // allow "more" link when too many events
-                    events = {this.getMilestones(this.state.projectId)} />                 
+    let _self = this;
+    return <Router>
+      <div className="page-content">
+          <TopHeader {...this.state.header} />
+          <div className="container-fluid">
+              <div className="row">
+                  {routes.map((route, i) => (
+                    <RouteWithSubRoutes key={i}
+                      parentState={_self.state}
+                      setHeader={_self.setHeader}
+                      switchProject={_self.switchProject}
+                      {...route} />
+                  ))}
               </div>
           </div>
+        
       </div>
-    );
+    </Router>
   }
 }
+
+const routes = [
+  { path: '/projects/all',
+    component: AllProjects,
+    header: {
+      icon: 'pie_chart',
+      title: 'Projects',
+      description: 'A list of all public projects on SELA',
+    }
+  },
+  { path: '/projects/summary/:id',
+    component: Project
+  },
+];
+
 
 export default App;

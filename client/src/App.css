@@ -26,3 +26,31 @@
   from { transform: rotate(0deg); }
   to { transform: rotate(360deg); }
 }
+
+.p-8 {
+  padding: 8px;
+}
+
+.p-16 {
+  padding: 16px;
+}
+
+.p-24 {
+  padding: 24px;
+}
+
+.p-t-8 {
+  padding-top: 8px;
+}
+
+.p-t-16 {
+  padding-top: 16px;
+}
+
+.p-t-24 {
+  padding: 24px;
+}
+
+.p-t-48 {
+  padding: 48px;
+}
