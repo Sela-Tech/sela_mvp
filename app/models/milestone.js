@@ -53,7 +53,7 @@ if (process.env.NODE_ENV === 'development') {
     };
 }
 
-var milestoneSchema = new Schema(milestoneStructure, schemaOptions);
+var MilestoneSchema = new Schema(milestoneStructure, schemaOptions);
 
 //Export model
 module.exports = function(connection) {
@@ -61,5 +61,5 @@ module.exports = function(connection) {
     if (!connection) {
         connection = mongoose;
     }
-    connection.model('Milestone', milestoneSchema);
+    connection.model('Milestone', MilestoneSchema);
 };
