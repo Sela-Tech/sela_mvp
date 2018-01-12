@@ -1,6 +1,6 @@
 //libraries
+var async = require('async');
 var mongoose = require('mongoose');
-var passport = require('passport');
 // classes
 var Controller = require('./base_controller');
 
@@ -8,5 +8,9 @@ var Controller = require('./base_controller');
 var controller = new Controller();
 var UserModel = mongoose.model('User');
 var TaskModel = mongoose.model('Task');
+
+controller.create = function(req, res, next) {
+    var user = req.user || {};
+};
 
 module.exports = controller;
