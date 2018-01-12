@@ -5,14 +5,6 @@ var Schema = mongoose.Schema;
 
 
 var userStructure = {
-    accountType: {
-        type: String,
-        required: [true, 'User needs an Account type'],
-        enum: {
-            values: ['projectFunder', 'contractor', 'communityObservers'], // set the different types
-            message: 'Incorrect Acount Type'
-        },
-    },
     first_name: {
         type: String,
         required: true,
