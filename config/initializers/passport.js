@@ -34,8 +34,7 @@ module.exports = function(done) {
     passport.serializeUser(function(user, done) {
 
         done(null, {
-            '_id': user._id,
-            'accountType': user.accountType,
+            '_id': user._id
         });
 
     });
