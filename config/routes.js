@@ -28,10 +28,9 @@ module.exports = function routes() {
 
     // projects
     this.post('/api/v1/project.json', v1Project.create);
-    this.get('/api/v1/project.json', v1Project.read);
-    this.get('/api/v1/projects.json', v1Project.readAll);
+    this.get('/api/v1/project.json', v1Project.read, v1Project.readAll);
 
     // user
-    this.get('/api/v1/user.json', v1User.read);
+    this.get('/api/v1/user.json', v1User.read, v1User.current);
 
 };

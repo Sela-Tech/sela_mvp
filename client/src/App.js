@@ -15,7 +15,18 @@ import loading from './loading.png';
 import './App.css';
 import 'fullcalendar-reactwrapper/dist/css/fullcalendar.min.css';
 
-const PROJECTS_ENDPOINT = '/api/v1/projects.json';
+const PROJECT_ENDPOINT = '/api/v1/project.json';
+const USER_ENDPOINT = '/api/v1/user.json';
+
+const fetchJson = (url) => (
+    fetch(url).then(function(response) {
+      var contentType = response.headers.get("content-type");
+      if(contentType && contentType.includes("application/json")) {
+        return response.json();
+      }
+      throw new TypeError("Oops, we haven't got JSON!");
+    })
+);
 
 // wrap <Route> and use this everywhere instead, then when
 // sub routes are added to any route it'll work
@@ -54,24 +65,34 @@ class App extends Component {
         icon: 'dashboard',
         title: 'Dashboard',
         description: 'Summary of your account activity'
-      }
+      },
+      user: null,
     };
   }
 
   componentDidMount(){
     this.fetchProjects();
+    // set authenticated user
+    window._SELA_USER ? this.setState({user: window._SELA_USER}) : this.fetchUser();
   }
 
+  fetchUser = (cb) => {
+    let _self = this;
+    cb = cb || (() => {});
+
+    fetchJson(USER_ENDPOINT)
+    .then(function(json) {
+      _self.setState((state) => {cb(json.user); return json}); 
+      console.log(json);
+    })
+    .catch(function(error) {console.log(error); cb();})
+  };
+
   fetchProjects = () => {
+    /* Fetches authorized projects if a user is authentified. Only public projects otherwise.*/
     let _self = this;
     
-    fetch(PROJECTS_ENDPOINT).then(function(response) {
-      var contentType = response.headers.get("content-type");
-      if(contentType && contentType.includes("application/json")) {
-        return response.json();
-      }
-      throw new TypeError("Oops, we haven't got JSON!");
-    })
+    fetchJson(PROJECT_ENDPOINT)
     .then(function(json) {_self.setState(json); console.log(json);})
     .catch(function(error) {console.log(error);})
     .then(function(){_self.setState({fetched: true})});
