@@ -28,8 +28,9 @@ module.exports = function routes() {
     // API ROUTES
 
     // projects
-    this.post('/api/v1/project.json', passport.authenticate('local-user', { session: false }), v1Project.create);
-    this.get('/api/v1/project.json', passport.authenticate('local-user', { session: false }), v1Project.read);
+    this.post('/api/v1/project.json', v1Project.create);
+    this.get('/api/v1/project.json', v1Project.read);
+    this.get('/api/v1/projects.json', v1Project.readAll);
 
     // user
     this.get('/api/v1/user.json', passport.authenticate('local-user', { session: false }), v1User.read);

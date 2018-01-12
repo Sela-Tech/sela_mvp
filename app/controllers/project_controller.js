@@ -65,9 +65,8 @@ controller.create = function(req, res, next) {
 
 controller.read = function(req, res, next) {
     var user = req.user || {};
-
+    
     var schema = {};
-
     // Joi.validate(record, schema, function(err, value) {
     //     if (err) {
     //         res.status(400);
@@ -81,6 +80,11 @@ controller.read = function(req, res, next) {
 
 controller.readAll = function(req, res, next) {
     var user = req.user || {};
+    ProjectModel.find({}, function(err, projects){
+     projectsMap = {};
+     projects.map(function(p){projectsMap[p._id] = p;});
+     res.json({projects: projectsMap});  
+    });
 };
 
 controller.update = function(req, res, next) {
