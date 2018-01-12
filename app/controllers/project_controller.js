@@ -30,8 +30,7 @@ controller.create = function(req, res, next) {
         });
     }
 
-    // TODO need to store owner ObjectID
-    // record.owner = req.body.projectOwner;
+    record.owner = user._id;
 
     // TODO need to store location
     // record.location = {};
@@ -39,27 +38,27 @@ controller.create = function(req, res, next) {
     // record.location.lat =
     // record.location.long =
 
-    // var project = ProjectModel(record);
-    // project.save(function(err, result) {
-    //     if (err) {
-    //         res.status(500);
-    //         res.json({
-    //             err: err
-    //         });
-    //         return;
-    //     }
-    //     if (!result) {
-    //         res.status(404);
-    //         res.json({
-    //             err: err
-    //         });
-    //         return;
-    //     }
+    var project = ProjectModel(record);
+    project.save(function(err, result) {
+        if (err) {
+            res.status(500);
+            res.json({
+                err: err
+            });
+            return;
+        }
+        if (!result) {
+            res.status(404);
+            res.json({
+                err: err
+            });
+            return;
+        }
 
     res.json({
         result: "Success"
     });
-    // });
+    });
 
 };
 
