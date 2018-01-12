@@ -11,7 +11,7 @@ var UserModel = mongoose.model('User');
 var ProjectModel = mongoose.model('Project');
 
 controller.create = function(req, res, next) {
-    console.log(req.body);
+
     var user = req.user || {};
 
     var record = {};

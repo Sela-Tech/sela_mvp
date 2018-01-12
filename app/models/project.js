@@ -1,63 +1,25 @@
+var _ = require('underscore');
 var moment = require('moment');
 var mongoose = require('mongoose');
 var Schema = mongoose.Schema;
 var ObjectId = Schema.Types.ObjectId;
 
-var projectStructure = {
-    project_name: {
+var locationStructure = {
+    name: {
         type: String,
         required: true,
-        max: 100
     },
-    project_description: {
-        type: String,
-        required: true,
-        max: 100
-    },
-    start_date: {
-        type: Date,
-        default: null,
-    },
-    end_date: {
-        type: Date,
-        default: null,
-    },
-    location: {
-        name: {
-            type: String,
-        },
-        lat: {
-            type: Number,
-        },
-        long: {
-            type: Number
-        },
-    },
-    milestones: {
-        type: [ObjectId],
-        ref: 'Milestone'
-    },
-    owner: {
-        type: ObjectId,
-        ref: 'Organization',
+    lat: {
+        type: Number,
         required: true,
     },
-    created: {
-        type: Date,
-        default: Date.now()
-    },
-    updated: {
-        type: Date,
-        default: Date.now()
-    },
-    deleted: {
-        type: Boolean,
-        default: false,
+    long: {
+        type: Number,
+        required: true,
     }
 };
 
 var schemaOptions = {
-    collection: 'projects',
     minimize: false,
     id: false,
     toJSON: {
@@ -78,6 +40,60 @@ var schemaOptions = {
     strict: process.env.NODE_ENV !== 'development',
 };
 
+var locationSchema = new Schema(locationStructure, schemaOptions);
+
+var projectSchemaOptions = _.extend({}, schemaOptions, {
+	collection: 'projects',
+});
+
+var projectStructure = {
+    project_name: {
+        type: String,
+        required: true,
+        max: 100
+    },
+    project_description: {
+        type: String,
+        required: true,
+        max: 100
+    },
+    start_date: {
+        type: Date,
+        required: true,
+    },
+    end_date: {
+        type: Date,
+        default: null,
+    },
+    location: {
+        type: locationSchema,
+        default: null
+    },
+    milestones: {
+        type: [ObjectId],
+        ref: 'Milestone',
+        default: []
+    },
+    owner: {
+        type: ObjectId,
+        ref: 'Organization',
+        required: true,
+    },
+    created: {
+        type: Date,
+        default: Date.now()
+    },
+    updated: {
+        type: Date,
+        default: Date.now()
+    },
+    deleted: {
+        type: Boolean,
+        default: false,
+    }
+};
+
+
 if (process.env.NODE_ENV === 'development') {
     projectStructure.test = {
         type: Boolean,
@@ -85,7 +101,7 @@ if (process.env.NODE_ENV === 'development') {
     };
 }
 
-var ProjectSchema = new Schema(projectStructure, schemaOptions);
+var ProjectSchema = new Schema(projectStructure, projectSchemaOptions);
 
 ProjectSchema.method.delete = function(cb) {
     var self = this;
