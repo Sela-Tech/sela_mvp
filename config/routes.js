@@ -32,18 +32,18 @@ module.exports = function routes() {
 
     // milestones
     this.post('/api/v1/milestone.json', passport.authenticate('local-user', { session: false }), v1Milestone.create);
-    this.get('/api/v1/milestone.json', passport.authenticate('local-user', { session: false }), v1Milestone.read);
-    this.get('/api/v1/milestones.json', passport.authenticate('local-user', { session: false }), v1Milestone.readAll);
+    // this.get('/api/v1/milestone.json', passport.authenticate('local-user', { session: false }), v1Milestone.read);
+    // this.get('/api/v1/milestones.json', passport.authenticate('local-user', { session: false }), v1Milestone.readAll);
 
     // organization
     this.post('/api/v1/organization.json', passport.authenticate('local-user', { session: false }), v1Organization.create);
-    this.get('/api/v1/organization.json', passport.authenticate('local-user', { session: false }), v1Organization.read);
-    this.get('/api/v1/organizations.json', passport.authenticate('local-user', { session: false }), v1Organization.readAll);
+    // this.get('/api/v1/organization.json', passport.authenticate('local-user', { session: false }), v1Organization.read);
+    // this.get('/api/v1/organizations.json', passport.authenticate('local-user', { session: false }), v1Organization.readAll);
 
     // task
     this.post('/api/v1/task.json', passport.authenticate('local-user', { session: false }), v1Task.create);
-    this.get('/api/v1/task.json', passport.authenticate('local-user', { session: false }), v1Task.read);
-    this.get('/api/v1/tasks.json', passport.authenticate('local-user', { session: false }), v1Task.readAll);
+    // this.get('/api/v1/task.json', passport.authenticate('local-user', { session: false }), v1Task.read);
+    // this.get('/api/v1/tasks.json', passport.authenticate('local-user', { session: false }), v1Task.readAll);
 
     // projects
     this.post('/api/v1/project.json', passport.authenticate('local-user', { session: false }), v1Project.create);

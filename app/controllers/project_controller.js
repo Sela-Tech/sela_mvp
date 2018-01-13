@@ -1,6 +1,7 @@
 //libraries
+var async = require('async');
 var mongoose = require('mongoose');
-var Joi = require('joi');
+var jsSchema = require('js-schema');
 
 // classes
 var Controller = require('./base_controller');
@@ -26,7 +27,7 @@ controller.create = function(req, res, next) {
     if (record.start_date >= record.end_date) {
         res.status(400);
         res.json({
-            error: "End Date must be after start date."
+            error: "End date must be after start date."
         });
     }
 
@@ -55,34 +56,88 @@ controller.create = function(req, res, next) {
             return;
         }
 
-    res.json({
-        result: "Success"
-    });
+        res.status(201);
+        res.json({
+            result: "Success"
+        });
     });
 
 };
 
 controller.read = function(req, res, next) {
-    var user = req.user || {};
+
+    var user = req.user;
+
+    var populate = req.query.populate || '';
     
-    var schema = {};
-    // Joi.validate(record, schema, function(err, value) {
-    //     if (err) {
-    //         res.status(400);
-    //         res.json({
-    //             err: err
-    //         });
-    //         return;
-    //     }
-    // });
+    var id = req.query.id;
+
+    var schema = jsSchema({
+        '?id': /^[a-f\d]{24}$/i, 
+    });
+
+    var invalid = schema.errors({
+        id: id
+    });
+
+    if (invalid) {
+        res.status(400);
+        res.json({
+            error: 'invalid id'
+        });
+        return;
+    }
+
+    // create a find query object
+	var findQuery = {};
+	findQuery.deleted = false;
+
+	findQuery._id = id;
+
+	if (!id) {
+		findQuery._id = user._id;
+    }
+    
+    ProjectModel
+    .findOne(findQuery)
+		.populate(populate)
+		.lean()
+		.exec(function(err, result) {
+            if(err) {
+                res.status(500);
+                res.json({ errors: 'error'});
+                return;
+            }
+            if(!result) {
+                res.status(404);
+                res.json({ errors: 'error'});
+                return;
+            }
+            res.json({
+				result: result,
+			});
+        });
+
 };
 
 controller.readAll = function(req, res, next) {
+
     var user = req.user || {};
+    
     ProjectModel.find({}, function(err, projects){
-     projectsMap = {};
-     projects.map(function(p){projectsMap[p._id] = p;});
-     res.json({projects: projectsMap});  
+        if(err) {
+            res.status(500);
+            res.json({ errors: 'error'});
+            return;
+        }
+        if(!projects) {
+            res.status(404);
+            res.json({ errors: 'error'});
+            return;
+        }
+        projectsMap = {};
+        projects.map(function(p){projectsMap[p._id] = p;});
+        res.json({projects: projectsMap});  
     });
 };
 
