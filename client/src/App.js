@@ -9,8 +9,9 @@ import {
   Redirect
 } from 'react-router-dom';
 import {AllProjects, Project} from './components/project';
+import AppBar from './components/appbar';
+import SideBar from './components/sidebar';
 // assets
-import logo from './logo.svg';
 import loading from './loading.png';
 import './App.css';
 import 'fullcalendar-reactwrapper/dist/css/fullcalendar.min.css';
@@ -18,15 +19,15 @@ import 'fullcalendar-reactwrapper/dist/css/fullcalendar.min.css';
 const PROJECT_ENDPOINT = '/api/v1/project.json';
 const USER_ENDPOINT = '/api/v1/user.json';
 
-const fetchJson = (url) => (
-    fetch(url).then(function(response) {
+const fetchJson = (url) => {
+    return fetch(url).then(function(response) {
       var contentType = response.headers.get("content-type");
       if(contentType && contentType.includes("application/json")) {
         return response.json();
       }
       throw new TypeError("Oops, we haven't got JSON!");
     })
-);
+};
 
 // wrap <Route> and use this everywhere instead, then when
 // sub routes are added to any route it'll work
@@ -110,20 +111,32 @@ class App extends Component {
   render() {
     let _self = this;
     return <Router>
-      <div className="page-content">
-          <TopHeader {...this.state.header} />
-          <div className="container-fluid">
-              <div className="row">
-                  {routes.map((route, i) => (
-                    <RouteWithSubRoutes key={i}
-                      parentState={_self.state}
-                      setHeader={_self.setHeader}
-                      switchProject={_self.switchProject}
-                      {...route} />
-                  ))}
+      <div id="wrapper">
+        <AppBar>
+          <li>
+            <Link to="" className="waves-effect waves-light btn indigo">
+              <span class="material-icons left">add</span>create
+            </Link>
+          </li>
+        </AppBar>
+        <SideBar />
+        <div id="page-content-wrapper">
+          <div className="page-content">
+              <TopHeader {...this.state.header} />
+              <div className="container-fluid">
+                  <div className="row">
+                      {routes.map((route, i) => (
+                        <RouteWithSubRoutes key={i}
+                          parentState={_self.state}
+                          setHeader={_self.setHeader}
+                          switchProject={_self.switchProject}
+                          {...route} />
+                      ))}
+                  </div>
               </div>
+            
           </div>
-        
+        </div>
       </div>
     </Router>
   }

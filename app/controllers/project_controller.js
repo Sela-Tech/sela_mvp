@@ -65,7 +65,9 @@ controller.create = function(req, res, next) {
 
 controller.read = function(req, res, next) {
     var user = req.user || {};
-    
+    var record = Object.assign({}, req.body, req.params);
+    // if no query specified, pass to readAll
+    Object.keys(record).length || next();
     var schema = {};
     // Joi.validate(record, schema, function(err, value) {
     //     if (err) {
@@ -80,11 +82,14 @@ controller.read = function(req, res, next) {
 
 controller.readAll = function(req, res, next) {
     var user = req.user || {};
-    ProjectModel.find({}, function(err, projects){
+    var record = {};
+    /* Should lookup projects from organizations related to user :
+        record.organization = user.organizations */
+    ProjectModel.find(record, function(err, projects){
      projectsMap = {};
      projects.map(function(p){projectsMap[p._id] = p;});
      res.json({projects: projectsMap});  
-    });
+    }).limit(20);
 };
 
 controller.update = function(req, res, next) {

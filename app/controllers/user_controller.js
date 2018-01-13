@@ -11,7 +11,8 @@ var UserModel = mongoose.model('User');
 
 controller.read = function(req, res, next) {
     var user = req.user || {};
-
+    var record = Object.assign({}, req.body, req.params);
+    Object.keys(record).length || next();
     var schema = {};
 
     // Joi.validate(record, schema, function(err, value) {
@@ -23,6 +24,11 @@ controller.read = function(req, res, next) {
     //         return;
     //     }
     // });
+};
+
+controller.current = function(req, res) {
+    var user = req.user || {};
+    res.json({user: user});
 };
 
 module.exports = controller;
