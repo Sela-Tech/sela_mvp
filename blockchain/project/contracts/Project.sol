@@ -18,6 +18,7 @@ contract ProjectContract {
         uint endDate;
         bool complete;
         bool success;
+        mapping (string => uint) location; // Has keys "lat" and "long"
         mapping (bool => uint) reports;
     }
 
@@ -72,6 +73,11 @@ contract ProjectContract {
         // TODO: Might help to track this with an event
         project.evaluationAgents[project.numEvaluationAgents] = eAgent;
         project.numEvaluationAgents++;
+    }
+
+    function registerLocation(uint lat, uint long) public ifOwner {
+        project.location["lat"] = lat;
+        project.location["long"] = long;
     }
 
     // Funding Agent and Service Agent commit stake to project execution
