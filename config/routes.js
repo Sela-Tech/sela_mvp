@@ -46,7 +46,8 @@ module.exports = function routes() {
 
     // task
     this.post('/api/v1/task.json', passport.authenticate('local-user', { session: false }), v1Task.createOne);
-    // this.get('/api/v1/task.json', passport.authenticate('local-user', { session: false }), v1Task.readOne);/
+    this.get('/api/v1/task.json', passport.authenticate('local-user', { session: false }), v1Task.readOne);
+    this.get('/api/v1/tasks.json', passport.authenticate('local-user', { session: false }), v1Task.readMany);
     // this.put('/api/v1/tasks.json', passport.authenticate('local-user', { session: false }), v1Task.updateOne);
     // this.delete('/api/v1/task/:id.json', passport.authenticate('local-user', { session: false }), v1Task.deleteOne);
 
