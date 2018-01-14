@@ -123,9 +123,13 @@ controller.readOne = function(req, res, next) {
 controller.readMany = function(req, res, next) {
 
     var user = req.user || {};
+
+    // create a find query object
+	var findQuery = {};
+	findQuery.deleted = false;
     
     ProjectModel
-        .find({}, function(err, projects){
+        .find(findQuery, function(err, projects){
             if(err) {
                 res.status(500);
                 res.json({ errors: 'error'});
@@ -136,6 +140,7 @@ controller.readMany = function(req, res, next) {
                 res.json({ errors: 'error'});
                 return;
             }
+            console.log(projects);
             projectsMap = {};
             projects.map(function(p){projectsMap[p._id] = p;});
             res.json({projects: projectsMap});  
