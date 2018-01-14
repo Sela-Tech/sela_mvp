@@ -15,20 +15,10 @@ controller.dashboard = function(req, res, next) {
     });
 };
 
-controller.read = function(req, res, next) {
+controller.readOne = function(req, res, next) {
     var user = req.user || {};
 
     var schema = {};
-
-    // Joi.validate(record, schema, function(err, value) {
-    //     if (err) {
-    //         res.status(400);
-    //         res.json({
-    //             err: err
-    //         });
-    //         return;
-    //     }
-    // });
 };
 
 module.exports = controller;

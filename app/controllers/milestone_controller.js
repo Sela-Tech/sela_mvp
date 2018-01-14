@@ -74,6 +74,7 @@ controller.createOne = function(req, res, next) {
         
     });
 };
+
 controller.readOne = function(req, res, next) {
 
     var user = req.user;
@@ -109,7 +110,7 @@ controller.readOne = function(req, res, next) {
     }
     
     MilestoneModel
-    .findOne(findQuery)
+        .findOne(findQuery)
 		.populate(populate)
 		.lean()
 		.exec(function(err, result) {
@@ -133,31 +134,53 @@ controller.readOne = function(req, res, next) {
 controller.readMany = function(req, res, next) {
 
     var user = req.user || {};
+
+    var findQuery = {};
+	findQuery.deleted = false;
     
-    MilestoneModel.find({}, function(err, milestones){
-        if(err) {
-            res.status(500);
-            res.json({ errors: 'error'});
-            return;
-        }
-        if(!milestones) {
-            res.status(404);
-            res.json({ errors: 'error'});
-            return;
-        }
-        milestonesMap = {};
-        milestones.map(function(p){milestonesMap[p._id] = p;});
-        res.json({milestones: milestonesMap});  
-    });
+    MilestoneModel
+        .find(findQuery, function(err, milestones){
+            if(err) {
+                res.status(500);
+                res.json({ errors: 'error'});
+                return;
+            }
+            if(!milestones) {
+                res.status(404);
+                res.json({ errors: 'error'});
+                return;
+            }
+            milestonesMap = {};
+            milestones.map(function(m){milestonesMap[m._id] = m;});
+            res.json({milestones: milestonesMap});  
+        });
 };
 
 
 controller.updateOne = function(req, res, next) {
     var user = req.user || {};
+    res.status(418);
 };
 
 controller.deleteOne = function(req, res, next) {
     var user = req.user || {};
+    res.status(418);
 };
+
+controller.before([
+    '*'
+], function(req, res, next) {
+
+    if (!req.isAuthenticated()) {
+        res.status(401);
+        res.json({
+            errors: 'UNAUTHORIZED'
+        });
+        return;
+    }
+
+    next();
+
+});
 
 module.exports = controller;

@@ -99,7 +99,7 @@ controller.readOne = function(req, res, next) {
     }
     
     ProjectModel
-    .findOne(findQuery)
+        .findOne(findQuery)
 		.populate(populate)
 		.lean()
 		.exec(function(err, result) {
@@ -124,29 +124,78 @@ controller.readMany = function(req, res, next) {
 
     var user = req.user || {};
     
-    ProjectModel.find({}, function(err, projects){
-        if(err) {
-            res.status(500);
-            res.json({ errors: 'error'});
-            return;
-        }
-        if(!projects) {
-            res.status(404);
-            res.json({ errors: 'error'});
-            return;
-        }
-        projectsMap = {};
-        projects.map(function(p){projectsMap[p._id] = p;});
-        res.json({projects: projectsMap});  
-    });
+    ProjectModel
+        .find({}, function(err, projects){
+            if(err) {
+                res.status(500);
+                res.json({ errors: 'error'});
+                return;
+            }
+            if(!projects) {
+                res.status(404);
+                res.json({ errors: 'error'});
+                return;
+            }
+            projectsMap = {};
+            projects.map(function(p){projectsMap[p._id] = p;});
+            res.json({projects: projectsMap});  
+        });
 };
 
 controller.updateOne = function(req, res, next) {
     var user = req.user || {};
+    res.status(418);
 };
 
 controller.deleteOne = function(req, res, next) {
     var user = req.user || {};
+    res.status(418);
 };
+
+controller.addContractor = function(req, res, next) {
+    var user = req.user || {};
+    res.status(418);
+};
+
+controller.getContractors = function(req, res, next) {
+    var user = req.user || {};
+    res.status(418);
+};
+
+controller.removeContractor = function(req, res, next) {
+    var user = req.user || {};
+    res.status(418);
+};
+
+controller.addObserver = function(req, res, next) {
+    var user = req.user || {};
+    res.status(418);
+};
+
+controller.getObservers = function(req, res, next) {
+    var user = req.user || {};
+    res.status(418);
+};
+
+controller.removeObserver = function(req, res, next) {
+    var user = req.user || {};
+    res.status(418);
+};
+
+controller.before([
+    '*'
+], function(req, res, next) {
+
+    if (!req.isAuthenticated()) {
+        res.status(401);
+        res.json({
+            errors: 'UNAUTHORIZED'
+        });
+        return;
+    }
+
+    next();
+
+});
 
 module.exports = controller;
