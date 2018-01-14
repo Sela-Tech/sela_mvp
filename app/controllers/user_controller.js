@@ -21,4 +21,16 @@ controller.readOne = function(req, res, next) {
     var schema = {};
 };
 
+controller.readMany = function(req, res, next) {
+    var user = req.user || {};
+
+    var schema = {};
+};
+
+controller.updateOne = function(req, res, next) {
+    var user = req.user || {};
+
+    var schema = {};
+};
+
 module.exports = controller;

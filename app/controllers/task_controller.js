@@ -9,7 +9,7 @@ var controller = new Controller();
 var UserModel = mongoose.model('User');
 var TaskModel = mongoose.model('Task');
 
-controller.create = function(req, res, next) {
+controller.createOne = function(req, res, next) {
     var user = req.user || {};
 
     var record = {};
@@ -106,7 +106,7 @@ controller.readMany = function(req, res, next) {
 	findQuery.deleted = false;
     
     TaskModel
-        .find(findQuery, function(err, tasks){
+        .findAll(findQuery, function(err, tasks){
             if(err) {
                 res.status(500);
                 res.json({ errors: 'error'});
