@@ -10,11 +10,13 @@ var milestoneStructure = {
         default: []
     },
     status: {
-        type: Boolean
+        type: Boolean,
+        default: true
     },
     project: {
         type: ObjectId,
-        ref: 'Project'
+        ref: 'Project',
+        required: true,
     },
     createdById: {
         type: ObjectId,
