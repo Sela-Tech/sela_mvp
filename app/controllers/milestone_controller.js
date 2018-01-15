@@ -26,10 +26,11 @@ controller.createOne = function(req, res, next) {
             ProjectModel
                 .findOne({
                     _id: record.project,
+                    owner: user._id,
                     deleted: false
                 })
                 .exec(function(err, project) {
-                    if(err)cb(err);
+                    if(err) return cb(err);
                     cb(null, project);
                     return;
                 });
