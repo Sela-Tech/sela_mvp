@@ -7,10 +7,181 @@ var Controller = require('./base_controller');
 // instances
 var controller = new Controller();
 var UserModel = mongoose.model('User');
+var ProjectModel = mongoose.model('Project');
 var MilestoneModel = mongoose.model('Milestone');
 
-controller.create = function(req, res, next) {
+controller.createOne = function(req, res, next) {
     var user = req.user || {};
+    
+    var record = {};
+    record.project = req.body.projectId;
+    record.createdById = user._id;
+
+    if(req.body.status) {
+        record.status = req.body.status;
+    } 
+
+    async.series({
+        project: function(cb) {
+            ProjectModel
+                .findOne({
+                    _id: record.project,
+                    owner: user._id,
+                    deleted: false
+                })
+                .exec(function(err, project) {
+                    if(err) return cb(err);
+                    cb(null, project);
+                    return;
+                });
+        },
+    },function(err, results) {
+        if(err) {
+            res.status(500);
+            res.json({
+                error: 'Server error'
+            });
+        }
+
+        if(!result.project) {
+            res.status(404);
+            res.json({
+                error: 'Project not found'
+            });
+        }
+
+        var milestone = MilestoneModel(record);
+        milestone.save(function(err, result) {
+            if (err) {
+                res.status(500);
+                res.json({
+                    err: err
+                });
+                return;
+            }
+            if (!result) {
+                res.status(404);
+                res.json({
+                    err: 'record not found'
+                });
+                return;
+            }
+    
+            res.status(201);
+            res.json({
+                result: "Success"
+            });
+        });
+        
+    });
 };
+
+controller.readOne = function(req, res, next) {
+
+    var user = req.user;
+
+    var populate = req.query.populate || '';
+    
+    var id = req.query.id;
+
+    var schema = jsSchema({
+        '?id': /^[a-f\d]{24}$/i, 
+    });
+
+    var invalid = schema.errors({
+        id: id
+    });
+
+    if (invalid) {
+        res.status(400);
+        res.json({
+            error: 'invalid id'
+        });
+        return;
+    }
+
+    // create a find query object
+	var findQuery = {};
+	findQuery.deleted = false;
+
+	findQuery._id = id;
+
+	if (!id) {
+		findQuery._id = user._id;
+    }
+    
+    MilestoneModel
+        .findOne(findQuery)
+		.populate(populate)
+		.lean()
+		.exec(function(err, result) {
+            if(err) {
+                res.status(500);
+                res.json({ errors: 'error'});
+                return;
+            }
+            if(!result) {
+                res.status(404);
+                res.json({ errors: 'error'});
+                return;
+            }
+            res.json({
+				result: result,
+			});
+        });
+
+};
+
+controller.readMany = function(req, res, next) {
+
+    var user = req.user || {};
+
+    var findQuery = {};
+	findQuery.deleted = false;
+    
+    MilestoneModel
+        .find(findQuery, function(err, milestones){
+            if(err) {
+                res.status(500);
+                res.json({ errors: 'error'});
+                return;
+            }
+            if(!milestones) {
+                res.status(404);
+                res.json({ errors: 'error'});
+                return;
+            }
+            milestonesMap = {};
+            milestones.map(function(m){milestonesMap[m._id] = m;});
+            res.json({milestones: milestonesMap});  
+        });
+};
+
+
+controller.updateOne = function(req, res, next) {
+    var user = req.user || {};
+    res.status(501);
+};
+
+controller.deleteOne = function(req, res, next) {
+    var user = req.user || {};
+    res.status(501);
+};
+
+controller.before([
+    '*'
+], function(req, res, next) {
+
+    if (!req.isAuthenticated()) {
+        res.status(401);
+        res.json({
+            errors: 'UNAUTHORIZED'
+        });
+        return;
+    }
+
+    next();
+
+});
 
 module.exports = controller;

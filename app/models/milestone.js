@@ -6,14 +6,21 @@ var ObjectId = Schema.Types.ObjectId;
 var milestoneStructure = {
     tasks: {
         type: [ObjectId],
-        ref: 'Task'
+        ref: 'Task',
+        default: []
     },
     status: {
-        type: Boolean
+        type: Boolean,
+        default: true
     },
     project: {
         type: ObjectId,
-        ref: 'Project'
+        ref: 'Project',
+        required: true,
+    },
+    createdById: {
+        type: ObjectId,
+        ref: 'User'
     },
     created: {
         type: Date,
