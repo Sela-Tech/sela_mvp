@@ -29,6 +29,15 @@ var taskStructure = {
     status: {
         type: Boolean
     },
+    createdById: {
+        type: ObjectId,
+        ref: 'User'
+    },
+    completedById: {
+        type: ObjectId,
+        ref: 'User',
+        default: null
+    },
     created: {
         type: Date,
         default: Date.now()

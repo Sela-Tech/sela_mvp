@@ -19,18 +19,32 @@ controller.readOne = function(req, res, next) {
     var user = req.user || {};
 
     var schema = {};
+
+    res.status(501);
 };
 
 controller.readMany = function(req, res, next) {
     var user = req.user || {};
 
     var schema = {};
+
+    res.status(501);
 };
 
 controller.updateOne = function(req, res, next) {
     var user = req.user || {};
 
     var schema = {};
+
+    res.status(501);
+};
+
+controller.getUserProjects = function(req, res, next) {
+    var user = req.user || {};
+
+    var schema = {};
+
+    res.status(501);
 };
 
 module.exports = controller;
