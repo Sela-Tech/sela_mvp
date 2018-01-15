@@ -30,6 +30,9 @@ module.exports = function routes() {
 
     // API ROUTES
 
+    // chat
+    // this.post('/api/v1/chat.json', v1Chat.createOne);
+
     // milestones
     this.post('/api/v1/milestone.json', passport.authenticate('local-user', { session: false }), v1Milestone.createOne);
     this.get('/api/v1/milestone.json', passport.authenticate('local-user', { session: false }), v1Milestone.readOne);
