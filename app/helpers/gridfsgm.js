@@ -1,21 +1,27 @@
 // libraries
 var gm = require('gm');
 var im = require('imagemagick');
-var mongo = require('mongodb');
+var mongoose = require('mongoose');
 var fs = require('fs');
 var Grid = require('gridfs-stream');
-
+Grid.mongo = mongoose.mongo;
 // classes
-var ObjectId = require('mongoose').Schema.Types.ObjectId;
+var ObjectId = mongoose.Schema.Types.ObjectId;
+
+var gridfs;
 
 var GridfsHelper = function() {
-    var self = this;
+	var self = this;
+	
+	mongoose.connection.once('open', function () {
+		gridfs = Grid(mongoose.connection.db);
+	});
 
-    self.write = function() {};
+    self.write = function(id, path, callback) {};
 
-    self.read = function() {};
+    self.read = function(id, preset, callback) {};
 
-    self.remove = function() {};
+    self.remove = function(id, callback) {};
 
 	return {
 		write: self.write,
