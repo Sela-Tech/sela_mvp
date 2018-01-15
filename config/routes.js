@@ -68,6 +68,6 @@ module.exports = function routes() {
     this.get('/api/v1/user.json', passport.authenticate('local-user', { session: false }), v1User.readOne);
     this.get('/api/v1/users.json', passport.authenticate('local-user', { session: false }), v1User.readMany);
     // this.put('/api/v1/user.json', passport.authenticate('local-user', { session: false }), v1User.updateOne);
-    this.get('/api/v1/user/projects.json', passport.authenticate('local-user', { session: false }), v1User.getUserProjects);
+    // this.get('/api/v1/user/projects.json', passport.authenticate('local-user', { session: false }), v1User.getUserProjects);
 
 };

@@ -88,7 +88,7 @@ if (process.env.NODE_ENV === 'development') {
     };
 }
 
-var ProjectCotractorSchema = new Schema(projectContractorStructure, schemaOptions);
+var ProjectContractorSchema = new Schema(projectContractorStructure, schemaOptions);
 
 ProjectCotractorSchema.method.delete = function(cb) {
     var self = this;
@@ -102,5 +102,5 @@ module.exports = function(connection) {
     if (!connection) {
         connection = mongoose;
     }
-    connection.model('ProjectCotractor', ProjectCotractorSchema);
+    connection.model('ProjectContractor', ProjectContractorSchema);
 };

@@ -1,12 +1,15 @@
 //libraries
+var async = require('async');
 var mongoose = require('mongoose');
-var Joi = require('joi');
+var jsSchema = require('js-schema');
 
 // classes
 var Controller = require('./base_controller');
 
 // instances
 var controller = new Controller();
+var ProjectContractorModel = mongoose.model('ProjectContractor');
+var ProjectObserverModel = mongoose.model('ProjectObserver');
 var UserModel = mongoose.model('User');
 
 controller.dashboard = function(req, res, next) {
@@ -16,11 +19,58 @@ controller.dashboard = function(req, res, next) {
 };
 
 controller.readOne = function(req, res, next) {
+
     var user = req.user || {};
 
-    var schema = {};
+    var populate = req.query.populate || '';
 
-    res.status(501);
+    var id = req.query.id;
+
+    var schema = jsSchema({
+        '?id': /^[a-f\d]{24}$/i, 
+    });
+
+    var invalid = schema.errors({
+        id: id
+    });
+
+    if (invalid) {
+        res.status(400);
+        res.json({
+            error: 'invalid id'
+        });
+        return;
+    }
+    
+    // create a find query object
+	var findQuery = {};
+    findQuery.deleted = false;
+    findQuery._id = id;
+
+	if (!id) {
+		findQuery._id = user._id;
+    }
+    
+    UserModel
+        .findOne(findQuery)
+        .populate(populate)
+        .lean()
+        .exec(function(err, result) {
+            if(err) {
+                res.status(500);
+                res.json({ errors: 'error'});
+                return;
+            }
+            if(!result) {
+                res.status(404);
+                res.json({ errors: 'error'});
+                return;
+            }
+            res.json({
+                result: result,
+            });
+        });
+
 };
 
 controller.readMany = function(req, res, next) {
@@ -42,9 +92,59 @@ controller.updateOne = function(req, res, next) {
 controller.getUserProjects = function(req, res, next) {
     var user = req.user || {};
 
-    var schema = {};
+    var populate = req.query.populate || '';
 
-    res.status(501);
+    var id = req.query.id;
+    var project_id = req.query.project_id;
+
+    var schema = jsSchema({
+        '?id': /^[a-f\d]{24}$/i,
+        '?project_id': /^[a-f\d]{24}$/i, 
+    });
+
+    var invalid = schema.errors({
+        id: id,
+        project_id: project_id
+    });
+
+    if (invalid) {
+        res.status(400);
+        res.json({
+            error: 'invalid id'
+        });
+        return;
+    }
+    
+    // create a find query object
+	var findQuery = {};
+    findQuery.deleted = false;
+    findQuery._id = id;
+
+	if (!id) {
+		findQuery._id = user._id;
+    }
+
+    async.series();
+    
+    UserModel
+        .findOne(findQuery)
+        .populate(populate)
+        .lean()
+        .exec(function(err, result) {
+            if(err) {
+                res.status(500);
+                res.json({ errors: 'error'});
+                return;
+            }
+            if(!result) {
+                res.status(404);
+                res.json({ errors: 'error'});
+                return;
+            }
+            res.json({
+                result: result,
+            });
+        });
 };
 
 module.exports = controller;
