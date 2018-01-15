@@ -19,9 +19,28 @@ var GridfsHelper = function() {
 		gridfs = Grid(mongoose.connection.db);
 	});
 
-    self.write = function(id, path, callback) {};
+    self.write = function(id, path, callback) {
 
-    self.read = function(id, preset, callback) {};
+		var options = {};
+
+		var writeStream = gridfs.createWriteStream(options);
+		writeStream.on('close', function(file) {
+			if (file) {
+				callback(null, file);
+				return;
+			}
+		})
+		.on('error', function(err){
+			callback(err, null);
+			return;
+		});
+
+	};
+
+	self.read = function(id, preset, callback) {};
+	
+	// TODO: If planning on streaming video will need this copleted
+	self.watch = function() {};
 
     self.remove = function(id, callback) {
 
