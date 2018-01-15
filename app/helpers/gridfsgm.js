@@ -44,7 +44,22 @@ var GridfsHelper = function() {
 			}
 
 			var i = 0;
-			var watch = function(err, result) {};
+			var watch = function(err, result) {
+				if(i == -1) {
+					return;
+				}	
+
+				i++;
+
+				if (err) {
+					callback(err, result);
+					return;
+				}
+
+				if(i  == 2) {
+					callback(null, result);
+				}
+			};
 
 			// ONLY use this logic if add metadata to files
 			// if(file.metadata) {
