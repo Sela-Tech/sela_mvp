@@ -1,3 +1,5 @@
+import {lchmod} from 'fs';
+
 // libraries
 var gm = require('gm');
 var im = require('imagemagick');
@@ -12,7 +14,7 @@ var gridfs;
 
 var GridfsHelper = function() {
 	var self = this;
-	
+
 	mongoose.connection.once('open', function () {
 		gridfs = Grid(mongoose.connection.db);
 	});
@@ -21,7 +23,43 @@ var GridfsHelper = function() {
 
     self.read = function(id, preset, callback) {};
 
-    self.remove = function(id, callback) {};
+    self.remove = function(id, callback) {
+
+		if (!id) {
+			callback(true, null);
+			return;
+		}
+
+		gridfs.files.findOne({
+			_id: ObjectId(id)
+		}, function(err, file) {
+			if(err) {
+				callback(err, null);
+				return;
+			}
+
+			if(!file) {
+				callback(null, null);
+				return;
+			}
+
+			var i = 0;
+			var watch = function(err, result) {};
+
+			// ONLY use this logic if add metadata to files
+			// if(file.metadata) {
+			// 	gridfs.remove({
+			// 		_id: file.metadata
+			// 	}, watch);
+			// } else {
+			// 	watch(null, null);
+			// }
+
+			gridfs.remove({
+				_id: id
+			}, watch);
+		});
+	};
 
 	return {
 		write: self.write,
