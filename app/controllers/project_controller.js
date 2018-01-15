@@ -149,42 +149,42 @@ controller.readMany = function(req, res, next) {
 
 controller.updateOne = function(req, res, next) {
     var user = req.user || {};
-    res.status(418);
+    res.status(501);
 };
 
 controller.deleteOne = function(req, res, next) {
     var user = req.user || {};
-    res.status(418);
+    res.status(501);
 };
 
 controller.addContractor = function(req, res, next) {
     var user = req.user || {};
-    res.status(418);
+    res.status(501);
 };
 
 controller.getContractors = function(req, res, next) {
     var user = req.user || {};
-    res.status(418);
+    res.status(501);
 };
 
 controller.removeContractor = function(req, res, next) {
     var user = req.user || {};
-    res.status(418);
+    res.status(501);
 };
 
 controller.addObserver = function(req, res, next) {
     var user = req.user || {};
-    res.status(418);
+    res.status(501);
 };
 
 controller.getObservers = function(req, res, next) {
     var user = req.user || {};
-    res.status(418);
+    res.status(501);
 };
 
 controller.removeObserver = function(req, res, next) {
     var user = req.user || {};
-    res.status(418);
+    res.status(501);
 };
 
 controller.before([

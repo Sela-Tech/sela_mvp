@@ -159,12 +159,12 @@ controller.readMany = function(req, res, next) {
 
 controller.updateOne = function(req, res, next) {
     var user = req.user || {};
-    res.status(418);
+    res.status(501);
 };
 
 controller.deleteOne = function(req, res, next) {
     var user = req.user || {};
-    res.status(418);
+    res.status(501);
 };
 
 controller.before([
