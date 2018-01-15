@@ -90,7 +90,7 @@ if (process.env.NODE_ENV === 'development') {
 
 var ProjectContractorSchema = new Schema(projectContractorStructure, schemaOptions);
 
-ProjectCotractorSchema.method.delete = function(cb) {
+ProjectContractorSchema.method.delete = function(cb) {
     var self = this;
     self.deleted = true;
     self.save(cb);
