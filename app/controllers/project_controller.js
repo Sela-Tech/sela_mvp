@@ -15,13 +15,13 @@ controller.create = function(req, res, next) {
     var user = req.user || {};
 
     var record = {};
-    record.project_name = req.body.projectName;
-    record.project_description = req.body.projectDescription;
-    record.start_date = new Date(req.body.startDate);
+    record.project_name = req.body.projectName || 'The Big Project';
+    record.project_description = req.body.projectDescription || 'A most impactful project.';
+    record.start_date = new Date(req.body.startDate || '2018-01-11');
 
     if (req.body.endDate) {
         record.end_date = new Date(req.body.endDate);
-    }
+    } else record.end_date = new Date('2018-02-11');
 
     if (record.start_date >= record.end_date) {
         res.status(400);
@@ -29,7 +29,23 @@ controller.create = function(req, res, next) {
             error: "End Date must be after start date."
         });
     }
-
+    var project = new ProjectModel(record);
+       
+    project.save(function (err) {
+        if (err) {
+          console.log('projectcreation error:', err);
+          res.status(500);
+          res.json({
+            success: false,
+            err: err
+          });
+          return;
+        }
+        console.log('New Project:', project);
+        res.json({
+            success: true
+        });
+    });
     // TODO need to store owner ObjectID
     // record.owner = req.body.projectOwner;
 
@@ -56,9 +72,9 @@ controller.create = function(req, res, next) {
     //         return;
     //     }
 
-    res.json({
-        result: "Success"
-    });
+    // res.json({
+    //     result: "Success"
+    // });
     // });
 
 };

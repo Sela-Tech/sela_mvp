@@ -14,6 +14,7 @@ module.exports = function routes() {
     this.get('/blog', public.blog);
     this.get('/signup', public.begin);
     this.get('/project', public.project);
+    this.get('/app', public.client);
 
     // access
     this.post('/api/v1/signup.json', public.signup);
