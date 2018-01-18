@@ -1,8 +1,7 @@
 import React, {Component} from 'react';
 // assets
-
-import logo from '../logo3.png';
-import avatar from '../avatar5.png';
+import logo from '../assets/img/logo3.png';
+import avatar from '../assets/img/avatar5.png';
 
 
 class AppBar extends Component {
@@ -30,7 +29,7 @@ class AppBar extends Component {
 const ProfileMenu = () => (
 	<li className="dropdown">
 	    <a className='dropdown-button user-pro' href='#' data-activates='dropdown-user'>
-	        <img src={avatar} className="img-circle" height="45" width="50" alt="User Image" />
+	        <img src={avatar} className="img-circle" height="45" width="50" alt="User" />
 	    </a>
 	    <ul id='dropdown-user' className='dropdown-content'>
 	        <li>
@@ -65,4 +64,17 @@ const MenuItem = ({title, icon, children}) => (
 	<li><a href="javascript:void(0)"><i className="material-icons">{icon}</i>{title}</a></li>
 );
 
+const TopHeader = ({title, icon, description}) => (
+  <section className="content-header">
+      <div className="header-icon">
+          <i className="material-icons">{icon}</i>
+      </div>
+      <div className="header-title">
+          <h1> {title}</h1>
+          <small>{description}</small>
+      </div>
+  </section>
+);
+
 export default AppBar;
+export {TopHeader};

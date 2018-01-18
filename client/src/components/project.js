@@ -6,6 +6,11 @@ import {Link, Redirect, Route, Switch} from 'react-router-dom';
 import CountUp from 'react-countup';
 import Calendar from 'fullcalendar-reactwrapper';
 import {VectorMap} from 'react-jvectormap';
+import SimpleMap from './maps';
+
+// assets
+import '../assets/css/project.css';
+
 
 const CustomLink = ({to, label}) => (
 	<Route path={to} children={({match}) => (
@@ -35,15 +40,8 @@ const ProjectTile = ({...props, proj}) => (
     </div>
 );
 
+
 class AllProjects extends Component {
-	componentDidMount(){
-		this.props.setHeader(this.props.header);
-	}
-
-	switchProject = (projectId) => {
-		this.props.switchProject(projectId);
-	};
-
 	getState(){
 		return this.props.parentState;
 	}
@@ -61,11 +59,22 @@ class AllProjects extends Component {
 	      }
 	      return null;
 	    });
-	    return !this.getState().fetched ? <div className="col-md-12 text-center">
-			<p className="lead">Loading projects...</p>
-		</div> : <div className="col-lg-8 col-md-12 col-sm-12 col-xs-12">
-	    	{projectEls ? React.Children.toArray(projectEls) : ''}
-	    </div> 
+	    return <div className="projects-container"> 
+	    	<div className="page-content p-t-24"> 
+		    	<div className="col-md-12 p-24">
+		    		<Link to="" className="waves-effect waves-light btn indigo">
+		              <i className="material-icons left">add</i>new project
+		            </Link>
+		    	</div>
+		    	<div className="clearfix"></div>
+		    	{!this.getState().fetched ? <div className="col-md-12 text-center">
+					<p className="lead">Loading projects...</p>
+				</div> : <div className="col-lg-8 col-md-12 col-sm-12 col-xs-12">
+			    	{projectEls ? React.Children.toArray(projectEls) : ''}
+			    </div>}
+			</div> 
+		    <div className="bottom-fixed"><ProjectMap /></div>
+		</div>
 	}
 }
 
@@ -182,6 +191,11 @@ const Locations = (props) => (
            containerClassName="map" 
            markers={[{latLng: [4.658696, 7.269298], label: 'Loc1'}]}/>
     </div>
+);
+
+const ProjectMap = () => (
+	<SimpleMap
+		 markers={[[4.658696, 7.269298, 'A']]}/>
 );
 
 export {AllProjects, Project};

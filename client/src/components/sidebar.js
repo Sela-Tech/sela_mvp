@@ -1,5 +1,8 @@
 import React, {Component} from 'react';
-
+import {
+    Link, 
+    Route
+} from 'react-router-dom';
 
 class SideBar extends Component {
 	render(){
@@ -8,12 +11,10 @@ class SideBar extends Component {
                 <div className="sidebar-nav navbar-collapse">
                     <ul className="nav" id="side-menu">
                         <li className="list-header">Main Navigation ---</li>
-                        <li className="active-link"><a href="/index.html"><i className="material-icons">dashboard</i>Dashboard</a></li>
-                        <li><a><i className="material-icons">pie_chart</i>Projects</a>
-                            <ul className="nav nav-second-level">
-                                <li><a href="/projects/all"><i className="material-icons">public</i>public</a></li>
-                            </ul>
-                        </li>
+                        <MenuItem title="Dashboard" icon="dashboard" to="/dashboard" />
+                        <MenuItem title="Projects" icon="pie_chart" to="/projects">
+                            <MenuItem title="Public" icon="public" to="/project/all" />
+                        </MenuItem>
                         <li className="side-last"></li>
                     </ul>
                 </div>
@@ -22,12 +23,14 @@ class SideBar extends Component {
 	}
 }
 
-const MenuItem = ({title, icon, children}) => (
-	<li><a><i className="material-icons">{icon}</i>{title}</a>
-        {children ? <ul className="nav nav-second-level">
-            {children}
-        </ul> : ''}
-    </li>
+const MenuItem = ({title, to, icon, children}) => (
+	<Route path={to} children={({match}) => (
+        <li className={match ? 'active-link' : ''}>
+            {children ? <Link to={to}><i className="material-icons">{icon}</i>{title}</Link>
+                : <a href="javascript:void(0)"><i className="material-icons">{icon}</i>{title}</a>}
+            {children ? <ul className="nav nav-second-level">{children}</ul> : ''}
+        </li>)} />
 );
 
 export default SideBar;
+export {MenuItem};

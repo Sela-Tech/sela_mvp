@@ -6,14 +6,17 @@ import {
   BrowserRouter as Router,
   Route,
   Link,
-  Redirect
+  Redirect,
+  Switch
 } from 'react-router-dom';
 import {AllProjects, Project} from './components/project';
 import AppBar from './components/appbar';
 import SideBar from './components/sidebar';
+import Dashboard from './components/dashboard';
+import {TopHeader} from './components/appbar';
 // assets
-import loading from './loading.png';
-import './App.css';
+import loading from './assets/img/loading.png';
+import './assets/css/App.css';
 import 'fullcalendar-reactwrapper/dist/css/fullcalendar.min.css';
 
 const PROJECT_ENDPOINT = '/api/v1/project.json';
@@ -34,24 +37,14 @@ const fetchJson = (url) => {
 const RouteWithSubRoutes = (route) => (
   <Route path={route.path} render={props => (
     // pass the sub-routes down to keep nesting
-    <route.component {...props} 
-      setHeader={route.setHeader}
-      header={route.header}
-      parentState={route.parentState} 
-      routes={route.routes}/>
+    <div className="route-container">
+      <TopHeader {...route.header} />
+      <route.component {...props}
+        header={route.header}
+        parentState={route.parentState} 
+        routes={route.routes}/>
+    </div>
   )}/>
-);
-
-const TopHeader = ({title, icon, description}) => (
-  <section className="content-header">
-      <div className="header-icon">
-          <i className="material-icons">{icon}</i>
-      </div>
-      <div className="header-title">
-          <h1> {title}</h1>
-          <small>{description}</small>
-      </div>
-  </section>
 );
 
 
@@ -112,30 +105,17 @@ class App extends Component {
     let _self = this;
     return <Router>
       <div id="wrapper">
-        <AppBar>
-          <li>
-            <Link to="" className="waves-effect waves-light btn indigo">
-              <span class="material-icons left">add</span>create
-            </Link>
-          </li>
-        </AppBar>
+        <AppBar />
         <SideBar />
         <div id="page-content-wrapper">
-          <div className="page-content">
-              <TopHeader {...this.state.header} />
-              <div className="container-fluid">
-                  <div className="row">
-                      {routes.map((route, i) => (
-                        <RouteWithSubRoutes key={i}
-                          parentState={_self.state}
-                          setHeader={_self.setHeader}
-                          switchProject={_self.switchProject}
-                          {...route} />
-                      ))}
-                  </div>
-              </div>
-            
-          </div>
+          <Switch>
+            {routes.map((route, i) => (
+              <RouteWithSubRoutes key={i}
+                parentState={_self.state}
+                {...route} />
+            ))}
+            <Redirect to="/dashboard" />
+          </Switch>
         </div>
       </div>
     </Router>
@@ -154,6 +134,9 @@ const routes = [
   { path: '/projects/summary/:id',
     component: Project
   },
+  { path: '/dashboard',
+    component: Dashboard
+  }
 ];
 
 

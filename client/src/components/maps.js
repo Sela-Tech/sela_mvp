@@ -51,5 +51,5 @@ export default class SimpleMap extends PureComponent {
 
 const style = {
   height: '40%',
-  minHeight: 250 
+  maxHeight: 250 
 };

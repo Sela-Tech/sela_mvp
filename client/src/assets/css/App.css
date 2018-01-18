@@ -1,10 +1,10 @@
 /* make these the same height as viewport */
-html, body, #root, #wrapper, #page-content-wrapper, .page-content {
+html, body, #root, #wrapper, #page-content-wrapper, .page-content, .route-container {
   height: 100%;
   min-height: 100%;
 }
 
-#page-content-wrapper {
+#page-content-wrapper, .route-container  {
   overflow: hidden;
   padding-right: 0;
   padding-left: 0;
@@ -13,6 +13,11 @@ html, body, #root, #wrapper, #page-content-wrapper, .page-content {
 .page-content {
   overflow-x: hidden;
   overflow-y: auto;
+  padding-top: 32px;
+}
+
+.content-header {
+  margin-bottom: 0;
 }
 
 .App {
