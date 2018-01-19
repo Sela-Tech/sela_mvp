@@ -35,7 +35,7 @@ controller.begin = function(req, res, next) {
 
 controller.project = function(req, res, next) {
     res.sendFile('form.html', {
-        root: FRONTEND + '/project_creation'
+        root: FRONTEND + '/dashboard'
     });
 };
 
@@ -52,8 +52,6 @@ controller.signup = function(req, res, next) {
     record.family_name = req.body.lastname;
     record.email = req.body.email;
     record.password = req.body.password;
-
-    record.accountType = req.body.accountType;
 
     var confirm = req.body.confirm;
 

@@ -3,22 +3,15 @@ var mongoose = require('mongoose');
 var Schema = mongoose.Schema;
 var ObjectId = Schema.Types.ObjectId;
 
-var milestoneStructure = {
-    tasks: {
-        type: [ObjectId],
-        ref: 'Task',
-        default: []
+var chatStructure = {
+    telegramId: {
+        type: String,
     },
-    status: {
-        type: Boolean,
-        default: true
-    },
-    project: {
+    senderId: {
         type: ObjectId,
-        ref: 'Project',
-        required: true,
+        ref: 'User'
     },
-    createdById: {
+    recieverId: {
         type: ObjectId,
         ref: 'User'
     },
@@ -32,7 +25,7 @@ var milestoneStructure = {
     }
 };
 var schemaOptions = {
-    collection: 'milestones',
+    collection: 'chats',
     minimize: false,
     id: false,
     toJSON: {
@@ -54,13 +47,13 @@ var schemaOptions = {
 };
 
 if (process.env.NODE_ENV === 'development') {
-    milestoneStructure.test = {
+    chatStructure.test = {
         type: Boolean,
         default: true,
     };
 }
 
-var MilestoneSchema = new Schema(milestoneStructure, schemaOptions);
+var ChatSchema = new Schema(chatStructure, schemaOptions);
 
 //Export model
 module.exports = function(connection) {
@@ -68,5 +61,5 @@ module.exports = function(connection) {
     if (!connection) {
         connection = mongoose;
     }
-    connection.model('Milestone', MilestoneSchema);
+    connection.model('Chat', ChatSchema);
 };

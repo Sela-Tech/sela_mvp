@@ -1,46 +1,25 @@
 //libraries
 var async = require('async');
 var mongoose = require('mongoose');
-var jsSchema = require('js-schema');
-
 // classes
 var Controller = require('./base_controller');
 
 // instances
 var controller = new Controller();
 var UserModel = mongoose.model('User');
-var ProjectModel = mongoose.model('Project');
+var TaskModel = mongoose.model('Task');
 
 controller.createOne = function(req, res, next) {
-
     var user = req.user || {};
 
     var record = {};
-    record.project_name = req.body.projectName;
-    record.project_description = req.body.projectDescription;
-    record.start_date = new Date(req.body.startDate);
-
-    if (req.body.endDate) {
-        record.end_date = new Date(req.body.endDate);
-    }
-
-    if (record.start_date >= record.end_date) {
-        res.status(400);
-        res.json({
-            error: "End date must be after start date."
-        });
-    }
+    record.name = req.body.projectName;
+    record.description = req.body.projectDescription;
 
     record.owner = user._id;
 
-    // TODO need to store location
-    // record.location = {};
-    // record.location.name =
-    // record.location.lat =
-    // record.location.long =
-
-    var project = ProjectModel(record);
-    project.save(function(err, result) {
+    var task = TaskModel(record);
+    task.save(function(err, result) {
         if (err) {
             res.status(500);
             res.json({
@@ -61,7 +40,6 @@ controller.createOne = function(req, res, next) {
             result: "Success"
         });
     });
-
 };
 
 controller.readOne = function(req, res, next) {
@@ -98,7 +76,7 @@ controller.readOne = function(req, res, next) {
 		findQuery._id = user._id;
     }
     
-    ProjectModel
+    TaskModel
         .findOne(findQuery)
 		.populate(populate)
 		.lean()
@@ -124,28 +102,27 @@ controller.readMany = function(req, res, next) {
 
     var user = req.user || {};
 
-    // create a find query object
-	var findQuery = {};
+    var findQuery = {};
 	findQuery.deleted = false;
     
-    ProjectModel
-        .find(findQuery, function(err, projects){
+    TaskModel
+        .findAll(findQuery, function(err, tasks){
             if(err) {
                 res.status(500);
                 res.json({ errors: 'error'});
                 return;
             }
-            if(!projects) {
+            if(!tasks) {
                 res.status(404);
                 res.json({ errors: 'error'});
                 return;
             }
-            console.log(projects);
-            projectsMap = {};
-            projects.map(function(p){projectsMap[p._id] = p;});
-            res.json({projects: projectsMap});  
+            tasksMap = {};
+            tasks.map(function(t){tasksMap[t._id] = t;});
+            res.json({tasks: tasksMap});  
         });
 };
+
 
 controller.updateOne = function(req, res, next) {
     var user = req.user || {};
@@ -156,51 +133,5 @@ controller.deleteOne = function(req, res, next) {
     var user = req.user || {};
     res.status(501);
 };
-
-controller.addContractor = function(req, res, next) {
-    var user = req.user || {};
-    res.status(501);
-};
-
-controller.getContractors = function(req, res, next) {
-    var user = req.user || {};
-    res.status(501);
-};
-
-controller.removeContractor = function(req, res, next) {
-    var user = req.user || {};
-    res.status(501);
-};
-
-controller.addObserver = function(req, res, next) {
-    var user = req.user || {};
-    res.status(501);
-};
-
-controller.getObservers = function(req, res, next) {
-    var user = req.user || {};
-    res.status(501);
-};
-
-controller.removeObserver = function(req, res, next) {
-    var user = req.user || {};
-    res.status(501);
-};
-
-controller.before([
-    '*'
-], function(req, res, next) {
-
-    if (!req.isAuthenticated()) {
-        res.status(401);
-        res.json({
-            errors: 'UNAUTHORIZED'
-        });
-        return;
-    }
-
-    next();
-
-});
 
 module.exports = controller;

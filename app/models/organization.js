@@ -100,5 +100,5 @@ module.exports = function(connection) {
     if (!connection) {
         connection = mongoose;
     }
-    connection.model('organization', OrganizationSchema);
+    connection.model('Organization', OrganizationSchema);
 };
