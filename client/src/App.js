@@ -13,7 +13,7 @@ import {AllProjects, Project} from './components/project';
 import AppBar from './components/appbar';
 import SideBar from './components/sidebar';
 import Dashboard from './components/dashboard';
-import {TopHeader} from './components/appbar';
+
 // assets
 import loading from './assets/img/loading.png';
 import './assets/css/App.css';
@@ -37,13 +37,10 @@ const fetchJson = (url) => {
 const RouteWithSubRoutes = (route) => (
   <Route path={route.path} render={props => (
     // pass the sub-routes down to keep nesting
-    <div className="route-container">
-      <TopHeader {...route.header} />
-      <route.component {...props}
-        header={route.header}
-        parentState={route.parentState} 
-        routes={route.routes}/>
-    </div>
+    <route.component {...props}
+      header={route.header}
+      parentState={route.parentState} 
+      routes={route.routes}/>
   )}/>
 );
 
@@ -55,11 +52,6 @@ class App extends Component {
       projectId: null,
       projects: [],
       fetched: false,
-      header: {
-        icon: 'dashboard',
-        title: 'Dashboard',
-        description: 'Summary of your account activity'
-      },
       user: null,
     };
   }
@@ -107,16 +99,12 @@ class App extends Component {
       <div id="wrapper">
         <AppBar />
         <SideBar />
-        <div id="page-content-wrapper">
-          <Switch>
-            {routes.map((route, i) => (
-              <RouteWithSubRoutes key={i}
-                parentState={_self.state}
-                {...route} />
-            ))}
-            <Redirect to="/dashboard" />
-          </Switch>
-        </div>
+        <Switch>
+          {React.Children.toArray(routes.map((route) => (
+            <RouteWithSubRoutes parentState={_self.state} {...route} />
+          )))}
+          <Redirect to="/dashboard" />
+        </Switch>
       </div>
     </Router>
   }
@@ -135,7 +123,12 @@ const routes = [
     component: Project
   },
   { path: '/dashboard',
-    component: Dashboard
+    component: Dashboard,
+    header: {
+      icon: 'dashboard',
+      title: 'Dashboard',
+      description: 'Summary of your account activity'
+    },
   }
 ];
 

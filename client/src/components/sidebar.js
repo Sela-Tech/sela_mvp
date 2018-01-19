@@ -13,7 +13,7 @@ class SideBar extends Component {
                         <li className="list-header">Main Navigation ---</li>
                         <MenuItem title="Dashboard" icon="dashboard" to="/dashboard" />
                         <MenuItem title="Projects" icon="pie_chart" to="/projects">
-                            <MenuItem title="Public" icon="public" to="/project/all" />
+                            <MenuItem title="Public" icon="public" to="/projects/all" />
                         </MenuItem>
                         <li className="side-last"></li>
                     </ul>
@@ -26,8 +26,8 @@ class SideBar extends Component {
 const MenuItem = ({title, to, icon, children}) => (
 	<Route path={to} children={({match}) => (
         <li className={match ? 'active-link' : ''}>
-            {children ? <Link to={to}><i className="material-icons">{icon}</i>{title}</Link>
-                : <a href="javascript:void(0)"><i className="material-icons">{icon}</i>{title}</a>}
+            {children ? <a><i className="material-icons">{icon}</i>{title}</a>
+                : <Link to={to}><i className="material-icons">{icon}</i>{title}</Link>}
             {children ? <ul className="nav nav-second-level">{children}</ul> : ''}
         </li>)} />
 );

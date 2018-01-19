@@ -7,6 +7,8 @@ import CountUp from 'react-countup';
 import Calendar from 'fullcalendar-reactwrapper';
 import {VectorMap} from 'react-jvectormap';
 import SimpleMap from './maps';
+import PageWrapper from './pagewrapper';
+import {TopHeader} from './appbar';
 
 // assets
 import '../assets/css/project.css';
@@ -59,22 +61,25 @@ class AllProjects extends Component {
 	      }
 	      return null;
 	    });
-	    return <div className="projects-container"> 
-	    	<div className="page-content p-t-24"> 
-		    	<div className="col-md-12 p-24">
-		    		<Link to="" className="waves-effect waves-light btn indigo">
-		              <i className="material-icons left">add</i>new project
-		            </Link>
-		    	</div>
-		    	<div className="clearfix"></div>
-		    	{!this.getState().fetched ? <div className="col-md-12 text-center">
-					<p className="lead">Loading projects...</p>
-				</div> : <div className="col-lg-8 col-md-12 col-sm-12 col-xs-12">
-			    	{projectEls ? React.Children.toArray(projectEls) : ''}
-			    </div>}
-			</div> 
-		    <div className="bottom-fixed"><ProjectMap /></div>
-		</div>
+	    return <PageWrapper>
+	    	<TopHeader {...this.props.header} />
+		    <div className="projects-container"> 
+		    	<div className="page-content p-t-24"> 
+			    	<div className="col-md-12 p-24">
+			    		<Link to="" className="waves-effect waves-light btn indigo">
+			              <i className="material-icons left">add</i>new project
+			            </Link>
+			    	</div>
+			    	<div className="clearfix"></div>
+			    	{!this.getState().fetched ? <div className="col-md-12 text-center">
+						<p className="lead">Loading projects...</p>
+					</div> : <div className="col-lg-8 col-md-12 col-sm-12 col-xs-12">
+				    	{projectEls ? React.Children.toArray(projectEls) : ''}
+				    </div>}
+				</div> 
+			    <div className="bottom-fixed"><ProjectMap /></div>
+			</div>
+		</PageWrapper>
 	}
 }
 
