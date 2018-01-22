@@ -7,6 +7,7 @@ class OtherwiseController extends Telegram.TelegramBaseController {
      * @param {Scope} $
      */
     handle($) {
+    	console.log($._update._message);
         $.sendMessage('Sorry I don\'t understand');
     }
 }
