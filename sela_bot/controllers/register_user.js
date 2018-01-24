@@ -7,8 +7,19 @@ class RegisterController extends Telegram.TelegramBaseController {
      * @param {Scope} $
      */
     registerHandler($) {
-        console.log($._update._message);
-        $.sendMessage('register')
+        var query = $.message.text
+        var query_terms = $.message.text.split(' ')
+        console.log(query_terms)
+        console.log(query_terms.length)
+        var error_message = 'Please structure correctly your query. It must follow the format /register sela_username'
+        if (query_terms.length!=2) {
+            $.sendMessage(error_message)
+        }
+        else {
+            var username = query_terms[1] 
+            $.sendMessage('You are attempting to register user ' + username)
+        }
+        
     }
 
     get routes() {

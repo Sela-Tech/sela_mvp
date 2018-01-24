@@ -14,5 +14,4 @@ const PingController = require('./controllers/ping'),
 
 tg.router.when(new TextCommand('/ping', 'pingCommand'),new PingController())
 		 .when(new TextCommand('/register', 'registerCommand'), new RegisterController())
-		 .when(new CustomFilterCommand($ => {return $.message.audio != null}, 'audioCommand'),new AudioController())
 		 .otherwise(new OtherwiseController());
