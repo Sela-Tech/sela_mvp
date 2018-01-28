@@ -56,8 +56,7 @@ $('#signup-btn').on('click', function(e) {
             lastname: lastname,
             email: email,
             password: password,
-            confirm: confirm,
-            accountType: accountType
+            confirm: confirm
         })
         .done(function() {
             window.location.href ='/dashboard';
