@@ -44,7 +44,9 @@
     "concurrently": "^3.5.1",
     "nodemon": "^1.12.1",
     "request": "^2.81.0",
-    "tape": "^4.7.0"
+    "tape": "^4.7.0",
+    "truffle": "^4.0.5",
+    "web3": "^0.20.4"
   },
   "repository": {
     "type": "git",
