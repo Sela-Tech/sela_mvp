@@ -13,6 +13,11 @@ import '../assets/css/project.css';
 
 
 export default class ProjectsList extends Component {
+	
+	componentDidMount(){
+		this.props.loadProjects();
+	}
+
 	render(){
 		let _self = this,
 			projectEls = [],

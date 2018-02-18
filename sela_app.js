@@ -35,8 +35,8 @@ environmentsAll.call(app);
 
 var server = http.createServer(app);
 
-server.listen(process.env.PORT, () => {
-    console.log("Server listening on port " + process.env.PORT);
+server.listen(process.env.SERVER_PORT, () => {
+    console.log("Server listening on port " + process.env.SERVER_PORT);
 });
 
 routes.call(app);

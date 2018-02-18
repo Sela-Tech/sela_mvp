@@ -33,7 +33,7 @@ const mapDispatchToProps = (dispatch, ownProps) => {
 
 const FilteredProjectsList = connect(
     mapStateToProps,
-    // mapDispatchToProps
+    mapDispatchToProps
 )(ProjectsList);
 
 export default FilteredProjectsList;

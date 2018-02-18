@@ -3,9 +3,9 @@ import { axios } from '../utils';
 export const types = {
 	ADD_PROJECT: 'sela/project/ADD_PROJECT',
   DELETE_PROJECT: 'sela/project/DELETE_PROJECT',
-  FECTH_PROJECTS: 'sela/project/FECTH_PROJECTS',
-  FECTH_PROJECTS_SUCCESS: 'sela/project/FECTH_PROJECTS_SUCCESS',
-  FECTH_PROJECTS_FAILURE: 'sela/project/FECTH_PROJECTS_FAILURE',
+  FETCH_PROJECTS: 'sela/project/FETCH_PROJECTS',
+  FETCH_PROJECTS_SUCCESS: 'sela/project/FETCH_PROJECTS_SUCCESS',
+  FETCH_PROJECTS_FAILURE: 'sela/project/FETCH_PROJECTS_FAILURE',
   RECEIVE_PROJECTS: 'sela/project/RECEIVE_PROJECTS'
 };
 
@@ -37,6 +37,7 @@ export default (state = initialState, action) => {
       }
     case types.RECEIVE_PROJECTS:
       return {...state,
+        items: payload.projects, 
         isFetching: false,
         didInvalidate: false
       }
@@ -45,7 +46,7 @@ export default (state = initialState, action) => {
   }
 };
 
-const fetch = () => {type: types.FETCH_PROJECTS};
+const fetch = () => ({type: types.FETCH_PROJECTS});
 
 const receive = (data) => ({type: types.RECEIVE_PROJECTS, projects: data.projects});
 
