@@ -25,5 +25,5 @@ export default (state = initialState, action) => {
 };
 
 export const actionTors = {
-	add: (milestone) => {type: types.ADD_MILESTONE, ...milestone},
+	add: (milestone) => ({type: types.ADD_MILESTONE, ...milestone})
 };

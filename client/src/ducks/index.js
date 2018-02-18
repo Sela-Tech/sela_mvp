@@ -10,3 +10,8 @@ const rootReducer = combineReducers({
 });
 
 export default rootReducer;
+export {
+    taskActionTors,
+    milestoneActionTors,
+    projectActionTors
+};

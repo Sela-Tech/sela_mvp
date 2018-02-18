@@ -2,6 +2,7 @@ ROOT = __dirname;
 FRONTEND = __dirname + '/public';
 
 var dotenv = require('dotenv');
+var path = require('path');
 var express = require("express");
 var http = require('http');
 
@@ -21,6 +22,8 @@ mongosseInit(function() {
 var routes = require('./config/routes');
 
 var app = express();
+app.use(express.static(path.join(__dirname, 'public', 'index')));
+app.use(express.static(path.join(__dirname, 'public', 'index', 'signup')));
 
 if (process.env.NODE_ENV === 'development') {
     environmentsDev.call(app);

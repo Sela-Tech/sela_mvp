@@ -4,6 +4,14 @@
 		"selected_items":
 		[
 			[
+				"task",
+				"taskActionTors"
+			],
+			[
+				"f",
+				"for\tfor (…) {…}"
+			],
+			[
 				"pag",
 				"PageWrapper"
 			],
@@ -506,14 +514,6 @@
 			[
 				"Style",
 				"StyleSheet"
-			],
-			[
-				"render",
-				"renderAutocomplete"
-			],
-			[
-				"paddig",
-				"paddingBottom"
 			]
 		]
 	},
@@ -529,6 +529,23 @@
 			}
 		},
 		{
+			"file": "client/src/components/taskForm.js",
+			"settings":
+			{
+				"buffer_size": 24,
+				"encoding": "UTF-8",
+				"line_ending": "Windows"
+			}
+		},
+		{
+			"file": "app/models/milestone.js",
+			"settings":
+			{
+				"buffer_size": 1498,
+				"line_ending": "Windows"
+			}
+		},
+		{
 			"file": "client/src/components/dashboard.js",
 			"settings":
 			{
@@ -538,73 +555,37 @@
 			}
 		},
 		{
-			"file": "/C/Users/konoufo/Downloads/thekeep/Jobs/projects/hackatown/playground/Skelestreamer/node/web.js",
+			"file": "client/src/ducks/task.js",
 			"settings":
 			{
-				"buffer_size": 918,
-				"line_ending": "Windows"
-			}
-		},
-		{
-			"file": "client/src/components/pagewrapper.js",
-			"settings":
-			{
-				"buffer_size": 155,
-				"encoding": "UTF-8",
-				"line_ending": "Windows",
-				"name": "import React, {Component} from 'React';"
-			}
-		},
-		{
-			"file": "client/src/assets/css/App.css",
-			"settings":
-			{
-				"buffer_size": 1132,
+				"buffer_size": 978,
 				"encoding": "UTF-8",
 				"line_ending": "Windows"
 			}
 		},
 		{
-			"file": "client/src/components/project.js",
+			"file": "client/src/ducks/project.js",
 			"settings":
 			{
-				"buffer_size": 6274,
+				"buffer_size": 752,
 				"encoding": "UTF-8",
 				"line_ending": "Windows"
 			}
 		},
 		{
-			"file": "client/src/components/maps.js",
+			"file": "client/src/ducks/milestone.js",
 			"settings":
 			{
-				"buffer_size": 1302,
+				"buffer_size": 704,
 				"encoding": "UTF-8",
 				"line_ending": "Windows"
 			}
 		},
 		{
-			"file": "client/src/assets/css/project.css",
+			"file": "client/src/ducks/index.js",
 			"settings":
 			{
-				"buffer_size": 672,
-				"encoding": "UTF-8",
-				"line_ending": "Windows"
-			}
-		},
-		{
-			"file": "client/src/components/sidebar.js",
-			"settings":
-			{
-				"buffer_size": 1389,
-				"encoding": "UTF-8",
-				"line_ending": "Windows"
-			}
-		},
-		{
-			"file": "client/src/components/appbar.js",
-			"settings":
-			{
-				"buffer_size": 2581,
+				"buffer_size": 414,
 				"encoding": "UTF-8",
 				"line_ending": "Windows"
 			}
@@ -648,20 +629,34 @@
 	"expanded_folders":
 	[
 		"/C/Users/konoufo/Downloads/thekeep/Jobs/projects/sela/sela_mvp",
+		"/C/Users/konoufo/Downloads/thekeep/Jobs/projects/sela/sela_mvp/app",
+		"/C/Users/konoufo/Downloads/thekeep/Jobs/projects/sela/sela_mvp/app/controllers",
+		"/C/Users/konoufo/Downloads/thekeep/Jobs/projects/sela/sela_mvp/app/models",
 		"/C/Users/konoufo/Downloads/thekeep/Jobs/projects/sela/sela_mvp/client",
 		"/C/Users/konoufo/Downloads/thekeep/Jobs/projects/sela/sela_mvp/client/src",
-		"/C/Users/konoufo/Downloads/thekeep/Jobs/projects/sela/sela_mvp/client/src/assets",
-		"/C/Users/konoufo/Downloads/thekeep/Jobs/projects/sela/sela_mvp/client/src/assets/css",
 		"/C/Users/konoufo/Downloads/thekeep/Jobs/projects/sela/sela_mvp/client/src/components",
+		"/C/Users/konoufo/Downloads/thekeep/Jobs/projects/sela/sela_mvp/client/src/ducks",
 		"/C/Users/konoufo/Downloads/thekeep/Jobs/projects/sela/sela_mvp/config"
 	],
 	"file_history":
 	[
-		"/C/Users/konoufo/Downloads/thekeep/Jobs/projects/sela/sela_mvp/app/models/project.js",
+		"/C/Users/konoufo/Downloads/thekeep/Jobs/projects/sela/sela_mvp/client/src/components/appbar.js",
+		"/C/Portables/DevTools/Sublime/Data/Packages/User/FlowType.sublime-settings",
+		"/C/Portables/DevTools/Sublime/Data/Packages/FlowType/FlowType.sublime-settings",
+		"/C/Users/konoufo/Downloads/thekeep/Jobs/projects/sela/sela_mvp/client/src/ducks/task.js",
+		"/C/Users/konoufo/Downloads/thekeep/Jobs/projects/sela/sela_mvp/client/src/reducers/index.js",
+		"/C/Users/konoufo/Downloads/thekeep/Jobs/projects/sela/sela_mvp/client/src/components/sidebar.js",
+		"/C/Users/konoufo/Downloads/thekeep/Jobs/projects/sela/sela_mvp/client/src/assets/css/project.css",
+		"/C/Users/konoufo/Downloads/thekeep/Jobs/projects/sela/sela_mvp/client/src/components/maps.js",
+		"/C/Users/konoufo/Downloads/thekeep/Jobs/projects/sela/sela_mvp/client/src/components/project.js",
+		"/C/Users/konoufo/Downloads/thekeep/Jobs/projects/sela/sela_mvp/client/src/assets/css/App.css",
+		"/C/Users/konoufo/Downloads/thekeep/Jobs/projects/sela/sela_mvp/client/src/components/pagewrapper.js",
+		"/C/Users/konoufo/Downloads/thekeep/Jobs/projects/sela/sela_mvp/client/src/reducers/todo.js",
 		"/C/Users/konoufo/Downloads/thekeep/Jobs/projects/sela/sela_mvp/client/src/index.js",
+		"/C/Users/konoufo/Downloads/thekeep/Jobs/projects/hackatown/playground/Skelestreamer/node/web.js",
+		"/C/Users/konoufo/Downloads/thekeep/Jobs/projects/sela/sela_mvp/app/models/project.js",
 		"/C/Users/konoufo/Downloads/thekeep/Jobs/projects/sela/sela_mvp/client/src/App.css",
 		"/C/Users/konoufo/Downloads/thekeep/Jobs/projects/sela/sela_mvp/client/src/components/dashboard.js",
-		"/C/Users/konoufo/Downloads/thekeep/Jobs/projects/sela/sela_mvp/client/src/components/appbar.js",
 		"/C/Users/konoufo/Downloads/thekeep/Jobs/projects/investiv_project/investiv_heroku/staticroot/css/style_section.css",
 		"/C/Users/konoufo/Downloads/thekeep/Jobs/projects/investiv_project/investiv_heroku/investiv/static/css/styles.css",
 		"/C/Users/konoufo/Downloads/thekeep/Jobs/projects/investiv_project/investiv_heroku/webpack.base.config.js",
@@ -755,11 +750,9 @@
 		"/C/Users/konoufo/Downloads/thekeep/Jobs/projects/android/tim/components/theme.js",
 		"/C/Users/konoufo/Downloads/thekeep/Jobs/projects/android/tim/android/build.gradle",
 		"/C/Users/konoufo/Downloads/thekeep/Jobs/projects/android/tim/android/app/src/main/java/com/tim/MainActivity.java",
-		"/C/Portables/DevTools/Sublime/Data/Packages/User/FlowType.sublime-settings",
 		"/C/Users/konoufo/Downloads/thekeep/Jobs/projects/android/tim/tim.sublime-project",
 		"/C/Users/konoufo/Downloads/thekeep/Jobs/projects/android/tim/app.json",
 		"/C/Users/konoufo/Downloads/thekeep/Jobs/projects/android/tim/index.ios.js",
-		"/C/Portables/DevTools/Sublime/Data/Packages/FlowType/FlowType.sublime-settings",
 		"/C/Portables/DevTools/Sublime/Data/Packages/User/Preferences.sublime-settings",
 		"/C/Users/konoufo/Downloads/thekeep/Jobs/projects/android/tim/android/app/src/main/AndroidManifest.xml",
 		"/C/Users/konoufo/Downloads/thekeep/Jobs/projects/android/tim/android/app/src/main/res/values/strings.xml",
@@ -774,17 +767,7 @@
 		"/C/Users/konoufo/Downloads/thekeep/orgs/acaful/production/web/genie/arbitrage/static/js/colors.js",
 		"/C/Portables/Illustrator64/Illustrator64Portable/Variable Importer/VariableImporter.jsx",
 		"/C/Users/konoufo/Downloads/thekeep/Jobs/projects/hackqc/taroute/app/routes/index.server.routes.js",
-		"/C/Users/konoufo/Downloads/thekeep/Jobs/projects/hackqc/taroute/config/express.js",
-		"/C/Users/konoufo/Downloads/thekeep/Jobs/projects/hackqc/taroute/app/controllers/index.server.controller.js",
-		"/C/Users/konoufo/Downloads/thekeep/Jobs/projects/hackqc/taroute/config/config.js",
-		"/C/Users/konoufo/Downloads/thekeep/Jobs/projects/hackqc/taroute/app/views/home.ejs",
-		"/C/Users/konoufo/Downloads/thekeep/orgs/acaful/production/web/genie/arbitrage/static/js/jquery-1.12.4.js",
-		"/C/Users/konoufo/Downloads/thekeep/orgs/acaful/production/web/buzzy/node_modules/play/lib/play.js",
-		"/C/Users/konoufo/Downloads/thekeep/Jobs/projects/hackqc/index.js",
-		"/C/Users/konoufo/Downloads/thekeep/Jobs/projects/hackqc/taroute/app/controllers/itineraries.server.controller.js",
-		"/C/Users/konoufo/Downloads/thekeep/Jobs/projects/hackqc/taroute/public/js/todo.js",
-		"/C/Users/konoufo/Downloads/thekeep/Jobs/projects/hackqc/taroute/app/routes/stations.server.routes.js",
-		"/C/Users/konoufo/Downloads/thekeep/Jobs/projects/hackqc/taroute/app/routes/itineraries.server.routes.js"
+		"/C/Users/konoufo/Downloads/thekeep/Jobs/projects/hackqc/taroute/config/express.js"
 	],
 	"find":
 	{
@@ -802,6 +785,7 @@
 		"case_sensitive": false,
 		"find_history":
 		[
+			"MILESTONE"
 		],
 		"highlight": true,
 		"in_selection": false,
@@ -809,6 +793,7 @@
 		"regex": false,
 		"replace_history":
 		[
+			"PROJECT"
 		],
 		"reverse": false,
 		"show_context": true,
@@ -835,8 +820,8 @@
 						"selection":
 						[
 							[
-								3395,
-								3276
+								2858,
+								2858
 							]
 						],
 						"settings":
@@ -846,14 +831,72 @@
 							"translate_tabs_to_spaces": true
 						},
 						"translation.x": 0.0,
-						"translation.y": 1521.0,
+						"translation.y": 1170.0,
 						"zoom_level": 1.0
 					},
-					"stack_index": 4,
+					"stack_index": 2,
 					"type": "text"
 				},
 				{
 					"buffer": 1,
+					"file": "client/src/components/taskForm.js",
+					"semi_transient": false,
+					"settings":
+					{
+						"buffer_size": 24,
+						"regions":
+						{
+						},
+						"selection":
+						[
+							[
+								24,
+								24
+							]
+						],
+						"settings":
+						{
+							"syntax": "Packages/Babel/JavaScript (Babel).sublime-syntax"
+						},
+						"translation.x": 0.0,
+						"translation.y": 0.0,
+						"zoom_level": 1.0
+					},
+					"stack_index": 1,
+					"type": "text"
+				},
+				{
+					"buffer": 2,
+					"file": "app/models/milestone.js",
+					"semi_transient": true,
+					"settings":
+					{
+						"buffer_size": 1498,
+						"regions":
+						{
+						},
+						"selection":
+						[
+							[
+								0,
+								0
+							]
+						],
+						"settings":
+						{
+							"syntax": "Packages/Babel/JavaScript (Babel).sublime-syntax",
+							"tab_size": 4,
+							"translate_tabs_to_spaces": true
+						},
+						"translation.x": 0.0,
+						"translation.y": 135.0,
+						"zoom_level": 1.0
+					},
+					"stack_index": 0,
+					"type": "text"
+				},
+				{
+					"buffer": 3,
 					"file": "client/src/components/dashboard.js",
 					"semi_transient": false,
 					"settings":
@@ -877,207 +920,60 @@
 						"translation.y": 0.0,
 						"zoom_level": 1.0
 					},
-					"stack_index": 1,
-					"type": "text"
-				},
-				{
-					"buffer": 2,
-					"file": "/C/Users/konoufo/Downloads/thekeep/Jobs/projects/hackatown/playground/Skelestreamer/node/web.js",
-					"semi_transient": false,
-					"settings":
-					{
-						"buffer_size": 918,
-						"regions":
-						{
-						},
-						"selection":
-						[
-							[
-								0,
-								0
-							]
-						],
-						"settings":
-						{
-							"syntax": "Packages/Babel/JavaScript (Babel).sublime-syntax"
-						},
-						"translation.x": 0.0,
-						"translation.y": 0.0,
-						"zoom_level": 1.0
-					},
-					"stack_index": 0,
-					"type": "text"
-				},
-				{
-					"buffer": 3,
-					"file": "client/src/components/pagewrapper.js",
-					"semi_transient": false,
-					"settings":
-					{
-						"buffer_size": 155,
-						"regions":
-						{
-						},
-						"selection":
-						[
-							[
-								33,
-								33
-							]
-						],
-						"settings":
-						{
-							"auto_name": "import React, {Component} from 'React';",
-							"syntax": "Packages/Babel/JavaScript (Babel).sublime-syntax"
-						},
-						"translation.x": 0.0,
-						"translation.y": 0.0,
-						"zoom_level": 1.0
-					},
-					"stack_index": 3,
-					"type": "text"
-				},
-				{
-					"buffer": 4,
-					"file": "client/src/assets/css/App.css",
-					"semi_transient": false,
-					"settings":
-					{
-						"buffer_size": 1132,
-						"regions":
-						{
-						},
-						"selection":
-						[
-							[
-								350,
-								350
-							]
-						],
-						"settings":
-						{
-							"color_scheme": "Packages/User/Color Highlighter/themes/Monokai Phoenix.tmTheme",
-							"syntax": "Packages/CSS/CSS.sublime-syntax",
-							"tab_size": 2,
-							"translate_tabs_to_spaces": true
-						},
-						"translation.x": 0.0,
-						"translation.y": 0.0,
-						"zoom_level": 1.0
-					},
-					"stack_index": 9,
-					"type": "text"
-				},
-				{
-					"buffer": 5,
-					"file": "client/src/components/project.js",
-					"semi_transient": false,
-					"settings":
-					{
-						"buffer_size": 6274,
-						"regions":
-						{
-						},
-						"selection":
-						[
-							[
-								407,
-								372
-							]
-						],
-						"settings":
-						{
-							"syntax": "Packages/Babel/JavaScript (Babel).sublime-syntax",
-							"translate_tabs_to_spaces": false
-						},
-						"translation.x": 0.0,
-						"translation.y": 0.0,
-						"zoom_level": 1.0
-					},
-					"stack_index": 2,
-					"type": "text"
-				},
-				{
-					"buffer": 6,
-					"file": "client/src/components/maps.js",
-					"semi_transient": false,
-					"settings":
-					{
-						"buffer_size": 1302,
-						"regions":
-						{
-						},
-						"selection":
-						[
-							[
-								1287,
-								1287
-							]
-						],
-						"settings":
-						{
-							"syntax": "Packages/Babel/JavaScript (Babel).sublime-syntax",
-							"tab_size": 2,
-							"translate_tabs_to_spaces": true
-						},
-						"translation.x": 0.0,
-						"translation.y": 270.0,
-						"zoom_level": 1.0
-					},
-					"stack_index": 6,
-					"type": "text"
-				},
-				{
-					"buffer": 7,
-					"file": "client/src/assets/css/project.css",
-					"semi_transient": false,
-					"settings":
-					{
-						"buffer_size": 672,
-						"regions":
-						{
-						},
-						"selection":
-						[
-							[
-								261,
-								261
-							]
-						],
-						"settings":
-						{
-							"color_scheme": "Packages/User/Color Highlighter/themes/Monokai Phoenix.tmTheme",
-							"syntax": "Packages/CSS/CSS.sublime-syntax",
-							"translate_tabs_to_spaces": false
-						},
-						"translation.x": 0.0,
-						"translation.y": 0.0,
-						"zoom_level": 1.0
-					},
 					"stack_index": 7,
 					"type": "text"
 				},
 				{
-					"buffer": 8,
-					"file": "client/src/components/sidebar.js",
+					"buffer": 4,
+					"file": "client/src/ducks/task.js",
 					"semi_transient": false,
 					"settings":
 					{
-						"buffer_size": 1389,
+						"buffer_size": 978,
 						"regions":
 						{
 						},
 						"selection":
 						[
 							[
-								745,
-								745
+								156,
+								156
 							]
 						],
 						"settings":
 						{
 							"syntax": "Packages/Babel/JavaScript (Babel).sublime-syntax",
-							"tab_size": 4,
+							"tab_size": 2,
+							"translate_tabs_to_spaces": true
+						},
+						"translation.x": 0.0,
+						"translation.y": 225.0,
+						"zoom_level": 1.0
+					},
+					"stack_index": 4,
+					"type": "text"
+				},
+				{
+					"buffer": 5,
+					"file": "client/src/ducks/project.js",
+					"semi_transient": false,
+					"settings":
+					{
+						"buffer_size": 752,
+						"regions":
+						{
+						},
+						"selection":
+						[
+							[
+								556,
+								556
+							]
+						],
+						"settings":
+						{
+							"syntax": "Packages/Babel/JavaScript (Babel).sublime-syntax",
+							"tab_size": 2,
 							"translate_tabs_to_spaces": true
 						},
 						"translation.x": 0.0,
@@ -1088,33 +984,61 @@
 					"type": "text"
 				},
 				{
-					"buffer": 9,
-					"file": "client/src/components/appbar.js",
+					"buffer": 6,
+					"file": "client/src/ducks/milestone.js",
 					"semi_transient": false,
 					"settings":
 					{
-						"buffer_size": 2581,
+						"buffer_size": 704,
 						"regions":
 						{
 						},
 						"selection":
 						[
 							[
-								2581,
-								2581
+								0,
+								704
 							]
 						],
 						"settings":
 						{
 							"syntax": "Packages/Babel/JavaScript (Babel).sublime-syntax",
-							"tab_size": 4,
+							"tab_size": 2,
 							"translate_tabs_to_spaces": true
 						},
 						"translation.x": 0.0,
-						"translation.y": 810.0,
+						"translation.y": 0.0,
 						"zoom_level": 1.0
 					},
-					"stack_index": 8,
+					"stack_index": 6,
+					"type": "text"
+				},
+				{
+					"buffer": 7,
+					"file": "client/src/ducks/index.js",
+					"semi_transient": false,
+					"settings":
+					{
+						"buffer_size": 414,
+						"regions":
+						{
+						},
+						"selection":
+						[
+							[
+								414,
+								414
+							]
+						],
+						"settings":
+						{
+							"syntax": "Packages/Babel/JavaScript (Babel).sublime-syntax"
+						},
+						"translation.x": 0.0,
+						"translation.y": 0.0,
+						"zoom_level": 1.0
+					},
+					"stack_index": 3,
 					"type": "text"
 				}
 			]
@@ -1168,6 +1092,14 @@
 		"last_filter": "",
 		"selected_items":
 		[
+			[
+				"app.js",
+				"client\\src\\App.js"
+			],
+			[
+				"inde",
+				"client\\src\\index.js"
+			],
 			[
 				"side",
 				"client\\src\\components\\sidebar.js"

@@ -15,7 +15,9 @@
     "test": "echo"
   },
   "nodemonConfig": {
-    "ignore": ["*"]
+    "ignore": [
+      "*"
+    ]
   },
   "dependencies": {
     "bcrypt": "1.0.3",

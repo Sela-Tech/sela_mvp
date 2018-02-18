@@ -9,7 +9,8 @@ import {
   Redirect,
   Switch
 } from 'react-router-dom';
-import {AllProjects, Project} from './components/project';
+import FilteredProjectsList from './containers/filteredProjectsList';
+import Project from './containers/project';
 import AppBar from './components/appbar';
 import SideBar from './components/sidebar';
 import Dashboard from './components/dashboard';
@@ -48,21 +49,19 @@ const RouteWithSubRoutes = (route) => (
 class App extends Component {
   constructor(props){
     super(props);
-    this.state = {
-      projectId: null,
-      projects: [],
+    /*this.state = {
       fetched: false,
       user: null,
-    };
+    };*/
   }
 
   componentDidMount(){
-    this.fetchProjects();
+    // this.fetchProjects();
     // set authenticated user
-    window._SELA_USER ? this.setState({user: window._SELA_USER}) : this.fetchUser();
+    // window._SELA_USER ? this.setState({user: window._SELA_USER}) : this.fetchUser();
   }
 
-  fetchUser = (cb) => {
+  /*fetchUser = (cb) => {
     let _self = this;
     cb = cb || (() => {});
 
@@ -75,23 +74,15 @@ class App extends Component {
   };
 
   fetchProjects = () => {
-    /* Fetches authorized projects if a user is authentified. Only public projects otherwise.*/
+     // Fetches authorized projects if a user is authentified. Only public projects otherwise.
     let _self = this;
     
     fetchJson(PROJECT_ENDPOINT)
     .then(function(json) {_self.setState(json); console.log(json);})
     .catch(function(error) {console.log(error);})
     .then(function(){_self.setState({fetched: true})});
-  };
+  };*/
 
-  switchProject = (projectId) => {
-    /* Changes currently displayed project */
-    this.setState({projectId: projectId});
-  };
-
-  setHeader = (header) => {
-    this.setState({header: header});
-  };
 
   render() {
     let _self = this;
@@ -101,7 +92,7 @@ class App extends Component {
         <SideBar />
         <Switch>
           {React.Children.toArray(routes.map((route) => (
-            <RouteWithSubRoutes parentState={_self.state} {...route} />
+            <RouteWithSubRoutes {...route} />
           )))}
           <Redirect to="/dashboard" />
         </Switch>
@@ -112,7 +103,7 @@ class App extends Component {
 
 const routes = [
   { path: '/projects/all',
-    component: AllProjects,
+    component: FilteredProjectsList,
     header: {
       icon: 'pie_chart',
       title: 'Projects',
