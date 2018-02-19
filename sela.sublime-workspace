@@ -1,0 +1,1297 @@
+{
+	"auto_complete":
+	{
+		"selected_items":
+		[
+			[
+				"task",
+				"taskActionTors"
+			],
+			[
+				"f",
+				"for\tfor (…) {…}"
+			],
+			[
+				"pag",
+				"PageWrapper"
+			],
+			[
+				"Projec",
+				"ProjectMap"
+			],
+			[
+				"padding-",
+				"padding-bottom"
+			],
+			[
+				"T",
+				"TopHeader"
+			],
+			[
+				"appb",
+				"appbar"
+			],
+			[
+				"class",
+				"className"
+			],
+			[
+				"com",
+				"Component"
+			],
+			[
+				"M",
+				"MenuItem"
+			],
+			[
+				"cla",
+				"className"
+			],
+			[
+				"col",
+				"col-md-2"
+			],
+			[
+				"link",
+				"link-icon"
+			],
+			[
+				"padding",
+				"padding-top"
+			],
+			[
+				"list",
+				"list-group-item"
+			],
+			[
+				"spaced",
+				"spaced-column"
+			],
+			[
+				"pa",
+				"padding-bottom"
+			],
+			[
+				"co",
+				"spaced-column"
+			],
+			[
+				"text",
+				"text-uppercase"
+			],
+			[
+				"spa",
+				"spaced-column"
+			],
+			[
+				"terx",
+				"text-center"
+			],
+			[
+				"pad",
+				"padding"
+			],
+			[
+				"font",
+				"font-size"
+			],
+			[
+				"re",
+				"request"
+			],
+			[
+				"ge",
+				"get_project"
+			],
+			[
+				"margin",
+				"margin-left"
+			],
+			[
+				"login",
+				"login_url"
+			],
+			[
+				"marg",
+				"margin-bottom"
+			],
+			[
+				"is",
+				"is_staff"
+			],
+			[
+				"de",
+				"decorators"
+			],
+			[
+				"e",
+				"except"
+			],
+			[
+				"mar",
+				"margin-bottom"
+			],
+			[
+				"get",
+				"get_project"
+			],
+			[
+				"Re",
+				"ReportItem"
+			],
+			[
+				"Objec",
+				"ObjectDoesNotExist"
+			],
+			[
+				"mrgin",
+				"margin-top"
+			],
+			[
+				"poi",
+				"position"
+			],
+			[
+				"aler",
+				"alertSuccess"
+			],
+			[
+				"back",
+				"background-color"
+			],
+			[
+				"te",
+				"text-align"
+			],
+			[
+				"passcode",
+				"passcode"
+			],
+			[
+				"r",
+				"return"
+			],
+			[
+				"project",
+				"project_pk"
+			],
+			[
+				"ac",
+				"action\tAttr"
+			],
+			[
+				"projec",
+				"project_pk"
+			],
+			[
+				"s",
+				"success"
+			],
+			[
+				"pro",
+				"project_pk"
+			],
+			[
+				"gene",
+				"generate_random_code"
+			],
+			[
+				"for",
+				"forms"
+			],
+			[
+				"margi",
+				"margin-left"
+			],
+			[
+				"di",
+				"display"
+			],
+			[
+				"tex",
+				"text-left"
+			],
+			[
+				"ma",
+				"margin-right"
+			],
+			[
+				"bakc",
+				"background-color"
+			],
+			[
+				"a",
+				"alt\tAttr"
+			],
+			[
+				"inlin",
+				"inline-block"
+			],
+			[
+				"d",
+				"display"
+			],
+			[
+				"max",
+				"max-width"
+			],
+			[
+				"bord",
+				"borderTopWidth"
+			],
+			[
+				"border",
+				"borderStyle"
+			],
+			[
+				"Com",
+				"ComponentWithKeyboard"
+			],
+			[
+				"wi",
+				"withKeyboard"
+			],
+			[
+				"faculty",
+				"facultyInfo"
+			],
+			[
+				"flex",
+				"flexDirection"
+			],
+			[
+				"num",
+				"numReqTotal"
+			],
+			[
+				"CON",
+				"COUNT"
+			],
+			[
+				"auto",
+				"autocompleteList"
+			],
+			[
+				"autocom",
+				"autocompleteList"
+			],
+			[
+				"scho",
+				"scholarships"
+			],
+			[
+				"sh",
+				"scholarships"
+			],
+			[
+				"progr",
+				"programs"
+			],
+			[
+				"from",
+				"fromJS"
+			],
+			[
+				"paddin",
+				"paddingTop"
+			],
+			[
+				"autcom",
+				"autocompleteItem"
+			],
+			[
+				"program",
+				"programId"
+			],
+			[
+				"prog",
+				"programs"
+			],
+			[
+				"SPACE",
+				"space-between"
+			],
+			[
+				"filt",
+				"filterMatchingPrograms"
+			],
+			[
+				"ste",
+				"step2"
+			],
+			[
+				"filte",
+				"filterFulfilledRequirements"
+			],
+			[
+				"subjec",
+				"subjectrequirement"
+			],
+			[
+				"collees",
+				"colleges"
+			],
+			[
+				"loca",
+				"locations"
+			],
+			[
+				"subjects",
+				"subjectsData"
+			],
+			[
+				"new",
+				"newState"
+			],
+			[
+				"subject",
+				"subjectsData"
+			],
+			[
+				"subje",
+				"subjectsData"
+			],
+			[
+				"select",
+				"selectedSubjects"
+			],
+			[
+				"subjet",
+				"subjectId"
+			],
+			[
+				"FOR",
+				"FROM"
+			],
+			[
+				"al",
+				"alignItems"
+			],
+			[
+				"lo",
+				"locations"
+			],
+			[
+				"defau",
+				"defaultValue"
+			],
+			[
+				"containe",
+				"containerStyle"
+			],
+			[
+				"paddi",
+				"paddingBottom"
+			],
+			[
+				"show",
+				"shownDetails"
+			],
+			[
+				"sho",
+				"shownDetails"
+			],
+			[
+				"item",
+				"itemRight"
+			],
+			[
+				"colleges",
+				"colleges_facultytuition"
+			],
+			[
+				"college",
+				"colleges_studyprogram"
+			],
+			[
+				"felx",
+				"flex-start"
+			],
+			[
+				"scre",
+				"screenProps"
+			],
+			[
+				"obje",
+				"Object"
+			],
+			[
+				"defa",
+				"default"
+			],
+			[
+				"set",
+				"setCareer"
+			],
+			[
+				"Flat",
+				"FlatList"
+			],
+			[
+				"Item",
+				"ItemLeft"
+			],
+			[
+				"ITem",
+				"ItemMain"
+			],
+			[
+				"ren",
+				"renderItem"
+			],
+			[
+				"React",
+				"ReactElement\tFlow React type"
+			],
+			[
+				"Fla",
+				"FlatList"
+			],
+			[
+				"rende",
+				"renderProgramsList"
+			],
+			[
+				"sty",
+				"style"
+			],
+			[
+				"bu",
+				"Button"
+			],
+			[
+				"picker",
+				"pickerInputGroup"
+			],
+			[
+				"button",
+				"buttonIcon"
+			],
+			[
+				"Ed",
+				"EditIcon"
+			],
+			[
+				"Text",
+				"Text"
+			],
+			[
+				"grad",
+				"gradesScale"
+			],
+			[
+				"cur",
+				"currentSubjectObj"
+			],
+			[
+				"Gra",
+				"GradingDialog"
+			],
+			[
+				"grding",
+				"gradingDialogBody"
+			],
+			[
+				"background",
+				"backgroundColor"
+			],
+			[
+				"default",
+				"defaultProps"
+			],
+			[
+				"sel",
+				"selectedSubjects"
+			],
+			[
+				"showS",
+				"showSuggest"
+			],
+			[
+				"C",
+				"CheckIcon"
+			],
+			[
+				"Style",
+				"StyleSheet"
+			]
+		]
+	},
+	"buffers":
+	[
+		{
+			"file": "client/src/App.js",
+			"settings":
+			{
+				"buffer_size": 3425,
+				"encoding": "UTF-8",
+				"line_ending": "Windows"
+			}
+		},
+		{
+			"file": "client/src/components/taskForm.js",
+			"settings":
+			{
+				"buffer_size": 24,
+				"encoding": "UTF-8",
+				"line_ending": "Windows"
+			}
+		},
+		{
+			"file": "app/models/milestone.js",
+			"settings":
+			{
+				"buffer_size": 1498,
+				"line_ending": "Windows"
+			}
+		},
+		{
+			"file": "client/src/components/dashboard.js",
+			"settings":
+			{
+				"buffer_size": 265,
+				"encoding": "UTF-8",
+				"line_ending": "Windows"
+			}
+		},
+		{
+			"file": "client/src/ducks/task.js",
+			"settings":
+			{
+				"buffer_size": 978,
+				"encoding": "UTF-8",
+				"line_ending": "Windows"
+			}
+		},
+		{
+			"file": "client/src/ducks/project.js",
+			"settings":
+			{
+				"buffer_size": 752,
+				"encoding": "UTF-8",
+				"line_ending": "Windows"
+			}
+		},
+		{
+			"file": "client/src/ducks/milestone.js",
+			"settings":
+			{
+				"buffer_size": 704,
+				"encoding": "UTF-8",
+				"line_ending": "Windows"
+			}
+		},
+		{
+			"file": "client/src/ducks/index.js",
+			"settings":
+			{
+				"buffer_size": 414,
+				"encoding": "UTF-8",
+				"line_ending": "Windows"
+			}
+		}
+	],
+	"build_system": "",
+	"build_system_choices":
+	[
+	],
+	"build_varint": "",
+	"command_palette":
+	{
+		"height": 392.0,
+		"last_filter": "packa",
+		"selected_items":
+		[
+			[
+				"packa",
+				"Package Control: Install Package"
+			]
+		],
+		"width": 416.0
+	},
+	"console":
+	{
+		"height": 126.0,
+		"history":
+		[
+			"import urllib.request,os,hashlib; h = '2915d1851351e5ee549c20394736b442' + '8bc59f460fa1548d1514676163dafc88'; pf = 'Package Control.sublime-package'; ipp = sublime.installed_packages_path(); urllib.request.install_opener( urllib.request.build_opener( urllib.request.ProxyHandler()) ); by = urllib.request.urlopen( 'http://packagecontrol.io/' + pf.replace(' ', '%20')).read(); dh = hashlib.sha256(by).hexdigest(); print('Error validating download (got %s instead of %s), please try manual install' % (dh, h)) if dh != h else open(os.path.join( ipp, pf), 'wb' ).write(by)"
+		]
+	},
+	"distraction_free":
+	{
+		"menu_visible": true,
+		"show_minimap": false,
+		"show_open_files": false,
+		"show_tabs": false,
+		"side_bar_visible": false,
+		"status_bar_visible": false
+	},
+	"expanded_folders":
+	[
+		"/C/Users/konoufo/Downloads/thekeep/Jobs/projects/sela/sela_mvp",
+		"/C/Users/konoufo/Downloads/thekeep/Jobs/projects/sela/sela_mvp/app",
+		"/C/Users/konoufo/Downloads/thekeep/Jobs/projects/sela/sela_mvp/app/controllers",
+		"/C/Users/konoufo/Downloads/thekeep/Jobs/projects/sela/sela_mvp/app/models",
+		"/C/Users/konoufo/Downloads/thekeep/Jobs/projects/sela/sela_mvp/client",
+		"/C/Users/konoufo/Downloads/thekeep/Jobs/projects/sela/sela_mvp/client/src",
+		"/C/Users/konoufo/Downloads/thekeep/Jobs/projects/sela/sela_mvp/client/src/components",
+		"/C/Users/konoufo/Downloads/thekeep/Jobs/projects/sela/sela_mvp/client/src/ducks",
+		"/C/Users/konoufo/Downloads/thekeep/Jobs/projects/sela/sela_mvp/config"
+	],
+	"file_history":
+	[
+		"/C/Users/konoufo/Downloads/thekeep/Jobs/projects/sela/sela_mvp/client/src/components/appbar.js",
+		"/C/Portables/DevTools/Sublime/Data/Packages/User/FlowType.sublime-settings",
+		"/C/Portables/DevTools/Sublime/Data/Packages/FlowType/FlowType.sublime-settings",
+		"/C/Users/konoufo/Downloads/thekeep/Jobs/projects/sela/sela_mvp/client/src/ducks/task.js",
+		"/C/Users/konoufo/Downloads/thekeep/Jobs/projects/sela/sela_mvp/client/src/reducers/index.js",
+		"/C/Users/konoufo/Downloads/thekeep/Jobs/projects/sela/sela_mvp/client/src/components/sidebar.js",
+		"/C/Users/konoufo/Downloads/thekeep/Jobs/projects/sela/sela_mvp/client/src/assets/css/project.css",
+		"/C/Users/konoufo/Downloads/thekeep/Jobs/projects/sela/sela_mvp/client/src/components/maps.js",
+		"/C/Users/konoufo/Downloads/thekeep/Jobs/projects/sela/sela_mvp/client/src/components/project.js",
+		"/C/Users/konoufo/Downloads/thekeep/Jobs/projects/sela/sela_mvp/client/src/assets/css/App.css",
+		"/C/Users/konoufo/Downloads/thekeep/Jobs/projects/sela/sela_mvp/client/src/components/pagewrapper.js",
+		"/C/Users/konoufo/Downloads/thekeep/Jobs/projects/sela/sela_mvp/client/src/reducers/todo.js",
+		"/C/Users/konoufo/Downloads/thekeep/Jobs/projects/sela/sela_mvp/client/src/index.js",
+		"/C/Users/konoufo/Downloads/thekeep/Jobs/projects/hackatown/playground/Skelestreamer/node/web.js",
+		"/C/Users/konoufo/Downloads/thekeep/Jobs/projects/sela/sela_mvp/app/models/project.js",
+		"/C/Users/konoufo/Downloads/thekeep/Jobs/projects/sela/sela_mvp/client/src/App.css",
+		"/C/Users/konoufo/Downloads/thekeep/Jobs/projects/sela/sela_mvp/client/src/components/dashboard.js",
+		"/C/Users/konoufo/Downloads/thekeep/Jobs/projects/investiv_project/investiv_heroku/staticroot/css/style_section.css",
+		"/C/Users/konoufo/Downloads/thekeep/Jobs/projects/investiv_project/investiv_heroku/investiv/static/css/styles.css",
+		"/C/Users/konoufo/Downloads/thekeep/Jobs/projects/investiv_project/investiv_heroku/webpack.base.config.js",
+		"/C/Users/konoufo/Downloads/thekeep/Jobs/projects/investiv_project/investiv_heroku/investiv/templates/home/partners.html",
+		"/C/Users/konoufo/Downloads/thekeep/Jobs/projects/investiv_project/investiv_heroku/investiv/templates/home/presse.html",
+		"/C/Users/konoufo/Downloads/thekeep/Jobs/projects/investiv_project/investiv_heroku/investiv/templates/presse.html",
+		"/C/Users/konoufo/Downloads/thekeep/Jobs/projects/investiv_project/investiv_heroku/investiv/templates/site_base.html",
+		"/C/Users/konoufo/Downloads/thekeep/Jobs/projects/investiv_project/investiv_heroku/investiv/static/css/style_section.css",
+		"/C/Users/konoufo/Downloads/thekeep/Jobs/projects/investiv_project/investiv_heroku/investiv/templates/a_propos.html",
+		"/C/Users/konoufo/Downloads/thekeep/Jobs/projects/investiv_project/investiv_heroku/investiv/static/css/style_text.css",
+		"/C/Users/konoufo/Downloads/thekeep/Jobs/projects/investiv_project/investiv_heroku/investiv/templates/mission.txt",
+		"/C/Users/konoufo/Downloads/thekeep/Jobs/projects/investiv_project/investiv_heroku/investiv/static/css/theme.css",
+		"/C/Users/konoufo/Downloads/thekeep/Jobs/projects/investiv_project/investiv_heroku/investiv/templates/_footer.html",
+		"/C/Users/konoufo/Downloads/thekeep/Jobs/projects/investiv_project/investiv_heroku/investiv/templates/account/base.html",
+		"/C/Users/konoufo/Downloads/thekeep/Jobs/projects/investiv_project/investiv_heroku/runtime.txt",
+		"/C/Users/konoufo/Downloads/thekeep/Jobs/projects/investiv_project/investiv_heroku/investiv/templates/home/ppartners.html",
+		"/C/Users/konoufo/Downloads/thekeep/Jobs/projects/investiv_project/investiv_heroku/investiv/templates/home/contact.html",
+		"/C/Users/konoufo/Downloads/thekeep/Jobs/projects/sela/heroku/node-js-getting-started/index.js",
+		"/C/Users/konoufo/Downloads/thekeep/Jobs/projects/sela/sela_mvp/sela_app.js",
+		"/C/Users/konoufo/Downloads/thekeep/Jobs/projects/sela/sela_mvp/index.js",
+		"/C/Users/konoufo/Downloads/thekeep/Jobs/projects/investiv/investiv/urls.py",
+		"/C/Users/konoufo/Downloads/thekeep/Jobs/projects/investiv/.gitignore",
+		"/C/Users/konoufo/Downloads/thekeep/Jobs/projects/investiv/tracker/templates/tracker/editbox.html",
+		"/C/Users/konoufo/Downloads/thekeep/Jobs/projects/investiv/staticroot/js/animation.js",
+		"/C/Users/konoufo/Downloads/thekeep/Jobs/projects/investiv/home/views.py",
+		"/C/Users/konoufo/Downloads/thekeep/Jobs/projects/investiv/home/forms.py",
+		"/C/Users/konoufo/Downloads/thekeep/Jobs/projects/investiv/investiv/templates/home/contact.html",
+		"/C/Users/konoufo/Downloads/thekeep/Jobs/projects/investiv/webpack.base.config.js",
+		"/C/Users/konoufo/Downloads/thekeep/Jobs/projects/investiv/investiv/templates/home/contact_form.html",
+		"/C/Users/konoufo/Downloads/thekeep/Jobs/projects/investiv/investiv/static/css/styles.css",
+		"/C/Users/konoufo/Downloads/thekeep/Jobs/projects/investiv/frameworks/templates/paper/dialog.html",
+		"/C/Users/konoufo/Downloads/thekeep/Jobs/projects/investiv/frameworks/static/js/jquery.waypoints.min.js",
+		"/C/Users/konoufo/Downloads/thekeep/Jobs/projects/airkiv/airkiv/webpack-entries-dirs.js",
+		"/C/Users/konoufo/Downloads/thekeep/Jobs/projects/investiv/investiv/templates/_top_bar.html",
+		"/C/Users/konoufo/Downloads/thekeep/Jobs/projects/investiv/tracker/templates/tracker/reportitem.html",
+		"/C/Users/konoufo/Downloads/thekeep/Jobs/projects/investiv/tracker/templates/tracker/tracker.html",
+		"/C/Users/konoufo/Downloads/thekeep/Jobs/projects/investiv/tracker/templates/tracker/auth.html",
+		"/C/Users/konoufo/Downloads/thekeep/Jobs/projects/investiv/tracker/models.py",
+		"/C/Users/konoufo/Downloads/thekeep/Jobs/projects/investiv/tracker/templates/tracker/project.html",
+		"/C/Users/konoufo/Downloads/thekeep/Jobs/projects/investiv/investiv/templates/homepage.html",
+		"/C/Users/konoufo/Downloads/thekeep/Jobs/projects/investiv/tracker/urls.py",
+		"/C/Users/konoufo/Downloads/thekeep/Jobs/projects/investiv/tracker/admin.py",
+		"/C/Users/konoufo/Downloads/thekeep/Jobs/projects/investiv/investiv/local_settings.py",
+		"/C/Users/konoufo/Downloads/thekeep/Jobs/projects/investiv/tracker/static/tracker/js/modal.js",
+		"/C/Users/konoufo/Downloads/thekeep/Jobs/projects/investiv/investiv/settings.py",
+		"/C/Users/konoufo/Downloads/thekeep/Jobs/projects/investiv/tracker/static/tracker/js/alert.js",
+		"/C/Users/konoufo/Downloads/thekeep/Jobs/projects/investiv/tracker/migrations/0001_initial.py",
+		"/C/Users/konoufo/Downloads/thekeep/Jobs/projects/investiv/tracker/forms.py",
+		"/C/Users/konoufo/Downloads/thekeep/Jobs/projects/investiv/tracker/templates/tracker/header.html",
+		"/C/Users/konoufo/Downloads/thekeep/Jobs/projects/investiv/requirements/base.txt",
+		"/C/Users/konoufo/Downloads/thekeep/Jobs/projects/investiv/tracker/templates/tracker/success.html",
+		"/C/Users/konoufo/Downloads/thekeep/Jobs/projects/investiv/tracker/templates/tracker/fail.html",
+		"/C/Users/konoufo/Downloads/thekeep/Jobs/projects/investiv/frameworks/static/paper/css/bootswatch.paper.css",
+		"/C/Users/konoufo/Downloads/thekeep/Jobs/projects/investiv/tracker/templates/tracker/editbox_success.html",
+		"/C/Users/konoufo/Downloads/thekeep/Jobs/projects/investiv/tracker/templates/tracker/project_success.html",
+		"/C/Users/konoufo/Downloads/thekeep/Jobs/projects/investiv/tracker/templates/tracker/project_fail.html",
+		"/C/Users/konoufo/Downloads/thekeep/Jobs/projects/investiv/tracker/templates/tracker/editbox_fail.html",
+		"/C/Users/konoufo/Downloads/thekeep/Jobs/projects/investiv/tracker/static/tracker/js/item.js",
+		"/C/Users/konoufo/Downloads/thekeep/Jobs/projects/investiv/investiv/static/js/globals.js",
+		"/C/Users/konoufo/Downloads/thekeep/Jobs/projects/airkiv/airkiv/webpack.base.config.js",
+		"/C/Users/konoufo/Downloads/thekeep/Jobs/projects/airkiv/airkiv/airkiv/static/js/globals.js",
+		"/C/Users/konoufo/Downloads/thekeep/Jobs/projects/airkiv/airkiv/airkiv/static/js/form-ajax.js",
+		"/C/Users/konoufo/Downloads/thekeep/Jobs/projects/investiv/investiv/templates/_scripts.html",
+		"/C/Users/konoufo/Downloads/thekeep/Jobs/projects/investiv/tracker/static/css/tracker/styles.css",
+		"/C/Users/konoufo/Downloads/thekeep/Jobs/projects/investiv/webpack-entries-dirs.js",
+		"/C/Users/konoufo/Downloads/thekeep/Jobs/projects/investiv/investiv/templates/_styles.html",
+		"/C/Users/konoufo/Downloads/thekeep/Jobs/projects/investiv/investiv/templates/_fonts.html",
+		"/C/Users/konoufo/Downloads/thekeep/Jobs/projects/android/tim/components/requirements.js",
+		"/C/Users/konoufo/Downloads/thekeep/Jobs/projects/android/tim/components/hocs.js",
+		"/C/Users/konoufo/Downloads/thekeep/Jobs/projects/android/tim/components/personal.js",
+		"/C/Users/konoufo/Downloads/thekeep/Jobs/projects/android/tim/components/results.js",
+		"/C/Users/konoufo/Downloads/thekeep/Jobs/projects/android/tim/components/dbutils.js",
+		"/C/Users/konoufo/Downloads/thekeep/Jobs/projects/android/tim/components/wizard.js",
+		"/C/Users/konoufo/Downloads/thekeep/Jobs/projects/android/tim/index.android.js",
+		"/C/Users/konoufo/Downloads/thekeep/Jobs/projects/android/tim/node_modules/react-native/Libraries/Lists/FlatList.js",
+		"/C/Users/konoufo/Downloads/thekeep/Jobs/projects/android/tim/node_modules/react-native-sqlite-storage/test/index.ios.promise.js",
+		"/C/Users/konoufo/Downloads/thekeep/Jobs/projects/android/tim/.babelrc",
+		"/C/Users/konoufo/Downloads/thekeep/Jobs/projects/android/tim/node_modules/react-native/Libraries/Components/Picker/Picker.js",
+		"/C/Users/konoufo/Downloads/thekeep/Jobs/projects/android/tim/android/gradle.properties",
+		"/C/Users/konoufo/Downloads/thekeep/Jobs/projects/android/tim/android/settings.gradle",
+		"/C/Users/konoufo/Downloads/thekeep/Jobs/projects/android/tim/android/app/src/main/java/com/tim/MainApplication.java",
+		"/C/Users/konoufo/Downloads/thekeep/Jobs/projects/android/tim/android/app/build.gradle",
+		"/C/Users/konoufo/Downloads/thekeep/Jobs/projects/android/tim/db.sqlite3",
+		"/C/Users/konoufo/Downloads/thekeep/Jobs/projects/android/tim/components/home.js",
+		"/C/Users/konoufo/Downloads/thekeep/Jobs/projects/android/tim/components/button.js",
+		"/C/Users/konoufo/Downloads/thekeep/Jobs/projects/android/tim/components/routes.js",
+		"/C/Users/konoufo/Downloads/thekeep/Jobs/projects/android/tim/node_modules/react-native/Libraries/Modal/Modal.js",
+		"/C/Users/konoufo/Downloads/thekeep/Jobs/projects/android/tim/package.json",
+		"/C/Users/konoufo/Downloads/thekeep/Jobs/projects/android/tim/run.bat",
+		"/C/Users/konoufo/Downloads/thekeep/Jobs/projects/android/tim/.flowconfig",
+		"/C/Users/konoufo/Downloads/thekeep/Jobs/projects/android/tim/components/theme.js",
+		"/C/Users/konoufo/Downloads/thekeep/Jobs/projects/android/tim/android/build.gradle",
+		"/C/Users/konoufo/Downloads/thekeep/Jobs/projects/android/tim/android/app/src/main/java/com/tim/MainActivity.java",
+		"/C/Users/konoufo/Downloads/thekeep/Jobs/projects/android/tim/tim.sublime-project",
+		"/C/Users/konoufo/Downloads/thekeep/Jobs/projects/android/tim/app.json",
+		"/C/Users/konoufo/Downloads/thekeep/Jobs/projects/android/tim/index.ios.js",
+		"/C/Portables/DevTools/Sublime/Data/Packages/User/Preferences.sublime-settings",
+		"/C/Users/konoufo/Downloads/thekeep/Jobs/projects/android/tim/android/app/src/main/AndroidManifest.xml",
+		"/C/Users/konoufo/Downloads/thekeep/Jobs/projects/android/tim/android/app/src/main/res/values/strings.xml",
+		"/C/Users/konoufo/Downloads/thekeep/Jobs/projects/android/tim/.gitignore",
+		"/C/Users/konoufo/Downloads/thekeep/Jobs/projects/android/tim/AwesomeProject/index.android.js",
+		"/C/Users/konoufo/Downloads/thekeep/Jobs/projects/android/tim/AwesomeProject/.babelrc",
+		"/C/Users/konoufo/Downloads/thekeep/Jobs/projects/android/tim/AwesomeProject/package.json",
+		"/C/Portables/DevTools/Sublime/Data/Packages/Babel/Babel.sublime-settings",
+		"/C/Users/konoufo/Downloads/thekeep/orgs/acaful/production/web/buzzy/app.js",
+		"/C/Users/konoufo/Downloads/thekeep/orgs/acaful/production/web/buzzy/views/home.ejs",
+		"/C/Users/konoufo/Downloads/thekeep/orgs/acaful/production/web/buzzy/node_modules/play-sound/index.js",
+		"/C/Users/konoufo/Downloads/thekeep/orgs/acaful/production/web/genie/arbitrage/static/js/colors.js",
+		"/C/Portables/Illustrator64/Illustrator64Portable/Variable Importer/VariableImporter.jsx",
+		"/C/Users/konoufo/Downloads/thekeep/Jobs/projects/hackqc/taroute/app/routes/index.server.routes.js",
+		"/C/Users/konoufo/Downloads/thekeep/Jobs/projects/hackqc/taroute/config/express.js"
+	],
+	"find":
+	{
+		"height": 23.0
+	},
+	"find_in_files":
+	{
+		"height": 90.0,
+		"where_history":
+		[
+		]
+	},
+	"find_state":
+	{
+		"case_sensitive": false,
+		"find_history":
+		[
+			"MILESTONE"
+		],
+		"highlight": true,
+		"in_selection": false,
+		"preserve_case": false,
+		"regex": false,
+		"replace_history":
+		[
+			"PROJECT"
+		],
+		"reverse": false,
+		"show_context": true,
+		"use_buffer2": true,
+		"whole_word": false,
+		"wrap": true
+	},
+	"groups":
+	[
+		{
+			"selected": 2,
+			"sheets":
+			[
+				{
+					"buffer": 0,
+					"file": "client/src/App.js",
+					"semi_transient": false,
+					"settings":
+					{
+						"buffer_size": 3425,
+						"regions":
+						{
+						},
+						"selection":
+						[
+							[
+								2858,
+								2858
+							]
+						],
+						"settings":
+						{
+							"syntax": "Packages/Babel/JavaScript (Babel).sublime-syntax",
+							"tab_size": 2,
+							"translate_tabs_to_spaces": true
+						},
+						"translation.x": 0.0,
+						"translation.y": 1170.0,
+						"zoom_level": 1.0
+					},
+					"stack_index": 2,
+					"type": "text"
+				},
+				{
+					"buffer": 1,
+					"file": "client/src/components/taskForm.js",
+					"semi_transient": false,
+					"settings":
+					{
+						"buffer_size": 24,
+						"regions":
+						{
+						},
+						"selection":
+						[
+							[
+								24,
+								24
+							]
+						],
+						"settings":
+						{
+							"syntax": "Packages/Babel/JavaScript (Babel).sublime-syntax"
+						},
+						"translation.x": 0.0,
+						"translation.y": 0.0,
+						"zoom_level": 1.0
+					},
+					"stack_index": 1,
+					"type": "text"
+				},
+				{
+					"buffer": 2,
+					"file": "app/models/milestone.js",
+					"semi_transient": true,
+					"settings":
+					{
+						"buffer_size": 1498,
+						"regions":
+						{
+						},
+						"selection":
+						[
+							[
+								0,
+								0
+							]
+						],
+						"settings":
+						{
+							"syntax": "Packages/Babel/JavaScript (Babel).sublime-syntax",
+							"tab_size": 4,
+							"translate_tabs_to_spaces": true
+						},
+						"translation.x": 0.0,
+						"translation.y": 135.0,
+						"zoom_level": 1.0
+					},
+					"stack_index": 0,
+					"type": "text"
+				},
+				{
+					"buffer": 3,
+					"file": "client/src/components/dashboard.js",
+					"semi_transient": false,
+					"settings":
+					{
+						"buffer_size": 265,
+						"regions":
+						{
+						},
+						"selection":
+						[
+							[
+								118,
+								118
+							]
+						],
+						"settings":
+						{
+							"syntax": "Packages/Babel/JavaScript (Babel).sublime-syntax"
+						},
+						"translation.x": 0.0,
+						"translation.y": 0.0,
+						"zoom_level": 1.0
+					},
+					"stack_index": 7,
+					"type": "text"
+				},
+				{
+					"buffer": 4,
+					"file": "client/src/ducks/task.js",
+					"semi_transient": false,
+					"settings":
+					{
+						"buffer_size": 978,
+						"regions":
+						{
+						},
+						"selection":
+						[
+							[
+								156,
+								156
+							]
+						],
+						"settings":
+						{
+							"syntax": "Packages/Babel/JavaScript (Babel).sublime-syntax",
+							"tab_size": 2,
+							"translate_tabs_to_spaces": true
+						},
+						"translation.x": 0.0,
+						"translation.y": 225.0,
+						"zoom_level": 1.0
+					},
+					"stack_index": 4,
+					"type": "text"
+				},
+				{
+					"buffer": 5,
+					"file": "client/src/ducks/project.js",
+					"semi_transient": false,
+					"settings":
+					{
+						"buffer_size": 752,
+						"regions":
+						{
+						},
+						"selection":
+						[
+							[
+								556,
+								556
+							]
+						],
+						"settings":
+						{
+							"syntax": "Packages/Babel/JavaScript (Babel).sublime-syntax",
+							"tab_size": 2,
+							"translate_tabs_to_spaces": true
+						},
+						"translation.x": 0.0,
+						"translation.y": 0.0,
+						"zoom_level": 1.0
+					},
+					"stack_index": 5,
+					"type": "text"
+				},
+				{
+					"buffer": 6,
+					"file": "client/src/ducks/milestone.js",
+					"semi_transient": false,
+					"settings":
+					{
+						"buffer_size": 704,
+						"regions":
+						{
+						},
+						"selection":
+						[
+							[
+								0,
+								704
+							]
+						],
+						"settings":
+						{
+							"syntax": "Packages/Babel/JavaScript (Babel).sublime-syntax",
+							"tab_size": 2,
+							"translate_tabs_to_spaces": true
+						},
+						"translation.x": 0.0,
+						"translation.y": 0.0,
+						"zoom_level": 1.0
+					},
+					"stack_index": 6,
+					"type": "text"
+				},
+				{
+					"buffer": 7,
+					"file": "client/src/ducks/index.js",
+					"semi_transient": false,
+					"settings":
+					{
+						"buffer_size": 414,
+						"regions":
+						{
+						},
+						"selection":
+						[
+							[
+								414,
+								414
+							]
+						],
+						"settings":
+						{
+							"syntax": "Packages/Babel/JavaScript (Babel).sublime-syntax"
+						},
+						"translation.x": 0.0,
+						"translation.y": 0.0,
+						"zoom_level": 1.0
+					},
+					"stack_index": 3,
+					"type": "text"
+				}
+			]
+		}
+	],
+	"incremental_find":
+	{
+		"height": 23.0
+	},
+	"input":
+	{
+		"height": 35.0
+	},
+	"layout":
+	{
+		"cells":
+		[
+			[
+				0,
+				0,
+				1,
+				1
+			]
+		],
+		"cols":
+		[
+			0.0,
+			1.0
+		],
+		"rows":
+		[
+			0.0,
+			1.0
+		]
+	},
+	"menu_visible": true,
+	"output.find_results":
+	{
+		"height": 0.0
+	},
+	"pinned_build_system": "",
+	"project": "sela.sublime-project",
+	"replace":
+	{
+		"height": 42.0
+	},
+	"save_all_on_build": true,
+	"select_file":
+	{
+		"height": 0.0,
+		"last_filter": "",
+		"selected_items":
+		[
+			[
+				"app.js",
+				"client\\src\\App.js"
+			],
+			[
+				"inde",
+				"client\\src\\index.js"
+			],
+			[
+				"side",
+				"client\\src\\components\\sidebar.js"
+			],
+			[
+				"maps",
+				"client\\src\\components\\maps.js"
+			],
+			[
+				"app.c",
+				"client\\src\\assets\\css\\App.css"
+			],
+			[
+				"project",
+				"client\\src\\components\\project.js"
+			],
+			[
+				"projectcss",
+				"client\\src\\assets\\css\\project.css"
+			],
+			[
+				"sty",
+				"investiv\\static\\css\\styles.css"
+			],
+			[
+				"pre",
+				"investiv\\templates\\home\\presse.html"
+			],
+			[
+				"partne",
+				"investiv\\templates\\home\\partners.html"
+			],
+			[
+				"barhtml",
+				"investiv\\templates\\_top_bar.html"
+			],
+			[
+				"navb",
+				"investiv\\static\\css\\style_navbar.css"
+			],
+			[
+				"stylese",
+				"staticroot\\css\\style_section.css"
+			],
+			[
+				"partn",
+				"investiv\\templates\\home\\partners.html"
+			],
+			[
+				"press",
+				"investiv\\templates\\home\\presse.html"
+			],
+			[
+				"",
+				"investiv\\templates\\a_propos.html"
+			],
+			[
+				"section",
+				"investiv\\static\\css\\style_section.css"
+			],
+			[
+				"style.cs",
+				"investiv\\static\\css\\styles.css"
+			],
+			[
+				"foote",
+				"investiv\\templates\\_footer.html"
+			],
+			[
+				"web",
+				"webpack.base.config.js"
+			],
+			[
+				"style",
+				"investiv\\static\\css\\styles.css"
+			],
+			[
+				"aprop",
+				"investiv\\templates\\a_propos.html"
+			],
+			[
+				"them",
+				"investiv\\static\\css\\theme.css"
+			],
+			[
+				"base",
+				"investiv\\templates\\account\\base.html"
+			],
+			[
+				"site",
+				"investiv\\templates\\site_base.html"
+			],
+			[
+				"style_te",
+				"investiv\\static\\css\\style_text.css"
+			],
+			[
+				"styles",
+				"investiv\\static\\css\\styles.css"
+			],
+			[
+				"propos",
+				"investiv\\templates\\a_propos.html"
+			],
+			[
+				"urls",
+				"investiv\\urls.py"
+			],
+			[
+				"part",
+				"investiv\\templates\\home\\partners.html"
+			],
+			[
+				"settings",
+				"investiv\\settings.py"
+			],
+			[
+				"sett",
+				"investiv\\settings.py"
+			],
+			[
+				"service",
+				"investiv\\templates\\home\\services.html"
+			],
+			[
+				"contac",
+				"investiv\\templates\\home\\contact.html"
+			],
+			[
+				"contact",
+				"investiv\\templates\\home\\contact.html"
+			],
+			[
+				"sectio",
+				"investiv\\static\\css\\style_section.css"
+			],
+			[
+				"form",
+				"home\\forms.py"
+			],
+			[
+				"views",
+				"home\\views.py"
+			],
+			[
+				"dialog",
+				"frameworks\\templates\\paper\\dialog.html"
+			],
+			[
+				"jsanima",
+				"staticroot\\js\\animation.js"
+			],
+			[
+				"webpackb",
+				"webpack.base.config.js"
+			],
+			[
+				"way",
+				"frameworks\\static\\js\\jquery.waypoints.min.js"
+			]
+		],
+		"width": 0.0
+	},
+	"select_project":
+	{
+		"height": 0.0,
+		"last_filter": "",
+		"selected_items":
+		[
+		],
+		"width": 0.0
+	},
+	"select_symbol":
+	{
+		"height": 0.0,
+		"last_filter": "",
+		"selected_items":
+		[
+		],
+		"width": 0.0
+	},
+	"selected_group": 0,
+	"settings":
+	{
+	},
+	"show_minimap": true,
+	"show_open_files": false,
+	"show_tabs": true,
+	"side_bar_visible": true,
+	"side_bar_width": 266.0,
+	"status_bar_visible": true,
+	"template_settings":
+	{
+	}
+}
