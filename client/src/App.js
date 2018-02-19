@@ -86,7 +86,8 @@ class App extends Component {
 
   render() {
     let _self = this;
-    return <Router>
+    console.log('Router basename:', process.env.CLIENT_BASE);
+    return <Router basename={process.env.CLIENT_BASE || "/client"}>
       <div id="wrapper">
         <AppBar />
         <SideBar />

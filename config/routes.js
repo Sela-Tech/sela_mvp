@@ -17,6 +17,8 @@ module.exports = function routes() {
     this.get('/blog', public.blog);
     this.get('/signup', public.begin);
     this.get('/project', public.project);
+    console.log(process.env.CLIENT_BASE);
+    this.get(process.env.CLIENT_BASE, public.client);
     this.get('/dashboard', v1User.dashboard);
 
     // access

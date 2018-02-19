@@ -54,8 +54,9 @@ export const actionTors = {
 	add: (project) => ({type: types.ADD_PROJECT, ...project}),
   delete: (projectId) => ({type: types.DELETE_PROJECT, _id: projectId}),
   fetch,
+  // this is a "functional action" creator so it returns a function, not an object.
+  // Community call it a "thunk", for some reason...
   fetchRequest: function (query){
-    // this is a "functional action" creator so it returns a function, not an object
     return function(dispatch) {
       // dispatch this first to toggle `isFetching` state
       dispatch(fetch());

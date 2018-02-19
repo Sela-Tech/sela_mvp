@@ -24,6 +24,7 @@ var routes = require('./config/routes');
 var app = express();
 app.use(express.static(path.join(__dirname, 'public', 'index')));
 app.use(express.static(path.join(__dirname, 'public', 'index', 'signup')));
+app.use('/client', express.static(path.join(__dirname, 'public', 'build')));
 
 if (process.env.NODE_ENV === 'development') {
     environmentsDev.call(app);
