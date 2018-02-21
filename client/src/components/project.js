@@ -10,11 +10,11 @@ import SimpleMap from './maps';
 
 export default class Project extends Component {
     componentDidMount(){
-        this.props.setHeader({
+       /* this.props.setHeader({
             icon: 'pie_chart',
             title: this.project ? this.project.project_name : 'No Project',
             description: 'Project'
-        })
+        })*/
     }
 
     getDefaultDate = () => {
@@ -51,9 +51,12 @@ export default class Project extends Component {
     };
 
     render(){
-        let {match} = this.props;
+        let {match, project} = this.props;
         return <PageWrapper>
-            <TopHeader {...this.props.header} />
+            <TopHeader 
+                icon="pie_chart" 
+                title={project ? project.name : 'No Project'}
+                description="Project" />
             <div className="row">
                 <div className="col-lg-8 col-md-8 col-sm-12 col-xs-12">
                     <ul className="nav nav-pills nav-justified">
