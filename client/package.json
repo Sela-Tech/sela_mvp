@@ -5,6 +5,7 @@
   "dependencies": {
     "axios": "^0.17.1",
     "fullcalendar-reactwrapper": "^1.0.7",
+    "google-map-react": "^0.31.0",
     "normalizr": "^3.2.4",
     "react": "^16.2.0",
     "react-countup": "^3.0.2",
