@@ -59,7 +59,7 @@ $('#signup-btn').on('click', function(e) {
             confirm: confirm
         })
         .done(function() {
-            window.location.href ='/dashboard';
+            window.location.href ='/client';
         })
         .fail(function() {
             alert("error");
@@ -74,7 +74,7 @@ $('#login-btn').on('click', function(e) {
 
     var jqxhr = $.post("/api/v1/login.json", { username: username, password: password })
         .done(function() {
-            window.location.href ='/dashboard';
+            window.location.href ='/client';
         })
         .fail(function() {
             alert("error");

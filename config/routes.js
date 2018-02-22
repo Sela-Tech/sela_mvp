@@ -17,6 +17,8 @@ module.exports = function routes() {
     this.get('/blog', public.blog);
     this.get('/signup', public.begin);
     this.get('/project', public.project);
+    console.log(process.env.CLIENT_BASE);
+    this.get(process.env.CLIENT_BASE, public.client);
     this.get('/dashboard', v1User.dashboard);
 
     // access
@@ -57,7 +59,7 @@ module.exports = function routes() {
     // projects
     this.post('/api/v1/project.json', passport.authenticate('local-user', { session: false }), v1Project.createOne);
     this.get('/api/v1/project.json', passport.authenticate('local-user', { session: false }), v1Project.readOne);
-    this.get('/api/v1/projects.json', passport.authenticate('local-user', { session: false }), v1Project.readMany);
+    this.get('/api/v1/projects.json', /*passport.authenticate('local-user', { session: false }),*/ v1Project.readMany);
     // this.put('/api/v1/project.json', passport.authenticate('local-user', { session: false }), v1Project.updateOne);
     // this.delete('/api/v1/project/:id.json', passport.authenticate('local-user', { session: false }), v1Project.deleteOne);
     // this.post('/api/v1/project/contractor.json', passport.authenticate('local-user', { session: false }), v1Project.addContractor);

@@ -75,7 +75,8 @@ controller.readOne = function(req, res, next) {
 
 controller.readMany = function(req, res, next) {
     var user = req.user || {};
-
+    var record = Object.assign({}, req.body, req.params);
+    Object.keys(record).length || next();
     var schema = {};
 
     res.status(501);
@@ -145,6 +146,11 @@ controller.getUserProjects = function(req, res, next) {
                 result: result,
             });
         });
+};
+
+controller.current = function(req, res) {
+    var user = req.user || {};
+    res.json({user: user});
 };
 
 module.exports = controller;

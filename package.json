@@ -14,8 +14,13 @@
     "lint": "eslint .",
     "test": "echo"
   },
+  "nodemonConfig": {
+    "ignore": [
+      "*"
+    ]
+  },
   "dependencies": {
-    "bcrypt": "1.0.3",
+    "bcrypt": "^1.0.3",
     "body-parser": "1.18.2",
     "bootstrap-material-design": "^4.0.0-beta.3",
     "concurrently": "^3.5.1",

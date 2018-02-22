@@ -39,6 +39,12 @@ controller.project = function(req, res, next) {
     });
 };
 
+controller.client = function(req, res, next) {
+    res.sendFile('index.html', {
+        root: FRONTEND + '/build'
+    });
+};
+
 controller.signup = function(req, res, next) {
 
     var record = {};
@@ -108,7 +114,7 @@ controller.login = function(req, res, next) {
             }
 
             res.json({
-                user: result.toJSON(),
+                user: result,
             });
 
         });

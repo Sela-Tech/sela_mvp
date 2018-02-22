@@ -1,0 +1,46 @@
+/*project.css
+Styles for projects display */
+
+.page-content {
+	padding-bottom: 300px; /* for scrolling everything above the bottom map. */
+}
+
+.bottom-fixed {
+	background-color: #fff;
+	bottom: 0;
+	left: 0;
+	min-height: 200px;
+	position: absolute;
+	width: 100%;
+}
+
+.projects-container {
+	height: 100%;
+	margin-bottom: 200px;
+	min-height: 100%;
+}
+
+
+.projects-map {
+	background-color: white;
+	height: 100%;
+	position: absolute;
+	right: -24px;
+	top: 0;
+	width: 500px;
+	z-index: 2;
+}
+
+@media (max-width: 1200px){
+	.projects-container {
+		margin-bottom: 300px;
+	}
+	.projects-map {
+		bottom: 0;
+		left: 0;
+		position: initial;
+		right: initial;
+		top: initial;
+		width: 100%;
+	}
+}
