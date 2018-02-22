@@ -1,0 +1,42 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <title>Sela</title>
+    <link href='https://fonts.googleapis.com/css?family=Open+Sans:400,700' rel='stylesheet' type='text/css'>
+    <link href='https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css' rel='stylesheet' type='text/css'>
+  </head>
+  <body class="container">
+    <div>
+      <h1>Sela</h1>
+    </div>
+    <div>
+      <h3>Create Project</h3>
+      <form>
+        <fieldset>
+          <!--<legend>Project Parameters</legend>-->
+          Name: <input type="text" id="project-start"><br>
+          Description: <input type="text" id="project-desc"><br>
+          <!--Start Date: <input type="number" id="project-start" required><br>-->
+          End Date: <input type="number" id="project-end" required><br>
+          Budget: $<input type="number" id="project-budget" required><br>
+          Quote: $<input type="number" id="project-quote" required><br>
+          Desired Number of Service Agents: <input type="number" id="project-num-sa"><br>
+          Desired Number of Evaluation Agents: <input type="number" id="project-num-ea"><br>
+          <!--<a href="./project_created.html"><input type="submit" value="Submit" id="create-project"></a>-->
+          <input type="submit" value="Submit" id="create-project">
+        </fieldset>
+      </form>
+    </div>
+  </body>
+  <!--<script>
+    CONTRACT_ADDRESS = 'REPLACE_WITH_CONTRACT_ADDRESS';
+    ABI_DEFINITION = JSON.parse('REPLACE_WITH_ABI_DEFINITION');
+  </script>-->
+  <!-- githash 35ae85a5d30500f7df20c47594d529af872ac88a = 1.0.0-beta.27 -->
+  <!--<script src="https://cdn.rawgit.com/ethereum/web3.js/35ae85a5d30500f7df20c47594d529af872ac88a/dist/web3.min.js"></script>-->
+  <script src="https://code.jquery.com/jquery-3.1.1.min.js"></script>
+  <script src="./js/bootstrap.min.js"></script>
+  <script src="./js/web3.min.js"></script>
+  <script src="./js/truffle-contract.js"></script>
+  <script src="./js/app.js"></script>
+</html>

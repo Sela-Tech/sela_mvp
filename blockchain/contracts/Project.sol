@@ -2,10 +2,10 @@ pragma solidity ^0.4.0;
 
 
 // Contract for project execution
-contract ProjectContract {
+contract Project {
     enum AgentType {FUND, SERV, EVAL}
 
-    struct Project {
+    struct Proj {
         address owner; // Funding agent
         address[] servAgents; // Service agents
         address[] evalAgents; // Evaluation agents
@@ -20,82 +20,97 @@ contract ProjectContract {
         bool complete; // Completion status
         bool success; // Success status
         mapping (bool => address[]) reports; // Positive and negative reports
+        mapping (address => uint) rewards;
     }
 
-    Project private project;
+    Proj private project;
 
     uint public constant MIN_STAKE = 1; // TODO: Might retrieve this from external source
 
     address private owner;
 
-    function ProjectContract(uint capital, uint start, uint end)
-    public {
+    function Project(uint cap, uint start, uint end) public {
+        /*
+        TODO: Check for this in interface
         require(now <= start);
         require(start < end);
+        require(start >= 0);
+        require(end >= 0);
+        */
         owner = msg.sender;
-        project = newProject(capital, start, end);
+        project = newProject(cap, start, end);
     }
 
     // Fallback function
     function() public payable {}
 
-    modifier ifOwner() {
-        if (msg.sender == owner) {
-            _;
+    /*modifier ifOwner() {
+        if (msg.sender != owner) {
+            revert();
         }
-        revert();
+        _;
     }
 
     modifier ifServ() {
+        bool isServ = false;
         for (uint i = 0; i < project.numServAgents; i++) {
             if (address(this) == project.servAgents[i]) {
-                _;
+                isServ = true;
+                break;
             }
         }
-        revert();
+        if (!isServ) {
+            revert();
+        }
+        _;
     }
 
     modifier ifEval() {
+        bool isEval = false;
         for (uint i = 0; i < project.numEvalAgents; i++) {
             if (address(this) == project.evalAgents[i]) {
-                _;
+                isEval = true;
+                break;
             }
         }
-        revert();
+        if (!isEval) {
+            revert();
+        }
+        _;
     }
 
     modifier ifAfford(uint amount) {
-        if (msg.value >= amount) {
-            _;
+        if (msg.value < amount) {
+            revert();
         }
-        revert();
-    }
+        _;
+    }*/
 
-    function registerServiceAgent (address sAgent) public ifOwner {
+    function registerServiceAgent (address sAgent) public /*ifOwner*/ {
         // TODO: Might help to track this with an event
         project.servAgents.push(sAgent);
         project.numServAgents++;
     }
 
-    function registerEvaluationAgent(address eAgent) public ifOwner {
+    function registerEvaluationAgent(address eAgent) public /*ifOwner*/ {
         // TODO: Might help to track this with an event
         project.evalAgents.push(eAgent);
         project.numEvalAgents++;
     }
 
-    // Funding Agent and Service Agent commit stake to project execution
-    function commitStake(AgentType agentType, uint stake) public payable ifAfford(stake) {
+    // Agents commit stake to project execution
+    function commitStake(AgentType agentType, uint stake) public payable /*ifAfford(stake)*/ {
       // TODO: Might help to track this with an event
-        require(stake >= MIN_STAKE);
+        /* require(stake >= MIN_STAKE); */
         if (agentType == AgentType.FUND) {
             project.fundStake += stake;
-            this.transfer(stake);
+            /* this.transfer(stake); */
         } else if (agentType == AgentType.SERV) {
             project.servStake += stake;
-            this.transfer(stake);
+            /* this.transfer(stake); */
         } else if (agentType == AgentType.EVAL) {
             project.evalStake += stake;
-            this.transfer(stake);
+            /* this.transfer(stake); */
         }
     }
 
@@ -107,68 +122,77 @@ contract ProjectContract {
     }
 
     // Defer project end date to later date
-    function deferProjectStart(uint newStart) public ifOwner {
+    function deferProjectStart(uint newStart) public /*ifOwner*/ {
         // TODO: Might help to track this with an event
+        /* require(now <= newStart);
+        require(project.start <= newStart); */
         project.start = newStart;
     }
 
     // Defer project end date to later date
-    function deferProjectEnd(uint newEnd) public ifOwner {
+    function deferProjectEnd(uint newEnd) public /*ifOwner*/ {
         // TODO: Might help to track this with an event
         project.end = newEnd;
     }
 
-    function submitReport(bool report) public ifEval {
+    function submitReport(bool report) public /*ifEval*/ {
         // TODO: Might help to track this with an event
         project.reports[report].push(msg.sender);
-        this.evaluateProject();
+        evaluateProject();
     }
 
-    function evaluateProject() public returns(bool) {
+    function evaluateProject() public {
         // TODO: Might help to track this with an event
         uint numPosReports = project.reports[true].length;
         uint numNegReports = project.reports[false].length;
         uint numEvalAgents = project.numEvalAgents;
         // Check for complete project
         if (numPosReports + numNegReports == numEvalAgents) {
+            address evalAgent;
+            address servAgent;
             project.complete = true;
-            this.payout(numPosReports, numNegReports);
+            uint numServAgents = project.numServAgents;
+            // Check for successful project
+            if (numPosReports > numNegReports) {
+                // TODO: reward service agents and correct evaluation agents
+                // and punish incorrect evaluation agents
+                project.success = true;
+                // TODO: make more precise else money will be lost
+                uint posReward = project.capital / (numPosReports + numServAgents);
+                for (uint i = 0; i < numPosReports; i++) {
+                    evalAgent = project.reports[true][i];
+                    project.rewards[evalAgent] = posReward;
+                }
+                for (i = 0; i < numServAgents; i++) {
+                    servAgent = project.servAgents[i];
+                    project.rewards[servAgent] = posReward;
+                }
+            } else {
+                // TODO: reward correct evaluation agents
+                // and punish service agent and incorrect evaluation agents
+                project.success = false;
+                // TODO: make more precise else money will be lost
+                uint negReward = project.capital / numNegReports;
+                for (uint j = 0; j < numNegReports; j++) {
+                    evalAgent = project.reports[false][j];
+                    project.rewards[evalAgent] = negReward;
+                }
+            }
         }
     }
 
-    function payout(uint numPosReports, uint numNegReports) public {
+    function claimReward() public {
         // TODO: Pay service agent and/or correct evaluation agents
         // TODO: Might help to track this with an event
-        uint numServAgents = project.numServAgents;
-        // Check for successful project
-        if (numPosReports > numNegReports) {
-            // TODO: reward service agents and correct evaluation agents
-            // and punish incorrect evaluation agents
-            project.success = true;
-            // TODO: make more precise else money will be lost
-            uint posReward = project.capital / (numPosReports + numServAgents);
-            for (uint i = 0; i < numPosReports; i++) {
-                project.reports[true][i].transfer(posReward);
-            }
-            for (i = 0; i < numServAgents; i++) {
-                project.servAgents[i].transfer(posReward);
-            }
-        } else {
-            // TODO: reward correct evaluation agents
-            // and punish service agent and incorrect evaluation agents
-            project.success = false;
-            // TODO: make more precise else money will be lost
-            uint negReward = project.capital / numNegReports;
-            for (uint j = 0; j < numNegReports; j++) {
-                project.reports[false][j].transfer(negReward);
-            }
-        }
+        uint reward = project.rewards[msg.sender];
+        project.rewards[msg.sender] = 0;
+        msg.sender.transfer(reward);
     }
 
     // Initialize project
     // IMPORTANT: use owner and not msg.sender because msg.sender is this, since newProject is a private method
     function newProject(uint cap, uint start, uint end)
-    private constant ifOwner ifAfford(cap) returns(Project proj) {
+    private constant returns(Proj proj) {
         proj.owner = owner;
         proj.capital = cap;
         proj.start = start;

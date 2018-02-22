@@ -1,14 +1,14 @@
 pragma solidity ^0.4.0;
 
-import "Project.sol";
+import "./Project.sol";
 
 
 // Contract for project execution
-contract FundAgentContract {
-    event ProjectCreated(address provider, uint quote, uint start, uint end);
+contract FundAgent {
+    event ProjectCreated(address provider, uint budget, uint start, uint end);
     address private owner;
 
-    function FundAgentContract() public {
+    function FundAgent() public {
         owner = msg.sender;
     }
 
@@ -17,15 +17,15 @@ contract FundAgentContract {
     // involved with project operate with good intent and deliver good outcome
     function createProject(uint capital, uint start, uint end, uint quote, uint fundStake)
     public returns (address projectAddress) {
-        ProjectContract projectContract = new ProjectContract(capital, start, end);
-        projectContract.commitStake(ProjectContract.AgentType.FUND, fundStake);
+        Project projectContract = new Project(capital, start, end);
+        projectContract.commitStake(Project.AgentType.FUND, fundStake);
         projectAddress = address(projectContract);
-        ProjectCreated(owner, quote, start, end); // TODO: listen for event in javascript and handle appropriately
+        ProjectCreated(owner, capital, start, end); // TODO: listen for event in javascript and handle appropriately
     }
 
     // Select and notify applicant of project offer
-    function grantProjectOffer(address projectAddress, address applicant) public {
-    }
+    /*function grantProjectOffer(address projectAddress, address applicant) public {
+    }*/
 
     // TODO: define the following functions
     /*
