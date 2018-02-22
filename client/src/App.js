@@ -20,8 +20,6 @@ import loading from './assets/img/loading.png';
 import './assets/css/App.css';
 import 'fullcalendar-reactwrapper/dist/css/fullcalendar.min.css';
 
-const PROJECT_ENDPOINT = '/api/v1/project.json';
-const USER_ENDPOINT = '/api/v1/user.json';
 
 const fetchJson = (url) => {
     return fetch(url).then(function(response) {
@@ -60,29 +58,6 @@ class App extends Component {
     // set authenticated user
     // window._SELA_USER ? this.setState({user: window._SELA_USER}) : this.fetchUser();
   }
-
-  /*fetchUser = (cb) => {
-    let _self = this;
-    cb = cb || (() => {});
-
-    fetchJson(USER_ENDPOINT)
-    .then(function(json) {
-      _self.setState((state) => {cb(json.user); return json}); 
-      console.log(json);
-    })
-    .catch(function(error) {console.log(error); cb();})
-  };
-
-  fetchProjects = () => {
-     // Fetches authorized projects if a user is authentified. Only public projects otherwise.
-    let _self = this;
-    
-    fetchJson(PROJECT_ENDPOINT)
-    .then(function(json) {_self.setState(json); console.log(json);})
-    .catch(function(error) {console.log(error);})
-    .then(function(){_self.setState({fetched: true})});
-  };*/
-
 
   render() {
     let _self = this;

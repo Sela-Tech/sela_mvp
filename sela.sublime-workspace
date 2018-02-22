@@ -4,6 +4,34 @@
 		"selected_items":
 		[
 			[
+				"project",
+				"projectActionTors"
+			],
+			[
+				"miles",
+				"milestoneActionTors"
+			],
+			[
+				"Projec",
+				"ProjectUI"
+			],
+			[
+				"map",
+				"mapDispatchToProps"
+			],
+			[
+				"P",
+				"PageWrapper"
+			],
+			[
+				"Project",
+				"ProjectTile"
+			],
+			[
+				"re",
+				"return"
+			],
+			[
 				"task",
 				"taskActionTors"
 			],
@@ -14,10 +42,6 @@
 			[
 				"pag",
 				"PageWrapper"
-			],
-			[
-				"Projec",
-				"ProjectMap"
 			],
 			[
 				"padding-",
@@ -96,10 +120,6 @@
 				"font-size"
 			],
 			[
-				"re",
-				"request"
-			],
-			[
 				"ge",
 				"get_project"
 			],
@@ -170,10 +190,6 @@
 			[
 				"r",
 				"return"
-			],
-			[
-				"project",
-				"project_pk"
 			],
 			[
 				"ac",
@@ -498,22 +514,6 @@
 			[
 				"default",
 				"defaultProps"
-			],
-			[
-				"sel",
-				"selectedSubjects"
-			],
-			[
-				"showS",
-				"showSuggest"
-			],
-			[
-				"C",
-				"CheckIcon"
-			],
-			[
-				"Style",
-				"StyleSheet"
 			]
 		]
 	},
@@ -523,7 +523,25 @@
 			"file": "client/src/App.js",
 			"settings":
 			{
-				"buffer_size": 3425,
+				"buffer_size": 2597,
+				"encoding": "UTF-8",
+				"line_ending": "Windows"
+			}
+		},
+		{
+			"file": "client/src/containers/project.js",
+			"settings":
+			{
+				"buffer_size": 429,
+				"encoding": "UTF-8",
+				"line_ending": "Windows"
+			}
+		},
+		{
+			"file": "client/src/containers/filteredProjectsList.js",
+			"settings":
+			{
+				"buffer_size": 1375,
 				"encoding": "UTF-8",
 				"line_ending": "Windows"
 			}
@@ -534,14 +552,6 @@
 			{
 				"buffer_size": 24,
 				"encoding": "UTF-8",
-				"line_ending": "Windows"
-			}
-		},
-		{
-			"file": "app/models/milestone.js",
-			"settings":
-			{
-				"buffer_size": 1498,
 				"line_ending": "Windows"
 			}
 		},
@@ -558,7 +568,7 @@
 			"file": "client/src/ducks/task.js",
 			"settings":
 			{
-				"buffer_size": 978,
+				"buffer_size": 913,
 				"encoding": "UTF-8",
 				"line_ending": "Windows"
 			}
@@ -567,16 +577,115 @@
 			"file": "client/src/ducks/project.js",
 			"settings":
 			{
-				"buffer_size": 752,
+				"buffer_size": 2134,
 				"encoding": "UTF-8",
 				"line_ending": "Windows"
+			}
+		},
+		{
+			"file": "client/package.json",
+			"settings":
+			{
+				"buffer_size": 747,
+				"encoding": "UTF-8",
+				"line_ending": "Unix"
+			}
+		},
+		{
+			"file": "build-client.js",
+			"settings":
+			{
+				"buffer_size": 274,
+				"encoding": "UTF-8",
+				"line_ending": "Windows"
+			}
+		},
+		{
+			"file": "sela_app.js",
+			"settings":
+			{
+				"buffer_size": 1251,
+				"encoding": "UTF-8",
+				"line_ending": "Windows"
+			}
+		},
+		{
+			"file": "package.json",
+			"settings":
+			{
+				"buffer_size": 1500,
+				"line_ending": "Unix"
+			}
+		},
+		{
+			"file": "client/src/index.js",
+			"settings":
+			{
+				"buffer_size": 848,
+				"encoding": "UTF-8",
+				"line_ending": "Windows"
+			}
+		},
+		{
+			"file": "client/src/components/link.js",
+			"settings":
+			{
+				"buffer_size": 599,
+				"encoding": "UTF-8",
+				"line_ending": "Windows"
+			}
+		},
+		{
+			"file": "client/src/components/projectsList.js",
+			"settings":
+			{
+				"buffer_size": 1828,
+				"encoding": "UTF-8",
+				"line_ending": "Windows"
+			}
+		},
+		{
+			"file": "client/src/components/project.js",
+			"settings":
+			{
+				"buffer_size": 3223,
+				"encoding": "UTF-8",
+				"line_ending": "Windows",
+				"name": "import React, {Component} from 'react';"
+			}
+		},
+		{
+			"file": "app/controllers/public_controller.js",
+			"settings":
+			{
+				"buffer_size": 2905,
+				"line_ending": "Windows"
+			}
+		},
+		{
+			"file": "public/index/signup/js/index.js",
+			"settings":
+			{
+				"buffer_size": 2467,
+				"encoding": "UTF-8",
+				"line_ending": "Windows"
+			}
+		},
+		{
+			"file": "clean_folder.bat",
+			"settings":
+			{
+				"buffer_size": 188,
+				"encoding": "UTF-8",
+				"line_ending": "Windows",
+				"name": "@ECHO OFF"
 			}
 		},
 		{
 			"file": "client/src/ducks/milestone.js",
 			"settings":
 			{
-				"buffer_size": 704,
+				"buffer_size": 705,
 				"encoding": "UTF-8",
 				"line_ending": "Windows"
 			}
@@ -585,7 +694,7 @@
 			"file": "client/src/ducks/index.js",
 			"settings":
 			{
-				"buffer_size": 414,
+				"buffer_size": 493,
 				"encoding": "UTF-8",
 				"line_ending": "Windows"
 			}
@@ -633,13 +742,30 @@
 		"/C/Users/konoufo/Downloads/thekeep/Jobs/projects/sela/sela_mvp/app/controllers",
 		"/C/Users/konoufo/Downloads/thekeep/Jobs/projects/sela/sela_mvp/app/models",
 		"/C/Users/konoufo/Downloads/thekeep/Jobs/projects/sela/sela_mvp/client",
-		"/C/Users/konoufo/Downloads/thekeep/Jobs/projects/sela/sela_mvp/client/src",
-		"/C/Users/konoufo/Downloads/thekeep/Jobs/projects/sela/sela_mvp/client/src/components",
-		"/C/Users/konoufo/Downloads/thekeep/Jobs/projects/sela/sela_mvp/client/src/ducks",
-		"/C/Users/konoufo/Downloads/thekeep/Jobs/projects/sela/sela_mvp/config"
+		"/C/Users/konoufo/Downloads/thekeep/Jobs/projects/sela/sela_mvp/config",
+		"/C/Users/konoufo/Downloads/thekeep/Jobs/projects/sela/sela_mvp/config/initializers",
+		"/C/Users/konoufo/Downloads/thekeep/Jobs/projects/sela/sela_mvp/public",
+		"/C/Users/konoufo/Downloads/thekeep/Jobs/projects/sela/sela_mvp/public/index",
+		"/C/Users/konoufo/Downloads/thekeep/Jobs/projects/sela/sela_mvp/public/index/css",
+		"/C/Users/konoufo/Downloads/thekeep/Jobs/projects/sela/sela_mvp/public/index/signup",
+		"/C/Users/konoufo/Downloads/thekeep/Jobs/projects/sela/sela_mvp/public/index/signup/js"
 	],
 	"file_history":
 	[
+		"/C/Users/konoufo/Downloads/thekeep/Jobs/projects/sela/sela_mvp/.env",
+		"/C/Users/konoufo/Downloads/thekeep/Jobs/projects/sela/sela_mvp/client/move-build.sh",
+		"/C/Users/konoufo/Downloads/thekeep/Jobs/projects/sela/sela_mvp/client/move-build.bat",
+		"/C/Users/konoufo/Downloads/thekeep/Jobs/projects/sela/sela_mvp/client/move-build.js",
+		"/C/Users/konoufo/Downloads/thekeep/Jobs/projects/sela/sela_mvp/start-client.js",
+		"/C/Users/konoufo/Downloads/thekeep/Jobs/projects/sela/sela_mvp/client/config/paths.js",
+		"/C/Users/konoufo/Downloads/thekeep/Jobs/projects/sela/sela_mvp/config/routes.js",
+		"/C/Users/konoufo/Downloads/thekeep/Jobs/projects/sela/sela_mvp/client/src/components/projectTile.js",
+		"/C/Users/konoufo/Downloads/thekeep/Jobs/projects/sela/sela_mvp/client/src/utils.js",
+		"/C/Users/konoufo/Downloads/thekeep/Jobs/projects/sela/sela_mvp/build-client.js",
+		"/C/Users/konoufo/Downloads/thekeep/Jobs/projects/sela/sela_mvp/sela_app.js",
+		"/C/Users/konoufo/Downloads/thekeep/Jobs/projects/sela/sela_mvp/client/src/components/projectTimeline.js",
+		"/C/Users/konoufo/Downloads/thekeep/Jobs/projects/sela/sela_mvp/app/controllers/project_controller.js",
+		"/C/Users/konoufo/Downloads/thekeep/Jobs/projects/sela/sela_mvp/client/src/entities.js",
 		"/C/Users/konoufo/Downloads/thekeep/Jobs/projects/sela/sela_mvp/client/src/components/appbar.js",
 		"/C/Portables/DevTools/Sublime/Data/Packages/User/FlowType.sublime-settings",
 		"/C/Portables/DevTools/Sublime/Data/Packages/FlowType/FlowType.sublime-settings",
@@ -675,7 +801,6 @@
 		"/C/Users/konoufo/Downloads/thekeep/Jobs/projects/investiv_project/investiv_heroku/investiv/templates/home/ppartners.html",
 		"/C/Users/konoufo/Downloads/thekeep/Jobs/projects/investiv_project/investiv_heroku/investiv/templates/home/contact.html",
 		"/C/Users/konoufo/Downloads/thekeep/Jobs/projects/sela/heroku/node-js-getting-started/index.js",
-		"/C/Users/konoufo/Downloads/thekeep/Jobs/projects/sela/sela_mvp/sela_app.js",
 		"/C/Users/konoufo/Downloads/thekeep/Jobs/projects/sela/sela_mvp/index.js",
 		"/C/Users/konoufo/Downloads/thekeep/Jobs/projects/investiv/investiv/urls.py",
 		"/C/Users/konoufo/Downloads/thekeep/Jobs/projects/investiv/.gitignore",
@@ -754,24 +879,11 @@
 		"/C/Users/konoufo/Downloads/thekeep/Jobs/projects/android/tim/app.json",
 		"/C/Users/konoufo/Downloads/thekeep/Jobs/projects/android/tim/index.ios.js",
 		"/C/Portables/DevTools/Sublime/Data/Packages/User/Preferences.sublime-settings",
-		"/C/Users/konoufo/Downloads/thekeep/Jobs/projects/android/tim/android/app/src/main/AndroidManifest.xml",
-		"/C/Users/konoufo/Downloads/thekeep/Jobs/projects/android/tim/android/app/src/main/res/values/strings.xml",
-		"/C/Users/konoufo/Downloads/thekeep/Jobs/projects/android/tim/.gitignore",
-		"/C/Users/konoufo/Downloads/thekeep/Jobs/projects/android/tim/AwesomeProject/index.android.js",
-		"/C/Users/konoufo/Downloads/thekeep/Jobs/projects/android/tim/AwesomeProject/.babelrc",
-		"/C/Users/konoufo/Downloads/thekeep/Jobs/projects/android/tim/AwesomeProject/package.json",
-		"/C/Portables/DevTools/Sublime/Data/Packages/Babel/Babel.sublime-settings",
-		"/C/Users/konoufo/Downloads/thekeep/orgs/acaful/production/web/buzzy/app.js",
-		"/C/Users/konoufo/Downloads/thekeep/orgs/acaful/production/web/buzzy/views/home.ejs",
-		"/C/Users/konoufo/Downloads/thekeep/orgs/acaful/production/web/buzzy/node_modules/play-sound/index.js",
-		"/C/Users/konoufo/Downloads/thekeep/orgs/acaful/production/web/genie/arbitrage/static/js/colors.js",
-		"/C/Portables/Illustrator64/Illustrator64Portable/Variable Importer/VariableImporter.jsx",
-		"/C/Users/konoufo/Downloads/thekeep/Jobs/projects/hackqc/taroute/app/routes/index.server.routes.js",
-		"/C/Users/konoufo/Downloads/thekeep/Jobs/projects/hackqc/taroute/config/express.js"
+		"/C/Users/konoufo/Downloads/thekeep/Jobs/projects/android/tim/android/app/src/main/AndroidManifest.xml"
 	],
 	"find":
 	{
-		"height": 23.0
+		"height": 40.0
 	},
 	"find_in_files":
 	{
@@ -785,6 +897,11 @@
 		"case_sensitive": false,
 		"find_history":
 		[
+			"dashboard",
+			"FECTH",
+			"sela_lab",
+			"_ALL_",
+			"sela_lab",
 			"MILESTONE"
 		],
 		"highlight": true,
@@ -793,6 +910,11 @@
 		"regex": false,
 		"replace_history":
 		[
+			"client",
+			"FETCH",
+			"sela",
+			"",
+			"sela",
 			"PROJECT"
 		],
 		"reverse": false,
@@ -804,7 +926,7 @@
 	"groups":
 	[
 		{
-			"selected": 2,
+			"selected": 0,
 			"sheets":
 			[
 				{
@@ -813,15 +935,15 @@
 					"semi_transient": false,
 					"settings":
 					{
-						"buffer_size": 3425,
+						"buffer_size": 2597,
 						"regions":
 						{
 						},
 						"selection":
 						[
 							[
-								2858,
-								2858
+								638,
+								638
 							]
 						],
 						"settings":
@@ -831,14 +953,70 @@
 							"translate_tabs_to_spaces": true
 						},
 						"translation.x": 0.0,
-						"translation.y": 1170.0,
+						"translation.y": 945.0,
 						"zoom_level": 1.0
 					},
-					"stack_index": 2,
+					"stack_index": 0,
 					"type": "text"
 				},
 				{
 					"buffer": 1,
+					"file": "client/src/containers/project.js",
+					"semi_transient": false,
+					"settings":
+					{
+						"buffer_size": 429,
+						"regions":
+						{
+						},
+						"selection":
+						[
+							[
+								134,
+								134
+							]
+						],
+						"settings":
+						{
+							"syntax": "Packages/Babel/JavaScript (Babel).sublime-syntax"
+						},
+						"translation.x": 0.0,
+						"translation.y": 0.0,
+						"zoom_level": 1.0
+					},
+					"stack_index": 8,
+					"type": "text"
+				},
+				{
+					"buffer": 2,
+					"file": "client/src/containers/filteredProjectsList.js",
+					"semi_transient": false,
+					"settings":
+					{
+						"buffer_size": 1375,
+						"regions":
+						{
+						},
+						"selection":
+						[
+							[
+								1302,
+								1302
+							]
+						],
+						"settings":
+						{
+							"syntax": "Packages/Babel/JavaScript (Babel).sublime-syntax"
+						},
+						"translation.x": 0.0,
+						"translation.y": 224.0,
+						"zoom_level": 1.0
+					},
+					"stack_index": 16,
+					"type": "text"
+				},
+				{
+					"buffer": 3,
 					"file": "client/src/components/taskForm.js",
 					"semi_transient": false,
 					"settings":
@@ -862,41 +1040,11 @@
 						"translation.y": 0.0,
 						"zoom_level": 1.0
 					},
-					"stack_index": 1,
+					"stack_index": 18,
 					"type": "text"
 				},
 				{
-					"buffer": 2,
-					"file": "app/models/milestone.js",
-					"semi_transient": true,
-					"settings":
-					{
-						"buffer_size": 1498,
-						"regions":
-						{
-						},
-						"selection":
-						[
-							[
-								0,
-								0
-							]
-						],
-						"settings":
-						{
-							"syntax": "Packages/Babel/JavaScript (Babel).sublime-syntax",
-							"tab_size": 4,
-							"translate_tabs_to_spaces": true
-						},
-						"translation.x": 0.0,
-						"translation.y": 135.0,
-						"zoom_level": 1.0
-					},
-					"stack_index": 0,
-					"type": "text"
-				},
-				{
-					"buffer": 3,
+					"buffer": 4,
 					"file": "client/src/components/dashboard.js",
 					"semi_transient": false,
 					"settings":
@@ -920,24 +1068,24 @@
 						"translation.y": 0.0,
 						"zoom_level": 1.0
 					},
-					"stack_index": 7,
+					"stack_index": 19,
 					"type": "text"
 				},
 				{
-					"buffer": 4,
+					"buffer": 5,
 					"file": "client/src/ducks/task.js",
 					"semi_transient": false,
 					"settings":
 					{
-						"buffer_size": 978,
+						"buffer_size": 913,
 						"regions":
 						{
 						},
 						"selection":
 						[
 							[
-								156,
-								156
+								534,
+								534
 							]
 						],
 						"settings":
@@ -947,32 +1095,62 @@
 							"translate_tabs_to_spaces": true
 						},
 						"translation.x": 0.0,
-						"translation.y": 225.0,
+						"translation.y": 45.0,
 						"zoom_level": 1.0
 					},
-					"stack_index": 4,
+					"stack_index": 1,
 					"type": "text"
 				},
 				{
-					"buffer": 5,
+					"buffer": 6,
 					"file": "client/src/ducks/project.js",
 					"semi_transient": false,
 					"settings":
 					{
-						"buffer_size": 752,
+						"buffer_size": 2134,
 						"regions":
 						{
 						},
 						"selection":
 						[
 							[
-								556,
-								556
+								1845,
+								1845
 							]
 						],
 						"settings":
 						{
 							"syntax": "Packages/Babel/JavaScript (Babel).sublime-syntax",
+							"tab_size": 2,
+							"translate_tabs_to_spaces": true
+						},
+						"translation.x": 0.0,
+						"translation.y": 614.0,
+						"zoom_level": 1.0
+					},
+					"stack_index": 9,
+					"type": "text"
+				},
+				{
+					"buffer": 7,
+					"file": "client/package.json",
+					"semi_transient": false,
+					"settings":
+					{
+						"buffer_size": 747,
+						"regions":
+						{
+						},
+						"selection":
+						[
+							[
+								598,
+								598
+							]
+						],
+						"settings":
+						{
+							"syntax": "Packages/JavaScript/JSON.sublime-syntax",
 							"tab_size": 2,
 							"translate_tabs_to_spaces": true
 						},
@@ -980,16 +1158,72 @@
 						"translation.y": 0.0,
 						"zoom_level": 1.0
 					},
+					"stack_index": 7,
+					"type": "text"
+				},
+				{
+					"buffer": 8,
+					"file": "build-client.js",
+					"semi_transient": false,
+					"settings":
+					{
+						"buffer_size": 274,
+						"regions":
+						{
+						},
+						"selection":
+						[
+							[
+								274,
+								274
+							]
+						],
+						"settings":
+						{
+							"syntax": "Packages/Babel/JavaScript (Babel).sublime-syntax"
+						},
+						"translation.x": 0.0,
+						"translation.y": 0.0,
+						"zoom_level": 1.0
+					},
+					"stack_index": 4,
+					"type": "text"
+				},
+				{
+					"buffer": 9,
+					"file": "sela_app.js",
+					"semi_transient": false,
+					"settings":
+					{
+						"buffer_size": 1251,
+						"regions":
+						{
+						},
+						"selection":
+						[
+							[
+								701,
+								693
+							]
+						],
+						"settings":
+						{
+							"syntax": "Packages/Babel/JavaScript (Babel).sublime-syntax"
+						},
+						"translation.x": 0.0,
+						"translation.y": 135.0,
+						"zoom_level": 1.0
+					},
 					"stack_index": 5,
 					"type": "text"
 				},
 				{
-					"buffer": 6,
-					"file": "client/src/ducks/milestone.js",
-					"semi_transient": false,
+					"buffer": 10,
+					"file": "package.json",
+					"semi_transient": true,
 					"settings":
 					{
-						"buffer_size": 704,
+						"buffer_size": 1500,
 						"regions":
 						{
 						},
@@ -997,12 +1231,12 @@
 						[
 							[
 								0,
-								704
+								0
 							]
 						],
 						"settings":
 						{
-							"syntax": "Packages/Babel/JavaScript (Babel).sublime-syntax",
+							"syntax": "Packages/JavaScript/JSON.sublime-syntax",
 							"tab_size": 2,
 							"translate_tabs_to_spaces": true
 						},
@@ -1014,20 +1248,48 @@
 					"type": "text"
 				},
 				{
-					"buffer": 7,
-					"file": "client/src/ducks/index.js",
+					"buffer": 11,
+					"file": "client/src/index.js",
 					"semi_transient": false,
 					"settings":
 					{
-						"buffer_size": 414,
+						"buffer_size": 848,
 						"regions":
 						{
 						},
 						"selection":
 						[
 							[
-								414,
-								414
+								532,
+								532
+							]
+						],
+						"settings":
+						{
+							"syntax": "Packages/Babel/JavaScript (Babel).sublime-syntax"
+						},
+						"translation.x": 0.0,
+						"translation.y": 135.0,
+						"zoom_level": 1.0
+					},
+					"stack_index": 2,
+					"type": "text"
+				},
+				{
+					"buffer": 12,
+					"file": "client/src/components/link.js",
+					"semi_transient": false,
+					"settings":
+					{
+						"buffer_size": 599,
+						"regions":
+						{
+						},
+						"selection":
+						[
+							[
+								86,
+								41
 							]
 						],
 						"settings":
@@ -1038,7 +1300,212 @@
 						"translation.y": 0.0,
 						"zoom_level": 1.0
 					},
+					"stack_index": 17,
+					"type": "text"
+				},
+				{
+					"buffer": 13,
+					"file": "client/src/components/projectsList.js",
+					"semi_transient": false,
+					"settings":
+					{
+						"buffer_size": 1828,
+						"regions":
+						{
+						},
+						"selection":
+						[
+							[
+								528,
+								528
+							]
+						],
+						"settings":
+						{
+							"syntax": "Packages/Babel/JavaScript (Babel).sublime-syntax",
+							"translate_tabs_to_spaces": false
+						},
+						"translation.x": 0.0,
+						"translation.y": 180.0,
+						"zoom_level": 1.0
+					},
+					"stack_index": 13,
+					"type": "text"
+				},
+				{
+					"buffer": 14,
+					"file": "client/src/components/project.js",
+					"semi_transient": false,
+					"settings":
+					{
+						"buffer_size": 3223,
+						"regions":
+						{
+						},
+						"selection":
+						[
+							[
+								590,
+								590
+							]
+						],
+						"settings":
+						{
+							"auto_name": "import React, {Component} from 'react';",
+							"syntax": "Packages/Babel/JavaScript (Babel).sublime-syntax"
+						},
+						"translation.x": 0.0,
+						"translation.y": 89.0,
+						"zoom_level": 1.0
+					},
 					"stack_index": 3,
+					"type": "text"
+				},
+				{
+					"buffer": 15,
+					"file": "app/controllers/public_controller.js",
+					"semi_transient": false,
+					"settings":
+					{
+						"buffer_size": 2905,
+						"regions":
+						{
+						},
+						"selection":
+						[
+							[
+								1571,
+								1571
+							]
+						],
+						"settings":
+						{
+							"syntax": "Packages/Babel/JavaScript (Babel).sublime-syntax",
+							"tab_size": 4,
+							"translate_tabs_to_spaces": true
+						},
+						"translation.x": 0.0,
+						"translation.y": 1065.0,
+						"zoom_level": 1.0
+					},
+					"stack_index": 12,
+					"type": "text"
+				},
+				{
+					"buffer": 16,
+					"file": "public/index/signup/js/index.js",
+					"semi_transient": false,
+					"settings":
+					{
+						"buffer_size": 2467,
+						"regions":
+						{
+						},
+						"selection":
+						[
+							[
+								1643,
+								1637
+							]
+						],
+						"settings":
+						{
+							"syntax": "Packages/Babel/JavaScript (Babel).sublime-syntax",
+							"tab_size": 4,
+							"translate_tabs_to_spaces": true
+						},
+						"translation.x": 0.0,
+						"translation.y": 1154.0,
+						"zoom_level": 1.0
+					},
+					"stack_index": 11,
+					"type": "text"
+				},
+				{
+					"buffer": 17,
+					"file": "clean_folder.bat",
+					"semi_transient": false,
+					"settings":
+					{
+						"buffer_size": 188,
+						"regions":
+						{
+						},
+						"selection":
+						[
+							[
+								188,
+								188
+							]
+						],
+						"settings":
+						{
+							"auto_name": "@ECHO OFF",
+							"syntax": "Packages/Batch File/Batch File.sublime-syntax"
+						},
+						"translation.x": 0.0,
+						"translation.y": 0.0,
+						"zoom_level": 1.0
+					},
+					"stack_index": 10,
+					"type": "text"
+				},
+				{
+					"buffer": 18,
+					"file": "client/src/ducks/milestone.js",
+					"semi_transient": false,
+					"settings":
+					{
+						"buffer_size": 705,
+						"regions":
+						{
+						},
+						"selection":
+						[
+							[
+								702,
+								702
+							]
+						],
+						"settings":
+						{
+							"syntax": "Packages/Babel/JavaScript (Babel).sublime-syntax",
+							"tab_size": 2,
+							"translate_tabs_to_spaces": true
+						},
+						"translation.x": 0.0,
+						"translation.y": 0.0,
+						"zoom_level": 1.0
+					},
+					"stack_index": 15,
+					"type": "text"
+				},
+				{
+					"buffer": 19,
+					"file": "client/src/ducks/index.js",
+					"semi_transient": false,
+					"settings":
+					{
+						"buffer_size": 493,
+						"regions":
+						{
+						},
+						"selection":
+						[
+							[
+								468,
+								468
+							]
+						],
+						"settings":
+						{
+							"syntax": "Packages/Babel/JavaScript (Babel).sublime-syntax"
+						},
+						"translation.x": 0.0,
+						"translation.y": 0.0,
+						"zoom_level": 1.0
+					},
+					"stack_index": 14,
 					"type": "text"
 				}
 			]
@@ -1083,7 +1550,7 @@
 	"project": "sela.sublime-project",
 	"replace":
 	{
-		"height": 42.0
+		"height": 72.0
 	},
 	"save_all_on_build": true,
 	"select_file":
@@ -1093,8 +1560,108 @@
 		"selected_items":
 		[
 			[
+				"",
+				"client\\src\\App.js"
+			],
+			[
 				"app.js",
 				"client\\src\\App.js"
+			],
+			[
+				"package.j",
+				"client\\package.json"
+			],
+			[
+				"mvbuil",
+				"client\\move-build.js"
+			],
+			[
+				"route",
+				"config\\routes.js"
+			],
+			[
+				"rout",
+				"config\\routes.js"
+			],
+			[
+				"publi",
+				"app\\controllers\\public_controller.js"
+			],
+			[
+				"public",
+				"app\\controllers\\public_controller.js"
+			],
+			[
+				"routes",
+				"config\\routes.js"
+			],
+			[
+				"utils",
+				"client\\src\\utils.js"
+			],
+			[
+				"duckprojec",
+				"client\\src\\ducks\\project.js"
+			],
+			[
+				"projecli",
+				"client\\src\\components\\projectsList.js"
+			],
+			[
+				"projects",
+				"client\\src\\components\\projectsList.js"
+			],
+			[
+				"filtered",
+				"client\\src\\containers\\filteredProjectsList.js"
+			],
+			[
+				"ducksind",
+				"client\\src\\ducks\\index.js"
+			],
+			[
+				"projectl",
+				"client\\src\\containers\\filteredProjectsList.js"
+			],
+			[
+				"timeline",
+				"client\\src\\components\\projectTimeline.js"
+			],
+			[
+				"project",
+				"client\\src\\components\\project.js"
+			],
+			[
+				"componentspro",
+				"client\\src\\components\\project.js"
+			],
+			[
+				"sela_",
+				"sela_app.js"
+			],
+			[
+				"projectcontroller",
+				"app\\controllers\\project_controller.js"
+			],
+			[
+				"srcindex",
+				"client\\src\\index.js"
+			],
+			[
+				"task",
+				"client\\src\\ducks\\task.js"
+			],
+			[
+				"ducksproject",
+				"client\\src\\ducks\\project.js"
+			],
+			[
+				"miles",
+				"client\\src\\ducks\\milestone.js"
+			],
+			[
+				"index",
+				"client\\src\\index.js"
 			],
 			[
 				"inde",
@@ -1111,10 +1678,6 @@
 			[
 				"app.c",
 				"client\\src\\assets\\css\\App.css"
-			],
-			[
-				"project",
-				"client\\src\\components\\project.js"
 			],
 			[
 				"projectcss",
@@ -1151,10 +1714,6 @@
 			[
 				"press",
 				"investiv\\templates\\home\\presse.html"
-			],
-			[
-				"",
-				"investiv\\templates\\a_propos.html"
 			],
 			[
 				"section",
@@ -1289,7 +1848,7 @@
 	"show_open_files": false,
 	"show_tabs": true,
 	"side_bar_visible": true,
-	"side_bar_width": 266.0,
+	"side_bar_width": 264.0,
 	"status_bar_visible": true,
 	"template_settings":
 	{
