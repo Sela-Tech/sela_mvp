@@ -77,7 +77,7 @@ var projectStructure = {
     owner: {
         type: ObjectId,
         ref: 'Organization',
-        required: true,
+        /*required: true,*/
     },
     created: {
         type: Date,

@@ -1,4 +1,4 @@
-import React, {PureComponent} from 'react';
+import React, { PureComponent } from 'react';
 import PropTypes from 'prop-types';
 // components
 import Marker from './marker';
@@ -16,17 +16,11 @@ export default class SimpleMap extends PureComponent {
     zoom: 9,
   };
 
-  constructor(props) {
-    super(props);
-  }
-
   getCenter(){
-    let center = [0, 0];
-    this.props.markers.map((m) => {
-      center[0] += m[0];
-      center[1] += m[1];
-    });
-    return [center[0] / this.props.markers.length, center[1] / this.props.markers.length];
+    let x = this.props.markers.reduce((cX, x) => (cX + x[0]), 0);
+    let y = this.props.markers.reduce((cX, x) => (cX + x[1]), 0);
+
+    return [x / this.props.markers.length, y / this.props.markers.length];
   }
 
   renderMarkers(){
@@ -39,7 +33,7 @@ export default class SimpleMap extends PureComponent {
   render() {
     return (
        <GoogleMap
-        // apiKey={YOUR_GOOGLE_MAP_API_KEY} // set if you need stats etc ...
+        apiKey="AIzaSyBIOpqXeaA6hyLiwzLi_ozfivfbt1xHvPo" // set if you need stats etc ...
         center={this.props.markers ? this.getCenter() : this.props.center}
         zoom={this.props.zoom}
         style={Object.assign({}, style, this.props.style)}>

@@ -14,6 +14,7 @@ var ProjectModel = mongoose.model('Project');
 controller.createOne = function(req, res, next) {
 
     var user = req.user || {};
+    console.log(req.body);
 
     var record = {};
     record.project_name = req.body.projectName;
@@ -31,7 +32,7 @@ controller.createOne = function(req, res, next) {
         });
     }
 
-    record.owner = user._id;
+    // record.owner = user._id;
 
     // TODO need to store location
     // record.location = {};
@@ -58,7 +59,8 @@ controller.createOne = function(req, res, next) {
 
         res.status(201);
         res.json({
-            result: "Success"
+            result: "Success",
+            project: result,
         });
     });
 
@@ -140,7 +142,7 @@ controller.readMany = function(req, res, next) {
                 res.json({ errors: 'error'});
                 return;
             }
-            console.log(projects);
+            // console.log(projects);
             projectsMap = {};
             projects.map(function(p){projectsMap[p._id] = p;});
             res.json({projects: projectsMap});  

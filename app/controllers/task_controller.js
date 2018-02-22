@@ -13,10 +13,12 @@ controller.createOne = function(req, res, next) {
     var user = req.user || {};
 
     var record = {};
-    record.name = req.body.projectName;
-    record.description = req.body.projectDescription;
+    record.task_name = req.body.taskName;
+    record.task_description = req.body.taskDescription;
+    record.due_date = req.body.dueDate;
+    record.milestone = req.body.milestoneId;
 
-    record.owner = user._id;
+    // record.owner = user._id;
 
     var task = TaskModel(record);
     task.save(function(err, result) {
@@ -37,7 +39,8 @@ controller.createOne = function(req, res, next) {
 
         res.status(201);
         res.json({
-            result: "Success"
+            result: "Success",
+            task: result
         });
     });
 };
@@ -106,7 +109,7 @@ controller.readMany = function(req, res, next) {
 	findQuery.deleted = false;
     
     TaskModel
-        .findAll(findQuery, function(err, tasks){
+        .find(findQuery, function(err, tasks){
             if(err) {
                 res.status(500);
                 res.json({ errors: 'error'});

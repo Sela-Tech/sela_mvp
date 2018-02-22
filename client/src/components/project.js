@@ -1,6 +1,6 @@
 import React, {Component} from 'react';
 // components
-import {Link, Redirect, Route, Switch} from 'react-router-dom';
+import {Redirect, Route, Switch} from 'react-router-dom';
 import PageWrapper from './pagewrapper';
 import { TopHeader } from './appbar';
 import { CustomNavLink as CustomLink } from './link';
@@ -9,12 +9,15 @@ import SimpleMap from './maps';
 
 
 export default class Project extends Component {
-    componentDidMount(){
-       /* this.props.setHeader({
-            icon: 'pie_chart',
-            title: this.project ? this.project.project_name : 'No Project',
-            description: 'Project'
-        })*/
+    componentWillReceiveProps(nextProps) {
+        nextProps.project !== this.props.project &&
+        this.setState({project: nextProps.project});
+    }
+
+    componentDidMount() {
+        this.props.loadProjects();
+        this.props.loadMilestones();
+        this.props.loadTasks();
     }
 
     getDefaultDate = () => {
@@ -33,13 +36,37 @@ export default class Project extends Component {
         */
 
         let milestones = [],
-            project;
+           { tasks, project } = this.props;
         projectId = projectId || this.props.match.params.id;
         if (!projectId){return milestones;}
+        if (project.milestones){
+            let i = 0;
+            console.log('milestones of project:', this.props.milestones);
+            return this.props.milestones.reduce((events, m) => {
+                console.log('tasks', tasks);
+                let _tasks = Object.values(tasks).filter((t) => t.milestone === m._id);
+                if (!_tasks[0]) { return events; }
+                let eventTasks = events.concat(_tasks.map((t) => ({
+                        title: t.task_name,
+                        start: project.start_date.match(/^([0-9]+-[0-9]+-[0-9]+)/)[0],
+                        end:   t.due_date.match(/^([0-9]+-[0-9]+-[0-9]+)/)[0],
+                    })
+                ));
+                _tasks.sort((t1, t2) => (new Date(t1.due_date) < new Date(t2.due_date) ? -1 : 1));
+                eventTasks.push({
+                    title: `Milestone ${++i}`,
+                    start: _tasks[0].due_date.match(/^([0-9]+-[0-9]+-[0-9]+)/)[0],
+                    end: _tasks[_tasks.length - 1].due_date.match(/^([0-9]+-[0-9]+-[0-9]+)/)[0],
+                    status: m.status,
+                    backgroundColor: 'orange'
+                });
+                console.log('events:', eventTasks);
+                return eventTasks;
+            }, []);
+        }
         // mocked:: variable to adjust milestones end dates
         let joker = 0;
         for (let i=0; i < 5; i++){
-            project = this.props.project;
             project && milestones.push({
                 title: `Milestone ${i}`,
                 start: project.start_date,
@@ -51,40 +78,55 @@ export default class Project extends Component {
     };
 
     render(){
-        let {match, project} = this.props;
+        let {match, project, isLoading} = this.props;
         return <PageWrapper>
             <TopHeader 
                 icon="pie_chart" 
-                title={project ? project.name : 'No Project'}
+                title={project ? project.project_name : 'No Project'}
                 description="Project" />
-            <div className="row">
-                <div className="col-lg-8 col-md-8 col-sm-12 col-xs-12">
-                    <ul className="nav nav-pills nav-justified">
-                        <CustomLink to={`${match.url}/timeline`} label="timeline" />
-                        <CustomLink to={`${match.url}/locations`} label="locations" />
-                    </ul>
-                </div>
-                <div className="clearfix"></div>
-                {this.props.project ? <Switch>
-                        <Route path={`${match.path}/timeline`}>
-                            <Timeline getDefaultDate={this.getDefaultDate} getMilestones={this.getMilestones} />
-                        </Route>
-                        <Route path={`${match.path}/locations`} >
-                            <Locations project={this.project} />
-                        </Route>
-                        <Redirect from={match.path} to={`${match.url}/timeline`} />
-                    </Switch> : 
-                    <div class="col-lg-8 col-md-8 text-center text-uppercase lead p-t-48">
-                        Project not found
+                <div className="page-content" style={{position: 'relative'}}>
+                <div className="row p-24">
+                    {/*<div className="col-lg-8 col-md-8 col-md-offset-2 col-sm-12 col-xs-12">
+                        <ul className="nav nav-pills nav-justified">
+                            <CustomLink to={`${match.url}/timeline`} label="timeline" />
+                            <CustomLink to={`${match.url}/locations`} label="locations" />
+                        </ul>
+                    </div>*/}
+                    <div className="clearfix"></div>
+                    {project && 
+                        <Timeline getDefaultDate={this.getDefaultDate} getMilestones={this.getMilestones} />}
+                    {project && <Locations project={this.project} />}
+                    {!project && <div class="container-fluid p-t-48 text-center">
+                        {isLoading ? 'Loading project...' : 'Project not found'}
                     </div>}
+                </div>
             </div>
         </PageWrapper>
     }
 }
 
 const Locations = (props) => (
-    <div className="col-lg-8 col-md-8 col-sm-12 col-xs-12 text-center p-t-24 p-8">
+    <div style={styles.mapContainer}>
         <SimpleMap
+         style={styles.map}   
          markers={[[4.658696, 7.269298, 'A']]}/>
     </div>
 );
+
+const styles = {
+
+    mapContainer: {
+        height: 500,
+        maxWidth: 300,
+        maxHeight: 500,
+        minHeight: 400,
+        position: 'fixed',
+        right: 25,
+        top: 160,
+        width: '40%',
+    },
+    map: {
+        height: '100%',
+        maxHeight: 400,
+    }
+};

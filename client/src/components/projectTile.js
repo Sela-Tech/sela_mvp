@@ -5,7 +5,7 @@ import {Link} from 'react-router-dom';
 
 
 export default function ProjectTile ({proj, ...props}) {
-    return <div {...props}  className="col-lg-3 col-md-4 col-sm-6 col-xs-12">
+    return <div {...props}  className="col-lg-3 col-lg-offset-1 col-md-4 col-sm-6 col-xs-12">
         <Link to={`/projects/summary/${proj._id}`}>
             <div className="panel cardbox bg-primary" style={{cursor: 'pointer'}}>
                 <div className="panel-body card-item panel-refresh">

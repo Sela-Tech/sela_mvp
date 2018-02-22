@@ -1,7 +1,8 @@
 import { axios } from '../utils';
 
 export const types = {
-	ADD_PROJECT: 'sela/project/ADD_PROJECT',
+	CREATE_PROJECT: 'sela/project/CREATE_PROJECT',
+  UPDATE_PROJECT: 'sela/project/UPDATE_PROJECT',
   DELETE_PROJECT: 'sela/project/DELETE_PROJECT',
   FETCH_PROJECTS: 'sela/project/FETCH_PROJECTS',
   FETCH_PROJECTS_SUCCESS: 'sela/project/FETCH_PROJECTS_SUCCESS',
@@ -12,18 +13,32 @@ export const types = {
 const initialState = {
   isFetching: false,
   didInvalidate: false,
-  items: {}
+  items: {},
+  newProject: null
 };
 
 export default (state = initialState, action) => {
   const {type, ...payload} = action;  
   switch (type) {
-  	case types.ADD_PROJECT:
-  		return {...state, 
+  	case types.CREATE_PROJECT:
+  		return {...state,
+        newProject: payload, 
         items: {...state.items,
           [action._id] : {
             _id: action._id, // this is in payload as well but for clarity 
             ...payload}
+        }
+      }
+    case types.UPDATE_PROJECT:
+      return {...state,
+        items: {...state.items,
+          [action._id] : {...state.items[action._id],
+            _id: action._id,
+            ...payload,
+            milestones: [...state.items[action._id].milestones,
+              ...payload.milestones
+            ]
+          }
         }
       }
     case types.DELETE_PROJECT:
@@ -46,12 +61,26 @@ export default (state = initialState, action) => {
   }
 };
 
-const fetch = () => ({type: types.FETCH_PROJECTS});
-
-const receive = (data) => ({type: types.RECEIVE_PROJECTS, projects: data.projects});
+const create = (project) => ({ type: types.CREATE_PROJECT, ...project });
+const update = (projectData) => ({ type: types.UPDATE_PROJECT, ...projectData });
+const fetch = () => ({ type: types.FETCH_PROJECTS });
+const receive = (data) => ({ type: types.RECEIVE_PROJECTS, projects: data.projects });
 
 export const actionTors = {
-	add: (project) => ({type: types.ADD_PROJECT, ...project}),
+	create: create,
+  createRequest: function (projectData) {
+    return function (dispatch) {
+      dispatch(fetch());
+      console.log('create project', projectData);
+      axios.post('project.json', projectData)
+      .then(function(res){
+        console.log('data-fetched:', res.data);
+        // use `create` action creator to create action and dispatch new project 
+        dispatch(create(res.data.project));
+      });
+    }
+  },
+  update,
   delete: (projectId) => ({type: types.DELETE_PROJECT, _id: projectId}),
   fetch,
   // this is a "functional action" creator so it returns a function, not an object.

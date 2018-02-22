@@ -3,7 +3,7 @@ import Calendar from 'fullcalendar-reactwrapper';
 
 
 export default function TimeLine (props){
-    return <div className="col-lg-8 col-md-8 col-sm-12 col-xs-12 p-t-24 p-8">
+    return <div className="col-md-8 col-sm-12 col-xs-12 p-t-24 p-8">
       <div className="card">
           <div className="card-content">
               {props.getDefaultDate() && <Calendar

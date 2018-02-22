@@ -15,7 +15,7 @@ controller.createOne = function(req, res, next) {
     
     var record = {};
     record.project = req.body.projectId;
-    record.createdById = user._id;
+    // record.createdById = user._id;
 
     if(req.body.status) {
         record.status = req.body.status;
@@ -26,7 +26,7 @@ controller.createOne = function(req, res, next) {
             ProjectModel
                 .findOne({
                     _id: record.project,
-                    owner: user._id,
+                    /*owner: user._id,*/
                     deleted: false
                 })
                 .exec(function(err, project) {
@@ -43,7 +43,7 @@ controller.createOne = function(req, res, next) {
             });
         }
 
-        if(!result.project) {
+        if(!results.project) {
             res.status(404);
             res.json({
                 error: 'Project not found'
@@ -69,7 +69,8 @@ controller.createOne = function(req, res, next) {
     
             res.status(201);
             res.json({
-                result: "Success"
+                result: "Success",
+                milestone: result
             });
         });
         
@@ -137,7 +138,7 @@ controller.readMany = function(req, res, next) {
     var user = req.user || {};
 
     var findQuery = {};
-	findQuery.deleted = false;
+	// findQuery.deleted = false;
     
     MilestoneModel
         .find(findQuery, function(err, milestones){
@@ -153,6 +154,7 @@ controller.readMany = function(req, res, next) {
             }
             milestonesMap = {};
             milestones.map(function(m){milestonesMap[m._id] = m;});
+            console.log(milestones);
             res.json({milestones: milestonesMap});  
         });
 };
@@ -168,7 +170,7 @@ controller.deleteOne = function(req, res, next) {
     res.status(501);
 };
 
-controller.before([
+/*controller.before([
     '*'
 ], function(req, res, next) {
 
@@ -183,5 +185,5 @@ controller.before([
     next();
 
 });
-
+*/
 module.exports = controller;

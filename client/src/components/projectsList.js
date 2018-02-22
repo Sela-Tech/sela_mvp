@@ -1,13 +1,13 @@
-import React, {Component} from 'react';
+import React, { Component } from 'react';
 // utils
-import {isValidProject} from '../utils';
+import { isValidProject } from '../utils';
 // components
-import {Link, Redirect, Route, Switch} from 'react-router-dom';
+import { Link } from 'react-router-dom';
 import SimpleMap from './maps';
 import PageWrapper from './pagewrapper';
 import { TopHeader } from './appbar';
-import { CustomNavLink as CustomLink } from './link';
 import ProjectTile from './projectTile';
+import Button from './button';
 // assets
 import '../assets/css/project.css';
 
@@ -36,15 +36,19 @@ export default class ProjectsList extends Component {
 	    	<TopHeader {...this.props.header} />
 		    <div className="projects-container"> 
 		    	<div className="page-content p-t-24"> 
-			    	<div className="col-md-12 p-24">
-			    		<Link to="" className="waves-effect waves-light btn indigo">
-			              <i className="material-icons left">add</i>new project
+			    	<div className="col-md-12 p-24 text-right">
+			    		<Link to="/projects/new">
+			              <Button 
+			              	label="new project"
+			              	icon="fa fa-plus"
+			              	btnClass="info btn-large"
+			              	style={{margin: 16, position: 'fixed', right: 0, top: 60}} />
 			            </Link>
 			    	</div>
 			    	<div className="clearfix"></div>
 			    	{projects.isFetching ? <div className="col-md-12 text-center">
 						<p className="lead">Loading projects...</p>
-					</div> : <div className="col-lg-8 col-md-12 col-sm-12 col-xs-12">
+					</div> : <div className="col-md-12 col-sm-12 col-xs-12">
 				    	{projectEls ? React.Children.toArray(projectEls) : ''}
 				    </div>}
 				</div> 

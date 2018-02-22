@@ -5,23 +5,23 @@ import React, { Component } from 'react';
 import {
   BrowserRouter as Router,
   Route,
-  Link,
   Redirect,
   Switch
 } from 'react-router-dom';
 import FilteredProjectsList from './containers/filteredProjectsList';
 import Project from './containers/project';
+import ProjectCreation from './containers/projectCreation';
 import AppBar from './components/appbar';
 import SideBar from './components/sidebar';
 import Dashboard from './components/dashboard';
 
 // assets
-import loading from './assets/img/loading.png';
+// import loading from './assets/img/loading.png';
 import './assets/css/App.css';
 import 'fullcalendar-reactwrapper/dist/css/fullcalendar.min.css';
 
 
-const fetchJson = (url) => {
+/*const fetchJson = (url) => {
     return fetch(url).then(function(response) {
       var contentType = response.headers.get("content-type");
       if(contentType && contentType.includes("application/json")) {
@@ -30,7 +30,7 @@ const fetchJson = (url) => {
       throw new TypeError("Oops, we haven't got JSON!");
     })
 };
-
+*/
 // wrap <Route> and use this everywhere instead, then when
 // sub routes are added to any route it'll work
 const RouteWithSubRoutes = (route) => (
@@ -70,7 +70,7 @@ class App extends Component {
           {React.Children.toArray(routes.map((route) => (
             <RouteWithSubRoutes {...route} />
           )))}
-          <Redirect to="/dashboard" />
+          <Redirect to="/projects/all" />
         </Switch>
       </div>
     </Router>
@@ -88,6 +88,10 @@ const routes = [
   },
   { path: '/projects/summary/:id',
     component: Project
+  },
+  {
+    path: '/projects/new',
+    component: ProjectCreation,
   },
   { path: '/dashboard',
     component: Dashboard,

@@ -3,22 +3,10 @@ $(document).ready(function () {
     /* === Preloader === */
     $("#preloader").delay(200).fadeOut("slow");
     
-
-    jQuery(function ($) {
-        
-        //searchbar
-        $('a[href="#search"]').on('click', function (event) {
-            event.preventDefault();
-            $('#search').addClass('open');
-            $('#search > form > input[type="search"]').focus();
-        });
-
-        $('#search, #search button.close').on('click keyup', function (event) {
-            if (event.target === this || event.target.className === 'close' || event.keyCode === 27) {
-                $(this).removeClass('open');
-            }
-        });
-
-    });
+    //datepicker
+    // $('.datepicker').pickadate({
+    //     selectMonths: true, // Creates a dropdown to control month
+    //     selectYears: 15 // Creates a dropdown of 15 years to control year
+    // });
 });
 
