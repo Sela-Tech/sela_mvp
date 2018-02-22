@@ -1,6 +1,7 @@
 'use strict'
 
 const Telegram=require('telegram-node-bot');
+var dotenv = require('dotenv');
 
 class PingController extends Telegram.TelegramBaseController {
     /**
