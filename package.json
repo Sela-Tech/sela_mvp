@@ -20,7 +20,7 @@
     ]
   },
   "dependencies": {
-    "bcrypt": "1.0.3",
+    "bcrypt": "^1.0.3",
     "body-parser": "1.18.2",
     "bootstrap-material-design": "^4.0.0-beta.3",
     "concurrently": "^3.5.1",
@@ -43,13 +43,16 @@
     "react-router-dom": "^4.2.2",
     "request-param": "^1.0.1",
     "session": "0.1.0",
+    "telegram-node-bot": "^4.0.5",
     "underscore": "1.8.3"
   },
   "devDependencies": {
     "concurrently": "^3.5.1",
     "nodemon": "^1.12.1",
     "request": "^2.81.0",
-    "tape": "^4.7.0"
+    "tape": "^4.7.0",
+    "truffle": "^4.0.5",
+    "web3": "^0.20.4"
   },
   "repository": {
     "type": "git",

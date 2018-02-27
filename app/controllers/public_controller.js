@@ -114,7 +114,7 @@ controller.login = function(req, res, next) {
             }
 
             res.json({
-                user: result.toJSON(),
+                user: result,
             });
 
         });
