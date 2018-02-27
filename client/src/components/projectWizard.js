@@ -80,22 +80,22 @@ export default class ProjectCreation extends Component {
     }
 
     componentWillReceiveProps(nextProps) {
-        // when project stage is saved, always head to task stage
-        !this.props.project && nextProps.project && 
-            this.props.createMilestone({projectId: nextProps.project._id});
-        this.props.milestones.newMilestone &&
-            this.setState({ stage: 'task' });
+        // when new project is saved, create a new default milestone
+        !this.props.project ? 
+            nextProps.project && this.props.createMilestone({projectId: nextProps.project._id}) :
+            // when project info is updated, switch to task form
+            this.props.projects.items[nextProps.project._id] !== nextProps.projects.items[nextProps.project._id] ?
+                this.setState({ 
+                    stage: 'task',
+                    milestone: nextProps.projects.items[nextProps.project._id] ?
+                    nextProps.projects.items[nextProps.project._id].milestones.length : 1}) :
         //  when task stage is saved, reset taskform
+        // todo: store newTask at component level state and make this a callback of
+        // an CREATE_TASK_SUCCESS action
         nextProps.tasks.newTask &&
         (!this.props.tasks.newTask || 
             (this.props.tasks.newTask._id !== nextProps.tasks.newTask._id)) &&
         this.taskForm && this.taskForm.reset();
-        // update milestone number
-        nextProps.project && this.setState({
-            milestone: this.props.projects.items[nextProps.project._id] ?
-                        this.props.projects.items[nextProps.project._id].milestones.length :
-                        1
-        });
     }
 
     getMilestoneId() {

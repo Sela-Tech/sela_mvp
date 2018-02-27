@@ -2,8 +2,14 @@ import { axios } from '../utils';
 
 export const types = {
 	CREATE_PROJECT: 'sela/project/CREATE_PROJECT',
+  CREATE_PROJECT_SUCCESS: 'sela/project/CREATE_PROJECT_SUCCESS',
+  CREATE_PROJECT_FAILURE: 'sela/project/CREATE_PROJECT_FAILURE',
   UPDATE_PROJECT: 'sela/project/UPDATE_PROJECT',
+  UPDATE_PROJECT_SUCCESS: 'sela/project/UPDATE_PROJECT_SUCCESS',
+  UPDATE_PROJECT_FAILURE: 'sela/project/UPDATE_PROJECT_FAILURE',
   DELETE_PROJECT: 'sela/project/DELETE_PROJECT',
+  DELETE_PROJECT_SUCCESS: 'sela/project/DELETE_PROJECT_SUCCESS',
+  DELETE_PROJECT_FAILURE: 'sela/project/DELETE_PROJECT_FAILURE',
   FETCH_PROJECTS: 'sela/project/FETCH_PROJECTS',
   FETCH_PROJECTS_SUCCESS: 'sela/project/FETCH_PROJECTS_SUCCESS',
   FETCH_PROJECTS_FAILURE: 'sela/project/FETCH_PROJECTS_FAILURE',
@@ -67,20 +73,31 @@ const fetch = () => ({ type: types.FETCH_PROJECTS });
 const receive = (data) => ({ type: types.RECEIVE_PROJECTS, projects: data.projects });
 
 export const actionTors = {
-	create: create,
+	create,
   createRequest: function (projectData) {
     return function (dispatch) {
       dispatch(fetch());
       console.log('create project', projectData);
       axios.post('project.json', projectData)
       .then(function(res){
-        console.log('data-fetched:', res.data);
+        console.log('created project:', res.data);
         // use `create` action creator to create action and dispatch new project 
         dispatch(create(res.data.project));
       });
     }
   },
   update,
+  updateRequest: function (projectData) {
+    return function (dispatch) {
+      dispatch(fetch());
+      console.log('update project', projectData);
+      axios.post('project.json', projectData)
+      .then(function(res){
+        console.log('updated project:', res.data);
+        dispatch(update(res.data.project));
+      });
+    }
+  },
   delete: (projectId) => ({type: types.DELETE_PROJECT, _id: projectId}),
   fetch,
   // this is a "functional action" creator so it returns a function, not an object.
