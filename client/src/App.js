@@ -8,12 +8,17 @@ import {
   Redirect,
   Switch
 } from 'react-router-dom';
+// containers
 import FilteredProjectsList from './containers/filteredProjectsList';
 import Project from './containers/project';
 import ProjectCreation from './containers/projectCreation';
+import Login from './containers/userLogin';
+import Signup from './containers/userSignup';
+// presentational
 import AppBar from './components/appbar';
 import SideBar from './components/sidebar';
 import Dashboard from './components/dashboard';
+
 
 // assets
 // import loading from './assets/img/loading.png';
@@ -21,37 +26,19 @@ import './assets/css/App.css';
 import 'fullcalendar-reactwrapper/dist/css/fullcalendar.min.css';
 
 
-/*const fetchJson = (url) => {
-    return fetch(url).then(function(response) {
-      var contentType = response.headers.get("content-type");
-      if(contentType && contentType.includes("application/json")) {
-        return response.json();
-      }
-      throw new TypeError("Oops, we haven't got JSON!");
-    })
-};
-*/
-// wrap <Route> and use this everywhere instead, then when
-// sub routes are added to any route it'll work
+// wrap <Route> and use this component everywhere instead, then when
+// sub routes are added to any route it'll just work
 const RouteWithSubRoutes = (route) => (
   <Route path={route.path} render={props => (
     // pass the sub-routes down to keep nesting
     <route.component {...props}
       header={route.header}
-      parentState={route.parentState} 
       routes={route.routes}/>
   )}/>
 );
 
 
 class App extends Component {
-  constructor(props){
-    super(props);
-    /*this.state = {
-      fetched: false,
-      user: null,
-    };*/
-  }
 
   componentDidMount(){
     // this.fetchProjects();
@@ -60,7 +47,6 @@ class App extends Component {
   }
 
   render() {
-    let _self = this;
     console.log('Router basename:', process.env.CLIENT_BASE);
     return <Router basename={process.env.CLIENT_BASE || "/client"}>
       <div id="wrapper">
@@ -78,7 +64,16 @@ class App extends Component {
 }
 
 const routes = [
-  { path: '/projects/all',
+  {
+    path: '/login',
+    component: Login
+  },
+  {
+    path: '/signup',
+    component: Signup
+  },
+  { 
+    path: '/projects/all',
     component: FilteredProjectsList,
     header: {
       icon: 'pie_chart',

@@ -42,15 +42,15 @@ class TaskForm extends Component {
                     material={true}
                     icon="done"
                      />
-                     <Link to={successLink}>
-                        <Button
-                            type="button"
-                            label="Finish" 
-                            btnClass="info" 
-                            material={true}
-                            icon="done_all"
-                             />
-                    </Link>
+                <Link to={successLink}>
+                    <Button
+                        type="button"
+                        label="Finish" 
+                        btnClass="info" 
+                        material={true}
+                        icon="done_all"
+                         />
+                </Link>
             </div>
             <TextInput required={true} name="taskName" type="text" label="Task name" />
             <TextInput required={true} name="taskDescription" type="text" label="Task description" />

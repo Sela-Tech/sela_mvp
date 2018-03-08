@@ -1,9 +1,6 @@
 import React, { Component } from 'react';
 import ReactDOM from 'react-dom';
 import Formsy, { withFormsy } from 'formsy-react';
-/*todo: add appropriate callbacks to control inputs:
-        https://reactjs.org/docs/forms.html
-*/
 
 class SelectInput extends Component {
     constructor(props) {
