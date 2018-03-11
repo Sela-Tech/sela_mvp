@@ -126,7 +126,7 @@ controller.readMany = function(req, res, next) {
 
     // create a find query object
 	var findQuery = {};
-	findQuery.deleted = false;
+	// findQuery.deleted = false;
     
     ProjectModel
         .find(findQuery, function(err, projects){
@@ -187,7 +187,7 @@ controller.removeObserver = function(req, res, next) {
     res.status(501);
 };
 
-controller.before([
+/*controller.before([
     '*'
 ], function(req, res, next) {
 
@@ -201,6 +201,6 @@ controller.before([
 
     next();
 
-});
+});*/
 
 module.exports = controller;
