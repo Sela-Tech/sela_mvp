@@ -14,10 +14,12 @@
       <form>
         <fieldset>
           <!--<legend>Project Parameters</legend>-->
-          Name: <input type="text" id="project-start"><br>
+          Name: <input type="text" id="project-name"><br>
           Description: <input type="text" id="project-desc"><br>
           <!--Start Date: <input type="number" id="project-start" required><br>-->
-          End Date: <input type="number" id="project-end" required><br>
+          <!--End Date: <input type="number" id="project-end" required><br>-->
+          Start Date: <input type="date" id="project-start" pattern="[0-9]{4}-[0-9]{2}-[0-9]{2}" required><br>
+          End Date: <input type="date" id="project-end" pattern="[0-9]{4}-[0-9]{2}-[0-9]{2}" required><br>
           Budget: $<input type="number" id="project-budget" required><br>
           Quote: $<input type="number" id="project-quote" required><br>
           Desired Number of Service Agents: <input type="number" id="project-num-sa"><br>

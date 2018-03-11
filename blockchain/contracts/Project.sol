@@ -100,7 +100,7 @@ contract Project {
 
     // Agents commit stake to project execution
     function commitStake(AgentType agentType, uint stake) public payable /*ifAfford(stake)*/ {
-      // TODO: Might help to track this with an event
+        // TODO: Might help to track this with an event
         /* require(stake >= MIN_STAKE); */
         if (agentType == AgentType.FUND) {
             project.fundStake += stake;

@@ -51,23 +51,58 @@ Sela = {
         $(document).on("click", "#create-project", Sela.createProject);
     },
 
+    validateInputs: function() {
+      var start = Date.parse($("#project-start").val());
+      var end = Date.parse($("#project-end").val());
+      var today = new Date();
+      // Subtract a day from today so that start entry does not become stale if one selects today's date
+      var todayLenient = Date.parse(new Date(today.getFullYear(), today.getMonth(), today.getDate() - 1));
+      if (isNaN(start)) {
+        alert("Start date format is incorrect");
+        console.log("Start date format is incorrect");
+        return false;
+      }
+      if (isNaN(end)) {
+        alert("End date format is incorrect");
+        console.log("End date format is incorrect");
+        return false;
+      }
+      if (start < todayLenient) {
+        alert("Start date must not be in the past");
+        console.log("Start date must not be in the past");
+        return false;
+      }
+      if (start > end) {
+        alert("Start date must come before end date");
+        console.log("Start date must come before end date");
+        return false;
+      }
+      return true;
+    },
+
     // Create Project
     createProject: function(event) {
         event.preventDefault();
         var capital = parseInt($("#project-budget").val());
         var quote = parseInt($("#project-quote").val());
         var stake = 1;
-        // var start = parseInt($("#project-start").val());
-        var start = 0;
-        var end = parseInt($("#project-end").val());
-        // console.log("start:", start);
+        var start = Date.parse($("#project-start").val());
+        var end = Date.parse( $("#project-end").val());
+        // var start = 0;
+        // var end = parseInt($("#project-end").val());
+        console.log("start:", start);
         console.log("end:", end);
         console.log("capital:", capital);
         console.log("quote:", quote);
         console.log("stake:", stake);
-        web3.eth.getAccounts(function(error, accounts) {
+        if (!Sela.validateInputs()) {
+          return;
+        }
+        /*web3.eth.getAccounts(function(error, accounts) {
           if (error) {
+            alert(error);
             console.log(error);
+            return;
           }
           var account = accounts[0];
           Sela.contracts.FundAgent.deployed().then(function(instance) {
@@ -77,12 +112,16 @@ Sela = {
             // TODO: Display pending project
             console.log("Project successfully created!");
           }).catch(function(error) {
+            alert(error.message);
             console.log(error.message);
+            return;
           });
-        });
-        /*web3.eth.getAccounts(function(error, accounts) {
+        });*/
+        web3.eth.getAccounts(function(error, accounts) {
           if (error) {
+            alert(error);
             console.log(error);
+            return;
           }
           var account = accounts[0];
           Sela.contracts.FundAgent.deployed().then(function(instance) {
@@ -92,20 +131,25 @@ Sela = {
             // TODO: Display pending project
             var projectCreatedEvent = fundAgentInstance.ProjectCreated();
             projectCreatedEvent.watch(function(error, result) {
-              if (!error) {
-                var owner = result.args.owner;
-                var budget = result.args.budget;
-                var start = result.args.start;
-                var end = result.args.end;
-                var display = "Project successfully created by " + owner + ":\n" + "budget: " + budget.toString() + ":\n" + "start: " + start.toString() + "end: " + end.toString();
-                console.log(display);
-                $("#project-created").html(display);
+              if (error) {
+                alert(error);
+                console.log(error);
+                return;
               }
+              var owner = result.args.owner;
+              var budget = result.args.budget;
+              var start = result.args.start;
+              var end = result.args.end;
+              var display = "Project successfully created by " + owner + ":\n" + "budget: " + budget.toString() + ":\n" + "start: " + start.toString() + ":\n" + "end: " + end.toString();
+              console.log(display);
+              $("#project-created").html(display);
             });
           }).catch(function(error) {
+            alert(error.message);
             console.log(error.message);
+            return;
           });
-        });*/
+        });
     },
 
     // Register Service Agent to Project
@@ -124,3 +168,8 @@ $(function() {
       Sela.init();
     });
 });
+
+// $(function() {
+//     $("#project-start").datepicker();
+//     $("#project-end").datepicker();
+// });
