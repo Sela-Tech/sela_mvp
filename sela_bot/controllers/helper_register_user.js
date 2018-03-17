@@ -9,6 +9,17 @@ mongoose.connect(mongoDB, {
 mongoose.Promise = global.Promise;
 var db = mongoose.connection;
 console.log("Connection established");
-var MyModel = mongoose.model('User', new Schema({ first_name: String }));
+
+var UserModel = mongoose.model('Project', new Schema({ first_name: String , family_name: String}));
 // Works
-MyModel.findOne(function(error, result) { console.log(result)});
+UserModel.find({}, function(error, result) { 
+	if (error) {
+		console.log("Error")
+	}
+	if (result.length ==0){
+		console.log("Error")
+	}
+	else {
+		console.log(result);
+	}
+});
