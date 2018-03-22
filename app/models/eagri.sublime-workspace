@@ -4,6 +4,30 @@
 		"selected_items":
 		[
 			[
+				"C",
+				"CASCADE\tfunction"
+			],
+			[
+				"cA",
+				"CASCADE\tfunction"
+			],
+			[
+				"auto",
+				"auto_now\tparam"
+			],
+			[
+				"da",
+				"DateTimeField\tclass"
+			],
+			[
+				"Da",
+				"DateTimeField\tclass"
+			],
+			[
+				"max",
+				"max_length"
+			],
+			[
 				"st",
 				"style"
 			],
@@ -304,10 +328,6 @@
 				"inline-block"
 			],
 			[
-				"max",
-				"max-width"
-			],
-			[
 				"bord",
 				"borderTopWidth"
 			],
@@ -338,10 +358,6 @@
 			[
 				"CON",
 				"COUNT"
-			],
-			[
-				"auto",
-				"autocompleteList"
 			],
 			[
 				"autocom",
@@ -498,241 +514,46 @@
 			[
 				"Flat",
 				"FlatList"
-			],
-			[
-				"Item",
-				"ItemLeft"
-			],
-			[
-				"ITem",
-				"ItemMain"
-			],
-			[
-				"ren",
-				"renderItem"
-			],
-			[
-				"React",
-				"ReactElement\tFlow React type"
 			]
 		]
 	},
 	"buffers":
 	[
 		{
-			"file": "client/src/containers/project.js",
+			"file": "/C/Users/konoufo/Downloads/thekeep/Jobs/projects/investiv_project/eagri/config.json",
 			"settings":
 			{
-				"buffer_size": 1200,
+				"buffer_size": 95,
+				"encoding": "UTF-8",
+				"line_ending": "Unix"
+			}
+		},
+		{
+			"file": "/C/Users/konoufo/Downloads/thekeep/Jobs/projects/investiv_project/eagri/src/profiles/forms.py",
+			"settings":
+			{
+				"buffer_size": 898,
 				"encoding": "UTF-8",
 				"line_ending": "Windows"
 			}
 		},
 		{
-			"file": "app/controllers/milestone_controller.js",
+			"file": "/C/Users/konoufo/Downloads/thekeep/Jobs/projects/investiv_project/eagri/src/reporting/models.py",
 			"settings":
 			{
-				"buffer_size": 4164,
+				"buffer_size": 1021,
 				"encoding": "UTF-8",
 				"line_ending": "Windows"
 			}
 		},
 		{
-			"file": "client/src/containers/projectCreation.js",
+			"file": "/C/Users/konoufo/Downloads/thekeep/Jobs/projects/investiv_project/local.env",
 			"settings":
 			{
-				"buffer_size": 1209,
-				"encoding": "UTF-8",
-				"line_ending": "Windows"
-			}
-		},
-		{
-			"file": "client/src/containers/userLogin.js",
-			"settings":
-			{
-				"buffer_size": 463,
-				"encoding": "UTF-8",
-				"line_ending": "Windows"
-			}
-		},
-		{
-			"file": "client/src/containers/userSignup.js",
-			"settings":
-			{
-				"buffer_size": 467,
-				"encoding": "UTF-8",
-				"line_ending": "Windows"
-			}
-		},
-		{
-			"file": "client/src/components/projectWizard.js",
-			"settings":
-			{
-				"buffer_size": 8089,
-				"encoding": "UTF-8",
-				"line_ending": "Windows"
-			}
-		},
-		{
-			"file": "client/src/components/loginForm.js",
-			"settings":
-			{
-				"buffer_size": 1770,
+				"buffer_size": 737,
 				"encoding": "UTF-8",
 				"line_ending": "Windows",
-				"name": "import React, { Component } from 'react';"
-			}
-		},
-		{
-			"file": "client/src/ducks/index.js",
-			"settings":
-			{
-				"buffer_size": 601,
-				"encoding": "UTF-8",
-				"line_ending": "Windows"
-			}
-		},
-		{
-			"file": "client/src/components/signupForm.js",
-			"settings":
-			{
-				"buffer_size": 2244,
-				"encoding": "UTF-8",
-				"line_ending": "Windows"
-			}
-		},
-		{
-			"file": "client/src/ducks/user.js",
-			"settings":
-			{
-				"buffer_size": 2551,
-				"encoding": "UTF-8",
-				"line_ending": "Windows",
-				"name": "import axios from '../utils';"
-			}
-		},
-		{
-			"file": "config/routes.js",
-			"settings":
-			{
-				"buffer_size": 5237,
-				"line_ending": "Windows"
-			}
-		},
-		{
-			"file": "client/src/ducks/milestone.js",
-			"settings":
-			{
-				"buffer_size": 3326,
-				"line_ending": "Windows"
-			}
-		},
-		{
-			"file": "cleanDB.js",
-			"settings":
-			{
-				"buffer_size": 802,
-				"encoding": "UTF-8",
-				"line_ending": "Windows"
-			}
-		},
-		{
-			"file": "client/src/components/project.js",
-			"settings":
-			{
-				"buffer_size": 4838,
-				"encoding": "UTF-8",
-				"line_ending": "Windows"
-			}
-		},
-		{
-			"file": "client/src/components/form.js",
-			"settings":
-			{
-				"buffer_size": 5231,
-				"encoding": "UTF-8",
-				"line_ending": "Windows"
-			}
-		},
-		{
-			"file": "client/pagedraw.json",
-			"settings":
-			{
-				"buffer_size": 53,
-				"encoding": "UTF-8",
-				"line_ending": "Windows",
-				"name": "{\"app\": \"3650\"}"
-			}
-		},
-		{
-			"file": "client/src/components/dashboard.js",
-			"settings":
-			{
-				"buffer_size": 518,
-				"encoding": "UTF-8",
-				"line_ending": "Windows"
-			}
-		},
-		{
-			"file": "client/src/components/piechart.js",
-			"settings":
-			{
-				"buffer_size": 5686,
-				"encoding": "UTF-8",
-				"line_ending": "Windows",
-				"name": "var App = React.createClass({"
-			}
-		},
-		{
-			"file": "client/src/components/sms.js",
-			"settings":
-			{
-				"buffer_size": 416,
-				"encoding": "UTF-8",
-				"line_ending": "Windows"
-			}
-		},
-		{
-			"file": "client/src/components/projectsList.js",
-			"settings":
-			{
-				"buffer_size": 1906,
-				"encoding": "UTF-8",
-				"line_ending": "Windows"
-			}
-		},
-		{
-			"file": "client/src/App.js",
-			"settings":
-			{
-				"buffer_size": 2478,
-				"encoding": "UTF-8",
-				"line_ending": "Windows"
-			}
-		},
-		{
-			"file": "client/src/components/button.js",
-			"settings":
-			{
-				"buffer_size": 528,
-				"line_ending": "Windows"
-			}
-		},
-		{
-			"file": "client/src/components/projectTile.js",
-			"settings":
-			{
-				"buffer_size": 1020,
-				"encoding": "UTF-8",
-				"line_ending": "Windows"
-			}
-		},
-		{
-			"file": "app/models/milestone.js",
-			"settings":
-			{
-				"buffer_size": 1498,
-				"line_ending": "Windows"
+				"name": "# Django project configuration, if environ vars ar"
 			}
 		}
 	],
@@ -773,21 +594,38 @@
 	},
 	"expanded_folders":
 	[
-		"/C/Users/konoufo/Downloads/thekeep/Jobs/projects/sela/sela_mvp",
-		"/C/Users/konoufo/Downloads/thekeep/Jobs/projects/sela/sela_mvp/app",
-		"/C/Users/konoufo/Downloads/thekeep/Jobs/projects/sela/sela_mvp/app/controllers",
-		"/C/Users/konoufo/Downloads/thekeep/Jobs/projects/sela/sela_mvp/app/models",
-		"/C/Users/konoufo/Downloads/thekeep/Jobs/projects/sela/sela_mvp/client",
-		"/C/Users/konoufo/Downloads/thekeep/Jobs/projects/sela/sela_mvp/client/src",
-		"/C/Users/konoufo/Downloads/thekeep/Jobs/projects/sela/sela_mvp/client/src/components",
-		"/C/Users/konoufo/Downloads/thekeep/Jobs/projects/sela/sela_mvp/client/src/ducks",
-		"/C/Users/konoufo/Downloads/thekeep/Jobs/projects/sela/sela_mvp/client/src/selectors",
-		"/C/Users/konoufo/Downloads/thekeep/Jobs/projects/sela/sela_mvp/config",
-		"/C/Users/konoufo/Downloads/thekeep/Jobs/projects/sela/sela_mvp/docs",
-		"/C/Users/konoufo/Downloads/thekeep/Jobs/projects/sela/sela_mvp/public"
+		"/C/Users/konoufo/Downloads/thekeep/Jobs/projects/investiv_project/eagri",
+		"/C/Users/konoufo/Downloads/thekeep/Jobs/projects/investiv_project/eagri/requirements",
+		"/C/Users/konoufo/Downloads/thekeep/Jobs/projects/investiv_project/eagri/src",
+		"/C/Users/konoufo/Downloads/thekeep/Jobs/projects/investiv_project/eagri/src/reporting",
+		"/C/Users/konoufo/Downloads/thekeep/Jobs/projects/investiv_project/eagri/src/static",
+		"/C/Users/konoufo/Downloads/thekeep/Jobs/projects/investiv_project/eagri/src/static/site"
 	],
 	"file_history":
 	[
+		"/C/Users/konoufo/Downloads/thekeep/Jobs/projects/investiv_project/eagri/requirements/base.txt",
+		"/C/Users/konoufo/Downloads/thekeep/Jobs/projects/sela/sela_mvp/app/models/milestone.js",
+		"/C/Users/konoufo/Downloads/thekeep/Jobs/projects/sela/sela_mvp/client/src/components/projectTile.js",
+		"/C/Users/konoufo/Downloads/thekeep/Jobs/projects/sela/sela_mvp/client/src/components/button.js",
+		"/C/Users/konoufo/Downloads/thekeep/Jobs/projects/sela/sela_mvp/client/src/App.js",
+		"/C/Users/konoufo/Downloads/thekeep/Jobs/projects/sela/sela_mvp/client/src/components/projectsList.js",
+		"/C/Users/konoufo/Downloads/thekeep/Jobs/projects/sela/sela_mvp/client/src/components/dashboard.js",
+		"/C/Users/konoufo/Downloads/thekeep/Jobs/projects/sela/sela_mvp/client/pagedraw.json",
+		"/C/Users/konoufo/Downloads/thekeep/Jobs/projects/sela/sela_mvp/client/src/components/form.js",
+		"/C/Users/konoufo/Downloads/thekeep/Jobs/projects/sela/sela_mvp/client/src/components/project.js",
+		"/C/Users/konoufo/Downloads/thekeep/Jobs/projects/sela/sela_mvp/cleanDB.js",
+		"/C/Users/konoufo/Downloads/thekeep/Jobs/projects/sela/sela_mvp/client/src/ducks/milestone.js",
+		"/C/Users/konoufo/Downloads/thekeep/Jobs/projects/sela/sela_mvp/config/routes.js",
+		"/C/Users/konoufo/Downloads/thekeep/Jobs/projects/sela/sela_mvp/client/src/ducks/user.js",
+		"/C/Users/konoufo/Downloads/thekeep/Jobs/projects/sela/sela_mvp/client/src/components/signupForm.js",
+		"/C/Users/konoufo/Downloads/thekeep/Jobs/projects/sela/sela_mvp/client/src/ducks/index.js",
+		"/C/Users/konoufo/Downloads/thekeep/Jobs/projects/sela/sela_mvp/client/src/components/loginForm.js",
+		"/C/Users/konoufo/Downloads/thekeep/Jobs/projects/sela/sela_mvp/client/src/components/projectWizard.js",
+		"/C/Users/konoufo/Downloads/thekeep/Jobs/projects/sela/sela_mvp/client/src/containers/userSignup.js",
+		"/C/Users/konoufo/Downloads/thekeep/Jobs/projects/sela/sela_mvp/client/src/containers/userLogin.js",
+		"/C/Users/konoufo/Downloads/thekeep/Jobs/projects/sela/sela_mvp/client/src/containers/projectCreation.js",
+		"/C/Users/konoufo/Downloads/thekeep/Jobs/projects/sela/sela_mvp/app/controllers/milestone_controller.js",
+		"/C/Users/konoufo/Downloads/thekeep/Jobs/projects/sela/sela_mvp/client/src/containers/project.js",
 		"/C/Users/konoufo/Downloads/thekeep/Jobs/projects/investiv_project/eagri/webpack.base.config.js",
 		"/C/Users/konoufo/Downloads/thekeep/Jobs/projects/sela/sela_mvp/client/src/pagedraw/dashboard.js",
 		"/C/Users/konoufo/Downloads/thekeep/Jobs/projects/investiv_project/aymard/e-agri/js/meteoapi.js",
@@ -799,37 +637,24 @@
 		"/C/Users/konoufo/Downloads/thekeep/Jobs/projects/sela/sela_mvp/app/controllers/public_controller.js",
 		"/C/Users/konoufo/Downloads/thekeep/Jobs/projects/sela/sela_mvp/app/controllers/user_controller.js",
 		"/C/Users/konoufo/Downloads/thekeep/Jobs/projects/sela/sela_mvp/client/src/utils.js",
-		"/C/Users/konoufo/Downloads/thekeep/Jobs/projects/sela/sela_mvp/client/src/containers/userLogin.js",
 		"/C/Users/konoufo/Downloads/thekeep/Jobs/projects/sela/sela_mvp/client/src/selectors/milestone.js",
 		"/C/Users/konoufo/AppData/Local/Temp/7zODD70.tmp/preload.js",
 		"/C/Users/konoufo/AppData/Local/Temp/7zOC010.tmp/main.js",
 		"/C/Users/konoufo/Downloads/thekeep/Jobs/projects/sela/sela_mvp/client/src/containers/taskCreation.js",
 		"/C/Users/konoufo/Downloads/thekeep/Jobs/projects/sela/sela_mvp/client/src/containers/milestoneCreation.js",
 		"/C/Users/konoufo/Downloads/thekeep/Jobs/projects/sela/sela_mvp/client/src/containers/projectsMap.js",
-		"/C/Users/konoufo/Downloads/thekeep/Jobs/projects/sela/sela_mvp/client/src/components/projectWizard.js",
 		"/C/Users/konoufo/Downloads/thekeep/Jobs/projects/sela/sela_mvp/client/src/components/taskForm.js",
-		"/C/Users/konoufo/Downloads/thekeep/Jobs/projects/sela/sela_mvp/client/src/App.js",
-		"/C/Users/konoufo/Downloads/thekeep/Jobs/projects/sela/sela_mvp/client/src/containers/projectCreation.js",
 		"/C/Users/konoufo/Downloads/thekeep/Jobs/projects/sela/sela_mvp/client/src/ducks/task.js",
-		"/C/Users/konoufo/Downloads/thekeep/Jobs/projects/sela/sela_mvp/client/src/components/button.js",
 		"/C/Users/konoufo/Downloads/thekeep/Jobs/projects/sela/sela_mvp/client/src/components/projectTimeline.js",
 		"/C/Users/konoufo/Downloads/thekeep/Jobs/projects/sela/sela_mvp/client/src/assets/css/project.css",
-		"/C/Users/konoufo/Downloads/thekeep/Jobs/projects/sela/sela_mvp/client/src/components/dashboard.js",
 		"/C/Users/konoufo/Downloads/thekeep/Jobs/projects/sela/sela_mvp/app/controllers/project_controller.js",
 		"/C/Users/konoufo/Downloads/thekeep/Jobs/projects/sela/sela_mvp/client/src/components/maps.js",
-		"/C/Users/konoufo/Downloads/thekeep/Jobs/projects/sela/sela_mvp/config/routes.js",
-		"/C/Users/konoufo/Downloads/thekeep/Jobs/projects/sela/sela_mvp/client/src/components/form.js",
 		"/C/Users/konoufo/Downloads/thekeep/Jobs/projects/sela/sela_mvp/client/public/index/assets/dist/js/main.js",
-		"/C/Users/konoufo/Downloads/thekeep/Jobs/projects/sela/sela_mvp/client/src/ducks/milestone.js",
-		"/C/Users/konoufo/Downloads/thekeep/Jobs/projects/sela/sela_mvp/app/controllers/milestone_controller.js",
 		"/C/Users/konoufo/Downloads/thekeep/Jobs/projects/sela/sela_mvp/app/controllers/task_controller.js",
 		"/C/Users/konoufo/Downloads/thekeep/Jobs/projects/sela/sela_mvp/app/models/task.js",
 		"/C/Users/konoufo/Downloads/thekeep/Jobs/projects/sela/sela_mvp/client/node_modules/table/dist/makeStreamConfig.js",
 		"/C/Users/konoufo/Downloads/thekeep/Jobs/projects/sela/sela_mvp/app/models/project.js",
 		"/C/Users/konoufo/Downloads/thekeep/Jobs/projects/sela/sela_mvp/client/src/components/link.js",
-		"/C/Users/konoufo/Downloads/thekeep/Jobs/projects/sela/sela_mvp/client/src/components/projectsList.js",
-		"/C/Users/konoufo/Downloads/thekeep/Jobs/projects/sela/sela_mvp/client/src/components/project.js",
-		"/C/Users/konoufo/Downloads/thekeep/Jobs/projects/sela/sela_mvp/client/src/ducks/index.js",
 		"/C/Users/konoufo/Downloads/thekeep/Jobs/projects/sela/sela_mvp/client/src/containers/filteredProjectsList.js",
 		"/C/Users/konoufo/Downloads/thekeep/Jobs/projects/sela/sela_mvp/client/public/index.html",
 		"/C/Users/konoufo/Downloads/thekeep/Jobs/projects/sela/materialDesignAdmin/forms_basic.html",
@@ -849,7 +674,6 @@
 		"/C/Users/konoufo/Downloads/thekeep/Jobs/projects/sela/sela_mvp/client/move-build.js",
 		"/C/Users/konoufo/Downloads/thekeep/Jobs/projects/sela/sela_mvp/start-client.js",
 		"/C/Users/konoufo/Downloads/thekeep/Jobs/projects/sela/sela_mvp/client/config/paths.js",
-		"/C/Users/konoufo/Downloads/thekeep/Jobs/projects/sela/sela_mvp/client/src/components/projectTile.js",
 		"/C/Users/konoufo/Downloads/thekeep/Jobs/projects/sela/sela_mvp/client/src/entities.js",
 		"/C/Users/konoufo/Downloads/thekeep/Jobs/projects/sela/sela_mvp/client/src/components/appbar.js",
 		"/C/Portables/DevTools/Sublime/Data/Packages/User/FlowType.sublime-settings",
@@ -906,20 +730,11 @@
 		"/C/Users/konoufo/Downloads/thekeep/Jobs/projects/investiv/tracker/static/tracker/js/modal.js",
 		"/C/Users/konoufo/Downloads/thekeep/Jobs/projects/investiv/investiv/settings.py",
 		"/C/Users/konoufo/Downloads/thekeep/Jobs/projects/investiv/tracker/static/tracker/js/alert.js",
-		"/C/Users/konoufo/Downloads/thekeep/Jobs/projects/investiv/tracker/migrations/0001_initial.py",
-		"/C/Users/konoufo/Downloads/thekeep/Jobs/projects/investiv/tracker/forms.py",
-		"/C/Users/konoufo/Downloads/thekeep/Jobs/projects/investiv/tracker/templates/tracker/header.html",
-		"/C/Users/konoufo/Downloads/thekeep/Jobs/projects/investiv/requirements/base.txt",
-		"/C/Users/konoufo/Downloads/thekeep/Jobs/projects/investiv/tracker/templates/tracker/success.html",
-		"/C/Users/konoufo/Downloads/thekeep/Jobs/projects/investiv/tracker/templates/tracker/fail.html",
-		"/C/Users/konoufo/Downloads/thekeep/Jobs/projects/investiv/frameworks/static/paper/css/bootswatch.paper.css",
-		"/C/Users/konoufo/Downloads/thekeep/Jobs/projects/investiv/tracker/templates/tracker/editbox_success.html",
-		"/C/Users/konoufo/Downloads/thekeep/Jobs/projects/investiv/tracker/templates/tracker/project_success.html",
-		"/C/Users/konoufo/Downloads/thekeep/Jobs/projects/investiv/tracker/templates/tracker/project_fail.html"
+		"/C/Users/konoufo/Downloads/thekeep/Jobs/projects/investiv/tracker/migrations/0001_initial.py"
 	],
 	"find":
 	{
-		"height": 40.0
+		"height": 26.0
 	},
 	"find_in_files":
 	{
@@ -933,7 +748,6 @@
 		"case_sensitive": false,
 		"find_history":
 		[
-			"this.props",
 			"Dashboard_text_6",
 			"projects[",
 			"_milestone",
@@ -964,7 +778,6 @@
 		"regex": false,
 		"replace_history":
 		[
-			"props",
 			"projects.items[",
 			"_MILESTONE",
 			"milestone",
@@ -995,716 +808,135 @@
 	"groups":
 	[
 		{
-			"selected": 17,
+			"selected": 2,
 			"sheets":
 			[
 				{
 					"buffer": 0,
-					"file": "client/src/containers/project.js",
+					"file": "/C/Users/konoufo/Downloads/thekeep/Jobs/projects/investiv_project/eagri/config.json",
 					"semi_transient": false,
 					"settings":
 					{
-						"buffer_size": 1200,
+						"buffer_size": 95,
 						"regions":
 						{
 						},
 						"selection":
 						[
 							[
-								430,
-								430
+								52,
+								52
 							]
 						],
 						"settings":
 						{
-							"syntax": "Packages/Babel/JavaScript (Babel).sublime-syntax",
-							"tab_size": 4,
-							"translate_tabs_to_spaces": true
-						},
-						"translation.x": 4.0,
-						"translation.y": 28.0,
-						"zoom_level": 1.0
-					},
-					"stack_index": 20,
-					"type": "text"
-				},
-				{
-					"buffer": 1,
-					"file": "app/controllers/milestone_controller.js",
-					"semi_transient": false,
-					"settings":
-					{
-						"buffer_size": 4164,
-						"regions":
-						{
-						},
-						"selection":
-						[
-							[
-								3125,
-								3125
-							]
-						],
-						"settings":
-						{
-							"syntax": "Packages/Babel/JavaScript (Babel).sublime-syntax",
-							"tab_size": 4,
-							"translate_tabs_to_spaces": true
-						},
-						"translation.x": 0.0,
-						"translation.y": 1932.0,
-						"zoom_level": 1.0
-					},
-					"stack_index": 21,
-					"type": "text"
-				},
-				{
-					"buffer": 2,
-					"file": "client/src/containers/projectCreation.js",
-					"semi_transient": false,
-					"settings":
-					{
-						"buffer_size": 1209,
-						"regions":
-						{
-						},
-						"selection":
-						[
-							[
-								76,
-								63
-							]
-						],
-						"settings":
-						{
-							"syntax": "Packages/Babel/JavaScript (Babel).sublime-syntax",
+							"syntax": "Packages/JavaScript/JSON.sublime-syntax",
 							"tab_size": 4,
 							"translate_tabs_to_spaces": true
 						},
 						"translation.x": 0.0,
 						"translation.y": 0.0,
-						"zoom_level": 1.0
-					},
-					"stack_index": 16,
-					"type": "text"
-				},
-				{
-					"buffer": 3,
-					"file": "client/src/containers/userLogin.js",
-					"semi_transient": false,
-					"settings":
-					{
-						"buffer_size": 463,
-						"regions":
-						{
-						},
-						"selection":
-						[
-							[
-								76,
-								62
-							]
-						],
-						"settings":
-						{
-							"syntax": "Packages/Babel/JavaScript (Babel).sublime-syntax"
-						},
-						"translation.x": 0.0,
-						"translation.y": 0.0,
-						"zoom_level": 1.0
-					},
-					"stack_index": 9,
-					"type": "text"
-				},
-				{
-					"buffer": 4,
-					"file": "client/src/containers/userSignup.js",
-					"semi_transient": false,
-					"settings":
-					{
-						"buffer_size": 467,
-						"regions":
-						{
-						},
-						"selection":
-						[
-							[
-								77,
-								77
-							]
-						],
-						"settings":
-						{
-							"syntax": "Packages/Babel/JavaScript (Babel).sublime-syntax"
-						},
-						"translation.x": 0.0,
-						"translation.y": 0.0,
-						"zoom_level": 1.0
-					},
-					"stack_index": 15,
-					"type": "text"
-				},
-				{
-					"buffer": 5,
-					"file": "client/src/components/projectWizard.js",
-					"semi_transient": false,
-					"settings":
-					{
-						"buffer_size": 8089,
-						"regions":
-						{
-						},
-						"selection":
-						[
-							[
-								359,
-								359
-							]
-						],
-						"settings":
-						{
-							"syntax": "Packages/Babel/JavaScript (Babel).sublime-syntax",
-							"tab_size": 4,
-							"translate_tabs_to_spaces": true
-						},
-						"translation.x": 0.0,
-						"translation.y": 1806.0,
-						"zoom_level": 1.0
-					},
-					"stack_index": 19,
-					"type": "text"
-				},
-				{
-					"buffer": 6,
-					"file": "client/src/components/loginForm.js",
-					"semi_transient": false,
-					"settings":
-					{
-						"buffer_size": 1770,
-						"regions":
-						{
-						},
-						"selection":
-						[
-							[
-								1515,
-								1515
-							]
-						],
-						"settings":
-						{
-							"auto_name": "import React, { Component } from 'react';",
-							"syntax": "Packages/Babel/JavaScript (Babel).sublime-syntax",
-							"tab_size": 4,
-							"translate_tabs_to_spaces": true
-						},
-						"translation.x": 0.0,
-						"translation.y": 293.0,
-						"zoom_level": 1.0
-					},
-					"stack_index": 6,
-					"type": "text"
-				},
-				{
-					"buffer": 7,
-					"file": "client/src/ducks/index.js",
-					"semi_transient": false,
-					"settings":
-					{
-						"buffer_size": 601,
-						"regions":
-						{
-						},
-						"selection":
-						[
-							[
-								367,
-								330
-							]
-						],
-						"settings":
-						{
-							"syntax": "Packages/Babel/JavaScript (Babel).sublime-syntax"
-						},
-						"translation.x": 0.0,
-						"translation.y": 0.0,
-						"zoom_level": 1.0
-					},
-					"stack_index": 8,
-					"type": "text"
-				},
-				{
-					"buffer": 8,
-					"file": "client/src/components/signupForm.js",
-					"semi_transient": false,
-					"settings":
-					{
-						"buffer_size": 2244,
-						"regions":
-						{
-						},
-						"selection":
-						[
-							[
-								1576,
-								1576
-							]
-						],
-						"settings":
-						{
-							"syntax": "Packages/Babel/JavaScript (Babel).sublime-syntax",
-							"tab_size": 4,
-							"translate_tabs_to_spaces": true
-						},
-						"translation.x": 0.0,
-						"translation.y": 488.0,
-						"zoom_level": 1.0
-					},
-					"stack_index": 14,
-					"type": "text"
-				},
-				{
-					"buffer": 9,
-					"file": "client/src/ducks/user.js",
-					"semi_transient": false,
-					"settings":
-					{
-						"buffer_size": 2551,
-						"regions":
-						{
-						},
-						"selection":
-						[
-							[
-								1556,
-								2547
-							]
-						],
-						"settings":
-						{
-							"auto_name": "import axios from '../utils';",
-							"syntax": "Packages/Babel/JavaScript (Babel).sublime-syntax",
-							"tab_size": 4,
-							"translate_tabs_to_spaces": true
-						},
-						"translation.x": 0.0,
-						"translation.y": 84.0,
-						"zoom_level": 1.0
-					},
-					"stack_index": 7,
-					"type": "text"
-				},
-				{
-					"buffer": 10,
-					"file": "config/routes.js",
-					"semi_transient": false,
-					"settings":
-					{
-						"buffer_size": 5237,
-						"regions":
-						{
-						},
-						"selection":
-						[
-							[
-								0,
-								0
-							]
-						],
-						"settings":
-						{
-							"syntax": "Packages/Babel/JavaScript (Babel).sublime-syntax",
-							"tab_size": 4,
-							"translate_tabs_to_spaces": true
-						},
-						"translation.x": 0.0,
-						"translation.y": 0.0,
-						"zoom_level": 1.0
-					},
-					"stack_index": 22,
-					"type": "text"
-				},
-				{
-					"buffer": 11,
-					"file": "client/src/ducks/milestone.js",
-					"semi_transient": false,
-					"settings":
-					{
-						"buffer_size": 3326,
-						"regions":
-						{
-						},
-						"selection":
-						[
-							[
-								3326,
-								3326
-							]
-						],
-						"settings":
-						{
-							"syntax": "Packages/Babel/JavaScript (Babel).sublime-syntax",
-							"tab_size": 2,
-							"translate_tabs_to_spaces": true
-						},
-						"translation.x": 0.0,
-						"translation.y": 642.0,
-						"zoom_level": 1.0
-					},
-					"stack_index": 13,
-					"type": "text"
-				},
-				{
-					"buffer": 12,
-					"file": "cleanDB.js",
-					"semi_transient": false,
-					"settings":
-					{
-						"buffer_size": 802,
-						"regions":
-						{
-						},
-						"selection":
-						[
-							[
-								75,
-								75
-							]
-						],
-						"settings":
-						{
-							"syntax": "Packages/Babel/JavaScript (Babel).sublime-syntax"
-						},
-						"translation.x": 0.0,
-						"translation.y": 0.0,
-						"zoom_level": 1.0
-					},
-					"stack_index": 17,
-					"type": "text"
-				},
-				{
-					"buffer": 13,
-					"file": "client/src/components/project.js",
-					"semi_transient": false,
-					"settings":
-					{
-						"buffer_size": 4838,
-						"regions":
-						{
-						},
-						"selection":
-						[
-							[
-								2461,
-								2461
-							]
-						],
-						"settings":
-						{
-							"syntax": "Packages/Babel/JavaScript (Babel).sublime-syntax",
-							"tab_size": 4,
-							"translate_tabs_to_spaces": true
-						},
-						"translation.x": 31.0,
-						"translation.y": 630.0,
-						"zoom_level": 1.0
-					},
-					"stack_index": 18,
-					"type": "text"
-				},
-				{
-					"buffer": 14,
-					"file": "client/src/components/form.js",
-					"semi_transient": false,
-					"settings":
-					{
-						"buffer_size": 5231,
-						"regions":
-						{
-						},
-						"selection":
-						[
-							[
-								127,
-								127
-							]
-						],
-						"settings":
-						{
-							"syntax": "Packages/Babel/JavaScript (Babel).sublime-syntax",
-							"tab_size": 4,
-							"translate_tabs_to_spaces": true
-						},
-						"translation.x": 0.0,
-						"translation.y": 252.0,
-						"zoom_level": 1.0
-					},
-					"stack_index": 5,
-					"type": "text"
-				},
-				{
-					"buffer": 15,
-					"file": "client/pagedraw.json",
-					"semi_transient": false,
-					"settings":
-					{
-						"buffer_size": 53,
-						"regions":
-						{
-						},
-						"selection":
-						[
-							[
-								53,
-								53
-							]
-						],
-						"settings":
-						{
-							"auto_name": "{\"app\": \"3650\"}",
-							"syntax": "Packages/JavaScript/JSON.sublime-syntax"
-						},
-						"translation.x": 0.0,
-						"translation.y": 0.0,
-						"zoom_level": 1.0
-					},
-					"stack_index": 4,
-					"type": "text"
-				},
-				{
-					"buffer": 16,
-					"file": "client/src/components/dashboard.js",
-					"semi_transient": false,
-					"settings":
-					{
-						"buffer_size": 518,
-						"regions":
-						{
-						},
-						"selection":
-						[
-							[
-								158,
-								158
-							]
-						],
-						"settings":
-						{
-							"syntax": "Packages/Babel/JavaScript (Babel).sublime-syntax"
-						},
-						"translation.x": 0.0,
-						"translation.y": 0.0,
-						"zoom_level": 1.0
-					},
-					"stack_index": 1,
-					"type": "text"
-				},
-				{
-					"buffer": 17,
-					"file": "client/src/components/piechart.js",
-					"semi_transient": false,
-					"settings":
-					{
-						"buffer_size": 5686,
-						"regions":
-						{
-						},
-						"selection":
-						[
-							[
-								2040,
-								2040
-							]
-						],
-						"settings":
-						{
-							"auto_name": "var App = React.createClass({",
-							"syntax": "Packages/Babel/JavaScript (Babel).sublime-syntax",
-							"tab_size": 4,
-							"translate_tabs_to_spaces": true
-						},
-						"translation.x": 0.0,
-						"translation.y": 2485.0,
-						"zoom_level": 1.0
-					},
-					"stack_index": 0,
-					"type": "text"
-				},
-				{
-					"buffer": 18,
-					"file": "client/src/components/sms.js",
-					"semi_transient": false,
-					"settings":
-					{
-						"buffer_size": 416,
-						"regions":
-						{
-						},
-						"selection":
-						[
-							[
-								222,
-								222
-							]
-						],
-						"settings":
-						{
-							"syntax": "Packages/Babel/JavaScript (Babel).sublime-syntax"
-						},
-						"translation.x": 0.0,
-						"translation.y": 0.0,
-						"zoom_level": 1.0
-					},
-					"stack_index": 2,
-					"type": "text"
-				},
-				{
-					"buffer": 19,
-					"file": "client/src/components/projectsList.js",
-					"semi_transient": false,
-					"settings":
-					{
-						"buffer_size": 1906,
-						"regions":
-						{
-						},
-						"selection":
-						[
-							[
-								1371,
-								1371
-							]
-						],
-						"settings":
-						{
-							"syntax": "Packages/Babel/JavaScript (Babel).sublime-syntax",
-							"translate_tabs_to_spaces": false
-						},
-						"translation.x": 0.0,
-						"translation.y": 168.0,
 						"zoom_level": 1.0
 					},
 					"stack_index": 3,
 					"type": "text"
 				},
 				{
-					"buffer": 20,
-					"file": "client/src/App.js",
+					"buffer": 1,
+					"file": "/C/Users/konoufo/Downloads/thekeep/Jobs/projects/investiv_project/eagri/src/profiles/forms.py",
 					"semi_transient": false,
 					"settings":
 					{
-						"buffer_size": 2478,
+						"buffer_size": 898,
 						"regions":
 						{
 						},
 						"selection":
 						[
 							[
-								1658,
-								1658
+								898,
+								898
 							]
 						],
 						"settings":
 						{
-							"syntax": "Packages/Babel/JavaScript (Babel).sublime-syntax",
-							"tab_size": 2,
+							"syntax": "Packages/Python/Python.sublime-syntax",
+							"tab_size": 4,
 							"translate_tabs_to_spaces": true
 						},
 						"translation.x": 0.0,
-						"translation.y": 909.0,
+						"translation.y": 270.0,
 						"zoom_level": 1.0
 					},
-					"stack_index": 12,
+					"stack_index": 1,
 					"type": "text"
 				},
 				{
-					"buffer": 21,
-					"file": "client/src/components/button.js",
+					"buffer": 2,
+					"file": "/C/Users/konoufo/Downloads/thekeep/Jobs/projects/investiv_project/eagri/src/reporting/models.py",
 					"semi_transient": false,
 					"settings":
 					{
-						"buffer_size": 528,
+						"buffer_size": 1021,
 						"regions":
 						{
 						},
 						"selection":
 						[
 							[
-								0,
-								0
+								910,
+								910
 							]
 						],
 						"settings":
 						{
-							"syntax": "Packages/Babel/JavaScript (Babel).sublime-syntax",
-							"tab_size": 4,
-							"translate_tabs_to_spaces": true
+							"auto_complete_triggers":
+							[
+								{
+									"characters": ".",
+									"selector": "source.python - string - comment - constant.numeric"
+								},
+								{
+									"characters": ".",
+									"selector": "source.python - string - constant.numeric"
+								}
+							],
+							"syntax": "Packages/Python/Python.sublime-syntax"
+						},
+						"translation.x": 0.0,
+						"translation.y": 185.0,
+						"zoom_level": 1.0
+					},
+					"stack_index": 0,
+					"type": "text"
+				},
+				{
+					"buffer": 3,
+					"file": "/C/Users/konoufo/Downloads/thekeep/Jobs/projects/investiv_project/local.env",
+					"semi_transient": false,
+					"settings":
+					{
+						"buffer_size": 737,
+						"regions":
+						{
+						},
+						"selection":
+						[
+							[
+								687,
+								687
+							]
+						],
+						"settings":
+						{
+							"auto_name": "# Django project configuration, if environ vars ar",
+							"syntax": "Packages/Text/Plain text.tmLanguage"
 						},
 						"translation.x": 0.0,
 						"translation.y": 0.0,
 						"zoom_level": 1.0
 					},
-					"stack_index": 11,
-					"type": "text"
-				},
-				{
-					"buffer": 22,
-					"file": "client/src/components/projectTile.js",
-					"semi_transient": false,
-					"settings":
-					{
-						"buffer_size": 1020,
-						"regions":
-						{
-						},
-						"selection":
-						[
-							[
-								241,
-								241
-							]
-						],
-						"settings":
-						{
-							"syntax": "Packages/Babel/JavaScript (Babel).sublime-syntax",
-							"tab_size": 4,
-							"translate_tabs_to_spaces": true
-						},
-						"translation.x": 0.0,
-						"translation.y": 0.0,
-						"zoom_level": 1.0
-					},
-					"stack_index": 10,
-					"type": "text"
-				},
-				{
-					"buffer": 23,
-					"file": "app/models/milestone.js",
-					"semi_transient": false,
-					"settings":
-					{
-						"buffer_size": 1498,
-						"regions":
-						{
-						},
-						"selection":
-						[
-							[
-								0,
-								0
-							]
-						],
-						"settings":
-						{
-							"syntax": "Packages/Babel/JavaScript (Babel).sublime-syntax",
-							"tab_size": 4,
-							"translate_tabs_to_spaces": true
-						},
-						"translation.x": 0.0,
-						"translation.y": 42.0,
-						"zoom_level": 1.0
-					},
-					"stack_index": 23,
+					"stack_index": 2,
 					"type": "text"
 				}
 			]
@@ -1746,10 +978,10 @@
 		"height": 0.0
 	},
 	"pinned_build_system": "",
-	"project": "sela.sublime-project",
+	"project": "eagri.sublime-project",
 	"replace":
 	{
-		"height": 72.0
+		"height": 48.0
 	},
 	"save_all_on_build": true,
 	"select_file":
