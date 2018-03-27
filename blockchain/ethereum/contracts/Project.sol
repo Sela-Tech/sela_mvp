@@ -30,13 +30,6 @@ contract Project {
     address private owner;
 
     function Project(uint cap, uint start, uint end) public {
-        /*
-        TODO: Check for this in interface
-        require(now <= start);
-        require(start < end);
-        require(start >= 0);
-        require(end >= 0);
-        */
         owner = msg.sender;
         project = newProject(cap, start, end);
     }
@@ -137,46 +130,54 @@ contract Project {
 
     function submitReport(bool report) public /*ifEval*/ {
         // TODO: Might help to track this with an event
+        uint numEvalAgents = project.numEvalAgents;
+        uint numPosReports = project.reports[true].length;
+        uint numNegReports = project.reports[false].length;
+        if (numPosReports + numNegReports == numEvalAgents) {
+            // TODO: Consider using event to send message to eval agent
+            return;
+        }
         project.reports[report].push(msg.sender);
         evaluateProject();
     }
 
     function evaluateProject() public {
         // TODO: Might help to track this with an event
+        uint numEvalAgents = project.numEvalAgents;
         uint numPosReports = project.reports[true].length;
         uint numNegReports = project.reports[false].length;
-        uint numEvalAgents = project.numEvalAgents;
         // Check for complete project
-        if (numPosReports + numNegReports == numEvalAgents) {
-            address evalAgent;
-            address servAgent;
-            project.complete = true;
-            uint numServAgents = project.numServAgents;
-            // Check for successful project
-            if (numPosReports > numNegReports) {
-                // TODO: reward service agents and correct evaluation agents
-                // and punish incorrect evaluation agents
-                project.success = true;
-                // TODO: make more precise else money will be lost
-                uint posReward = project.capital / (numPosReports + numServAgents);
-                for (uint i = 0; i < numPosReports; i++) {
-                    evalAgent = project.reports[true][i];
-                    project.rewards[evalAgent] = posReward;
-                }
-                for (i = 0; i < numServAgents; i++) {
-                    servAgent = project.servAgents[i];
-                    project.rewards[servAgent] = posReward;
-                }
-            } else {
-                // TODO: reward correct evaluation agents
-                // and punish service agent and incorrect evaluation agents
-                project.success = false;
-                // TODO: make more precise else money will be lost
-                uint negReward = project.capital / numNegReports;
-                for (uint j = 0; j < numNegReports; j++) {
-                    evalAgent = project.reports[false][j];
-                    project.rewards[evalAgent] = negReward;
-                }
+        if (numPosReports + numNegReports != numEvalAgents) {
+            return;
+        }
+        address evalAgent;
+        address servAgent;
+        project.complete = true;
+        uint numServAgents = project.numServAgents;
+        // Check for successful project
+        if (numPosReports > numNegReports) {
+            // TODO: reward service agents and correct evaluation agents
+            // and punish incorrect evaluation agents
+            project.success = true;
+            // TODO: make more precise else money will be lost
+            uint posReward = project.capital / (numPosReports + numServAgents);
+            for (uint i = 0; i < numPosReports; i++) {
+                evalAgent = project.reports[true][i];
+                project.rewards[evalAgent] = posReward;
+            }
+            for (i = 0; i < numServAgents; i++) {
+                servAgent = project.servAgents[i];
+                project.rewards[servAgent] = posReward;
+            }
+        } else {
+            // TODO: reward correct evaluation agents
+            // and punish service agent and incorrect evaluation agents
+            project.success = false;
+            // TODO: make more precise else money will be lost
+            uint negReward = project.capital / numNegReports;
+            for (uint j = 0; j < numNegReports; j++) {
+                evalAgent = project.reports[false][j];
+                project.rewards[evalAgent] = negReward;
             }
         }
     }

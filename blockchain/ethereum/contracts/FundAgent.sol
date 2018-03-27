@@ -5,7 +5,7 @@ import "./Project.sol";
 
 // Contract for project execution
 contract FundAgent {
-    event ProjectCreated(address provider, uint budget, uint start, uint end);
+    event ProjectCreated(address projectID, address provider, uint budget, uint start, uint end);
     address private owner;
 
     function FundAgent() public {
@@ -16,11 +16,11 @@ contract FundAgent {
     // IMPORTANT: quote is an estimate for one's compensation if all agents
     // involved with project operate with good intent and deliver good outcome
     function createProject(uint capital, uint start, uint end, uint quote, uint fundStake)
-    public returns (address projectAddress) {
+    public /*returns (address projectAddress)*/ {
         Project projectContract = new Project(capital, start, end);
         projectContract.commitStake(Project.AgentType.FUND, fundStake);
-        projectAddress = address(projectContract);
-        ProjectCreated(owner, capital, start, end); // TODO: listen for event in javascript and handle appropriately
+        address projectAddress = address(projectContract);
+        ProjectCreated(projectAddress, owner, capital, start, end);
     }
 
     // Select and notify applicant of project offer

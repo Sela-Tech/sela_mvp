@@ -136,11 +136,12 @@ Sela = {
                 console.log(error);
                 return;
               }
+              var address = result.args.projectID;
               var owner = result.args.owner;
               var budget = result.args.budget;
               var start = result.args.start;
               var end = result.args.end;
-              var display = "Project successfully created by " + owner + ":\n" + "budget: " + budget.toString() + ":\n" + "start: " + start.toString() + ":\n" + "end: " + end.toString();
+              var display = "New project successfully created by " + owner + " at address " + address + ":\n" + "budget: " + budget.toString() + ":\n" + "start: " + start.toString() + ":\n" + "end: " + end.toString();
               console.log(display);
               $("#project-created").html(display);
             });
