@@ -7,11 +7,11 @@ dotenv.config();
 var mongoDB = process.env.MONGOLAB_URI;
 
 const Telegram=require('telegram-node-bot');
-class RegisterController extends Telegram.TelegramBaseController {
+class ViewProjectController extends Telegram.TelegramBaseController {
     /**
      * @param {Scope} $
      */
-    registerHandler($) {
+    viewProjectsHandler($) {
         var query = $.message.text
         var query_terms = $.message.text.split(' ')
         console.log($.message.chat.id)

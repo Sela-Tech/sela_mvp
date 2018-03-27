@@ -11,7 +11,7 @@ var chatStructure = {
         type: ObjectId,
         ref: 'User'
     },
-    recieverId: {
+    receiverId: {
         type: ObjectId,
         ref: 'User'
     },
