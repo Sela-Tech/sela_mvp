@@ -51,24 +51,34 @@ logging.basicConfig(format='%(asctime)s - %(name)s - %(levelname)s - %(message)s
 
 logger = logging.getLogger(__name__)
 
-GENDER, PHOTO, LOCATION, BIO = range(4)
+UPLOAD_TYPE, PHOTO, LOCATION, BIO = range(4)
+
+Interview_Type = 'Interview'
+Task_Report_Type = 'Task Report'
+Interview_Instruction = 'You chose interview. Please upload the picture of the person interviewed along with the transcript'
 
 
 def start(bot, update):
-    reply_keyboard = [['Boy', 'Girl', 'Other']]
+    reply_keyboard = [[Interview_Type, Task_Report_Type, 'Other']]
 
     update.message.reply_text(
-        'Hi! My name is Professor Bot. I will hold a conversation with you. '
+        'Hi! My name is Sela Bot. I will hold a conversation with you. '
         'Send /cancel to stop talking to me.\n\n'
-        'Are you a boy or a girl?',
+        'Are you here to upload an interview or a Task Report ?',
         reply_markup=ReplyKeyboardMarkup(reply_keyboard, one_time_keyboard=True))
 
-    return GENDER
+    return UPLOAD_TYPE
 
 
-def gender(bot, update):
+def upload_type(bot, update):
     user = update.message.from_user
-    logger.info("Gender of %s: %s", user.first_name, update.message.text)
+    upload = update.message.text
+    if(upload== Interview_Type):
+        update.message.reply_text(Interview_Instruction,reply_markup=ReplyKeyboardRemove())
+        
+
+
+    logger.info("Up of %s: %s", user.first_name, update.message.text)
     update.message.reply_text('I see! Please send me a photo of yourself, '
                               'so I know what you look like, or send /skip if you don\'t want to.',
                               reply_markup=ReplyKeyboardRemove())
@@ -150,7 +160,7 @@ def main():
         entry_points=[CommandHandler('start', start)],
 
         states={
-            GENDER: [RegexHandler('^(Boy|Girl|Other)$', gender)],
+            UPLOAD_TYPE: [RegexHandler('^(Boy|Girl|Other)$', upload_type)],
 
             PHOTO: [MessageHandler(Filters.photo, photo),
                     CommandHandler('skip', skip_photo)],
