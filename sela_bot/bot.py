@@ -73,6 +73,7 @@ Task_Report_Type = 'Task Report'
 Interview_Instruction = 'You chose interview. There are 2 ways to upload interview. Video or Photo+Transcript. Pick:'
 Video = 'Video'
 Photo_Transcript = 'Photo + Transcript'
+Other = 'Other'
 Video_Instruction = 'You chose to upload your interview in video format. Please upload your video'
 Photo_Instruction = 'You chose to upload your interview in photo + transcript format. Please upload your photo now then your transcript'
 Task_Report_Instruction_Success ='You chose task report. Please choose the project for which you are reporting'
@@ -126,7 +127,7 @@ def interview(bot, update):
         return TASK_REPORT 
 
 def video(bot, update):
-    video_file = bot.get_file(update.message.video[-1].file_id)
+    video_file = bot.get_file(update.message.video.file_id)
     video_file.download('temp.mp4')
     video_thanks= 'Thanks for uploading this interview. You can decide to upload a new video, a photo + transcript or end'
     reply_keyboard = [[Video, Photo_Transcript, Other]]
@@ -224,7 +225,8 @@ def main():
         states={
             UPLOAD_TYPE: [RegexHandler('^(Interview|Task Report|Other)$', upload_type)],
             INTERVIEW: [RegexHandler('^(Video|Photo + Transcript)$', interview)],
-    
+            VIDEO: [MessageHandler(Filters.video, video)],
+            VIDEO_SUCCESS: [RegexHandler('^(Video|Photo + Transcript|Other)$', video_success)]
         },
 
         fallbacks=[CommandHandler('cancel', cancel)]
