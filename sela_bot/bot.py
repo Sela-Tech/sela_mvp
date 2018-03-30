@@ -7,12 +7,27 @@ from telegram.ext import Updater
 from telegram.error import NetworkError, Unauthorized
 import logging
 from time import sleep
+import pymongo
+
 
 # Accessing variables.
 dotenv_path = join(dirname(__file__), '.env')
 load_dotenv(dotenv_path)
 telegram_token = os.getenv('SELA_BOT_API')
- 
+mongo_uri = os.getenv('MONGOLAB_URI')
+
+client = pymongo.MongoClient(mongo_uri)
+db = client.get_default_database()
+print(db.collection_names())
+users = db['users']
+Bisike = users.find({'first_name': 'Bisike'})
+for us in Bisike:
+    print(us)
+
+query = {'first_name': 'Bisike'}
+
+users.update(query, {'$set': {'telegram_id': 'test'}})
+
 # Using variables.
 print(telegram_token)
 bot = telegram.Bot(token=telegram_token)
@@ -56,6 +71,8 @@ UPLOAD_TYPE, PHOTO, LOCATION, BIO = range(4)
 Interview_Type = 'Interview'
 Task_Report_Type = 'Task Report'
 Interview_Instruction = 'You chose interview. Please upload the picture of the person interviewed along with the transcript'
+Task_Report_Instruction_Success ='You chose task report. Please choose the project for which you are reporting'
+
 
 
 def start(bot, update):
@@ -75,7 +92,11 @@ def upload_type(bot, update):
     upload = update.message.text
     if(upload== Interview_Type):
         update.message.reply_text(Interview_Instruction,reply_markup=ReplyKeyboardRemove())
-        
+        return INTERVIEW 
+    elif(upload == Task_Report_Type):
+        #Load user's projects and include them in the keyboard.
+        update.message.reply_text(Task_Report_Instruction_Success, replk)
+
 
 
     logger.info("Up of %s: %s", user.first_name, update.message.text)
@@ -84,6 +105,9 @@ def upload_type(bot, update):
                               reply_markup=ReplyKeyboardRemove())
 
     return PHOTO
+
+def task_report(bot, update):
+    '''Todo : Include task_report workflow from loading the reporter's project'''
 
 
 def photo(bot, update):
@@ -141,6 +165,9 @@ def cancel(bot, update):
                               reply_markup=ReplyKeyboardRemove())
 
     return ConversationHandler.END
+
+def register(bot, update):
+    message
 
 
 def error(bot, update, error):
