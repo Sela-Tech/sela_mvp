@@ -66,14 +66,15 @@ logging.basicConfig(format='%(asctime)s - %(name)s - %(levelname)s - %(message)s
 
 logger = logging.getLogger(__name__)
 
-UPLOAD_TYPE, INTERVIEW, TASK_REPORT, PHOTO_TRANSCRIPT,VIDEO, LOCATION, BIO = range(7)
+UPLOAD_TYPE, INTERVIEW, TASK_REPORT, PHOTO_TRANSCRIPT,VIDEO, PHOTO, TRANSCRIPT= range(7)
 
 Interview_Type = 'Interview'
 Task_Report_Type = 'Task Report'
 Interview_Instruction = 'You chose interview. There are 2 ways to upload interview. Video or Photo+Transcript. Pick:'
 Video = 'Video'
-Video_Instruction = 'You chose to upload your interview in video format. Please upload your video'
 Photo_Transcript = 'Photo + Transcript'
+Video_Instruction = 'You chose to upload your interview in video format. Please upload your video'
+Photo_Instruction = 'You chose to upload your interview in photo + transcript format. Please upload your photo now then your transcript'
 Task_Report_Instruction_Success ='You chose task report. Please choose the project for which you are reporting'
 
 
@@ -90,7 +91,6 @@ def start(bot, update):
 
 
 def upload_type(bot, update):
-    user = update.message.from_user
     upload = update.message.text
     if(upload== Interview_Type):
         reply_keyboard = [[Video, Photo_Transcript]]
@@ -117,10 +117,32 @@ def interview(bot, update):
     if(media_type== Video):
         reply_keyboard = [[Video, Photo_Transcript]]
         update.message.reply_text(
-            Interview_Instruction,
-            reply_markup=ReplyKeyboardMarkup(reply_keyboard, one_time_keyboard=True))
+            Video_Instruction,
+            reply_markup=ReplyKeyboardRemove())
         return VIDEO 
-    elif(upload == Task_Report_Type):
+    elif(upload == Photo_Transcript):
+        #Load user's projects and include them in the keyboard.
+        update.message.reply_text(Task_Report_Instruction_Success, replk)
+        return TASK_REPORT 
+
+def video(bot, update):
+    video_file = bot.get_file(update.message.video[-1].file_id)
+    video_file.download('temp.mp4')
+    video_thanks= 'Thanks for uploading this interview. You can decide to upload a new video, a photo + transcript or end'
+    reply_keyboard = [[Video, Photo_Transcript, Other]]
+    update.message.reply_text(
+        video_thanks,
+        reply_markup=ReplyKeyboardMarkup(reply_keyboard,one_time_keyboard=True))
+    return VIDEO_SUCCESS
+def video_success(bot, update):
+    update = update.message.text
+    if(update== Video):
+        reply_keyboard = [[Video, Photo_Transcript]]
+        update.message.reply_text(
+            Video_Instruction,
+            reply_markup=ReplyKeyboardRemove())
+        return VIDEO 
+    elif(upload == Photo_Transcript):
         #Load user's projects and include them in the keyboard.
         update.message.reply_text(Task_Report_Instruction_Success, replk)
         return TASK_REPORT 
@@ -200,15 +222,9 @@ def main():
         entry_points=[CommandHandler('start', start)],
 
         states={
-            UPLOAD_TYPE: [RegexHandler('^(Boy|Girl|Other)$', upload_type)],
-
-            PHOTO: [MessageHandler(Filters.photo, photo),
-                    CommandHandler('skip', skip_photo)],
-
-            LOCATION: [MessageHandler(Filters.location, location),
-                       CommandHandler('skip', skip_location)],
-
-            BIO: [MessageHandler(Filters.text, bio)]
+            UPLOAD_TYPE: [RegexHandler('^(Interview|Task Report|Other)$', upload_type)],
+            INTERVIEW: [RegexHandler('^(Video|Photo + Transcript)$', interview)],
+    
         },
 
         fallbacks=[CommandHandler('cancel', cancel)]
@@ -225,6 +241,15 @@ def main():
     # Run the bot until you press Ctrl-C or the process receives SIGINT,
     # SIGTERM or SIGABRT. This should be used most of the time, since
     # start_polling() is non-blocking and will stop the bot gracefully.
+
+    '''        PHOTO: [MessageHandler(Filters.photo, photo),
+                    CommandHandler('skip', skip_photo)],
+
+            LOCATION: [MessageHandler(Filters.location, location),
+                       CommandHandler('skip', skip_location)],
+
+            BIO: [MessageHandler(Filters.text, bio)]'''
+
     updater.idle()
 
 
