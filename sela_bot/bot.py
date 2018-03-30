@@ -66,13 +66,15 @@ logging.basicConfig(format='%(asctime)s - %(name)s - %(levelname)s - %(message)s
 
 logger = logging.getLogger(__name__)
 
-UPLOAD_TYPE, PHOTO, LOCATION, BIO = range(4)
+UPLOAD_TYPE, INTERVIEW, TASK_REPORT, PHOTO_TRANSCRIPT,VIDEO, LOCATION, BIO = range(7)
 
 Interview_Type = 'Interview'
 Task_Report_Type = 'Task Report'
-Interview_Instruction = 'You chose interview. Please upload the picture of the person interviewed along with the transcript'
+Interview_Instruction = 'You chose interview. There are 2 ways to upload interview. Video or Photo+Transcript. Pick:'
+Video = 'Video'
+Video_Instruction = 'You chose to upload your interview in video format. Please upload your video'
+Photo_Transcript = 'Photo + Transcript'
 Task_Report_Instruction_Success ='You chose task report. Please choose the project for which you are reporting'
-
 
 
 def start(bot, update):
@@ -91,11 +93,15 @@ def upload_type(bot, update):
     user = update.message.from_user
     upload = update.message.text
     if(upload== Interview_Type):
-        update.message.reply_text(Interview_Instruction,reply_markup=ReplyKeyboardRemove())
+        reply_keyboard = [[Video, Photo_Transcript]]
+        update.message.reply_text(
+            Interview_Instruction,
+            reply_markup=ReplyKeyboardMarkup(reply_keyboard, one_time_keyboard=True))
         return INTERVIEW 
     elif(upload == Task_Report_Type):
         #Load user's projects and include them in the keyboard.
         update.message.reply_text(Task_Report_Instruction_Success, replk)
+        return TASK_REPORT 
 
 
 
@@ -106,8 +112,18 @@ def upload_type(bot, update):
 
     return PHOTO
 
-def task_report(bot, update):
-    '''Todo : Include task_report workflow from loading the reporter's project'''
+def interview(bot, update):
+    media_type = update.message.text
+    if(media_type== Video):
+        reply_keyboard = [[Video, Photo_Transcript]]
+        update.message.reply_text(
+            Interview_Instruction,
+            reply_markup=ReplyKeyboardMarkup(reply_keyboard, one_time_keyboard=True))
+        return VIDEO 
+    elif(upload == Task_Report_Type):
+        #Load user's projects and include them in the keyboard.
+        update.message.reply_text(Task_Report_Instruction_Success, replk)
+        return TASK_REPORT 
 
 
 def photo(bot, update):
@@ -161,13 +177,10 @@ def bio(bot, update):
 def cancel(bot, update):
     user = update.message.from_user
     logger.info("User %s canceled the conversation.", user.first_name)
-    update.message.reply_text('Bye! I hope we can talk again some day.',
+    update.message.reply_text('Bye! I hope4 we can talk again some day.',
                               reply_markup=ReplyKeyboardRemove())
 
     return ConversationHandler.END
-
-def register(bot, update):
-    message
 
 
 def error(bot, update, error):
