@@ -69,12 +69,16 @@ const TopHeader = ({title, icon, description}) => (
       <div className="header-icon">
           <i className="material-icons">{icon}</i>
       </div>
-      <div className="header-title">
-          <h1> {title}</h1>
-          <small>{description}</small>
-      </div>
+      {description ? <div className="header-title">
+            <h1> {title}</h1>
+            <small>{description}</small>
+        </div> :
+        <div className="header-title">
+          <h2 className="text-capitalize">{title}</h2>
+        </div>
+      }
   </section>
 );
 
 export default AppBar;
-export {TopHeader};
+export { TopHeader };

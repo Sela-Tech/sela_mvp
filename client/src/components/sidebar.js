@@ -11,7 +11,10 @@ class SideBar extends Component {
                 <div className="sidebar-nav navbar-collapse">
                     <ul className="nav" id="side-menu">
                         <li className="list-header">Main Navigation ---</li>
-                        <MenuItem title="Dashboard" icon="dashboard" to="/dashboard" />
+                        <MenuItem title="Dashboard" icon="dashboard" to="/dashboard">
+                            <MenuItem title="Updates" icon="dashboard" to="/dashboard/updates" />
+                            <MenuItem title="Projects brief" icon="pie_chart" to="/dashboard/overview" />
+                        </MenuItem>
                         <MenuItem title="Projects" icon="pie_chart" to="/projects">
                             <MenuItem title="Public" icon="public" to="/projects/all" />
                         </MenuItem>

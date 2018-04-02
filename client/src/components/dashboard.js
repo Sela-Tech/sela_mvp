@@ -1,5 +1,5 @@
-import React, {Component} from 'react';
-import {TopHeader} from './appbar';
+import React, { Component } from 'react';
+import { TopHeader } from './appbar';
 import PageWrapper from './pagewrapper';
 import Page from '../pagedraw/dashboard';
 

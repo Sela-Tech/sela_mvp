@@ -9,12 +9,27 @@
 .taskupdateslist-default-3 {
     display: flex;
     flex-direction: column;
-    padding-bottom: 24px;
     background: #FFFFFF;
     flex-grow: 1;
 }
 
 .taskupdateslist-0-0-0 {
+    display: flex;
+    flex-grow: 1;
+    flex-basis: 0px;
+    min-height: fit-content;
+}
+
+.taskupdateslist-rectangle_2 {
+    display: flex;
+    flex-direction: column;
+    flex-grow: 1;
+    flex-basis: 0px;
+    min-height: fit-content;
+    box-shadow: 1px 2px 4px 0px rgb(229, 229, 229);
+}
+
+.taskupdateslist-0-0-0-0-0 {
     display: flex;
 }
 
@@ -29,7 +44,7 @@
     background: #D8D8D8;
 }
 
-.taskupdateslist-0-0-0-0-0 {
+.taskupdateslist-0-0-0-0-0-0-0 {
     display: flex;
     padding-left: 138px;
     padding-right: 138px;
@@ -50,12 +65,12 @@
     word-wrap: break-word;
 }
 
-.taskupdateslist-0-0-1 {
+.taskupdateslist-0-0-0-0-1 {
     display: flex;
     margin-top: 15px;
 }
 
-.taskupdateslist-0-0-1-0 {
+.taskupdateslist-0-0-0-0-1-0 {
     display: flex;
     flex-direction: column;
 }
@@ -67,7 +82,7 @@
     flex-grow: 1;
 }
 
-.taskupdateslist-0-0-1-0-0-0-0 {
+.taskupdateslist-0-0-0-0-1-0-0-0-0 {
     display: flex;
 }
 
@@ -77,15 +92,34 @@
     flex-direction: column;
 }
 
+.taskupdateslist-0-0-0-0-2 {
+    width: 0px;
+    flex-grow: 1;
+    flex-basis: 0px;
+}
+
 .taskupdateslist-empty-9 {
     display: flex;
     flex-direction: column;
-    padding-bottom: 55px;
     background: #FFFFFF;
     flex-grow: 1;
 }
 
 .taskupdateslist-1-0-0 {
+    display: flex;
+}
+
+.taskupdateslist-rectangle_21 {
+    display: flex;
+    flex-direction: column;
+    flex-grow: 1;
+    flex-basis: 0px;
+    min-height: fit-content;
+    padding-bottom: 55px;
+    box-shadow: 1px 2px 4px 0px rgb(229, 229, 229);
+}
+
+.taskupdateslist-1-0-0-0-0 {
     display: flex;
 }
 
@@ -100,7 +134,7 @@
     background: #D8D8D8;
 }
 
-.taskupdateslist-1-0-0-0-0 {
+.taskupdateslist-1-0-0-0-0-0-0 {
     display: flex;
     padding-left: 138px;
     padding-right: 138px;
@@ -121,7 +155,7 @@
     word-wrap: break-word;
 }
 
-.taskupdateslist-1-0-1 {
+.taskupdateslist-1-0-0-0-1 {
     display: flex;
     margin-top: 30px;
     justify-content: center;
@@ -140,6 +174,12 @@
     text-decoration: none;
     text-align: center;
     word-wrap: break-word;
+}
+
+.taskupdateslist-1-0-1 {
+    width: 0px;
+    flex-grow: 1;
+    flex-basis: 0px;
 }
 
 * {

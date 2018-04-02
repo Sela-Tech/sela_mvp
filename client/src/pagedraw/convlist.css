@@ -17,24 +17,31 @@
     display: flex;
 }
 
-.convlist-rectangle_3 {
+.convlist-rectangle_20 {
     display: flex;
     flex-direction: column;
-    flex-grow: 1;
-    flex-basis: 0px;
-    min-height: fit-content;
-    padding-top: 6px;
-    padding-bottom: 5px;
-    background: #D8D8D8;
+    box-shadow: 1px 2px 4px 0px rgb(229, 229, 229);
 }
 
 .convlist-0-0-0-0-0 {
     display: flex;
 }
 
+.convlist-rectangle_3 {
+    display: flex;
+    flex-direction: column;
+    padding-top: 6px;
+    padding-bottom: 5px;
+    background: #D8D8D8;
+}
+
+.convlist-0-0-0-0-0-0-0 {
+    display: flex;
+}
+
 .convlist-text_1 {
-    flex-grow: 1;
-    flex-basis: 0px;
+    width: 376px;
+    flex-shrink: 0;
     font-family: "Roboto", sans-serif;
     color: #000000;
     font-size: 16px;
@@ -47,7 +54,7 @@
     word-wrap: break-word;
 }
 
-.convlist-0-0-1 {
+.convlist-0-0-0-0-1 {
     display: flex;
     margin-top: 10px;
 }
@@ -55,30 +62,15 @@
 .convlist-rectangle_2 {
     display: flex;
     flex-direction: column;
-    flex-grow: 1;
-    flex-basis: 0px;
-    min-height: fit-content;
     padding-bottom: 63px;
     background: rgba(0, 0, 0, 0);
-}
-
-.convlist-0-0-1-0-0 {
-    display: flex;
     padding-left: 6px;
     padding-right: 6px;
-}
-
-.convlist-0-0-1-0-0-0 {
-    flex-grow: 1;
-    flex-basis: 0px;
-    display: flex;
-    flex-direction: column;
 }
 
 .convlist-rectangle-5 {
     display: flex;
     flex-direction: column;
-    min-height: fit-content;
     padding-top: 7px;
     padding-bottom: 7px;
     cursor: pointer;
@@ -86,7 +78,7 @@
     flex-grow: 1;
 }
 
-.convlist-0-0-1-0-0-0-0-0-0 {
+.convlist-0-0-0-0-1-0-0-0-0 {
     display: flex;
     padding-left: 1px;
 }
@@ -99,7 +91,7 @@
     border-width: 0px;
 }
 
-.convlist-0-0-1-0-0-0-0-0-0-1 {
+.convlist-0-0-0-0-1-0-0-0-0-1 {
     display: flex;
     flex-direction: column;
     margin-left: 4px;
@@ -107,7 +99,7 @@
     padding-bottom: 12px;
 }
 
-.convlist-0-0-1-0-0-0-0-0-0-1-0 {
+.convlist-0-0-0-0-1-0-0-0-0-1-0 {
     display: flex;
 }
 
@@ -126,7 +118,7 @@
     word-wrap: break-word;
 }
 
-.convlist-0-0-1-0-0-0-0-0-0-1-1 {
+.convlist-0-0-0-0-1-0-0-0-0-1-1 {
     display: flex;
     margin-top: 1px;
     padding-left: 1px;
@@ -147,24 +139,21 @@
     word-wrap: break-word;
 }
 
-.convlist-0-0-1-0-0-0-0-0-0-2 {
+.convlist-0-0-0-0-1-0-0-0-0-2 {
     display: flex;
     flex-direction: column;
-    flex-grow: 1;
-    flex-basis: 0px;
-    min-height: fit-content;
     margin-left: 9px;
     padding-top: 4px;
     padding-bottom: 22px;
 }
 
-.convlist-0-0-1-0-0-0-0-0-0-2-0 {
+.convlist-0-0-0-0-1-0-0-0-0-2-0 {
     display: flex;
 }
 
 .convlist-text_11 {
-    flex-grow: 1;
-    flex-basis: 0px;
+    width: 196px;
+    flex-shrink: 0;
     cursor: text;
     font-family: "Roboto", sans-serif;
     color: rgb(0, 0, 0);
@@ -181,7 +170,7 @@
     white-space: nowrap;
 }
 
-.convlist-0-0-1-0-0-0-0-0-0-3 {
+.convlist-0-0-0-0-1-0-0-0-0-3 {
     display: flex;
     flex-direction: column;
     margin-left: 6px;
@@ -189,7 +178,7 @@
     padding-bottom: 11px;
 }
 
-.convlist-0-0-1-0-0-0-0-0-0-3-0 {
+.convlist-0-0-0-0-1-0-0-0-0-3-0 {
     display: flex;
 }
 
@@ -208,15 +197,35 @@
     word-wrap: break-word;
 }
 
+.convlist-0-0-1 {
+    flex-grow: 1;
+    flex-basis: 0px;
+}
+
 .convlist-empty-9 {
     display: flex;
     flex-direction: column;
-    padding-bottom: 52px;
     background: #FFFFFF;
     flex-grow: 1;
 }
 
 .convlist-1-0-0 {
+    display: flex;
+    flex-grow: 1;
+    flex-basis: 0px;
+    min-height: fit-content;
+}
+
+.convlist-rectangle_1 {
+    display: flex;
+    flex-direction: column;
+    flex-grow: 1;
+    flex-basis: 0px;
+    min-height: fit-content;
+    box-shadow: 1px 2px 4px 0px rgb(229, 229, 229);
+}
+
+.convlist-1-0-0-0-0 {
     display: flex;
 }
 
@@ -231,7 +240,7 @@
     background: #D8D8D8;
 }
 
-.convlist-1-0-0-0-0 {
+.convlist-1-0-0-0-0-0-0 {
     display: flex;
 }
 
@@ -250,12 +259,12 @@
     word-wrap: break-word;
 }
 
-.convlist-1-0-1 {
+.convlist-1-0-0-0-1 {
     display: flex;
     margin-top: 36px;
 }
 
-.convlist-1-0-1-0 {
+.convlist-1-0-0-0-1-0 {
     height: 0px;
     flex-grow: 0.4972067039106145;
     flex-basis: 0px;
@@ -276,9 +285,15 @@
     word-wrap: break-word;
 }
 
-.convlist-1-0-1-2 {
+.convlist-1-0-0-0-1-2 {
     height: 0px;
     flex-grow: 0.5027932960893855;
+    flex-basis: 0px;
+}
+
+.convlist-1-0-0-0-2 {
+    width: 0px;
+    flex-grow: 1;
     flex-basis: 0px;
 }
 

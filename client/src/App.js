@@ -18,7 +18,7 @@ import Signup from './containers/userSignup';
 import AppBar from './components/appbar';
 import SideBar from './components/sidebar';
 import Dashboard from './components/dashboard';
-
+import ProjectsOverview from './components/projects_overview';
 
 // assets
 // import loading from './assets/img/loading.png';
@@ -88,13 +88,16 @@ const routes = [
     path: '/projects/new',
     component: ProjectCreation,
   },
-  { path: '/dashboard',
+  { path: '/dashboard/updates',
     component: Dashboard,
     header: {
       icon: 'dashboard',
       title: 'Dashboard',
       description: 'Summary of your account activity'
     },
+  },
+  { path: '/dashboard/overview',
+    component: ProjectsOverview,
   }
 ];
 

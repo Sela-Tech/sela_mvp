@@ -1,6 +1,6 @@
-import React, {Component} from 'react';
+import React, { Component } from 'react';
 // components
-import {Redirect, Route, Switch} from 'react-router-dom';
+import { Redirect, Route, Switch } from 'react-router-dom';
 import PageWrapper from './pagewrapper';
 import { TopHeader } from './appbar';
 import { CustomNavLink as CustomLink } from './link';
