@@ -66,7 +66,7 @@ logging.basicConfig(format='%(asctime)s - %(name)s - %(levelname)s - %(message)s
 
 logger = logging.getLogger(__name__)
 
-UPLOAD_TYPE, INTERVIEW, TASK_REPORT, PHOTO_TRANSCRIPT,VIDEO, PHOTO, TRANSCRIPT= range(7)
+UPLOAD_TYPE, INTERVIEW, TASK_REPORT, PHOTO_TRANSCRIPT,VIDEO, PHOTO, VIDEO_SUCCESS, TRANSCRIPT, END= range(9)
 
 Interview_Type = 'Interview'
 Task_Report_Type = 'Task Report'
@@ -74,6 +74,9 @@ Interview_Instruction = 'You chose interview. There are 2 ways to upload intervi
 Video = 'Video'
 Photo_Transcript = 'Photo + Transcript'
 Other = 'Other'
+End = 'End'
+New_Video = 'New Video'
+New_Photo_Transcript = 'New Photo'
 Video_Instruction = 'You chose to upload your interview in video format. Please upload your video'
 Photo_Instruction = 'You chose to upload your interview in photo + transcript format. Please upload your photo now then your transcript'
 Task_Report_Instruction_Success ='You chose task report. Please choose the project for which you are reporting'
@@ -130,23 +133,24 @@ def video(bot, update):
     video_file = bot.get_file(update.message.video.file_id)
     video_file.download('temp.mp4')
     video_thanks= 'Thanks for uploading this interview. You can decide to upload a new video, a photo + transcript or end'
-    reply_keyboard = [[Video, Photo_Transcript, Other]]
+    reply_keyboard = [[New_Video, New_Photo_Transcript, End]]
     update.message.reply_text(
         video_thanks,
         reply_markup=ReplyKeyboardMarkup(reply_keyboard,one_time_keyboard=True))
     return VIDEO_SUCCESS
 def video_success(bot, update):
-    update = update.message.text
-    if(update== Video):
-        reply_keyboard = [[Video, Photo_Transcript]]
+    new_submission = update.message.text
+    if(new_submission== New_Video):
         update.message.reply_text(
             Video_Instruction,
             reply_markup=ReplyKeyboardRemove())
         return VIDEO 
-    elif(upload == Photo_Transcript):
+    elif(new_submission == New_Photo_Transcript):
         #Load user's projects and include them in the keyboard.
         update.message.reply_text(Task_Report_Instruction_Success, replk)
         return TASK_REPORT 
+    elif(new_submission == End):
+        return END
 
 
 def photo(bot, update):
@@ -197,6 +201,14 @@ def bio(bot, update):
     return ConversationHandler.END
 
 
+def end(bot, update):
+    user = update.message.from_user
+    logger.info("User %s canceled the conversation.", user.first_name)
+    update.message.reply_text('Bye! I hope4 we can talk again some day.',
+                              reply_markup=ReplyKeyboardRemove())
+
+    return ConversationHandler.END
+
 def cancel(bot, update):
     user = update.message.from_user
     logger.info("User %s canceled the conversation.", user.first_name)
@@ -226,7 +238,8 @@ def main():
             UPLOAD_TYPE: [RegexHandler('^(Interview|Task Report|Other)$', upload_type)],
             INTERVIEW: [RegexHandler('^(Video|Photo + Transcript)$', interview)],
             VIDEO: [MessageHandler(Filters.video, video)],
-            VIDEO_SUCCESS: [RegexHandler('^(Video|Photo + Transcript|Other)$', video_success)]
+            VIDEO_SUCCESS: [RegexHandler('^(New Video| New Photo + Transcript|End)$', video_success)],
+            END : [RegexHandler('End', end)] 
         },
 
         fallbacks=[CommandHandler('cancel', cancel)]
