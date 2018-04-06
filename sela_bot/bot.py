@@ -116,6 +116,21 @@ def upload_type(bot, update):
 
     return PHOTO
 
+def task_report(bot,update):
+    '''Todo : Grab Telegram ID, From ID grab user, from user grab projects and present list of project'''
+    return True 
+
+def get_project_tasks(bot,update):
+    '''Todo : Given project ID, find tasks where there has been no observation or where the user has not already put obs'''
+    return True
+
+def get_observation_type_task(bot,update):
+    ''' Todo : Ask observation in video, photo, or testimonial'''
+    return True
+def get_observation_status(bot,update):
+    ''' Todo : Given observation ask whether it confirms a task is done or not'''
+    return True
+
 def interview(bot, update):
     media_type = update.message.text
     if(media_type== Video):
