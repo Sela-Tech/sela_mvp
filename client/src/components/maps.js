@@ -14,7 +14,16 @@ export default class SimpleMap extends PureComponent {
   static defaultProps = {
     center: [59.938043, 30.337157],
     zoom: 9,
+    markers: []
   };
+
+  componentDidMount() {
+    this.props.loadData && this.props.loadData();
+  }
+
+  componentWillReceiveProps(nextProps) {
+    // update state with markers
+  }
 
   getCenter(){
     let x = this.props.markers.reduce((cX, x) => (cX + x[0]), 0);
@@ -34,10 +43,10 @@ export default class SimpleMap extends PureComponent {
     return (
        <GoogleMap
         apiKey="AIzaSyBIOpqXeaA6hyLiwzLi_ozfivfbt1xHvPo" // set if you need stats etc ...
-        center={this.props.markers ? this.getCenter() : this.props.center}
+        center={this.props.markers.length ? this.getCenter() : this.props.center}
         zoom={this.props.zoom}
         style={Object.assign({}, style, this.props.style)}>
-        {this.renderMarkers()}
+        {this.props.markers.length ? this.renderMarkers() : undefined}
       </GoogleMap>
     );
   }
@@ -45,5 +54,7 @@ export default class SimpleMap extends PureComponent {
 
 const style = {
   height: '40%',
-  maxHeight: 250 
+  maxHeight: 250,
+  position: 'relative',
+  width: '100%'
 };

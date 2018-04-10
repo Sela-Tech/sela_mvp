@@ -54,7 +54,9 @@ class TaskForm extends Component {
             </div>
             <TextInput required={true} name="taskName" type="text" label="Task name" />
             <TextInput required={true} name="taskDescription" type="text" label="Task description" />
-            <DateInput required={true} name="dueDate" label="Due date of task" />
+            <DateInput required={true} name="startDate" label="Start date of task" />
+            <DateInput required={true} name="endDate" label="End date of task" />
+
 
             <div className="row text-right">
                 <Button 

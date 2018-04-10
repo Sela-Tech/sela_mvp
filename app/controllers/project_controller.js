@@ -134,12 +134,12 @@ controller.readMany = function(req, res, next) {
         .find(findQuery, function(err, projects){
             if(err) {
                 res.status(500);
-                res.json({ errors: 'error'});
+                res.json({ errors: err});
                 return;
             }
             if(!projects) {
                 res.status(404);
-                res.json({ errors: 'error'});
+                res.json({ errors: 'No matching project found.'});
                 return;
             }
             // console.log(projects);

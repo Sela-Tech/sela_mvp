@@ -60,5 +60,6 @@ export default class ProjectsList extends Component {
 
 const ProjectMap = () => (
 	<SimpleMap
-		 markers={[[4.658696, 7.269298, 'A']]}/>
+		style={{ position: 'initial' }}
+		markers={[[4.658696, 7.269298, 'A']]}/>
 );

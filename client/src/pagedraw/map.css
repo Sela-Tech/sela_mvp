@@ -24,8 +24,24 @@
 }
 
 .map-rectangle_1 {
-    height: 202px;
+    display: flex;
+    flex-direction: column;
     flex-grow: 0.657393850658858;
+    flex-basis: 0px;
+    min-height: fit-content;
+    padding-top: 11px;
+    padding-bottom: 9px;
+}
+
+.map-0-0-0-0-0 {
+    display: flex;
+    padding-left: 12px;
+    padding-right: 12px;
+}
+
+.map-rectangle_2 {
+    height: 182px;
+    flex-grow: 1;
     flex-basis: 0px;
     background: #D8D8D8;
 }

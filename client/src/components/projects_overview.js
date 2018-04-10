@@ -4,6 +4,7 @@ import PageWrapper from './pagewrapper';
 import Page from '../pagedraw/projectsoverview';
 
 export default class ProjectsOverview extends Component {
+
     getStatusPie() {
         return {
             data: [8, 4, 3],

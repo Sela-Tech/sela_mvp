@@ -1,10 +1,12 @@
 import Axios from 'axios';
 
+// validation
 export const isValidProject = project => (
 	!!project && !!project.project_name
 );
 
-const {NODE_ENV, SERVER_PORT} = process.env;
+// requests
+const { NODE_ENV, SERVER_PORT } = process.env;
 console.log(SERVER_PORT);
 export const axios = Axios.create({
     baseURL:
@@ -30,3 +32,11 @@ export const handleRequestError = (error, handleData) => {
     }
     console.log(error.config);
 }
+
+// time
+export const Time = (() => {
+  if (!Date.now) {
+    Date.now = function() { return new Date().getTime(); }
+  }
+  return { now: Date.now };
+})();

@@ -50,4 +50,4 @@ bower_components
 .vscode/**
 
 # Editors files
-*.sublime-*
+**.sublime-*

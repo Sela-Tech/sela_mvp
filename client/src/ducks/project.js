@@ -1,4 +1,4 @@
-import { axios } from '../utils';
+import { axios, Time } from '../utils';
 
 export const types = {
 	CREATE_PROJECT: 'sela/project/CREATE_PROJECT',
@@ -20,7 +20,8 @@ const initialState = {
   isFetching: false,
   didInvalidate: false,
   items: {},
-  newProject: null
+  newProject: null,
+  lastUpdate: Time.now()
 };
 
 export default (state = initialState, action) => {
@@ -71,6 +72,7 @@ const create = (project) => ({ type: types.CREATE_PROJECT, ...project });
 const update = (projectData) => ({ type: types.UPDATE_PROJECT, ...projectData });
 const fetch = () => ({ type: types.FETCH_PROJECTS });
 const receive = (data) => ({ type: types.RECEIVE_PROJECTS, projects: data.projects });
+const shouldFetch = (state) => !(state.projects.isFetching || Time.now() - state.projects.lastUpdate < 3000);
 
 export const actionTors = {
 	create,
@@ -103,7 +105,8 @@ export const actionTors = {
   // this is a "functional action" creator so it returns a function, not an object.
   // Community call it a "thunk", for some reason...
   fetchRequest: function (query){
-    return function(dispatch) {
+    return function(dispatch, getState) {
+      if (!shouldFetch(getState())) return;
       // dispatch this first to toggle `isFetching` state
       dispatch(fetch());
       // then make async job
