@@ -80,11 +80,25 @@ New_Photo_Transcript = 'New Photo'
 Video_Instruction = 'You chose to upload your interview in video format. Please upload your video'
 Photo_Instruction = 'You chose to upload your interview in photo + transcript format. Please upload your photo now then your transcript'
 Task_Report_Instruction_Success ='You chose task report. Please choose the project for which you are reporting'
+User_Not_Found_Message = 'Hello, I do not recognize you. Please register by sending over your Sela user name. Would you like to register ?'
+Register_Instruction = 'Register'
+
+
 
 
 def start(bot, update):
-    reply_keyboard = [[Interview_Type, Task_Report_Type, 'Other']]
 
+    chat_id = update.message.chat.id
+    reply_keyboard = [[Interview_Type, Task_Report_Type, 'Other']]
+    users = db['users'].find({'telegram_id': chat_id})
+    count = users.count() 
+    if count == 0:
+        reply_keyboard = [[Register_Instruction, Other]]
+        update.message.reply_text(User_Not_Found_Message,
+        reply_markup= ReplyKeyboardMarkup(reply_keyboard, one_time_keyboard=True))
+        return REGISTER 
+    elif count == 1:
+        ''' Find user and hold conversation with him also think about time outs'''
     update.message.reply_text(
         'Hi! My name is Sela Bot. I will hold a conversation with you. '
         'Send /cancel to stop talking to me.\n\n'
@@ -93,6 +107,8 @@ def start(bot, update):
 
     return UPLOAD_TYPE
 
+def register(bot, update):
+    ''' Handle user registration '''
 
 def upload_type(bot, update):
     upload = update.message.text
