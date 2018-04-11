@@ -86,12 +86,6 @@ export default class Project extends Component {
                 description="Project" />
                 <div className="page-content" style={{position: 'relative'}}>
                 <div className="row p-24">
-                    {/*<div className="col-lg-8 col-md-8 col-md-offset-2 col-sm-12 col-xs-12">
-                        <ul className="nav nav-pills nav-justified">
-                            <CustomLink to={`${match.url}/timeline`} label="timeline" />
-                            <CustomLink to={`${match.url}/locations`} label="locations" />
-                        </ul>
-                    </div>*/}
                     <div className="clearfix"></div>
                     {project && 
                         <Timeline getDefaultDate={this.getDefaultDate} getMilestones={this.getMilestones} />}

@@ -22,6 +22,10 @@ var taskStructure = {
     due_date: {
         type: Date
     },
+    start_date: {
+        type: Date,
+        default: null,
+    },
     end_date: {
         type: Date,
         default: null,

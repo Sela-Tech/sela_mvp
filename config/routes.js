@@ -53,14 +53,14 @@ module.exports = function routes() {
     this.post('/api/v1/task.json', /*passport.authenticate('local-user', { session: false }),*/ v1Task.createOne);
     this.get('/api/v1/task.json', /*passport.authenticate('local-user', { session: false }),*/ v1Task.readOne);
     this.get('/api/v1/tasks.json', /*passport.authenticate('local-user', { session: false }),*/ v1Task.readMany);
-    // this.put('/api/v1/tasks.json', passport.authenticate('local-user', { session: false }), v1Task.updateOne);
+    this.put('/api/v1/tasks.json', passport.authenticate('local-user', { session: false }), v1Task.updateOne);
     // this.delete('/api/v1/task/:id.json', passport.authenticate('local-user', { session: false }), v1Task.deleteOne);
 
     // projects
     this.post('/api/v1/project.json', /*passport.authenticate('local-user', { session: false }),*/ v1Project.createOne);
     this.get('/api/v1/project.json', /*passport.authenticate('local-user', { session: false }),*/ v1Project.readOne);
     this.get('/api/v1/projects.json', /*passport.authenticate('local-user', { session: false }),*/ v1Project.readMany);
-    // this.put('/api/v1/project.json', passport.authenticate('local-user', { session: false }), v1Project.updateOne);
+    this.put('/api/v1/project.json', passport.authenticate('local-user', { session: false }), v1Project.updateOne);
     // this.delete('/api/v1/project/:id.json', passport.authenticate('local-user', { session: false }), v1Project.deleteOne);
     // this.post('/api/v1/project/contractor.json', passport.authenticate('local-user', { session: false }), v1Project.addContractor);
     // this.get('/api/v1/project/contractors.json', passport.authenticate('local-user', { session: false }), v1Project.getContractors);

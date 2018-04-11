@@ -62,7 +62,7 @@ class TextInput extends Component {
             <input 
                 id={`_input_${name}`}
                 name={name} 
-                value={this.props.getValue() || ''} 
+                value={this.props.getValue() || this.props.defaultValue || ''} 
                 onChange={this.changeValue}
                 type={type || 'text'} 
                 className="validate"

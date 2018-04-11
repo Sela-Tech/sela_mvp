@@ -61,7 +61,7 @@ const receive = (data) => ({type: types.RECEIVE_TASKS, tasks: data.tasks});
 
 export const actionTors = {
   create: create,
-  createRequest: function (taskData, updateMilestone) {
+  createRequest: function (taskData, updateMilestone, cb) {
     return function (dispatch) {
       dispatch(fetch());
       console.log('create task');
@@ -73,6 +73,7 @@ export const actionTors = {
         updateMilestone && dispatch(updateMilestone({
           _id: res.data.task.milestone,
           tasks: [res.data.task._id] }));
+        cb(res.data.task);
       });
     }
   },

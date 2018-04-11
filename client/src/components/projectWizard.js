@@ -5,74 +5,15 @@ import PageWrapper from './pagewrapper';
 import { TopHeader } from './appbar';
 import Button from './button';
 import FormWrapper, { TextInput, DateInput, SelectInput } from './form';
+// containers
+import ProjectCreation from '../containers/projectCreation'
+import TaskCreation from '.../containers/taskCreation'
+import MilestoneCreation from '../containers/milestoneCreation';
 
 
-const ProjectForm = (props) => (
-    <FormWrapper {...props} >
-        <TextInput required={true} name="projectName" type="text" label="Project name" />
-        <TextInput required={true} name="projectDescription" type="text" label="Project description" />
-        <DateInput required={true} name="startDate" label="Start date of project" />
-        <DateInput required={true} name="endDate" label="End date of project" />
-        <TextInput name="location" label="Main location for project" />
-
-        <div className="row text-right">
-            <Button 
-                type="submit"
-                label="continue" 
-                btnClass="success" 
-                material={true}
-                icon="done"
-                 />
-        </div>
-    </FormWrapper>
-);
 
 
-class TaskForm extends Component {
-    render() {
-        const {addMilestone, successLink, ...props} = this.props;
-        return <FormWrapper {...props} getRef={props.getRef} >
-            <div className="row text-right">
-                <Button 
-                    style={styles.headerButton}
-                    type="button"
-                    onClick={addMilestone} 
-                    label="Next Milestone" 
-                    btnClass="info" 
-                    material={true}
-                    icon="done"
-                     />
-                <Link to={successLink}>
-                    <Button
-                        type="button"
-                        label="Finish" 
-                        btnClass="info" 
-                        material={true}
-                        icon="done_all"
-                         />
-                </Link>
-            </div>
-            <TextInput required={true} name="taskName" type="text" label="Task name" />
-            <TextInput required={true} name="taskDescription" type="text" label="Task description" />
-            <DateInput required={true} name="startDate" label="Start date of task" />
-            <DateInput required={true} name="endDate" label="End date of task" />
-
-
-            <div className="row text-right">
-                <Button 
-                    type="submit"
-                    label="Add task" 
-                    btnClass="success" 
-                    material={true}
-                    icon="add"
-                     />
-            </div>
-        </FormWrapper>
-    }
-}
-
-
-export default class ProjectCreation extends Component {
+export default class ProjectWizard extends Component {
     constructor(props){
         super(props);
         this.state = {
@@ -106,8 +47,12 @@ export default class ProjectCreation extends Component {
         return m._id;
     }
 
+    updateProject = (model) => {
+        console.log("Valid submit! Updating...")
+    };
+
     createProject = (model) => {
-        console.log("Valid submit!");
+        console.log("Valid submit! Creating...");
         this.props.createProject(model);
     };
 
@@ -143,9 +88,6 @@ export default class ProjectCreation extends Component {
         let _self = this;
         let { project, projects, milestones, tasks } = this.props;
         let m = milestones.newMilestone._id;
-        /*let tasks = projects.items[project._id].milestones.reduce(function (tasks, m) {
-            return tasks.concat(milestones.items[m].tasks.map((t) => (_self.props.tasks.items[t])));
-        }, []);*/
         
         return <div style={styles.tasksList}>
             {React.Children.toArray(Object.values(tasks.items).filter(t => t.milestone === m).map(function(t) {
@@ -160,11 +102,23 @@ export default class ProjectCreation extends Component {
     }
 
     getProject() {
-        return this.props.project;
+        return Object.assign({ _id: this.props.match.params.id }, this.state.project);
+    }
+
+    getMilestone() {
+        return this.state.milestone
+    }
+
+    setProject(project) {
+        this.setState({ project });
+    }
+
+    setMilestone(milestone) {
+        this.setState({ milestone });
     }
 
     render() {
-        
+        const successLink = `/projects/summary/${this.getProject()._id}`;
         return <PageWrapper>
             <TopHeader 
                 icon="pie_chart"
@@ -176,9 +130,8 @@ export default class ProjectCreation extends Component {
                         <div className="col-sm-12">
                             <div className="card" style={{margin: '0 auto', maxWidth: 500}}>
                                 <div className="card-content">
-                                    <ProjectForm 
-                                        onSubmit={() => console.log('Submit!')}
-                                        onValidSubmit={this.createProject} 
+                                    <ProjectCreation
+                                        getProject={this.setProject}
                                         style={styles.projectForm} />
                                 </div>
                             </div>
@@ -188,12 +141,30 @@ export default class ProjectCreation extends Component {
                         <div className="col-sm-6">
                             <div className="card" style={{margin: '0 auto', maxWidth: 500}}>
                                 <div className="card-content">
-                                    <TaskForm 
+                                    <div className="row text-right">
+                                        <MilestoneCreation getMilestone={this.setMilestone} >
+                                            <Button 
+                                                style={styles.headerButton}
+                                                type="button"
+                                                label="Next Milestone" 
+                                                btnClass="info" 
+                                                material={true}
+                                                icon="done"
+                                                />
+                                        </MilestoneCreation>
+                                        <Link to={successLink}>
+                                            <Button
+                                                type="button"
+                                                label="Finish" 
+                                                btnClass="info" 
+                                                material={true}
+                                                icon="done_all"
+                                                 />
+                                        </Link>
+                                    </div>
+                                    <TaskCreation
                                         getRef={this.getRefTaskForm}
                                         onSubmit={() => console.log('Submit!')}
-                                        onValidSubmit={this.createTask}
-                                        addMilestone={this.createMilestone}
-                                        successLink={`/projects/summary/${this.getProject()._id}`}
                                         style={{maxWidth: 300}} />
                                 </div>
                             </div>
@@ -210,9 +181,6 @@ export default class ProjectCreation extends Component {
 const styles = {
     container: {
         padding: 16
-    },
-    headerButton: {
-        marginRight: 8
     },
     projectForm: {
         margin: '0 auto',

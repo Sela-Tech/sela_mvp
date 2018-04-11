@@ -76,7 +76,7 @@ const shouldFetch = (state) => !(state.projects.isFetching || Time.now() - state
 
 export const actionTors = {
 	create,
-  createRequest: function (projectData) {
+  createRequest: function (projectData, cb) {
     return function (dispatch) {
       dispatch(fetch());
       console.log('create project', projectData);
@@ -85,6 +85,7 @@ export const actionTors = {
         console.log('created project:', res.data);
         // use `create` action creator to create action and dispatch new project 
         dispatch(create(res.data.project));
+        cb(res.data.project);
       });
     }
   },

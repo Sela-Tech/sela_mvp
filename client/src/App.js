@@ -11,7 +11,6 @@ import {
 // containers
 import FilteredProjectsList from './containers/filteredProjectsList';
 import Project from './containers/project';
-import ProjectCreation from './containers/projectCreation';
 import Login from './containers/userLogin';
 import Signup from './containers/userSignup';
 // presentational
@@ -19,6 +18,7 @@ import AppBar from './components/appbar';
 import SideBar from './components/sidebar';
 import Dashboard from './components/dashboard';
 import ProjectsOverview from './components/projects_overview';
+import ProjectWizard from './components/projectWizard';
 
 // assets
 // import loading from './assets/img/loading.png';
@@ -86,7 +86,11 @@ const routes = [
   },
   {
     path: '/projects/new',
-    component: ProjectCreation,
+    component: ProjectWizard,
+  },
+  {
+    path: '/projects/new/:id',
+    component: ProjectWizard,
   },
   { path: '/dashboard/updates',
     component: Dashboard,

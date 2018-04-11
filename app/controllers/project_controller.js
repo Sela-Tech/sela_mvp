@@ -151,7 +151,67 @@ controller.readMany = function(req, res, next) {
 
 controller.updateOne = function(req, res, next) {
     var user = req.user || {};
-    res.status(501);
+    var id = req.body._id;
+    var schema = jsSchema({
+        '?id': /^[a-f\d]{24}$/i, 
+    });
+    var invalid = schema.errors({
+        id: id
+    });
+    if (invalid) {
+        res.status(400);
+        res.json({
+            error: 'invalid id'
+        });
+        return;
+    }
+
+    var record = {};
+    record.project_name = req.body.projectName;
+    record.project_description = req.body.projectDescription;
+    record.start_date = new Date(req.body.startDate);
+
+    if (req.body.endDate) {
+        record.end_date = new Date(req.body.endDate);
+    }
+
+    if (record.start_date >= record.end_date) {
+        res.status(400);
+        res.json({
+            error: "End date must be after start date."
+        });
+    }
+
+    // record.owner = user._id;
+
+    // TODO need to store location
+    // record.location = {};
+    // record.location.name =
+    // record.location.lat =
+    // record.location.long =
+
+    // var project = ProjectModel(record);
+    ProjectModel.findById(id).then((model) => {
+        console.log(model);
+        return Object.assign(model, record);
+    }).then((model) => {
+        return model.save();
+    }).then((updatedModel) => {
+        res.status(201);
+        res.json({
+            result: "Success",
+            project: updatedModel,
+        });
+    }).catch((err) => {
+        if (err) {
+            res.status(500);
+            res.json({
+                err: err
+            });
+            return;
+        }
+    });
+    // res.status(501);
 };
 
 controller.deleteOne = function(req, res, next) {

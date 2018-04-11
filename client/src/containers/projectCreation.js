@@ -1,41 +1,29 @@
 /* todo: further decouple component */
 import { connect } from 'react-redux';
-import ProjectWizard from '../components/projectWizard';
-import {
-    taskActionTors,
-    milestoneActionTors,
-    projectActionTors} from '../ducks';
-import selectors from '../selectors/milestone';
-
+import ProjectForm from '../components/projectForm';
+import { projectActionTors } from '../ducks';
 
 const mapStateToProps = (state, ownProps) => {
-    // console.log(state.projects, ownProps.match.params.id);
-    return {
-        project: state.projects.newProject,
-        projects: state.projects,
-        milestones: selectors.filterByProject(state.milestones, 
-            ownProps.project && ownProps.project._id),
-        tasks: state.tasks
-    }
+    return {}
 };
 
 const mapDispatchToProps = (dispatch, ownProps) => {
     return {
         createProject: (data) => {
-            dispatch(projectActionTors.createRequest(data))
+            dispatch(projectActionTors.createRequest(data, ownProps.getProject))
         },
-        createMilestone: (data) => {
-            dispatch(milestoneActionTors.createRequest(data, projectActionTors.update))
-        },
-        createTask: (data) => {
-            dispatch(taskActionTors.createRequest(data, milestoneActionTors.update))
-        }
+        // createMilestone: (data) => {
+        //     dispatch(milestoneActionTors.createRequest(data, projectActionTors.update))
+        // },
+        // createTask: (data) => {
+        //     dispatch(taskActionTors.createRequest(data, milestoneActionTors.update))
+        // }
     }
 };
 
 const ProjectCreation = connect(
     mapStateToProps,
     mapDispatchToProps
-)(ProjectWizard);
+)(ProjectForm);
 
 export default ProjectCreation;
