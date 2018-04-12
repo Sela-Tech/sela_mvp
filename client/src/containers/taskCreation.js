@@ -10,7 +10,7 @@ const mapStateToProps = (state, ownProps) => {
 const mapDispatchToProps = (dispatch, ownProps) => {
     return {
         createTask: (data) => {
-            dispatch(taskActionTors.createRequest(data, milestoneActionTors.update, ownProps.getTask))
+            dispatch(taskActionTors.createRequest(data, milestoneActionTors.update, ownProps.onTaskSave))
         }
     }
 };

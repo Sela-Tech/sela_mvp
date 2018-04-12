@@ -10,7 +10,7 @@ const mapStateToProps = (state, ownProps) => {
 const mapDispatchToProps = (dispatch, ownProps) => {
     return {
         createProject: (data) => {
-            dispatch(projectActionTors.createRequest(data, ownProps.getProject))
+            dispatch(projectActionTors.createRequest(data, ownProps.onProjectSave))
         },
         // createMilestone: (data) => {
         //     dispatch(milestoneActionTors.createRequest(data, projectActionTors.update))

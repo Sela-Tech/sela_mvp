@@ -7,76 +7,45 @@ import Button from './button';
 import FormWrapper, { TextInput, DateInput, SelectInput } from './form';
 // containers
 import ProjectCreation from '../containers/projectCreation'
-import TaskCreation from '.../containers/taskCreation'
+import TaskCreation from '../containers/taskCreation'
 import MilestoneCreation from '../containers/milestoneCreation';
-
-
-
 
 export default class ProjectWizard extends Component {
     constructor(props){
         super(props);
         this.state = {
-            stage: "project",
-            milestone: 1
+            stage: 0,
+            project: null,
+            tasks: [],
+            milestones: []
         };
     }
 
-    componentWillReceiveProps(nextProps) {
-        // when new project is saved, create a new default milestone
-        !this.props.project ? 
-            nextProps.project && this.props.createMilestone({projectId: nextProps.project._id}) :
-            // when project info is updated, switch to task form
-            this.props.projects.items[nextProps.project._id] !== nextProps.projects.items[nextProps.project._id] ?
-                this.setState({ 
-                    stage: 'task',
-                    milestone: nextProps.projects.items[nextProps.project._id] ?
-                    nextProps.projects.items[nextProps.project._id].milestones.length : 1}) :
-        //  when task stage is saved, reset taskform
-        // todo: store newTask at component level state and make this a callback of
-        // an CREATE_TASK_SUCCESS action
-        nextProps.tasks.newTask &&
-        (!this.props.tasks.newTask || 
-            (this.props.tasks.newTask._id !== nextProps.tasks.newTask._id)) &&
-        this.taskForm && this.taskForm.reset();
+    next() {
+        this.setState((state) => {
+            const { stage, milestones } = state;
+            return stage < milestones.length || stage === 0 ?
+                { stage: stage + 1 } :
+                {};
+        })
     }
 
-    getMilestoneId() {
-        let m = this.props.milestones.newMilestone,
-            { project, projects } = this.props;
-        return m._id;
+    previous() {
+        this.setState((state) => {
+            return state.stage > 0 ?
+                { stage: state.stage - 1 } :
+                {};
+        })
     }
-
-    updateProject = (model) => {
-        console.log("Valid submit! Updating...")
-    };
-
-    createProject = (model) => {
-        console.log("Valid submit! Creating...");
-        this.props.createProject(model);
-    };
-
-    createMilestone = () => {
-        console.log("New milestone!");
-        this.props.createMilestone({projectId: this.props.project._id});
-        this.taskForm && this.taskForm.reset();
-    };
-
-    createTask = (model) => {
-        console.log("Valid submit!");
-        this.props.createTask(Object.assign({
-            milestoneId: this.getMilestoneId()
-        }, model));
-    };
 
     getHeader() {
-        let { project } = this.props;
-        return this.state.stage === 'project' ? 
+        let { project, stage } = this.state;
+        return stage === 0 ? 
+            { title: project ? project.project_name : 'New Project' } :
             {
-                title: project ? project.project_name : 'New Project',} :
-            {
-                title: `Milestone ${this.state.milestone}`,
-                description: `Project: ${project && project.project_name}`}
+                title: `Milestone ${stage}`,
+                description: `Project: ${project && project.project_name}`
+            }
                     
     }
 
@@ -86,11 +55,12 @@ export default class ProjectWizard extends Component {
 
     getTasks() {
         let _self = this;
-        let { project, projects, milestones, tasks } = this.props;
-        let m = milestones.newMilestone._id;
+        let { project, milestones, stage, tasks } = this.state;
         
         return <div style={styles.tasksList}>
-            {React.Children.toArray(Object.values(tasks.items).filter(t => t.milestone === m).map(function(t) {
+            {tasks && React.Children.toArray(
+                tasks.filter(t => t.milestone === milestones[stage - 1]._id)
+                .map(function(t) {
                     return <div className="card cyan darken-2 white-text">
                         <div className="card-content">
                             {t.task_name}
@@ -101,37 +71,61 @@ export default class ProjectWizard extends Component {
         </div>
     }
 
+    getMilestoneId() {
+        const { milestones, stage } = this.state;
+        console.log('Milestones: '. milestones);
+        return milestones.length > 0 && milestones[stage - 1]._id;
+    }
+
     getProject() {
-        return Object.assign({ _id: this.props.match.params.id }, this.state.project);
+        return this.state.project;
     }
 
-    getMilestone() {
-        return this.state.milestone
-    }
+    onProjectSave = (project) => {
+        this.setProject(project);
+        this.next();
+    };
 
-    setProject(project) {
+    onMilestoneSave = (milestone) => {
+        this.addMilestone(milestone);
+        this.next();
+    };
+
+    onTaskSave = (task) => {
+        this.addTask(task);
+        this.taskform.reset();
+    };
+
+    setProject = (project) => {
         this.setState({ project });
-    }
+    };
 
-    setMilestone(milestone) {
-        this.setState({ milestone });
-    }
+    addMilestone = (milestone) => {
+        this.setState({ milestones: this.state.milestones.concat([ milestone ]) });
+    };
+
+    addTask = (task) => {
+        this.setState({
+            tasks: this.state.tasks.concat([ task ]),
+        })
+    };
 
     render() {
-        const successLink = `/projects/summary/${this.getProject()._id}`;
+        const { milestones, stage } = this.state;
+        const successLink = `/projects/summary/${this.getProject() && this.getProject()._id}`;
         return <PageWrapper>
             <TopHeader 
                 icon="pie_chart"
                 description="Public Project"
                 {...this.getHeader()} />
             <div className="page-content" style={styles.container}>
-                {this.state.stage === 'project' ?
+                {stage === 0 ?
                     <div className="row">
                         <div className="col-sm-12">
                             <div className="card" style={{margin: '0 auto', maxWidth: 500}}>
                                 <div className="card-content">
                                     <ProjectCreation
-                                        getProject={this.setProject}
+                                        onProjectSave={this.onProjectSave}
                                         style={styles.projectForm} />
                                 </div>
                             </div>
@@ -142,16 +136,42 @@ export default class ProjectWizard extends Component {
                             <div className="card" style={{margin: '0 auto', maxWidth: 500}}>
                                 <div className="card-content">
                                     <div className="row text-right">
-                                        <MilestoneCreation getMilestone={this.setMilestone} >
+                                        {stage === milestones.length ? 
+                                            <MilestoneCreation 
+                                                project={this.getProject()}
+                                                onMilestoneSave={this.onMilestoneSave} >
+                                                <Button 
+                                                    style={styles.headerButton}
+                                                    type="button"
+                                                    label="Next Milestone" 
+                                                    btnClass="info" 
+                                                    material={true}
+                                                    icon="send"
+                                                    />
+                                            </MilestoneCreation> :
+                                        stage > milestones.length ?
+                                            <MilestoneCreation 
+                                                project={this.getProject()}
+                                                onMilestoneSave={this.onMilestoneSave} >
+                                                <Button 
+                                                    style={styles.headerButton}
+                                                    type="button"
+                                                    label="Create Milestone" 
+                                                    btnClass="success" 
+                                                    material={true}
+                                                    icon="add_circle_outline"
+                                                    />
+                                            </MilestoneCreation> :
                                             <Button 
                                                 style={styles.headerButton}
                                                 type="button"
+                                                onClick={this.next}
                                                 label="Next Milestone" 
                                                 btnClass="info" 
                                                 material={true}
-                                                icon="done"
+                                                icon="send"
                                                 />
-                                        </MilestoneCreation>
+                                        }    
                                         <Link to={successLink}>
                                             <Button
                                                 type="button"
@@ -164,8 +184,11 @@ export default class ProjectWizard extends Component {
                                     </div>
                                     <TaskCreation
                                         getRef={this.getRefTaskForm}
+                                        onTaskSave={this.onTaskSave}
+                                        milestoneId={this.getMilestoneId()}
                                         onSubmit={() => console.log('Submit!')}
-                                        style={{maxWidth: 300}} />
+                                        disabled={stage > milestones.length}
+                                        style={styles.projectForm} />
                                 </div>
                             </div>
                         </div>
@@ -181,6 +204,9 @@ export default class ProjectWizard extends Component {
 const styles = {
     container: {
         padding: 16
+    },
+    headerButton: {
+        marginRight: 8
     },
     projectForm: {
         margin: '0 auto',

@@ -4,9 +4,9 @@ import Button from './button';
 import FormWrapper, { TextInput, DateInput, SelectInput } from './form';
 
 export default (props) => {
-    const { 
+    const {
         createProject,
-        getProject,
+        onProjectSave,
         updateProject,
         project,
         style } = props;
@@ -29,8 +29,16 @@ export default (props) => {
             defaultValue={project && project.project_description}
             type="text"
             label="Project description" />
-        <DateInput required={true} name="startDate" label="Start date of project" />
-        <DateInput required={true} name="endDate" label="End date of project" />
+        <DateInput 
+            required={true} 
+            defaultValue={project && project.start_date} 
+            name="startDate" 
+            label="Start date of project" />
+        <DateInput 
+            required={true} 
+            defaultValue={project && project.end_date}
+            name="endDate" 
+            label="End date of project" />
         <TextInput name="location" label="Main location for project" />
 
         <div className="row text-right">
@@ -39,7 +47,7 @@ export default (props) => {
                 label="continue" 
                 btnClass="success" 
                 material={true}
-                icon="plane"
+                icon="send"
                  />
         </div>
     </FormWrapper>

@@ -4,13 +4,14 @@ import FormWrapper, { TextInput, DateInput } from './form';
 import Button from './button';
 import { Link } from 'react-router-dom';
 
-class TaskForm extends Component {
+export default class TaskForm extends Component {
 
     render() {
-        const { createTask, updateTask, getTask, milestone, ...props } = this.props;
+        const { createTask, updateTask, onTaskSave, milestoneId, taskToUpdate, ...props } = this.props;
         const submit = (_model) => {
-            const model = Object.assign({ milestone: milestone._id }, _model);
-            task ? updateTask(model) : createTask(model);
+            const model = Object.assign({ milestoneId: taskToUpdate ? 
+                taskToUpdate.milestone : milestoneId }, _model);
+            taskToUpdate ? updateTask(model) : createTask(model);
         };
         return <FormWrapper
             onValidSubmit={submit}
@@ -18,22 +19,22 @@ class TaskForm extends Component {
             <TextInput 
                 required={true} 
                 name="taskName"
-                defaultValue={task.task_name}
+                defaultValue={taskToUpdate && taskToUpdate.task_name}
                 type="text" label="Task name" />
             <TextInput 
                 required={true} 
                 name="taskDescription" 
-                defaultValue={task.task_description}
+                defaultValue={taskToUpdate && taskToUpdate.task_description}
                 type="text" label="Task description" />
             <DateInput 
                 required={true} 
                 name="startDate" 
-                defaultValue={task.start_date}
+                defaultValue={taskToUpdate && taskToUpdate.start_date}
                 label="Start date of task" />
             <DateInput 
                 required={true} 
                 name="endDate" 
-                defaultValue={task.end_date}
+                defaultValue={taskToUpdate && taskToUpdate.end_date}
                 label="End date of task" />
             <div className="row text-right">
                 <Button 

@@ -22,7 +22,8 @@ class SelectInput extends Component {
             <i></i>
             <select 
                 name={name} 
-                value={this.props.getValue()} 
+                value={this.props.getValue()}
+                disabled={this.props.isFormDisabled() || this.props.disabled}
                 onChange={this.changeValue} 
                 className="icons">
                 <option value="" disabled={true}>Choose your option</option>
@@ -62,7 +63,8 @@ class TextInput extends Component {
             <input 
                 id={`_input_${name}`}
                 name={name} 
-                value={this.props.getValue() || this.props.defaultValue || ''} 
+                value={this.props.getValue() || this.props.defaultValue || ''}
+                disabled={this.props.isFormDisabled() || this.props.disabled}
                 onChange={this.changeValue}
                 type={type || 'text'} 
                 className="validate"
@@ -127,6 +129,7 @@ class DateInput extends Component {
                 name={name}
                 onChange={this.changeValue} 
                 value={this.props.getValue() || ''}
+                disabled={this.props.isFormDisabled() || this.props.disabled}
                 className="datepicker" type="text"
                  />
             <label htmlFor={`_input_${name}`}>{label}</label>
@@ -134,7 +137,7 @@ class DateInput extends Component {
     }  
 }
 
-export default ({children, containerStyle, ...props}) => (
+export default ({children, containerStyle, getRef, ...props}) => (
     /*  Form component that wraps around a `Formsy` for validation.
         children {[ReactElement]}: Nested input elements;
         props {Object}:
@@ -145,7 +148,7 @@ export default ({children, containerStyle, ...props}) => (
 
     <div className="row" style={containerStyle}>
         <div className="col s12 m-t-20">
-            <Formsy ref={props.getRef} {...props}>
+            <Formsy ref={getRef} {...props}>
                 {children}
             </Formsy>
         </div>

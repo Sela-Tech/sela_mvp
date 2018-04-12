@@ -72,7 +72,7 @@ const create = (project) => ({ type: types.CREATE_PROJECT, ...project });
 const update = (projectData) => ({ type: types.UPDATE_PROJECT, ...projectData });
 const fetch = () => ({ type: types.FETCH_PROJECTS });
 const receive = (data) => ({ type: types.RECEIVE_PROJECTS, projects: data.projects });
-const shouldFetch = (state) => !(state.projects.isFetching || Time.now() - state.projects.lastUpdate < 3000);
+const shouldFetch = (state) => !(state.projects.isFetching /*|| Time.now() - state.projects.lastUpdate < 3000*/);
 
 export const actionTors = {
 	create,

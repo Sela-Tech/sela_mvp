@@ -64,7 +64,7 @@ export const actionTors = {
   createRequest: function (taskData, updateMilestone, cb) {
     return function (dispatch) {
       dispatch(fetch());
-      console.log('create task');
+      console.log('create task', taskData);
       axios.post('task.json', taskData)
       .then(function(res){
         console.log('data-fetched:', res.data);
