@@ -66,7 +66,7 @@ logging.basicConfig(format='%(asctime)s - %(name)s - %(levelname)s - %(message)s
 
 logger = logging.getLogger(__name__)
 
-UPLOAD_TYPE, INTERVIEW, TASK_REPORT, PHOTO_TRANSCRIPT,VIDEO, PHOTO, VIDEO_SUCCESS, TRANSCRIPT, END= range(9)
+REGISTER, REGISTER_HANDLER, UPLOAD_TYPE, INTERVIEW, TASK_REPORT, PHOTO_TRANSCRIPT,VIDEO, PHOTO, VIDEO_SUCCESS, TRANSCRIPT, END= range(11)
 
 Interview_Type = 'Interview'
 Task_Report_Type = 'Task Report'
@@ -99,16 +99,45 @@ def start(bot, update):
         return REGISTER 
     elif count == 1:
         ''' Find user and hold conversation with him also think about time outs'''
-    update.message.reply_text(
+        update.message.reply_text(
         'Hi! My name is Sela Bot. I will hold a conversation with you. '
         'Send /cancel to stop talking to me.\n\n'
         'Are you here to upload an interview or a Task Report ?',
         reply_markup=ReplyKeyboardMarkup(reply_keyboard, one_time_keyboard=True))
-
-    return UPLOAD_TYPE
+        return UPLOAD_TYPE
+    else :
+        return END
 
 def register(bot, update):
     ''' Handle user registration '''
+    registration = update.message.text
+    register_prompt = 'Great ! We will register you now. Provide your user name on the Sela platform'
+    if registration == Register_Instruction:
+        update.message.reply_text(register_prompt,reply_markup=ReplyKeyboardRemove())
+        return REGISTER_HANDLER
+    else : 
+        return END 
+
+def register_handler(bot,update):
+    ''' Handle user registration '''
+    user_name = update.message.text
+    users_query = db['users'].find({'first_name': user_name})
+    count = users_query.count()
+    if count == 0:
+        error_message = 'Sorry, we did not find the corresponding user. Would you like to try again'
+        reply_keyboard = ['Yes','No']
+        update.message.reply_text(error_message,reply_markup=reply_keyboard)
+        return REGISTRATION_ERROR
+    elif count == 1:
+        query = {'first_name': user_name}
+        users.update(query, {'$set': {'telegram_id': update.message.chat.id}})
+        success_message = 'Congratulations, you have been registered. Your account has been linked to Sela. To start a conversation, press /start'
+        update.message.reply_text(success_message,reply_markup = ReplyKeyboardRemove())
+    else :
+        return END
+
+
+
 
 def upload_type(bot, update):
     upload = update.message.text
@@ -268,6 +297,8 @@ def main():
         states={
             UPLOAD_TYPE: [RegexHandler('^(Interview|Task Report|Other)$', upload_type)],
             INTERVIEW: [RegexHandler('^(Video|Photo + Transcript)$', interview)],
+            REGISTER: [RegexHandler('^(Register|Other)$', register)],
+            REGISTER_HANDLER: [MessageHandler(Filters.text, register_handler)],
             VIDEO: [MessageHandler(Filters.video, video)],
             VIDEO_SUCCESS: [RegexHandler('^(New Video| New Photo + Transcript|End)$', video_success)],
             END : [RegexHandler('End', end)] 
