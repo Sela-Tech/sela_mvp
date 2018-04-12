@@ -8,6 +8,10 @@ from telegram.error import NetworkError, Unauthorized
 import logging
 from time import sleep
 import pymongo
+from stellar_base.builder import Builder
+from stellar_base.asset import Asset
+
+
 
 
 # Accessing variables.
@@ -15,17 +19,31 @@ dotenv_path = join(dirname(__file__), '.env')
 load_dotenv(dotenv_path)
 telegram_token = os.getenv('SELA_BOT_API')
 mongo_uri = os.getenv('MONGOLAB_URI')
-
 client = pymongo.MongoClient(mongo_uri)
 db = client.get_default_database()
-print(db.collection_names())
+sela_issuer = os.getenv('ISSU_PUB_KEY')
+dest_address = os.getenv('LUM_WALL')
+sender_s_key = os.getenv('DIST_SEC_KEY')
+amount = 1
+
+seed = sender_s_key
+builder = Builder(secret=seed, network='public')
+# builder = Builder(secret=seed, network='public') for LIVENET
+bob_address = dest_address
+amount = 2
+memo = os.getenv('MEMO')
+token = os.getenv('SELA_TOKEN')
+builder.append_payment_op(bob_address, amount, token,sela_issuer)
+builder.add_text_memo(memo) # string length <= 28 bytes
+builder.sign()
+# Uses an internal horizon instance to submit over the network
+builder.submit()
+
 users = db['users']
 Bisike = users.find({'first_name': 'Bisike'})
 for us in Bisike:
     print(us)
-
 query = {'first_name': 'Bisike'}
-
 users.update(query, {'$set': {'telegram_id': 'test'}})
 
 # Using variables.
