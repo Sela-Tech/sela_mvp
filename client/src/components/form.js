@@ -17,7 +17,7 @@ class SelectInput extends Component {
     };
 
     render(){
-        const { label, name, options } = this.props;
+        const { label, name, options, placeholder } = this.props;
         return <div className="input-field form-input form-input-select">
             <i></i>
             <select 
@@ -26,7 +26,7 @@ class SelectInput extends Component {
                 disabled={this.props.isFormDisabled() || this.props.disabled}
                 onChange={this.changeValue} 
                 className="icons">
-                <option value="" disabled={true}>Choose your option</option>
+                <option value="" disabled={true}>{ placeholder || 'Choose an option' }</option>
                 {React.Children.toArray(options.map((opt) => (
                     <option 
                         value={opt.value} 

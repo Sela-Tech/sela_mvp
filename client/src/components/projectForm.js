@@ -1,12 +1,11 @@
 import React from 'react';
 // components
 import Button from './button';
-import FormWrapper, { TextInput, DateInput, SelectInput } from './form';
+import FormWrapper, { TextInput, DateInput } from './form';
 
 export default (props) => {
     const {
         createProject,
-        onProjectSave,
         updateProject,
         project,
         style } = props;

@@ -6,6 +6,7 @@ var Controller = require('./base_controller');
 
 // instances
 var controller = new Controller();
+var contractorController = require('./contractor_controller');
 var UserModel = mongoose.model('User');
 var TaskModel = mongoose.model('Task');
 
@@ -172,17 +173,23 @@ controller.updateOne = function(req, res, next) {
             task: updatedModel,
         });
     }).catch((err) => {
-        if (err) {
-            res.status(500);
-            res.json({
-                error: err
-            });
-            return;
-        }
+        res.status(500);
+        res.json({
+            errors: err
+        });
     });
 };
 
 controller.deleteOne = function(req, res, next) {
+    var user = req.user || {};
+    res.status(501);
+};
+
+controller.addContractor = contractorController.createOne;
+
+controller.getContractors = contractorController.readOne;
+
+controller.removeContractor = function(req, res, next) {
     var user = req.user || {};
     res.status(501);
 };

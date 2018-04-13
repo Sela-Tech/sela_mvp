@@ -73,13 +73,33 @@ controller.readOne = function(req, res, next) {
 
 };
 
+// TODO: implement paginated read with consistency between pages of data
 controller.readMany = function(req, res, next) {
     var user = req.user || {};
     var record = Object.assign({}, req.body, req.params);
     Object.keys(record).length || next();
     var schema = {};
 
-    res.status(501);
+    UserModel
+        .find(record)
+        .limit(50)
+        .lean()
+        .exec(function(err, result) {
+            if(err) {
+                res.status(500);
+                res.json({ error: 'Server Error.'});
+                return;
+            }
+            if(!result) {
+                res.status(404);
+                res.json({ error: 'No matching user found.'});
+                return;
+            }
+            res.status(201);
+            res.json({
+                users: result,
+            });
+        });
 };
 
 controller.updateOne = function(req, res, next) {

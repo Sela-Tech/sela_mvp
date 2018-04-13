@@ -5,20 +5,28 @@ export const types = {
     LOGOUT: 'sela/user/LOGOUT',
     SIGNUP: 'sela/user/SIGNUP',
     CURRENT: 'sela/user/CURRENT',
+    FETCH_USERS: 'sela/user/FETCH_USERS',
 }
 
 const initialState = {
     isAuthenticated: false,
     isFetching: false,
-    errors: null
+    errors: null,
+    all: []
 };
 
 export default (state = initialState, action) => {
-    const { type, user } = action;
+    const { type, user, users } = action;
     switch (type) {
         case types.CURRENT:
             return {
                 ...user,
+                isFetching: false,
+            }
+        case types.RECEIVE_USERS:
+            return {
+                ...state,
+                all: users || [],
                 isFetching: false,
             }
         case types.LOGIN:
@@ -44,7 +52,9 @@ export default (state = initialState, action) => {
 const login = () => ({ type: types.LOGIN });
 const logout = () => ({ type: types.LOGOUT });
 const signup = () => ({ type: types.SIGNUP });
-const current = (user) => ({ type: types.CURRENT, user })
+const current = (user) => ({ type: types.CURRENT, user });
+const fetch = () => ({ type: types.FETCH_USERS });
+const receive = (data) => ({ type: types.RECEIVE_USERS, users: data.users });
 
 export const actionTors = {
     current,
@@ -88,5 +98,17 @@ export const actionTors = {
             });
         }
     },
+    fetch,
+    fetchRequest: (query) => {
+        return function (dispatch) {
+            console.log('fetchRequest');
+            dispatch(fetch());
+            axios.post('users.json', query)
+            .then(function (res) {
+                console.log('users fetched:', res.data);
+                dispatch(receive(res.data));
+            })
+        }
+    }
 }
 

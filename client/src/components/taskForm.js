@@ -2,7 +2,6 @@ import React, {Component} from 'react';
 // components
 import FormWrapper, { TextInput, DateInput } from './form';
 import Button from './button';
-import { Link } from 'react-router-dom';
 
 export default class TaskForm extends Component {
 
@@ -48,9 +47,3 @@ export default class TaskForm extends Component {
         </FormWrapper>
     }
 }
-
-const styles = {
-    headerButton: {
-        marginRight: 8
-    },
-};

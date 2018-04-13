@@ -4,11 +4,12 @@ import { Link } from 'react-router-dom';
 import PageWrapper from './pagewrapper';
 import { TopHeader } from './appbar';
 import Button from './button';
-import FormWrapper, { TextInput, DateInput, SelectInput } from './form';
 // containers
 import ProjectCreation from '../containers/projectCreation'
 import TaskCreation from '../containers/taskCreation'
-import MilestoneCreation from '../containers/milestoneCreation';
+import MilestoneCreation from '../containers/milestoneCreation'
+import ContractorCreation from '../containers/contractorCreation'
+
 
 export default class ProjectWizard extends Component {
     constructor(props){
@@ -54,9 +55,7 @@ export default class ProjectWizard extends Component {
     };
 
     getTasks() {
-        let _self = this;
-        let { project, milestones, stage, tasks } = this.state;
-        
+        const { milestones, stage, tasks } = this.state;
         return <div style={styles.tasksList}>
             {tasks && React.Children.toArray(
                 tasks.filter(t => t.milestone === milestones[stage - 1]._id)
@@ -64,6 +63,9 @@ export default class ProjectWizard extends Component {
                     return <div className="card cyan darken-2 white-text">
                         <div className="card-content">
                             {t.task_name}
+                            <ContractorCreation 
+                                taskId={t._id}
+                                style={styles.projectForm} />
                         </div>
                     </div>
                 })
@@ -73,7 +75,7 @@ export default class ProjectWizard extends Component {
 
     getMilestoneId() {
         const { milestones, stage } = this.state;
-        console.log('Milestones: '. milestones);
+        console.log('Milestones:', milestones);
         return milestones.length > 0 && milestones[stage - 1]._id;
     }
 
@@ -93,7 +95,7 @@ export default class ProjectWizard extends Component {
 
     onTaskSave = (task) => {
         this.addTask(task);
-        this.taskform.reset();
+        this.taskForm.reset();
     };
 
     setProject = (project) => {
