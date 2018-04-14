@@ -9,6 +9,9 @@ var controller = new Controller();
 var contractorController = require('./contractor_controller');
 var UserModel = mongoose.model('User');
 var TaskModel = mongoose.model('Task');
+var TaskContractorModel = mongoose.model('TaskContractor');
+
+
 
 controller.createOne = function(req, res, next) {
     var user = req.user || {};

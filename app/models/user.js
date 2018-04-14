@@ -21,6 +21,13 @@ var userStructure = {
         unique: true,
         lowercase: true,
     },
+    public_key : {
+        type: String,
+        unique: true,
+    },
+    telegram_id : {
+        type: String,
+    }
     password: {
         type: String,
         min: [8, 'Password must me longer than 8 characters'],
