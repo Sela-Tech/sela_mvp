@@ -27,7 +27,7 @@ var userStructure = {
     },
     telegram_id : {
         type: String,
-    }
+    },
     password: {
         type: String,
         min: [8, 'Password must me longer than 8 characters'],
