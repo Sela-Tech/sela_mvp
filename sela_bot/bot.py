@@ -139,7 +139,7 @@ def register(bot, update):
 def register_handler(bot,update):
     ''' Handle user registration '''
     user_name = update.message.text
-    users_query = db['users'].find({'first_name': user_name})
+    users_query = db['users'].find({'user_name': user_name})
     count = users_query.count()
     if count == 0:
         error_message = 'Sorry, we did not find the corresponding user. Would you like to try again'
@@ -147,8 +147,8 @@ def register_handler(bot,update):
         update.message.reply_text(error_message,reply_markup=reply_keyboard)
         return REGISTRATION_ERROR
     elif count == 1:
-        query = {'first_name': user_name}
-        users.update(query, {'$set': {'telegram_id': update.message.chat.id}})
+        query = {'user_name': user_name}
+        users.update_one(query, {'$set': {'telegram_id': update.message.chat.id}})
         success_message = 'Congratulations, you have been registered. Your account has been linked to Sela. To start a conversation, press /start'
         update.message.reply_text(success_message,reply_markup = ReplyKeyboardRemove())
     else :
@@ -167,17 +167,14 @@ def upload_type(bot, update):
         return INTERVIEW 
     elif(upload == Task_Report_Type):
         #Load user's projects and include them in the keyboard.
-        update.message.reply_text(Task_Report_Instruction_Success, replk)
-        return TASK_REPORT 
-
-
-
-    logger.info("Up of %s: %s", user.first_name, update.message.text)
-    update.message.reply_text('I see! Please send me a photo of yourself, '
-                              'so I know what you look like, or send /skip if you don\'t want to.',
-                              reply_markup=ReplyKeyboardRemove())
-
-    return PHOTO
+        current_user_query = db['users'].find({'telegram_id': update.message.chat.id})
+        count = current_user_query.count()
+        if count == 1:
+            for c in current_user_query:
+                current_user = c
+                project_for_user = db['project_observers'].find({'observers': c})
+                print(project_for_user.count())        
+        return END
 
 def task_report(bot,update):
     '''Todo : Grab Telegram ID, From ID grab user, from user grab projects and present list of project'''
