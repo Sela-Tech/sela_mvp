@@ -1,7 +1,7 @@
 {
   "name": "sela-labs",
   "version": "0.3.0",
-  "description": "A Blockchain company",
+  "description": "Sela - A Distributed Micropayments Platform",
   "engines": {
     "node": "8.9.1"
   },
@@ -15,6 +15,7 @@
     "dotenv": "^4.0.0",
     "ejs": "^2.5.6",
     "express": "^4.15.2",
+    "mongodb": "^3.0.6",
     "mongoose": "^4.13.5"
   },
   "devDependencies": {
