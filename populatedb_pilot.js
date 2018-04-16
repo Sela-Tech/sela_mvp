@@ -92,7 +92,7 @@ function taskCreate(title, summary, milestone, due_date, cb) {
   });
 }
 
-function observerCreate(observer,project, cb) {
+function observerCreate(observer, project, cb) {
   observerDetail = {
     project_id: project,
     observers: [observer]
@@ -193,8 +193,8 @@ function createObserver(cb) {
   .findOne({ 'user_name': 'mhkane' })
   .exec(function (err, user) {
   if (err) return handleError(err);
-  observer = user;
-  observerCreate(user,projects[0],cb);
+  observer = { observer_id: user._id };
+  observerCreate(observer, projects[0], cb);
 });
 }
 
