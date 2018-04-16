@@ -26,7 +26,7 @@ app.get("/", (req, res) => {
     res.redirect("/index");
 });
 
-app.get("/login?uname=:uname&pass=:pass", (req, resAuth) => {
+app.post("/login/:uname/:pass", (req, resAuth) => {
     var authSuccess = false;
     MongoClient.connect(MongoURI, (connErr, db) => {
         if (connErr) throw connErr;
@@ -47,7 +47,7 @@ app.get("/login?uname=:uname&pass=:pass", (req, resAuth) => {
     resAuth.send(authSuccess);
 });
 
-app.post("/signup?uname=:uname&pubkey=:pubkey&pass=:pass", (req, resReg) => {
+app.post("/signup/:uname/:pubkey/:pass", (req, resReg) => {
     var regSuccess = true;
     MongoClient.connect(MongoURI, (connErr, db) => {
         if (connErr) throw connErr;
