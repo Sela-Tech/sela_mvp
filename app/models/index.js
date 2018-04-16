@@ -7,6 +7,7 @@ module.exports = function(connection) {
     require('./project_contractor.js')(connection);
     require('./project_observer.js')(connection);
     require('./task.js')(connection);
+    require('./task_contractor.js')(connection);
     require('./user.js')(connection);
     require('./verification.js')(connection);
 };
