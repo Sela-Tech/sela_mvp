@@ -26,7 +26,7 @@ export default class ProjectsList extends Component {
 		console.log(projects.items);
 		Object.values(projects.items).map(function(proj, i){
 	      isValidProject(proj) && projectEls.push(
-	        <ProjectTile proj={proj} />);
+	        <ProjectTile project={proj} />);
 	      if (projectEls.length % 4 === 0){
 	        projectEls.push(<div className="clearfix visible-lg visible-md"></div>);
 	      }
@@ -42,7 +42,7 @@ export default class ProjectsList extends Component {
 			              	label="new project"
 			              	icon="fa fa-plus"
 			              	btnClass="info btn-large"
-			              	style={{margin: 16, position: 'fixed', right: 0, top: 60}} />
+			              	style={{ margin: 16, position: 'fixed', right: 0, top: 60 }} />
 			            </Link>
 			    	</div>
 			    	<div className="clearfix"></div>

@@ -13,6 +13,7 @@ export default function TimeLine (props){
                 center: 'title',
                 right: 'month,basicWeek,basicDay'
                 }}
+                defaultView="basicWeek"
                 themeSystem="bootstrap3"
                 defaultDate={props.getDefaultDate()}
                 navLinks= {true} // can click day/week names to navigate views

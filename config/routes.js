@@ -53,7 +53,7 @@ module.exports = function routes() {
     this.post('/api/v1/task.json', /*passport.authenticate('local-user', { session: false }),*/ v1Task.createOne);
     this.get('/api/v1/task.json', /*passport.authenticate('local-user', { session: false }),*/ v1Task.readOne);
     this.get('/api/v1/tasks.json', /*passport.authenticate('local-user', { session: false }),*/ v1Task.readMany);
-    this.put('/api/v1/tasks.json', /*passport.authenticate('local-user', { session: false }),*/ v1Task.updateOne);
+    this.put('/api/v1/task.json', /*passport.authenticate('local-user', { session: false }),*/ v1Task.updateOne);
     // this.delete('/api/v1/task/:id.json', passport.authenticate('local-user', { session: false }), v1Task.deleteOne);
     this.post('/api/v1/task/contractor.json', /*passport.authenticate('local-user', { session: false }),*/ v1Task.addContractor);
     this.get('/api/v1/task/contractors.json', /*passport.authenticate('local-user', { session: false }),*/ v1Task.getContractors);
@@ -65,8 +65,8 @@ module.exports = function routes() {
     this.put('/api/v1/project.json', passport.authenticate('local-user', { session: false }), v1Project.updateOne);
     // this.delete('/api/v1/project/:id.json', passport.authenticate('local-user', { session: false }), v1Project.deleteOne);
     // this.delete('/api/v1/project/contractor/:id.json', passport.authenticate('local-user', { session: false }), v1Project.removeContractor);
-    // this.post('/api/v1/project/observer.json', passport.authenticate('local-user', { session: false }), v1Project.addObserver);
-    // this.get('/api/v1/project/observers.json', passport.authenticate('local-user', { session: false }), v1Project.getObservers);
+    this.post('/api/v1/project/observer.json', /*passport.authenticate('local-user', { session: false }), */v1Project.addObserver);
+    this.get('/api/v1/project/observers.json', /*passport.authenticate('local-user', { session: false }), */v1Project.getObservers);
     // this.delete('/api/v1/project/observer/:id.json', passport.authenticate('local-user', { session: false }), v1Project.removeObserver);
 
     // user

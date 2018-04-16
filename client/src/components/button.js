@@ -1,8 +1,9 @@
 import React from 'react';
 
 
-export default ({btnClass, icon, label, material, style, type, onClick}) => {
+export default ({btnClass, icon, label, material, style, type, disabled, onClick}) => {
     return <button 
+                disabled={!!disabled}
                 onClick={onClick}
                 style={style}
                 type={type || "button"} 

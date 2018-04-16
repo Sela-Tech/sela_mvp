@@ -38,5 +38,6 @@ export const Time = (() => {
   if (!Date.now) {
     Date.now = function() { return new Date().getTime(); }
   }
-  return { now: Date.now };
+  const humanDate = (date) => date.match(/^([0-9]+-[0-9]+-[0-9]+)/)[0];
+  return { now: Date.now, humanDate };
 })();

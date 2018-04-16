@@ -5,6 +5,7 @@ var jsSchema = require('js-schema');
 
 // classes
 var Controller = require('./base_controller');
+var observerController = require('./observer_controller');
 
 // instances
 var controller = new Controller();
@@ -70,7 +71,7 @@ controller.readOne = function(req, res, next) {
 
     var user = req.user;
 
-    var populate = req.query.populate || '';
+    var populate = req.query.populate || 'milestones';
     
     var id = req.query.id;
 
@@ -131,7 +132,9 @@ controller.readMany = function(req, res, next) {
 	// findQuery.deleted = false;
     
     ProjectModel
-        .find(findQuery, function(err, projects){
+        .find(findQuery)
+        .populate('milestones')
+        .exec(function(err, projects){
             if(err) {
                 res.status(500);
                 res.json({ errors: err});
@@ -234,15 +237,9 @@ controller.removeContractor = function(req, res, next) {
     res.status(501);
 };
 
-controller.addObserver = function(req, res, next) {
-    var user = req.user || {};
-    res.status(501);
-};
+controller.addObserver = observerController.createOne;
 
-controller.getObservers = function(req, res, next) {
-    var user = req.user || {};
-    res.status(501);
-};
+controller.getObservers = observerController.readOne;
 
 controller.removeObserver = function(req, res, next) {
     var user = req.user || {};

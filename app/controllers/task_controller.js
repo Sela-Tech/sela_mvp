@@ -1,6 +1,8 @@
 //libraries
 var async = require('async');
 var mongoose = require('mongoose');
+var jsSchema = require('js-schema');
+
 // classes
 var Controller = require('./base_controller');
 
@@ -19,7 +21,9 @@ controller.createOne = function(req, res, next) {
     var record = {};
     record.task_name = req.body.taskName;
     record.task_description = req.body.taskDescription;
-    record.due_date = req.body.dueDate;
+    record.end_date = req.body.endDate;
+    record.due_date = record.end_date;
+    record.start_date = req.body.startDate;
     record.milestone = req.body.milestoneId;
 
     // record.owner = user._id;
@@ -99,7 +103,7 @@ controller.readOne = function(req, res, next) {
                 return;
             }
             res.json({
-				result: result,
+				task: result,
 			});
         });
 
@@ -109,19 +113,19 @@ controller.readMany = function(req, res, next) {
 
     var user = req.user || {};
 
-    var findQuery = {};
+    var findQuery = req.query || req.body || {};
 	findQuery.deleted = false;
     
     TaskModel
         .find(findQuery, function(err, tasks){
             if(err) {
                 res.status(500);
-                res.json({ errors: 'error'});
+                res.json({ error: 'Server error.'});
                 return;
             }
             if(!tasks) {
                 res.status(404);
-                res.json({ errors: 'error'});
+                res.json({ error: 'No matching task found.'});
                 return;
             }
             tasksMap = {};
@@ -155,6 +159,7 @@ controller.updateOne = function(req, res, next) {
 
     if (req.body.endDate) {
         record.end_date = new Date(req.body.endDate);
+        record.due_date = record.end_date;
     }
 
     if (record.start_date >= record.end_date) {
@@ -165,11 +170,19 @@ controller.updateOne = function(req, res, next) {
     }
 
     TaskModel.findById(id).then((model) => {
+        if (!model) return model;
         console.log(model);
         return Object.assign(model, record);
     }).then((model) => {
-        return model.save();
+        return model && model.save();
     }).then((updatedModel) => {
+        if (!updatedModel) {
+            res.status(404);
+            res.json({
+                error: 'Task not found.'
+            })
+            return
+        }
         res.status(201);
         res.json({
             result: "Success",

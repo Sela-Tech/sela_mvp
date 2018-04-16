@@ -1,4 +1,3 @@
-
 export default {
     filterByProject: function (milestones, projectId) {
         return projectId ? 

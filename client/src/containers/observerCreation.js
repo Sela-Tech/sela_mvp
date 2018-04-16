@@ -1,8 +1,8 @@
 import { connect } from 'react-redux';
 import { 
-    contractorActionTors as creators,
+    observerActionTors as creators,
     userActionTors } from '../ducks';
-import ContractorForm from '../components/contractorForm';
+import ObserverForm from '../components/observerForm';
 
 const mapStateToProps = (state, ownProps) => {
     return { users: state.users.all }
@@ -10,9 +10,9 @@ const mapStateToProps = (state, ownProps) => {
 
 const mapDispatchToProps = (dispatch, ownProps) => {
     return {
-        addContractor: (data) => {
-            const payload = { taskId: ownProps.taskId, ...data };
-            dispatch(creators.createRequest(payload, ownProps.onContractorSave));
+        addObserver: (data) => {
+            const payload = { projectId: ownProps.projectId, ...data };
+            dispatch(creators.createRequest(payload, ownProps.onObserverSave));
         },
         loadUsers: ()  => {
             dispatch(userActionTors.fetchRequest({}));
@@ -20,4 +20,4 @@ const mapDispatchToProps = (dispatch, ownProps) => {
     }
 };
 
-export default connect(mapStateToProps, mapDispatchToProps)(ContractorForm)
+export default connect(mapStateToProps, mapDispatchToProps)(ObserverForm)

@@ -18,10 +18,6 @@ var taskStructure = {
         type: ObjectId,
         ref: 'Milestone'
     }, //reference to associated milestone
-    // TODO: Should the due date be required when creating a task?
-    due_date: {
-        type: Date
-    },
     start_date: {
         type: Date,
         default: null,
@@ -35,7 +31,15 @@ var taskStructure = {
         ref: 'Project'
     }, // reference it like that for now as it makes some things easier
     status: {
-        type: Boolean
+      type: String,
+      required : true,
+      lowercase: true,
+      default: 'in_progress',
+      enum: ['in_progress', 'consensus', 'conflict', 'pending_observations']
+      // validate : {
+      //   validator: Number.isInteger,
+      //   message: '{VALUE} is not a valid status.'
+      // }
     },
     createdById: {
         type: ObjectId,

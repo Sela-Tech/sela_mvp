@@ -5,6 +5,8 @@ import {
     taskActionTors,
     milestoneActionTors,
     projectActionTors} from '../ducks';
+import { filterByProject as tasksByProject } from '../selectors/task';
+import { filterByProject as milestonesByProject } from '../selectors/milestone';
 
 const mapStateToProps = (state, ownProps) => {
     let projectId = ownProps.match.params.id;
@@ -14,21 +16,23 @@ const mapStateToProps = (state, ownProps) => {
     return {
         project: state.projects.items[projectId],
         milestones,
-        tasks: state.tasks.items,
+        tasks: tasksByProject(state.tasks.items),
         isLoading: state.projects.isFetching || state.milestones.isFetching
     }
 };
 
 const mapDispatchToProps = (dispatch, ownProps) => {
+    let query = { project: ownProps.match.params.id };
+    // query.projectId = query.project;
     return {
         loadProjects: () => {
-            dispatch(projectActionTors.fetchRequest());
+            dispatch(projectActionTors.fetchRequest(query));
         },
         loadMilestones: () => {
-            dispatch(milestoneActionTors.fetchRequest());
+            dispatch(milestoneActionTors.fetchRequest(query));
         },
         loadTasks: () => {
-            dispatch(taskActionTors.fetchRequest());
+            dispatch(taskActionTors.fetchRequest(query));
         }
     }
 };

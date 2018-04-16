@@ -6,9 +6,17 @@ import { TopHeader } from './appbar';
 import { CustomNavLink as CustomLink } from './link';
 import Timeline from './projectTimeline';
 import SimpleMap from './maps';
-
+import TasksList from './tasksList';
+import TaskDialog from './taskDialog';
 
 export default class Project extends Component {
+    constructor(props){
+        super(props);
+        this.state = {
+            project: props.project
+        };
+    }
+
     componentWillReceiveProps(nextProps) {
         nextProps.project !== this.props.project &&
         this.setState({project: nextProps.project});
@@ -25,20 +33,14 @@ export default class Project extends Component {
     };
 
     getMilestones = (projectId) => {
-        /*Mocked:: Gets the milestones of a project as Calendar events
-        * title -> name
-        * start -> first task of event
-        * end -> last task of event
-        * tasks: [0, 0, 0].map(function(_, j){return {
-                start: `2018-0${(i % 8) + 1}-0${j}`,
-                end: `2018-0${(i % 8) + 1}-0${j+3}`,
-          };}),
+        /* Get the milestones of a project as Calendar events
+        * title: name
+        * start: due date of first task in milestone
+        * end: due date of last task in milestone
         */
-
-        let milestones = [],
-           { tasks, project } = this.props;
+        let { tasks, project } = this.props;
         projectId = projectId || this.props.match.params.id;
-        if (!projectId){return milestones;}
+        if (!projectId) return [];
         if (project.milestones){
             let i = 0;
             console.log('milestones of project:', this.props.milestones);
@@ -64,21 +66,12 @@ export default class Project extends Component {
                 return eventTasks;
             }, []);
         }
-        // mocked:: variable to adjust milestones end dates
-        let joker = 0;
-        for (let i=0; i < 5; i++){
-            project && milestones.push({
-                title: `Milestone ${i}`,
-                start: project.start_date,
-                end: joker++ % 2 ? project.end_date : project.start_date,
-                status: !!milestones[i] && !milestones[i].status,
-            })
-        }
-        return milestones;
+        return [];
     };
 
     render(){
-        let {match, project, isLoading} = this.props;
+        let { isLoading, tasks, loadTasks } = this.props;
+        let { project } = this.state;
         return <PageWrapper>
             <TopHeader 
                 icon="pie_chart" 
@@ -87,14 +80,25 @@ export default class Project extends Component {
                 <div className="page-content" style={{position: 'relative'}}>
                 <div className="row p-24">
                     <div className="clearfix"></div>
+                    <div className="col-md-8 col-sm-12 col-xs-12">
+                        {project && <TasksList 
+                            projectId={project._id} 
+                            tasks={tasks}
+                            loadTasks={loadTasks}
+                            style={styles.tasksList} />}
+                    </div>
+                    <div className="clearfix"></div>
                     {project && 
                         <Timeline getDefaultDate={this.getDefaultDate} getMilestones={this.getMilestones} />}
-                    {project && <Locations project={this.project} />}
+                    {project && <Locations project={project} />}
                     {!project && <div class="container-fluid p-t-48 text-center">
                         {isLoading ? 'Loading project...' : 'Project not found'}
                     </div>}
                 </div>
             </div>
+            <Route path="/projects/details/:id/tasks/:taskId" render={({ match })=>{
+                return <TaskDialog task={tasks[match.params.taskId]} />
+            }}/>
         </PageWrapper>
     }
 }
@@ -108,7 +112,6 @@ const Locations = (props) => (
 );
 
 const styles = {
-
     mapContainer: {
         height: 500,
         maxWidth: 300,
@@ -122,5 +125,5 @@ const styles = {
     map: {
         height: '100%',
         maxHeight: 400,
-    }
+    },
 };

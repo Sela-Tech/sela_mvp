@@ -19,7 +19,6 @@ import SideBar from './components/sidebar';
 import Dashboard from './components/dashboard';
 import ProjectsOverview from './components/projects_overview';
 import ProjectWizard from './components/projectWizard';
-
 // assets
 // import loading from './assets/img/loading.png';
 import './assets/css/App.css';
@@ -82,7 +81,10 @@ const routes = [
     }
   },
   { path: '/projects/summary/:id',
-    component: Project
+    component: Project,
+  },
+  { path: '/projects/details/:id/tasks/:taskId',
+    component: Project,
   },
   {
     path: '/projects/new',

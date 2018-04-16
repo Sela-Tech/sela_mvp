@@ -114,7 +114,7 @@ export const actionTors = {
       axios.get('projects.json')
       .then(function(res){
         console.log('data-fetched:', res.data);
-        // use `receive` action creator to create action and dispatch projects 
+        // use `receive` action creator to create action to store resulting projects 
         dispatch(receive(res.data));
       });
     }
