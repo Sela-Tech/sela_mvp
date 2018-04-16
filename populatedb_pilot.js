@@ -74,12 +74,11 @@ function milestoneCreate(name,project, cb) {
 function taskCreate(title, summary, milestone, due_date, cb) {
   taskdetail = { 
     task_name: title,
-    task_description: summary,
-    milestone: milestone,
-    due_date: due_date
+    task_description: summary
   }
   if (due_date != false) taskdetail.due_date = due_date
   if (milestone != false) taskdetail.milestone = milestone
+  if (milestone != false) taskdetail.project = milestone.project
   var task = new Task(taskdetail);    
   task.save(function (err) {
     if (err) {
