@@ -10,6 +10,8 @@ from time import sleep
 import pymongo
 from stellar_base.builder import Builder
 from stellar_base.asset import Asset
+from collections import defaultdict
+
 
 
 
@@ -30,7 +32,7 @@ seed = sender_s_key
 builder = Builder(secret=seed, network='public')
 # builder = Builder(secret=seed, network='public') for LIVENET
 bob_address = dest_address
-amount = 2
+amount = 0.1
 memo = os.getenv('MEMO')
 token = os.getenv('SELA_TOKEN')
 builder.append_payment_op(bob_address, amount, token,sela_issuer)
@@ -84,7 +86,7 @@ logging.basicConfig(format='%(asctime)s - %(name)s - %(levelname)s - %(message)s
 
 logger = logging.getLogger(__name__)
 
-REGISTER, REGISTER_HANDLER, UPLOAD_TYPE, INTERVIEW, TASK_REPORT, PHOTO_TRANSCRIPT,VIDEO, PHOTO, VIDEO_SUCCESS, TRANSCRIPT, END= range(11)
+REGISTER, REGISTER_HANDLER, UPLOAD_TYPE, INTERVIEW, TASK_REPORT, TASK_UPLOAD, TASK_UPDATE_RECEIVE, QUESTION_TASK,  PHOTO_TRANSCRIPT,VIDEO, PHOTO, VIDEO_SUCCESS, TRANSCRIPT, END= range(14)
 
 Interview_Type = 'Interview'
 Task_Report_Type = 'Task Report'
@@ -100,6 +102,10 @@ Photo_Instruction = 'You chose to upload your interview in photo + transcript fo
 Task_Report_Instruction_Success ='You chose task report. Please choose the project for which you are reporting'
 User_Not_Found_Message = 'Hello, I do not recognize you. Please register by sending over your Sela user name. Would you like to register ?'
 Register_Instruction = 'Register'
+tasks_for_user = {}
+current_task_upload_for_user = defaultdict(int)
+YES = 'YES'
+NO = 'NO'
 
 
 
@@ -158,6 +164,7 @@ def register_handler(bot,update):
 
 
 def upload_type(bot, update):
+    Task_Report_Instruction = 'Pick the project you want to report about'
     upload = update.message.text
     if(upload== Interview_Type):
         reply_keyboard = [[Video, Photo_Transcript]]
@@ -172,33 +179,110 @@ def upload_type(bot, update):
         if count == 1:
             for c in current_user_query:
                 current_user = c
-        project_for_user = db['projects'].find({'observers': c})
-        print(project_for_user.count())        
-        return END
+        project_for_user = db['projects'].find({'project_name': 'SI Pilot 2'})
+        #current_user_id = current_user['_id']
+        #project_for_user = db['project_observers'].find({'observers.observer_id': current_user_id})
+        reply_keyboard= []
+        for found_project in project_for_user:
+            print(found_project)
+            reply_keyboard.append([found_project['project_name']])
+        print(reply_keyboard)
+        update.message.reply_text(
+            Task_Report_Instruction,
+            reply_markup=ReplyKeyboardMarkup(reply_keyboard,one_time_keyboard=True)
+        )
+        return TASK_REPORT
 
 def task_report(bot,update):
     '''Todo : Grab Telegram ID, From ID grab user, from user grab projects and present list of project'''
-    return True 
+    project_name = update.message.text
+    project_for_user = db['projects'].find_one({'project_name': project_name})
+    print(project_for_user)
+    tasks_for_project = db['tasks'].find({'project':project_for_user['_id']}).sort("due_date",pymongo.ASCENDING)
+    tasks_for_user[update.message.chat.id] = tasks_for_project
+    num_option = tasks_for_project.count()
+    print(num_option)
+    Task_Message = 'Here are all the pending tasks for this project. Pick the number for the task you want :+ \n '
+    for i in range(1, num_option+1):
+        Task_Message += str(i)+'.' + ' ' + tasks_for_project[i-1]['task_name'] + ' \n '
+    options = range(1,num_option+1)
+    options = [str(o) for o in options]
+    reply_keyboard = [options]
+    update.message.reply_text(
+        Task_Message,
+        reply_markup=ReplyKeyboardMarkup(reply_keyboard,one_time_keyboard=True)
+    )
+    return TASK_UPLOAD
 
-def get_project_tasks(bot,update):
-    '''Todo : Given project ID, find tasks where there has been no observation or where the user has not already put obs'''
-    milestones.find where project = this project
-    for milestones in milestones :
-        [tasks] sort by date 
-    keyboard = len(tasks)
-    for task in task 
-    '''These are the tasks for this project pick one you want to submit '''
-    return True
+def task_upload(bot,update):
+    #Get task title and invite user to upload
+    index_task = int(update.message.text)-1
+    current_task_upload_for_user[update.message.chat.id] = tasks_for_user[update.message.chat.id][index_task]
+    name_of_task = tasks_for_user[update.message.chat.id][index_task]['task_name']
+    Invite_message = 'Thanks for choosing task : + \n '+name_of_task + ' \n Attach picture or Video now'
+    update.message.reply_text(
+        Invite_message,
+        reply_markup = ReplyKeyboardRemove())
+    return TASK_UPDATE_RECEIVE
+
+def task_update_receive(bot, update):
+    #Get task title
+    final_message = ''
+    reply_keyboard = [[YES, NO]]
+    if (update.message.video):
+        #video_file = bot.get_file(update.message.video.file_id)
+        #video_file.download('test.mp4')
+        final_message = 'Thanks for uploading the video. One more question, was this task done ?'
+        update.message.reply_text(
+            final_message,
+            reply_markup= ReplyKeyboardMarkup(reply_keyboard,one_time_keyboard=True))
+        return QUESTION_TASK 
+    elif (update.message.photo):
+        #photo_file = bot.get_file(update.message.photo.file_id)
+        #photo_file.download('test.jpg')
+        print('Went into photo')
+        final_message = 'Thanks for uploading the video. One more question, was this task done ?'
+        update.message.reply_text(
+            final_message,
+            reply_markup= ReplyKeyboardMarkup(reply_keyboard,one_time_keyboard=True))
+        return QUESTION_TASK
+    else:
+        return END
+
+def question_task(bot, update):
+    answer = update.message.text
+    verifications = db['verifications']
+
+    task = current_task_upload_for_user[update.message.chat.id]
+    current_user = db['users'].find_one({'telegram_id': update.message.chat.id})
+    user_id = current_user['_id']
+
+
+    #Payment
+    public_key = current_user['public_key']
+    seed = sender_s_key
+    builder = Builder(secret=seed, network='public')
+    # builder = Builder(secret=seed, network='public') for LIVENET
+    bob_address = public_key
+    amount = 0.3
+    memo = os.getenv('MEMO')
+    token = os.getenv('SELA_TOKEN')
+    builder.append_payment_op(bob_address, amount, token,sela_issuer)
+    builder.add_text_memo(memo) # string length <= 28 bytes
+    builder.sign()
+    # Uses an internal horizon instance to submit over the network
+    builder.submit()
+    return END 
 
 def get_observation_type_task(bot,update):
-    ''' Todo : Ask observation in video, photo, or testimonial'''
+    ''' Todo : Ask observation in video, photo, or testimonial
     You picked this task, what observation  
-    '''Photo , Video '''
+    Photo , Video '''
     return True
 def get_observation_status(bot,update):
-    ''' Todo : Given observation ask whether it confirms a task is done or not'''
+    ''' Todo : Given observation ask whether it confirms a task is done or not
     Get video put it on gridfs , Create verification linking user ; task ; project ; 
-    Send user money 
+    Send user money '''
     return True
 
 def interview(bot, update):
@@ -324,6 +408,10 @@ def main():
             INTERVIEW: [RegexHandler('^(Video|Photo + Transcript)$', interview)],
             REGISTER: [RegexHandler('^(Register|Other)$', register)],
             REGISTER_HANDLER: [MessageHandler(Filters.text, register_handler)],
+            TASK_REPORT: [MessageHandler(Filters.text, task_report)],
+            TASK_UPLOAD: [MessageHandler(Filters.text, task_upload)],
+            TASK_UPDATE_RECEIVE: [MessageHandler(Filters.video | Filters.photo, task_update_receive)],
+            QUESTION_TASK: [RegexHandler('^(YES|NO)$',question_task)],
             VIDEO: [MessageHandler(Filters.video, video)],
             VIDEO_SUCCESS: [RegexHandler('^(New Video| New Photo + Transcript|End)$', video_success)],
             END : [RegexHandler('End', end)] 

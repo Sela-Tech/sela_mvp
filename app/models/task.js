@@ -30,6 +30,10 @@ var taskStructure = {
         type: Date,
         default: null,
     },
+    project: {
+        type: ObjectId,
+        ref: 'Project'
+    }, // reference it like that for now as it makes some things easier
     status: {
         type: Boolean
     },
