@@ -49,6 +49,13 @@ var nameSchema = new mongoose.Schema({
 });
 var User = mongoose.model("User", nameSchema);*/
 
+var selaDb;
+
+MongoClient.connect(MongoURI, (connErr, client) => {
+    if (connErr) throw connErr;
+    selaDb = client.db(MongoDbName);
+});
+
 app.get("/", (req, res) => {
     res.redirect("/index");
 });
@@ -59,9 +66,9 @@ app.post("/data", (req, res) => {
 
 app.post("/auth", (req, res) => {
     var authSuccess = false;
-    MongoClient.connect(MongoURI, (connErr, db) => {
+    MongoClient.connect(MongoURI, (connErr, client) => {
         if (connErr) throw connErr;
-        var selaDb = db.db(MongoDbName);
+        var selaDb = client.db(MongoDbName);
         var authQuery = {};
         authQuery.username = req.query.uname;
         authQuery.password = req.query.pass;
@@ -72,7 +79,7 @@ app.post("/auth", (req, res) => {
                 authSuccess = subRes.password == authQuery.password;
               }
             }
-            db.close();
+            client.close();
         });
     });
     res.send(authSuccess);
@@ -80,38 +87,38 @@ app.post("/auth", (req, res) => {
 
 app.post("/register", (req, res) => {
     var regStatus = "SUCCESS";
-    MongoClient.connect(MongoURI, function(connErr, db) {
-        regStatus += "CONNECTING"
-        if (connErr) regStatus += connErr.name + ": " + connErr.message;
-        regStatus += "PASSED_CONNECTION";
-        var selaDb = db.db(MongoDbName);
-        var regQuery = {};
-        regStatus += req.query.uname + req.query.pubkey + req.query.pass;
-        regQuery.username = req.query.uname;
-        regQuery.pubkey = req.query.pubkey;
-        regQuery.password = req.query.pass;
-        var numSimUsers = 0;
-        regStatus += "BEFORE_FINDING_USER";
-        selaDb.collection(MongoUsersName).find(regQuery).toArray(function(regErrOuter, subResOuter) {
-            regStatus += "SEARCHING_USER";
-            if (regErrOuter) throw regErrOuter;
-            regStatus += "PASSED_OUTER_REG";
-            numSimUsers = res.length;
-            console.log(regStatus);
-        });
-        regStatus += "AFTER_FINDING_USER";
-        if (numSimUsers > 0) {
-          regStatus = "ERROR";
-        } else {
-          selaDb.collection(MongoUsersName).insertOne(regQuery, function(regErrInner, subResInner) {
-              regStatus += "INSERTING";
-              if (regErrInner) throw regErrInner;
-              regStatus += "PASSED_INNER_REG";
-          });
-        }
-        db.close();
-        res.send(regStatus);
+    // MongoClient.connect(MongoURI, function(connErr, client) {
+    regStatus += "CONNECTING"
+    // if (connErr) regStatus += connErr.name + ": " + connErr.message;
+    regStatus += "PASSED_CONNECTION";
+    // var selaDb = client.db(MongoDbName);
+    var regQuery = {};
+    regStatus += req.query.uname + req.query.pubkey + req.query.pass;
+    regQuery.username = req.query.uname;
+    regQuery.pubkey = req.query.pubkey;
+    regQuery.password = req.query.pass;
+    var numSimUsers = 0;
+    regStatus += "BEFORE_FINDING_USER";
+    selaDb.collection(MongoUsersName).find(regQuery).toArray(function(regErrOuter, subResOuter) {
+        regStatus += "SEARCHING_USER";
+        if (regErrOuter) throw regErrOuter;
+        regStatus += "PASSED_OUTER_REG";
+        numSimUsers = res.length;
+        console.log(regStatus);
     });
+    regStatus += "AFTER_FINDING_USER";
+    if (numSimUsers > 0) {
+      regStatus = "ERROR";
+    } else {
+      selaDb.collection(MongoUsersName).insertOne(regQuery, function(regErrInner, subResInner) {
+          regStatus += "INSERTING";
+          if (regErrInner) throw regErrInner;
+          regStatus += "PASSED_INNER_REG";
+      });
+    }
+    // client.close();
+    res.send(regStatus);
+    // });
     /*Mongoose Attempt
     var regQuery = {};
     regQuery.username = req.query.uname;
