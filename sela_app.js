@@ -26,10 +26,10 @@ app.get("/", (req, res) => {
     res.redirect("/index");
 });
 
-app.post("/data", (req, res) => {
-    res.send(req.datum1 + "\n");
-    res.send(req.datum2 + "\n");
-    res.send(req.datum3 + "\n");
+app.post("/data?datum1=:datum1&datum2=:datum2&datum3=:datum3", (req, res) => {
+    res.send(req.query.datum1 + "\n");
+    res.send(req.query.datum2 + "\n");
+    res.send(req.query.datum3 + "\n");
 });
 
 app.post("/auth", (req, resAuth) => {
