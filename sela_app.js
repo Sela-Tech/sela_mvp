@@ -105,9 +105,8 @@ app.post("/register", (req, res) => {
           });
         }
         db.close();
+        res.send(regStatus);
     });
-    res.send(regStatus);
-
     /*Mongoose Attempt
     var regQuery = {};
     regQuery.username = req.query.uname;
