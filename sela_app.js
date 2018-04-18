@@ -27,31 +27,31 @@ app.get("/", (req, res) => {
 });
 
 app.post("/data", (req, res) => {
-    res.send(req.query.datum1 + "\n" + req.query.datum2 + "\n" + req.query.datum3 + "\n");
+    res.send(MongoURI + ": " + req.query.datum1 + "\n" + req.query.datum2 + "\n" + req.query.datum3 + "\n");
 });
 
-app.post("/auth", (req, resAuth) => {
+app.post("/auth", (req, res) => {
     var authSuccess = false;
     MongoClient.connect(MongoURI, (connErr, db) => {
         if (connErr) throw connErr;
         var selaDb = db.db(MongoDbName);
         var authQuery = {};
-        authQuery.username = req.params.uname;
-        authQuery.password = req.params.pass;
-        selaDb.collection(MongoUsersName).find(authQuery).toArray((authErr, subAuthRes) => {
+        authQuery.username = req.query.uname;
+        authQuery.password = req.query.pass;
+        selaDb.collection(MongoUsersName).find(authQuery).toArray((authErr, subRes) => {
             if (authErr) throw authErr;
             for (var i = 0; i < res.length; i++) {
-              if (subAuthRes.username == authQuery.username) {
-                authSuccess = subAuthRes.password == authQuery.password;
+              if (subRes.username == authQuery.username) {
+                authSuccess = subRes.password == authQuery.password;
               }
             }
             db.close();
         });
     });
-    resAuth.send(authSuccess);
+    res.send(authSuccess);
 });
 
-app.post("/register", (req, resReg) => {
+app.post("/register", (req, res) => {
     var regStatus = "SUCCESS";
     MongoClient.connect(MongoURI, (connErr, db) => {
         if (connErr) throw connErr;
@@ -61,7 +61,7 @@ app.post("/register", (req, resReg) => {
         regQuery.pubkey = req.query.pubkey;
         regQuery.password = req.query.pass;
         var numSimUsers = 0;
-        selaDb.collection(MongoUsersName).find(regQuery).toArray((regErrOuter, subRegResOuter) => {
+        selaDb.collection(MongoUsersName).find(regQuery).toArray((regErrOuter, subResOuter) => {
             regStatus += "SEARCHING";
             if (regErrOuter) throw regErrOuter;
             regStatus += "PASSED_OUTER_REG";
@@ -70,7 +70,7 @@ app.post("/register", (req, resReg) => {
         if (numSimUsers > 0) {
           regStatus = "ERROR";
         } else {
-          selaDb.collection(MongoUsersName).insertOne(regQuery, (regErrInner, subRegResInner) => {
+          selaDb.collection(MongoUsersName).insertOne(regQuery, (regErrInner, subResInner) => {
               regStatus += "INSERTING";
               if (regErrInner) throw regErrInner;
               regStatus += "PASSED_INNER_REG";
@@ -78,7 +78,7 @@ app.post("/register", (req, resReg) => {
         }
         db.close();
     });
-    resReg.send(regStatus);
+    res.send(regStatus);
 });
 
 app.get("/project", (req, res) => {
