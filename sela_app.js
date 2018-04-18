@@ -26,8 +26,10 @@ app.get("/", (req, res) => {
     res.redirect("/index");
 });
 
-app.post("/meep", (req, res) => {
-    res.send("MEEP");
+app.post("/data", (req, res) => {
+    res.send(req.params.datum1 + "\n");
+    res.send(req.params.datum2 + "\n");
+    res.send(req.params.datum3 + "\n");
 });
 
 app.post("/auth", (req, resAuth) => {
