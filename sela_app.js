@@ -7,9 +7,9 @@ var path = require('path')
 var MongoClient = require('mongodb').MongoClient;
 var MongoURI = process.env.MONGO_URI;
 var MongoDbName = "sela_dev";
-var MongoUsersName = "usersTmp";
+var MongoUsersName = "users";
 
-// Set up default mongoose connection
+/*// Set up default mongoose connection
 var mongoose = require('mongoose');
 mongoose.connect(MongoURI);
 
@@ -34,6 +34,7 @@ var UserSchema = new Schema({
 
 // Compile User model from schema
 var User = mongoose.model(MongoUsersName, UserSchema);
+*/
 
 dotenv.config();
 
@@ -78,17 +79,17 @@ app.post("/auth", (req, res) => {
 });
 
 app.post("/register", (req, res) => {
-    /*var regStatus = "SUCCESS";
+    var regStatus = "SUCCESS";
     MongoClient.connect(MongoURI, function(connErr, db) {
         regStatus += "CONNECTING"
         if (connErr) throw connErr;
-        // var selaDb = db.db(MongoDbName);
+        var selaDb = db.db(MongoDbName);
         var regQuery = {};
         regQuery.username = req.query.uname;
         regQuery.pubkey = req.query.pubkey;
         regQuery.password = req.query.pass;
         var numSimUsers = 0;
-        db.collection(MongoUsersName).find(regQuery).toArray(function(regErrOuter, subResOuter) {
+        selaDb.collection(MongoUsersName).find(regQuery).toArray(function(regErrOuter, subResOuter) {
             regStatus += "SEARCHING";
             if (regErrOuter) throw regErrOuter;
             regStatus += "PASSED_OUTER_REG";
@@ -97,7 +98,7 @@ app.post("/register", (req, res) => {
         if (numSimUsers > 0) {
           regStatus = "ERROR";
         } else {
-          db.collection(MongoUsersName).insertOne(regQuery, function(regErrInner, subResInner) {
+          selaDb.collection(MongoUsersName).insertOne(regQuery, function(regErrInner, subResInner) {
               regStatus += "INSERTING";
               if (regErrInner) throw regErrInner;
               regStatus += "PASSED_INNER_REG";
@@ -106,7 +107,8 @@ app.post("/register", (req, res) => {
         db.close();
     });
     res.send(regStatus);
-    */
+
+    /*Mongoose Attempt
     var regQuery = {};
     regQuery.username = req.query.uname;
     regQuery.pubkey = req.query.pubkey;
@@ -115,7 +117,7 @@ app.post("/register", (req, res) => {
     newUser.save(function(err) {
         if (err) res.json({success:false});
         res.json({success:true})
-    });
+    });*/
 });
 
 app.get("/project", (req, res) => {
