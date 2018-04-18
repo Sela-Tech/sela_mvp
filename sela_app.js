@@ -82,7 +82,8 @@ app.post("/register", (req, res) => {
     var regStatus = "SUCCESS";
     MongoClient.connect(MongoURI, function(connErr, db) {
         regStatus += "CONNECTING"
-        if (connErr) throw connErr;
+        if (connErr) regStatus += connErr.name + ": " + connErr.message;
+        regStatus += "PASSED_CONNECTION";
         var selaDb = db.db(MongoDbName);
         var regQuery = {};
         regQuery.username = req.query.uname;
