@@ -86,16 +86,19 @@ app.post("/register", (req, res) => {
         regStatus += "PASSED_CONNECTION";
         var selaDb = db.db(MongoDbName);
         var regQuery = {};
+        regStatus += req.query.uname + req.query.pubkey + req.query.pass;
         regQuery.username = req.query.uname;
         regQuery.pubkey = req.query.pubkey;
         regQuery.password = req.query.pass;
         var numSimUsers = 0;
+        regStatus += "BEFORE_FINDING_USER";
         selaDb.collection(MongoUsersName).find(regQuery).toArray(function(regErrOuter, subResOuter) {
             regStatus += "SEARCHING";
             if (regErrOuter) throw regErrOuter;
             regStatus += "PASSED_OUTER_REG";
             numSimUsers = res.length;
         });
+        regStatus += "AFTER_FINDING_USER";
         if (numSimUsers > 0) {
           regStatus = "ERROR";
         } else {
