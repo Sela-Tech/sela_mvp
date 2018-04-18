@@ -52,7 +52,7 @@ app.post("/auth", (req, resAuth) => {
 });
 
 app.post("/register", (req, resReg) => {
-    var regSuccess = true;
+    var regStatus = "SUCCESS";
     MongoClient.connect(MongoURI, (connErr, db) => {
         if (connErr) throw connErr;
         var selaDb = db.db(MongoDbName);
@@ -60,18 +60,19 @@ app.post("/register", (req, resReg) => {
         regQuery.username = req.query.uname;
         regQuery.pubkey = req.query.pubkey;
         regQuery.password = req.query.pass;
-        selaDb.collection(MongoUsersName).insertOne(regQuery, (regErr, subRegRes) => {
-            if (regErr) throw regErr;
-            for (var i = 0; i < res.length; i++) {
-              if (subRegRes.username == regQuery.username) {
-                regSuccess = false;
-                break;
-              }
+        selaDb.collection(MongoUsersName).find(regQuery).toArray((regErrOuter, subRegResOuter) => {
+            if (regErrOuter) throw regErrOuter;
+            if (res.length > 0) {
+              regStatus = "ERROR"
+            } else {
+              selaDb.collection(MongoUsersName).insertOne(regQuery, (regErrInner, subRegResInner) => {
+                  if (regErrInner) throw regErrInner;
+              });
             }
             db.close();
         });
     });
-    resReg.send(regSuccess);
+    resReg.send(regStatus);
 });
 
 app.get("/project", (req, res) => {
