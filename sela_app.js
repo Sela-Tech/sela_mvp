@@ -26,6 +26,10 @@ app.get("/", (req, res) => {
     res.redirect("/index");
 });
 
+app.post("/meep", (req, res) => {
+    res.send("MEEP");
+});
+
 app.post("/auth", (req, resAuth) => {
     var authSuccess = false;
     MongoClient.connect(MongoURI, (connErr, db) => {
