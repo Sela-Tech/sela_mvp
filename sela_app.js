@@ -9,6 +9,32 @@ var MongoURI = process.env.MONGO_URI;
 var MongoDbName = "sela_dev";
 var MongoUsersName = "users";
 
+// Set up default mongoose connection
+var mongoose = require('mongoose');
+mongoose.connect(MongoURI);
+
+// Get Mongoose to use the global promise library
+mongoose.Promise = global.Promise;
+
+// Get the default connection
+var db = mongoose.connection;
+
+// Bind connection to error event (to get notification of connection errors)
+db.on('error', console.error.bind(console, 'MongoDB connection error:'));
+
+// Define schemas
+var Schema = mongoose.Schema;
+
+// Define User schema
+var UserSchema = new Schema({
+        username: String,
+        pubkey: String,
+        password: String
+});
+
+// Compile User model from schema
+var User = mongoose.model(MongoUsersName, UserSchema);
+
 dotenv.config();
 
 app.use(express.static(__dirname + '/public/'));
@@ -27,8 +53,7 @@ app.get("/", (req, res) => {
 });
 
 app.post("/data", (req, res) => {
-    // res.send(req.query.datum1 + "\n" + req.query.datum2 + "\n" + req.query.datum3 + "\n");
-    res.json({success:true});
+    res.send(req.query.datum1 + "\n" + req.query.datum2 + "\n" + req.query.datum3 + "\n");
 });
 
 app.post("/auth", (req, res) => {
@@ -53,7 +78,7 @@ app.post("/auth", (req, res) => {
 });
 
 app.post("/register", (req, res) => {
-    var regStatus = "SUCCESS";
+    /*var regStatus = "SUCCESS";
     MongoClient.connect(MongoURI, function(connErr, db) {
         regStatus += "CONNECTING"
         if (connErr) throw connErr;
@@ -81,6 +106,16 @@ app.post("/register", (req, res) => {
         db.close();
     });
     res.send(regStatus);
+    */
+    var regQuery = {};
+    regQuery.username = req.query.uname;
+    regQuery.pubkey = req.query.pubkey;
+    regQuery.password = req.query.pass;
+    var newUser = new User(regQuery);
+    newUser.save(function(err) {
+        if (err) res.json({success:false});
+        res.json({success:true})
+    });
 });
 
 app.get("/project", (req, res) => {
