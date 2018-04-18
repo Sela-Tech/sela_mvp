@@ -61,12 +61,16 @@ app.post("/register", (req, resReg) => {
         regQuery.pubkey = req.query.pubkey;
         regQuery.password = req.query.pass;
         selaDb.collection(MongoUsersName).find(regQuery).toArray((regErrOuter, subRegResOuter) => {
+            regStatus += "SEARCHING";
             if (regErrOuter) throw regErrOuter;
+            regStatus += "PASSED_OUTER_REG";
             if (res.length > 0) {
-              regStatus = "ERROR"
+              regStatus = "ERROR";
             } else {
               selaDb.collection(MongoUsersName).insertOne(regQuery, (regErrInner, subRegResInner) => {
+                  regStatus += "INSERTING";
                   if (regErrInner) throw regErrInner;
+                  regStatus += "PASSED_INNER_REG";
               });
             }
             db.close();
