@@ -27,7 +27,7 @@ app.get("/", (req, res) => {
 });
 
 app.post("/data", (req, res) => {
-    res.send(MongoURI + ": " + req.query.datum1 + "\n" + req.query.datum2 + "\n" + req.query.datum3 + "\n");
+    res.send(req.query.datum1 + "\n" + req.query.datum2 + "\n" + req.query.datum3 + "\n");
 });
 
 app.post("/auth", (req, res) => {
