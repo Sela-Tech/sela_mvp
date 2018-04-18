@@ -7,7 +7,7 @@ var path = require('path')
 var MongoClient = require('mongodb').MongoClient;
 var MongoURI = process.env.MONGO_URI;
 var MongoDbName = "sela_dev";
-var MongoUsersName = "users";
+var MongoUsersName = "usersTmp";
 
 // Set up default mongoose connection
 var mongoose = require('mongoose');
