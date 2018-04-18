@@ -60,21 +60,23 @@ app.post("/register", (req, resReg) => {
         regQuery.username = req.query.uname;
         regQuery.pubkey = req.query.pubkey;
         regQuery.password = req.query.pass;
+        var numSimUsers = 0;
         selaDb.collection(MongoUsersName).find(regQuery).toArray((regErrOuter, subRegResOuter) => {
             regStatus += "SEARCHING";
             if (regErrOuter) throw regErrOuter;
             regStatus += "PASSED_OUTER_REG";
-            if (res.length > 0) {
-              regStatus = "ERROR";
-            } else {
-              selaDb.collection(MongoUsersName).insertOne(regQuery, (regErrInner, subRegResInner) => {
-                  regStatus += "INSERTING";
-                  if (regErrInner) throw regErrInner;
-                  regStatus += "PASSED_INNER_REG";
-              });
-            }
-            db.close();
+            numSimUsers = res.length;
         });
+        if (numSimUsers > 0) {
+          regStatus = "ERROR";
+        } else {
+          selaDb.collection(MongoUsersName).insertOne(regQuery, (regErrInner, subRegResInner) => {
+              regStatus += "INSERTING";
+              if (regErrInner) throw regErrInner;
+              regStatus += "PASSED_INNER_REG";
+          });
+        }
+        db.close();
     });
     resReg.send(regStatus);
 });
