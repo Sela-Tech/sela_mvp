@@ -27,9 +27,9 @@ app.get("/", (req, res) => {
 });
 
 app.post("/data", (req, res) => {
-    res.send(req.params.datum1 + "\n");
-    res.send(req.params.datum2 + "\n");
-    res.send(req.params.datum3 + "\n");
+    res.send(req.datum1 + "\n");
+    res.send(req.datum2 + "\n");
+    res.send(req.datum3 + "\n");
 });
 
 app.post("/auth", (req, resAuth) => {
