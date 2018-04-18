@@ -56,13 +56,13 @@ app.post("/register", (req, res) => {
     MongoClient.connect(MongoURI, function(connErr, db) {
         regStatus += "CONNECTING"
         if (connErr) throw connErr;
-        var selaDb = db.db(MongoDbName);
+        // var selaDb = db.db(MongoDbName);
         var regQuery = {};
         regQuery.username = req.query.uname;
         regQuery.pubkey = req.query.pubkey;
         regQuery.password = req.query.pass;
         var numSimUsers = 0;
-        selaDb.collection(MongoUsersName).find(regQuery).toArray(function(regErrOuter, subResOuter) {
+        db.collection(MongoUsersName).find(regQuery).toArray(function(regErrOuter, subResOuter) {
             regStatus += "SEARCHING";
             if (regErrOuter) throw regErrOuter;
             regStatus += "PASSED_OUTER_REG";
@@ -71,7 +71,7 @@ app.post("/register", (req, res) => {
         if (numSimUsers > 0) {
           regStatus = "ERROR";
         } else {
-          selaDb.collection(MongoUsersName).insertOne(regQuery, function(regErrInner, subResInner) {
+          db.collection(MongoUsersName).insertOne(regQuery, function(regErrInner, subResInner) {
               regStatus += "INSERTING";
               if (regErrInner) throw regErrInner;
               regStatus += "PASSED_INNER_REG";
