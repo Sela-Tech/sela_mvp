@@ -57,9 +57,9 @@ app.post("/register", (req, resReg) => {
         if (connErr) throw connErr;
         var selaDb = db.db(MongoDbName);
         var regQuery = {};
-        regQuery.username = req.params.uname;
-        regQuery.pubkey = req.params.pubkey;
-        regQuery.password = req.params.pass;
+        regQuery.username = req.query.uname;
+        regQuery.pubkey = req.query.pubkey;
+        regQuery.password = req.query.pass;
         selaDb.collection(MongoUsersName).insertOne(regQuery, (regErr, subRegRes) => {
             if (regErr) throw regErr;
             for (var i = 0; i < res.length; i++) {
