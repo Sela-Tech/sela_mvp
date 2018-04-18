@@ -93,10 +93,11 @@ app.post("/register", (req, res) => {
         var numSimUsers = 0;
         regStatus += "BEFORE_FINDING_USER";
         selaDb.collection(MongoUsersName).find(regQuery).toArray(function(regErrOuter, subResOuter) {
-            regStatus += "SEARCHING";
+            regStatus += "SEARCHING_USER";
             if (regErrOuter) throw regErrOuter;
             regStatus += "PASSED_OUTER_REG";
             numSimUsers = res.length;
+            console.log(regStatus);
         });
         regStatus += "AFTER_FINDING_USER";
         if (numSimUsers > 0) {
