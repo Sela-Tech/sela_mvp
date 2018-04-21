@@ -76,7 +76,7 @@ app.post("/createuser", (req, res) => {
       pubkey: req.body.pubkey,
       password: req.body.pass
     };
-    User.create(userData, function() {
+    User.create(userData, function(err, user) {
         if (err) {
           res.send(res.json({success: false}));
         } else {
