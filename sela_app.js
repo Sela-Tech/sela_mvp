@@ -9,7 +9,7 @@ var MongoURI = process.env.MONGO_URI;
 var MongoDbName = "sela_dev";
 var MongoUsersName = "users";
 
-/*// Set up default mongoose connection
+// Set up default mongoose connection
 var mongoose = require('mongoose');
 mongoose.connect(MongoURI);
 
@@ -34,7 +34,7 @@ var UserSchema = new Schema({
 
 // Compile User model from schema
 var User = mongoose.model(MongoUsersName, UserSchema);
-*/
+module.exports = User;
 
 dotenv.config();
 
@@ -49,12 +49,12 @@ var nameSchema = new mongoose.Schema({
 });
 var User = mongoose.model("User", nameSchema);*/
 
+/*
 var selaDb;
-
 MongoClient.connect(MongoURI, (connErr, client) => {
     if (connErr) throw connErr;
     selaDb = client.db(MongoDbName);
-});
+});*/
 
 app.get("/", (req, res) => {
     res.redirect("/index");
@@ -65,13 +65,18 @@ app.post("/data", (req, res) => {
 });
 
 app.post("/createuser", (req, res) => {
-    selaDb.createUser(
-      {
-        user: "user2",
-        pwd: "password2",
-        roles: [ ]
-      }
-    );
+    var userData = {
+      username: req.body.uname,
+      pubkey: req.body.pubkey,
+      password: req.body.pass
+    };
+    User.create(userData, function() {
+        if (err) {
+          res.send(res.json({success: false}));
+        } else {
+          res.send(res.json({success: true}));
+        }
+    });
 });
 
 app.post("/auth", (req, res) => {
