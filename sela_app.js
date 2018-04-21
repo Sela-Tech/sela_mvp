@@ -64,6 +64,16 @@ app.post("/data", (req, res) => {
     res.send(req.query.datum1 + "\n" + req.query.datum2 + "\n" + req.query.datum3 + "\n");
 });
 
+app.post("/createuser", (req, res) => {
+    selaDb.createUser(
+      {
+        user: "user2",
+        pwd: "password2",
+        roles: [ ]
+      }
+    );
+});
+
 app.post("/auth", (req, res) => {
     var authSuccess = false;
     MongoClient.connect(MongoURI, (connErr, client) => {
