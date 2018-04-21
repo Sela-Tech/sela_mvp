@@ -9,6 +9,12 @@ var MongoURI = process.env.MONGO_URI;
 var MongoDbName = "sela_dev";
 var MongoUsersName = "users";
 
+// parse application/x-www-form-urlencoded
+app.use(bodyParser.urlencoded({ extended: false }))
+
+// parse application/json
+app.use(bodyParser.json())
+
 // Set up default mongoose connection
 var mongoose = require('mongoose');
 mongoose.connect(MongoURI);
