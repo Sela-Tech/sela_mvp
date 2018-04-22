@@ -7,7 +7,8 @@ var path = require('path')
 var MongoClient = require('mongodb').MongoClient;
 var MongoURI = process.env.MONGO_URI;
 var MongoDbName = "sela_dev";
-var MongoUsersName = "users";
+// var MongoUsersName = "users";
+var MongoUsersName = "user";
 
 // parse application/x-www-form-urlencoded
 app.use(bodyParser.urlencoded({ extended: false }))
