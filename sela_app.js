@@ -1,20 +1,27 @@
-var express = require("express");
+var express = require('express');
 var app = express();
 var port = process.env.PORT || 3000;
-var bodyParser = require('body-parser');
-var dotenv = require('dotenv');
 var path = require('path')
+var cookieParser = require('cookie-parser');
+var bodyParser = require('body-parser');
+var expHbs = require('express-handlebars');
+var expVal = require('express-validator');
+var flash = require('connect-flash');
+var session = require('express-session');
+var passport = require('passport');
+var LocalStrategy = require('passport-local').Strategy;
+var dotenv = require('dotenv');
 var MongoClient = require('mongodb').MongoClient;
 var MongoURI = process.env.MONGO_URI;
 var MongoDbName = "sela_dev";
 // var MongoUsersName = "users";
 var MongoUsersName = "user";
 
-// parse application/x-www-form-urlencoded
-app.use(bodyParser.urlencoded({ extended: false }))
-
 // parse application/json
 app.use(bodyParser.json())
+
+// parse application/x-www-form-urlencoded
+app.use(bodyParser.urlencoded({ extended: false }))
 
 // Set up default mongoose connection
 var mongoose = require('mongoose');
@@ -79,9 +86,9 @@ app.post("/createuser", (req, res) => {
     };
     User.create(userData, function(err, user) {
         if (err) {
-          res.send(res.json({success: false}));
+          res.send(res.json({"success": false}));
         } else {
-          res.send(res.json({success: true}));
+          res.send(res.json({"success": true}));
         }
     });
 });
@@ -113,7 +120,7 @@ app.post("/register", (req, res) => {
     regStatus += "CONNECTING"
     // if (connErr) regStatus += connErr.name + ": " + connErr.message;
     regStatus += "PASSED_CONNECTION";
-    // var selaDb = client.db(MongoDbName);
+    var selaDb = client.db(MongoDbName);
     var regQuery = {};
     regStatus += req.query.uname + req.query.pubkey + req.query.pass;
     regQuery.username = req.query.uname;

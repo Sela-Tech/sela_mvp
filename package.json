@@ -11,12 +11,22 @@
     "test": "echo"
   },
   "dependencies": {
+    "bcryptjs": "*",
     "body-parser": "^1.18.2",
+    "connect-flash": "*",
+    "cookie-parser": "^1.4.1",
     "dotenv": "^4.0.0",
     "ejs": "^2.5.6",
     "express": "^4.15.2",
+    "express-handlebars": "*",
+    "express-messages": "*",
+    "express-session": "*",
+    "express-validator": "*",
+    "mongodb": "^3.0.0-rc0",
     "mongoose": "^4.13.5",
-    "mongodb": "^3.0.0-rc0"
+    "passport": "*",
+    "passport-http": "*",
+    "passport-local": "*"
   },
   "devDependencies": {
     "mongoose": "^4.13.5",
