@@ -14,8 +14,7 @@ var dotenv = require('dotenv');
 var MongoClient = require('mongodb').MongoClient;
 var MongoURI = process.env.MONGO_URI;
 var MongoDbName = "sela_dev";
-// var MongoUsersName = "users";
-var MongoUsersName = "user";
+var MongoUsersName = "users";
 
 // parse application/json
 app.use(bodyParser.json())
@@ -63,12 +62,11 @@ var nameSchema = new mongoose.Schema({
 });
 var User = mongoose.model("User", nameSchema);*/
 
-/*
 var selaDb;
 MongoClient.connect(MongoURI, (connErr, client) => {
     if (connErr) throw connErr;
     selaDb = client.db(MongoDbName);
-});*/
+});
 
 app.get("/", (req, res) => {
     res.redirect("/index");
@@ -115,12 +113,12 @@ app.post("/auth", (req, res) => {
 });
 
 app.post("/register", (req, res) => {
-    var regStatus = "SUCCESS";
+    /*var regStatus = "SUCCESS";
     // MongoClient.connect(MongoURI, function(connErr, client) {
     regStatus += "CONNECTING"
     // if (connErr) regStatus += connErr.name + ": " + connErr.message;
     regStatus += "PASSED_CONNECTION";
-    var selaDb = client.db(MongoDbName);
+    // var selaDb = client.db(MongoDbName);
     var regQuery = {};
     regStatus += req.query.uname + req.query.pubkey + req.query.pass;
     regQuery.username = req.query.uname;
@@ -147,8 +145,9 @@ app.post("/register", (req, res) => {
     }
     // client.close();
     res.send(regStatus);
-    // });
-    /*Mongoose Attempt
+    // });*/
+    // Mongoose Attempt
+
     var regQuery = {};
     regQuery.username = req.query.uname;
     regQuery.pubkey = req.query.pubkey;
@@ -157,7 +156,7 @@ app.post("/register", (req, res) => {
     newUser.save(function(err) {
         if (err) res.json({success:false});
         res.json({success:true})
-    });*/
+    });
 });
 
 app.get("/project", (req, res) => {
