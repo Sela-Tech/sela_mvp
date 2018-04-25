@@ -106,10 +106,4 @@ UserSchema.pre('update', true, function(next, done) {
 });
 
 //Export model
-module.exports = function(connection) {
-
-    if (!connection) {
-        connection = mongoose;
-    }
-    connection.model('User', UserSchema);
-};
+module.exports = mongoose.model('User', UserSchema);

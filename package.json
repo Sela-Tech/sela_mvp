@@ -26,6 +26,7 @@
     "concurrently": "^3.5.1",
     "connect-mongo": "2.0.0",
     "dotenv": "4.0.0",
+    "ed25519": "0.0.4",
     "envs": "0.1.6 ",
     "express": "4.16.1",
     "express-session": "1.15.6",
@@ -43,6 +44,7 @@
     "react-router-dom": "^4.2.2",
     "request-param": "^1.0.1",
     "session": "0.1.0",
+    "stellar-sdk": "^0.8.0",
     "telegram-node-bot": "^4.0.5",
     "underscore": "1.8.3"
   },
