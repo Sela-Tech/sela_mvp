@@ -79,16 +79,29 @@ app.post("/login", (req, res) => {
 });
 
 app.post("/register", (req, res) => {
-    var regQuery = {};
-    regQuery.first_name = req.body.fname;
-    regQuery.family_name = req.body.lname;
-    regQuery.user_name = req.body.uname;
-    regQuery.public_key = req.body.pubkey;
-    regQuery.password = req.body.pass;
-    var newUser = new User(regQuery);
-    newUser.save(function(err) {
-        if (err) res.json({success:false});
-        res.json({success:true})
+    var checkQuery = {};
+    checkQuery.user_name = req.body.user_name;
+    checkQuery.public_key = req.body.public_key;
+    User.findOne(checkQuery, (checkErr, user) => {
+      if (checkErr) {
+        res.json({"REG_SUCCESS":false});
+      }
+      if (user) {
+        res.json({"REG_SUCCESS":false});
+      }
+      var saveQuery = {};
+      saveQuery.first_name = req.body.first_name;
+      saveQuery.family_name = req.body.family_name;
+      saveQuery.user_name = req.body.user_name;
+      saveQuery.public_key = req.body.public_key;
+      saveQuery.password = req.body.password;
+      var newUser = new User(saveQuery);
+      newUser.save(function(saveErr) {
+        if (saveErr) {
+          res.json({"REG_SUCCESS":false});
+        }
+        res.json({"REG_SUCCESS":true})
+      });
     });
 });
 
