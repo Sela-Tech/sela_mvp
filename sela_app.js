@@ -17,6 +17,7 @@ var expVal = require('express-validator');
 var flash = require('connect-flash');
 var dotenv = require('dotenv');
 var http = require('http');
+var User = require('./app/models/user');
 // var MongoClient = require('mongodb').MongoClient;
 // var MongoURI = process.env.MONGO_URI;
 // var mongoose = require('mongoose');
