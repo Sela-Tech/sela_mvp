@@ -21,13 +21,12 @@ var LocalStrategy = require('passport-local').Strategy;
 var dotenv = require('dotenv');
 var http = require('http');
 // var MongoClient = require('mongodb').MongoClient;
-var MongoURI = process.env.MONGO_URI;
-// var MongoDbName = "sela_dev";
-var mongoose = require('mongoose');
-mongoose.connect(MongoURI, { useMongoClient: true });
-mongoose.Promise = global.Promise;
-var db = mongoose.connection;
-mongoose.connection.on('error', console.error.bind(console, 'MongoDB connection error:'));
+// var MongoURI = process.env.MONGO_URI;
+// var mongoose = require('mongoose');
+// mongoose.connect(MongoURI, { useMongoClient: true });
+// mongoose.Promise = global.Promise;
+// var db = mongoose.connection;
+// mongoose.connection.on('error', console.error.bind(console, 'MongoDB connection error:'));
 
 dotenv.config();
 
