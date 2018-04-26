@@ -35,6 +35,7 @@
     "express": "4.16.1",
     "express-handlebars": "*",
     "express-messages": "*",
+    "express-session": "^1.15.6",
     "express-validator": "*",
     "install": "^0.10.2",
     "js-schema": "^1.0.1",
