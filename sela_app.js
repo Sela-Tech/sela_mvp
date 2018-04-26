@@ -101,5 +101,5 @@ server.listen(port, () => {
     console.log("Server listening on port " + port);
 });
 
-routes.call(app);
+// routes.call(app);
 
