@@ -91,25 +91,25 @@ app.post("/createuser", (req, res) => {
     });
 });
 
-app.post("/auth", (req, res) => {
-    var authSuccess = false;
+app.post("/login", (req, res) => {
+    var loginSuccess = false;
     MongoClient.connect(MongoURI, (connErr, client) => {
         if (connErr) throw connErr;
         var selaDb = client.db(MongoDbName);
-        var authQuery = {};
-        authQuery.username = req.query.uname;
-        authQuery.password = req.query.pass;
-        selaDb.collection(MongoUsersName).find(authQuery).toArray((authErr, subRes) => {
-            if (authErr) throw authErr;
+        var loginQuery = {};
+        loginQuery.username = req.query.uname;
+        loginQuery.password = req.query.pass;
+        selaDb.collection(MongoUsersName).find(loginQuery).toArray((loginErr, subRes) => {
+            if (loginErr) throw loginErr;
             for (var i = 0; i < res.length; i++) {
-              if (subRes.username == authQuery.username) {
-                authSuccess = subRes.password == authQuery.password;
+              if (subRes.username == loginQuery.username) {
+                loginSuccess = subRes.password == loginQuery.password;
               }
             }
             client.close();
         });
     });
-    res.send(authSuccess);
+    res.send(loginSuccess);
 });
 
 app.post("/register", (req, res) => {

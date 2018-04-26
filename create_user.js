@@ -22,11 +22,12 @@ mongoose.connection.on('error', console.error.bind(console, 'MongoDB connection 
 
 var users = [];
 
-function userCreate(fname, lname, uname, pass, cb) {
+function userCreate(fname, lname, uname, pubkey, pass, cb) {
   var userData = {
     "first_name": fname,
     "family_name": lname,
     "user_name": uname,
+    "public_key": pubkey,
     "password": pass
   };
   var user = new User(userData);
@@ -44,7 +45,7 @@ function userCreate(fname, lname, uname, pass, cb) {
 function createUsers(cb) {
     async.parallel([
         function(callback) {
-          userCreate('Meep', 'Meep', 'meepmeep', 'meepmeeppass', callback);
+          userCreate('Meep', 'Meep', 'meepmeep', 'meepmeeppublickey', 'meepmeeppass', callback);
         }],
         // optional callback
         cb);
