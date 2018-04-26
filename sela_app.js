@@ -88,20 +88,21 @@ app.post("/register", (req, res) => {
       }
       if (user) {
         res.json({"REG_SUCCESS":false});
+      } else {
+        var saveQuery = {};
+        saveQuery.first_name = req.body.first_name;
+        saveQuery.family_name = req.body.family_name;
+        saveQuery.user_name = req.body.user_name;
+        saveQuery.public_key = req.body.public_key;
+        saveQuery.password = req.body.password;
+        var newUser = new User(saveQuery);
+        newUser.save(function(saveErr) {
+          if (saveErr) {
+            res.json({"REG_SUCCESS":false});
+          }
+          res.json({"REG_SUCCESS":true})
+        });
       }
-      var saveQuery = {};
-      saveQuery.first_name = req.body.first_name;
-      saveQuery.family_name = req.body.family_name;
-      saveQuery.user_name = req.body.user_name;
-      saveQuery.public_key = req.body.public_key;
-      saveQuery.password = req.body.password;
-      var newUser = new User(saveQuery);
-      newUser.save(function(saveErr) {
-        if (saveErr) {
-          res.json({"REG_SUCCESS":false});
-        }
-        res.json({"REG_SUCCESS":true})
-      });
     });
 });
 
