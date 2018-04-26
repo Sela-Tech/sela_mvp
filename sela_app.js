@@ -81,7 +81,6 @@ app.post("/login", (req, res) => {
 app.post("/register", (req, res) => {
     var checkQuery = {};
     checkQuery.user_name = req.body.user_name;
-    checkQuery.public_key = req.body.public_key;
     User.findOne(checkQuery, (checkErr, user) => {
       if (checkErr) {
         res.json({"REG_SUCCESS":false});
