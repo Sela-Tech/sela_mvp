@@ -26,7 +26,7 @@ function userCreate(fname, lname, uname, pubkey, pass, cb) {
   var userData = {
     "first_name": fname,
     "family_name": lname,
-    "user_name": uname,
+    "username": uname,
     "public_key": pubkey,
     "password": pass
   };

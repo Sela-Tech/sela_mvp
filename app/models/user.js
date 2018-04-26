@@ -16,7 +16,7 @@ var userStructure = {
         required: true,
         max: 100
     },
-    user_name: {
+    username: {
         type: String,
         unique: true,
         lowercase: true,

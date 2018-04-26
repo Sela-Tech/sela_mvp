@@ -80,7 +80,7 @@ app.post("/login", (req, res) => {
 
 app.post("/register", (req, res) => {
     var checkQuery = {};
-    checkQuery.user_name = req.body.user_name;
+    checkQuery.username = req.body.username;
     User.findOne(checkQuery, (checkErr, user) => {
       if (checkErr) {
         res.json({"REG_SUCCESS":false});
@@ -91,7 +91,7 @@ app.post("/register", (req, res) => {
         var saveQuery = {};
         saveQuery.first_name = req.body.first_name;
         saveQuery.family_name = req.body.family_name;
-        saveQuery.user_name = req.body.user_name;
+        saveQuery.username = req.body.username;
         saveQuery.public_key = req.body.public_key;
         saveQuery.password = req.body.password;
         var newUser = new User(saveQuery);
