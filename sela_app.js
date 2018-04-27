@@ -69,12 +69,13 @@ app.post("/login", (req, res) => {
       }
       if (!user) {
         res.json(failRes);
-      } else {
+      } /*else {
         if (checkQuery.username != user.username) {
           res.json(failRes);
         }
         res.json(successRes);
-      }
+      }*/
+      res.json(successRes);
     });
 });
 
