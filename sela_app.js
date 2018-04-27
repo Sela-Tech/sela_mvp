@@ -69,13 +69,12 @@ app.post("/login", (req, res) => {
       }
       if (!user) {
         res.json(failRes);
-      } /*else {
-        if (checkQuery.username != user.username) {
+      } else {
+        /*if (checkQuery.password != user.password) {
           res.json(failRes);
-        }
+        }*/
         res.json(successRes);
-      }*/
-      res.json(successRes);
+      }
     });
 });
 
@@ -101,8 +100,9 @@ app.post("/register", (req, res) => {
         newUser.save(function(saveErr) {
           if (saveErr) {
             res.json(failRes);
+          } else {
+            res.json(successRes);
           }
-          res.json(successRes);
         });
       }
     });
