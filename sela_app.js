@@ -58,35 +58,37 @@ if (process.env.NODE_ENV === 'development') {
 environmentsAll.call(app);
 
 app.post("/login", (req, res) => {
-    var loginSuccess = false;
-    MongoClient.connect(MongoURI, (connErr, client) => {
-        if (connErr) throw connErr;
-        var selaDb = client.db(MongoDbName);
-        var loginQuery = {};
-        loginQuery.username = req.query.uname;
-        loginQuery.password = req.query.pass;
-        selaDb.collection(MongoUsersName).find(loginQuery).toArray((loginErr, subRes) => {
-            if (loginErr) throw loginErr;
-            for (var i = 0; i < res.length; i++) {
-              if (subRes.username == loginQuery.username) {
-                loginSuccess = subRes.password == loginQuery.password;
-              }
-            }
-            client.close();
-        });
+    var checkQuery = {};
+    var successRes = {"LOGIN_SUCCESS":true};
+    var failRes = {"LOGIN_SUCCESS":false};
+    checkQuery.username = req.body.username;
+    checkQuery.password = req.body.password;
+    User.findOne(checkQuery, (checkErr, user) => {
+      if (checkErr) {
+        res.json(failRes);
+      }
+      if (!user) {
+        res.json(failRes);
+      } else {
+        if (checkQuery.username != user.username) {
+          res.json(failRes);
+        }
+        res.json(successRes);
+      }
     });
-    res.send(loginSuccess);
 });
 
 app.post("/register", (req, res) => {
     var checkQuery = {};
+    var successRes = {"REG_SUCCESS":true};
+    var failRes = {"REG_SUCCESS":false};
     checkQuery.username = req.body.username;
     User.findOne(checkQuery, (checkErr, user) => {
       if (checkErr) {
-        res.json({"REG_SUCCESS":false});
+        res.json(failRes);
       }
       if (user) {
-        res.json({"REG_SUCCESS":false});
+        res.json(failRes);
       } else {
         var saveQuery = {};
         saveQuery.first_name = req.body.first_name;
@@ -97,9 +99,9 @@ app.post("/register", (req, res) => {
         var newUser = new User(saveQuery);
         newUser.save(function(saveErr) {
           if (saveErr) {
-            res.json({"REG_SUCCESS":false});
+            res.json(failRes);
           }
-          res.json({"REG_SUCCESS":true})
+          res.json(successRes);
         });
       }
     });
