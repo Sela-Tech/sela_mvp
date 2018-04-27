@@ -11,9 +11,7 @@ import pymongo
 from stellar_base.builder import Builder
 from stellar_base.asset import Asset
 from collections import defaultdict
-
-
-
+import gridfs
 
 
 # Accessing variables.
@@ -27,6 +25,7 @@ sela_issuer = os.getenv('ISSU_PUB_KEY')
 dest_address = os.getenv('LUM_WALL')
 sender_s_key = os.getenv('DIST_SEC_KEY')
 amount = 1
+index_task = None
 
 seed = sender_s_key
 builder = Builder(secret=seed, network='public')
@@ -55,6 +54,8 @@ updater = Updater(token=telegram_token)
 dispatcher = updater.dispatcher
 logging.basicConfig(format='%(asctime)s - %(name)s - %(levelname)s - %(message)s',
 	level=logging.INFO)
+
+fs = gridfs.GridFS(db)
 
 """Simple Bot to reply to Telegram messages.
 This is built on the API wrapper, see echobot2.py to see the same example built
@@ -86,7 +87,7 @@ logging.basicConfig(format='%(asctime)s - %(name)s - %(levelname)s - %(message)s
 
 logger = logging.getLogger(__name__)
 
-REGISTER, REGISTER_HANDLER, UPLOAD_TYPE, INTERVIEW, TASK_REPORT, TASK_UPLOAD, TASK_UPDATE_RECEIVE, QUESTION_TASK,  PHOTO_TRANSCRIPT,VIDEO, PHOTO, VIDEO_SUCCESS, TRANSCRIPT, END= range(14)
+REGISTER, REGISTER_HANDLER, UPLOAD_TYPE, INTERVIEW, TASK_REPORT, TASK_UPLOAD, TASK_UPDATE_RECEIVE, QUESTION_TASK, NEW_UPLOAD,  PHOTO_TRANSCRIPT,VIDEO, PHOTO, VIDEO_SUCCESS, TRANSCRIPT, END= range(15)
 
 Interview_Type = 'Interview'
 Task_Report_Type = 'Task Report'
@@ -229,19 +230,26 @@ def task_update_receive(bot, update):
     #Get task title
     final_message = ''
     reply_keyboard = [[YES, NO]]
+    print(update.message)
+    first_name = update.message.chat.first_name
+    last_name = update.message.chat.last_name
+    date = str(update.message.date)
+    file_name = first_name + '_' + last_name + '_' + date 
     if (update.message.video):
-        #video_file = bot.get_file(update.message.video.file_id)
-        #video_file.download('test.mp4')
+        video_file = bot.get_file(update.message.video.file_id)
+        video_file.download(file_name+'.mp4')
         final_message = 'Thanks for uploading the video. One more question, was this task done ?'
         update.message.reply_text(
             final_message,
             reply_markup= ReplyKeyboardMarkup(reply_keyboard,one_time_keyboard=True))
         return QUESTION_TASK 
     elif (update.message.photo):
-        #photo_file = bot.get_file(update.message.photo.file_id)
-        #photo_file.download('test.jpg')
+        photo_file = bot.get_file(update.message.photo[-1].file_id)
+        photo_file.download(file_name+'.jpg')
+        file_py = open(file_name+'.jpg', 'r')
+        fs.put(file_py.read(), filename=file_name)
         print('Went into photo')
-        final_message = 'Thanks for uploading the video. One more question, was this task done ?'
+        final_message = 'Thanks for uploading the picture. One more question, was this task done ?'
         update.message.reply_text(
             final_message,
             reply_markup= ReplyKeyboardMarkup(reply_keyboard,one_time_keyboard=True))
@@ -252,12 +260,10 @@ def task_update_receive(bot, update):
 def question_task(bot, update):
     answer = update.message.text
     verifications = db['verifications']
-
+    renew_message = 'Thanks. Would you like to submit a new evidence ?'
     task = current_task_upload_for_user[update.message.chat.id]
     current_user = db['users'].find_one({'telegram_id': update.message.chat.id})
     user_id = current_user['_id']
-
-
     #Payment
     public_key = current_user['public_key']
     seed = sender_s_key
@@ -272,7 +278,19 @@ def question_task(bot, update):
     builder.sign()
     # Uses an internal horizon instance to submit over the network
     builder.submit()
-    return END 
+    reply_keyboard = [[YES, NO]]
+    update.message.reply_text(
+            renew_message,
+            reply_markup= ReplyKeyboardMarkup(reply_keyboard,one_time_keyboard=True))
+    return NEW_UPLOAD  
+
+def renew_upload(bot,update):
+    '''Asks user if wants to upload data again'''
+    new_upload = update.message.text
+    if new_upload == YES:
+        return TASK_REPORT
+    else:
+        return END
 
 def get_observation_type_task(bot,update):
     ''' Todo : Ask observation in video, photo, or testimonial
