@@ -109,5 +109,14 @@ UserSchema.pre('update', true, function(next, done) {
     done();
 });
 
+UserSchema.methods.comparePassword = function(password, cb) {
+    bcrypt.compare(password, this.password, function(err, isMatch) {
+      if (err) {
+        return cb(err, false);
+      }
+      return cb(null, isMatch);
+    });
+};
+
 //Export model
 module.exports = mongoose.model('User', UserSchema);

@@ -35,7 +35,7 @@ var environmentsAll = require(ROOT + '/config/environments/all');
 var environmentsDev = require(ROOT + '/config/environments/development');
 var environmentsPro = require(ROOT + '/config/environments/production');
 
-mongooseInit(function() {
+mongooseInit(() => {
     passportInit();
 });
 
@@ -65,16 +65,20 @@ app.post("/login", (req, res) => {
     checkQuery.password = req.body.password;
     User.findOne(checkQuery, (checkErr, user) => {
       if (checkErr) {
-        res.json(failRes);
+        return res.json(failRes);
       }
       if (!user) {
-        res.json(failRes);
-      } else {
-        if (!bcrypt.compareSync(checkQuery.password, user.password)) {
-          res.json(failRes);
-        }
-        res.json(successRes);
+        return res.json(failRes);
       }
+      user.comparePassword((passErr, isMatch) => {
+        if (passErr) {
+          return res.json(failRes);
+        }
+        if (isMatch) {
+          return res.json(successRes);
+        }
+        return res.json(failRes);
+      });
     });
 });
 
@@ -85,26 +89,24 @@ app.post("/register", (req, res) => {
     checkQuery.username = req.body.username;
     User.findOne(checkQuery, (checkErr, user) => {
       if (checkErr) {
-        res.json(failRes);
+        return res.json(failRes);
       }
       if (user) {
-        res.json(failRes);
-      } else {
-        var saveQuery = {};
-        saveQuery.first_name = req.body.first_name;
-        saveQuery.family_name = req.body.family_name;
-        saveQuery.username = req.body.username;
-        saveQuery.public_key = req.body.public_key;
-        saveQuery.password = req.body.password;
-        var newUser = new User(saveQuery);
-        newUser.save(function(saveErr) {
-          if (saveErr) {
-            res.json(failRes);
-          } else {
-            res.json(successRes);
-          }
-        });
+        return res.json(failRes);
       }
+      var saveQuery = {};
+      saveQuery.first_name = req.body.first_name;
+      saveQuery.family_name = req.body.family_name;
+      saveQuery.username = req.body.username;
+      saveQuery.public_key = req.body.public_key;
+      saveQuery.password = req.body.password;
+      var newUser = new User(saveQuery);
+      newUser.save((saveErr) => {
+        if (saveErr) {
+          return res.json(failRes);
+        }
+        return res.json(successRes);
+      });
     });
 });
 
