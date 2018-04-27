@@ -70,9 +70,9 @@ app.post("/login", (req, res) => {
       if (!user) {
         res.json(failRes);
       } else {
-        /*if (checkQuery.password != user.password) {
+        if (!bcrypt.compareSync(checkQuery.password, user.password)) {
           res.json(failRes);
-        }*/
+        }
         res.json(successRes);
       }
     });
