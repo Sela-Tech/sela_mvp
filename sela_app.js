@@ -59,24 +59,27 @@ environmentsAll.call(app);
 
 app.post("/login", (req, res) => {
     var checkQuery = {};
-    var successRes = {"LOGIN_SUCCESS":true};
-    var failRes = {"LOGIN_SUCCESS":false};
+    var successRes = {"success":true, "message":""};
+    var failRes = {"success":false, "message":""};
     checkQuery.username = req.body.username;
-    checkQuery.password = req.body.password;
     User.findOne(checkQuery, (checkErr, user) => {
       if (checkErr) {
+        failRes.message = "Sela is experiencing network issues. Please try again momentarily";
         return res.json(failRes);
       }
       if (!user) {
+        failRes.message = "Sela does not have an account for " + checkQuery.username + ". Please try another username or follow the link below to register";
         return res.json(failRes);
       }
-      user.comparePassword((passErr, isMatch) => {
+      user.comparePassword(req.body.password, (passErr, isMatch) => {
         if (passErr) {
+          failRes.message = "Sela is experiencing network issues. Please try again momentarily";
           return res.json(failRes);
         }
         if (isMatch) {
           return res.json(successRes);
         }
+        failRes.message = "That is the wrong password for " + checkQuery.username + ". Please enter your password again";
         return res.json(failRes);
       });
     });
@@ -84,14 +87,16 @@ app.post("/login", (req, res) => {
 
 app.post("/register", (req, res) => {
     var checkQuery = {};
-    var successRes = {"REG_SUCCESS":true};
-    var failRes = {"REG_SUCCESS":false};
+    var successRes = {"success":true};
+    var failRes = {"success":false};
     checkQuery.username = req.body.username;
     User.findOne(checkQuery, (checkErr, user) => {
       if (checkErr) {
+        failRes.message = "Sela is experiencing network issues. Please try again momentarily";
         return res.json(failRes);
       }
       if (user) {
+        failRes.message = "Sela already has an account for " + checkQuery.username + ". Please try another username";
         return res.json(failRes);
       }
       var saveQuery = {};
@@ -103,6 +108,7 @@ app.post("/register", (req, res) => {
       var newUser = new User(saveQuery);
       newUser.save((saveErr) => {
         if (saveErr) {
+          failRes.message = "Sela is experiencing network issues. Please try again momentarily";
           return res.json(failRes);
         }
         return res.json(successRes);
