@@ -79,7 +79,7 @@ app.post("/login", (req, res) => {
         if (isMatch) {
           return res.json(successRes);
         }
-        failRes.message = "That is the wrong password for " + checkQuery.username + ". Please enter your password again";
+        failRes.message = "That is the wrong password for " + checkQuery.username + ". Please try again";
         return res.json(failRes);
       });
     });
