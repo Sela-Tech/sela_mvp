@@ -14,20 +14,29 @@ var taskStructure = {
         required: true,
         max: 100
     },
-    milestone: {
+    /*milestone: {
         type: ObjectId,
         ref: 'Milestone'
-    }, //reference to associated milestone
+    }, //reference to associated milestone*/
     // TODO: Should the due date be required when creating a task?
+    project: {
+        type: ObjectId,
+        ref: 'Project'
+    }, // reference to associated project
     due_date: {
-        type: Date
+        type: Date,
+        required: true
     },
     end_date: {
         type: Date,
         default: null,
     },
-    status: {
+    /*status: {
         type: Boolean
+    },*/
+    status: {
+        type: String,
+        default: "UNASSIGNED" // Options: "UNASSIGNED", "ASSIGNED", "STARTED", "TERMINATED", "COMPLETED"
     },
     createdById: {
         type: ObjectId,

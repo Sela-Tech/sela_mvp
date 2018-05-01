@@ -116,6 +116,13 @@ app.post("/register", (req, res) => {
     });
 });
 
+app.post("/project", (req, res) => {
+    var checkQuery = {};
+    var successRes = {"success":true};
+    var failRes = {"success":false};
+    // TODO: post project to db
+});
+
 var server = http.createServer(app);
 
 server.listen(port, () => {
