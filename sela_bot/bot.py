@@ -246,8 +246,9 @@ def task_update_receive(bot, update):
     elif (update.message.photo):
         photo_file = bot.get_file(update.message.photo[-1].file_id)
         photo_file.download(file_name+'.jpg')
-        file_py = open(file_name+'.jpg', 'r')
-        fs.put(file_py.read(), filename=file_name)
+        #file_py = open(file_name+'.jpg')
+        #with open(file_name+'.jpg') as my_image:
+        #    fs.put(my_image, content_type="image/jpeg", filename=file_name)
         print('Went into photo')
         final_message = 'Thanks for uploading the picture. One more question, was this task done ?'
         update.message.reply_text(
@@ -259,18 +260,29 @@ def task_update_receive(bot, update):
 
 def question_task(bot, update):
     answer = update.message.text
+    if answer == YES:
+        task_status = True
+    else:
+        task_status = False 
     verifications = db['verifications']
     renew_message = 'Thanks. Would you like to submit a new evidence ?'
     task = current_task_upload_for_user[update.message.chat.id]
     current_user = db['users'].find_one({'telegram_id': update.message.chat.id})
     user_id = current_user['_id']
+    observation = {}
+    observation['sender'] = current_user['_id']
+    observation['task'] = task['_id']
+    observation['task_status'] = task_status
+    observation['project'] = task['project']
+    verifications.insert(observation)
+
     #Payment
     public_key = current_user['public_key']
     seed = sender_s_key
     builder = Builder(secret=seed, network='public')
     # builder = Builder(secret=seed, network='public') for LIVENET
     bob_address = public_key
-    amount = 0.3
+    amount = 0.1
     memo = os.getenv('MEMO')
     token = os.getenv('SELA_TOKEN')
     builder.append_payment_op(bob_address, amount, token,sela_issuer)
