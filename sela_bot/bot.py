@@ -105,6 +105,7 @@ User_Not_Found_Message = 'Hello, I do not recognize you. Please register by send
 Register_Instruction = 'Register'
 tasks_for_user = {}
 current_task_upload_for_user = defaultdict(int)
+current_file_for_user = {}
 YES = 'YES'
 NO = 'NO'
 
@@ -125,7 +126,7 @@ def start(bot, update):
     elif count == 1:
         ''' Find user and hold conversation with him also think about time outs'''
         update.message.reply_text(
-        'Hi! My name is Sela Bot. I will hold a conversation with you. '
+        'Hi '+str(update.message.chat.first_name)+' !My name is Sela Bot. I will hold a conversation with you. '
         'Send /cancel to stop talking to me.\n\n'
         'Are you here to upload an interview or a Task Report ?',
         reply_markup=ReplyKeyboardMarkup(reply_keyboard, one_time_keyboard=True))
@@ -238,6 +239,7 @@ def task_update_receive(bot, update):
     if (update.message.video):
         video_file = bot.get_file(update.message.video.file_id)
         video_file.download(file_name+'.mp4')
+        current_file_for_user[update.message.chat.id] = file_name+'.mp4'
         final_message = 'Thanks for uploading the video. One more question, was this task done ?'
         update.message.reply_text(
             final_message,
@@ -246,6 +248,7 @@ def task_update_receive(bot, update):
     elif (update.message.photo):
         photo_file = bot.get_file(update.message.photo[-1].file_id)
         photo_file.download(file_name+'.jpg')
+        current_file_for_user[update.message.chat.id] = file_name+'.jpg'
         #file_py = open(file_name+'.jpg')
         #with open(file_name+'.jpg') as my_image:
         #    fs.put(my_image, content_type="image/jpeg", filename=file_name)
@@ -265,7 +268,7 @@ def question_task(bot, update):
     else:
         task_status = False 
     verifications = db['verifications']
-    renew_message = 'Thanks. Would you like to submit a new evidence ?'
+    renew_message = 'Thanks ! We received your evidence and it is stored on the platform. Would you like to submit a new evidence ?'
     task = current_task_upload_for_user[update.message.chat.id]
     current_user = db['users'].find_one({'telegram_id': update.message.chat.id})
     user_id = current_user['_id']
@@ -274,6 +277,7 @@ def question_task(bot, update):
     observation['task'] = task['_id']
     observation['task_status'] = task_status
     observation['project'] = task['project']
+    observation['file_name'] = current_file_for_user[update.message.chat.id]
     verifications.insert(observation)
 
     #Payment
@@ -302,7 +306,12 @@ def renew_upload(bot,update):
     if new_upload == YES:
         return TASK_REPORT
     else:
-        return END
+        user = update.message.from_user
+        logger.info("User %s ended the conversation.", user.first_name)
+        update.message.reply_text("Thanks for these observation, " + str(user.first_name)+ " Talk to you later !",
+                                  reply_markup=ReplyKeyboardRemove())
+        return ConversationHandler.END
+
 
 def get_observation_type_task(bot,update):
     ''' Todo : Ask observation in video, photo, or testimonial
@@ -442,6 +451,7 @@ def main():
             TASK_UPLOAD: [MessageHandler(Filters.text, task_upload)],
             TASK_UPDATE_RECEIVE: [MessageHandler(Filters.video | Filters.photo, task_update_receive)],
             QUESTION_TASK: [RegexHandler('^(YES|NO)$',question_task)],
+            NEW_UPLOAD: [RegexHandler('^(YES|NO)$',renew_upload)],
             VIDEO: [MessageHandler(Filters.video, video)],
             VIDEO_SUCCESS: [RegexHandler('^(New Video| New Photo + Transcript|End)$', video_success)],
             END : [RegexHandler('End', end)] 
