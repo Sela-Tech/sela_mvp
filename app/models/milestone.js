@@ -6,14 +6,21 @@ var ObjectId = Schema.Types.ObjectId;
 var milestoneStructure = {
     tasks: {
         type: [ObjectId],
-        ref: 'Task'
+        ref: 'Task',
+        default: []
     },
     status: {
-        type: Boolean
+        type: Boolean,
+        default: true
     },
     project: {
         type: ObjectId,
-        ref: 'Project'
+        ref: 'Project',
+        required: true,
+    },
+    createdById: {
+        type: ObjectId,
+        ref: 'User'
     },
     created: {
         type: Date,
@@ -53,7 +60,7 @@ if (process.env.NODE_ENV === 'development') {
     };
 }
 
-var milestoneSchema = new Schema(milestoneStructure, schemaOptions);
+var MilestoneSchema = new Schema(milestoneStructure, schemaOptions);
 
 //Export model
 module.exports = function(connection) {
@@ -61,5 +68,5 @@ module.exports = function(connection) {
     if (!connection) {
         connection = mongoose;
     }
-    connection.model('Milestone', milestoneSchema);
+    connection.model('Milestone', MilestoneSchema);
 };

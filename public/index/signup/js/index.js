@@ -56,11 +56,10 @@ $('#signup-btn').on('click', function(e) {
             lastname: lastname,
             email: email,
             password: password,
-            confirm: confirm,
-            accountType: accountType
+            confirm: confirm
         })
         .done(function() {
-            alert("second success");
+            window.location.href ='/client';
         })
         .fail(function() {
             alert("error");
@@ -75,7 +74,7 @@ $('#login-btn').on('click', function(e) {
 
     var jqxhr = $.post("/api/v1/login.json", { username: username, password: password })
         .done(function() {
-            alert("second success");
+            window.location.href ='/client';
         })
         .fail(function() {
             alert("error");
@@ -90,7 +89,7 @@ $('#reset-btn').on('click', function(e) {
 
     var jqxhr = $.post("/api/v1/passwordReset.json", { email: email })
         .done(function() {
-            alert("second success");
+            alert("Password Reset success");
         })
         .fail(function() {
             alert("error");

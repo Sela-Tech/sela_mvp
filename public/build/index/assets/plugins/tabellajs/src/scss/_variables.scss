@@ -1,0 +1,39 @@
+/*
+ *  Copyright (C) 2014-2016  Interpromotion <info@interpromotion.com>
+ *  Copyright (C) 2014-2016  Giancarlo Soverini <giancarlosoverini@gmail.com>
+ *
+ *  This file is part of Tabellajs.
+ *
+ *  Tabellajs is free software: you can redistribute it and/or modify
+ *  it under the terms of the GNU Affero General Public License as
+ *  published by the Free Software Foundation, either version 3 of the
+ *  License, or (at your option) any later version.
+ *
+ *  Tabellajs is distributed in the hope that it will be useful,
+ *  but WITHOUT ANY WARRANTY; without even the implied warranty of
+ *  MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
+ *  GNU Affero General Public License for more details.
+ *
+ *  You should have received a copy of the GNU Affero General Public License
+ *  along with this program.  If not, see <http://www.gnu.org/licenses/>
+ */
+
+$primary-color: #3F51B5;
+$primary-1-tint : #C5CAE9;
+$primary-2-tint : #9FA8DA;
+//$primary-fallback : #EFEBE9;
+
+$border-color: rgba(0,0,0,.12);
+
+$accent-color: #FF4081;
+
+$primary-text: rgba(#000, .87);
+$secondary-text: rgba(#000, .54);
+$disabled-text: rgba(#000, .26);
+
+$odd-background-color :  $primary-1-tint;
+$even-background-color : $primary-2-tint;
+
+
+$header-font-family: 'Open Sans', sans-serif;
+$body-font-family: $header-font-family;

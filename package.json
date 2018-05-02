@@ -1,7 +1,7 @@
 {
   "name": "sela-labs",
   "version": "0.3.0",
-  "description": "A Blockchain company",
+  "description": "Sela - A Distributed Micropayments Platform",
   "engines": {
     "node": "8.9.1"
   },
@@ -14,38 +14,56 @@
     "lint": "eslint .",
     "test": "echo"
   },
+  "nodemonConfig": {
+    "ignore": [
+      "*"
+    ]
+  },
   "dependencies": {
-    "bcrypt": "1.0.3",
-    "body-parser": "1.18.2",
+    "bcrypt": "^1.0.3",
+    "bcryptjs": "*",
+    "body-parser": "^1.18.2",
     "bootstrap-material-design": "^4.0.0-beta.3",
     "concurrently": "^3.5.1",
+    "connect-flash": "*",
     "connect-mongo": "2.0.0",
-    "dotenv": "4.0.0",
+    "cookie-parser": "^1.4.1",
+    "dotenv": "^4.0.0",
+    "ed25519": "0.0.4",
+    "ejs": "^2.5.6",
     "envs": "0.1.6 ",
     "express": "4.16.1",
-    "express-session": "1.15.6",
+    "express-handlebars": "*",
+    "express-messages": "*",
+    "express-session": "^1.15.6",
+    "express-validator": "*",
     "install": "^0.10.2",
-    "joi": "^13.1.0",
+    "js-schema": "^1.0.1",
     "moment": "2.20.1",
-    "mongoose": "4.12.0",
+    "mongodb": "^3.0.0-rc0",
+    "mongoose": "4.13.9",
     "multer": "1.3.0",
     "node-telegram-bot-api": "^0.30.0",
     "nodemailer": "4.4.1",
     "nodemon": "1.12.1",
-    "passport": "0.4.0",
-    "passport-local": "1.0.0",
+    "passport": "*",
+    "passport-http": "*",
+    "passport-local": "*",
     "react": "16.0.0",
     "react-router-dom": "^4.2.2",
     "request-param": "^1.0.1",
     "session": "0.1.0",
+    "stellar-sdk": "^0.8.0",
+    "telegram-node-bot": "^4.0.5",
     "underscore": "1.8.3"
   },
   "devDependencies": {
     "concurrently": "^3.5.1",
-    "mongoose": "^4.13.5",
     "nodemon": "^1.12.1",
     "request": "^2.81.0",
-    "tape": "^4.7.0"
+    "tape": "^4.7.0",
+    "truffle": "^4.0.5",
+    "web3": "^0.20.4"
   },
   "repository": {
     "type": "git",

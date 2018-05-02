@@ -14,7 +14,7 @@ module.exports = function(done) {
 
     require(ROOT + '/app/models')();
     mongoose.Promise = global.Promise;
-    mongoose.connect(process.env.MONGOLAB_URI, { useMongoClient: true });
+    mongoose.connect(process.env.MONGO_URI, { useMongoClient: true });
 
     mongoose.connection.on('error', function(err) {
         console.log('Error MONGOOSE: ' + err);
