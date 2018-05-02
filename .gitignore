@@ -44,3 +44,12 @@ bower_components
 
 # DS_Store
 *.DS_Store
+
+#IDEs
+**.sublime-*
+
+#Misc
+*.todolist
+
+#Build
+public/build
