@@ -79,6 +79,12 @@ var projectStructure = {
         ref: 'Organization',
         /*required: true,*/
     },
+    status: {
+        type: String,
+        required : true,
+        default: "DORMANT",
+        enum: ["DORMANT", "ACCEPTED", "STARTED", "TERMINATED", "COMPLETED"]
+    },
     created: {
         type: Date,
         default: Date.now()

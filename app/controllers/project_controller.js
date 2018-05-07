@@ -133,7 +133,7 @@ controller.readMany = function(req, res, next) {
     
     ProjectModel
         .find(findQuery)
-        .populate('milestones')
+        .populate('tasks')
         .exec(function(err, projects){
             if(err) {
                 res.status(500);

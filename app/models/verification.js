@@ -19,7 +19,7 @@ var verificationStructure = {
         ref: 'Task',
         required: true
     },
-    isAnonymus: {
+    isAnonymous: {
         type: Boolean,
         default: false
     },
