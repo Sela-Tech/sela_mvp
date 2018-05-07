@@ -69,9 +69,9 @@ var projectStructure = {
         type: locationSchema,
         default: null
     },
-    milestones: {
+    tasks: {
         type: [ObjectId],
-        ref: 'Milestone',
+        ref: 'Task',
         default: []
     },
     owner: {

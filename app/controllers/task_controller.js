@@ -24,7 +24,7 @@ controller.createOne = function(req, res, next) {
     record.end_date = req.body.endDate;
     record.due_date = record.end_date;
     record.start_date = req.body.startDate;
-    record.milestone = req.body.milestoneId;
+    record.project = req.body.projectId;
 
     // record.owner = user._id;
 

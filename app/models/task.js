@@ -14,10 +14,6 @@ var taskStructure = {
         required: true,
         max: 100
     },
-    milestone: {
-        type: ObjectId,
-        ref: 'Milestone'
-    }, //reference to associated milestone
     start_date: {
         type: Date,
         default: null,
