@@ -11,9 +11,7 @@ import pymongo
 from stellar_base.builder import Builder
 from stellar_base.asset import Asset
 from collections import defaultdict
-
-
-
+import gridfs
 
 
 # Accessing variables.
@@ -27,6 +25,7 @@ sela_issuer = os.getenv('ISSU_PUB_KEY')
 dest_address = os.getenv('LUM_WALL')
 sender_s_key = os.getenv('DIST_SEC_KEY')
 amount = 1
+index_task = None
 
 seed = sender_s_key
 builder = Builder(secret=seed, network='public')
@@ -55,6 +54,8 @@ updater = Updater(token=telegram_token)
 dispatcher = updater.dispatcher
 logging.basicConfig(format='%(asctime)s - %(name)s - %(levelname)s - %(message)s',
 	level=logging.INFO)
+
+fs = gridfs.GridFS(db)
 
 """Simple Bot to reply to Telegram messages.
 This is built on the API wrapper, see echobot2.py to see the same example built
@@ -86,7 +87,7 @@ logging.basicConfig(format='%(asctime)s - %(name)s - %(levelname)s - %(message)s
 
 logger = logging.getLogger(__name__)
 
-REGISTER, REGISTER_HANDLER, UPLOAD_TYPE, INTERVIEW, TASK_REPORT, TASK_UPLOAD, TASK_UPDATE_RECEIVE, QUESTION_TASK,  PHOTO_TRANSCRIPT,VIDEO, PHOTO, VIDEO_SUCCESS, TRANSCRIPT, END= range(14)
+REGISTER, REGISTER_HANDLER, UPLOAD_TYPE, INTERVIEW, TASK_REPORT, TASK_UPLOAD, TASK_UPDATE_RECEIVE, QUESTION_TASK, NEW_UPLOAD,  PHOTO_TRANSCRIPT,VIDEO, PHOTO, VIDEO_SUCCESS, TRANSCRIPT, END= range(15)
 
 Interview_Type = 'Interview'
 Task_Report_Type = 'Task Report'
@@ -104,6 +105,7 @@ User_Not_Found_Message = 'Hello, I do not recognize you. Please register by send
 Register_Instruction = 'Register'
 tasks_for_user = {}
 current_task_upload_for_user = defaultdict(int)
+current_file_for_user = {}
 YES = 'YES'
 NO = 'NO'
 
@@ -124,7 +126,7 @@ def start(bot, update):
     elif count == 1:
         ''' Find user and hold conversation with him also think about time outs'''
         update.message.reply_text(
-        'Hi! My name is Sela Bot. I will hold a conversation with you. '
+        'Hi '+str(update.message.chat.first_name)+' !My name is Sela Bot. I will hold a conversation with you. '
         'Send /cancel to stop talking to me.\n\n'
         'Are you here to upload an interview or a Task Report ?',
         reply_markup=ReplyKeyboardMarkup(reply_keyboard, one_time_keyboard=True))
@@ -229,19 +231,29 @@ def task_update_receive(bot, update):
     #Get task title
     final_message = ''
     reply_keyboard = [[YES, NO]]
+    print(update.message)
+    first_name = update.message.chat.first_name
+    last_name = update.message.chat.last_name
+    date = str(update.message.date)
+    file_name = first_name + '_' + last_name + '_' + date 
     if (update.message.video):
-        #video_file = bot.get_file(update.message.video.file_id)
-        #video_file.download('test.mp4')
+        video_file = bot.get_file(update.message.video.file_id)
+        video_file.download(file_name+'.mp4')
+        current_file_for_user[update.message.chat.id] = file_name+'.mp4'
         final_message = 'Thanks for uploading the video. One more question, was this task done ?'
         update.message.reply_text(
             final_message,
             reply_markup= ReplyKeyboardMarkup(reply_keyboard,one_time_keyboard=True))
         return QUESTION_TASK 
     elif (update.message.photo):
-        #photo_file = bot.get_file(update.message.photo.file_id)
-        #photo_file.download('test.jpg')
+        photo_file = bot.get_file(update.message.photo[-1].file_id)
+        photo_file.download(file_name+'.jpg')
+        current_file_for_user[update.message.chat.id] = file_name+'.jpg'
+        #file_py = open(file_name+'.jpg')
+        #with open(file_name+'.jpg') as my_image:
+        #    fs.put(my_image, content_type="image/jpeg", filename=file_name)
         print('Went into photo')
-        final_message = 'Thanks for uploading the video. One more question, was this task done ?'
+        final_message = 'Thanks for uploading the picture. One more question, was this task done ?'
         update.message.reply_text(
             final_message,
             reply_markup= ReplyKeyboardMarkup(reply_keyboard,one_time_keyboard=True))
@@ -251,12 +263,22 @@ def task_update_receive(bot, update):
 
 def question_task(bot, update):
     answer = update.message.text
+    if answer == YES:
+        task_status = True
+    else:
+        task_status = False 
     verifications = db['verifications']
-
+    renew_message = 'Thanks ! We received your evidence and it is stored on the platform. Would you like to submit a new evidence ?'
     task = current_task_upload_for_user[update.message.chat.id]
     current_user = db['users'].find_one({'telegram_id': update.message.chat.id})
     user_id = current_user['_id']
-
+    observation = {}
+    observation['sender'] = current_user['_id']
+    observation['task'] = task['_id']
+    observation['task_status'] = task_status
+    observation['project'] = task['project']
+    observation['file_name'] = current_file_for_user[update.message.chat.id]
+    verifications.insert(observation)
 
     #Payment
     public_key = current_user['public_key']
@@ -264,7 +286,7 @@ def question_task(bot, update):
     builder = Builder(secret=seed, network='public')
     # builder = Builder(secret=seed, network='public') for LIVENET
     bob_address = public_key
-    amount = 0.3
+    amount = 0.1
     memo = os.getenv('MEMO')
     token = os.getenv('SELA_TOKEN')
     builder.append_payment_op(bob_address, amount, token,sela_issuer)
@@ -272,7 +294,24 @@ def question_task(bot, update):
     builder.sign()
     # Uses an internal horizon instance to submit over the network
     builder.submit()
-    return END 
+    reply_keyboard = [[YES, NO]]
+    update.message.reply_text(
+            renew_message,
+            reply_markup= ReplyKeyboardMarkup(reply_keyboard,one_time_keyboard=True))
+    return NEW_UPLOAD  
+
+def renew_upload(bot,update):
+    '''Asks user if wants to upload data again'''
+    new_upload = update.message.text
+    if new_upload == YES:
+        return TASK_REPORT
+    else:
+        user = update.message.from_user
+        logger.info("User %s ended the conversation.", user.first_name)
+        update.message.reply_text("Thanks for these observation, " + str(user.first_name)+ " Talk to you later !",
+                                  reply_markup=ReplyKeyboardRemove())
+        return ConversationHandler.END
+
 
 def get_observation_type_task(bot,update):
     ''' Todo : Ask observation in video, photo, or testimonial
@@ -412,6 +451,7 @@ def main():
             TASK_UPLOAD: [MessageHandler(Filters.text, task_upload)],
             TASK_UPDATE_RECEIVE: [MessageHandler(Filters.video | Filters.photo, task_update_receive)],
             QUESTION_TASK: [RegexHandler('^(YES|NO)$',question_task)],
+            NEW_UPLOAD: [RegexHandler('^(YES|NO)$',renew_upload)],
             VIDEO: [MessageHandler(Filters.video, video)],
             VIDEO_SUCCESS: [RegexHandler('^(New Video| New Photo + Transcript|End)$', video_success)],
             END : [RegexHandler('End', end)] 
