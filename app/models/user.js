@@ -16,10 +16,14 @@ var userStructure = {
         required: true,
         max: 100
     },
-    user_name: {
+    username: {
         type: String,
         unique: true,
         lowercase: true,
+    },
+    public_key: {
+        type: String,
+        unique: true,
     },
     password: {
         type: String,
@@ -105,11 +109,14 @@ UserSchema.pre('update', true, function(next, done) {
     done();
 });
 
-//Export model
-module.exports = function(connection) {
-
-    if (!connection) {
-        connection = mongoose;
-    }
-    connection.model('User', UserSchema);
+UserSchema.methods.comparePassword = function(password, cb) {
+    bcrypt.compare(password, this.password, function(err, isMatch) {
+      if (err) {
+        return cb(err, false);
+      }
+      return cb(null, isMatch);
+    });
 };
+
+//Export model
+module.exports = mongoose.model('User', UserSchema);

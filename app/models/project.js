@@ -59,7 +59,7 @@ var projectStructure = {
     },
     start_date: {
         type: Date,
-        required: true,
+        required: true
     },
     end_date: {
         type: Date,
@@ -69,14 +69,23 @@ var projectStructure = {
         type: locationSchema,
         default: null
     },
-    milestones: {
+    /*milestones: {
         type: [ObjectId],
         ref: 'Milestone',
+        default: []
+    },*/
+    tasks: {
+        type: [ObjectId],
+        ref: 'Task',
         default: []
     },
     owner: {
         type: ObjectId,
         ref: 'Organization',
+    },
+    status: {
+        type: String,
+        default: "DORMANT" // Options: "DORMANT", "ACCEPTED", "STARTED", "TERMINATED", "COMPLETED"
     },
     created: {
         type: Date,
