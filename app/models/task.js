@@ -4,12 +4,12 @@ var Schema = mongoose.Schema;
 var ObjectId = Schema.Types.ObjectId;
 
 var taskStructure = {
-    task_name: {
+    name: {
         type: String,
         required: true,
         max: 100
     },
-    task_description: {
+    description: {
         type: String,
         required: true,
         max: 100
@@ -37,6 +37,11 @@ var taskStructure = {
     status: {
         type: String,
         default: "UNASSIGNED" // Options: "UNASSIGNED", "ASSIGNED", "STARTED", "TERMINATED", "COMPLETED"
+    },
+    assignedTo: {
+        type: ObjectId,
+        ref: 'User',
+        default: null
     },
     createdById: {
         type: ObjectId,
