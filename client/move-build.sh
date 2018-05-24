@@ -1,1 +1,0 @@
-rm -rf ../public/build && mv build ../public/build
