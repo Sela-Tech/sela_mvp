@@ -130,7 +130,8 @@ app.post("/project", (req, res) => {
     var newProject = new Project(projectObj);
     newProject.save((projErr) => {
         if (projErr) {
-          failRes.message = "Sela is experiencing network issues. Please try again momentarily";
+          // failRes.message = "Sela is experiencing network issues. Please try again momentarily";
+          failRes.message = projErr.name + ": " + projErr.message;
           return res.json(failRes);
         }
         return res.json(successRes);
