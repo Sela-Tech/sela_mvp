@@ -1,7 +1,7 @@
 import React from "react";
 import { connect } from "react-redux";
 import View from "./view";
-import {bindActionCreators} from "redux";
+import { bindActionCreators } from "redux";
 
 class Name extends React.Component {
   constructor(props) {

@@ -4,8 +4,8 @@ import authentication from "./pages/authentication";
 import error404 from "./pages/errors/404";
 
 export default {
-    home,
-    dashboard,
-    authentication,
-    error404
-}
+  home,
+  dashboard,
+  authentication,
+  error404
+};

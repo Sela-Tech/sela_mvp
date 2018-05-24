@@ -77,7 +77,7 @@ export default styled.div`
       color: #0a1f46;
     }
 
-    #submit-btn{
+    #submit-btn {
       background: #1ecd97;
       border-radius: 4px;
       padding: 1.5em;
