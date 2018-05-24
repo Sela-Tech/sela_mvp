@@ -2,12 +2,13 @@ import React from "react";
 import SharedAuthWrapper from "../../styles/authentication/shared";
 import Logo from "../../assets/icons/logo.svg";
 import { Link } from "react-router-dom";
+import AsycnButton from "./async-button";
 
 class ForgotPassword extends React.Component {
   constructor(props) {
     super(props);
     this.state = {
-      form: {}
+      formData: {}
     };
   }
 
@@ -55,12 +56,13 @@ class ForgotPassword extends React.Component {
               </div>
 
               <div className="form-group xs-12">
-                <input type="submit" value="Reset" />
+              <AsycnButton id="submit-btn" attempt = {""}> Reset </AsycnButton>
               </div>
 
+
               <div className="form-group xs-12">
-                <Link to="/login" className="link" style={{fontSize: "1em"}}>
-                  Have an account ? Sign in.
+                <Link to="/signin" className="link" style={{fontSize: "1em"}}>
+                  Have an account? Sign in.
                 </Link>
               </div>
             </form>

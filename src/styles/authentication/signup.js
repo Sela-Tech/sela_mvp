@@ -201,9 +201,80 @@ export default styled.div`
     font-size: 1em !important;
   }
 
-  input:disabled {
-    background: #cbd3da !important;
-    color: white !important;
-    cursor: not-allowed;
+  #phone-wrapper{
+    background: #EFF5FB;
+    padding: 1em;
+    border-radius: 50%;
+    height: 10em;
+    width: 10em;
+    display: table;
+    text-align: center;
+    margin: auto;
+
+    #phone{
+      display: table-cell;
+      vertical-align: middle;
+
+      img{
+        margin-bottom: 0;
+        height: 5em;
+        width: 5em;
+      }
+    }
+  }
+
+  #success-icon{
+    position: relative;
+    top: .25em;
+  }
+  
+
+  #video-wrapper{
+    video{
+      margin-top: 2em;
+      object-fit: cover;
+    }
+  }
+
+
+  #list{
+    padding: 0;
+    li{
+      
+      list-style-type: none;
+      overflow: auto;
+      margin: 2em 0;
+
+      .xs-10{
+        p{
+          text-align: left;
+          margin: 0 0 1em;
+        }
+        .space{
+          margin: 1em 0;
+          a{
+            text-align: left;
+            display: block;
+            padding: .5em 0;
+          }
+        }
+      }
+      .round{           
+        background: #F5F9FC;
+        margin: 0;
+        width: 2.4em;
+        line-height: 2.4em;
+        height: 2.4em;
+        border-radius: 3em;
+      
+        span{
+          line-height: normal;
+          font-size: 14px;
+          text-align: center;
+          color: #156EDC;
+        }
+      
+      }
+    }
   }
 `;

@@ -2,17 +2,25 @@ import React from "react";
 import SharedAuthWrapper from "../../styles/authentication/shared";
 import Logo from "../../assets/icons/logo.svg";
 import { Link } from "react-router-dom";
+import {connect} from "react-redux";
+import {bindActionCreators} from "redux";
+import {signin} from "../../store/action-creators/auth";
+import AsycnButton from "./async-button";
 
 class Login extends React.Component {
   constructor(props) {
     super(props);
     this.state = {
-      form: {}
+      formData: {
+        username: "",
+        password: ""
+      }
     };
   }
 
   onSubmit = e => {
     e.preventDefault();
+    this.props.signin(this.state.formData);
   };
 
   onChange = e => {
@@ -24,7 +32,9 @@ class Login extends React.Component {
     });
   };
 
+  
   render() {
+    const { signin_auth_attempt } = this.props;
     return (
       <SharedAuthWrapper>
         <div className="container">
@@ -32,14 +42,13 @@ class Login extends React.Component {
             <img src={Logo} alt="logo" id="logo" />
           </div>
           <div className="xs-12">
-            <h2>Sign in to Sela </h2>
+            <h2> Sign in to Sela </h2>
           </div>
 
           <div className="xs-12">
             <form
               className="xs-10 xs-off-1 sm-6 sm-off-3 md-4 md-off-4"
-              onSubmit={this.onSubmit}
-            >
+              onSubmit={this.onSubmit}>
               <div className="form-group xs-12">
                 <input
                   name="username"
@@ -47,6 +56,7 @@ class Login extends React.Component {
                   className="form-control"
                   placeholder="Email or Phone Number"
                   onChange={this.onChange}
+                  value={this.state.formData.username}
                   required
                 />
               </div>
@@ -57,6 +67,7 @@ class Login extends React.Component {
                   type="password"
                   className="form-control"
                   placeholder="Password"
+                  value={this.state.formData.password}
                   onChange={this.onChange}
                   required
                 />
@@ -76,7 +87,7 @@ class Login extends React.Component {
               </div>
 
               <div className="form-group xs-12">
-                <input type="submit" value="Sign in" />
+                <AsycnButton id="submit-btn" attempt = {signin_auth_attempt}> Sign in </AsycnButton>
               </div>
 
               <div className="form-group xs-12">
@@ -92,4 +103,15 @@ class Login extends React.Component {
   }
 }
 
-export default Login;
+const mapStateToProps = state => {
+  return {
+    signin_auth_attempt: state.auth.action.attempt,
+    signin_auth_message: state.auth.action.message
+  }
+}
+const mapDispatchToProps = dispatch => {
+  return {
+    signin: bindActionCreators(signin, dispatch)
+  }
+}
+export default connect(mapStateToProps,mapDispatchToProps)(Login);
