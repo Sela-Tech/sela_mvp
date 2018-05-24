@@ -118,10 +118,11 @@ ProjectSchema.method.delete = function(cb) {
 };
 
 //Export model
-module.exports = function(connection) {
+/*module.exports = function(connection) {
 
     if (!connection) {
         connection = mongoose;
     }
     connection.model('Project', ProjectSchema);
-};
+};*/
+module.exports = mongoose.model('Project', ProjectSchema);
