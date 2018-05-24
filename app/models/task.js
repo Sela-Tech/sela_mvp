@@ -95,9 +95,9 @@ if (process.env.NODE_ENV === 'development') {
     };
 }
 
-var taskSchema = new Schema(taskStructure, schemaOptions);
+var TaskSchema = new Schema(taskStructure, schemaOptions);
 
-taskSchema.method.delete = function(cb) {
+TaskSchema.method.delete = function(cb) {
     var self = this;
     self.deleted = true;
     self.save(cb);
@@ -105,10 +105,11 @@ taskSchema.method.delete = function(cb) {
 
 
 //Export model
-module.exports = function(connection) {
+/*module.exports = function(connection) {
 
     if (!connection) {
         connection = mongoose;
     }
-    connection.model('Task', taskSchema);
-};
+    connection.model('Task', TaskSchema);
+};*/
+module.exports = mongoose.model('Task', TaskSchema);
