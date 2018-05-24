@@ -126,7 +126,7 @@ app.post("/project", (req, res) => {
     projectObj.description = req.body.description;
     projectObj.start_date = req.body.start_date;
     projectObj.end_date = req.body.end_date;
-    projectObj.location = req.body.location;
+    // projectObj.location = req.body.location;
     var newProject = new Project(projectObj);
     newProject.save((projErr) => {
         if (projErr) {
