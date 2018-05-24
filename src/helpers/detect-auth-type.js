@@ -1,7 +1,7 @@
 export default (match)=> {
     switch(match.path){
-      case "/login":
-      return "Login"
+      case "/signin":
+      return "Signin"
       case "/signup":
       return "Signup"
       default:

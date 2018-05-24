@@ -76,7 +76,7 @@ class Signup extends React.Component {
               <span>
                 Create an account to join the Sela platform and community.{" "}
               </span>
-              <Link className="link" to="/login">
+              <Link className="link" to="/signin">
                 Already have an account? Sign in here
               </Link>
             </p>
