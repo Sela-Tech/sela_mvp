@@ -18,6 +18,7 @@ var flash = require('connect-flash');
 var dotenv = require('dotenv');
 var http = require('http');
 var User = require('./app/models/user');
+var Project = require('./app/models/project');
 // var MongoClient = require('mongodb').MongoClient;
 // var MongoURI = process.env.MONGO_URI;
 // var mongoose = require('mongoose');
@@ -99,15 +100,15 @@ app.post("/register", (req, res) => {
         failRes.message = "Sela already has an account for " + checkQuery.username + ". Please try another username";
         return res.json(failRes);
       }
-      var saveQuery = {};
-      saveQuery.first_name = req.body.first_name;
-      saveQuery.family_name = req.body.family_name;
-      saveQuery.username = req.body.username;
-      saveQuery.public_key = req.body.public_key;
-      saveQuery.password = req.body.password;
-      var newUser = new User(saveQuery);
-      newUser.save((saveErr) => {
-        if (saveErr) {
+      var userObj = {};
+      userObj.first_name = req.body.first_name;
+      userObj.family_name = req.body.family_name;
+      userObj.username = req.body.username;
+      userObj.public_key = req.body.public_key;
+      userObj.password = req.body.password;
+      var newUser = new User(userObj);
+      newUser.save((regErr) => {
+        if (regErr) {
           failRes.message = "Sela is experiencing network issues. Please try again momentarily";
           return res.json(failRes);
         }
@@ -117,10 +118,37 @@ app.post("/register", (req, res) => {
 });
 
 app.post("/project", (req, res) => {
-    var checkQuery = {};
     var successRes = {"success":true};
     var failRes = {"success":false};
     // TODO: post project to db
+    var projectObj = {};
+    projectObj.name = req.body.name;
+    projectObj.description = req.body.description;
+    projectObj.start_date = req.body.start_date;
+    projectObj.end_date = req.body.end_date;
+    projectObj.location = req.body.location;
+    var newProject = new Project(projectObj);
+    newProject.save((projErr) => {
+        if (projErr) {
+          failRes.message = "Sela is experiencing network issues. Please try again momentarily";
+          return res.json(failRes);
+        }
+        return res.json(successRes);
+    });
+});
+
+app.get("/projects", (req, res) => {
+    var successRes = {"success":true};
+    var failRes = {"success":false};
+    var checkQuery = {};
+    Project.find(checkQuery).toArray((checkErr, users) => {
+      if (checkErr) {
+        failRes.message = "Sela is experiencing network issues. Please try again momentarily";
+        return res.json(failRes);
+      }
+      successRes.projects = projects;
+      return res.json(successRes);
+    });
 });
 
 var server = http.createServer(app);

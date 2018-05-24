@@ -47,12 +47,12 @@ var projectSchemaOptions = _.extend({}, schemaOptions, {
 });
 
 var projectStructure = {
-    project_name: {
+    name: {
         type: String,
         required: true,
         max: 100
     },
-    project_description: {
+    description: {
         type: String,
         required: true,
         max: 100
