@@ -65,7 +65,8 @@ app.post("/login", (req, res) => {
     checkQuery.username = req.body.username;
     User.findOne(checkQuery, (checkErr, user) => {
       if (checkErr) {
-        failRes.message = "Sela is experiencing network issues. Please try again momentarily";
+        // failRes.message = "Sela is experiencing network issues. Please try again momentarily";
+        failRes.message = checkErr.name + ": " + checkErr.message;
         return res.json(failRes);
       }
       if (!user) {
@@ -74,7 +75,8 @@ app.post("/login", (req, res) => {
       }
       user.comparePassword(req.body.password, (passErr, isMatch) => {
         if (passErr) {
-          failRes.message = "Sela is experiencing network issues. Please try again momentarily";
+          // failRes.message = "Sela is experiencing network issues. Please try again momentarily";
+          failRes.message = passErr.name + ": " + passErr.message;
           return res.json(failRes);
         }
         if (isMatch) {
@@ -93,7 +95,8 @@ app.post("/register", (req, res) => {
     checkQuery.username = req.body.username;
     User.findOne(checkQuery, (checkErr, user) => {
       if (checkErr) {
-        failRes.message = "Sela is experiencing network issues. Please try again momentarily";
+        // failRes.message = "Sela is experiencing network issues. Please try again momentarily";
+        failRes.message = checkErr.name + ": " + checkErr.message;
         return res.json(failRes);
       }
       if (user) {
@@ -109,7 +112,8 @@ app.post("/register", (req, res) => {
       var newUser = new User(userObj);
       newUser.save((regErr) => {
         if (regErr) {
-          failRes.message = "Sela is experiencing network issues. Please try again momentarily";
+          // failRes.message = "Sela is experiencing network issues. Please try again momentarily";
+          failRes.message = regErr.name + ": " + regErr.message;
           return res.json(failRes);
         }
         return res.json(successRes);
@@ -142,9 +146,10 @@ app.get("/projects", (req, res) => {
     var successRes = {"success":true};
     var failRes = {"success":false};
     var checkQuery = {};
-    Project.find(checkQuery).toArray((checkErr, users) => {
+    Project.find(checkQuery, (checkErr, users) => {
       if (checkErr) {
-        failRes.message = "Sela is experiencing network issues. Please try again momentarily";
+        // failRes.message = "Sela is experiencing network issues. Please try again momentarily";
+        failRes.message = checkErr.name + ": " + checkErr.message;
         return res.json(failRes);
       }
       successRes.projects = projects;
