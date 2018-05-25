@@ -10,8 +10,8 @@ from time import sleep
 import pymongo
 from stellar_base.builder import Builder
 from stellar_base.asset import Asset
-
-
+from collections import defaultdict
+import gridfs
 
 
 # Accessing variables.
@@ -25,12 +25,13 @@ sela_issuer = os.getenv('ISSU_PUB_KEY')
 dest_address = os.getenv('LUM_WALL')
 sender_s_key = os.getenv('DIST_SEC_KEY')
 amount = 1
+index_task = None
 
 seed = sender_s_key
 builder = Builder(secret=seed, network='public')
 # builder = Builder(secret=seed, network='public') for LIVENET
 bob_address = dest_address
-amount = 2
+amount = 0.1
 memo = os.getenv('MEMO')
 token = os.getenv('SELA_TOKEN')
 builder.append_payment_op(bob_address, amount, token,sela_issuer)
@@ -52,7 +53,9 @@ bot = telegram.Bot(token=telegram_token)
 updater = Updater(token=telegram_token)
 dispatcher = updater.dispatcher
 logging.basicConfig(format='%(asctime)s - %(name)s - %(levelname)s - %(message)s',
-	level=logging.INFO)
+    level=logging.INFO)
+
+fs = gridfs.GridFS(db)
 
 """Simple Bot to reply to Telegram messages.
 This is built on the API wrapper, see echobot2.py to see the same example built
@@ -84,7 +87,7 @@ logging.basicConfig(format='%(asctime)s - %(name)s - %(levelname)s - %(message)s
 
 logger = logging.getLogger(__name__)
 
-REGISTER, REGISTER_HANDLER, UPLOAD_TYPE, INTERVIEW, TASK_REPORT, PHOTO_TRANSCRIPT,VIDEO, PHOTO, VIDEO_SUCCESS, TRANSCRIPT, END= range(11)
+REGISTER, REGISTER_HANDLER, UPLOAD_TYPE, INTERVIEW, TASK_REPORT, TASK_UPLOAD, TASK_UPDATE_RECEIVE, QUESTION_TASK, NEW_UPLOAD,  PHOTO_TRANSCRIPT,VIDEO, PHOTO, VIDEO_SUCCESS, TRANSCRIPT, END= range(15)
 
 Interview_Type = 'Interview'
 Task_Report_Type = 'Task Report'
@@ -100,6 +103,11 @@ Photo_Instruction = 'You chose to upload your interview in photo + transcript fo
 Task_Report_Instruction_Success ='You chose task report. Please choose the project for which you are reporting'
 User_Not_Found_Message = 'Hello, I do not recognize you. Please register by sending over your Sela user name. Would you like to register ?'
 Register_Instruction = 'Register'
+tasks_for_user = {}
+current_task_upload_for_user = defaultdict(int)
+current_file_for_user = {}
+YES = 'YES'
+NO = 'NO'
 
 
 
@@ -118,7 +126,7 @@ def start(bot, update):
     elif count == 1:
         ''' Find user and hold conversation with him also think about time outs'''
         update.message.reply_text(
-        'Hi! My name is Sela Bot. I will hold a conversation with you. '
+        'Hi '+str(update.message.chat.first_name)+' !My name is Sela Bot. I will hold a conversation with you. '
         'Send /cancel to stop talking to me.\n\n'
         'Are you here to upload an interview or a Task Report ?',
         reply_markup=ReplyKeyboardMarkup(reply_keyboard, one_time_keyboard=True))
@@ -139,7 +147,7 @@ def register(bot, update):
 def register_handler(bot,update):
     ''' Handle user registration '''
     user_name = update.message.text
-    users_query = db['users'].find({'first_name': user_name})
+    users_query = db['users'].find({'user_name': user_name})
     count = users_query.count()
     if count == 0:
         error_message = 'Sorry, we did not find the corresponding user. Would you like to try again'
@@ -147,8 +155,8 @@ def register_handler(bot,update):
         update.message.reply_text(error_message,reply_markup=reply_keyboard)
         return REGISTRATION_ERROR
     elif count == 1:
-        query = {'first_name': user_name}
-        users.update(query, {'$set': {'telegram_id': update.message.chat.id}})
+        query = {'user_name': user_name}
+        users.update_one(query, {'$set': {'telegram_id': update.message.chat.id}})
         success_message = 'Congratulations, you have been registered. Your account has been linked to Sela. To start a conversation, press /start'
         update.message.reply_text(success_message,reply_markup = ReplyKeyboardRemove())
     else :
@@ -158,6 +166,7 @@ def register_handler(bot,update):
 
 
 def upload_type(bot, update):
+    Task_Report_Instruction = 'Pick the project you want to report about'
     upload = update.message.text
     if(upload== Interview_Type):
         reply_keyboard = [[Video, Photo_Transcript]]
@@ -167,31 +176,152 @@ def upload_type(bot, update):
         return INTERVIEW 
     elif(upload == Task_Report_Type):
         #Load user's projects and include them in the keyboard.
-        update.message.reply_text(Task_Report_Instruction_Success, replk)
-        return TASK_REPORT 
-
-
-
-    logger.info("Up of %s: %s", user.first_name, update.message.text)
-    update.message.reply_text('I see! Please send me a photo of yourself, '
-                              'so I know what you look like, or send /skip if you don\'t want to.',
-                              reply_markup=ReplyKeyboardRemove())
-
-    return PHOTO
+        current_user_query = db['users'].find({'telegram_id': update.message.chat.id})
+        count = current_user_query.count()
+        if count == 1:
+            for c in current_user_query:
+                current_user = c
+        project_for_user = db['projects'].find({'project_name': 'SI Pilot 2'})
+        #current_user_id = current_user['_id']
+        #project_for_user = db['project_observers'].find({'observers.observer_id': current_user_id})
+        reply_keyboard= []
+        for found_project in project_for_user:
+            print(found_project)
+            reply_keyboard.append([found_project['project_name']])
+        print(reply_keyboard)
+        update.message.reply_text(
+            Task_Report_Instruction,
+            reply_markup=ReplyKeyboardMarkup(reply_keyboard,one_time_keyboard=True)
+        )
+        return TASK_REPORT
 
 def task_report(bot,update):
     '''Todo : Grab Telegram ID, From ID grab user, from user grab projects and present list of project'''
-    return True 
+    project_name = update.message.text
+    project_for_user = db['projects'].find_one({'project_name': project_name})
+    print(project_for_user)
+    tasks_for_project = db['tasks'].find({'project':project_for_user['_id']}).sort("due_date",pymongo.ASCENDING)
+    tasks_for_user[update.message.chat.id] = tasks_for_project
+    num_option = tasks_for_project.count()
+    print(num_option)
+    Task_Message = 'Here are all the pending tasks for this project. Pick the number for the task you want :+ \n '
+    for i in range(1, num_option+1):
+        Task_Message += str(i)+'.' + ' ' + tasks_for_project[i-1]['task_name'] + ' \n '
+    options = range(1,num_option+1)
+    options = [str(o) for o in options]
+    reply_keyboard = [options]
+    update.message.reply_text(
+        Task_Message,
+        reply_markup=ReplyKeyboardMarkup(reply_keyboard,one_time_keyboard=True)
+    )
+    return TASK_UPLOAD
 
-def get_project_tasks(bot,update):
-    '''Todo : Given project ID, find tasks where there has been no observation or where the user has not already put obs'''
-    return True
+def task_upload(bot,update):
+    #Get task title and invite user to upload
+    index_task = int(update.message.text)-1
+    current_task_upload_for_user[update.message.chat.id] = tasks_for_user[update.message.chat.id][index_task]
+    name_of_task = tasks_for_user[update.message.chat.id][index_task]['task_name']
+    Invite_message = 'Thanks for choosing task : + \n '+name_of_task + ' \n Attach picture or Video now'
+    update.message.reply_text(
+        Invite_message,
+        reply_markup = ReplyKeyboardRemove())
+    return TASK_UPDATE_RECEIVE
+
+def task_update_receive(bot, update):
+    #Get task title
+    final_message = ''
+    reply_keyboard = [[YES, NO]]
+    print(update.message)
+    first_name = update.message.chat.first_name
+    last_name = update.message.chat.last_name
+    date = str(update.message.date)
+    file_name = first_name + '_' + last_name + '_' + date 
+    if (update.message.video):
+        video_file = bot.get_file(update.message.video.file_id)
+        video_file.download(file_name+'.mp4')
+        current_file_for_user[update.message.chat.id] = file_name+'.mp4'
+        final_message = 'Thanks for uploading the video. One more question, was this task done ?'
+        update.message.reply_text(
+            final_message,
+            reply_markup= ReplyKeyboardMarkup(reply_keyboard,one_time_keyboard=True))
+        return QUESTION_TASK 
+    elif (update.message.photo):
+        photo_file = bot.get_file(update.message.photo[-1].file_id)
+        photo_file.download(file_name+'.jpg')
+        current_file_for_user[update.message.chat.id] = file_name+'.jpg'
+        #file_py = open(file_name+'.jpg')
+        #with open(file_name+'.jpg') as my_image:
+        #    fs.put(my_image, content_type="image/jpeg", filename=file_name)
+        print('Went into photo')
+        final_message = 'Thanks for uploading the picture. One more question, was this task done ?'
+        update.message.reply_text(
+            final_message,
+            reply_markup= ReplyKeyboardMarkup(reply_keyboard,one_time_keyboard=True))
+        return QUESTION_TASK
+    else:
+        return END
+
+def question_task(bot, update):
+    answer = update.message.text
+    if answer == YES:
+        task_status = True
+    else:
+        task_status = False 
+    verifications = db['verifications']
+    renew_message = 'Thanks ! We received your evidence and it is stored on the platform. Would you like to submit a new evidence ?'
+    task = current_task_upload_for_user[update.message.chat.id]
+    current_user = db['users'].find_one({'telegram_id': update.message.chat.id})
+    user_id = current_user['_id']
+    observation = {}
+    observation['sender'] = current_user['_id']
+    observation['task'] = task['_id']
+    observation['task_status'] = task_status
+    observation['project'] = task['project']
+    observation['file_name'] = current_file_for_user[update.message.chat.id]
+    verifications.insert(observation)
+
+    #Payment
+    public_key = current_user['public_key']
+    seed = sender_s_key
+    builder = Builder(secret=seed, network='public')
+    # builder = Builder(secret=seed, network='public') for LIVENET
+    bob_address = public_key
+    amount = 0.1
+    memo = os.getenv('MEMO')
+    token = os.getenv('SELA_TOKEN')
+    builder.append_payment_op(bob_address, amount, token,sela_issuer)
+    builder.add_text_memo(memo) # string length <= 28 bytes
+    builder.sign()
+    # Uses an internal horizon instance to submit over the network
+    builder.submit()
+    reply_keyboard = [[YES, NO]]
+    update.message.reply_text(
+            renew_message,
+            reply_markup= ReplyKeyboardMarkup(reply_keyboard,one_time_keyboard=True))
+    return NEW_UPLOAD  
+
+def renew_upload(bot,update):
+    '''Asks user if wants to upload data again'''
+    new_upload = update.message.text
+    if new_upload == YES:
+        return TASK_REPORT
+    else:
+        user = update.message.from_user
+        logger.info("User %s ended the conversation.", user.first_name)
+        update.message.reply_text("Thanks for these observation, " + str(user.first_name)+ " Talk to you later !",
+                                  reply_markup=ReplyKeyboardRemove())
+        return ConversationHandler.END
+
 
 def get_observation_type_task(bot,update):
-    ''' Todo : Ask observation in video, photo, or testimonial'''
+    ''' Todo : Ask observation in video, photo, or testimonial
+    You picked this task, what observation  
+    Photo , Video '''
     return True
 def get_observation_status(bot,update):
-    ''' Todo : Given observation ask whether it confirms a task is done or not'''
+    ''' Todo : Given observation ask whether it confirms a task is done or not
+    Get video put it on gridfs , Create verification linking user ; task ; project ; 
+    Send user money '''
     return True
 
 def interview(bot, update):
@@ -317,6 +447,11 @@ def main():
             INTERVIEW: [RegexHandler('^(Video|Photo + Transcript)$', interview)],
             REGISTER: [RegexHandler('^(Register|Other)$', register)],
             REGISTER_HANDLER: [MessageHandler(Filters.text, register_handler)],
+            TASK_REPORT: [MessageHandler(Filters.text, task_report)],
+            TASK_UPLOAD: [MessageHandler(Filters.text, task_upload)],
+            TASK_UPDATE_RECEIVE: [MessageHandler(Filters.video | Filters.photo, task_update_receive)],
+            QUESTION_TASK: [RegexHandler('^(YES|NO)$',question_task)],
+            NEW_UPLOAD: [RegexHandler('^(YES|NO)$',renew_upload)],
             VIDEO: [MessageHandler(Filters.video, video)],
             VIDEO_SUCCESS: [RegexHandler('^(New Video| New Photo + Transcript|End)$', video_success)],
             END : [RegexHandler('End', end)] 
