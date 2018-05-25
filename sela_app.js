@@ -146,7 +146,7 @@ app.get("/projects", (req, res) => {
     var successRes = {"success":true};
     var failRes = {"success":false};
     var checkQuery = {};
-    Project.find(checkQuery, (checkErr, users) => {
+    Project.find(checkQuery, (checkErr, projects) => {
       if (checkErr) {
         // failRes.message = "Sela is experiencing network issues. Please try again momentarily";
         failRes.message = checkErr.name + ": " + checkErr.message;
