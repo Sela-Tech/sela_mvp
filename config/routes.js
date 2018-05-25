@@ -2,7 +2,6 @@ var fs = require('fs');
 var passport = require('passport');
 
 var public = require(ROOT + '/app/controllers/public_controller');
-var v1Milestone = require(ROOT + '/app/controllers/milestone_controller');
 var v1Organization = require(ROOT + '/app/controllers/organization_controller');
 var v1Task = require(ROOT + '/app/controllers/task_controller');
 var v1PasswordReset = require(ROOT + '/app/controllers/password_reset_controller');
@@ -34,13 +33,6 @@ module.exports = function routes() {
 
     // chat
     // this.post('/api/v1/chat.json', v1Chat.createOne);
-
-    // milestones
-    this.post('/api/v1/milestone.json', /*passport.authenticate('local-user', { session: false }),*/ v1Milestone.createOne);
-    this.get('/api/v1/milestone.json', /*passport.authenticate('local-user', { session: false }),*/ v1Milestone.readOne);
-    this.get('/api/v1/milestones.json', /*passport.authenticate('local-user', { session: false }),*/ v1Milestone.readMany);
-    // this.put('/api/v1/milestone.json', passport.authenticate('local-user', { session: false }), v1Milestone.updateOne);
-    // this.delete('/api/v1/milestone/:id.json', passport.authenticate('local-user', { session: false }), v1Milestone.deleteOne);
 
     // organization
     this.post('/api/v1/organization.json', passport.authenticate('local-user', { session: false }), v1Organization.createOne);
