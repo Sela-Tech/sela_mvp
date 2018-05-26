@@ -11,7 +11,7 @@ export default function TaskTile ({ task, style }) {
             <div className="panel cardbox bg-default" style={{cursor: 'pointer'}}>
                 <div className="panel-body card-item panel-refresh">
                     {/*task.start_date && <span><b>Started on</b> {Time.humanDate(task.start_date)}</span>*/}
-                    {(task.end_date || task.due_date) && <span><b>Due on</b> {Time.humanDate(task.due_date || task.end_date)}</span>}
+                    {/*(task.end_date || task.due_date) && <span><b>Due on</b> {Time.humanDate(task.due_date || task.end_date)}</span>*/}
                     <div className="card-details">
                         <h4 style={styles.titleStyle}>{task.task_name}</h4>
                         <span className="label label-default">{task.status || 'In progress'}</span>
