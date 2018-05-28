@@ -1,4 +1,4 @@
-html,#root,body {
+html,body {
   height: 100%;
   width:100%;
   margin: 0;
@@ -6,6 +6,10 @@ html,#root,body {
   font-family: "Open Sans";
 }
 
+#root{
+  height: auto;
+  width: auto;
+}
 button{
   outline: none;
 }

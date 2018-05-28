@@ -226,6 +226,7 @@ export default styled.div`
   #success-icon{
     position: relative;
     top: .25em;
+    margin-right: .25em;
   }
   
 
@@ -276,5 +277,33 @@ export default styled.div`
       
       }
     }
+  }
+
+
+  .sp-text-styles{
+    p{
+      strong{
+        font-size: 1.025em;
+      }
+
+      &.type-1{
+
+      }
+
+      &.type-2{
+        line-height: 1.7em;
+        font-weight: 300;
+      }
+    }
+  }
+
+
+  #open-chat{
+    background: #1ECD97;
+    border-radius: 4px;
+    color: white;
+    display: inline-block;
+    padding: 1em 3em;
+    margin: 1em auto;
   }
 `;

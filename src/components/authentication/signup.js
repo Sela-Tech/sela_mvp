@@ -113,9 +113,11 @@ class Signup extends React.Component {
         }).length !== 6;
 
     switch (signup_auth_type) {
+      
       case authActions.SIGNUP_SUCCESSFUL:
-        switch (this.state.formData["sign-up-type"].value) {
+      switch (this.state.formData["sign-up-type"].value) {
           case "project-funder":
+            window.scrollTo(0,0)
             return (
               <SharedAuthWrapper>
                 <SignUpWrapper className="container">
@@ -128,9 +130,8 @@ class Signup extends React.Component {
                   </div>
                   <div className="xs-12">
                     <h2>
-                      {" "}
-                      <img src={success} alt="success" id="success-icon" />{" "}
-                      You're signed up!{" "}
+                      <img src={success} alt="success" id="success-icon" />
+                      You're signed up!
                     </h2>
                     <p
                       className="xs-10 xs-off-1 sm-6 sm-off-3"
@@ -166,6 +167,7 @@ class Signup extends React.Component {
               </SharedAuthWrapper>
             );
           default:
+            window.scrollTo(0,0)
             return (
               <SharedAuthWrapper>
                 <SignUpWrapper className="container">
@@ -180,7 +182,7 @@ class Signup extends React.Component {
                   <div className="xs-12">
                     <h2>
                       <img src={success} alt="success" id="success-icon" />
-                      You're signed up!
+                      <span>You're signed up!</span>
                     </h2>
                     <p className="xs-10 xs-off-1" id="signup-info-text">
                       <span> Let’s get you chatting with our Selabot </span>
@@ -195,12 +197,12 @@ class Signup extends React.Component {
                             <span>1</span>
                           </p>
                         </div>
-                        <div className="xs-10 sm-11">
-                          <p>
+                        <div className="xs-10 sm-11 sp-text-styles">
+                          <p className="type-1">
                             <strong>Download Telegram</strong> (if you already
-                            have this installed, move on to step two){" "}
+                            have this installed, move on to step two)
                           </p>
-                          <p>
+                          <p className="type-2">
                             Telegram is a messaging application that you’ll use
                             to submit updates with Sela. You can find it on
                             Google Play Store or Apple App Store using the links
@@ -224,15 +226,19 @@ class Signup extends React.Component {
                             <span>2</span>
                           </p>
                         </div>
-                        <div className="xs-10 sm-11">
-                          <p>
+                        <div className="xs-10 sm-11 sp-text-styles">
+                          <p className="type-1">
                             <strong>Meet Sela</strong>
                           </p>
-                          <p>
+                          <p className="type-2">
                             You’ll be communicating with our bot named
                             “Selabot”. Once you have Telegram installed, click
-                            the link below to start your chat.
+                            the button below to start your chat.
                           </p>
+
+                          <div className="button-container">
+                              <Link id="open-chat" to="/open-chat" name="open-chat"> Open Chat</Link>
+                          </div>
                         </div>
                       </li>
                     </ul>
@@ -240,7 +246,7 @@ class Signup extends React.Component {
                 </SignUpWrapper>
               </SharedAuthWrapper>
             );
-        }
+      }
 
       default:
         return (
@@ -253,7 +259,7 @@ class Signup extends React.Component {
                 <h2>Let's get started </h2>
                 <p className="xs-10 xs-off-1" id="signup-info-text">
                   <span>
-                    Create an account to join the Sela platform and community.{" "}
+                    Create an account to join the Sela platform and community.
                   </span>
                   <Link className="link" to="/signin">
                     Already have an account? Sign in here
@@ -364,7 +370,7 @@ class Signup extends React.Component {
 
                     <div className="xs-12 md-8">
                       <p className="xs-12 md-10 md-off-1 center-t-sm">
-                        By clicking this button, you agree to our{" "}
+                        By clicking this button, you agree to our
                         <Link to="/terms" className="link">
                           Terms and Conditions.
                         </Link>

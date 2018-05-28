@@ -14,7 +14,12 @@ export const signin = obj => {
         dispatch({ type: authActions.LOGIN_SUCCESSFUL, data });
       })
       .catch(({ response }) => {
-        const message = response.message || response.data.message;
+        let message;
+        if(response){
+           message = response.message || response.data.message;
+        }else{
+          message = "connection error";
+        }
         dispatch({ type: authActions.LOGIN_SUCCESSFUL, message });
       });
   };
@@ -32,7 +37,12 @@ export const signup = obj => {
         dispatch({ type: authActions.SIGNUP_SUCCESSFUL, data });
       })
       .catch(({ response }) => {
-        const message = response.message || response.data.message;
+        let message;
+        if(response){
+           message = response.message || response.data.message;
+        }else{
+          message = "connection error";
+        }
         dispatch({ type: authActions.SIGNUP_FAILED, message });
       });
   };
@@ -50,7 +60,12 @@ export const send_recovery_mail = obj => {
         dispatch({ type: authActions.SEND_RECOVERY_MAIL_SUCCESSFUL, data });
       })
       .catch(({ response }) => {
-        const message = response.message || response.data.message;
+        let message;
+        if(response){
+           message = response.message || response.data.message;
+        }else{
+          message = "connection error";
+        }
         dispatch({ type: authActions.SEND_RECOVERY_MAIL_FAILED, message });
       });
   };
