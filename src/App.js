@@ -1,19 +1,60 @@
 import React from "react";
 import { Switch, Route, BrowserRouter as Router } from "react-router-dom";
 import r from "./routes";
+import PrivateRoute from "./helpers/privateRoute";
+import { connect } from "react-redux";
+import authActions from "./store/actions/auth";
 
-const App = () => {
+const App = ({ isAuthenticated, actionType }) => {
   return (
     <Router>
-      <Switch>
-        <Route exact path="/" component={r.home} />
-        <Route exact path="/signin" component={r.authentication} />
-        <Route exact path="/signup" component={r.authentication} />
-        <Route exact path="/forgot/password" component={r.authentication} />
-        <Route component={r.error404} />
-      </Switch>
+      {actionType === authActions.TOKEN_VERIFICATION_IN_PROGRESS ? (
+        <Switch>
+          <Route exact path="/" component={r.home} />
+          <Route component={r.loading} />
+        </Switch>
+      ) : (
+        <Switch>
+          <Route exact path="/" component={r.home} />
+          <PrivateRoute
+            exact
+            path="/signin"
+            type="auth"
+            isAuthenticated={isAuthenticated}
+            component={r.authentication}
+          />
+          <PrivateRoute
+            exact
+            path="/signup"
+            type="auth"
+            isAuthenticated={isAuthenticated}
+            component={r.authentication}
+          />
+          <PrivateRoute
+            exact
+            path="/forgot/password"
+            type="auth"
+            isAuthenticated={isAuthenticated}
+            component={r.authentication}
+          />
+          <PrivateRoute
+            exact
+            path="/dashboard"
+            isAuthenticated={isAuthenticated}
+            component={r.dashboard_home}
+          />
+          <Route component={r.error404} />
+        </Switch>
+      )}
     </Router>
   );
 };
 
-export default App;
+const mapStateToProps = state => {
+  return {
+    isAuthenticated: state.auth.isAuthenticated,
+    actionType: state.auth.action.type
+  };
+};
+
+export default connect(mapStateToProps)(App);

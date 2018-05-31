@@ -10,7 +10,6 @@ export default styled.div`
       }
     }
   }
-
   .signup-type-button {
     border: 0;
     margin: 0.5em 0;
