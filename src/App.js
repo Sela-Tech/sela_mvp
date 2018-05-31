@@ -2,6 +2,7 @@ import React from "react";
 import { Switch, Route, BrowserRouter as Router } from "react-router-dom";
 import r from "./routes";
 import PrivateRoute from "./helpers/privateRoute";
+
 import { connect } from "react-redux";
 import authActions from "./store/actions/auth";
 
@@ -21,21 +22,21 @@ const App = ({ isAuthenticated, actionType }) => {
             path="/signin"
             type="auth"
             isAuthenticated={isAuthenticated}
-            component={r.authentication}
+            component={r.signin}
           />
           <PrivateRoute
             exact
             path="/signup"
             type="auth"
             isAuthenticated={isAuthenticated}
-            component={r.authentication}
+            component={r.signup}
           />
           <PrivateRoute
             exact
             path="/forgot/password"
             type="auth"
             isAuthenticated={isAuthenticated}
-            component={r.authentication}
+            component={r.forgot_password}
           />
           <PrivateRoute
             exact
@@ -43,7 +44,7 @@ const App = ({ isAuthenticated, actionType }) => {
             isAuthenticated={isAuthenticated}
             component={r.dashboard_home}
           />
-          <Route component={r.error404} />
+          <Route component={r.errors} />
         </Switch>
       )}
     </Router>

@@ -12,12 +12,12 @@ import validator from "../../helpers/validator";
 import { connect } from "react-redux";
 import { bindActionCreators } from "redux";
 import { signup } from "../../store/action-creators/auth";
-import authActions from "../../store/actions/auth";
 
 // components
-import Wrapper from "./wrapper";
+import Wrapper from "../../components/authentication/wrapper";
 import SignUpWrapper from "../../styles/authentication/signup";
-import AsycnButton from "./async-button";
+import AsycnButton from "../../components/authentication/async-button";
+import auth from "../../store/actions/auth";
 
 const Button = ({ active, title, description, name, Ftn }) => {
   let onClick = () => Ftn(name);
@@ -98,13 +98,13 @@ class Signup extends React.Component {
   componentWillReceiveProps(nextProps) {
     if (this.props !== nextProps) {
       this.setState({
-        signup_auth_attempt: nextProps.signup_auth_attempt,
+        signup_auth_in_progress: nextProps.signup_auth_in_progress,
         signup_auth_type: nextProps.signup_auth_type
       });
     }
   }
   render() {
-    let { signup_auth_attempt, signup_auth_type } = this.state;
+    let { signup_auth_in_progress, signup_auth_type } = this.state;
 
     const { formData } = this.state,
       checkFormCompletion =
@@ -113,7 +113,7 @@ class Signup extends React.Component {
         }).length !== 6;
 
     switch (signup_auth_type) {
-      case authActions.SIGNUP_SUCCESSFUL:
+      case auth.SIGNUP_SUCCESSFUL:
         switch (this.state.formData["sign-up-type"].value) {
           case "project-funder":
             window.scrollTo(0, 0);
@@ -241,7 +241,6 @@ class Signup extends React.Component {
                               to="/open-chat"
                               name="open-chat"
                             >
-                              {" "}
                               Open Chat
                             </Link>
                           </div>
@@ -256,7 +255,7 @@ class Signup extends React.Component {
 
       default:
         return (
-          <Wrapper>
+          <Wrapper viewName="signup">
             <SignUpWrapper className="container">
               <div className="xs-12">
                 <img src={logo} alt="logo" id="logo" />
@@ -367,7 +366,7 @@ class Signup extends React.Component {
                     <div className="xs-12 md-4 center-t">
                       <AsycnButton
                         id="submit-btn"
-                        attempt={signup_auth_attempt}
+                        attempt={signup_auth_in_progress}
                         disabled={checkFormCompletion}
                       >
                         Get Started
@@ -393,10 +392,11 @@ class Signup extends React.Component {
 }
 
 const mapStateToProps = state => {
+  const { type, message } = state.auth.action;
   return {
-    signup_auth_type: state.auth.action.type,
-    signup_auth_attempt: state.auth.action.attempt,
-    signup_auth_message: state.auth.action.message
+    signup_auth_type: type,
+    signup_auth_in_progress: type === auth.SIGNUP_IN_PROGRESS,
+    signup_auth_message: message
   };
 };
 const mapDispatchToProps = dispatch => {

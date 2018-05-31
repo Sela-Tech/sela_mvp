@@ -1,12 +1,13 @@
 import React from "react";
-import Wrapper from "./wrapper";
+import Wrapper from "../../components/authentication/wrapper";
 
 import Logo from "../../assets/icons/logo.svg";
 import { Link } from "react-router-dom";
 import { connect } from "react-redux";
 import { bindActionCreators } from "redux";
 import { signin } from "../../store/action-creators/auth";
-import AsycnButton from "./async-button";
+import AsycnButton from "../../components/authentication/async-button";
+import auth from "../../store/actions/auth";
 
 class Login extends React.Component {
   constructor(props) {
@@ -34,7 +35,7 @@ class Login extends React.Component {
   };
 
   render() {
-    const { signin_auth_attempt } = this.props;
+    const { signin_auth_in_progress } = this.props;
     return (
       <Wrapper viewName="signin">
         <div className="container">
@@ -88,7 +89,7 @@ class Login extends React.Component {
               </div>
 
               <div className="form-group xs-12">
-                <AsycnButton id="submit-btn" attempt={signin_auth_attempt}>
+                <AsycnButton id="submit-btn" attempt={signin_auth_in_progress}>
                   Sign in
                 </AsycnButton>
               </div>
@@ -107,9 +108,12 @@ class Login extends React.Component {
 }
 
 const mapStateToProps = state => {
+  const { type, message } = state.auth.action;
+
   return {
-    signin_auth_attempt: state.auth.action.attempt,
-    signin_auth_message: state.auth.action.message
+    signin_auth_type: type,
+    signin_auth_in_progress: type === auth.LOGIN_IN_PROGRESS,
+    signin_auth_message: message
   };
 };
 const mapDispatchToProps = dispatch => {

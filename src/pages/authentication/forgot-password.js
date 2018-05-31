@@ -1,8 +1,8 @@
 import React from "react";
-import Wrapper from "./wrapper";
+import Wrapper from "../../components/authentication/wrapper";
 import Logo from "../../assets/icons/logo.svg";
 import { Link } from "react-router-dom";
-import AsycnButton from "./async-button";
+import AsycnButton from "../../components/authentication/async-button";
 
 class ForgotPassword extends React.Component {
   constructor(props) {
@@ -57,8 +57,7 @@ class ForgotPassword extends React.Component {
 
               <div className="form-group xs-12">
                 <AsycnButton id="submit-btn" attempt={""}>
-                  {" "}
-                  Reset{" "}
+                  Reset
                 </AsycnButton>
               </div>
 
