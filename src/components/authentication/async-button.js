@@ -18,9 +18,9 @@ export default ({
         className={className}
         id={id}
         type={type || "submit"}
-        disabled={attempt === "in-progress"}
+        disabled={attempt}
       >
-        {attempt === "in-progress" ? (
+        {attempt === true ? (
           <img src={Spinner} alt="spinner" height="15px" />
         ) : (
           children
