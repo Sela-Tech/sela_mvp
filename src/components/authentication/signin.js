@@ -1,5 +1,6 @@
 import React from "react";
-import SharedAuthWrapper from "../../styles/authentication/shared";
+import Wrapper from "./wrapper";
+
 import Logo from "../../assets/icons/logo.svg";
 import { Link } from "react-router-dom";
 import { connect } from "react-redux";
@@ -35,7 +36,7 @@ class Login extends React.Component {
   render() {
     const { signin_auth_attempt } = this.props;
     return (
-      <SharedAuthWrapper>
+      <Wrapper viewName="signin">
         <div className="container">
           <div className="xs-12">
             <img src={Logo} alt="logo" id="logo" />
@@ -100,7 +101,7 @@ class Login extends React.Component {
             </form>
           </div>
         </div>
-      </SharedAuthWrapper>
+      </Wrapper>
     );
   }
 }
@@ -116,4 +117,7 @@ const mapDispatchToProps = dispatch => {
     signin: bindActionCreators(signin, dispatch)
   };
 };
-export default connect(mapStateToProps, mapDispatchToProps)(Login);
+export default connect(
+  mapStateToProps,
+  mapDispatchToProps
+)(Login);

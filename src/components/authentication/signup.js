@@ -15,7 +15,7 @@ import { signup } from "../../store/action-creators/auth";
 import authActions from "../../store/actions/auth";
 
 // components
-import SharedAuthWrapper from "../../styles/authentication/shared";
+import Wrapper from "./wrapper";
 import SignUpWrapper from "../../styles/authentication/signup";
 import AsycnButton from "./async-button";
 
@@ -113,13 +113,12 @@ class Signup extends React.Component {
         }).length !== 6;
 
     switch (signup_auth_type) {
-      
       case authActions.SIGNUP_SUCCESSFUL:
-      switch (this.state.formData["sign-up-type"].value) {
+        switch (this.state.formData["sign-up-type"].value) {
           case "project-funder":
-            window.scrollTo(0,0)
+            window.scrollTo(0, 0);
             return (
-              <SharedAuthWrapper>
+              <Wrapper viewName="signup">
                 <SignUpWrapper className="container">
                   <div className="xs-12">
                     <div id="phone-wrapper">
@@ -164,12 +163,12 @@ class Signup extends React.Component {
                     </div>
                   </div>
                 </SignUpWrapper>
-              </SharedAuthWrapper>
+              </Wrapper>
             );
           default:
-            window.scrollTo(0,0)
+            window.scrollTo(0, 0);
             return (
-              <SharedAuthWrapper>
+              <Wrapper viewName="signup">
                 <SignUpWrapper className="container">
                   <div className="xs-12">
                     <div id="phone-wrapper">
@@ -237,20 +236,27 @@ class Signup extends React.Component {
                           </p>
 
                           <div className="button-container">
-                              <Link id="open-chat" to="/open-chat" name="open-chat"> Open Chat</Link>
+                            <Link
+                              id="open-chat"
+                              to="/open-chat"
+                              name="open-chat"
+                            >
+                              {" "}
+                              Open Chat
+                            </Link>
                           </div>
                         </div>
                       </li>
                     </ul>
                   </div>
                 </SignUpWrapper>
-              </SharedAuthWrapper>
+              </Wrapper>
             );
-      }
+        }
 
       default:
         return (
-          <SharedAuthWrapper>
+          <Wrapper>
             <SignUpWrapper className="container">
               <div className="xs-12">
                 <img src={logo} alt="logo" id="logo" />
@@ -380,7 +386,7 @@ class Signup extends React.Component {
                 </form>
               </div>
             </SignUpWrapper>
-          </SharedAuthWrapper>
+          </Wrapper>
         );
     }
   }
@@ -398,4 +404,7 @@ const mapDispatchToProps = dispatch => {
     signup: bindActionCreators(signup, dispatch)
   };
 };
-export default connect(mapStateToProps, mapDispatchToProps)(Signup);
+export default connect(
+  mapStateToProps,
+  mapDispatchToProps
+)(Signup);
