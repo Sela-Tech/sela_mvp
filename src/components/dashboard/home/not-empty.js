@@ -1,6 +1,6 @@
 import React from "react";
 
-class Homeview extends React.Component {
+class NotEmptyHomeView extends React.Component {
   constructor(props) {
     super(props);
     this.state = {};
@@ -8,8 +8,8 @@ class Homeview extends React.Component {
 
   render() {
     // const {} = this.props;
-    return <div> Dashboard Home View </div>;
+    return <div> Not Empty Dashboard Home View </div>;
   }
 }
 
-export default Homeview;
+export default NotEmptyHomeView;
