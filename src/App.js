@@ -5,6 +5,7 @@ import PrivateRoute from "./helpers/privateRoute";
 
 import { connect } from "react-redux";
 import authActions from "./store/actions/auth";
+import LoadingRoute from "./helpers/loadingRoute";
 
 const App = ({ isAuthenticated, actionType }) => {
   return (
@@ -12,7 +13,7 @@ const App = ({ isAuthenticated, actionType }) => {
       {actionType === authActions.TOKEN_VERIFICATION_IN_PROGRESS ? (
         <Switch>
           <Route exact path="/" component={r.home} />
-          <Route component={r.loading} />
+          <LoadingRoute text={"Signing You In..."} />
         </Switch>
       ) : (
         <Switch>
