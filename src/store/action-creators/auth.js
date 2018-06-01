@@ -24,7 +24,7 @@ export const signin = obj => {
         } else {
           message = "connection error";
         }
-        dispatch({ type: authActions.LOGIN_SUCCESSFUL, message });
+        dispatch({ type: authActions.LOGIN_FAILED, message });
       });
   };
 };

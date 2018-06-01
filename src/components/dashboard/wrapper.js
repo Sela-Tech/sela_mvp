@@ -1,9 +1,9 @@
 import React from "react";
 import Helmet from "react-helmet";
-
-const WrapperElem = ({ children }) => {
-  return <div>{children}</div>;
-};
+import { StyledWrapperElem } from "../../styles/dashboard/wrapper";
+import DashboardSidebar from "./sidebar";
+import Modal from "../modals";
+import { connect } from "react-redux";
 
 const MetaData = ({ viewName }) => {
   switch (viewName) {
@@ -33,21 +33,24 @@ const MetaData = ({ viewName }) => {
   }
 };
 
-class Wrapper extends React.Component {
-  constructor(props) {
-    super(props);
-    this.state = {};
-  }
-
-  render() {
-    const { viewName, children } = this.props;
-    return (
-      <WrapperElem>
+const Wrapper = ({ viewName, children, modalToShow }) => {
+  return (
+    <StyledWrapperElem>
+      <div className="xs-12 md-2" id="sdbar-wrpr">
+        <DashboardSidebar />
+      </div>
+      <div className="xs-12 md-10" id="main-wrpr">
         <MetaData viewName={viewName} />
+        <Modal name={modalToShow} />
         {children}
-      </WrapperElem>
-    );
-  }
-}
+      </div>
+    </StyledWrapperElem>
+  );
+};
 
-export default Wrapper;
+const mapStateToProps = state => {
+  return {
+    modalToShow: state.dashboard.modalToShow
+  };
+};
+export default connect(mapStateToProps)(Wrapper);
