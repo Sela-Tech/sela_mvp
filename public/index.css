@@ -50,3 +50,17 @@ button:disabled, input:disabled {
   cursor: not-allowed !important;
 }
 
+ul{
+  padding: 0;
+  margin: 0;
+}
+
+ul li{
+list-style-type: none;
+}
+
+.barely-visible{
+  height: .01px;
+  width: .01px;
+  overflow: hidden;
+}
