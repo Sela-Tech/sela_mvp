@@ -15,7 +15,8 @@ class Login extends React.Component {
     this.state = {
       formData: {
         username: "",
-        password: ""
+        password: "",
+        rememberMe: false
       }
     };
   }
@@ -34,8 +35,21 @@ class Login extends React.Component {
     });
   };
 
+  onCheck = e => {
+    this.setState(p => {
+      return {
+        formData: {
+          ...p.formData,
+          rememberMe: !p.formData.rememberMe
+        }
+      };
+    });
+  };
+
   render() {
     const { signin_auth_in_progress } = this.props;
+
+    console.log(this.state.formData);
     return (
       <Wrapper viewName="signin">
         <div className="container">
@@ -76,7 +90,12 @@ class Login extends React.Component {
 
                 <div className="extremes xs-12">
                   <div className="xs-6">
-                    <input type="checkbox" name="remember-me" />
+                    <input
+                      type="checkbox"
+                      name="rememberMe"
+                      value={this.state.formData.rememberMe}
+                      onChange={this.onCheck}
+                    />
                     <label> Keep me signed in</label>
                   </div>
 
@@ -112,7 +131,7 @@ const mapStateToProps = state => {
 
   return {
     signin_auth_type: type,
-    signin_auth_in_progress: type === auth.LOGIN_IN_PROGRESS,
+    signin_auth_in_progress: type === auth.SIGNIN_IN_PROGRESS,
     signin_auth_message: message
   };
 };

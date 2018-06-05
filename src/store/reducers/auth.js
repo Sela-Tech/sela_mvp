@@ -39,30 +39,30 @@ export default (state = initstate, payload) => {
         }
       };
 
-    case authActions.LOGIN_IN_PROGRESS:
+    case authActions.SIGNIN_IN_PROGRESS:
       return {
         ...state,
         action: {
-          type: authActions.LOGIN_IN_PROGRESS
+          type: authActions.SIGNIN_IN_PROGRESS
         }
       };
 
-    case authActions.LOGIN_SUCCESSFUL:
+    case authActions.SIGNIN_SUCCESSFUL:
       return {
         ...state,
         action: {
-          type: authActions.LOGIN_SUCCESSFUL,
+          type: authActions.SIGNIN_SUCCESSFUL,
           message: payload.message || "Logged In Successfully"
         },
         isAuthenticated: true,
         credentials: payload.credentials
       };
 
-    case authActions.LOGIN_FAILED:
+    case authActions.SIGNIN_FAILED:
       return {
         ...state,
         action: {
-          type: authActions.LOGIN_FAILED,
+          type: authActions.SIGNIN_FAILED,
           message: payload.message || "Log in Failed"
         }
       };
@@ -148,6 +148,13 @@ export default (state = initstate, payload) => {
           message:
             payload.message || "Failed to send email for account recovery email"
         }
+      };
+
+    case authActions.SIGNOUT:
+      localStorage.removeItem("token");
+      return {
+        ...state,
+        isAuthenticated: false
       };
 
     default:

@@ -2,10 +2,15 @@ import ax from "axios";
 import authActions from "../actions/auth";
 import e from "../../endpoints";
 import Qs from "querystring";
+import { retrieveToken, setToken } from "../../helpers/TokenManager";
+
+export const signout = () => {
+  return { type: authActions.SIGNOUT };
+};
 
 export const signin = obj => {
   return dispatch => {
-    dispatch({ type: authActions.LOGIN_IN_PROGRESS });
+    dispatch({ type: authActions.SIGNIN_IN_PROGRESS });
     ax({
       url: e.signin,
       method: "POST",
@@ -13,8 +18,12 @@ export const signin = obj => {
     })
       .then(({ data }) => {
         if (data.token) {
-          localStorage.setItem("token", data.token);
-          dispatch({ type: authActions.LOGIN_SUCCESSFUL, data });
+          if (obj.rememberMe) {
+            setToken("ls", data.token);
+          } else {
+            setToken("ss", data.token);
+          }
+          dispatch({ type: authActions.SIGNIN_SUCCESSFUL, data });
         }
       })
       .catch(({ response }) => {
@@ -24,7 +33,7 @@ export const signin = obj => {
         } else {
           message = "connection error";
         }
-        dispatch({ type: authActions.LOGIN_FAILED, message });
+        dispatch({ type: authActions.SIGNIN_FAILED, message });
       });
   };
 };
@@ -35,7 +44,7 @@ export const verify_user_token = () => {
     ax({
       url: e.verify_user_token,
       method: "POST",
-      data: Qs.stringify({ token: localStorage.getItem("token") }),
+      data: Qs.stringify({ token: retrieveToken() }),
       headers: {
         "Content-Type": "application/x-www-form-urlencoded"
       }
