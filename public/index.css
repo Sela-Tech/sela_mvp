@@ -10,8 +10,8 @@ html,body {
   height: 100%;
   width: auto;
 }
-button{
-  outline: none;
+button,a{
+  outline: none !important;
 }
 
 * {
@@ -33,10 +33,10 @@ text-align: center
   }
 }
 
-input:required {
+input:required,textarea:invalid {
   box-shadow:none;
 }
-input:invalid {
+input:invalid,textarea:invalid {
   box-shadow:none;
 }
 

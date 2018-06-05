@@ -1,4 +1,5 @@
 import authActions from "../actions/auth";
+import { clearToken } from "../../helpers/TokenManager";
 
 const initstate = {
   action: {
@@ -151,7 +152,7 @@ export default (state = initstate, payload) => {
       };
 
     case authActions.SIGNOUT:
-      localStorage.removeItem("token");
+      clearToken();
       return {
         ...state,
         isAuthenticated: false

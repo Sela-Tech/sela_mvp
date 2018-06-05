@@ -1,7 +1,7 @@
 const authentication = require("./authentication"),
   projects = require("./projects"),
   config = {
-    timeout: 1000
+    timeout: 2000
   };
 
 module.exports = function(app, db) {

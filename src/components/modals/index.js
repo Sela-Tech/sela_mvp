@@ -8,13 +8,14 @@ import modalActions from "../../store/actions/modals";
 
 const ModalWrapperStyler = styled.div`
 position: fixed;
-z-index; 2;
+z-index; 1;
 top: 0;
 left: 0;
 right: 0;
 bottom: 0;
 background: rgba(251, 251, 251, 0.66);
 backdrop-filter: blur(4px);
+overflow: auto;
 
 #form-container{
 background: #FFFFFF;
@@ -30,6 +31,7 @@ padding: 2em;
   line-height: normal;
   font-size: 28px;
   margin: 0;
+  font-weight: 500;
   color: #4F4F4F;
 }
 

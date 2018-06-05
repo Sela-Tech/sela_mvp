@@ -13,11 +13,12 @@ const App = ({ isAuthenticated, actionType }) => {
       {actionType === authActions.TOKEN_VERIFICATION_IN_PROGRESS ? (
         <Switch>
           <Route exact path="/" component={r.home} />
-          <LoadingRoute text={"Signing You In..."} />
+          <LoadingRoute text={"Please Wait..."} />
         </Switch>
       ) : (
         <Switch>
           <Route exact path="/" component={r.home} />
+
           <PrivateRoute
             exact
             path="/signin"

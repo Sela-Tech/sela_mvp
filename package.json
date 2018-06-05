@@ -4,7 +4,12 @@
   "private": true,
   "dependencies": {
     "axios": "^0.18.0",
+    "moment": "^2.22.2",
+    "netlify": "^1.2.0",
+    "now": "^11.2.1",
+    "rc-progress": "^2.2.5",
     "react": "^16.3.2",
+    "react-datepicker": "^1.5.0",
     "react-dom": "^16.3.2",
     "react-helmet": "^5.2.0",
     "react-redux": "^5.0.7",

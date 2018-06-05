@@ -48,8 +48,6 @@ class Login extends React.Component {
 
   render() {
     const { signin_auth_in_progress } = this.props;
-
-    console.log(this.state.formData);
     return (
       <Wrapper viewName="signin">
         <div className="container">
