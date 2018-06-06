@@ -74,11 +74,15 @@ var projectStructure = {
         ref: 'Milestone',
         default: []
     },*/
-    tasks: {
+    /*tasks: {
         type: [ObjectId],
         ref: 'Task',
         default: []
-    },
+    },*/
+    tasks: [{
+              type: ObjectId,
+              ref: 'Task'
+    }],
     owner: {
         type: ObjectId,
         ref: 'Organization',

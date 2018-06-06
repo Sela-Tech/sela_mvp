@@ -1,0 +1,8 @@
+{
+  "name":"Kayode Task",
+  "description":"Kayode's first task",
+  "project":"5b06f63fc570e4000422b6c7",
+  "dueDate":"2018-05-25T14:49:10.100Z",
+  "createdBy":{"$oid": "abcdefghijklmnopqrstuvwx"},
+  "assignedTo":{"$oid": "abcdefghijklmnopqrstuvwx"}
+}

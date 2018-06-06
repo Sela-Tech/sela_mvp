@@ -161,23 +161,42 @@ app.get("/projects", (req, res) => {
 app.post("/task", (req, res) => {
     var successRes = {"success":true};
     var failRes = {"success":false};
-    // TODO: post task to db
-    var taskObj = {};
-    taskObj.name = req.body.name;
-    taskObj.description = req.body.description;
-    taskObj.project = req.body.project;
-    taskObj.dueDate = req.body.dueDate;
-    taskObj.assignedTo = req.body.assignedTo;
-    taskObj.createdBy = req.body.createdBy;
-    // taskObj.location = req.body.location;
-    var newTask = new Task(taskObj);
-    newTask.save((taskErr) => {
-        if (taskErr) {
-          // failRes.message = "Sela is experiencing network issues. Please try again momentarily";
-          failRes.message = taskErr.name + ": " + taskErr.message;
-          return res.status(500).json(failRes);
-        }
-        return res.status(200).json(successRes);
+    var projectQuery = {"_id": req.body.project};
+    Project.findOne(projectQuery, (projFindErr, project) => {
+      if (projFindErr) {
+        // failRes.message = "Sela is experiencing network issues. Please try again momentarily";
+        failRes.message = projFindErr.name + ": " + projFindErr.message;
+        return res.status(500).json(failRes);
+      }
+      if (!project) {
+        failRes.message = "Sela does not have a project with ID " + req.body.project + ". Please try another project ID";
+        return res.status(401).json(failRes);
+      }
+      var taskObj = {};
+      taskObj.name = req.body.name;
+      taskObj.description = req.body.description;
+      taskObj.project = req.body.project;
+      taskObj.dueDate = req.body.dueDate;
+      taskObj.assignedTo = req.body.assignedTo;
+      taskObj.createdBy = req.body.createdBy;
+      // taskObj.location = req.body.location;
+      var newTask = new Task(taskObj);
+      newTask.save((taskErr) => {
+          if (taskErr) {
+            // failRes.message = "Sela is experiencing network issues. Please try again momentarily";
+            failRes.message = taskErr.name + ": " + taskErr.message;
+            return res.status(500).json(failRes);
+          }
+          project.tasks.push(newTask);
+          project.save((projSaveErr) => {
+            if (projSaveErr) {
+              // failRes.message = "Sela is experiencing network issues. Please try again momentarily";
+              failRes.message = projSaveErr.name + ": " + projSaveErr.message;
+              return res.status(500).json(failRes);
+            }
+            return res.status(200).json(successRes);
+          });
+      });
     });
 });
 
