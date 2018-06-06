@@ -92,7 +92,7 @@ class App extends Component {
       return (
         <div className="App">
           <header className="App-header">
-            <h1> Ethereum and InterPlanetary File System(IPFS) with Create React App</h1>
+            <h1> Upload file on the Sela platform through IPFS</h1>
           </header>
           
           <hr />
