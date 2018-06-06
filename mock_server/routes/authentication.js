@@ -1,25 +1,25 @@
 module.exports = function(app, db, config) {
-  app.post("/signin", (req, res) => {
-    setTimeout(() => {
+  app.post("/login", (req, res) => {
+    // setTimeout(() => {
       res.status(200).json({
         token: "090fj923fj2039fj390j932j032j9cj3029j"
       });
-    }, config.timeout);
+    // }, config.timeout);
   });
 
-  app.post("/signup", (req, res) => {
-    setTimeout(() => {
+  app.post("/register", (req, res) => {
+    // setTimeout(() => {
       res.status(200).json({});
-    }, config.timeout);
+    // }, config.timeout);
   });
 
   app.post("/verify-token", (req, res) => {
-    setTimeout(() => {
+    // setTimeout(() => {
       if (req.body.token === "090fj923fj2039fj390j932j032j9cj3029j") {
         res.status(200).json({});
       } else {
         res.status(400).json({});
       }
-    }, config.timeout);
+    // }, config.timeout);
   });
 };

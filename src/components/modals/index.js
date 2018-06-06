@@ -77,7 +77,7 @@ class ModalWrapper extends React.Component {
         <ModalWrapperStyler>
           <div className="center-wrapper">
             <div className="center">
-              <div id="form-container" className="xs-10 xs-off-1 sm-6 sm-off-3">
+              <div id="form-container" className="xs-12 sm-6 sm-off-3">
                 <div className="xs-11">
                   <h1 id="form-heading">{name}</h1>
                 </div>

@@ -8,6 +8,8 @@ import { bindActionCreators } from "redux";
 import { signin } from "../../store/action-creators/auth";
 import AsycnButton from "../../components/authentication/async-button";
 import auth from "../../store/actions/auth";
+import MessageToShow from "../../components/errors/messageBox";
+
 
 class Login extends React.Component {
   constructor(props) {
@@ -46,8 +48,18 @@ class Login extends React.Component {
     });
   };
 
+  componentWillReceiveProps(nextProps) {
+    if (this.props !== nextProps) {
+      this.setState({
+        type: nextProps.type,
+        message: nextProps.message,
+        inprogress: nextProps.inprogress
+      });
+    }
+  }
+
   render() {
-    const { signin_auth_in_progress } = this.props;
+    const { inprogress, message, type } = this.state;
     return (
       <Wrapper viewName="signin">
         <div className="container">
@@ -68,7 +80,7 @@ class Login extends React.Component {
                   name="username"
                   type="text"
                   className="form-control"
-                  placeholder="Email or Phone Number"
+                  placeholder="Username"
                   onChange={this.onChange}
                   value={this.state.formData.username}
                   required
@@ -106,12 +118,16 @@ class Login extends React.Component {
               </div>
 
               <div className="form-group xs-12">
-                <AsycnButton id="submit-btn" attempt={signin_auth_in_progress}>
+                <AsycnButton id="submit-btn" attempt={inprogress}>
                   Sign in
                 </AsycnButton>
               </div>
 
               <div className="form-group xs-12">
+                <div className="error">
+                  <MessageToShow type={type} message={message} match={auth.SIGNIN_FAILED}/>
+                </div>
+           
                 <Link to="/signup" className="link" style={{ fontSize: "1em" }}>
                   Don’t have an account? Sign up.
                 </Link>
@@ -128,9 +144,9 @@ const mapStateToProps = state => {
   const { type, message } = state.auth.action;
 
   return {
-    signin_auth_type: type,
-    signin_auth_in_progress: type === auth.SIGNIN_IN_PROGRESS,
-    signin_auth_message: message
+    type,
+    inprogress: type === auth.SIGNIN_IN_PROGRESS,
+    message
   };
 };
 const mapDispatchToProps = dispatch => {

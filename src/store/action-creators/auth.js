@@ -24,6 +24,9 @@ export const signin = obj => {
             setToken("ss", data.token);
           }
           dispatch({ type: authActions.SIGNIN_SUCCESSFUL, data });
+        }else{
+          let message =  data.message;
+          dispatch({ type: authActions.SIGNIN_FAILED, message });
         }
       })
       .catch(({ response }) => {
@@ -31,7 +34,7 @@ export const signin = obj => {
         if (response) {
           message = response.message || response.data.message;
         } else {
-          message = "connection error";
+          message = "Connection Error";
         }
         dispatch({ type: authActions.SIGNIN_FAILED, message });
       });
@@ -57,7 +60,7 @@ export const verify_user_token = () => {
         if (response) {
           message = response.message || response.data.message;
         } else {
-          message = "connection error";
+          message = "Connection Error";
         }
         dispatch({ type: authActions.TOKEN_VERIFICATION_FAILED, message });
       });

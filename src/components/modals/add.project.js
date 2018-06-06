@@ -8,6 +8,7 @@ import { connect } from "react-redux";
 import { addProject } from "../../store/action-creators/dashboard/home";
 import AsyncButton from "../authentication/async-button";
 import dashboardActions from "../../store/actions/dashboard";
+import MessageToShow from "../errors/messageBox";
 
 const Form = styled.form`
   #date-part {
@@ -138,23 +139,6 @@ const mapStateToProps = state => {
 
 const placeholderDate = new Date().getFullYear() + "-01-01";
 
-const MessageToShow = ({ message, type }) => {
-  const P = styled.p`
-    color: ${type === dashboardActions.ADD_PROJECT_SUCCESSFUL
-      ? "#328abe"
-      : "red"};
-    text-align: center;
-    margin: 0.5em 0 0;
-    font-size: 1em;
-  `;
-
-  switch (message === undefined) {
-    case false:
-      return <P className="xs-12">{message}</P>;
-    default:
-      return null;
-  }
-};
 
 export default connect(mapStateToProps)(
   class AddProjectModal extends React.Component {
@@ -321,7 +305,7 @@ export default connect(mapStateToProps)(
               Create Project
             </AsyncButton>
           </div>
-          <MessageToShow type={type} message={message} />
+          <MessageToShow type={type} message={message} match={dashboardActions.ADD_PROJECT_SUCCESSFUL}/>
         </Form>
       );
     }
