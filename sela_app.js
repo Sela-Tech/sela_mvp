@@ -192,6 +192,7 @@ app.post("/task", (req, res) => {
             return res.status(500).json(failRes);
           }
           project.tasks.push(newTask);
+          return res.status(200).json(successRes);
           /*project.save((projSaveErr) => {
             if (projSaveErr) {
               // failRes.message = "Sela is experiencing network issues. Please try again momentarily";
