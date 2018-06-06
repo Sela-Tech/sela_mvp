@@ -161,17 +161,22 @@ app.get("/projects", (req, res) => {
 app.post("/task", (req, res) => {
     var successRes = {"success":true};
     var failRes = {"success":false};
-    var projectQuery = {"_id": req.body.project};
-    Project.findOne(projectQuery, (projFindErr, project) => {
+    var projId = req.body.project;
+    if (!projId.match(/^[0-9a-fA-F]{24}$/)) {
+        failRes.message = "That is not a valid project ID in Sela";
+        return res.status(401).json(failRes);
+    }
+    Project.findById(projId, (projFindErr, project) => {
       if (projFindErr) {
         // failRes.message = "Sela is experiencing network issues. Please try again momentarily";
         failRes.message = projFindErr.name + ": " + projFindErr.message;
         return res.status(500).json(failRes);
       }
       if (!project) {
-        failRes.message = "Sela does not have a project with ID " + req.body.project + ". Please try another project ID";
+        failRes.message = "Sela does not have a project with ID " + projId + ". Please try another project ID";
         return res.status(401).json(failRes);
       }
+      console.log("PROJECT:", project);
       var taskObj = {};
       taskObj.name = req.body.name;
       taskObj.description = req.body.description;
