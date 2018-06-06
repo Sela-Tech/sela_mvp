@@ -23,11 +23,11 @@ var taskStructure = {
         type: ObjectId,
         ref: 'Project'
     }, // reference to associated project
-    due_date: {
+    dueDate: {
         type: Date,
         required: true
     },
-    end_date: {
+    endDate: {
         type: Date,
         default: null,
     },
@@ -43,11 +43,11 @@ var taskStructure = {
         ref: 'User',
         default: null
     },
-    createdById: {
+    createdBy: {
         type: ObjectId,
         ref: 'User'
     },
-    completedById: {
+    completedBy: {
         type: ObjectId,
         ref: 'User',
         default: null

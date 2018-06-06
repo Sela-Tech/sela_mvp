@@ -19,6 +19,7 @@ var dotenv = require('dotenv');
 var http = require('http');
 var User = require('./app/models/user');
 var Project = require('./app/models/project');
+var Task = require('./app/models/task');
 // var MongoClient = require('mongodb').MongoClient;
 // var MongoURI = process.env.MONGO_URI;
 // var mongoose = require('mongoose');
@@ -58,36 +59,6 @@ if (process.env.NODE_ENV === 'development') {
 
 environmentsAll.call(app);
 
-app.post("/login", (req, res) => {
-    var checkQuery = {};
-    var successRes = {"success":true, "message":""};
-    var failRes = {"success":false, "message":""};
-    checkQuery.username = req.body.username;
-    User.findOne(checkQuery, (checkErr, user) => {
-      if (checkErr) {
-        // failRes.message = "Sela is experiencing network issues. Please try again momentarily";
-        failRes.message = checkErr.name + ": " + checkErr.message;
-        return res.json(failRes);
-      }
-      if (!user) {
-        failRes.message = "Sela does not have an account for " + checkQuery.username + ". Please try another username or follow the link below to register";
-        return res.json(failRes);
-      }
-      user.comparePassword(req.body.password, (passErr, isMatch) => {
-        if (passErr) {
-          // failRes.message = "Sela is experiencing network issues. Please try again momentarily";
-          failRes.message = passErr.name + ": " + passErr.message;
-          return res.json(failRes);
-        }
-        if (isMatch) {
-          return res.json(successRes);
-        }
-        failRes.message = "That is the wrong password for " + checkQuery.username + ". Please try again";
-        return res.json(failRes);
-      });
-    });
-});
-
 app.post("/register", (req, res) => {
     var checkQuery = {};
     var successRes = {"success":true};
@@ -97,26 +68,56 @@ app.post("/register", (req, res) => {
       if (checkErr) {
         // failRes.message = "Sela is experiencing network issues. Please try again momentarily";
         failRes.message = checkErr.name + ": " + checkErr.message;
-        return res.json(failRes);
+        return res.status(500).json(failRes);
       }
       if (user) {
         failRes.message = "Sela already has an account for " + checkQuery.username + ". Please try another username";
-        return res.json(failRes);
+        return res.status(401).json(failRes);
       }
       var userObj = {};
-      userObj.first_name = req.body.first_name;
-      userObj.family_name = req.body.family_name;
+      userObj.firstName = req.body.firstName;
+      userObj.familyName = req.body.familyName;
       userObj.username = req.body.username;
-      userObj.public_key = req.body.public_key;
+      userObj.publicKey = req.body.publicKey;
       userObj.password = req.body.password;
       var newUser = new User(userObj);
       newUser.save((regErr) => {
         if (regErr) {
           // failRes.message = "Sela is experiencing network issues. Please try again momentarily";
           failRes.message = regErr.name + ": " + regErr.message;
-          return res.json(failRes);
+          return res.status(500).json(failRes);
         }
-        return res.json(successRes);
+        return res.status(200).json(successRes);
+      });
+    });
+});
+
+app.post("/login", (req, res) => {
+    var checkQuery = {};
+    var successRes = {"success":true, "message":""};
+    var failRes = {"success":false, "message":""};
+    checkQuery.username = req.body.username;
+    User.findOne(checkQuery, (checkErr, user) => {
+      if (checkErr) {
+        // failRes.message = "Sela is experiencing network issues. Please try again momentarily";
+        failRes.message = checkErr.name + ": " + checkErr.message;
+        return res.status(500).json(failRes);
+      }
+      if (!user) {
+        failRes.message = "Sela does not have an account for " + checkQuery.username + ". Please try another username or follow the link below to register";
+        return res.status(401).json(failRes);
+      }
+      user.comparePassword(req.body.password, (passErr, isMatch) => {
+        if (passErr) {
+          // failRes.message = "Sela is experiencing network issues. Please try again momentarily";
+          failRes.message = passErr.name + ": " + passErr.message;
+          return res.status(500).json(failRes);
+        }
+        if (isMatch) {
+          return res.status(200).json(successRes);
+        }
+        failRes.message = "That is the wrong password for " + checkQuery.username + ". Please try again";
+        return res.status(500).json(failRes);
       });
     });
 });
@@ -128,17 +129,17 @@ app.post("/project", (req, res) => {
     var projectObj = {};
     projectObj.name = req.body.name;
     projectObj.description = req.body.description;
-    projectObj.start_date = req.body.start_date;
-    projectObj.end_date = req.body.end_date;
+    projectObj.startDate = req.body.startDate;
+    projectObj.endDate = req.body.endDate;
     // projectObj.location = req.body.location;
     var newProject = new Project(projectObj);
     newProject.save((projErr) => {
         if (projErr) {
           // failRes.message = "Sela is experiencing network issues. Please try again momentarily";
           failRes.message = projErr.name + ": " + projErr.message;
-          return res.json(failRes);
+          return res.status(500).json(failRes);
         }
-        return res.json(successRes);
+        return res.status(200).json(successRes);
     });
 });
 
@@ -150,10 +151,48 @@ app.get("/projects", (req, res) => {
       if (checkErr) {
         // failRes.message = "Sela is experiencing network issues. Please try again momentarily";
         failRes.message = checkErr.name + ": " + checkErr.message;
-        return res.json(failRes);
+        return res.status(500).json(failRes);
       }
       successRes.projects = projects;
-      return res.json(successRes);
+      return res.status(200).json(successRes);
+    });
+});
+
+app.post("/task", (req, res) => {
+    var successRes = {"success":true};
+    var failRes = {"success":false};
+    // TODO: post task to db
+    var taskObj = {};
+    taskObj.name = req.body.name;
+    taskObj.description = req.body.description;
+    taskObj.project = req.body.project;
+    taskObj.dueDate = req.body.dueDate;
+    taskObj.assignedTo = req.body.assignedTo;
+    taskObj.createdBy = req.body.createdBy;
+    // taskObj.location = req.body.location;
+    var newTask = new Task(taskObj);
+    newTask.save((taskErr) => {
+        if (taskErr) {
+          // failRes.message = "Sela is experiencing network issues. Please try again momentarily";
+          failRes.message = taskErr.name + ": " + taskErr.message;
+          return res.status(500).json(failRes);
+        }
+        return res.status(200).json(successRes);
+    });
+});
+
+app.get("/tasks", (req, res) => {
+    var successRes = {"success":true};
+    var failRes = {"success":false};
+    var checkQuery = {};
+    Task.find(checkQuery, (checkErr, tasks) => {
+      if (checkErr) {
+        // failRes.message = "Sela is experiencing network issues. Please try again momentarily";
+        failRes.message = checkErr.name + ": " + checkErr.message;
+        return res.status(500).json(failRes);
+      }
+      successRes.tasks = tasks;
+      return res.status(200).json(successRes);
     });
 });
 

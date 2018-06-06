@@ -5,13 +5,13 @@ var Schema = mongoose.Schema;
 
 
 var userStructure = {
-    first_name: {
+    firstName: {
         type: String,
         required: true,
         min: 1,
         max: 100
     },
-    family_name: {
+    familyName: {
         type: String,
         required: true,
         max: 100
@@ -21,7 +21,7 @@ var userStructure = {
         unique: true,
         lowercase: true,
     },
-    public_key: {
+    publicKey: {
         type: String,
         unique: true,
     },

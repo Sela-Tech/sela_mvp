@@ -39,6 +39,7 @@
     "express-validator": "*",
     "install": "^0.10.2",
     "js-schema": "^1.0.1",
+    "jsonwebtoken": "^8.2.2",
     "moment": "2.20.1",
     "mongodb": "^3.0.0-rc0",
     "mongoose": "4.13.9",

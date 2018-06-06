@@ -5,10 +5,10 @@ Sela includes a REST API in the backend that performs business-critical operatio
   - Route: /register
   - Method: POST
   - Parameters:
-    - *first_name*: user's first name
-    - *family_name*: user's family name
+    - *firstName*: user's first name
+    - *familyName*: user's family name
     - *username*: user's username
-    - *public_key*: user's public key
+    - *publicKey*: user's public key
     - *password*: user's password
   - Response: ----------------
 
@@ -26,16 +26,16 @@ Sela includes a REST API in the backend that performs business-critical operatio
   - Parameters:
     - *name*: name of project
     - *description*: description of project
-    - *start_date*: start date of project
-    - *end_date*: end date of project
-    - *auth_token*: token authenticating user in system
+    - *startNate*: start date of project
+    - *endDate*: end date of project
+    - *authToken*: token authenticating user in system
   - Response: ----------------
 
 - **GetProjects**
   - Route: /projects
   - Method: GET
   - Parameters:
-    - *auth_token*: token authenticating user in system
+    - *authToken*: token authenticating user in system
   - Response:
     - *projects*: list of projects with which user is associated
 
@@ -46,17 +46,17 @@ Sela includes a REST API in the backend that performs business-critical operatio
     - *name*: name of task
     - *description*: description of task
     - *project*: id of project with which task is associated
-    - *due_date*: due date of task 
-    - *assigned_to*: id of task assignee
-    - *created_by*: id of task creator
-    - *auth_token*: token authenticating user in system
+    - *dueDate*: due date of task 
+    - *assignedTo*: id of task assignee
+    - *createdBy*: id of task creator
+    - *authToken*: token authenticating user in system
   - Response: ----------------
 
 - **GetTasks**
   - Route: /tasks
   - Method: GET
   - Parameters:
-    - *auth_token*: token authenticating user in system
+    - *authToken*: token authenticating user in system
   - Response:
     - *tasks*: list of tasks with which user is associated
 
