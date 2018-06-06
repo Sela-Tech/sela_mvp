@@ -208,7 +208,7 @@ app.post("/task", (req, res) => {
 app.get("/tasks", (req, res) => {
     var successRes = {"success":true};
     var failRes = {"success":false};
-    var checkQuery = {};
+    var checkQuery = {"_id": req.body.project};
     Task.find(checkQuery, (checkErr, tasks) => {
       if (checkErr) {
         // failRes.message = "Sela is experiencing network issues. Please try again momentarily";
