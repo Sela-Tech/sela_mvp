@@ -31,11 +31,11 @@ const ProjectTemplate = ({ c, t, d, p, pr }) => {
 };
 const NotEmptyHomeView = ({ dispatch }) => {
   return (
-    <NotEmptyWrapper>
+    <NotEmptyWrapper className="xs-12">
       <div id="top">
         <h3>Projects</h3>
       </div>
-      <div id="bottom">
+      <div id="bottom" className="xs-12">
         <ProjectTemplate
           c={5}
           t={"K-Dere Clean Up"}

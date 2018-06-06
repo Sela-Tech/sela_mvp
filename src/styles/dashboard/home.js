@@ -41,7 +41,14 @@ export const EmptyWrapper = styled.div`
 
 export const NotEmptyWrapper = styled.div`
   text-align: center;
-  height: 100%;
+  
+  @media (min-width: 1024px) {
+    height: 100%;
+  }
+  @media (max-width: 1023px) {
+    height: auto;
+  }
+
   #top {
     padding: 10vh 0 5vh;
   }

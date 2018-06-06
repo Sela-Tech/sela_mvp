@@ -124,15 +124,17 @@ export const MobileSidebar = styled.div`
     }
 
     position: relative;
-    transition: 300ms;
+    transition: 125ms;
     left: -100vw;
     background: white;
-    height: calc(100vh - 90px);
+    height: 0;
     box-shadow: 1px 0px 0px 0px #eee;
-    padding: 3em 1.25em;
-
+    padding: 0;
     &.opened {
       left: 0px;
+      height: calc(100vh - 90px);
+      padding: 3em 1.25em;
+
     }
 
     h4 {

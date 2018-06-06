@@ -35,11 +35,11 @@ const MetaData = ({ viewName }) => {
 
 const Wrapper = ({ viewName, children, modalToShow }) => {
   return (
-    <StyledWrapperElem>
+    <StyledWrapperElem className="xs-12">
       <div className="xs-12 md-2" id="sdbar-wrpr">
         <DashboardSidebar />
       </div>
-      <div className="xs-12 md-10" id="main-wrpr">
+      <div className="xs-12 md-10 md-off-2" id="main-wrpr">
         <MetaData viewName={viewName} />
         <Modal name={modalToShow} />
         {children}

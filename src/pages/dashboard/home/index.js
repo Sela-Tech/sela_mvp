@@ -23,10 +23,13 @@ class DashboardHomeContainer extends React.Component {
       case dashboard.FETCHING_PROJECTS_IN_PROGRESS:
         return (
           <DashboardWrapper viewName="home">
+          <div style={{width: "100%",height: "100vh"}}>
             <LoadingRoute>
               <SpinnerTypeone />
             </LoadingRoute>
+            </div>
           </DashboardWrapper>
+
         );
       default:
         return (
