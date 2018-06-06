@@ -176,7 +176,6 @@ app.post("/task", (req, res) => {
         failRes.message = "Sela does not have a project with ID " + projId + ". Please try another project ID";
         return res.status(401).json(failRes);
       }
-      console.log("PROJECT:", project);
       var taskObj = {};
       taskObj.name = req.body.name;
       taskObj.description = req.body.description;
@@ -193,14 +192,14 @@ app.post("/task", (req, res) => {
             return res.status(500).json(failRes);
           }
           project.tasks.push(newTask);
-          project.save((projSaveErr) => {
+          /*project.save((projSaveErr) => {
             if (projSaveErr) {
               // failRes.message = "Sela is experiencing network issues. Please try again momentarily";
               failRes.message = projSaveErr.name + ": " + projSaveErr.message;
               return res.status(500).json(failRes);
             }
             return res.status(200).json(successRes);
-          });
+          });*/
       });
     });
 });
