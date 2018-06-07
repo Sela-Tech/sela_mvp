@@ -79,10 +79,10 @@ var projectStructure = {
         ref: 'Task',
         default: []
     },*/
-    tasks: [{
+    /*tasks: [{
               type: ObjectId,
               ref: 'Task'
-    }],
+    }],*/
     owner: {
         type: ObjectId,
         ref: 'Organization',

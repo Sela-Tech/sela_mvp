@@ -191,7 +191,7 @@ app.post("/task", (req, res) => {
             failRes.message = taskErr.name + ": " + taskErr.message;
             return res.status(500).json(failRes);
           }
-          project.tasks.push(newTask);
+          // project.tasks.push(newTask);
           return res.status(200).json(successRes);
           /*project.save((projSaveErr) => {
             if (projSaveErr) {
