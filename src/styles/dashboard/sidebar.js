@@ -68,9 +68,20 @@ export const WebSidebar = styled.div`
     ul {
       li {
         a {
-          display: block;
+          display: inline-block;
           padding: 0.25em 0;
-
+          transition: 250ms;
+          &:hover {
+            span {
+              color: cornflowerblue;
+              transform: scale(1.2);
+            }
+          }
+          &:active {
+            span {
+              color: cornflowerblue;
+            }
+          }
           img {
             display: inline-block;
             position: relative;
@@ -81,6 +92,7 @@ export const WebSidebar = styled.div`
             line-height: normal;
             font-size: 0.85em;
             padding: 0 1em;
+            display: inline-block;
             color: #828282;
           }
         }
@@ -134,7 +146,6 @@ export const MobileSidebar = styled.div`
       left: 0px;
       height: calc(100vh - 90px);
       padding: 3em 1.25em;
-
     }
 
     h4 {
@@ -152,7 +163,17 @@ export const MobileSidebar = styled.div`
         a {
           display: block;
           padding: 0.25em 0;
-
+          &:hover {
+            span {
+              color: cornflowerblue;
+              transform: scale(1.2);
+            }
+          }
+          &:active {
+            span {
+              color: cornflowerblue;
+            }
+          }
           img {
             display: inline-block;
             position: relative;

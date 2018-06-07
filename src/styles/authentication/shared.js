@@ -6,6 +6,9 @@ export default styled.div`
   display: table;
   background: white;
 
+  p {
+    font-weight: 300;
+  }
   input.form-control {
     background: #f4f4f4;
     border-radius: 4px;
@@ -17,7 +20,7 @@ export default styled.div`
     width: 100%;
     font-weight: 400;
     transition: 300ms;
-
+    font-weight: 300;
     &:active,
     &:focus {
       box-shadow: 0 0 1px 0 #2d9cdb;
@@ -26,22 +29,22 @@ export default styled.div`
     &::-webkit-input-placeholder {
       /* Chrome/Opera/Safari */
       font-size: 1em;
-      color: rgba(0, 0, 0, 0.75);
+      color: rgba(35, 33, 42, 0.4878);
     }
     ::-moz-placeholder {
       /* Firefox 19+ */
       font-size: 1em;
-      color: rgba(0, 0, 0, 0.75);
+      color: rgba(35, 33, 42, 0.4878);
     }
     :-ms-input-placeholder {
       /* IE 10+ */
       font-size: 1em;
-      color: rgba(0, 0, 0, 0.75);
+      color: rgba(35, 33, 42, 0.4878);
     }
     :-moz-placeholder {
       /* Firefox 18- */
       font-size: 1em;
-      color: rgba(0, 0, 0, 0.75);
+      color: rgba(35, 33, 42, 0.4878);
     }
   }
 
@@ -50,10 +53,14 @@ export default styled.div`
   }
 
   .link {
-    line-height: normal;
-    font-size: 12px;
-    letter-spacing: 0.18px;
     color: #2d9cdb;
+  }
+
+  .link,
+  label {
+    line-height: normal;
+    font-size: 0.9em;
+    font-weight: 100;
   }
 
   .container {
@@ -75,28 +82,30 @@ export default styled.div`
       font-size: 1.5em;
       text-align: center;
       color: #0a1f46;
+      font-weight: 400;
     }
 
     #submit-btn {
       background: #1ecd97;
       border-radius: 4px;
-      padding: 1.5em;
+      padding: 1.5em 0;
+      max-width: 15em;
       width: 100%;
       font-size: 1em;
       color: white;
       border: 0;
+      font-weight: 300;
     }
 
     .extremes {
-      padding: 0.25em 0;
+      padding: 0.95em 0;
+
       div:nth-child(1) {
         text-align: left;
         input[type="checkbox"] {
           background: #f2f2f2;
         }
         label {
-          line-height: normal;
-          font-size: 12px;
           letter-spacing: 0.18px;
           color: #828282;
         }

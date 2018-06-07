@@ -9,7 +9,7 @@ import logout from "../../assets/icons/logout.svg";
 
 import { WebSidebar, MobileSidebar } from "../../styles/dashboard/sidebar";
 import { connect } from "react-redux";
-import { showModal } from "../../store/action-creators/dashboard/modal";
+import { showModal } from "../../store/action-creators/modal";
 import { signout } from "../../store/action-creators/auth";
 import modals from "../../store/actions/modals";
 import HamWrapper from "../../styles/external/hamburger";
@@ -51,19 +51,19 @@ const MobileDashboardSidebar = ({ dispatch, isOpened, toggleMenu }) => {
         <h4>MANAGE</h4>
         <ul>
           <li>
-            <Link to="">
+            <Link to="/dashboard">
               <img src={briefcase} alt="briefcase" />
               <span>Projects</span>
             </Link>
           </li>
           <li>
-            <Link to="">
+            <Link to="/account">
               <img src={account} alt="account" />
               <span>Account</span>
             </Link>
           </li>
           <li>
-            <Link to="">
+            <Link to="/settings">
               <img src={settings} alt="settings" />
               <span>Settings</span>
             </Link>
@@ -107,7 +107,7 @@ const WebDashboardSidebar = ({ dispatch }) => {
             </Link>
           </li>
           <li>
-            <Link to="">
+            <Link to="/account">
               <img src={account} alt="account" />
               <span>Account</span>
             </Link>

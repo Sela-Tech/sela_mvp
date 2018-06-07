@@ -4,11 +4,12 @@ export const StyledWrapperElem = styled.div`
   height: 100%;
   #sdbar-wrpr {
     position: fixed;
-      left: 0;
-  
+    left: 0;
+    z-index: 2;
+
     @media (min-width: 1024px) {
       height: 100%;
-      background: white;   
+      background: white;
     }
     @media (max-width: 1023px) {
       height: auto;
@@ -23,10 +24,9 @@ export const StyledWrapperElem = styled.div`
       margin-top: 4em;
     }
 
-    @media(min-width: 1024px){
+    @media (min-width: 1024px) {
       min-height: 100%;
       overflow: auto;
     }
-
   }
 `;

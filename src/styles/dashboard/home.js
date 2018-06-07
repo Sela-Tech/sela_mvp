@@ -2,7 +2,7 @@ import styled from "styled-components";
 
 export const EmptyWrapper = styled.div`
   text-align: center;
-  height: 100%;
+  height: 100vh;
   #top {
     padding: 10vh 0 5vh;
   }
@@ -41,7 +41,7 @@ export const EmptyWrapper = styled.div`
 
 export const NotEmptyWrapper = styled.div`
   text-align: center;
-  
+
   @media (min-width: 1024px) {
     height: 100%;
   }
@@ -63,40 +63,60 @@ export const NotEmptyWrapper = styled.div`
       border-radius: 17px;
       margin: 0.5em 1em;
       overflow: auto;
+      transition: 250ms;
+      cursor: pointer;
+      &:hover {
+        border-color: #156edc;
+        #add {
+          color: #156edc;
+        }
+      }
+      #add {
+        background: #ffffff;
+        border: 0;
+        font-size: 1em;
+        color: #adb5bd;
+        height: 249px;
+        text-align: center;
+        width: 100%;
+      }
 
       img {
-        height: 6em;
+        height: 5.5em;
         width: 100%;
         object-fit: cover;
         background: #444;
       }
 
       .inner {
-        padding: 1em;
+        padding: 1em 1.25em;
         .text {
           margin-bottom: 1em;
           h3,
           p {
             text-align: left;
-            margin: 0.5em;
+            margin: 0.5em 0;
             padding: 0;
           }
           h3 {
             font-size: 1em;
             color: #4f4f4f;
+            font-weight: 500;
           }
           p {
-            font-size: 0.9em;
+            font-size: 1em;
+            font-weight: 300;
             color: #adb5bd;
           }
         }
 
         .tasks {
           p {
-            font-size: 0.9em;
+            font-size: 0.85em;
+            font-weight: 100;
             color: #bdbdbd;
             text-align: left;
-            margin: 1em 0;
+            margin: 0.5em 0;
           }
         }
       }

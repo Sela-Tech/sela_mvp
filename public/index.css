@@ -1,9 +1,70 @@
+@font-face {
+font-family: 'ProximaNova';
+src: url('https://d1b6bucc9jhzue.cloudfront.net/at/fonts/ProximaNova/webfonts/ProximaNovaRegular.eot?cloudFrontFixScheme=http&cloudFrontFixHost=www2.vauto.com');
+src: url('https://d1b6bucc9jhzue.cloudfront.net/at/fonts/ProximaNova/webfonts/ProximaNovaRegular.eot?cloudFrontFixScheme=http&cloudFrontFixHost=www2.vauto.com#iefix') format('embedded-opentype'),
+url('https://d1b6bucc9jhzue.cloudfront.net/at/fonts/ProximaNova/webfonts/ProximaNovaRegular.woff?cloudFrontFixScheme=http&cloudFrontFixHost=www2.vauto.com') format('woff'),
+url('https://d1b6bucc9jhzue.cloudfront.net/at/fonts/ProximaNova/webfonts/ProximaNovaRegular.ttf?cloudFrontFixScheme=http&cloudFrontFixHost=www2.vauto.com') format('truetype'),
+url('https://d1b6bucc9jhzue.cloudfront.net/at/fonts/ProximaNova/webfonts/ProximaNovaRegular.svg?cloudFrontFixScheme=http&cloudFrontFixHost=www2.vauto.com#ProximaNovaRegular') format('svg');
+font-weight: 300;
+font-style: normal;
+}
+@font-face
+{
+font-family: 'ProximaNova';
+src: url('https://d1b6bucc9jhzue.cloudfront.net/at/fonts/ProximaNova/webfonts/ProximaNovaBold.eot?cloudFrontFixScheme=http&cloudFrontFixHost=www2.vauto.com');
+src: url('https://d1b6bucc9jhzue.cloudfront.net/at/fonts/ProximaNova/webfonts/ProximaNovaBold.eot?cloudFrontFixScheme=http&cloudFrontFixHost=www2.vauto.com#iefix') format('embedded-opentype'),
+url('https://d1b6bucc9jhzue.cloudfront.net/at/fonts/ProximaNova/webfonts/ProximaNovaBold.woff?cloudFrontFixScheme=http&cloudFrontFixHost=www2.vauto.com') format('woff'),
+url('https://d1b6bucc9jhzue.cloudfront.net/at/fonts/ProximaNova/webfonts/ProximaNovaBold.ttf?cloudFrontFixScheme=http&cloudFrontFixHost=www2.vauto.com') format('truetype'),
+url('https://d1b6bucc9jhzue.cloudfront.net/at/fonts/ProximaNova/webfonts/ProximaNovaBold.svg?cloudFrontFixScheme=http&cloudFrontFixHost=www2.vauto.com#ProximaNovaBold') format('svg');
+font-weight: 700;
+font-style: normal;
+}
+@font-face
+{
+font-family: 'ProximaNova';
+src: url('https://d1b6bucc9jhzue.cloudfront.net/at/fonts/ProximaNova/webfonts/ProximaNovaLight.eot?cloudFrontFixScheme=http&cloudFrontFixHost=www2.vauto.com');
+src: url('https://d1b6bucc9jhzue.cloudfront.net/at/fonts/ProximaNova/webfonts/ProximaNovaLight.eot?cloudFrontFixScheme=http&cloudFrontFixHost=www2.vauto.com#iefix') format('embedded-opentype'),
+url('https://d1b6bucc9jhzue.cloudfront.net/at/fonts/ProximaNova/webfonts/ProximaNovaLight.woff?cloudFrontFixScheme=http&cloudFrontFixHost=www2.vauto.com') format('woff'),
+url('https://d1b6bucc9jhzue.cloudfront.net/at/fonts/ProximaNova/webfonts/ProximaNovaLight.ttf?cloudFrontFixScheme=http&cloudFrontFixHost=www2.vauto.com') format('truetype'),
+url('https://d1b6bucc9jhzue.cloudfront.net/at/fonts/ProximaNova/webfonts/ProximaNovaLight.svg?cloudFrontFixScheme=http&cloudFrontFixHost=www2.vauto.com#ProximaNovaLight') format('svg');
+font-weight: 100;
+font-style: normal;
+}
+@font-face
+{
+font-family: 'ProximaNova';
+src: url('https://d1b6bucc9jhzue.cloudfront.net/at/fonts/ProximaNova/webfonts/ProximaNovaSemiBold.eot?cloudFrontFixScheme=http&cloudFrontFixHost=www2.vauto.com');
+src: url('https://d1b6bucc9jhzue.cloudfront.net/at/fonts/ProximaNova/webfonts/ProximaNovaSemiBold.eot?cloudFrontFixScheme=http&cloudFrontFixHost=www2.vauto.com#iefix') format('embedded-opentype'),
+url('https://d1b6bucc9jhzue.cloudfront.net/at/fonts/ProximaNova/webfonts/ProximaNovaSemiBold.woff?cloudFrontFixScheme=http&cloudFrontFixHost=www2.vauto.com') format('woff'),
+url('https://d1b6bucc9jhzue.cloudfront.net/at/fonts/ProximaNova/webfonts/ProximaNovaSemiBold.ttf?cloudFrontFixScheme=http&cloudFrontFixHost=www2.vauto.com') format('truetype'),
+url('https://d1b6bucc9jhzue.cloudfront.net/at/fonts/ProximaNova/webfonts/ProximaNovaSemiBold.svg?cloudFrontFixScheme=http&cloudFrontFixHost=www2.vauto.com#ProximaNovaSemiBold') format('svg');
+font-weight: 500;
+font-style: normal;
+}
+
+.center-wrapper {
+  height: 100%;
+  width: 100%;
+  display: table;
+  text-align: center;
+}
+
+.center {
+  display: table-cell;
+  vertical-align: middle;
+  color: white;
+}
+
+*{
+  font-family: "ProximaNova", "Open Sans",sans-serif;
+  color: #444;
+}
+
 html,body {
   height: 100%;
   width:100%;
   margin: 0;
   padding: 0;
-  font-family: "Open Sans";
 }
 
 #root{
@@ -63,4 +124,9 @@ list-style-type: none;
   height: .01px;
   width: .01px;
   overflow: hidden;
+}
+
+
+h1,h2,h3,h4,h5,p{
+  color: #0A1F46;
 }
