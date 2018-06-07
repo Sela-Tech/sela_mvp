@@ -5,10 +5,10 @@ import DatePicker from "react-datepicker";
 import moment from "moment";
 import "react-datepicker/dist/react-datepicker.css";
 import { connect } from "react-redux";
-import { addProject } from "../../store/action-creators/dashboard/home";
+import { addProject } from "../../store/action-creators/project";
 import AsyncButton from "../authentication/async-button";
 import dashboardActions from "../../store/actions/dashboard";
-import MessageToShow from "../errors/messageBox";
+import MessageToShow from "../errors/messageToShow";
 
 const Form = styled.form`
   #date-part {
@@ -28,6 +28,7 @@ const Form = styled.form`
     font-size: 20px;
     color: #bdbdbd;
     transition: 150ms;
+    font-weight: 300;
     &:focus,
     &:active {
       border-color: #156edc;
@@ -129,7 +130,7 @@ const Form = styled.form`
 `;
 
 const mapStateToProps = state => {
-  const { type, message } = state.dashboard.addProject.action;
+  const { type, message } = state.projects.add.action;
   return {
     add_project_in_progress: type === dashboardActions.ADD_PROJECT_IN_PROGRESS,
     message,
@@ -138,7 +139,6 @@ const mapStateToProps = state => {
 };
 
 const placeholderDate = new Date().getFullYear() + "-01-01";
-
 
 export default connect(mapStateToProps)(
   class AddProjectModal extends React.Component {
@@ -305,7 +305,11 @@ export default connect(mapStateToProps)(
               Create Project
             </AsyncButton>
           </div>
-          <MessageToShow type={type} message={message} match={dashboardActions.ADD_PROJECT_SUCCESSFUL}/>
+          <MessageToShow
+            type={type}
+            message={message}
+            match={dashboardActions.ADD_PROJECT_SUCCESSFUL}
+          />
         </Form>
       );
     }
