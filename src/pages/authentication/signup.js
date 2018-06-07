@@ -375,7 +375,7 @@ class Signup extends React.Component {
 
                     <div className="xs-12 md-8">
                       <p className="xs-12 md-10 md-off-1 center-t-sm">
-                        By clicking this button, you agree to our
+                        By clicking this button, you agree to our{" "}
                         <Link to="/terms" className="link">
                           Terms and Conditions.
                         </Link>

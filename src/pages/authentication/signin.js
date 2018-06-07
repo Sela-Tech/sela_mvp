@@ -8,8 +8,7 @@ import { bindActionCreators } from "redux";
 import { signin } from "../../store/action-creators/auth";
 import AsycnButton from "../../components/authentication/async-button";
 import auth from "../../store/actions/auth";
-import MessageToShow from "../../components/errors/messageBox";
-
+import MessageToShow from "../../components/errors/messageToShow";
 
 class Login extends React.Component {
   constructor(props) {
@@ -111,7 +110,7 @@ class Login extends React.Component {
 
                   <div className="xs-6">
                     <Link to="/forgot/password" className="link">
-                      Forgot password ?
+                      Forgot password?
                     </Link>
                   </div>
                 </div>
@@ -125,9 +124,13 @@ class Login extends React.Component {
 
               <div className="form-group xs-12">
                 <div className="error">
-                  <MessageToShow type={type} message={message} match={auth.SIGNIN_FAILED}/>
+                  <MessageToShow
+                    type={type}
+                    message={message}
+                    match={auth.SIGNIN_FAILED}
+                  />
                 </div>
-           
+
                 <Link to="/signup" className="link" style={{ fontSize: "1em" }}>
                   Don’t have an account? Sign up.
                 </Link>

@@ -2,11 +2,14 @@ import React from "react";
 import { NotEmptyWrapper } from "../../../styles/dashboard/home";
 import { connect } from "react-redux";
 import { Line } from "rc-progress";
+import { showModal } from "../../../store/action-creators/modal";
+import modals from "../../../store/actions/modals";
+import {withRouter} from "react-router-dom";
 
-const ProjectTemplate = ({ c, t, d, p, pr }) => {
+const ProjectTemplate = ({ c, t, d, p, pr,go }) => {
   return (
     <div className="xs-12 sm-6 md-4">
-      <div className="box">
+      <div className="box" onClick={go}>
         <img src={p} alt={""} />
         <div className="inner">
           <div className="text">
@@ -29,72 +32,37 @@ const ProjectTemplate = ({ c, t, d, p, pr }) => {
     </div>
   );
 };
-const NotEmptyHomeView = ({ dispatch }) => {
+const NotEmptyHomeView = ({ dispatch,projects,history }) => {
+
+  const go = (id)=> history.push("/dashboard/project/" + id);
+  
   return (
     <NotEmptyWrapper className="xs-12">
       <div id="top">
         <h3>Projects</h3>
       </div>
       <div id="bottom" className="xs-12">
-        <ProjectTemplate
-          c={5}
-          t={"K-Dere Clean Up"}
-          p={"https://picsum.photos/400/400/?random"}
-          d={"Sustainability International"}
-          pr={60}
-        />
-        <ProjectTemplate
-          c={5}
-          t={"K-Dere Clean Up"}
-          p={"https://picsum.photos/400/400/?random"}
-          d={"Sustainability International"}
-          pr={60}
-        />
-        <ProjectTemplate
-          c={5}
-          t={"K-Dere Clean Up"}
-          p={"https://picsum.photos/400/400/?random"}
-          d={"Sustainability International"}
-          pr={60}
-        />
-        <ProjectTemplate
-          c={5}
-          t={"K-Dere Clean Up"}
-          p={"https://picsum.photos/400/400/?random"}
-          d={"Sustainability International"}
-          pr={60}
-        />
-        <ProjectTemplate
-          c={5}
-          t={"K-Dere Clean Up"}
-          p={"https://picsum.photos/400/400/?random"}
-          d={"Sustainability International"}
-          pr={60}
-        />
-        <ProjectTemplate
-          c={5}
-          t={"K-Dere Clean Up"}
-          p={"https://picsum.photos/400/400/?random"}
-          d={"Sustainability International"}
-          pr={60}
-        />
-        <ProjectTemplate
-          c={5}
-          t={"K-Dere Clean Up"}
-          p={"https://picsum.photos/400/400/?random"}
-          d={"Sustainability International"}
-          pr={60}
-        />
-        <ProjectTemplate
-          c={5}
-          t={"K-Dere Clean Up"}
-          p={"https://picsum.photos/400/400/?random"}
-          d={"Sustainability International"}
-          pr={60}
-        />
+      
+      {projects.map((p,i)=>{
+        return <ProjectTemplate
+        key={i}
+        c={p.tasks}
+        t={p.title}
+        p={p.picture}
+        d={p.description}
+        pr={p.percentage}
+        go={()=> go(p.id)}
+      />
+      })}
+      
+        <div className="xs-12 sm-6 md-4">
+        <div className="box">
+           <button id="add"  onClick={() => dispatch(showModal(modals.add_project))}> + New Project</button>
+           </div>
+        </div>
       </div>
     </NotEmptyWrapper>
   );
 };
 
-export default connect()(NotEmptyHomeView);
+export default connect()(withRouter(NotEmptyHomeView));

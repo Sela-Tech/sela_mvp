@@ -6,6 +6,8 @@ export default {
   send_recovery_mail: "",
   verify_user_token: b + "verify-token",
 
-  dashboard_fetch_projects: b + "projects",
-  dashboard_add_project: b + "projects"
+  fetch_projects: b + "projects",
+  fetch_project: b + "project/",
+  add_project: b + "projects",
+  add_task: b + "task"
 };

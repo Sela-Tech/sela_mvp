@@ -8,6 +8,7 @@ const Error404 = () => {
       }}
     >
       This is a 404
+      <button>Go Back</button>
     </p>
   );
 };

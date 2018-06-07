@@ -1,6 +1,6 @@
 import React from "react";
 import { EmptyWrapper } from "../../../styles/dashboard/home";
-import { showModal } from "../../../store/action-creators/dashboard/modal";
+import { showModal } from "../../../store/action-creators/modal";
 import { connect } from "react-redux";
 import modals from "../../../store/actions/modals";
 

@@ -46,6 +46,14 @@ const App = ({ isAuthenticated, actionType }) => {
             isAuthenticated={isAuthenticated}
             component={r.dashboard_home}
           />
+
+          <PrivateRoute
+            exact
+            path="/dashboard/project/:id"
+            isAuthenticated={isAuthenticated}
+            component={r.project}
+          />
+          
           <Route component={r.errors} />
         </Switch>
       )}
