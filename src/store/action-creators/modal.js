@@ -1,4 +1,4 @@
-import dashboardActions from "../../actions/dashboard";
+import dashboardActions from "../actions/dashboard";
 export const showModal = name => {
   return {
     type: dashboardActions.SHOW_MODAL_FORM,
