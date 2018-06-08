@@ -24,6 +24,13 @@ module.exports = function(app, db, config) {
     }, config.timeout);
   });
 
+  app.get("/project/:id/tasks", (req, res) => {
+    setTimeout(() => {
+      let tasks = [];
+      res.status(200).json(tasks);
+    }, config.timeout);
+  });
+
   app.get("/project/:id", (req, res) => {
     setTimeout(() => {
       res.status(200).json({});

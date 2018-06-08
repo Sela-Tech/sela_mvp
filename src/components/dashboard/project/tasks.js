@@ -145,9 +145,9 @@ const TaskStyleWrapper = styled.div`
   }
 `;
 
-const Task = ({ checked, name, date }) => {
+const Task = connect()(({ checked, name, date,dispatch }) => {
   return (
-    <li className="xs-12">
+    <li className="xs-12" onClick={()=>dispatch(showModal(modals.view_task))}>
       <div className="xs-2  checkbox-part">
         <label className="l-container">
           <input type="checkbox" checked={checked} />
@@ -160,7 +160,7 @@ const Task = ({ checked, name, date }) => {
       </div>
     </li>
   );
-};
+});
 
 const Tasks = ({ className, dispatch }) => {
   return (
