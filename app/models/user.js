@@ -36,6 +36,7 @@ var userStructure = {
     userTypes : {
         type: [UserTypeSchema],
         validate: [arrayLimit, 'No less than one user type and no more than three'],
+        required: true
     },
     function arrayLimit(val) {
       return (val.length >0 && val.length <= userTypeLimit);
