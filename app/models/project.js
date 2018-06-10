@@ -79,7 +79,8 @@ var projectStructure = {
     },
     status: {
         type: String,
-        default: "DORMANT" // Options: "DORMANT", "ACCEPTED", "STARTED", "TERMINATED", "COMPLETED"
+        enum : ['Dormant', 'Accepted','Started','Terminated','Completed'],
+        default: 'Dormant' 
     },
     createdOn: {
         type: Date,
