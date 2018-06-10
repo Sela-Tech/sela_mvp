@@ -9,6 +9,7 @@ var http = require('http');*/
 var express = require('express');
 var app = express();
 var port = process.env.PORT || 3000;
+var jwt = require('jsonwebtoken');
 var path = require('path')
 var cookieParser = require('cookie-parser');
 var bodyParser = require('body-parser');
@@ -66,7 +67,6 @@ app.post("/register", (req, res) => {
     checkQuery.username = req.body.username;
     User.findOne(checkQuery, (checkErr, user) => {
       if (checkErr) {
-        // failRes.message = "Sela is experiencing network issues. Please try again momentarily";
         failRes.message = checkErr.name + ": " + checkErr.message;
         return res.status(500).json(failRes);
       }
@@ -79,14 +79,19 @@ app.post("/register", (req, res) => {
       userObj.familyName = req.body.familyName;
       userObj.username = req.body.username;
       userObj.publicKey = req.body.publicKey;
+      userObj.userTypes = req.body.userTypes;
       userObj.password = req.body.password;
       var newUser = new User(userObj);
       newUser.save((regErr) => {
         if (regErr) {
-          // failRes.message = "Sela is experiencing network issues. Please try again momentarily";
           failRes.message = regErr.name + ": " + regErr.message;
           return res.status(500).json(failRes);
         }
+        var token = jwt.sign({ id: newUser._id }, process.env.SECRET, {
+          expiresIn: 86400 // expires in 24 hours
+        });
+        successRes.token = token;
+        successRes.id = newUser._id;
         return res.status(200).json(successRes);
       });
     });
@@ -99,7 +104,6 @@ app.post("/login", (req, res) => {
     checkQuery.username = req.body.username;
     User.findOne(checkQuery, (checkErr, user) => {
       if (checkErr) {
-        // failRes.message = "Sela is experiencing network issues. Please try again momentarily";
         failRes.message = checkErr.name + ": " + checkErr.message;
         return res.status(500).json(failRes);
       }
@@ -109,7 +113,6 @@ app.post("/login", (req, res) => {
       }
       user.comparePassword(req.body.password, (passErr, isMatch) => {
         if (passErr) {
-          // failRes.message = "Sela is experiencing network issues. Please try again momentarily";
           failRes.message = passErr.name + ": " + passErr.message;
           return res.status(500).json(failRes);
         }
@@ -131,11 +134,9 @@ app.post("/project", (req, res) => {
     projectObj.description = req.body.description;
     projectObj.startDate = req.body.startDate;
     projectObj.endDate = req.body.endDate;
-    // projectObj.location = req.body.location;
     var newProject = new Project(projectObj);
     newProject.save((projErr) => {
         if (projErr) {
-          // failRes.message = "Sela is experiencing network issues. Please try again momentarily";
           failRes.message = projErr.name + ": " + projErr.message;
           return res.status(500).json(failRes);
         }
@@ -149,7 +150,6 @@ app.get("/projects", (req, res) => {
     var checkQuery = {};
     Project.find(checkQuery, (checkErr, projects) => {
       if (checkErr) {
-        // failRes.message = "Sela is experiencing network issues. Please try again momentarily";
         failRes.message = checkErr.name + ": " + checkErr.message;
         return res.status(500).json(failRes);
       }
@@ -163,12 +163,11 @@ app.post("/task", (req, res) => {
     var failRes = {"success":false};
     var projId = req.body.project;
     if (!projId.match(/^[0-9a-fA-F]{24}$/)) {
-        failRes.message = "That is not a valid project ID in Sela";
+        failRes.message = projId + " is an ill-formatted project ID in Sela";
         return res.status(401).json(failRes);
     }
     Project.findById(projId, (projFindErr, project) => {
       if (projFindErr) {
-        // failRes.message = "Sela is experiencing network issues. Please try again momentarily";
         failRes.message = projFindErr.name + ": " + projFindErr.message;
         return res.status(500).json(failRes);
       }
@@ -187,7 +186,6 @@ app.post("/task", (req, res) => {
       var newTask = new Task(taskObj);
       newTask.save((taskErr) => {
           if (taskErr) {
-            // failRes.message = "Sela is experiencing network issues. Please try again momentarily";
             failRes.message = taskErr.name + ": " + taskErr.message;
             return res.status(500).json(failRes);
           }
@@ -195,7 +193,6 @@ app.post("/task", (req, res) => {
           return res.status(200).json(successRes);
           /*project.save((projSaveErr) => {
             if (projSaveErr) {
-              // failRes.message = "Sela is experiencing network issues. Please try again momentarily";
               failRes.message = projSaveErr.name + ": " + projSaveErr.message;
               return res.status(500).json(failRes);
             }
@@ -211,7 +208,6 @@ app.get("/tasks", (req, res) => {
     var checkQuery = {"project": req.body.project};
     Task.find(checkQuery, (checkErr, tasks) => {
       if (checkErr) {
-        // failRes.message = "Sela is experiencing network issues. Please try again momentarily";
         failRes.message = checkErr.name + ": " + checkErr.message;
         return res.status(500).json(failRes);
       }

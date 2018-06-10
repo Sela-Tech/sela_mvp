@@ -28,14 +28,14 @@ Sela includes a REST API in the backend that performs business-critical operatio
     - *description*: description of project
     - *startNate*: start date of project
     - *endDate*: end date of project
-    - *authToken*: token authenticating user in system
+    - *token*: token authenticating user in system
   - Response: ----------------
 
 - **GetProjects**
   - Route: /projects
   - Method: GET
   - Parameters:
-    - *authToken*: token authenticating user in system
+    - *token*: token authenticating user in system
   - Response:
     - *projects*: list of projects with which user is associated
 
@@ -49,14 +49,14 @@ Sela includes a REST API in the backend that performs business-critical operatio
     - *dueDate*: due date of task 
     - *assignedTo*: id of task assignee
     - *createdBy*: id of task creator
-    - *authToken*: token authenticating user in system
+    - *token*: token authenticating user in system
   - Response: ----------------
 
 - **GetTasks**
   - Route: /tasks
   - Method: GET
   - Parameters:
-    - *authToken*: token authenticating user in system
+    - *token*: token authenticating user in system
   - Response:
     - *tasks*: list of tasks with which user is associated
 
