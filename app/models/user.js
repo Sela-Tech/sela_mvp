@@ -4,7 +4,7 @@ var mongoose = require('mongoose');
 var Schema = mongoose.Schema;
 var userTypeLimit = 3;
 
-var UserTypeSchema = new mongooseSchema({
+var UserTypeSchema = new Schema({
    userType: {
         type: String,
         enum : ['Funder', 'Evaluator','Contractor'],
