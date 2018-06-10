@@ -29,7 +29,8 @@ var taskStructure = {
     },
     status: {
         type: String,
-        default: "UNASSIGNED" // Options: "UNASSIGNED", "ASSIGNED", "STARTED", "TERMINATED", "COMPLETED"
+        enum: ['UNASSIGNED','ASSIGNED','STARTED','TERMINATED','COMPLETED'],
+        default: "UNASSIGNED" 
     },
     assignedTo: {
         type: ObjectId,
@@ -123,13 +124,7 @@ var schemaOptions = {
 var locationSchema = new Schema(locationStructure, schemaOptions);
 
 var TaskSchema = new Schema(taskStructure, schemaOptions);
-
-TaskSchema.method.delete = function(cb) {
-    var self = this;
-    self.deleted = true;
-    self.save(cb);
-};
-
+4
 
 //Export model
 /*module.exports = function(connection) {

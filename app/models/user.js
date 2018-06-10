@@ -2,7 +2,15 @@ var bcrypt = require('bcrypt');
 var moment = require('moment');
 var mongoose = require('mongoose');
 var Schema = mongoose.Schema;
+var userTypeLimit = 3;
 
+
+var UserTypeSchema = new mongooseSchema({
+   userType: {
+        type: String,
+        enum : ['Funder', 'Evaluator','Contractor'],
+    },
+});
 
 var userStructure = {
     firstName: {
@@ -24,6 +32,13 @@ var userStructure = {
     publicKey: {
         type: String,
         unique: true,
+    },
+    userTypes : {
+        type: [UserTypeSchema],
+        validate: [arrayLimit, 'No less than one user type and no more than three'],
+    },
+    function arrayLimit(val) {
+      return (val.length >0 && val.length <= userTypeLimit);
     },
     password: {
         type: String,
