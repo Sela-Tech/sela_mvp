@@ -124,7 +124,28 @@ var schemaOptions = {
 var locationSchema = new Schema(locationStructure, schemaOptions);
 
 var TaskSchema = new Schema(taskStructure, schemaOptions);
-4
+
+TaskSchema.pre('save', true, function(next, done) {
+
+    next();
+
+    this.updatedOn = new Date();
+
+    done();
+});
+
+TaskSchema.pre('update', true, function(next, done) {
+
+    next();
+
+    this.update({}, {
+        $set: {
+            updatedOn: new Date()
+        }
+    });
+
+    done();
+});
 
 //Export model
 /*module.exports = function(connection) {

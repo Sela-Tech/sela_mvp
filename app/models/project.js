@@ -101,6 +101,27 @@ if (process.env.NODE_ENV === 'development') {
 
 var ProjectSchema = new Schema(projectStructure, projectSchemaOptions);
 
+ProjectSchema.pre('save', true, function(next, done) {
+
+    next();
+
+    this.updatedOn = new Date();
+
+    done();
+});
+
+ProjectSchema.pre('update', true, function(next, done) {
+
+    next();
+
+    this.update({}, {
+        $set: {
+            updatedOn: new Date()
+        }
+    });
+
+    done();
+});
 
 //Export model
 /*module.exports = function(connection) {

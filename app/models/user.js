@@ -4,7 +4,6 @@ var mongoose = require('mongoose');
 var Schema = mongoose.Schema;
 var userTypeLimit = 3;
 
-
 var UserTypeSchema = new mongooseSchema({
    userType: {
         type: String,
@@ -35,11 +34,8 @@ var userStructure = {
     },
     userTypes : {
         type: [UserTypeSchema],
-        validate: [arrayLimit, 'No less than one user type and no more than three'],
+        validate: [userTypesArrayLimit, 'No less than one user type and no more than three'],
         required: true
-    },
-    function arrayLimit(val) {
-      return (val.length >0 && val.length <= userTypeLimit);
     },
     password: {
         type: String,
@@ -63,6 +59,11 @@ var userStructure = {
         default: Date.now(),
     },
 };
+
+function userTypesArrayLimit(val) {
+  return (val.length > 0 && val.length <= userTypeLimit);
+}
+
 var schemaOptions = {
     minimize: false,
     id: false,
@@ -102,7 +103,7 @@ UserSchema.pre('save', true, function(next, done) {
 
     next();
 
-    this.updated = new Date();
+    this.updatedOn = new Date();
 
     done();
 });
@@ -111,9 +112,9 @@ UserSchema.pre('update', true, function(next, done) {
 
     next();
 
-    this.updated({}, {
+    this.update({}, {
         $set: {
-            updated: new Date()
+            updatedOn: new Date()
         }
     });
 
