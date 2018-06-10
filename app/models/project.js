@@ -81,11 +81,11 @@ var projectStructure = {
         type: String,
         default: "DORMANT" // Options: "DORMANT", "ACCEPTED", "STARTED", "TERMINATED", "COMPLETED"
     },
-    created_on: {
+    createdOn: {
         type: Date,
         default: Date.now()
     },
-    updated_on: {
+    updatedOn: {
         type: Date,
         default: Date.now()
     },

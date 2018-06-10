@@ -54,18 +54,13 @@ var userStructure = {
             return !!this.password;
         }, 'Password is incorrect']
     },
-    created: {
+    createdOn: {
         type: Date,
         default: Date.now(),
     },
-    updated: {
+    updatedOn: {
         type: Date,
         default: Date.now(),
-    },
-    // TODO: Can a user be deleted?
-    deleted: {
-        type: Boolean,
-        default: false,
     },
 };
 var schemaOptions = {

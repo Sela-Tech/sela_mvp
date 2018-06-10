@@ -27,11 +27,11 @@ var verificationStructure = {
         type: Boolean,
         default: false
     },
-    created: {
+    createdOn: {
         type: Date,
         default: Date.now()
     },
-    updated: {
+    updatedOn: {
         type: Date,
         default: Date.now()
     }
