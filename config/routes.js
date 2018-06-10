@@ -2,7 +2,6 @@ var fs = require('fs');
 var passport = require('passport');
 
 var public = require(ROOT + '/app/controllers/public_controller');
-var v1Milestone = require(ROOT + '/app/controllers/milestone_controller');
 var v1Organization = require(ROOT + '/app/controllers/organization_controller');
 var v1Task = require(ROOT + '/app/controllers/task_controller');
 var v1PasswordReset = require(ROOT + '/app/controllers/password_reset_controller');
