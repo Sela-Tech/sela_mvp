@@ -69,20 +69,10 @@ var projectStructure = {
         type: locationSchema,
         default: null
     },
-    /*milestones: {
-        type: [ObjectId],
-        ref: 'Milestone',
-        default: []
-    },*/
-    /*tasks: {
-        type: [ObjectId],
-        ref: 'Task',
-        default: []
-    },*/
-    /*tasks: [{
-              type: ObjectId,
-              ref: 'Task'
-    }],*/
+    createdBy: {
+        type: ObjectId,
+        ref: 'User'
+    },
     owner: {
         type: ObjectId,
         ref: 'Organization',
@@ -91,20 +81,15 @@ var projectStructure = {
         type: String,
         default: "DORMANT" // Options: "DORMANT", "ACCEPTED", "STARTED", "TERMINATED", "COMPLETED"
     },
-    created: {
+    created_on: {
         type: Date,
         default: Date.now()
     },
-    updated: {
+    updated_on: {
         type: Date,
         default: Date.now()
     },
-    deleted: {
-        type: Boolean,
-        default: false,
-    }
 };
-
 
 if (process.env.NODE_ENV === 'development') {
     projectStructure.test = {
@@ -115,11 +100,6 @@ if (process.env.NODE_ENV === 'development') {
 
 var ProjectSchema = new Schema(projectStructure, projectSchemaOptions);
 
-ProjectSchema.method.delete = function(cb) {
-    var self = this;
-    self.deleted = true;
-    self.save(cb);
-};
 
 //Export model
 /*module.exports = function(connection) {

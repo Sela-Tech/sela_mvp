@@ -14,10 +14,6 @@ var taskStructure = {
         required: true,
         max: 100
     },
-    /*milestone: {
-        type: ObjectId,
-        ref: 'Milestone'
-    }, //reference to associated milestone*/
     // TODO: Should the due date be required when creating a task?
     project: {
         type: ObjectId,
@@ -31,9 +27,6 @@ var taskStructure = {
         type: Date,
         default: null,
     },
-    /*status: {
-        type: Boolean
-    },*/
     status: {
         type: String,
         default: "UNASSIGNED" // Options: "UNASSIGNED", "ASSIGNED", "STARTED", "TERMINATED", "COMPLETED"
@@ -52,18 +45,14 @@ var taskStructure = {
         ref: 'User',
         default: null
     },
-    created: {
+    createdOn: {
         type: Date,
         default: Date.now()
     },
-    updated: {
+    updatedOn: {
         type: Date,
         default: Date.now()
     },
-    deleted: {
-        type: Boolean,
-        default: false,
-    }
 };
 
 var schemaOptions = {
@@ -94,6 +83,44 @@ if (process.env.NODE_ENV === 'development') {
         default: true,
     };
 }
+
+var locationStructure = {
+    name: {
+        type: String,
+        required: true,
+    },
+    lat: {
+        type: Number,
+        required: true,
+    },
+    long: {
+        type: Number,
+        required: true,
+    }
+};
+
+var schemaOptions = {
+    minimize: false,
+    id: false,
+    toJSON: {
+        getters: true,
+        virtuals: true,
+        minimize: false,
+        versionKey: false,
+        retainKeyOrder: true,
+    },
+    toObject: {
+        getters: true,
+        virtuals: true,
+        minimize: false,
+        versionKey: false,
+        retainKeyOrder: true,
+    },
+    autoIndex: process.env.NODE_ENV === 'development',
+    strict: process.env.NODE_ENV !== 'development',
+};
+
+var locationSchema = new Schema(locationStructure, schemaOptions);
 
 var TaskSchema = new Schema(taskStructure, schemaOptions);
 
