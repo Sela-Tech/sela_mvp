@@ -107,7 +107,6 @@ app.post("/register", (req, res) => {
           expiresIn: 86400 // expires in 24 hours
         });
         successRes.token = token;
-        successRes.id = newUser._id;
         return res.status(200).json(successRes);
       });
     });
@@ -115,8 +114,8 @@ app.post("/register", (req, res) => {
 
 app.post("/login", (req, res) => {
     var checkQuery = {};
-    var successRes = {"success":true, "message":""};
-    var failRes = {"success":false, "message":""};
+    var successRes = {"success":true};
+    var failRes = {"success":false};
     checkQuery.username = req.body.username;
     User.findOne(checkQuery, (checkErr, user) => {
       if (checkErr) {
@@ -132,11 +131,15 @@ app.post("/login", (req, res) => {
           failRes.message = passErr.name + ": " + passErr.message;
           return res.status(500).json(failRes);
         }
-        if (isMatch) {
-          return res.status(200).json(successRes);
+        if (!isMatch) {
+          failRes.message = "That is the wrong password for " + checkQuery.username + ". Please try again";
+          return res.status(401).json(failRes);
         }
-        failRes.message = "That is the wrong password for " + checkQuery.username + ". Please try again";
-        return res.status(500).json(failRes);
+        var token = jwt.sign({ id: newUser._id }, process.env.SECRET, {
+          expiresIn: 86400 // expires in 24 hours
+        });
+        successRes.token = token;
+        return res.status(200).json(successRes);
       });
     });
 });
