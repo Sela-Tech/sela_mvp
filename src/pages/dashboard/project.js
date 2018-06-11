@@ -37,7 +37,16 @@ class Project extends React.Component {
             <NoProject />
           </DashboardWrapper>
         );
-      default:
+
+      case dashboard.FETCHING_PROJECT_SUCCESSFUL:
+        if (Object.keys(project_info).length === 0) {
+          return (
+            <DashboardWrapper viewName="project" projectName={"No Project"}>
+              <NoProject />
+            </DashboardWrapper>
+          );
+        }
+
         return (
           <DashboardWrapper
             viewName="project"
@@ -46,6 +55,9 @@ class Project extends React.Component {
             <ProjectComponent info={project_info} />
           </DashboardWrapper>
         );
+
+      default:
+        return <DashboardWrapper viewName="project" projectName={"Loading"} />;
     }
   }
 }
