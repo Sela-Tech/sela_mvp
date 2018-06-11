@@ -166,7 +166,10 @@ app.post("/login", (req, res) => {
 app.post("/project", verifyToken, (req, res) => {
     var successRes = {"success":true};
     var failRes = {"success":false};
-    // TODO: post project to db
+    if (req.body.owner != req.userId) {
+      failRes.message = "You cannot create a project on behalf of another user";
+      return res.status(500).json(failRes);
+    }
     var projectObj = {};
     projectObj.name = req.body.name;
     projectObj.description = req.body.description;
@@ -185,7 +188,7 @@ app.post("/project", verifyToken, (req, res) => {
 app.get("/projects", verifyToken, (req, res) => {
     var successRes = {"success":true};
     var failRes = {"success":false};
-    var checkQuery = {};
+    var checkQuery = {"owner": req.userId};
     Project.find(checkQuery, (checkErr, projects) => {
       if (checkErr) {
         failRes.message = checkErr.name + ": " + checkErr.message;
@@ -212,6 +215,10 @@ app.post("/task", verifyToken, (req, res) => {
       if (!project) {
         failRes.message = "Sela does not have a project with ID " + projId + ". Please try another project ID";
         return res.status(401).json(failRes);
+      }
+      if (req.body.createdBy != req.userId) {
+        failRes.message = "You cannot create a task on behalf of another user";
+        return res.status(500).json(failRes);
       }
       var taskObj = {};
       taskObj.name = req.body.name;
@@ -243,7 +250,10 @@ app.post("/task", verifyToken, (req, res) => {
 app.get("/tasks", verifyToken, (req, res) => {
     var successRes = {"success":true};
     var failRes = {"success":false};
-    var checkQuery = {"project": req.body.project};
+    var createdQuery = {"project": req.body.project, "createdBy": req.userId};
+    var assignedQuery = {"project": req.body.project, "assignedTo": req.userId};
+    var completedQuery = {"project": req.body.project, "completedBy": req.userId};
+    var checkQuery = {"$or": [createdQuery, assignedQuery, completedQuery]};
     Task.find(checkQuery, (checkErr, tasks) => {
       if (checkErr) {
         failRes.message = checkErr.name + ": " + checkErr.message;

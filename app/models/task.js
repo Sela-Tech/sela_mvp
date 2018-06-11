@@ -32,14 +32,14 @@ var taskStructure = {
         enum: ['UNASSIGNED','ASSIGNED','STARTED','TERMINATED','COMPLETED'],
         default: "UNASSIGNED" 
     },
+    createdBy: {
+        type: ObjectId,
+        ref: 'User'
+    },
     assignedTo: {
         type: ObjectId,
         ref: 'User',
         default: null
-    },
-    createdBy: {
-        type: ObjectId,
-        ref: 'User'
     },
     completedBy: {
         type: ObjectId,
