@@ -11,6 +11,7 @@ var app = express();
 var port = process.env.PORT || 3000;
 var jwt = require('jsonwebtoken');
 var path = require('path')
+var tokenHeaderField = 'X-Access-Token';
 var cookieParser = require('cookie-parser');
 var bodyParser = require('body-parser');
 var expHbs = require('express-handlebars');
@@ -59,6 +60,24 @@ if (process.env.NODE_ENV === 'development') {
 }
 
 environmentsAll.call(app);
+
+function verifyToken(req, res, next) {
+    var successRes = {"success":true};
+    var failRes = {"success":false};
+    var token = req.headers[tokenHeaderField];
+    if (!token) {
+      failRes.message = 'No token provided.';
+      return res.status(403).json(failRes);
+    }
+    jwt.verify(token, process.env.SECRET, (verifyErr, user) => {
+      if (verifyErr) {
+        failRes.message = 'Failed to authenticate token.';
+        return res.status(500).json(failRes);
+      }
+      req.userId = user.id;
+      next();
+    });
+}
 
 app.post("/register", (req, res) => {
     var checkQuery = {};
@@ -144,7 +163,7 @@ app.post("/login", (req, res) => {
     });
 });
 
-app.post("/project", (req, res) => {
+app.post("/project", verifyToken, (req, res) => {
     var successRes = {"success":true};
     var failRes = {"success":false};
     // TODO: post project to db
@@ -163,7 +182,7 @@ app.post("/project", (req, res) => {
     });
 });
 
-app.get("/projects", (req, res) => {
+app.get("/projects", verifyToken, (req, res) => {
     var successRes = {"success":true};
     var failRes = {"success":false};
     var checkQuery = {};
@@ -177,7 +196,7 @@ app.get("/projects", (req, res) => {
     });
 });
 
-app.post("/task", (req, res) => {
+app.post("/task", verifyToken, (req, res) => {
     var successRes = {"success":true};
     var failRes = {"success":false};
     var projId = req.body.project;
@@ -221,7 +240,7 @@ app.post("/task", (req, res) => {
     });
 });
 
-app.get("/tasks", (req, res) => {
+app.get("/tasks", verifyToken, (req, res) => {
     var successRes = {"success":true};
     var failRes = {"success":false};
     var checkQuery = {"project": req.body.project};
