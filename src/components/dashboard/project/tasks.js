@@ -2,7 +2,8 @@ import React from "react";
 import styled from "styled-components";
 import { connect } from "react-redux";
 import modals from "../../../store/actions/modals";
-import { showModal } from "../../../store/action-creators/modal";
+import { showTaskModal, showModal } from "../../../store/action-creators/modal";
+import moment from "moment";
 
 const TaskStyleWrapper = styled.div`
   height: auto;
@@ -145,31 +146,43 @@ const TaskStyleWrapper = styled.div`
   }
 `;
 
-const Task = connect()(({ checked, name, date,dispatch }) => {
+const Task = connect()(({ checked, data, dispatch }) => {
   return (
-    <li className="xs-12" onClick={()=>dispatch(showModal(modals.view_task))}>
+    <li
+      className="xs-12"
+      onClick={() => dispatch(showTaskModal(modals.view_task, data))}
+    >
       <div className="xs-2  checkbox-part">
         <label className="l-container">
-          <input type="checkbox" checked={checked} />
+          <input type="checkbox" defaultChecked={checked} />
           <span className="checkmark" />
         </label>
       </div>
       <div className="xs-10">
-        <h4>{name}</h4>
-        <p>{date}</p>
+        <h4>{data.name}</h4>
+        <p> {moment(data.deadline).format("MMM D, YYYY")}</p>
       </div>
     </li>
   );
 });
 
-const Tasks = ({ className, dispatch }) => {
+const Tasks = ({ className, dispatch, tasks }) => {
+  const tasksElements = tasks.map((task, i) => {
+    return (
+      <Task
+        key={i}
+        name={task.name}
+        date={task.deadline}
+        data={task}
+        checked={task.status === "complete"}
+      />
+    );
+  });
   return (
     <TaskStyleWrapper className={className}>
       <div className="xs-12 md-11">
         <h3>Tasks</h3>
-        <ul className="xs-12">
-          <Task name={"a name"} date={"a date"} checked={false} />
-        </ul>
+        <ul className="xs-12">{tasksElements}</ul>
         <div className="xs-12">
           <button
             id="new-task"

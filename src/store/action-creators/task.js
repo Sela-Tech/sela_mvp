@@ -31,3 +31,15 @@ export const addTask = obj => {
       });
   };
 };
+
+export const watch_video = (src, playing) => {
+  return {
+    type: dashboardActions.WATCH_VIDEO,
+    src,
+    playing
+  };
+};
+
+export const clear_video = () => {
+  return { type: dashboardActions.CLEAR_VIDEO };
+};

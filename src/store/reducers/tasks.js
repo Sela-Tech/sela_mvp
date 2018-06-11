@@ -12,6 +12,10 @@ const initstate = {
       type: "",
       message: ""
     },
+    video_to_watch: {
+      src: "",
+      playing: false
+    },
     info: {}
   },
   all: {
@@ -54,6 +58,35 @@ export default (state = initstate, payload) => {
             type: dashboardActions.ADD_TASK_FAILED,
             message: payload.message || "Could Not Add A Task."
           }
+        }
+      };
+
+    case dashboardActions.WATCH_VIDEO:
+      return {
+        ...state,
+        single: {
+          ...state.single,
+          video_to_watch: {
+            src: payload.src,
+            playing: payload.playing
+          }
+        }
+      };
+
+    case dashboardActions.CLEAR_VIDEO:
+      return {
+        ...state,
+        single: {
+          ...state.single,
+          video_to_watch: {}
+        }
+      };
+    case dashboardActions.SHOW_TASK_MODAL:
+      return {
+        ...state,
+        single: {
+          ...state.single,
+          info: payload.data
         }
       };
 

@@ -1,136 +1,93 @@
 import React from "react";
-import styled from "styled-components";
 import { connect } from "react-redux";
-import dashboard from "../../store/actions/dashboard";
-
-const ViewTaskWrapper = styled.div`
-  > p {
-    font-size: 1em;
-    text-align: center;
-    color: #828282;
-    padding: 0 2em;
-    font-weight: 100;
-  }
-
-  .left,.right{
-    padding: 3em;
-  }
-
-  h2,p,h4{
-    text-align: left;
-    margin: 0;
-}
-
-  h2{
-    line-height: normal;
-    font-size: 1.35em;
-    font-weight: 300;
-    color: #333333;
-    margin: 2em 0;
-  }
-
-  h4,p{
-      font-weight: 300;
-      font-size: 1em;
-      margin: .2em 0;
-  }
-
-  p{
-        line-height: normal;
-        color: #4F4F4F;
-  }
-
-  h4{
-    line-height: normal;
-    color: #ADB5BD;
-  }
-
-  .grey-border{
-      padding: 1em; 
-    background: #FFFFFF;
-    border: 3px solid #F1F3F5;
-    border-radius: 17px;
-    
-      button{
-          font-weight: 300;
-          font-size: 1em;
-          border:0;
-        line-height: normal;
-        padding: .75em;
-color: #ADB5BD;
-          &.active{
-            background: #EFF5FB;
-            border-radius: 9px;
-            color: #156EDC;
-          }
-      }
-  }
-
-  .grey{
-    background: #EFF5FB;   
-    height: 100%; 
-  }
-
-`;
+import VideoPlayer from "./sub-components/video-player";
+import { ViewTaskWrapper } from "../../styles/dashboard/modals/view-task";
+import MediaElement from "./sub-components/media-element";
+import moment from "moment";
 
 const mapStateToProps = state => {
-  const { type, message } = state.tasks.add.action;
+  const { info } = state.tasks.single;
   return {
-    add_task_in_progress: type === dashboard.ADD_TASK_IN_PROGRESS,
-    message,
-    type
+    info
   };
 };
 
-
 export default connect(mapStateToProps)(
   class ViewTask extends React.Component {
+    state = {
+      info: {}
+    };
+    componentWillMount() {
+      this.setState({
+        info: this.props.info,
+        [this.props.info.status]: "active"
+      });
+    }
 
     componentWillReceiveProps(nextProps) {
       if (this.props !== nextProps) {
         this.setState({
-          type: nextProps.type,
-          message: nextProps.message
+          info: nextProps.info,
+          [nextProps.info.status]: "active"
         });
       }
     }
 
     render() {
-    // const   { type, message } = this.state;
+      const { info } = this.state,
+        MediaElements = info.evaluation_submissions.map((d, i) => {
+          return (
+            <MediaElement
+              key={i}
+              src={d.src}
+              status={d.status}
+              type={d.type}
+              name={d.name}
+            />
+          );
+        });
       return (
         <ViewTaskWrapper className="xs-12">
-<div className="xs-12 md-6 left">
-<h2>     Survey K-Dere for buried oil  </h2>
-<div className="xs-4">
-<h4>Task Created</h4>
-<p>March 5, 2018</p>
-</div>
-<div className="xs-4">
-<h4>Deadline</h4>
-<p>June 15, 2018</p>
-</div>
-<div className="xs-4">
-<h4>Contractor Assigned</h4>
-<p>Sustainability international</p>
-</div>
+          <div className="xs-12 md-6 left">
+            <h2> {info.name} </h2>
+            <div className="xs-6 sm-4">
+              <h4>Task Created</h4>
+              <p>{moment(info.task_created).format("MMM D, YYYY")}</p>
+            </div>
+            <div className=" xs-6 sm-4">
+              <h4>Deadline</h4>
+              <p>{moment(info.deadline).format("MMM D, YYYY")}</p>
+            </div>
+            <div className="xs-12 sm-4">
+              <h4>Contractor Assigned</h4>
+              <p>{info.contractor_assigned}</p>
+            </div>
 
-<div className="xs-12">
-    <h4>Status</h4>
-    <div className="grey-border xs-11">
-        <button className="xs-4">Not Started</button>
-        <button className="xs-4">In Progress</button>
-        <button className="xs-4 active">Complete</button>
-    </div>
-</div>
+            <div className="xs-12 status">
+              <h4>Status</h4>
+              <div className="grey-border xs-11">
+                <button className={this.state["not-started"] + " xs-12 sm-4"}>
+                  Not Started
+                </button>
+                <button className={this.state["in-progress"] + " xs-12 sm-4"}>
+                  In Progress
+                </button>
+                <button className={this.state["complete"] + " xs-12 sm-4"}>
+                  Complete
+                </button>
+              </div>
+            </div>
 
-<div className="xs-12"></div>
-
-
-</div>
-<div className="xs-12 md-6 right grey" ></div>
-
+            <div className="xs-12">
+              <h3>Evaluation Submissions</h3>
+              {MediaElements}
+            </div>
+          </div>
+          <div className="xs-12 md-6 right grey">
+            <VideoPlayer />
+          </div>
         </ViewTaskWrapper>
-    );
+      );
     }
   }
 );
