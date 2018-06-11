@@ -20,7 +20,8 @@ var userStructure = {
     },
     familyName: {
         type: String,
-        required: true
+        required: true,
+        min: 1,
         max: 100
     },
     username: {
