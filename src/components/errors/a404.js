@@ -1,4 +1,5 @@
 import React from "react";
+import history from "../../helpers/history";
 
 const Error404 = () => {
   return (
@@ -8,7 +9,15 @@ const Error404 = () => {
       }}
     >
       This is a 404
-      <button>Go Back</button>
+      <button
+        onClick={() => history.goBack()}
+        style={{
+          display: "block",
+          margin: "auto"
+        }}
+      >
+        Go Back
+      </button>
     </p>
   );
 };
