@@ -79,8 +79,11 @@ app.post("/register", (req, res) => {
       userObj.familyName = req.body.familyName;
       userObj.username = req.body.username;
       userObj.publicKey = req.body.publicKey;
-      userObj.userTypes = [];
-      userObj.userTypes.push(req.body.userType);
+      /*userObj.userTypes = [];
+      userObj.userTypes.push(req.body.userType);*/
+      userObj.isFunder = req.body.isFunder;
+      userObj.isContractor = req.body.isContractor;
+      userObj.isEvaluator = req.body.isEvaluator;
       userObj.password = req.body.password;
       /*var newUser = new User(userObj);
       newUser.save((regErr) => {

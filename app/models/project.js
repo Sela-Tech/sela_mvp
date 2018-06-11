@@ -7,15 +7,15 @@ var ObjectId = Schema.Types.ObjectId;
 var locationStructure = {
     name: {
         type: String,
-        required: true,
+        required: true
     },
     lat: {
         type: Number,
-        required: true,
+        required: true
     },
     long: {
         type: Number,
-        required: true,
+        required: true
     }
 };
 
@@ -27,23 +27,23 @@ var schemaOptions = {
         virtuals: true,
         minimize: false,
         versionKey: false,
-        retainKeyOrder: true,
+        retainKeyOrder: true
     },
     toObject: {
         getters: true,
         virtuals: true,
         minimize: false,
         versionKey: false,
-        retainKeyOrder: true,
+        retainKeyOrder: true
     },
     autoIndex: process.env.NODE_ENV === 'development',
-    strict: process.env.NODE_ENV !== 'development',
+    strict: process.env.NODE_ENV !== 'development'
 };
 
 var locationSchema = new Schema(locationStructure, schemaOptions);
 
 var projectSchemaOptions = _.extend({}, schemaOptions, {
-	collection: 'projects',
+	collection: 'projects'
 });
 
 var projectStructure = {
@@ -63,7 +63,7 @@ var projectStructure = {
     },
     endDate: {
         type: Date,
-        default: null,
+        default: null
     },
     location: {
         type: locationSchema,
@@ -75,7 +75,7 @@ var projectStructure = {
     },
     owner: {
         type: ObjectId,
-        ref: 'Organization',
+        ref: 'Organization'
     },
     status: {
         type: String,
@@ -89,13 +89,13 @@ var projectStructure = {
     updatedOn: {
         type: Date,
         default: Date.now()
-    },
+    }
 };
 
 if (process.env.NODE_ENV === 'development') {
     projectStructure.test = {
         type: Boolean,
-        default: true,
+        default: true
     };
 }
 

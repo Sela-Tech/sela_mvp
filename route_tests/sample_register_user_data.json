@@ -3,6 +3,6 @@
   "familyName":"Lichi",
   "username":"yadilichiuname2",
   "publicKey":"yadilichipubKey2",
-  "userType":"Funder",
+  "isFunder":"true",
   "password":"yadilichipass2"
 }

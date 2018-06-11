@@ -25,7 +25,7 @@ var taskStructure = {
     },
     endDate: {
         type: Date,
-        default: null,
+        default: null
     },
     status: {
         type: String,
@@ -53,7 +53,7 @@ var taskStructure = {
     updatedOn: {
         type: Date,
         default: Date.now()
-    },
+    }
 };
 
 var schemaOptions = {
@@ -65,17 +65,17 @@ var schemaOptions = {
         virtuals: true,
         minimize: false,
         versionKey: false,
-        retainKeyOrder: true,
+        retainKeyOrder: true
     },
     toObject: {
         getters: true,
         virtuals: true,
         minimize: false,
         versionKey: false,
-        retainKeyOrder: true,
+        retainKeyOrder: true
     },
     autoIndex: process.env.NODE_ENV === 'development',
-    strict: process.env.NODE_ENV !== 'development',
+    strict: process.env.NODE_ENV !== 'development'
 };
 
 if (process.env.NODE_ENV === 'development') {
@@ -88,15 +88,15 @@ if (process.env.NODE_ENV === 'development') {
 var locationStructure = {
     name: {
         type: String,
-        required: true,
+        required: true
     },
     lat: {
         type: Number,
-        required: true,
+        required: true
     },
     long: {
         type: Number,
-        required: true,
+        required: true
     }
 };
 
@@ -108,17 +108,17 @@ var schemaOptions = {
         virtuals: true,
         minimize: false,
         versionKey: false,
-        retainKeyOrder: true,
+        retainKeyOrder: true
     },
     toObject: {
         getters: true,
         virtuals: true,
         minimize: false,
         versionKey: false,
-        retainKeyOrder: true,
+        retainKeyOrder: true
     },
     autoIndex: process.env.NODE_ENV === 'development',
-    strict: process.env.NODE_ENV !== 'development',
+    strict: process.env.NODE_ENV !== 'development'
 };
 
 var locationSchema = new Schema(locationStructure, schemaOptions);

@@ -7,8 +7,8 @@ var userTypeLimit = 3;
 var UserTypeSchema = new Schema({
    userType: {
         type: String,
-        enum : ['Funder', 'Evaluator','Contractor'],
-    },
+        enum : ['FUNDER', 'CONTRACTOR', 'EVALUATOR']
+    }
 });
 
 var userStructure = {
@@ -20,22 +20,37 @@ var userStructure = {
     },
     familyName: {
         type: String,
-        required: true,
+        required: true
         max: 100
     },
     username: {
         type: String,
         unique: true,
-        lowercase: true,
+        lowercase: true
     },
     publicKey: {
         type: String,
-        unique: true,
+        unique: true
     },
-    userTypes : {
+    /*userTypes : {
         type: [UserTypeSchema],
-        validate: [userTypesArrayLimit, 'No less than one user type and no more than three'] // ,
+        validate: [userTypesArrayLimit, 'No less than one user type and no more than three']
         // required: true
+    },*/
+    isFunder: {
+        type: Boolean,
+        required: true,
+        default: false
+    },
+    isContractor: {
+        type: Boolean,
+        required: true,
+        default: false
+    },
+    isEvaluator: {
+        type: Boolean,
+        required: true,
+        default: false
     },
     password: {
         type: String,
@@ -52,12 +67,12 @@ var userStructure = {
     },
     createdOn: {
         type: Date,
-        default: Date.now(),
+        default: Date.now()
     },
     updatedOn: {
         type: Date,
-        default: Date.now(),
-    },
+        default: Date.now()
+    }
 };
 
 function userTypesArrayLimit(val) {
@@ -80,18 +95,18 @@ var schemaOptions = {
         virtuals: true,
         minimize: false,
         versionKey: false,
-        retainKeyOrder: true,
+        retainKeyOrder: true
     },
     autoIndex: false,
     safe: true,
     collection: 'users', // Sets Collection Name
-    strict: process.env.NODE_ENV !== 'development', // Only use strict in production
+    strict: process.env.NODE_ENV !== 'development' // Only use strict in production
 };
 
 if (process.env.NODE_ENV === 'development') {
     userStructure.test = {
         type: Boolean,
-        default: true,
+        default: true
     };
 }
 
