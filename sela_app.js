@@ -82,8 +82,20 @@ app.post("/register", (req, res) => {
       userObj.userTypes = [];
       userObj.userTypes.push(req.body.userType);
       userObj.password = req.body.password;
-      var newUser = new User(userObj);
+      /*var newUser = new User(userObj);
       newUser.save((regErr) => {
+        if (regErr) {
+          failRes.message = regErr.name + ": " + regErr.message;
+          return res.status(500).json(failRes);
+        }
+        var token = jwt.sign({ id: newUser._id }, process.env.SECRET, {
+          expiresIn: 86400 // expires in 24 hours
+        });
+        successRes.token = token;
+        successRes.id = newUser._id;
+        return res.status(200).json(successRes);
+      });*/
+      User.create(userObj, (regErr, newUser) => {
         if (regErr) {
           failRes.message = regErr.name + ": " + regErr.message;
           return res.status(500).json(failRes);
