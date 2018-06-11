@@ -135,7 +135,7 @@ app.post("/login", (req, res) => {
           failRes.message = "That is the wrong password for " + checkQuery.username + ". Please try again";
           return res.status(401).json(failRes);
         }
-        var token = jwt.sign({ id: newUser._id }, process.env.SECRET, {
+        var token = jwt.sign({ id: user._id }, process.env.SECRET, {
           expiresIn: 86400 // expires in 24 hours
         });
         successRes.token = token;
