@@ -34,8 +34,8 @@ var userStructure = {
     },
     userTypes : {
         type: [UserTypeSchema],
-        validate: [userTypesArrayLimit, 'No less than one user type and no more than three'],
-        required: true
+        validate: [userTypesArrayLimit, 'No less than one user type and no more than three'] // ,
+        // required: true
     },
     password: {
         type: String,
