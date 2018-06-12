@@ -4,8 +4,20 @@ import Icon from "react-fa";
 import pdf from "../../../assets/pdf.svg";
 import { connect } from "react-redux";
 import { watch_video } from "../../../store/action-creators/task";
+import Spinner from "../../spinners/typetwo";
 
 const MediaElemWrapper = styled.div`
+
+.loading{
+  position: absolute;
+    left: 0;
+    right: 0;
+    top: 0;
+    bottom: 0;
+    background: #999;
+    z-index: 1;
+}
+}
   margin-bottom: 0.5em;
   height: 6em;
   cursor: pointer;
@@ -25,7 +37,7 @@ const MediaElemWrapper = styled.div`
     color: white;
     padding: 0.3em;
     border-radius: 2em;
-    z-index: 1;
+    z-index: 2;
   }
 
   .xs-11 {
@@ -95,53 +107,99 @@ const mapStateToProps = state => {
 };
 
 export default connect(mapStateToProps)(
-  ({ src, status, poster, type, name, dispatch, redux_src, redux_playing }) => {
-    const iconPicker = () => {
-      if (redux_playing === true) {
-        if (src === redux_src) {
-          return <Icon name="pause" />;
-        }
+  class Mediaelement extends React.Component {
+    state = {
+      videoLoaded: false,
+      state: "not-playing"
+    };
+
+    togglePlayer = () => {
+      const { redux_playing, redux_src, src, dispatch } = this.props;
+      if (src === redux_src) {
+        dispatch(watch_video(src, !redux_playing));
       } else {
-        return <Icon name="play" />;
+        dispatch(watch_video(src, true));
       }
     };
 
-    switch (type) {
-      case "document":
-        return (
-          <MediaElemWrapper
-            className="xs-6 sm-3"
-            onClick={() => window.open(src, "_blank")}
-          >
-            {status === "good" ? (
-              <Icon className="s good" name="check" />
+    componentDidMount() {
+      if (this.refs.video) {
+        this.refs.video.addEventListener(
+          "loadeddata",
+          () => {
+            this.setState({
+              videoLoaded: true
+            });
+          },
+          false
+        );
+      }
+    }
+    render() {
+      const {
+          status,
+          poster,
+          type,
+          name,
+          redux_playing,
+          redux_src,
+          src
+        } = this.props,
+        iconPicker =
+          redux_playing === true ? (
+            src === redux_src ? (
+              <Icon name="pause" />
             ) : (
-              <Icon className="s bad" name="exclamation" />
-            )}
-            <div className="xs-11">
-              <div className="center">
-                <img src={pdf} alt="" />
-                <p className="name">{name}</p>
+              <Icon name="play" />
+            )
+          ) : (
+            <Icon name="play" />
+          );
+
+      switch (type) {
+        case "document":
+          return (
+            <MediaElemWrapper
+              className="xs-6 sm-3"
+              onClick={() => window.open(src, "_blank")}
+            >
+              {status === "good" ? (
+                <Icon className="s good" name="check" />
+              ) : (
+                <Icon className="s bad" name="exclamation" />
+              )}
+              <div className="xs-11">
+                <div className="center">
+                  <img src={pdf} alt="" />
+                  <p className="name">{name}</p>
+                </div>
               </div>
-            </div>
-          </MediaElemWrapper>
-        );
-      default:
-        return (
-          <MediaElemWrapper className="xs-6 sm-3">
-            {status === "complete" ? (
-              <Icon className="s good" name="check" />
-            ) : (
-              <Icon className="s bad" name="exclamation" />
-            )}
-            <div className="xs-11">
-              <button onClick={() => dispatch(watch_video(src))}>
-                {iconPicker()}
-              </button>
-              <video poster={poster} src={src} />
-            </div>
-          </MediaElemWrapper>
-        );
+            </MediaElemWrapper>
+          );
+        default:
+          return (
+            <MediaElemWrapper className="xs-6 sm-3">
+              {status === "complete" ? (
+                <Icon className="s good" name="check" />
+              ) : (
+                <Icon className="s bad" name="exclamation" />
+              )}
+              <div className="xs-11">
+                <button onClick={this.togglePlayer}>{iconPicker}</button>
+                {this.state.videoLoaded === false && (
+                  <div className="loading">
+                    <div className="center-wrapper">
+                      <div className="center">
+                        <Spinner />
+                      </div>
+                    </div>
+                  </div>
+                )}
+                <video poster={poster} src={src} ref={"video"} />
+              </div>
+            </MediaElemWrapper>
+          );
+      }
     }
   }
 );

@@ -74,6 +74,10 @@ class ModalWrapper extends React.Component {
                     <div className={"fix"}>
                       <SharedCloseButton
                         id="close-button"
+                        style={{
+                          background: "#2283d0",
+                          fontSize: "1.5em"
+                        }}
                         onClick={() => dispatch(closeModal())}
                       >
                         x

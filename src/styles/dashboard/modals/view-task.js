@@ -73,6 +73,7 @@ export const ViewTaskWrapper = styled.div`
       line-height: normal;
       padding: 0.75em;
       color: #adb5bd;
+      background: transparent;
       &.active {
         background: #eff5fb;
         border-radius: 9px;

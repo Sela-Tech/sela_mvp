@@ -107,6 +107,11 @@ const TaskStyleWrapper = styled.div`
       border-bottom: 1px solid #f2f2f2;
       padding: 1em;
       cursor: pointer;
+
+      .s {
+        padding: 0 0.25em;
+      }
+
       h4,
       p {
         margin: 0.2em 0;
@@ -158,7 +163,7 @@ const Task = connect()(({ checked, data, dispatch }) => {
           <span className="checkmark" />
         </label>
       </div>
-      <div className="xs-10">
+      <div className="xs-10 s">
         <h4>{data.name}</h4>
         <p> {moment(data.deadline).format("MMM D, YYYY")}</p>
       </div>

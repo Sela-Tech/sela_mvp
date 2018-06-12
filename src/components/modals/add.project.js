@@ -127,7 +127,7 @@ export default connect(mapStateToProps)(
             />
           </div>
           <div className="form-control xs-12" id="date-part">
-            <div className={"xs-5 date-wrpr show"}>
+            <div className={"xs-12 sm-5 date-wrpr show"}>
               <label
                 onClick={() => this.forceFocus("show-start-date")}
                 className="xs-10"
@@ -149,10 +149,12 @@ export default connect(mapStateToProps)(
                 <img src={calendericon} alt="calender-icon" />
               </div>
             </div>
-            <span className="xs-2">
+
+            <span className="xs-12 sm-2">
               <p id="dash">-</p>
             </span>
-            <div className={"xs-5 date-wrpr show"}>
+
+            <div className={"xs-12 sm-5 date-wrpr show"}>
               <label
                 onClick={() => this.forceFocus("show-end-date")}
                 className="xs-10 "

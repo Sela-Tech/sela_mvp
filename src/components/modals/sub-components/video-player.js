@@ -55,7 +55,8 @@ const VideoPlayerWrapper = styled.div`
 
 const mapStateToProps = state => {
   return {
-    src: state.tasks.single.video_to_watch.src
+    src: state.tasks.single.video_to_watch.src,
+    playing: state.tasks.single.video_to_watch.playing
   };
 };
 
@@ -64,6 +65,11 @@ export default connect(mapStateToProps)(
     state = {
       playing: false
     };
+
+    componentDidMount() {
+      const v = this.refs.video;
+      v.addEventListener("timeupdate", this.playListener);
+    }
 
     play_pause = () => {
       const v = this.refs.video;
@@ -74,24 +80,28 @@ export default connect(mapStateToProps)(
       this.setState({
         playing: v.target.playing
       });
-      this.props.dispatch(
-        watch_video(v.target.getAttribute("src"), v.target.playing)
-      );
     };
 
-    componentDidMount() {
-      const v = this.refs.video;
-      v.addEventListener("timeupdate", this.playListener);
+    componentWillUpdate(nextProps, nextState) {
+      if (this.state.playing !== nextState.playing) {
+        this.props.dispatch(watch_video(nextState.src, nextState.playing));
+      }
     }
 
     componentWillReceiveProps(nextProps) {
       if (this.props !== nextProps) {
-        this.setState({
-          src: nextProps.src
-        });
-        setTimeout(() => {
-          this.refs.video.play();
-        }, 400);
+        this.setState(
+          {
+            src: nextProps.src
+          },
+          () => {
+            if (nextProps.playing === false) {
+              this.refs.video.pause();
+            } else {
+              this.refs.video.play();
+            }
+          }
+        );
       }
     }
     componentWillUnmount() {
