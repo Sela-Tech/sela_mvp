@@ -67,6 +67,11 @@ export const WebSidebar = styled.div`
 
     ul {
       li {
+        .active {
+          span {
+            color: cornflowerblue;
+          }
+        }
         a {
           display: inline-block;
           padding: 0.25em 0;

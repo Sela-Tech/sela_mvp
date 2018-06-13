@@ -1,45 +1,58 @@
 @font-face {
-font-family: 'ProximaNova';
-src: url('https://d1b6bucc9jhzue.cloudfront.net/at/fonts/ProximaNova/webfonts/ProximaNovaRegular.eot?cloudFrontFixScheme=http&cloudFrontFixHost=www2.vauto.com');
-src: url('https://d1b6bucc9jhzue.cloudfront.net/at/fonts/ProximaNova/webfonts/ProximaNovaRegular.eot?cloudFrontFixScheme=http&cloudFrontFixHost=www2.vauto.com#iefix') format('embedded-opentype'),
-url('https://d1b6bucc9jhzue.cloudfront.net/at/fonts/ProximaNova/webfonts/ProximaNovaRegular.woff?cloudFrontFixScheme=http&cloudFrontFixHost=www2.vauto.com') format('woff'),
-url('https://d1b6bucc9jhzue.cloudfront.net/at/fonts/ProximaNova/webfonts/ProximaNovaRegular.ttf?cloudFrontFixScheme=http&cloudFrontFixHost=www2.vauto.com') format('truetype'),
-url('https://d1b6bucc9jhzue.cloudfront.net/at/fonts/ProximaNova/webfonts/ProximaNovaRegular.svg?cloudFrontFixScheme=http&cloudFrontFixHost=www2.vauto.com#ProximaNovaRegular') format('svg');
-font-weight: 300;
-font-style: normal;
+  font-family: "ProximaNova";
+  src: url("https://d1b6bucc9jhzue.cloudfront.net/at/fonts/ProximaNova/webfonts/ProximaNovaRegular.eot?cloudFrontFixScheme=http&cloudFrontFixHost=www2.vauto.com");
+  src: url("https://d1b6bucc9jhzue.cloudfront.net/at/fonts/ProximaNova/webfonts/ProximaNovaRegular.eot?cloudFrontFixScheme=http&cloudFrontFixHost=www2.vauto.com#iefix")
+      format("embedded-opentype"),
+    url("https://d1b6bucc9jhzue.cloudfront.net/at/fonts/ProximaNova/webfonts/ProximaNovaRegular.woff?cloudFrontFixScheme=http&cloudFrontFixHost=www2.vauto.com")
+      format("woff"),
+    url("https://d1b6bucc9jhzue.cloudfront.net/at/fonts/ProximaNova/webfonts/ProximaNovaRegular.ttf?cloudFrontFixScheme=http&cloudFrontFixHost=www2.vauto.com")
+      format("truetype"),
+    url("https://d1b6bucc9jhzue.cloudfront.net/at/fonts/ProximaNova/webfonts/ProximaNovaRegular.svg?cloudFrontFixScheme=http&cloudFrontFixHost=www2.vauto.com#ProximaNovaRegular")
+      format("svg");
+  font-weight: 300;
+  font-style: normal;
 }
-@font-face
-{
-font-family: 'ProximaNova';
-src: url('https://d1b6bucc9jhzue.cloudfront.net/at/fonts/ProximaNova/webfonts/ProximaNovaBold.eot?cloudFrontFixScheme=http&cloudFrontFixHost=www2.vauto.com');
-src: url('https://d1b6bucc9jhzue.cloudfront.net/at/fonts/ProximaNova/webfonts/ProximaNovaBold.eot?cloudFrontFixScheme=http&cloudFrontFixHost=www2.vauto.com#iefix') format('embedded-opentype'),
-url('https://d1b6bucc9jhzue.cloudfront.net/at/fonts/ProximaNova/webfonts/ProximaNovaBold.woff?cloudFrontFixScheme=http&cloudFrontFixHost=www2.vauto.com') format('woff'),
-url('https://d1b6bucc9jhzue.cloudfront.net/at/fonts/ProximaNova/webfonts/ProximaNovaBold.ttf?cloudFrontFixScheme=http&cloudFrontFixHost=www2.vauto.com') format('truetype'),
-url('https://d1b6bucc9jhzue.cloudfront.net/at/fonts/ProximaNova/webfonts/ProximaNovaBold.svg?cloudFrontFixScheme=http&cloudFrontFixHost=www2.vauto.com#ProximaNovaBold') format('svg');
-font-weight: 700;
-font-style: normal;
+@font-face {
+  font-family: "ProximaNova";
+  src: url("https://d1b6bucc9jhzue.cloudfront.net/at/fonts/ProximaNova/webfonts/ProximaNovaBold.eot?cloudFrontFixScheme=http&cloudFrontFixHost=www2.vauto.com");
+  src: url("https://d1b6bucc9jhzue.cloudfront.net/at/fonts/ProximaNova/webfonts/ProximaNovaBold.eot?cloudFrontFixScheme=http&cloudFrontFixHost=www2.vauto.com#iefix")
+      format("embedded-opentype"),
+    url("https://d1b6bucc9jhzue.cloudfront.net/at/fonts/ProximaNova/webfonts/ProximaNovaBold.woff?cloudFrontFixScheme=http&cloudFrontFixHost=www2.vauto.com")
+      format("woff"),
+    url("https://d1b6bucc9jhzue.cloudfront.net/at/fonts/ProximaNova/webfonts/ProximaNovaBold.ttf?cloudFrontFixScheme=http&cloudFrontFixHost=www2.vauto.com")
+      format("truetype"),
+    url("https://d1b6bucc9jhzue.cloudfront.net/at/fonts/ProximaNova/webfonts/ProximaNovaBold.svg?cloudFrontFixScheme=http&cloudFrontFixHost=www2.vauto.com#ProximaNovaBold")
+      format("svg");
+  font-weight: 700;
+  font-style: normal;
 }
-@font-face
-{
-font-family: 'ProximaNova';
-src: url('https://d1b6bucc9jhzue.cloudfront.net/at/fonts/ProximaNova/webfonts/ProximaNovaLight.eot?cloudFrontFixScheme=http&cloudFrontFixHost=www2.vauto.com');
-src: url('https://d1b6bucc9jhzue.cloudfront.net/at/fonts/ProximaNova/webfonts/ProximaNovaLight.eot?cloudFrontFixScheme=http&cloudFrontFixHost=www2.vauto.com#iefix') format('embedded-opentype'),
-url('https://d1b6bucc9jhzue.cloudfront.net/at/fonts/ProximaNova/webfonts/ProximaNovaLight.woff?cloudFrontFixScheme=http&cloudFrontFixHost=www2.vauto.com') format('woff'),
-url('https://d1b6bucc9jhzue.cloudfront.net/at/fonts/ProximaNova/webfonts/ProximaNovaLight.ttf?cloudFrontFixScheme=http&cloudFrontFixHost=www2.vauto.com') format('truetype'),
-url('https://d1b6bucc9jhzue.cloudfront.net/at/fonts/ProximaNova/webfonts/ProximaNovaLight.svg?cloudFrontFixScheme=http&cloudFrontFixHost=www2.vauto.com#ProximaNovaLight') format('svg');
-font-weight: 100;
-font-style: normal;
+@font-face {
+  font-family: "ProximaNova";
+  src: url("https://d1b6bucc9jhzue.cloudfront.net/at/fonts/ProximaNova/webfonts/ProximaNovaLight.eot?cloudFrontFixScheme=http&cloudFrontFixHost=www2.vauto.com");
+  src: url("https://d1b6bucc9jhzue.cloudfront.net/at/fonts/ProximaNova/webfonts/ProximaNovaLight.eot?cloudFrontFixScheme=http&cloudFrontFixHost=www2.vauto.com#iefix")
+      format("embedded-opentype"),
+    url("https://d1b6bucc9jhzue.cloudfront.net/at/fonts/ProximaNova/webfonts/ProximaNovaLight.woff?cloudFrontFixScheme=http&cloudFrontFixHost=www2.vauto.com")
+      format("woff"),
+    url("https://d1b6bucc9jhzue.cloudfront.net/at/fonts/ProximaNova/webfonts/ProximaNovaLight.ttf?cloudFrontFixScheme=http&cloudFrontFixHost=www2.vauto.com")
+      format("truetype"),
+    url("https://d1b6bucc9jhzue.cloudfront.net/at/fonts/ProximaNova/webfonts/ProximaNovaLight.svg?cloudFrontFixScheme=http&cloudFrontFixHost=www2.vauto.com#ProximaNovaLight")
+      format("svg");
+  font-weight: 100;
+  font-style: normal;
 }
-@font-face
-{
-font-family: 'ProximaNova';
-src: url('https://d1b6bucc9jhzue.cloudfront.net/at/fonts/ProximaNova/webfonts/ProximaNovaSemiBold.eot?cloudFrontFixScheme=http&cloudFrontFixHost=www2.vauto.com');
-src: url('https://d1b6bucc9jhzue.cloudfront.net/at/fonts/ProximaNova/webfonts/ProximaNovaSemiBold.eot?cloudFrontFixScheme=http&cloudFrontFixHost=www2.vauto.com#iefix') format('embedded-opentype'),
-url('https://d1b6bucc9jhzue.cloudfront.net/at/fonts/ProximaNova/webfonts/ProximaNovaSemiBold.woff?cloudFrontFixScheme=http&cloudFrontFixHost=www2.vauto.com') format('woff'),
-url('https://d1b6bucc9jhzue.cloudfront.net/at/fonts/ProximaNova/webfonts/ProximaNovaSemiBold.ttf?cloudFrontFixScheme=http&cloudFrontFixHost=www2.vauto.com') format('truetype'),
-url('https://d1b6bucc9jhzue.cloudfront.net/at/fonts/ProximaNova/webfonts/ProximaNovaSemiBold.svg?cloudFrontFixScheme=http&cloudFrontFixHost=www2.vauto.com#ProximaNovaSemiBold') format('svg');
-font-weight: 500;
-font-style: normal;
+@font-face {
+  font-family: "ProximaNova";
+  src: url("https://d1b6bucc9jhzue.cloudfront.net/at/fonts/ProximaNova/webfonts/ProximaNovaSemiBold.eot?cloudFrontFixScheme=http&cloudFrontFixHost=www2.vauto.com");
+  src: url("https://d1b6bucc9jhzue.cloudfront.net/at/fonts/ProximaNova/webfonts/ProximaNovaSemiBold.eot?cloudFrontFixScheme=http&cloudFrontFixHost=www2.vauto.com#iefix")
+      format("embedded-opentype"),
+    url("https://d1b6bucc9jhzue.cloudfront.net/at/fonts/ProximaNova/webfonts/ProximaNovaSemiBold.woff?cloudFrontFixScheme=http&cloudFrontFixHost=www2.vauto.com")
+      format("woff"),
+    url("https://d1b6bucc9jhzue.cloudfront.net/at/fonts/ProximaNova/webfonts/ProximaNovaSemiBold.ttf?cloudFrontFixScheme=http&cloudFrontFixHost=www2.vauto.com")
+      format("truetype"),
+    url("https://d1b6bucc9jhzue.cloudfront.net/at/fonts/ProximaNova/webfonts/ProximaNovaSemiBold.svg?cloudFrontFixScheme=http&cloudFrontFixHost=www2.vauto.com#ProximaNovaSemiBold")
+      format("svg");
+  font-weight: 500;
+  font-style: normal;
 }
 
 .center-wrapper {
@@ -55,23 +68,25 @@ font-style: normal;
   color: white;
 }
 
-*{
-  font-family: "ProximaNova", "Open Sans",sans-serif;
+* {
+  font-family: "ProximaNova", "Open Sans", sans-serif;
   color: #444;
 }
 
-html,body {
+html,
+body {
   height: 100%;
-  width:100%;
+  width: 100%;
   margin: 0;
   padding: 0;
 }
 
-#root{
+#root {
   height: 100%;
   width: auto;
 }
-button,a{
+button,
+a {
   outline: none !important;
 }
 
@@ -80,53 +95,83 @@ button,a{
   outline: none;
 }
 
-a{
+a {
   text-decoration: none;
 }
 
 .center-t {
-text-align: center
+  text-align: center;
 }
 
-@media(max-width: 767px){
-  .center-t-sm{
+@media (max-width: 767px) {
+  .center-t-sm {
     text-align: center;
   }
 }
 
-input:required,textarea:invalid {
-  box-shadow:none;
+input:required,
+textarea:invalid {
+  box-shadow: none;
 }
-input:invalid,textarea:invalid {
-  box-shadow:none;
+input:invalid,
+textarea:invalid {
+  box-shadow: none;
 }
 
-input[type='submit'],button{
+input[type="submit"],
+button {
   cursor: pointer;
 }
 
-button:disabled, input:disabled {
+button:disabled,
+input:disabled {
   background: #cbd3da !important;
   color: white !important;
   cursor: not-allowed !important;
 }
 
-ul{
+ul {
   padding: 0;
   margin: 0;
 }
 
-ul li{
-list-style-type: none;
+ul li {
+  list-style-type: none;
 }
 
-.barely-visible{
-  height: .01px;
-  width: .01px;
+.barely-visible {
+  height: 0.01px;
+  width: 0.01px;
   overflow: hidden;
 }
 
+h1,
+h2,
+h3,
+h4,
+h5,
+p,
+a {
+  color: #0a1f46;
+}
 
-h1,h2,h3,h4,h5,p{
-  color: #0A1F46;
+.init-load {
+  padding: 0 1.5em;
+}
+.init-load h1 {
+  font-size: 2em;
+  text-align: center;
+  color: #0a2c56;
+  font-weight: 500;
+}
+
+.init-load p {
+  color: #3d3d3d;
+  font-size: 1em;
+  font-weight: 300;
+}
+
+.init-load img {
+  height: 12em;
+  width: 12em;
 }

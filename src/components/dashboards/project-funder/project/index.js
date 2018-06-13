@@ -1,5 +1,5 @@
 import React from "react";
-import { ProjectWrapper } from "../../../styles/dashboard/project";
+import { ProjectWrapper } from "../../../../styles/dashboards/project-funder/project";
 import { Line } from "rc-progress";
 import Tasks from "./tasks.js";
 import SidebarPhotos from "./sidebar-photos";

@@ -1,9 +1,9 @@
 import React from "react";
 import styled from "styled-components";
-import Spinner from "../../spinners/typetwo";
+import Spinner from "../../../spinners/typetwo";
 import { connect } from "react-redux";
-import { showImageInModal } from "../../../store/action-creators/modal";
-import modals from "../../../store/actions/modals";
+import { showImageInModal } from "../../../../store/action-creators/project-funder/modal";
+import modals from "../../../../store/actions/project-funder/modals";
 
 const SidebarPhotosWrapper = styled.div`
   height: auto;

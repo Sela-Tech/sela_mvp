@@ -3,7 +3,7 @@ import styled from "styled-components";
 import Icon from "react-fa";
 import pdf from "../../../assets/pdf.svg";
 import { connect } from "react-redux";
-import { watch_video } from "../../../store/action-creators/task";
+import { watch_video } from "../../../store/action-creators/project-funder/task";
 import Spinner from "../../spinners/typetwo";
 
 const MediaElemWrapper = styled.div`

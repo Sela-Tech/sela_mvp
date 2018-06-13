@@ -1,18 +1,22 @@
 import React from "react";
-import { Link } from "react-router-dom";
+import { NavLink } from "react-router-dom";
 
-import fullogo from "../../assets/icons/full-logo.svg";
-import account from "../../assets/icons/account.svg";
-import settings from "../../assets/icons/settings.svg";
-import briefcase from "../../assets/icons/briefcase.svg";
-import logout from "../../assets/icons/logout.svg";
+import fullogo from "../../../assets/icons/full-logo.svg";
+import account from "../../../assets/icons/account.svg";
+import settings from "../../../assets/icons/settings.svg";
+import briefcase from "../../../assets/icons/briefcase.svg";
+import logout from "../../../assets/icons/logout.svg";
 
-import { WebSidebar, MobileSidebar } from "../../styles/dashboard/sidebar";
+import {
+  WebSidebar,
+  MobileSidebar
+} from "../../../styles/dashboards/project-funder/sidebar";
+
 import { connect } from "react-redux";
-import { showModal } from "../../store/action-creators/modal";
-import { signout } from "../../store/action-creators/auth";
-import modals from "../../store/actions/modals";
-import HamWrapper from "../../styles/external/hamburger";
+import { showModal } from "../../../store/action-creators/project-funder/modal";
+import { signout } from "../../../store/action-creators/auth";
+import modals from "../../../store/actions/project-funder/modals";
+import HamWrapper from "../../../styles/external/hamburger";
 
 const MobileDashboardSidebar = ({ dispatch, isOpened, toggleMenu }) => {
   const buttonClassName = isOpened ? "is-active" : "",
@@ -51,22 +55,22 @@ const MobileDashboardSidebar = ({ dispatch, isOpened, toggleMenu }) => {
         <h4>MANAGE</h4>
         <ul>
           <li>
-            <Link to="/dashboard">
+            <NavLink to="/dashboard" activeClassName="active">
               <img src={briefcase} alt="briefcase" />
               <span>Projects</span>
-            </Link>
+            </NavLink>
           </li>
           <li>
-            <Link to="/account">
+            <NavLink to="/account" activeClassName="active">
               <img src={account} alt="account" />
               <span>Account</span>
-            </Link>
+            </NavLink>
           </li>
           <li>
-            <Link to="/settings">
+            <NavLink to="/settings" activeClassName="active">
               <img src={settings} alt="settings" />
               <span>Settings</span>
-            </Link>
+            </NavLink>
           </li>
         </ul>
 
@@ -101,22 +105,22 @@ const WebDashboardSidebar = ({ dispatch }) => {
         <h4>MANAGE</h4>
         <ul>
           <li>
-            <Link to="/dashboard">
+            <NavLink to="/dashboard" activeClassName="active">
               <img src={briefcase} alt="briefcase" />
               <span>Projects</span>
-            </Link>
+            </NavLink>
           </li>
           <li>
-            <Link to="/account">
+            <NavLink to="/account" activeClassName="active">
               <img src={account} alt="account" />
               <span>Account</span>
-            </Link>
+            </NavLink>
           </li>
           <li>
-            <Link to="/settings">
+            <NavLink to="/settings" activeClassName="active">
               <img src={settings} alt="settings" />
               <span>Settings</span>
-            </Link>
+            </NavLink>
           </li>
         </ul>
       </div>

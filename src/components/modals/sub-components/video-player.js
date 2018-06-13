@@ -2,7 +2,10 @@ import React from "react";
 import styled from "styled-components";
 import Icon from "react-fa";
 import { connect } from "react-redux";
-import { watch_video, clear_video } from "../../../store/action-creators/task";
+import {
+  watch_video,
+  clear_video
+} from "../../../store/action-creators/project-funder/task";
 
 Object.defineProperty(HTMLMediaElement.prototype, "playing", {
   get: function() {

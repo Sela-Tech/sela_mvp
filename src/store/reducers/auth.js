@@ -7,7 +7,9 @@ const initstate = {
     message: ""
   },
   isAuthenticated: false,
-  credentials: {}
+  credentials: {
+    dashboardType: ""
+  }
 };
 
 export default (state = initstate, payload) => {
@@ -28,7 +30,7 @@ export default (state = initstate, payload) => {
           message: payload.message || "Logged In Successfully"
         },
         isAuthenticated: true,
-        credentials: payload.credentials
+        credentials: payload.data
       };
 
     case authActions.TOKEN_VERIFICATION_FAILED:
@@ -56,7 +58,7 @@ export default (state = initstate, payload) => {
           message: payload.message || "Logged In Successfully"
         },
         isAuthenticated: true,
-        credentials: payload.credentials
+        credentials: payload.data
       };
 
     case authActions.SIGNIN_FAILED:

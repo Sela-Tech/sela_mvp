@@ -1,6 +1,6 @@
 import React from "react";
 
-import A404 from "../../components/errors/a404";
+import A404 from "../components/errors/a404";
 
 const ErrorToReturn = ({ errorName }) => {
   switch (errorName) {

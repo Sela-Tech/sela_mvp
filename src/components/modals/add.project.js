@@ -4,16 +4,16 @@ import DatePicker from "react-datepicker";
 import moment from "moment";
 import "react-datepicker/dist/react-datepicker.css";
 import { connect } from "react-redux";
-import { addProject } from "../../store/action-creators/project";
+import { addProject } from "../../store/action-creators/project-funder/project";
 import AsyncButton from "../authentication/async-button";
-import dashboardActions from "../../store/actions/dashboard";
+import dA from "../../store/actions/project-funder/dashboard";
 import MessageToShow from "../errors/messageToShow";
-import { Form } from "../../styles/dashboard/modals/add";
+import { Form } from "../../styles/dashboards/project-funder/modals/add";
 
 const mapStateToProps = state => {
   const { type, message } = state.projects.add.action;
   return {
-    add_project_in_progress: type === dashboardActions.ADD_PROJECT_IN_PROGRESS,
+    add_project_in_progress: type === dA.ADD_PROJECT_IN_PROGRESS,
     message,
     type
   };
@@ -191,7 +191,7 @@ export default connect(mapStateToProps)(
           <MessageToShow
             type={type}
             message={message}
-            match={dashboardActions.ADD_PROJECT_SUCCESSFUL}
+            match={dA.ADD_PROJECT_SUCCESSFUL}
           />
         </Form>
       );

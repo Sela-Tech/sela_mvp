@@ -1,8 +1,11 @@
 import React from "react";
 import styled from "styled-components";
 import { connect } from "react-redux";
-import modals from "../../../store/actions/modals";
-import { showTaskModal, showModal } from "../../../store/action-creators/modal";
+import modals from "../../../../store/actions/project-funder/modals";
+import {
+  showTaskModal,
+  showModal
+} from "../../../../store/action-creators/project-funder/modal";
 import moment from "moment";
 
 const TaskStyleWrapper = styled.div`
@@ -159,7 +162,7 @@ const Task = connect()(({ checked, data, dispatch }) => {
     >
       <div className="xs-2  checkbox-part">
         <label className="l-container">
-          <input type="checkbox" defaultChecked={checked} />
+          <input type="checkbox" defaultChecked={checked} disabled />
           <span className="checkmark" />
         </label>
       </div>

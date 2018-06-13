@@ -7,7 +7,51 @@ import { connect } from "react-redux";
 import authActions from "./store/actions/auth";
 import LoadingRoute from "./helpers/loadingRoute";
 
-const App = ({ isAuthenticated, actionType }) => {
+const FilterDashboard = (type, isAuthenticated) => {
+  switch (type) {
+    case "project-funder":
+      return [
+        <PrivateRoute
+          key={1}
+          exact
+          path="/dashboard"
+          isAuthenticated={isAuthenticated}
+          component={r.funder_dashboard_home}
+        />,
+
+        <PrivateRoute
+          key={2}
+          exact
+          path="/dashboard/project/:id"
+          isAuthenticated={isAuthenticated}
+          component={r.funder_dashboard_project}
+        />
+      ];
+
+    case "contractor":
+      return [
+        <PrivateRoute
+          key={1}
+          exact
+          path="/dashboard"
+          isAuthenticated={isAuthenticated}
+          component={r.funder_dashboard_home}
+        />,
+
+        <PrivateRoute
+          key={2}
+          exact
+          path="/dashboard/project/:id"
+          isAuthenticated={isAuthenticated}
+          component={r.funder_dashboard_project}
+        />
+      ];
+    default:
+      return null;
+  }
+};
+
+const App = ({ isAuthenticated, actionType, dashboardType }) => {
   return (
     <Router>
       {actionType === authActions.TOKEN_VERIFICATION_IN_PROGRESS ? (
@@ -24,36 +68,25 @@ const App = ({ isAuthenticated, actionType }) => {
             path="/signin"
             type="auth"
             isAuthenticated={isAuthenticated}
-            component={r.signin}
+            component={r.auth}
           />
           <PrivateRoute
             exact
             path="/signup"
             type="auth"
             isAuthenticated={isAuthenticated}
-            component={r.signup}
+            component={r.auth}
           />
           <PrivateRoute
             exact
             path="/forgot/password"
             type="auth"
             isAuthenticated={isAuthenticated}
-            component={r.forgot_password}
-          />
-          <PrivateRoute
-            exact
-            path="/dashboard"
-            isAuthenticated={isAuthenticated}
-            component={r.dashboard_home}
+            component={r.auth}
           />
 
-          <PrivateRoute
-            exact
-            path="/dashboard/project/:id"
-            isAuthenticated={isAuthenticated}
-            component={r.project}
-          />
-          
+          {FilterDashboard(dashboardType, isAuthenticated)}
+
           <Route component={r.errors} />
         </Switch>
       )}
@@ -62,9 +95,11 @@ const App = ({ isAuthenticated, actionType }) => {
 };
 
 const mapStateToProps = state => {
+  const { isAuthenticated, action, credentials } = state.auth;
   return {
-    isAuthenticated: state.auth.isAuthenticated,
-    actionType: state.auth.action.type
+    isAuthenticated,
+    actionType: action.type,
+    dashboardType: credentials.type
   };
 };
 

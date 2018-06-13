@@ -1,5 +1,4 @@
-import dashboardActions from "../actions/dashboard";
-
+import dA from "../../actions/project-funder/dashboard";
 const initstate = {
   modalToShow: "",
   image_to_show: ""
@@ -7,26 +6,26 @@ const initstate = {
 
 export default (state = initstate, payload) => {
   switch (payload.type) {
-    case dashboardActions.SHOW_MODAL_FORM:
+    case dA.SHOW_MODAL_FORM:
       return {
         ...state,
         modalToShow: payload.name
       };
 
-    case dashboardActions.SHOW_IMAGE_IN_MODAL_FORM:
+    case dA.SHOW_IMAGE_IN_MODAL_FORM:
       return {
         ...state,
         modalToShow: payload.name,
         image_to_show: payload.image
       };
 
-    case dashboardActions.SHOW_TASK_MODAL:
+    case dA.SHOW_TASK_MODAL:
       return {
         ...state,
         modalToShow: payload.name
       };
 
-    case dashboardActions.CLOSE_MODAL_FORM:
+    case dA.CLOSE_MODAL_FORM:
       return {
         ...state,
         modalToShow: ""

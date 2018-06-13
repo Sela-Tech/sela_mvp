@@ -1,11 +1,12 @@
 import ax from "axios";
-import dashboardActions from "../actions/dashboard";
-import e from "../../endpoints";
+import dA from "../../actions/project-funder/dashboard";
+import e from "../../../endpoints";
 import Qs from "querystring";
-import { retrieveToken } from "../../helpers/TokenManager";
+import { retrieveToken } from "../../../helpers/TokenManager";
+
 export const fetchProjects = () => {
   return dispatch => {
-    dispatch({ type: dashboardActions.FETCHING_PROJECTS_IN_PROGRESS });
+    dispatch({ type: dA.FETCHING_PROJECTS_IN_PROGRESS });
     ax({
       url: e.fetch_projects,
       method: "GET",
@@ -15,7 +16,7 @@ export const fetchProjects = () => {
     })
       .then(({ data }) => {
         dispatch({
-          type: dashboardActions.FETCHING_PROJECTS_SUCCESSFUL,
+          type: dA.FETCHING_PROJECTS_SUCCESSFUL,
           projects: data
         });
       })
@@ -26,14 +27,14 @@ export const fetchProjects = () => {
         } else {
           message = "connection error";
         }
-        dispatch({ type: dashboardActions.FETCHING_PROJECTS_FAILED, message });
+        dispatch({ type: dA.FETCHING_PROJECTS_FAILED, message });
       });
   };
 };
 
 export const addProject = obj => {
   return dispatch => {
-    dispatch({ type: dashboardActions.ADD_PROJECT_IN_PROGRESS });
+    dispatch({ type: dA.ADD_PROJECT_IN_PROGRESS });
     ax({
       url: e.add_project,
       method: "POST",
@@ -44,7 +45,7 @@ export const addProject = obj => {
     })
       .then(({ data }) => {
         dispatch({
-          type: dashboardActions.ADD_PROJECT_SUCCESSFUL
+          type: dA.ADD_PROJECT_SUCCESSFUL
         });
       })
       .catch(({ response }) => {
@@ -54,14 +55,14 @@ export const addProject = obj => {
         } else {
           message = "connection error";
         }
-        dispatch({ type: dashboardActions.ADD_PROJECT_FAILED, message });
+        dispatch({ type: dA.ADD_PROJECT_FAILED, message });
       });
   };
 };
 
 export const fetchProject = id => {
   return dispatch => {
-    dispatch({ type: dashboardActions.FETCHING_PROJECT_IN_PROGRESS });
+    dispatch({ type: dA.FETCHING_PROJECT_IN_PROGRESS });
     ax({
       url: e.fetch_project + id,
       method: "GET",
@@ -71,7 +72,7 @@ export const fetchProject = id => {
     })
       .then(({ data }) => {
         dispatch({
-          type: dashboardActions.FETCHING_PROJECT_SUCCESSFUL,
+          type: dA.FETCHING_PROJECT_SUCCESSFUL,
           info: data
         });
       })
@@ -82,7 +83,7 @@ export const fetchProject = id => {
         } else {
           message = "connection error";
         }
-        dispatch({ type: dashboardActions.FETCHING_PROJECT_FAILED, message });
+        dispatch({ type: dA.FETCHING_PROJECT_FAILED, message });
       });
   };
 };

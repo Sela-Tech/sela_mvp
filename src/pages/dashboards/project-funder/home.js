@@ -1,13 +1,14 @@
 import React from "react";
 import { connect } from "react-redux";
 import { bindActionCreators } from "redux";
-import DashboardWrapper from "../../components/dashboard/wrapper";
-import * as actions from "../../store/action-creators/project";
-import NotEmptyHomeView from "../../components/dashboard/home/not-empty";
-import EmptyHomeView from "../../components/dashboard/home/empty";
-import dashboard from "../../store/actions/dashboard";
-import LoadingRoute from "../../helpers/loadingRoute";
-import SpinnerTypeone from "../../components/spinners/typeone";
+import DashboardWrapper from "../../../components/dashboards/project-funder/wrapper";
+import * as actions from "../../../store/action-creators/project-funder/project";
+
+import SpinnerTypeone from "../../../components/spinners/typeone";
+import LoadingRoute from "../../../helpers/loadingRoute";
+import dashboard from "../../../store/actions/project-funder/dashboard";
+import EmptyHomeView from "../../../components/dashboards/project-funder/home/empty";
+import NotEmptyHomeView from "../../../components/dashboards/project-funder/home/not-empty";
 
 class DashboardHomeContainer extends React.Component {
   constructor(props) {

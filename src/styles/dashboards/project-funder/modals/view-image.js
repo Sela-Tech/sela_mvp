@@ -6,5 +6,6 @@ export const ViewImageWrapper = styled.div`
     width: 100%;
     object-fit: contain;
     display: block;
+    padding: 1em;
   }
 `;

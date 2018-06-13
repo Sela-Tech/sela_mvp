@@ -1,5 +1,4 @@
-import dashboardActions from "../actions/dashboard";
-
+import dA from "../../actions/project-funder/dashboard";
 const initstate = {
   add: {
     action: {
@@ -29,39 +28,39 @@ const initstate = {
 
 export default (state = initstate, payload) => {
   switch (payload.type) {
-    case dashboardActions.ADD_TASK_IN_PROGRESS:
+    case dA.ADD_TASK_IN_PROGRESS:
       return {
         ...state,
         add: {
           action: {
-            type: dashboardActions.ADD_TASK_IN_PROGRESS
+            type: dA.ADD_TASK_IN_PROGRESS
           }
         }
       };
 
-    case dashboardActions.ADD_TASK_SUCCESSFUL:
+    case dA.ADD_TASK_SUCCESSFUL:
       return {
         ...state,
         add: {
           action: {
-            type: dashboardActions.ADD_TASK_SUCCESSFUL,
+            type: dA.ADD_TASK_SUCCESSFUL,
             message: payload.message || "Task Added Successfully"
           }
         }
       };
 
-    case dashboardActions.ADD_TASK_FAILED:
+    case dA.ADD_TASK_FAILED:
       return {
         ...state,
         add: {
           action: {
-            type: dashboardActions.ADD_TASK_FAILED,
+            type: dA.ADD_TASK_FAILED,
             message: payload.message || "Could Not Add A Task."
           }
         }
       };
 
-    case dashboardActions.WATCH_VIDEO:
+    case dA.WATCH_VIDEO:
       return {
         ...state,
         single: {
@@ -73,7 +72,7 @@ export default (state = initstate, payload) => {
         }
       };
 
-    case dashboardActions.CLEAR_VIDEO:
+    case dA.CLEAR_VIDEO:
       return {
         ...state,
         single: {
@@ -81,7 +80,7 @@ export default (state = initstate, payload) => {
           video_to_watch: {}
         }
       };
-    case dashboardActions.SHOW_TASK_MODAL:
+    case dA.SHOW_TASK_MODAL:
       return {
         ...state,
         single: {

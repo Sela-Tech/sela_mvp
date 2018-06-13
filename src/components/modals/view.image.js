@@ -1,6 +1,6 @@
 import React from "react";
 import { connect } from "react-redux";
-import { ViewImageWrapper } from "../../styles/dashboard/modals/view-image";
+import { ViewImageWrapper } from "../../styles/dashboards/project-funder/modals/view-image";
 
 const mapStateToProps = state => {
   const { image_to_show } = state.dashboard;

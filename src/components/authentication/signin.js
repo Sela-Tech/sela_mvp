@@ -9,31 +9,59 @@ import { signin } from "../../store/action-creators/auth";
 import AsycnButton from "../../components/authentication/async-button";
 import auth from "../../store/actions/auth";
 import MessageToShow from "../../components/errors/messageToShow";
+import validator from "../../helpers/validator";
 
 class Login extends React.Component {
   constructor(props) {
     super(props);
     this.state = {
-      formData: {
-        username: "",
-        password: "",
-        rememberMe: false
-      }
+      username: {
+        base: ""
+      },
+      password: "",
+      rememberMe: false
     };
   }
 
   onSubmit = e => {
     e.preventDefault();
-    this.props.signin(this.state.formData);
+    const key = Object.keys(this.state.username)[0];
+
+    this.props.signin({
+      [key]: this.state.username[key],
+      password: this.state.password
+    });
   };
 
-  onChange = e => {
+  onPasswordChange = e => {
     this.setState({
-      formData: {
-        ...this.state.formData,
-        [e.target.name]: e.target.value
-      }
+      password: e.target.value
     });
+  };
+
+  onUsernameChange = e => {
+    let v = e.target.value;
+    if (validator(v, "email")) {
+      this.setState({
+        username: {
+          email: v,
+          base: v
+        }
+      });
+    } else if (validator(v, "phoneNumber")) {
+      this.setState({
+        username: {
+          phoneNumber: v,
+          base: v
+        }
+      });
+    } else {
+      this.setState({
+        username: {
+          base: v
+        }
+      });
+    }
   };
 
   onCheck = e => {
@@ -58,7 +86,16 @@ class Login extends React.Component {
   }
 
   render() {
-    const { inprogress, message, type } = this.state;
+    const {
+        inprogress,
+        message,
+        type,
+        username,
+        password,
+        rememberMe
+      } = this.state,
+      disabled = Object.keys(this.state.username).length < 2;
+
     return (
       <Wrapper viewName="signin">
         <div className="container">
@@ -80,8 +117,8 @@ class Login extends React.Component {
                   type="text"
                   className="form-control"
                   placeholder="Username"
-                  onChange={this.onChange}
-                  value={this.state.formData.username}
+                  onChange={this.onUsernameChange}
+                  value={username["base"]}
                   required
                 />
               </div>
@@ -92,8 +129,8 @@ class Login extends React.Component {
                   type="password"
                   className="form-control"
                   placeholder="Password"
-                  value={this.state.formData.password}
-                  onChange={this.onChange}
+                  value={password}
+                  onChange={this.onPasswordChange}
                   required
                 />
 
@@ -102,7 +139,7 @@ class Login extends React.Component {
                     <input
                       type="checkbox"
                       name="rememberMe"
-                      value={this.state.formData.rememberMe}
+                      value={rememberMe}
                       onChange={this.onCheck}
                     />
                     <label> Keep me signed in</label>
@@ -117,7 +154,11 @@ class Login extends React.Component {
               </div>
 
               <div className="form-group xs-12">
-                <AsycnButton id="submit-btn" attempt={inprogress}>
+                <AsycnButton
+                  id="submit-btn"
+                  attempt={inprogress}
+                  disabled={disabled}
+                >
                   Sign in
                 </AsycnButton>
               </div>

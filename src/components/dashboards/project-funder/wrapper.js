@@ -1,8 +1,8 @@
 import React from "react";
 import Helmet from "react-helmet";
-import { StyledWrapperElem } from "../../styles/dashboard/wrapper";
+import { StyledWrapperElem } from "../../../styles/dashboards/project-funder/wrapper";
 import DashboardSidebar from "./sidebar";
-import Modal from "../modals";
+import Modal from "../../modals";
 import { connect } from "react-redux";
 
 const MetaData = ({ viewName, projectName }) => {

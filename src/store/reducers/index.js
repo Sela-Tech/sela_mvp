@@ -1,8 +1,8 @@
 import { combineReducers } from "redux";
 import auth from "./auth";
-import dashboard from "./dashboard";
-import projects from "./projects";
-import tasks from "./tasks";
+import dashboard from "./project-funder/dashboard";
+import projects from "./project-funder/projects";
+import tasks from "./project-funder/tasks";
 
 export default combineReducers({
   auth,

@@ -5,15 +5,15 @@ import ViewTaskModal from "./view.task";
 import ViewImageModal from "./view.image";
 
 import { connect } from "react-redux";
-import { closeModal } from "../../store/action-creators/modal";
-import modalActions from "../../store/actions/modals";
-import modals from "../../store/actions/modals";
+import { closeModal } from "../../store/action-creators/project-funder/modal";
+import modalActions from "../../store/actions/project-funder/modals";
+import modals from "../../store/actions/project-funder/modals";
 
 import {
   SharedCloseButton,
   ModalWrapperStyler,
   ViewTaskMotherWrapper
-} from "../../styles/dashboard/modals/main";
+} from "../../styles/dashboards/project-funder/modals/main";
 
 const ModalSelector = ({ name }) => {
   switch (name) {

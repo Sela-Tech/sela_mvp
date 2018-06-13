@@ -4,6 +4,7 @@
   "private": true,
   "dependencies": {
     "axios": "^0.18.0",
+    "loadable-components": "^2.2.2",
     "moment": "^2.22.2",
     "now": "^11.2.1",
     "rc-progress": "^2.2.5",

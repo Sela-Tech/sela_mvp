@@ -1,7 +1,7 @@
 import React from "react";
 import { connect } from "react-redux";
 import VideoPlayer from "./sub-components/video-player";
-import { ViewTaskWrapper } from "../../styles/dashboard/modals/view-task";
+import { ViewTaskWrapper } from "../../styles/dashboards/project-funder/modals/view-task";
 import MediaElement from "./sub-components/media-element";
 import moment from "moment";
 
