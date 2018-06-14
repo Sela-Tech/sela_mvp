@@ -25,11 +25,13 @@ class Login extends React.Component {
 
   onSubmit = e => {
     e.preventDefault();
-    const key = Object.keys(this.state.username)[0];
+    const key = Object.keys(this.state.username)[0],
+      { password, rememberMe } = this.state;
 
     this.props.signin({
       [key]: this.state.username[key],
-      password: this.state.password
+      password,
+      rememberMe
     });
   };
 
@@ -67,10 +69,7 @@ class Login extends React.Component {
   onCheck = e => {
     this.setState(p => {
       return {
-        formData: {
-          ...p.formData,
-          rememberMe: !p.formData.rememberMe
-        }
+        rememberMe: !p.rememberMe
       };
     });
   };
@@ -120,6 +119,7 @@ class Login extends React.Component {
                   onChange={this.onUsernameChange}
                   value={username["base"]}
                   required
+                  autoFocus
                 />
               </div>
 

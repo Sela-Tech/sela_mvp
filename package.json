@@ -22,10 +22,7 @@
   },
   "scripts": {
     "pretty-up": "npx onchange '**/*.js' -- npx prettier --write {{changed}}",
-    "build": "react-scripts build && yarn run delete-maps",
-    "delete-maps": "yarn run delete-map-files && yarn run delete-references-to-map-files",
-    "delete-map-files": "find ./build -name '*.map' -delete",
-    "delete-references-to-map-files": "find ./build -regex '.*\\.\\(js\\|css\\)' -exec sed -i -E '\\/[\\*\\/]#\\ssourceMappingURL=main(\\.[0-9a-f]+)?\\.(css|js)\\.map(\\*\\/)?/g' {} +",
+    "build": "react-scripts build",
     "start": "react-scripts start",
     "test": "react-scripts test --env=jsdom",
     "eject": "react-scripts eject"
