@@ -28,6 +28,7 @@ const SidebarPhotosWrapper = styled.div`
 
     li {
       display: block;
+      position: relative;
 
       img:hover {
         filter: grayscale(100%) contrast(50%);
@@ -45,6 +46,11 @@ const SidebarPhotosWrapper = styled.div`
       .loading {
         z-index: 1;
         margin-bottom: 3px;
+        position: absolute;
+        top: 0;
+        left: 0;
+        right: 0;
+        bottom: 0;
       }
     }
   }

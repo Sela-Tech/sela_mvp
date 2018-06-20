@@ -88,8 +88,8 @@ const TaskStyleWrapper = styled.div`
     padding: 0;
     margin: 0;
     max-height: 400px;
-    overflow-y: -moz-scrollbars-vertical;
-    overflow-y: scroll;
+    // overflow-y: -moz-scrollbars-vertical;
+    // overflow-y: scroll;
     overflow-x: hidden;
 
     &::-webkit-scrollbar {
@@ -110,7 +110,9 @@ const TaskStyleWrapper = styled.div`
       border-bottom: 1px solid #f2f2f2;
       padding: 1em;
       cursor: pointer;
-
+      &:hover {
+        background: #fafafa;
+      }
       .s {
         padding: 0 0.25em;
       }
