@@ -84,6 +84,226 @@ module.exports = function(app, db, config) {
                 status: "good",
                 src:
                   "https://www.sample-videos.com/video/mp4/720/big_buck_bunny_720p_10mb.mp4"
+              },
+              {
+                name: "Task 1",
+                type: "document",
+                status: "good",
+                src: "http://www.pdf995.com/samples/pdf.pdf"
+              },
+              {
+                name: "Task 2",
+                type: "document",
+                status: "bad",
+                src: "http://www.pdf995.com/samples/pdf.pdf"
+              },
+              {
+                name: "Task 3",
+                type: "video",
+                status: "bad",
+                src:
+                  "https://www.sample-videos.com/video/mp4/720/big_buck_bunny_720p_5mb.mp4"
+              },
+              {
+                name: "Task 4",
+                type: "video",
+                status: "good",
+                src:
+                  "https://www.sample-videos.com/video/mp4/720/big_buck_bunny_720p_10mb.mp4"
+              },
+              {
+                name: "Task 1",
+                type: "document",
+                status: "good",
+                src: "http://www.pdf995.com/samples/pdf.pdf"
+              },
+              {
+                name: "Task 2",
+                type: "document",
+                status: "bad",
+                src: "http://www.pdf995.com/samples/pdf.pdf"
+              },
+              {
+                name: "Task 3",
+                type: "video",
+                status: "bad",
+                src:
+                  "https://www.sample-videos.com/video/mp4/720/big_buck_bunny_720p_5mb.mp4"
+              },
+              {
+                name: "Task 4",
+                type: "video",
+                status: "good",
+                src:
+                  "https://www.sample-videos.com/video/mp4/720/big_buck_bunny_720p_10mb.mp4"
+              }
+            ]
+          },
+          {
+            name: "Cleanup Oil Spill",
+            task_created: new Date("March 17, 2018 03:24:00"),
+            deadline: new Date("December 17, 2018 03:24:00"),
+            contractor_assigned: "Dotun Longe",
+            status: "complete",
+            evaluation_submissions: [
+              {
+                name: "Task 1",
+                type: "document",
+                status: "good",
+                src: "http://www.pdf995.com/samples/pdf.pdf"
+              },
+              {
+                name: "Task 2",
+                type: "document",
+                status: "bad",
+                src: "http://www.pdf995.com/samples/pdf.pdf"
+              },
+              {
+                name: "Task 3",
+                type: "video",
+                status: "bad",
+                src:
+                  "https://www.sample-videos.com/video/mp4/720/big_buck_bunny_720p_10mb.mp4"
+              }
+            ]
+          },
+          {
+            name: "Sensitize Villagers On Waste Processing Methods",
+            task_created: new Date("March 17, 2018 03:24:00"),
+            deadline: new Date("December 17, 2018 03:24:00"),
+            contractor_assigned: "Dotun Longe",
+            status: "not-started",
+            evaluation_submissions: [
+              {
+                name: "Task 1",
+                type: "document",
+                status: "good",
+                src: "http://www.pdf995.com/samples/pdf.pdf"
+              },
+              {
+                name: "Task 2",
+                type: "document",
+                status: "bad",
+                src: "http://www.pdf995.com/samples/pdf.pdf"
+              },
+              {
+                name: "Task 3",
+                type: "video",
+                status: "bad",
+                src:
+                  "https://www.sample-videos.com/video/mp4/720/big_buck_bunny_720p_10mb.mp4"
+              }
+            ]
+          },
+          {
+            name: "Cleanup Oil Spill",
+            task_created: new Date("March 17, 2018 03:24:00"),
+            deadline: new Date("December 17, 2018 03:24:00"),
+            contractor_assigned: "Dotun Longe",
+            status: "complete",
+            evaluation_submissions: [
+              {
+                name: "Task 1",
+                type: "document",
+                status: "good",
+                src: "http://www.pdf995.com/samples/pdf.pdf"
+              },
+              {
+                name: "Task 2",
+                type: "document",
+                status: "bad",
+                src: "http://www.pdf995.com/samples/pdf.pdf"
+              },
+              {
+                name: "Task 3",
+                type: "video",
+                status: "bad",
+                src:
+                  "https://www.sample-videos.com/video/mp4/720/big_buck_bunny_720p_10mb.mp4"
+              }
+            ]
+          },
+          {
+            name: "Sensitize Villagers On Waste Processing Methods",
+            task_created: new Date("March 17, 2018 03:24:00"),
+            deadline: new Date("December 17, 2018 03:24:00"),
+            contractor_assigned: "Dotun Longe",
+            status: "not-started",
+            evaluation_submissions: [
+              {
+                name: "Task 1",
+                type: "document",
+                status: "good",
+                src: "http://www.pdf995.com/samples/pdf.pdf"
+              },
+              {
+                name: "Task 2",
+                type: "document",
+                status: "bad",
+                src: "http://www.pdf995.com/samples/pdf.pdf"
+              },
+              {
+                name: "Task 3",
+                type: "video",
+                status: "bad",
+                src:
+                  "https://www.sample-videos.com/video/mp4/720/big_buck_bunny_720p_10mb.mp4"
+              }
+            ]
+          },
+          {
+            name: "Cleanup Oil Spill",
+            task_created: new Date("March 17, 2018 03:24:00"),
+            deadline: new Date("December 17, 2018 03:24:00"),
+            contractor_assigned: "Dotun Longe",
+            status: "complete",
+            evaluation_submissions: [
+              {
+                name: "Task 1",
+                type: "document",
+                status: "good",
+                src: "http://www.pdf995.com/samples/pdf.pdf"
+              },
+              {
+                name: "Task 2",
+                type: "document",
+                status: "bad",
+                src: "http://www.pdf995.com/samples/pdf.pdf"
+              },
+              {
+                name: "Task 3",
+                type: "video",
+                status: "bad",
+                src:
+                  "https://www.sample-videos.com/video/mp4/720/big_buck_bunny_720p_10mb.mp4"
+              }
+            ]
+          },
+          {
+            name: "Sensitize Villagers On Waste Processing Methods",
+            task_created: new Date("March 17, 2018 03:24:00"),
+            deadline: new Date("December 17, 2018 03:24:00"),
+            contractor_assigned: "Dotun Longe",
+            status: "not-started",
+            evaluation_submissions: [
+              {
+                name: "Task 1",
+                type: "document",
+                status: "good",
+                src: "http://www.pdf995.com/samples/pdf.pdf"
+              },
+              {
+                name: "Task 2",
+                type: "document",
+                status: "bad",
+                src: "http://www.pdf995.com/samples/pdf.pdf"
+              },
+              {
+                name: "Task 3",
+                type: "video",
+                status: "bad",
+                src:
+                  "https://www.sample-videos.com/video/mp4/720/big_buck_bunny_720p_10mb.mp4"
               }
             ]
           },

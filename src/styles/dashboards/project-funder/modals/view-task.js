@@ -87,4 +87,9 @@ export const ViewTaskWrapper = styled.div`
     height: 100%;
     margin: 4em 0;
   }
+
+  #eval-subs {
+    overflow: auto;
+    max-height: 11em;
+  }
 `;

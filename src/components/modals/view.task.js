@@ -78,7 +78,7 @@ export default connect(mapStateToProps)(
               </div>
             </div>
 
-            <div className="xs-12">
+            <div className="xs-12" id="eval-subs">
               <h3>Evaluation Submissions</h3>
               {MediaElements}
             </div>

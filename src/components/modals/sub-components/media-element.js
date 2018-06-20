@@ -109,7 +109,8 @@ export default connect(mapStateToProps)(
   class Mediaelement extends React.Component {
     state = {
       videoLoaded: false,
-      state: "not-playing"
+      state: "not-playing",
+      hide: false
     };
 
     togglePlayer = () => {
@@ -121,21 +122,33 @@ export default connect(mapStateToProps)(
       }
     };
 
-    cb = () => {
+    cbSuccess = () => {
       this.setState({
         videoLoaded: true
       });
     };
 
+    cbFailed = () => {
+      this.setState({
+        hide: true
+      });
+    };
+
     componentDidMount() {
-      if (this.refs.video) {
-        this.refs.video.addEventListener("loadeddata", this.cb, false);
+      const v = this.refs.video;
+
+      if (v) {
+        v.addEventListener("loadeddata", this.cbSuccess);
+        v.addEventListener("error", this.cbFailed);
       }
     }
 
     componentWillUnmount() {
-      if (this.refs.video) {
-        this.refs.video.removeEventListener("loadeddata", this.cb, false);
+      const v = this.refs.video;
+
+      if (v) {
+        v.removeEventListener("loadeddata", this.cbSuccess);
+        v.removeEventListener("error", this.cbFailed);
       }
     }
     render() {
@@ -180,28 +193,31 @@ export default connect(mapStateToProps)(
             </MediaElemWrapper>
           );
         default:
-          return (
-            <MediaElemWrapper className="xs-6 sm-3">
-              {status === "complete" ? (
-                <Icon className="s good" name="check" />
-              ) : (
-                <Icon className="s bad" name="exclamation" />
-              )}
-              <div className="xs-11">
-                <button onClick={this.togglePlayer}>{iconPicker}</button>
-                {this.state.videoLoaded === false && (
-                  <div className="loading">
-                    <div className="center-wrapper">
-                      <div className="center">
-                        <Spinner />
+          if (this.state.hide === false) {
+            return (
+              <MediaElemWrapper className="xs-6 sm-3">
+                {status === "complete" ? (
+                  <Icon className="s good" name="check" />
+                ) : (
+                  <Icon className="s bad" name="exclamation" />
+                )}
+                <div className="xs-11">
+                  <button onClick={this.togglePlayer}>{iconPicker}</button>
+                  {this.state.videoLoaded === false && (
+                    <div className="loading">
+                      <div className="center-wrapper">
+                        <div className="center">
+                          <Spinner />
+                        </div>
                       </div>
                     </div>
-                  </div>
-                )}
-                <video poster={poster} src={src} ref={"video"} />
-              </div>
-            </MediaElemWrapper>
-          );
+                  )}
+                  <video poster={poster} src={src} ref={"video"} />
+                </div>
+              </MediaElemWrapper>
+            );
+          }
+          return null;
       }
     }
   }
