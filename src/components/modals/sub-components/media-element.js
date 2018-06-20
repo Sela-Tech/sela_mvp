@@ -136,7 +136,7 @@ export default connect(mapStateToProps)(
 
     componentDidMount() {
       const v = this.refs.video;
-
+      //make sure the video exists before listening
       if (v) {
         v.addEventListener("loadeddata", this.cbSuccess);
         v.addEventListener("error", this.cbFailed);
@@ -145,8 +145,8 @@ export default connect(mapStateToProps)(
 
     componentWillUnmount() {
       const v = this.refs.video;
-
       if (v) {
+        //remove the listeners when component is dropped
         v.removeEventListener("loadeddata", this.cbSuccess);
         v.removeEventListener("error", this.cbFailed);
       }

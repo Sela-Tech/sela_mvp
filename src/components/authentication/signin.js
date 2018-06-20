@@ -15,6 +15,14 @@ class Login extends React.Component {
   constructor(props) {
     super(props);
     this.state = {
+      minLengths: {
+        username: 5,
+        password: 6
+      },
+      specialError: {
+        username: "",
+        password: ""
+      },
       username: {
         base: ""
       },
@@ -36,13 +44,36 @@ class Login extends React.Component {
   };
 
   onPasswordChange = e => {
+    const v = e.target.value;
+
     this.setState({
-      password: e.target.value
+      password: v
     });
   };
 
   onUsernameChange = e => {
     let v = e.target.value;
+
+    if (
+      v !== "" &&
+      validator(v, "email") === false &&
+      validator(v, "phoneNumber") === false
+    ) {
+      this.setState({
+        specialError: {
+          ...this.state.specialError,
+          username: "That email address / phone number looks invalid"
+        }
+      });
+    } else {
+      this.setState({
+        specialError: {
+          ...this.state.specialError,
+          username: undefined
+        }
+      });
+    }
+
     if (validator(v, "email")) {
       this.setState({
         username: {
@@ -50,7 +81,10 @@ class Login extends React.Component {
           base: v
         }
       });
-    } else if (validator(v, "phoneNumber")) {
+    } else if (
+      validator(v, "phoneNumber") &&
+      v.length >= this.state.minLengths.username
+    ) {
       this.setState({
         username: {
           phoneNumber: v,
@@ -83,6 +117,17 @@ class Login extends React.Component {
       });
     }
   }
+  confirmFields = () => {
+    if (this.state.password.length > this.state.minLengths.password) {
+      if (Object.keys(this.state.username).length < 2) {
+        return true;
+      } else {
+        return false;
+      }
+    } else {
+      return true;
+    }
+  };
 
   render() {
     const {
@@ -93,7 +138,10 @@ class Login extends React.Component {
         password,
         rememberMe
       } = this.state,
-      disabled = Object.keys(this.state.username).length < 2;
+      disabled = this.confirmFields(),
+      sEUsername = this.state.specialError.username,
+      minName = this.state.minLengths.username,
+      minPass = this.state.minLengths.password;
 
     return (
       <Wrapper viewName="signin">
@@ -115,12 +163,15 @@ class Login extends React.Component {
                   name="username"
                   type="text"
                   className="form-control"
-                  placeholder="Username"
+                  placeholder="Phone Number/Email Address"
                   onChange={this.onUsernameChange}
                   value={username["base"]}
+                  minLength={minName}
+                  maxLength={50}
                   required
                   autoFocus
                 />
+                {sEUsername && <p className="special-error">{sEUsername}</p>}
               </div>
 
               <div className="form-group xs-12">
@@ -131,6 +182,7 @@ class Login extends React.Component {
                   placeholder="Password"
                   value={password}
                   onChange={this.onPasswordChange}
+                  minLength={minPass}
                   required
                 />
 

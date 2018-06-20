@@ -6,6 +6,13 @@ export default styled.div`
   display: table;
   background: white;
 
+  .special-error {
+    font-size: 0.85em;
+    color: coral;
+    margin: 0.5em 0 0;
+    text-align: left;
+  }
+
   p {
     font-weight: 300;
   }

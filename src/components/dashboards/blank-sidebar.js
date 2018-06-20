@@ -9,7 +9,13 @@ const WebDashboardSidebar = ({ dispatch }) => {
         <img src={fullogo} alt="logo" />
         <button />
       </div>
-      <div id="bottom" />
+      <div id="bottom">
+        <span className="sm" />
+        <span className="md" />
+        <span className="lg" />
+        <span className="lg" />
+        <span className="md" />
+      </div>
     </WebSidebar>
   );
 };

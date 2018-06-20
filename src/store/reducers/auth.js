@@ -75,6 +75,9 @@ export default (state = initstate, payload) => {
         ...state,
         action: {
           type: authActions.SIGNUP_IN_PROGRESS
+        },
+        credentials: {
+          dashboardType: payload.dashboardType
         }
       };
 
@@ -85,7 +88,10 @@ export default (state = initstate, payload) => {
           type: authActions.SIGNUP_SUCCESSFUL,
           message: payload.message || "Logged in successfully"
         },
-        credentials: payload.credentials
+        credentials: {
+          ...state.credentials,
+          ...payload.credentials
+        }
       };
 
     case authActions.SIGNUP_FAILED:

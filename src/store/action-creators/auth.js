@@ -24,8 +24,8 @@ export const signin = obj => {
             setToken("ss", data.token);
           }
           dispatch({ type: authActions.SIGNIN_SUCCESSFUL, data });
-        }else{
-          let message =  data.message;
+        } else {
+          let message = data.message;
           dispatch({ type: authActions.SIGNIN_FAILED, message });
         }
       })
@@ -69,7 +69,10 @@ export const verify_user_token = () => {
 
 export const signup = obj => {
   return dispatch => {
-    dispatch({ type: authActions.SIGNUP_IN_PROGRESS });
+    dispatch({
+      type: authActions.SIGNUP_IN_PROGRESS,
+      dashboardType: obj["sign-up-type"]
+    });
     ax({
       url: e.signup,
       method: "POST",

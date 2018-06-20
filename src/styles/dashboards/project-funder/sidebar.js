@@ -55,6 +55,27 @@ export const WebSidebar = styled.div`
 
   #bottom {
     margin: 3em 0;
+
+    .md,
+    .sm,
+    .lg {
+      display: block;
+      background: rgb(251, 251, 251);
+      border-radius: 6px;
+      padding: 0.5em 0;
+      margin: 1em 0;
+    }
+    .md {
+      width: 67.5%;
+    }
+    .sm {
+      width: 55%;
+    }
+
+    .lg {
+      width: 80%;
+    }
+
     h4 {
       font-size: 0.75em;
       font-weight: 400;

@@ -159,7 +159,8 @@ a {
   padding: 0 1.5em;
 }
 .init-load h1 {
-  font-size: 2em;
+  font-size: 1em;
+  font-family: sans-serif;
   text-align: center;
   color: #0a2c56;
   font-weight: 500;
