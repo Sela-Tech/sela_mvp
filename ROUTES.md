@@ -5,37 +5,48 @@ Sela includes a REST API in the backend that performs business-critical operatio
   - Route: /register
   - Method: POST
   - Parameters:
-    - *firstName*: user's first name
-    - *familyName*: user's family name
-    - *username*: user's username
-    - *publicKey*: user's public key
-    - *password*: user's password
+    - Header: ----------------
+    - Body:
+      - *givenName*: user's given name
+      - *surname*: user's surname
+      - *email*: user's e-mail address
+      - *phone*: user's phone number
+      - *publicKey*: user's public key
+      - *password*: user's password
   - Response: ----------------
 
 - **Login**
   - Route: /login
   - Method: POST
   - Parameters:
-    - *username*: user's username
-    - *password*: user's password
+    - Header: ----------------
+    - Body:
+      - *email*: user's e-mail address
+      - *phone*: user's phone number
+      - *password*: user's password
   - Response: ----------------
 
 - **PostProject**
   - Route: /project
   - Method: POST
   - Parameters:
-    - *name*: name of project
-    - *description*: description of project
-    - *startNate*: start date of project
-    - *endDate*: end date of project
-    - *token*: token authenticating user in system
+    - Header:
+      - *token*: token authenticating user in system
+    - Body:
+      - *name*: name of project
+      - *description*: description of project
+      - *startDate*: start date of project
+      - *endDate*: end date of project
+      - *owner*: owner of project
   - Response: ----------------
 
 - **GetProjects**
   - Route: /projects
   - Method: GET
   - Parameters:
-    - *token*: token authenticating user in system
+    - Header:
+      - *token*: token authenticating user in system
+    - Body: ----------------
   - Response:
     - *projects*: list of projects with which user is associated
 
@@ -43,20 +54,24 @@ Sela includes a REST API in the backend that performs business-critical operatio
   - Route: /task
   - Method: POST
   - Parameters:
-    - *name*: name of task
-    - *description*: description of task
-    - *project*: id of project with which task is associated
-    - *dueDate*: due date of task 
-    - *assignedTo*: id of task assignee
-    - *createdBy*: id of task creator
-    - *token*: token authenticating user in system
+    - Header:
+      - *token*: token authenticating user in system
+    - Body: 
+      - *name*: name of task
+      - *description*: description of task
+      - *project*: id of project with which task is associated
+      - *dueDate*: due date of task 
+      - *assignedTo*: id of task assignee
+      - *createdBy*: id of task creator
   - Response: ----------------
 
 - **GetTasks**
   - Route: /tasks
   - Method: GET
   - Parameters:
-    - *token*: token authenticating user in system
+    - Header:
+      - *token*: token authenticating user in system
+    - Body: ----------------
   - Response:
     - *tasks*: list of tasks with which user is associated
 

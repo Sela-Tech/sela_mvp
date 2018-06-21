@@ -11,6 +11,7 @@ var app = express();
 var port = process.env.PORT || 3000;
 var jwt = require('jsonwebtoken');
 var path = require('path')
+var tokenValidityPeriod = 86400 // in seconds; 86400 seconds = 24 hours
 var tokenHeaderField = 'x-access-token';
 var cookieParser = require('cookie-parser');
 var bodyParser = require('body-parser');
@@ -62,8 +63,8 @@ if (process.env.NODE_ENV === 'development') {
 environmentsAll.call(app);
 
 function verifyToken(req, res, next) {
-    var successRes = {"success":true};
-    var failRes = {"success":false};
+    var successRes = {"success": true};
+    var failRes = {"success": false};
     var token = req.headers[tokenHeaderField];
     if (!token) {
       failRes.message = 'No token provided.';
@@ -80,9 +81,9 @@ function verifyToken(req, res, next) {
 }
 
 app.post("/register", (req, res) => {
+    var successRes = {"success": true};
+    var failRes = {"success": false};
     var checkQuery = {};
-    var successRes = {"success":true};
-    var failRes = {"success":false};
     checkQuery.username = req.body.username;
     User.findOne(checkQuery, (checkErr, user) => {
       if (checkErr) {
@@ -111,7 +112,7 @@ app.post("/register", (req, res) => {
           return res.status(500).json(failRes);
         }
         var token = jwt.sign({ id: newUser._id }, process.env.SECRET, {
-          expiresIn: 86400 // expires in 24 hours
+          expiresIn: tokenValidityPeriod
         });
         successRes.token = token;
         successRes.id = newUser._id;
@@ -123,7 +124,7 @@ app.post("/register", (req, res) => {
           return res.status(500).json(failRes);
         }
         var token = jwt.sign({ id: newUser._id }, process.env.SECRET, {
-          expiresIn: 86400 // expires in 24 hours
+          expiresIn: tokenValidityPeriod
         });
         successRes.token = token;
         return res.status(200).json(successRes);
@@ -132,9 +133,9 @@ app.post("/register", (req, res) => {
 });
 
 app.post("/login", (req, res) => {
+    var successRes = {"success": true};
+    var failRes = {"success": false};
     var checkQuery = {};
-    var successRes = {"success":true};
-    var failRes = {"success":false};
     checkQuery.username = req.body.username;
     User.findOne(checkQuery, (checkErr, user) => {
       if (checkErr) {
@@ -155,7 +156,7 @@ app.post("/login", (req, res) => {
           return res.status(401).json(failRes);
         }
         var token = jwt.sign({ id: user._id }, process.env.SECRET, {
-          expiresIn: 86400 // expires in 24 hours
+          expiresIn: tokenValidityPeriod
         });
         successRes.token = token;
         return res.status(200).json(successRes);
@@ -164,8 +165,8 @@ app.post("/login", (req, res) => {
 });
 
 app.post("/project", verifyToken, (req, res) => {
-    var successRes = {"success":true};
-    var failRes = {"success":false};
+    var successRes = {"success": true};
+    var failRes = {"success": false};
     if (req.body.owner != req.userId) {
       failRes.message = "You cannot create a project on behalf of another user";
       return res.status(500).json(failRes);
@@ -175,6 +176,7 @@ app.post("/project", verifyToken, (req, res) => {
     projectObj.description = req.body.description;
     projectObj.startDate = req.body.startDate;
     projectObj.endDate = req.body.endDate;
+    projectObj.owner= req.body.owner;
     var newProject = new Project(projectObj);
     newProject.save((projErr) => {
         if (projErr) {
@@ -186,8 +188,8 @@ app.post("/project", verifyToken, (req, res) => {
 });
 
 app.get("/projects", verifyToken, (req, res) => {
-    var successRes = {"success":true};
-    var failRes = {"success":false};
+    var successRes = {"success": true};
+    var failRes = {"success": false};
     var checkQuery = {"owner": req.userId};
     Project.find(checkQuery, (checkErr, projects) => {
       if (checkErr) {
@@ -200,8 +202,8 @@ app.get("/projects", verifyToken, (req, res) => {
 });
 
 app.post("/task", verifyToken, (req, res) => {
-    var successRes = {"success":true};
-    var failRes = {"success":false};
+    var successRes = {"success": true};
+    var failRes = {"success": false};
     var projId = req.body.project;
     if (!projId.match(/^[0-9a-fA-F]{24}$/)) {
         failRes.message = projId + " is an ill-formatted project ID in Sela";
@@ -248,11 +250,11 @@ app.post("/task", verifyToken, (req, res) => {
 });
 
 app.get("/tasks", verifyToken, (req, res) => {
-    var successRes = {"success":true};
-    var failRes = {"success":false};
-    var createdQuery = {"project": req.body.project, "createdBy": req.userId};
-    var assignedQuery = {"project": req.body.project, "assignedTo": req.userId};
-    var completedQuery = {"project": req.body.project, "completedBy": req.userId};
+    var successRes = {"success": true};
+    var failRes = {"success": false};
+    var createdQuery = {/*"project": req.body.project, */"createdBy": req.userId};
+    var assignedQuery = {/*"project": req.body.project, */"assignedTo": req.userId};
+    var completedQuery = {/*"project": req.body.project, */"completedBy": req.userId};
     var checkQuery = {"$or": [createdQuery, assignedQuery, completedQuery]};
     Task.find(checkQuery, (checkErr, tasks) => {
       if (checkErr) {
