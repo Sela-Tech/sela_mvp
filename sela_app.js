@@ -135,15 +135,14 @@ app.post("/register", (req, res) => {
 app.post("/login", (req, res) => {
     var successRes = {"success": true};
     var failRes = {"success": false};
-    var checkQuery = {};
-    checkQuery.username = req.body.username;
-    User.findOne(checkQuery, (checkErr, user) => {
+    var email_or_number_query = {$or: [{email: req.body.email}, {phoneNumber: req.body.phoneNumber}]};
+    User.findOne(email_or_number_query, (checkErr, user) => {
       if (checkErr) {
         failRes.message = checkErr.name + ": " + checkErr.message;
         return res.status(500).json(failRes);
       }
       if (!user) {
-        failRes.message = "Sela does not have an account for " + checkQuery.username + ". Please try another username or follow the link below to register";
+        failRes.message = "Sela does not have an account with those user credentials. Please try another email/phone number or follow the link below to register";
         return res.status(401).json(failRes);
       }
       user.comparePassword(req.body.password, (passErr, isMatch) => {
@@ -152,7 +151,7 @@ app.post("/login", (req, res) => {
           return res.status(500).json(failRes);
         }
         if (!isMatch) {
-          failRes.message = "That is the wrong password for " + checkQuery.username + ". Please try again";
+          failRes.message = "That is the wrong password for this account. Please try again ";
           return res.status(401).json(failRes);
         }
         var token = jwt.sign({ id: user._id }, process.env.SECRET, {
