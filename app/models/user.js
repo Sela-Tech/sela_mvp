@@ -26,7 +26,7 @@ var userStructure = {
         unique: true,
         lowercase: true
     },
-    phoneNumber: {
+    phone: {
         type: String,
         unique: true,
         lowercase: true

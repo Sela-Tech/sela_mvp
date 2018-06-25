@@ -83,7 +83,7 @@ function verifyToken(req, res, next) {
 app.post("/register", (req, res) => {
     var successRes = {"success": true};
     var failRes = {"success": false};
-    var email_or_number_query = {$or: [{email: req.body.email}, {phoneNumber: req.body.phone}]};
+    var email_or_number_query = {$or: [{email: req.body.email}, {phone: req.body.phone}]};
     User.findOne(email_or_number_query, (checkErr, user) => {
       if (checkErr) {
         failRes.message = checkErr.name + ": " + checkErr.message;
@@ -134,7 +134,7 @@ app.post("/register", (req, res) => {
 app.post("/login", (req, res) => {
     var successRes = {"success": true};
     var failRes = {"success": false};
-    var email_or_number_query = {$or: [{email: req.body.email}, {phoneNumber: req.body.phone}]};
+    var email_or_number_query = {$or: [{email: req.body.email}, {phone: req.body.phone}]};
     User.findOne(email_or_number_query, (checkErr, user) => {
       if (checkErr) {
         failRes.message = checkErr.name + ": " + checkErr.message;
