@@ -80,6 +80,24 @@ function verifyToken(req, res, next) {
     });
 }
 
+app.post("/verifyToken", (req, res) => {
+    var successRes = {"success": true};
+    var failRes = {"success": false};
+    var token = req.headers[tokenHeaderField];
+    if (!token) {
+      failRes.message = 'No token provided.';
+      return res.status(403).json(failRes);
+    }
+    jwt.verify(token, process.env.SECRET, (verifyErr, user) => {
+      if (verifyErr) {
+        failRes.message = 'Failed to authenticate token.';
+        return res.status(500).json(failRes);
+      }
+      req.userId = user._id;
+      return res.status(200).json(successRes);
+    });
+});
+
 app.post("/register", (req, res) => {
     var successRes = {"success": true};
     var failRes = {"success": false};

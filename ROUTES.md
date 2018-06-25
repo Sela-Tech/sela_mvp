@@ -1,6 +1,15 @@
 ### Sela Backend REST API
 Sela includes a REST API in the backend that performs business-critical operations on behalf of the client. The following is an outline of the REST API\*:
 
+- **VerifyToken**
+  - Route: /verifyToken
+  - Method: POST
+  - Parameters:
+    - Header:
+      - *token*: token authenticating user in system
+    - Body: ----------------
+  - Response: ----------------
+
 - **Register**
   - Route: /register
   - Method: POST
