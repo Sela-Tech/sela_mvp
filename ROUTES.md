@@ -16,8 +16,8 @@ Sela includes a REST API in the backend that performs business-critical operatio
   - Parameters:
     - Header: ----------------
     - Body:
-      - *givenName*: user's given name
-      - *surname*: user's surname
+      - *firstName*: user's first name
+      - *lastName*: user's last name
       - *email*: user's e-mail address
       - *phone*: user's phone number
       - *publicKey*: user's public key

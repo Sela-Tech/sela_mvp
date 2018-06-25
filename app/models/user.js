@@ -10,7 +10,7 @@ var userStructure = {
         min: 1,
         max: 100
     },
-    familyName: {
+    lastName: {
         type: String,
         required: true,
         min: 1,

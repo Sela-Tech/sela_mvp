@@ -1,7 +1,8 @@
 {
   "firstName":"Yadi",
-  "familyName":"Lichi",
-  "username":"yadilichiuname2",
+  "lastName":"Lichi",
+  "email":"yadi@lichi.com",
+  "phone":"923454244",
   "publicKey":"yadilichipubKey2",
   "isFunder":"true",
   "password":"yadilichipass2"
