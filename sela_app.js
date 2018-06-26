@@ -94,6 +94,7 @@ app.post("/verifyToken", (req, res) => {
         return res.status(500).json(failRes);
       }
       req.userId = user._id;
+      res.setHeader("Access-Control-Allow-Headers", "Content-Type, Access-Control-Allow-Headers, Authorization, X-Requested-With");
       return res.status(200).json(successRes);
     });
 });
