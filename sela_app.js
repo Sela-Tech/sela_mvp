@@ -109,7 +109,12 @@ app.post("/register", (req, res) => {
         return res.status(500).json(failRes);
       }
       if (user) {
-        failRes.message = "Sela already has an account for this user. Please try other credentials";
+        if (user.email == req.body.email) {
+          failRes.message = "Sela already has an account for a user with e-mail address: " + req.body.email + ". Please try another e-mail address";
+        }
+        if (user.phone == req.body.phone) {
+          failRes.message = "Sela already has an account for a user with phone number: " + req.body.phone + ". Please try another phone number";
+        }
         return res.status(401).json(failRes);
       }
       var userObj = {};
@@ -123,20 +128,8 @@ app.post("/register", (req, res) => {
       userObj.isContractor = req.body.isContractor;
       userObj.isEvaluator = req.body.isEvaluator;
       userObj.password = req.body.password;
-      /*var newUser = new User(userObj);
+      var newUser = new User(userObj);
       newUser.save((regErr) => {
-        if (regErr) {
-          failRes.message = regErr.name + ": " + regErr.message;
-          return res.status(500).json(failRes);
-        }
-        var token = jwt.sign({ id: newUser._id }, process.env.SECRET, {
-          expiresIn: tokenValidityPeriod
-        });
-        successRes.token = token;
-        successRes.id = newUser._id;
-        return res.status(200).json(successRes);
-      });*/
-      User.create(userObj, (regErr, newUser) => {
         if (regErr) {
           failRes.message = regErr.name + ": " + regErr.message;
           return res.status(500).json(failRes);
@@ -147,6 +140,17 @@ app.post("/register", (req, res) => {
         successRes.token = token;
         return res.status(200).json(successRes);
       });
+      /*User.create(userObj, (regErr, newUser) => {
+        if (regErr) {
+          failRes.message = regErr.name + ": " + regErr.message;
+          return res.status(500).json(failRes);
+        }
+        var token = jwt.sign({ id: newUser._id }, process.env.SECRET, {
+          expiresIn: tokenValidityPeriod
+        });
+        successRes.token = token;
+        return res.status(200).json(successRes);
+      });*/
     });
 });
 
