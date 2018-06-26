@@ -57,7 +57,7 @@ class Login extends React.Component {
     if (
       v !== "" &&
       validator(v, "email") === false &&
-      validator(v, "phoneNumber") === false
+      validator(v, "phone") === false
     ) {
       this.setState({
         specialError: {
@@ -82,12 +82,12 @@ class Login extends React.Component {
         }
       });
     } else if (
-      validator(v, "phoneNumber") &&
+      validator(v, "phone") &&
       v.length >= this.state.minLengths.username
     ) {
       this.setState({
         username: {
-          phoneNumber: v,
+          phone: v,
           base: v
         }
       });
@@ -110,10 +110,11 @@ class Login extends React.Component {
 
   componentWillReceiveProps(nextProps) {
     if (this.props !== nextProps) {
+      const { type, message, inprogress } = nextProps;
       this.setState({
-        type: nextProps.type,
-        message: nextProps.message,
-        inprogress: nextProps.inprogress
+        type,
+        message,
+        inprogress
       });
     }
   }

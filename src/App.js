@@ -7,7 +7,7 @@ import { connect } from "react-redux";
 import authActions from "./store/actions/auth";
 import LoadingRoute from "./helpers/loadingRoute";
 
-const FilterDashboard = (type, isAuthenticated) => {
+const FilterDashboard = (type, isAuthenticated = false) => {
   switch (type) {
     case "project-funder":
       return [

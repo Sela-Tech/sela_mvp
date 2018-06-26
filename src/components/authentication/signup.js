@@ -18,6 +18,7 @@ import Wrapper from "../../components/authentication/wrapper";
 import SignUpWrapper from "../../styles/authentication/signup";
 import AsycnButton from "../../components/authentication/async-button";
 import auth from "../../store/actions/auth";
+import MessageToShow from "../../components/errors/messageToShow";
 
 const Button = ({ active, title, description, name, Ftn }) => {
   let onClick = () => Ftn(name);
@@ -47,15 +48,15 @@ class Signup extends React.Component {
     super(props);
     this.state = {
       formData: {
-        firstname: { value: "", valid: false },
-        surname: { value: "", valid: false },
+        firstName: { value: "", valid: false },
+        lastName: { value: "", valid: false },
         "sign-up-type": {
           value: "",
           valid: false
         },
         email: { value: "", valid: false },
         password: { value: "", valid: false },
-        phoneNumber: { value: "", valid: false }
+        phone: { value: "", valid: false }
       }
     };
   }
@@ -97,14 +98,16 @@ class Signup extends React.Component {
 
   componentWillReceiveProps(nextProps) {
     if (this.props !== nextProps) {
+      const { type, message, inprogress } = nextProps;
       this.setState({
-        signup_auth_in_progress: nextProps.signup_auth_in_progress,
-        signup_auth_type: nextProps.signup_auth_type
+        type,
+        message,
+        inprogress
       });
     }
   }
   render() {
-    let { signup_auth_in_progress, signup_auth_type } = this.state;
+    let { inprogress, type, message } = this.state;
 
     const { formData } = this.state,
       checkFormCompletion =
@@ -112,7 +115,7 @@ class Signup extends React.Component {
           return formData[key].valid === true;
         }).length !== 6;
 
-    switch (signup_auth_type) {
+    switch (type) {
       case auth.SIGNUP_SUCCESSFUL:
         switch (this.state.formData["sign-up-type"].value) {
           case "project-funder":
@@ -288,7 +291,7 @@ class Signup extends React.Component {
                     <Button
                       title="Contractor"
                       name="contractor"
-                      description="I want to track my project progress with Sela."
+                      description="I want to track my project inprogress with Sela."
                       Ftn={this.onSelect}
                       active={this.state.formData["sign-up-type"].value}
                     />
@@ -303,12 +306,12 @@ class Signup extends React.Component {
 
                   <div className="form-group xs-12 md-6">
                     <input
-                      name="firstname"
+                      name="firstName"
                       type="text"
                       className="form-control"
                       id="firstname"
                       placeholder="First Name"
-                      value={this.state.formData.firstname.value}
+                      value={this.state.formData.firstName.value}
                       onChange={this.onChange}
                       required
                     />
@@ -316,11 +319,11 @@ class Signup extends React.Component {
 
                   <div className="form-group xs-12 md-6">
                     <input
-                      name="surname"
+                      name="lastName"
                       type="text"
                       className="form-control"
-                      placeholder="Surname"
-                      value={this.state.formData.surname.value}
+                      placeholder="Last Name / Surname"
+                      value={this.state.formData.lastName.value}
                       onChange={this.onChange}
                       required
                     />
@@ -340,9 +343,9 @@ class Signup extends React.Component {
 
                   <div className="form-group xs-12">
                     <input
-                      name="phoneNumber"
+                      name="phone"
                       type="tel"
-                      value={this.state.formData.phoneNumber.value}
+                      value={this.state.formData.phone.value}
                       className="form-control"
                       placeholder="Phone Number"
                       onChange={this.onChange}
@@ -366,7 +369,7 @@ class Signup extends React.Component {
                     <div className="xs-12 md-4 center-t">
                       <AsycnButton
                         id="submit-btn"
-                        attempt={signup_auth_in_progress}
+                        attempt={inprogress}
                         disabled={checkFormCompletion}
                       >
                         Get Started
@@ -381,6 +384,16 @@ class Signup extends React.Component {
                         </Link>
                       </p>
                     </div>
+
+                    <div className="xs-12">
+                      <div className="error">
+                        <MessageToShow
+                          type={type}
+                          message={message}
+                          match={auth.SIGNUP_FAILED}
+                        />
+                      </div>
+                    </div>
                   </div>
                 </form>
               </div>
@@ -394,9 +407,9 @@ class Signup extends React.Component {
 const mapStateToProps = state => {
   const { type, message } = state.auth.action;
   return {
-    signup_auth_type: type,
-    signup_auth_in_progress: type === auth.SIGNUP_IN_PROGRESS,
-    signup_auth_message: message
+    type: type,
+    inprogress: type === auth.SIGNUP_IN_PROGRESS,
+    message
   };
 };
 const mapDispatchToProps = dispatch => {

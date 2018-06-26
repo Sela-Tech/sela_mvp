@@ -1,7 +1,7 @@
 import ax from "axios";
 import authActions from "../actions/auth";
 import e from "../../endpoints";
-import Qs from "querystring";
+// import Qs from "querystring";
 import { retrieveToken, setToken } from "../../helpers/TokenManager";
 
 export const signout = () => {
@@ -47,9 +47,9 @@ export const verify_user_token = () => {
     ax({
       url: e.verify_user_token,
       method: "POST",
-      data: Qs.stringify({ token: retrieveToken() }),
       headers: {
-        "Content-Type": "application/x-www-form-urlencoded"
+        "Content-Type": "application/x-www-form-urlencoded",
+        "x-access-token": retrieveToken()
       }
     })
       .then(({ data }) => {
