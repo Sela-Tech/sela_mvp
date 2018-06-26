@@ -120,7 +120,9 @@ app.post("/register", (req, res) => {
       var userObj = {};
       userObj.firstName = req.body.firstName;
       userObj.lastName = req.body.lastName;
-      //userObj.username = req.body.username;
+      // userObj.username = req.body.username;
+      userObj.email = req.body.email;
+      userObj.phone = req.body.phone;
       userObj.publicKey = req.body.publicKey;
       /*userObj.userTypes = [];
       userObj.userTypes.push(req.body.userType);*/

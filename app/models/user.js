@@ -24,12 +24,14 @@ var userStructure = {
     email: {
         type: String,
         unique: true,
-        lowercase: true
+        lowercase: true,
+        default: null
     },
     phone: {
         type: String,
         unique: true,
-        lowercase: true
+        lowercase: true,
+        default: null
     },
     publicKey: {
         type: String,
