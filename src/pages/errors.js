@@ -1,9 +1,12 @@
 import React from "react";
 
 import A404 from "../components/errors/a404";
+import UnderConstruction from "../components/errors/under-construction";
 
 const ErrorToReturn = ({ errorName }) => {
   switch (errorName) {
+    case "under-construction":
+      return <UnderConstruction />;
     default:
       return <A404 />;
   }

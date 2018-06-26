@@ -1,4 +1,4 @@
-const b = process.env.REACT_APP_BACKEND_SERVER_BASEURL;
+const b = "https://notable-cssolirscn.now.sh/";
 
 export default {
   signin: b + "login",
