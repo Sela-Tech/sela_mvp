@@ -16,7 +16,9 @@ module.exports = function(app, db, config) {
 
   app.post("/verify-token", (req, res) => {
     // setTimeout(() => {
-    if (req.body.token === "090fj923fj2039fj390j932j032j9cj3029j") {
+    if (
+      req.headers["x-access-token"] === "090fj923fj2039fj390j932j032j9cj3029j"
+    ) {
       res.status(200).json({
         type: "project-funder"
       });

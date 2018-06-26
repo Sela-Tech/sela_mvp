@@ -57,7 +57,7 @@ class Login extends React.Component {
     if (
       v !== "" &&
       validator(v, "email") === false &&
-      validator(v, "phone") === false
+      validator(v, "phoneNumber") === false
     ) {
       this.setState({
         specialError: {
@@ -82,7 +82,7 @@ class Login extends React.Component {
         }
       });
     } else if (
-      validator(v, "phone") &&
+      validator(v, "phoneNumber") &&
       v.length >= this.state.minLengths.username
     ) {
       this.setState({

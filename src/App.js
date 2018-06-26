@@ -1,5 +1,10 @@
 import React from "react";
-import { Switch, Route, BrowserRouter as Router } from "react-router-dom";
+import {
+  Switch,
+  Route,
+  BrowserRouter as Router,
+  Redirect
+} from "react-router-dom";
 import r from "./routes";
 import PrivateRoute from "./helpers/privateRoute";
 
@@ -47,7 +52,7 @@ const FilterDashboard = (type, isAuthenticated = false) => {
         />
       ];
     default:
-      return null;
+      return <Redirect to="/signin" />;
   }
 };
 
