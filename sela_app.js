@@ -109,11 +109,11 @@ app.post("/register", (req, res) => {
         return res.status(500).json(failRes);
       }
       if (user) {
-        if (user.email == req.body.email) {
-          failRes.message = "Sela already has an account for a user with e-mail address: " + req.body.email + ". Please try another e-mail address";
-        }
         if (user.phone == req.body.phone) {
           failRes.message = "Sela already has an account for a user with phone number: " + req.body.phone + ". Please try another phone number";
+        }
+        if (user.email == req.body.email) {
+          failRes.message = "Sela already has an account for a user with e-mail address: " + req.body.email + ". Please try another e-mail address";
         }
         return res.status(401).json(failRes);
       }
