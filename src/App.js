@@ -6,9 +6,13 @@ import PrivateRoute from "./helpers/privateRoute";
 import { connect } from "react-redux";
 import authActions from "./store/actions/auth";
 import LoadingRoute from "./helpers/loadingRoute";
+import Errors from "./pages/errors";
 
 const FilterDashboard = (type, isAuthenticated = false) => {
   switch (type) {
+    default:
+      return <Errors errorName="under-construction" />;
+
     case "project-funder":
       return [
         <PrivateRoute
@@ -46,8 +50,6 @@ const FilterDashboard = (type, isAuthenticated = false) => {
           component={r.funder_dashboard_project}
         />
       ];
-    default:
-      return null;
   }
 };
 

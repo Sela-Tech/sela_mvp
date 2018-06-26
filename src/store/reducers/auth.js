@@ -8,7 +8,7 @@ const initstate = {
   },
   isAuthenticated: false,
   credentials: {
-    dashboardType: ""
+    type: ""
   }
 };
 
