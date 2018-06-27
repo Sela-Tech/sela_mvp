@@ -1,5 +1,10 @@
 import React from "react";
-import { Switch, Route, BrowserRouter as Router } from "react-router-dom";
+import {
+  Switch,
+  Route,
+  BrowserRouter as Router,
+  Redirect
+} from "react-router-dom";
 import r from "./routes";
 import PrivateRoute from "./helpers/privateRoute";
 
@@ -11,8 +16,11 @@ import Errors from "./pages/errors";
 const FilterDashboard = (type, isAuthenticated = false) => {
   switch (type) {
     default:
-      return <Errors errorName="under-construction" />;
-
+      if (isAuthenticated === true) {
+        return <Errors errorName="under-construction" />;
+      } else {
+        return <Redirect to="/signin" />;
+      }
     case "project-funder":
       return [
         <PrivateRoute
