@@ -47,8 +47,8 @@ export const verify_user_token = () => {
     ax({
       url: e.verify_user_token,
       method: "POST",
+      data: {},
       headers: {
-        "Content-Type": "application/x-www-form-urlencoded",
         "x-access-token": retrieveToken()
       }
     })
