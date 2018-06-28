@@ -54,6 +54,12 @@ app.use(express.static(path.join(__dirname, "public", "index")));
 app.use(express.static(path.join(__dirname, "public", "index", "signup")));
 app.use("/client", express.static(path.join(__dirname, "public", "build")));
 
+// Add headers
+app.use(function(req, res, next) {
+  res.setHeader("Access-Control-Allow-Headers", tokenHeaderField);
+  next();
+});
+
 if (process.env.NODE_ENV === "development") {
   environmentsDev.call(app);
 } else if (process.env.NODE_ENV === "production") {
@@ -80,11 +86,6 @@ function verifyToken(req, res, next) {
   });
 }
 
-app.get("/verifyToken", (req,res)=>{
-  return res.status(200).json({
-    test: "successful"
-  })
-})
 app.post("/verifyToken", (req, res) => {
   var successRes = { success: true };
   var failRes = { success: false };
@@ -101,7 +102,7 @@ app.post("/verifyToken", (req, res) => {
     req.userId = user._id;
     res.setHeader(
       "Access-Control-Allow-Headers",
-      "Content-Type, Access-Control-Allow-Headers, Authorization, X-Requested-With, X-Access-Token"
+      "Content-Type, Access-Control-Allow-Headers, Authorization, X-Requested-With"
     );
     return res.status(200).json(successRes);
   });
