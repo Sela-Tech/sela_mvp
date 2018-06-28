@@ -50,7 +50,7 @@ class Signup extends React.Component {
       formData: {
         firstName: { value: "", valid: false },
         lastName: { value: "", valid: false },
-        "sign-up-type": {
+        "signUpType": {
           value: "",
           valid: false
         },
@@ -75,7 +75,7 @@ class Signup extends React.Component {
     this.setState({
       formData: {
         ...this.state.formData,
-        "sign-up-type": {
+        "signUpType": {
           value: name,
           valid: true
         }
@@ -117,7 +117,7 @@ class Signup extends React.Component {
 
     switch (type) {
       case auth.SIGNUP_SUCCESSFUL:
-        switch (this.state.formData["sign-up-type"].value) {
+        switch (this.state.formData["signUpType"].value) {
           case "project-funder":
             window.scrollTo(0, 0);
             return (
@@ -286,21 +286,21 @@ class Signup extends React.Component {
                       name="project-funder"
                       description="I want to use Sela to manage projects I fund."
                       Ftn={this.onSelect}
-                      active={this.state.formData["sign-up-type"].value}
+                      active={this.state.formData["signUpType"].value}
                     />
                     <Button
                       title="Contractor"
                       name="contractor"
                       description="I want to track my project inprogress with Sela."
                       Ftn={this.onSelect}
-                      active={this.state.formData["sign-up-type"].value}
+                      active={this.state.formData["signUpType"].value}
                     />
                     <Button
                       title="Evaluation Agent"
                       name="evaluation-agent"
                       description="I want to help validate projects in my community."
                       Ftn={this.onSelect}
-                      active={this.state.formData["sign-up-type"].value}
+                      active={this.state.formData["signUpType"].value}
                     />
                   </div>
 

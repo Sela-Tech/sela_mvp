@@ -24,5 +24,5 @@ firstname: String,
 surname:String,
 password: String,
 phoneNumber: String,
-sign-up-type: String,
+signUpType: String,
 }

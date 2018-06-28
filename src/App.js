@@ -109,7 +109,7 @@ const mapStateToProps = state => {
   return {
     isAuthenticated,
     actionType: action.type,
-    dashboardType: credentials.type
+    dashboardType: credentials.signUpType
   };
 };
 

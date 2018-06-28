@@ -23,6 +23,21 @@ export const signin = obj => {
           } else {
             setToken("ss", data.token);
           }
+          switch (true) {
+            case data.isEvaluator:
+              data.signUpType = "evaluation-agent";
+              break;
+            case data.isContractor:
+              data.signUpType = "contractor";
+              break;
+
+            case data.isFunder:
+              data.signUpType = "project-funder";
+              break;
+            default:
+              data.signUpType = undefined;
+          }
+
           dispatch({ type: authActions.SIGNIN_SUCCESSFUL, data });
         } else {
           let message = data.message;
@@ -47,12 +62,26 @@ export const verify_user_token = () => {
     ax({
       url: e.verify_user_token,
       method: "POST",
-      data: {},
       headers: {
         "x-access-token": retrieveToken()
       }
     })
       .then(({ data }) => {
+        switch (true) {
+          case data.isEvaluator:
+            data.signUpType = "evaluation-agent";
+            break;
+          case data.isContractor:
+            data.signUpType = "contractor";
+            break;
+
+          case data.isFunder:
+            data.signUpType = "project-funder";
+            break;
+          default:
+            data.signUpType = undefined;
+        }
+
         dispatch({ type: authActions.TOKEN_VERIFICATION_SUCCESSFUL, data });
       })
       .catch(({ response }) => {
@@ -68,10 +97,23 @@ export const verify_user_token = () => {
 };
 
 export const signup = obj => {
+  switch (obj.signUpType) {
+    case "evaluation-agent":
+      obj.isEvaluator = true;
+      break;
+    case "contractor":
+      obj.isContractor = true;
+      break;
+    default:
+      obj.isFunder = true;
+  }
+
+  delete obj.signUpType;
+
   return dispatch => {
     dispatch({
       type: authActions.SIGNUP_IN_PROGRESS,
-      dashboardType: obj["sign-up-type"]
+      dashboardType: obj["signUpType"]
     });
     ax({
       url: e.signup,
