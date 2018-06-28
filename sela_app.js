@@ -80,6 +80,11 @@ function verifyToken(req, res, next) {
   });
 }
 
+app.get("/verifyToken", (req,res)=>{
+  return res.status(200).json({
+    test: "successful"
+  })
+})
 app.post("/verifyToken", (req, res) => {
   var successRes = { success: true };
   var failRes = { success: false };
