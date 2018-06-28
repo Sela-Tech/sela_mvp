@@ -8,7 +8,7 @@ var http = require('http');*/
 
 var express = require("express");
 var app = express();
-var port = process.env.PORT || 4000;
+var port = process.env.PORT || 3000;
 var jwt = require("jsonwebtoken");
 var path = require("path");
 var tokenValidityPeriod = 86400; // in seconds; 86400 seconds = 24 hours
@@ -113,10 +113,10 @@ app.post("/register", (req, res) => {
   var successRes = { success: true };
   var failRes = { success: false };
 
-  var email_or_number_query = {
-    $or: [{ email: req.body.email }, { phone: req.body.phone }]
-  };
-  User.findOne(email_or_number_query, (checkErr, user) => {
+  const { email, phone } = req.body,
+    query = email ? { email } : { phone };
+
+  User.findOne(query, (checkErr, user) => {
     if (checkErr) {
       failRes.message = checkErr.name + ": " + checkErr.message;
       return res.status(500).json(failRes);
