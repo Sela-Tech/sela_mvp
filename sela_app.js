@@ -8,7 +8,7 @@ var http = require('http');*/
 
 var express = require("express");
 var app = express();
-var port = process.env.PORT || 3000;
+var port = process.env.PORT || 4000;
 var jwt = require("jsonwebtoken");
 var path = require("path");
 var tokenValidityPeriod = 86400; // in seconds; 86400 seconds = 24 hours
@@ -93,14 +93,26 @@ app.post("/verifyToken", (req, res) => {
       failRes.message = "Failed to authenticate token.";
       return res.status(500).json(failRes);
     }
-    req.userId = user._id;
-    return res.status(200).json(successRes);
+
+    User.findOne({ _id: user.id }, (err, user) => {
+      if (!err) {
+        var { isFunder, isEvaluator, isContractor } = user;
+        return res.status(200).json({
+          ...successRes,
+          isFunder,
+          isEvaluator,
+          isContractor
+        });
+      }
+      return res.status(400).json(failRes);
+    });
   });
 });
 
 app.post("/register", (req, res) => {
   var successRes = { success: true };
   var failRes = { success: false };
+
   var email_or_number_query = {
     $or: [{ email: req.body.email }, { phone: req.body.phone }]
   };
@@ -134,8 +146,8 @@ app.post("/register", (req, res) => {
     /*userObj.userTypes = [];
       userObj.userTypes.push(req.body.userType);*/
     userObj.isFunder = req.body.isFunder;
-    userObj.isContractor = req.body.isContractor;
     userObj.isEvaluator = req.body.isEvaluator;
+    userObj.isContractor = req.body.isContractor;
     userObj.password = req.body.password;
     var newUser = new User(userObj);
     newUser.save(regErr => {
@@ -166,10 +178,11 @@ app.post("/register", (req, res) => {
 app.post("/login", (req, res) => {
   var successRes = { success: true };
   var failRes = { success: false };
-  var email_or_number_query = {
-    $or: [{ email: req.body.email }, { phone: req.body.phone }]
-  };
-  User.findOne(email_or_number_query, (checkErr, user) => {
+
+  const { email, phone } = req.body,
+    query = email ? { email } : { phone };
+
+  User.findOne(query, (checkErr, user) => {
     if (checkErr) {
       failRes.message = checkErr.name + ": " + checkErr.message;
       return res.status(500).json(failRes);
@@ -179,6 +192,9 @@ app.post("/login", (req, res) => {
         "Sela does not have an account with those user credentials. Please try another email/phone number or follow the link below to register";
       return res.status(401).json(failRes);
     }
+
+    const { isFunder, isEvaluator, isContractor } = user;
+
     user.comparePassword(req.body.password, (passErr, isMatch) => {
       if (passErr) {
         failRes.message = passErr.name + ": " + passErr.message;
@@ -193,7 +209,9 @@ app.post("/login", (req, res) => {
         expiresIn: tokenValidityPeriod
       });
       successRes.token = token;
-      return res.status(200).json(successRes);
+      return res
+        .status(200)
+        .json({ ...successRes, isFunder, isEvaluator, isContractor });
     });
   });
 });
