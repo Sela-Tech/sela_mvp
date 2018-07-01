@@ -3,31 +3,54 @@ var moment = require('moment');
 var mongoose = require('mongoose');
 var Schema = mongoose.Schema;
 
-
 var userStructure = {
-    accountType: {
-        type: String,
-        required: [true, 'User needs an Account type'],
-        enum: {
-            values: ['projectFunder', 'contractor', 'communityObservers'], // set the different types
-            message: 'Incorrect Acount Type'
-        },
-    },
-    first_name: {
+    firstName: {
         type: String,
         required: true,
         min: 1,
         max: 100
     },
-    family_name: {
+    lastName: {
         type: String,
         required: true,
+        min: 1,
         max: 100
     },
-    user_name: {
+    username: {
+        type: String,
+        unique: true,
+        lowercase: true
+    },
+    email: {
         type: String,
         unique: true,
         lowercase: true,
+        default: null
+    },
+    phone: {
+        type: String,
+        unique: true,
+        lowercase: true,
+        default: null
+    },
+    publicKey: {
+        type: String,
+        unique: true
+    },
+    isFunder: {
+        type: Boolean,
+        required: true,
+        default: false
+    },
+    isContractor: {
+        type: Boolean,
+        required: true,
+        default: false
+    },
+    isEvaluator: {
+        type: Boolean,
+        required: true,
+        default: false
     },
     password: {
         type: String,
@@ -42,20 +65,16 @@ var userStructure = {
             return !!this.password;
         }, 'Password is incorrect']
     },
-    created: {
+    createdOn: {
         type: Date,
-        default: Date.now(),
+        default: Date.now()
     },
-    updated: {
+    updatedOn: {
         type: Date,
-        default: Date.now(),
-    },
-    // TODO: Can a user be deleted?
-    deleted: {
-        type: Boolean,
-        default: false,
-    },
+        default: Date.now()
+    }
 };
+
 var schemaOptions = {
     minimize: false,
     id: false,
@@ -72,18 +91,18 @@ var schemaOptions = {
         virtuals: true,
         minimize: false,
         versionKey: false,
-        retainKeyOrder: true,
+        retainKeyOrder: true
     },
     autoIndex: false,
     safe: true,
     collection: 'users', // Sets Collection Name
-    strict: process.env.NODE_ENV !== 'development', // Only use strict in production
+    strict: process.env.NODE_ENV !== 'development' // Only use strict in production
 };
 
 if (process.env.NODE_ENV === 'development') {
     userStructure.test = {
         type: Boolean,
-        default: true,
+        default: true
     };
 }
 
@@ -95,7 +114,7 @@ UserSchema.pre('save', true, function(next, done) {
 
     next();
 
-    this.updated = new Date();
+    this.updatedOn = new Date();
 
     done();
 });
@@ -104,20 +123,23 @@ UserSchema.pre('update', true, function(next, done) {
 
     next();
 
-    this.updated({}, {
+    this.update({}, {
         $set: {
-            updated: new Date()
+            updatedOn: new Date()
         }
     });
 
     done();
 });
 
-//Export model
-module.exports = function(connection) {
-
-    if (!connection) {
-        connection = mongoose;
-    }
-    connection.model('User', UserSchema);
+UserSchema.methods.comparePassword = function(password, cb) {
+    bcrypt.compare(password, this.password, function(err, isMatch) {
+      if (err) {
+        return cb(err, false);
+      }
+      return cb(null, isMatch);
+    });
 };
+
+//Export model
+module.exports = mongoose.model('User', UserSchema);

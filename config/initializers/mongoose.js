@@ -1,29 +1,29 @@
-var mongoose = require('mongoose');
+var mongoose = require("mongoose");
 
 //Uncomment to turn on debugging
 //mongoose.set('debug', true)
 
 module.exports = function(done) {
+  done = typeof done === "function" ? done : function() {};
 
-    done = (typeof done === 'function') ? done : function() {};
+  console.log("Initializer: Mongoose started");
 
+  // the mongoose models and the mongoose connection don't need to happen in order
 
-    console.log('Initializer: Mongoose started');
+  require(ROOT + "/app/models")();
+  mongoose.Promise = global.Promise;
+  mongoose.connect(
+    process.env.MONGO_URI,
+    { useMongoClient: true }
+  );
 
-    // the mongoose models and the mongoose connection don't need to happen in order
+  mongoose.connection.on("error", function(err) {
+    console.log("Error MONGOOSE: " + err);
+  });
 
-    require(ROOT + '/app/models')();
-    mongoose.Promise = global.Promise;
-    mongoose.connect(process.env.MONGOLAB_URI, { useMongoClient: true });
+  mongoose.connection.on("connected", function() {
+    done();
+  });
 
-    mongoose.connection.on('error', function(err) {
-        console.log('Error MONGOOSE: ' + err);
-    });
-
-    mongoose.connection.on('connected', function() {
-        done();
-    });
-
-    console.log('Initializer: Mongoose completed');
-
+  console.log("Initializer: Mongoose completed");
 };

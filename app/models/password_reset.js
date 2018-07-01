@@ -4,11 +4,6 @@ var Schema = mongoose.Schema;
 var ObjectId = Schema.Types.ObjectId;
 
 var passwordResetStructure = {
-    accountType: {
-        type: String,
-        default: '',
-        required: true,
-    },
     email: {
         type: String,
         required: true,
@@ -70,9 +65,9 @@ if (process.env.NODE_ENV === 'development') {
     };
 }
 
-var passwordResetSchema = new Schema(passwordResetStructure, schemaOptions);
+var PasswordResetSchema = new Schema(passwordResetStructure, schemaOptions);
 
-passwordResetSchema.method.delete = function(cb) {
+PasswordResetSchema.method.delete = function(cb) {
     var self = this;
     self.deleted = true;
     self.save(cb);
@@ -85,5 +80,5 @@ module.exports = function(connection) {
     if (!connection) {
         connection = mongoose;
     }
-    connection.model('PasswordReset', passwordResetSchema);
+    connection.model('PasswordReset', PasswordResetSchema);
 };
