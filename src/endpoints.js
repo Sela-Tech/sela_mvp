@@ -1,4 +1,4 @@
-const b = "https://notable-cssolirscn.now.sh/";
+const b = "http://localhost:8000/" || "https://notable-cssolirscn.now.sh/";
 
 export default {
   signin: b + "login",

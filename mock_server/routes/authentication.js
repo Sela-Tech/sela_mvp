@@ -3,7 +3,9 @@ module.exports = function(app, db, config) {
     // setTimeout(() => {
     res.status(200).json({
       token: "090fj923fj2039fj390j932j032j9cj3029j",
-      type: "project-funder"
+      isFunder: true,
+      isContractor: false,
+      isEvaluator: false
     });
     // }, config.timeout);
   });
@@ -20,7 +22,9 @@ module.exports = function(app, db, config) {
       req.headers["x-access-token"] === "090fj923fj2039fj390j932j032j9cj3029j"
     ) {
       res.status(200).json({
-        type: "project-funder"
+        isFunder: true,
+        isContractor: false,
+        isEvaluator: false
       });
     } else {
       res.status(400).json({});
