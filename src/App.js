@@ -72,6 +72,12 @@ const App = ({ isAuthenticated, actionType, dashboardType }) => {
       ) : (
         <Switch>
           <Route exact path="/" component={r.home} />
+          <Route exact path="/team" component={r.home} />
+          <Route exact path="/projects/:id" component={r.project} />
+          <Route exact path="/projects/all/:type" component={r.projects} />
+
+          <Route exact path="/blog" component={r.home} />
+          <Route exact path="/crowdfund" component={r.home} />
 
           <PrivateRoute
             exact
@@ -80,6 +86,7 @@ const App = ({ isAuthenticated, actionType, dashboardType }) => {
             isAuthenticated={isAuthenticated}
             component={r.auth}
           />
+
           <PrivateRoute
             exact
             path="/signup"
@@ -109,7 +116,7 @@ const mapStateToProps = state => {
   return {
     isAuthenticated,
     actionType: action.type,
-    dashboardType: credentials.type
+    dashboardType: credentials.signUpType
   };
 };
 
