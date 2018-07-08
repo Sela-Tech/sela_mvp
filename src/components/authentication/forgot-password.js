@@ -30,7 +30,9 @@ class ForgotPassword extends React.Component {
       <Wrapper viewName="forgot-password">
         <div className="container">
           <div className="xs-12">
-            <img src={Logo} alt="logo" id="logo" />
+            <Link to="/">
+              <img src={Logo} alt="logo" id="logo" />
+            </Link>
           </div>
           <div className="xs-12">
             <h2>Reset Password </h2>

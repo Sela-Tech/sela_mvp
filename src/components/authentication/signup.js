@@ -261,7 +261,9 @@ class Signup extends React.Component {
           <Wrapper viewName="signup">
             <SignUpWrapper className="container">
               <div className="xs-12">
-                <img src={logo} alt="logo" id="logo" />
+                <Link to="/">
+                  <img src={logo} alt="logo" id="logo" />
+                </Link>
               </div>
               <div className="xs-12">
                 <h2>Let's get started </h2>
