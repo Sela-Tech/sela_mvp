@@ -79,11 +79,13 @@ body {
   width: 100%;
   margin: 0;
   padding: 0;
+  overflow: hidden;
 }
 
 #root {
   height: 100%;
   width: auto;
+  overflow: auto;
 }
 button,
 a {
@@ -175,4 +177,12 @@ a {
 .init-load img {
   height: 12em;
   width: 12em;
+}
+
+.r {
+  float: right;
+}
+
+.l {
+  float: left;
 }

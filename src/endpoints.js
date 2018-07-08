@@ -1,4 +1,4 @@
-const b = process.env.REACT_APP_BACKEND_SERVER_BASEURL;
+const b = "https://sela-labs.herokuapp.com/";
 
 export default {
   signin: b + "login",

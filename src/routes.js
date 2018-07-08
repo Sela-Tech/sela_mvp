@@ -3,6 +3,8 @@ import auth from "./pages/authentication";
 import errors from "./pages/errors";
 import loadable from "loadable-components";
 import Blank from "./components/dashboards/blank";
+import projects from "./pages/projects/all";
+import project from "./pages/projects/one";
 
 export default {
   home,
@@ -19,5 +21,7 @@ export default {
     }
   ),
   auth,
-  errors
+  errors,
+  projects,
+  project
 };
