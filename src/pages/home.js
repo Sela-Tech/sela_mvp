@@ -5,39 +5,22 @@ import TopHome from "../components/home/top/home";
 import Projects from "../components/home/projects";
 import Footer from "../components/home/footer";
 import Helmet from "react-helmet";
-
 class HomePageContainer extends React.Component {
   constructor(props) {
     super(props);
     this.state = {
-      projects: [
-        {
-          id: 2,
-          title: "Imo Bridge Construction",
-          funder: "Berger and Sons Ltd.",
-          description: `Construction of a bridge to connect the hinterlands for easier
-      flow of commerce`,
-          percentage: 60
-        },
-        {
-          id: 4,
-          title: "Imo Bridge Construction",
-          funder: "Berger and Sons Ltd.",
-          description: `Construction of a bridge to connect the hinterlands for easier
-      flow of commerce`,
-          percentage: 60
-        },
-        {
-          id: 6,
-          title: "Imo Bridge Construction",
-          funder: "Berger and Sons Ltd.",
-          description: `Construction of a bridge to connect the hinterlands for easier
-      flow of commerce`,
-          percentage: 60
-        }
-      ]
+      projects: this.props.projects
     };
   }
+
+  componentWillReceiveProps(nextProps) {
+    if (this.props !== nextProps) {
+      this.setState({
+        projects: nextProps.projects
+      });
+    }
+  }
+
   render() {
     return (
       <React.Fragment>
@@ -48,9 +31,14 @@ class HomePageContainer extends React.Component {
         <TopWrapper>
           <TopHome />
         </TopWrapper>
-
-        <Projects heading="Ongoing Projects" projects={this.state.projects} />
-        <Projects heading="Proposed Projects" projects={this.state.projects} />
+        <Projects
+          heading="Ongoing Projects"
+          projects={this.state.projects.ongoing}
+        />
+        <Projects
+          heading="Proposed Projects"
+          projects={this.state.projects.proposed}
+        />
         <Footer />
       </React.Fragment>
     );
@@ -58,7 +46,9 @@ class HomePageContainer extends React.Component {
 }
 
 const mapStateToProps = (state, props) => {
-  return {};
+  return {
+    projects: state.home.projects
+  };
 };
 
 const mapDispatchToProps = dispatch => {

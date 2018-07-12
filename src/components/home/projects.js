@@ -27,6 +27,8 @@ const ProjectWrapper = styled.div`
     border-radius: 2px;
     padding-bottom: 2em;
     position: relative;
+    max-height: 430px;
+    min-height: 430px;
 
     &:hover {
       box-shadow: 0px 0px 1px 1px skyblue;
@@ -102,8 +104,8 @@ const Projects = ({ projects, heading, type }) => {
           <div className="xs-12 sm-4 card-wrapper" key={i}>
             <Link to={`/projects/${p.id}`}>
               <div className="xs-12 sm-11 card">
-                <img src="" alt="" className="project-picture" />
-                <img src="" alt="" className="project-funder" />
+                <img src={p.picture} alt="" className="project-picture" />
+                <img src={p.funderPicture} alt="" className="project-funder" />
                 <div className="inner">
                   <h4>{p.title}</h4>
                   <h5>{p.funder}</h5>
