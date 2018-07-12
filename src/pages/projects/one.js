@@ -4,22 +4,27 @@ import TopWrapper from "../../components/home/top/wrapper";
 import TopProject from "../../components/home/top/project";
 import Footer from "../../components/home/footer";
 import Helmet from "react-helmet";
+// import More from "./more/wrapper";
 
 class HomePageContainer extends React.Component {
   constructor(props) {
     super(props);
     this.state = {
-      name: "K-Dere Oil Spill Clean-up",
-      project: {
-        projectTitle: "K-Dere Oil Spill Clean-up",
-        projectPicture: "https://picsum.photos/1200/1200/?random",
-        projectFunder: "Sustainability International",
-        fundingTarget: "$10,000.00",
-        amountRaised: "$5,000.00",
-        percentage: 73
-      }
+      project: this.findOne(this.props.match.params.id)
     };
   }
+
+  findOne = id => {
+    const { proposed, ongoing } = this.props.projects,
+      checkedProposed = proposed.filter(p => {
+        return `${p.id}` === `${id}`;
+      }),
+      checkedOngoing = ongoing.filter(p => {
+        return `${p.id}` === `${id}`;
+      });
+
+    return checkedProposed.length > 0 ? checkedProposed[0] : checkedOngoing[0];
+  };
 
   componentDidMount() {
     document.getElementById("root").scrollTop = 0;
@@ -34,18 +39,20 @@ class HomePageContainer extends React.Component {
   }
 
   render() {
-    const { name, project } = this.state;
+    const { project } = this.state;
 
     return (
       <React.Fragment>
         <Helmet>
           <meta charSet="utf-8" />
-          <title>Sela Project - {name} </title>
+          <title>Sela Project - {project.title} </title>
         </Helmet>
 
-        <TopWrapper projectPicture={project.projectPicture}>
+        <TopWrapper projectPicture={project.picture}>
           <TopProject {...project} />
         </TopWrapper>
+
+        {/* <More /> */}
 
         <Footer />
       </React.Fragment>
@@ -54,7 +61,9 @@ class HomePageContainer extends React.Component {
 }
 
 const mapStateToProps = (state, props) => {
-  return {};
+  return {
+    projects: state.home.projects
+  };
 };
 
 const mapDispatchToProps = dispatch => {

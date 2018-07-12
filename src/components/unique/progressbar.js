@@ -4,8 +4,11 @@ import styled from "styled-components";
 const Progress = styled.div`
   width: 85%;
   margin: auto;
-  position: relative;
+  position: absolute;
   height: 2em;
+  left: 0;
+  right: 0;
+  bottom: 2em;
 
   .bar {
     width: 100%;
@@ -18,7 +21,7 @@ const Progress = styled.div`
   h4 {
     position: absolute;
     top: 0;
-    color: ${p => (p.percentage > 30 ? "white" : "black")};
+    color: ${p => (p.percentage >= 30 ? "white" : "black")} !important;
     bottom: 0;
     left: 0;
     right: 0;

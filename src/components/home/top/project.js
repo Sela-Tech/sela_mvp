@@ -2,8 +2,8 @@ import React from "react";
 import Progressbar from "../../unique/progressbar";
 
 const TopProject = ({
-  projectTitle,
-  projectFunder,
+  title,
+  funder,
   fundingTarget,
   amountRaised,
   percentage
@@ -12,8 +12,8 @@ const TopProject = ({
     <div className="project xs-12">
       <div className="content xs-12">
         <div className="xs-12 sm-6">
-          <h3 id="title">{projectTitle}</h3>
-          <h5 id="funder">{projectFunder}</h5>
+          <h3 id="title">{title}</h3>
+          <h5 id="funder">{funder}</h5>
 
           <div className="inner">
             <h4>FUNDING TARGET</h4>
@@ -23,10 +23,12 @@ const TopProject = ({
             <h3>{amountRaised}</h3>
           </div>
 
-          <div className="xs-12" id="progress">
+          <div className="xs-12" id="progress" style={{}}>
             <Progressbar
               percentage={percentage}
               style={{
+                position: "relative",
+                bottom: 0,
                 width: "100%"
               }}
             />

@@ -11,91 +11,24 @@ class ProjectsPageContainer extends React.Component {
     super(props);
     this.state = {
       name: this.props.match.params.type.replace("-", " "),
-      projects: [
-        {
-          id: 1,
-          title: "Imo Bridge Construction",
-          funder: "Berger and Sons Ltd.",
-          description: `Construction of a bridge to connect the hinterlands for easier
-      flow of commerce`,
-          percentage: 60
-        },
-        {
-          id: 2,
-          title: "Imo Bridge Construction",
-          funder: "Berger and Sons Ltd.",
-          description: `Construction of a bridge to connect the hinterlands for easier
-      flow of commerce`,
-          percentage: 60
-        },
-        {
-          id: 3,
-          title: "Imo Bridge Construction",
-          funder: "Berger and Sons Ltd.",
-          description: `Construction of a bridge to connect the hinterlands for easier
-     flow of commerce`,
-          percentage: 60
-        },
-        {
-          id: 4,
-          title: "Imo Bridge Construction",
-          funder: "Berger and Sons Ltd.",
-          description: `Construction of a bridge to connect the hinterlands for easier
-     flow of commerce`,
-          percentage: 60
-        },
-        {
-          id: 5,
-          title: "Imo Bridge Construction",
-          funder: "Berger and Sons Ltd.",
-          description: `Construction of a bridge to connect the hinterlands for easier
-    flow of commerce`,
-          percentage: 60
-        },
-        {
-          id: 6,
-          title: "Imo Bridge Construction",
-          funder: "Berger and Sons Ltd.",
-          description: `Construction of a bridge to connect the hinterlands for easier
-    flow of commerce`,
-          percentage: 60
-        },
-        {
-          id: 7,
-          title: "Imo Bridge Construction",
-          funder: "Berger and Sons Ltd.",
-          description: `Construction of a bridge to connect the hinterlands for easier
-   flow of commerce`,
-          percentage: 60
-        },
-        {
-          id: 8,
-          title: "Imo Bridge Construction",
-          funder: "Berger and Sons Ltd.",
-          description: `Construction of a bridge to connect the hinterlands for easier
-   flow of commerce`,
-          percentage: 60
-        },
-        {
-          id: 9,
-          title: "Imo Bridge Construction",
-          funder: "Berger and Sons Ltd.",
-          description: `Construction of a bridge to connect the hinterlands for easier
-      flow of commerce`,
-          percentage: 60
-        }
-      ]
+      projects: this.props.projects
     };
   }
 
   componentWillReceiveProps(nextProps) {
     if (this.props !== nextProps) {
-      this.setState({});
+      this.setState({
+        projects: nextProps.projects
+      });
     }
   }
 
   render() {
-    const { name, projects } = this.state;
+    const { name } = this.state,
+      projects =
+        this.props.match.params.type === "ongoing-projects"
+          ? this.state.projects.ongoing
+          : this.state.projects.proposed;
     return (
       <React.Fragment>
         <Helmet>
@@ -115,7 +48,7 @@ class ProjectsPageContainer extends React.Component {
 }
 
 const mapStateToProps = (state, props) => {
-  return {};
+  return { projects: state.home.projects };
 };
 
 const mapDispatchToProps = dispatch => {
