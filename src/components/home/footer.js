@@ -4,6 +4,7 @@ import { Link } from "react-router-dom";
 import Instagram from "../../assets/icons/Instagram.svg";
 import Youtube from "../../assets/icons/youtube.svg";
 import Telegram from "../../assets/icons/telegram.svg";
+// import LogoWhite from "../../assets/icons/logo-white.svg";
 
 const Footer = styled.div`
   padding: 2em 0;
@@ -40,12 +41,16 @@ export default () => {
     <Footer className="xs-12">
       <div className="xs-10 xs-off-1">
         <div className="xs-12 sm-4">
-          <img src="" alt="" />
+          <Link to="/">
+            <span id="logo">
+              {/* <img src={LogoWhite} alt="logo-white" /> */}
+            </span>
+          </Link>
           <p> Building communities of transparency in the emerging world </p>
         </div>
 
         <div className="xs-12 sm-4">
-          <h4>Quick Links</h4>
+          {/* <h4>Quick Links</h4>
           <ul>
             <li>
               <Link to="/join-telegram">Join Telegram Group</Link>
@@ -62,8 +67,9 @@ export default () => {
             <li>
               <Link to="/careers">Careers</Link>
             </li>
-          </ul>
+          </ul> */}
         </div>
+
         <div className="xs-12 sm-4">
           <h4> Connect with us </h4>
           <a href="instagram" target="_blank">

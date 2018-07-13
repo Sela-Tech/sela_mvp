@@ -6,7 +6,15 @@ import SidebarPhotos from "./sidebar-photos";
 import moment from "moment";
 
 const ProjectComponent = ({ info }) => {
-  const { name, end_date, start_date, progress, status, tasks, photos } = info;
+  const {
+    name,
+    end_date,
+    start_date,
+    percentage,
+    status,
+    tasks,
+    photos
+  } = info;
   return (
     <ProjectWrapper className="xs-10 xs-off-1">
       <div id="top" className="xs-12">
@@ -22,7 +30,7 @@ const ProjectComponent = ({ info }) => {
 
             <div className="xs-12 md-8">
               <Line
-                percent={progress}
+                percent={percentage}
                 strokeWidth="3"
                 trailWidth="3"
                 strokeColor="#156EDC"

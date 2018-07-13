@@ -111,18 +111,15 @@ const Image = connect()(
 );
 
 const SidebarPhotos = ({ className, photos }) => {
+  console.log(photos);
   return (
     <SidebarPhotosWrapper className={className}>
       <div className="xs-12">
         <h3>Recent Photos</h3>
         <ul className="xs-12">
-          <Image src={"https://picsum.photos/800/1000/?image=144"} />
-          <Image src={"https://picsum.photos/800/1000/?image=14"} />
-          <Image src={"https://picsum.photos/800/1000/?image=141"} />
-          <Image src={"https://picsum.photos/800/1000/?image=114"} />
-          <Image src={"https://picsum.photos/800/1000/?image=441"} />
-          <Image src={"https://picsum.photos/800/1000/?image=140"} />
-          <Image src={"https://picsum.photos/800/1000/?image=104"} />
+          {photos.map((p, i) => {
+            return <Image src={p} key={i} />;
+          })}
         </ul>
       </div>
     </SidebarPhotosWrapper>

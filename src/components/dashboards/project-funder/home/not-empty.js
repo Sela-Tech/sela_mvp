@@ -26,7 +26,7 @@ const ProjectTemplate = ({ c, t, d, p, pr, go }) => {
               strokeColor="#156EDC"
               trailColor="#F2F2F2"
             />
-            <p>{c} Remaining Tasks</p>
+            <p>{c.length} Remaining Tasks</p>
           </div>
         </div>
       </div>

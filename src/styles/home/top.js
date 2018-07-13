@@ -66,6 +66,11 @@ export default styled.div`
       line-height: normal;
       font-size: 1em;
       color: #f9fafc;
+      transition: 150ms;
+      &:hover {
+        color: golden;
+        transform: scale(1.1);
+      }
     }
 
     #get-started {

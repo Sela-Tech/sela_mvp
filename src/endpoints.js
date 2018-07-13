@@ -1,4 +1,4 @@
-const b = "https://notable-gawuxirfub.now.sh/";
+const b = "https://notable-mdkcgofgdb.now.sh/";
 
 export default {
   signin: b + "login",
