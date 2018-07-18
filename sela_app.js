@@ -63,268 +63,317 @@ if (process.env.NODE_ENV === "development") {
 environmentsAll.call(app);
 
 function verifyToken(req, res, next) {
-  var successRes = { success: true };
-  var failRes = { success: false };
-  var token = req.headers[tokenHeaderField];
-  if (!token) {
-    failRes.message = "No token provided.";
-    return res.status(403).json(failRes);
-  }
-  jwt.verify(token, process.env.SECRET, (verifyErr, user) => {
-    if (verifyErr) {
-      failRes.message = "Failed to authenticate token.";
-      return res.status(500).json(failRes);
+    var successRes = { success: true };
+    var failRes = { success: false };
+    var token = req.headers[tokenHeaderField];
+    if (!token) {
+      failRes.message = "No token provided.";
+      return res.status(403).json(failRes);
     }
-    req.userId = user._id;
-    next();
-  });
+    jwt.verify(token, process.env.SECRET, (verifyErr, user) => {
+        if (verifyErr) {
+          failRes.message = "Failed to authenticate token.";
+          return res.status(500).json(failRes);
+        }
+        req.userId = user._id;
+        next();
+    });
 }
 
 app.post("/verifyToken", (req, res) => {
-  var successRes = { success: true };
-  var failRes = { success: false };
-  var token = req.headers[tokenHeaderField];
-  if (!token) {
-    failRes.message = "No token provided.";
-    return res.status(403).json(failRes);
-  }
-  jwt.verify(token, process.env.SECRET, (verifyErr, user) => {
-    if (verifyErr) {
-      failRes.message = "Failed to authenticate token.";
-      return res.status(500).json(failRes);
+    var successRes = { success: true };
+    var failRes = { success: false };
+    var token = req.headers[tokenHeaderField];
+    if (!token) {
+      failRes.message = "No token provided.";
+      return res.status(403).json(failRes);
     }
+    jwt.verify(token, process.env.SECRET, (verifyErr, user) => {
+        if (verifyErr) {
+          failRes.message = "Failed to authenticate token.";
+          return res.status(500).json(failRes);
+        }
 
-    User.findOne({ _id: user.id }, (err, user) => {
-      if (!err) {
-        var { isFunder, isEvaluator, isContractor } = user;
-        return res.status(200).json({
-          ...successRes,
-          isFunder,
-          isEvaluator,
-          isContractor
+        User.findOne({ _id: user.id }, (err, user) => {
+            if (!err) {
+              var { isFunder, isEvaluator, isContractor } = user;
+              successRes.isFunder = isFunder;
+              successRes.isEvaluator = isEvaluator;
+              successRes.isContractor = isContractor;
+              return res.status(200).json(successRes);
+            }
+            return res.status(400).json(failRes);
         });
-      }
-      return res.status(400).json(failRes);
     });
-  });
 });
 
 app.post("/register", (req, res) => {
-  var successRes = { success: true };
-  var failRes = { success: false };
+    var successRes = { success: true };
+    var failRes = { success: false };
 
-  const { email, phone } = req.body,
-    query = email ? { email } : { phone };
+    const { email, phone } = req.body,
+      query = email ? { email } : { phone };
 
-  User.findOne(query, (checkErr, user) => {
-    if (checkErr) {
-      failRes.message = checkErr.name + ": " + checkErr.message;
-      return res.status(500).json(failRes);
-    }
-    if (user) {
-      if (user.phone == req.body.phone) {
-        failRes.message =
-          "Sela already has an account for a user with phone number: " +
-          req.body.phone +
-          ". Please try another phone number";
-      }
-      if (user.email == req.body.email) {
-        failRes.message =
-          "Sela already has an account for a user with e-mail address: " +
-          req.body.email +
-          ". Please try another e-mail address";
-      }
-      return res.status(401).json(failRes);
-    }
-    var userObj = {};
-    userObj.firstName = req.body.firstName;
-    userObj.lastName = req.body.lastName;
-    // userObj.username = req.body.username;
-    userObj.email = req.body.email;
-    userObj.phone = req.body.phone;
-    userObj.publicKey = req.body.publicKey;
-    /*userObj.userTypes = [];
-      userObj.userTypes.push(req.body.userType);*/
-    userObj.isFunder = req.body.isFunder;
-    userObj.isEvaluator = req.body.isEvaluator;
-    userObj.isContractor = req.body.isContractor;
-    userObj.password = req.body.password;
-    var newUser = new User(userObj);
-    newUser.save(regErr => {
-      if (regErr) {
-        failRes.message = regErr.name + ": " + regErr.message;
-        return res.status(500).json(failRes);
-      }
-      var token = jwt.sign({ id: newUser._id }, process.env.SECRET, {
-        expiresIn: tokenValidityPeriod
-      });
-      successRes.token = token;
-      return res.status(200).json(successRes);
-    });
-    /*User.create(userObj, (regErr, newUser) => {
-        if (regErr) {
-          failRes.message = regErr.name + ": " + regErr.message;
+    User.findOne(query, (checkErr, user) => {
+        if (checkErr) {
+          failRes.message = checkErr.name + ": " + checkErr.message;
           return res.status(500).json(failRes);
         }
-        var token = jwt.sign({ id: newUser._id }, process.env.SECRET, {
-          expiresIn: tokenValidityPeriod
-        });
-        successRes.token = token;
-        return res.status(200).json(successRes);
-      });*/
-  });
-});
-
-app.post("/login", (req, res) => {
-  var successRes = { success: true };
-  var failRes = { success: false };
-
-  const { email, phone } = req.body,
-    query = email ? { email } : { phone };
-
-  User.findOne(query, (checkErr, user) => {
-    if (checkErr) {
-      failRes.message = checkErr.name + ": " + checkErr.message;
-      return res.status(500).json(failRes);
-    }
-    if (!user) {
-      failRes.message =
-        "Sela does not have an account with those user credentials. Please try another email/phone number or follow the link below to register";
-      return res.status(401).json(failRes);
-    }
-
-    const { isFunder, isEvaluator, isContractor } = user;
-
-    user.comparePassword(req.body.password, (passErr, isMatch) => {
-      if (passErr) {
-        failRes.message = passErr.name + ": " + passErr.message;
-        return res.status(500).json(failRes);
-      }
-      if (!isMatch) {
-        failRes.message =
-          "That is the wrong password for this account. Please try again ";
-        return res.status(401).json(failRes);
-      }
-      var token = jwt.sign({ id: user._id }, process.env.SECRET, {
-        expiresIn: tokenValidityPeriod
-      });
-      successRes.token = token;
-      return res
-        .status(200)
-        .json({ ...successRes, isFunder, isEvaluator, isContractor });
-    });
-  });
-});
-
-app.post("/project", verifyToken, (req, res) => {
-  var successRes = { success: true };
-  var failRes = { success: false };
-  if (req.body.owner != req.userId) {
-    failRes.message = "You cannot create a project on behalf of another user";
-    return res.status(500).json(failRes);
-  }
-  var projectObj = {};
-  projectObj.name = req.body.name;
-  projectObj.description = req.body.description;
-  projectObj.startDate = req.body.startDate;
-  projectObj.endDate = req.body.endDate;
-  projectObj.owner = req.body.owner;
-  var newProject = new Project(projectObj);
-  newProject.save(projErr => {
-    if (projErr) {
-      failRes.message = projErr.name + ": " + projErr.message;
-      return res.status(500).json(failRes);
-    }
-    return res.status(200).json(successRes);
-  });
-});
-
-app.get("/projects", verifyToken, (req, res) => {
-  var successRes = { success: true };
-  var failRes = { success: false };
-  var checkQuery = { owner: req.userId };
-  Project.find(checkQuery, (checkErr, projects) => {
-    if (checkErr) {
-      failRes.message = checkErr.name + ": " + checkErr.message;
-      return res.status(500).json(failRes);
-    }
-    successRes.projects = projects;
-    return res.status(200).json(successRes);
-  });
-});
-
-app.post("/task", verifyToken, (req, res) => {
-  var successRes = { success: true };
-  var failRes = { success: false };
-  var projId = req.body.project;
-  if (!projId.match(/^[0-9a-fA-F]{24}$/)) {
-    failRes.message = projId + " is an ill-formatted project ID in Sela";
-    return res.status(401).json(failRes);
-  }
-  Project.findById(projId, (projFindErr, project) => {
-    if (projFindErr) {
-      failRes.message = projFindErr.name + ": " + projFindErr.message;
-      return res.status(500).json(failRes);
-    }
-    if (!project) {
-      failRes.message =
-        "Sela does not have a project with ID " +
-        projId +
-        ". Please try another project ID";
-      return res.status(401).json(failRes);
-    }
-    if (req.body.createdBy != req.userId) {
-      failRes.message = "You cannot create a task on behalf of another user";
-      return res.status(500).json(failRes);
-    }
-    var taskObj = {};
-    taskObj.name = req.body.name;
-    taskObj.description = req.body.description;
-    taskObj.project = req.body.project;
-    taskObj.dueDate = req.body.dueDate;
-    taskObj.assignedTo = req.body.assignedTo;
-    taskObj.createdBy = req.body.createdBy;
-    // taskObj.location = req.body.location;
-    var newTask = new Task(taskObj);
-    newTask.save(taskErr => {
-      if (taskErr) {
-        failRes.message = taskErr.name + ": " + taskErr.message;
-        return res.status(500).json(failRes);
-      }
-      // project.tasks.push(newTask);
-      return res.status(200).json(successRes);
-      /*project.save((projSaveErr) => {
-            if (projSaveErr) {
-              failRes.message = projSaveErr.name + ": " + projSaveErr.message;
+        if (user) {
+          if (user.phone == req.body.phone) {
+            failRes.message =
+              "Sela already has an account for a user with phone number: " +
+              req.body.phone +
+              ". Please try another phone number";
+          }
+          if (user.email == req.body.email) {
+            failRes.message =
+              "Sela already has an account for a user with e-mail address: " +
+              req.body.email +
+              ". Please try another e-mail address";
+          }
+          return res.status(401).json(failRes);
+        }
+        var userObj = {};
+        userObj.firstName = req.body.firstName;
+        userObj.lastName = req.body.lastName;
+        // userObj.username = req.body.username;
+        userObj.email = req.body.email;
+        userObj.phone = req.body.phone;
+        userObj.publicKey = req.body.publicKey;
+        /*userObj.userTypes = [];
+          userObj.userTypes.push(req.body.userType);*/
+        userObj.isFunder = req.body.isFunder;
+        userObj.isEvaluator = req.body.isEvaluator;
+        userObj.isContractor = req.body.isContractor;
+        userObj.password = req.body.password;
+        var newUser = new User(userObj);
+        newUser.save(regErr => {
+            if (regErr) {
+              failRes.message = regErr.name + ": " + regErr.message;
               return res.status(500).json(failRes);
             }
+            var token = jwt.sign({ id: newUser._id }, process.env.SECRET, {
+              expiresIn: tokenValidityPeriod
+            });
+            successRes.token = token;
+            return res.status(200).json(successRes);
+        });
+        /*User.create(userObj, (regErr, newUser) => {
+            if (regErr) {
+              failRes.message = regErr.name + ": " + regErr.message;
+              return res.status(500).json(failRes);
+            }
+            var token = jwt.sign({ id: newUser._id }, process.env.SECRET, {
+              expiresIn: tokenValidityPeriod
+            });
+            successRes.token = token;
             return res.status(200).json(successRes);
           });*/
     });
-  });
+});
+
+app.post("/login", (req, res) => {
+    var successRes = { success: true };
+    var failRes = { success: false };
+
+    const { email, phone } = req.body,
+      query = email ? { email } : { phone };
+
+    User.findOne(query, (checkErr, user) => {
+        if (checkErr) {
+          failRes.message = checkErr.name + ": " + checkErr.message;
+          return res.status(500).json(failRes);
+        }
+        if (!user) {
+          failRes.message =
+            "Sela does not have an account with those user credentials. Please try another email/phone number or follow the link below to register";
+          return res.status(401).json(failRes);
+        }
+
+        const { isFunder, isEvaluator, isContractor } = user;
+
+        user.comparePassword(req.body.password, (passErr, isMatch) => {
+            if (passErr) {
+              failRes.message = passErr.name + ": " + passErr.message;
+              return res.status(500).json(failRes);
+            }
+            if (!isMatch) {
+              failRes.message =
+                "That is the wrong password for this account. Please try again ";
+              return res.status(401).json(failRes);
+            }
+            var token = jwt.sign({ id: user._id }, process.env.SECRET, {
+              expiresIn: tokenValidityPeriod
+            });
+            successRes.token = token;
+            successRes.isFunder = isFunder;
+            successRes.isEvaluator = isEvaluator;
+            successRes.isContractor = isContractor;
+            return res
+              .status(200)
+              .json(successRes);
+        });
+    });
+});
+
+app.post("/changePhone", verifyToken, (req, res) => {
+    var successRes = { success: true };
+    var failRes = { success: false };
+    var userId = req.userId;
+    User.findById(userId, (userFindErr, user) => {
+        user.phone = req.body.phone;
+        user.save(userErr => {
+            if (userErr) {
+              failRes.message = userErr.name + ": " + userErr.message;
+              return res.status(500).json(failRes);
+            }
+            return res.status(200).json(successRes);
+        });
+    }); 
+});
+
+app.post("/changeEmail", verifyToken, (req, res) => {    
+    var successRes = { success: true };
+    var failRes = { success: false };
+    var userId = req.userId;
+    User.findById(userId, (userFindErr, user) => {
+        user.email = req.body.email;
+        user.save(userErr => {
+            if (userErr) {
+              failRes.message = userErr.name + ": " + userErr.message;
+              return res.status(500).json(failRes);
+            }
+            return res.status(200).json(successRes);
+        });
+    }); 
+});
+
+app.post("/changePassword", verifyToken, (req, res) => {
+    var successRes = { success: true };
+    var failRes = { success: false };
+    var userId = req.userId;
+    User.findById(userId, (userFindErr, user) => {
+        user.password = req.body.password;
+        user.save(userErr => {
+            if (userErr) {
+              failRes.message = userErr.name + ": " + userErr.message;
+              return res.status(500).json(failRes);
+            }
+            return res.status(200).json(successRes);
+        });
+    }); 
+});
+
+app.post("/project", verifyToken, (req, res) => {
+    var successRes = { success: true };
+    var failRes = { success: false };
+    if (req.body.owner != req.userId) {
+      failRes.message = "You cannot create a project on behalf of another user";
+      return res.status(500).json(failRes);
+    }
+    var projectObj = {};
+    projectObj.name = req.body.name;
+    projectObj.description = req.body.description;
+    projectObj.startDate = req.body.startDate;
+    projectObj.endDate = req.body.endDate;
+    projectObj.owner = req.body.owner;
+    var newProject = new Project(projectObj);
+    newProject.save(projErr => {
+        if (projErr) {
+          failRes.message = projErr.name + ": " + projErr.message;
+          return res.status(500).json(failRes);
+        }
+        return res.status(200).json(successRes);
+    });
+});
+
+app.get("/projects", verifyToken, (req, res) => {
+    var successRes = { success: true };
+    var failRes = { success: false };
+    var checkQuery = { owner: req.userId };
+    Project.find(checkQuery, (checkErr, projects) => {
+        if (checkErr) {
+          failRes.message = checkErr.name + ": " + checkErr.message;
+          return res.status(500).json(failRes);
+        }
+        successRes.projects = projects;
+        return res.status(200).json(successRes);
+    });
+});
+
+app.post("/task", verifyToken, (req, res) => {
+    var successRes = { success: true };
+    var failRes = { success: false };
+    var projId = req.body.project;
+    if (!projId.match(/^[0-9a-fA-F]{24}$/)) {
+      failRes.message = projId + " is an ill-formatted project ID in Sela";
+      return res.status(401).json(failRes);
+    }
+    Project.findById(projId, (projFindErr, project) => {
+        if (projFindErr) {
+          failRes.message = projFindErr.name + ": " + projFindErr.message;
+          return res.status(500).json(failRes);
+        }
+        if (!project) {
+          failRes.message =
+            "Sela does not have a project with ID " +
+            projId +
+            ". Please try another project ID";
+          return res.status(401).json(failRes);
+        }
+        if (req.body.createdBy != req.userId) {
+          failRes.message = "You cannot create a task on behalf of another user";
+          return res.status(500).json(failRes);
+        }
+        var taskObj = {};
+        taskObj.name = req.body.name;
+        taskObj.description = req.body.description;
+        taskObj.project = req.body.project;
+        taskObj.dueDate = req.body.dueDate;
+        taskObj.assignedTo = req.body.assignedTo;
+        taskObj.createdBy = req.body.createdBy;
+        // taskObj.location = req.body.location;
+        var newTask = new Task(taskObj);
+        newTask.save(taskErr => {
+            if (taskErr) {
+              failRes.message = taskErr.name + ": " + taskErr.message;
+              return res.status(500).json(failRes);
+            }
+            // project.tasks.push(newTask);
+            return res.status(200).json(successRes);
+            /*project.save((projSaveErr) => {
+                  if (projSaveErr) {
+                    failRes.message = projSaveErr.name + ": " + projSaveErr.message;
+                    return res.status(500).json(failRes);
+                  }
+                  return res.status(200).json(successRes);
+                });*/
+        });
+    });
 });
 
 app.get("/tasks", verifyToken, (req, res) => {
-  var successRes = { success: true };
-  var failRes = { success: false };
-  var createdQuery = {
-    /*"project": req.body.project, */ createdBy: req.userId
-  };
-  var assignedQuery = {
-    /*"project": req.body.project, */ assignedTo: req.userId
-  };
-  var completedQuery = {
-    /*"project": req.body.project, */ completedBy: req.userId
-  };
-  var checkQuery = { $or: [createdQuery, assignedQuery, completedQuery] };
-  Task.find(checkQuery, (checkErr, tasks) => {
-    if (checkErr) {
-      failRes.message = checkErr.name + ": " + checkErr.message;
-      return res.status(500).json(failRes);
-    }
-    successRes.tasks = tasks;
-    return res.status(200).json(successRes);
-  });
+    var successRes = { success: true };
+    var failRes = { success: false };
+    var createdQuery = {
+      /*"project": req.body.project, */ createdBy: req.userId
+    };
+    var assignedQuery = {
+      /*"project": req.body.project, */ assignedTo: req.userId
+    };
+    var completedQuery = {
+      /*"project": req.body.project, */ completedBy: req.userId
+    };
+    var checkQuery = { $or: [createdQuery, assignedQuery, completedQuery] };
+    Task.find(checkQuery, (checkErr, tasks) => {
+        if (checkErr) {
+          failRes.message = checkErr.name + ": " + checkErr.message;
+          return res.status(500).json(failRes);
+        }
+        successRes.tasks = tasks;
+        return res.status(200).json(successRes);
+    });
 });
 
 var server = http.createServer(app);
@@ -334,3 +383,4 @@ server.listen(port, () => {
 });
 
 // routes.call(app);
+
