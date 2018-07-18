@@ -222,6 +222,10 @@ app.post("/changePhone", verifyToken, (req, res) => {
     var failRes = { success: false };
     var userId = req.userId;
     User.findById(userId, (userFindErr, user) => {
+        if (!user) {
+          failRes.message = "Sela does not have a user with ID: " + userId;
+          return res.status(401).json(failRes);
+        }
         user.phone = req.body.phone;
         user.save(userErr => {
             if (userErr) {
@@ -238,6 +242,10 @@ app.post("/changeEmail", verifyToken, (req, res) => {
     var failRes = { success: false };
     var userId = req.userId;
     User.findById(userId, (userFindErr, user) => {
+        if (!user) {
+          failRes.message = "Sela does not have a user with ID: " + userId;
+          return res.status(401).json(failRes);
+        }
         user.email = req.body.email;
         user.save(userErr => {
             if (userErr) {
@@ -254,6 +262,10 @@ app.post("/changePassword", verifyToken, (req, res) => {
     var failRes = { success: false };
     var userId = req.userId;
     User.findById(userId, (userFindErr, user) => {
+        if (!user) {
+          failRes.message = "Sela does not have a user with ID: " + userId;
+          return res.status(401).json(failRes);
+        }
         user.password = req.body.password;
         user.save(userErr => {
             if (userErr) {
