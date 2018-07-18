@@ -75,7 +75,7 @@ function verifyToken(req, res, next) {
           failRes.message = "Failed to authenticate token.";
           return res.status(500).json(failRes);
         }
-        req.userId = user._id.$oid;
+        req.userId = user.id;
         next();
     });
 }
