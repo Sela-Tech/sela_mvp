@@ -35,6 +35,36 @@ Sela includes a REST API in the backend that performs business-critical operatio
       - *password*: user's password
   - Response: ----------------
 
+- **ChangePhone**
+  - Route: /changePhone
+  - Method: POST
+  - Parameters:
+    - Header:
+      - *token*: token authenticating user in system
+    - Body:
+      - *phone*: user's new phone number
+  - Response: ----------------
+
+- **ChangeEmail**
+  - Route: /changeEmail
+  - Method: POST
+  - Parameters:
+    - Header:
+      - *token*: token authenticating user in system
+    - Body:
+      - *email*: user's new email number
+  - Response: ----------------
+
+- **ChangePassword**
+  - Route: /changePassword
+  - Method: POST
+  - Parameters:
+    - Header:
+      - *token*: token authenticating user in system
+    - Body:
+      - *password*: user's new password number
+  - Response: ----------------
+
 - **PostProject**
   - Route: /project
   - Method: POST
