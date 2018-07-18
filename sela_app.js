@@ -75,7 +75,7 @@ function verifyToken(req, res, next) {
           failRes.message = "Failed to authenticate token.";
           return res.status(500).json(failRes);
         }
-        req.userId = user._id;
+        req.userId = user._id.$oid;
         next();
     });
 }
@@ -159,17 +159,6 @@ app.post("/register", (req, res) => {
             successRes.token = token;
             return res.status(200).json(successRes);
         });
-        /*User.create(userObj, (regErr, newUser) => {
-            if (regErr) {
-              failRes.message = regErr.name + ": " + regErr.message;
-              return res.status(500).json(failRes);
-            }
-            var token = jwt.sign({ id: newUser._id }, process.env.SECRET, {
-              expiresIn: tokenValidityPeriod
-            });
-            successRes.token = token;
-            return res.status(200).json(successRes);
-          });*/
     });
 });
 
