@@ -188,8 +188,7 @@ app.post("/login", (req, res) => {
               return res.status(500).json(failRes);
             }
             if (!isMatch) {
-              failRes.message =
-                "That is the wrong password for this account. Please try again ";
+              failRes.message = "That is the wrong password for this account. Please try again";
               return res.status(401).json(failRes);
             }
             var token = jwt.sign({ id: user._id }, process.env.SECRET, {
@@ -218,7 +217,7 @@ app.post("/changePhone", verifyToken, (req, res) => {
           return res.status(401).json(failRes);
         }
         if (oldPhone != user.phone) {
-          failRes.message = "The phone number you have entered for this account (" + oldPhone + ") is incorrect. Please try again";
+          failRes.message = "That is the wrong phone number for this account. Please try again";
           return res.status(401).json(failRes);
         }
         user.phone = req.body.newPhone;
@@ -244,7 +243,7 @@ app.post("/changeEmail", verifyToken, (req, res) => {
           return res.status(401).json(failRes);
         }
         if (oldEmail != user.email) {
-          failRes.message = "The e-mail address you have entered for this account (" + oldEmail + ") is incorrect. Please try again";
+          failRes.message = "That is the wrong e-mail address for this account. Please try again";
           return res.status(401).json(failRes);
         }
         user.email = req.body.newEmail;
@@ -269,17 +268,23 @@ app.post("/changePassword", verifyToken, (req, res) => {
           failRes.message = "Sela does not have a user with ID: " + userId;
           return res.status(401).json(failRes);
         }
-        if (oldPassword != user.password) {
-          failRes.message = "The password you have entered for this account (" + oldPassword + ") is incorrect. Please try again";
-          return res.status(401).json(failRes);
-        }
-        user.password = req.body.newPassword;
-        user.save(userErr => {
-            if (userErr) {
-              failRes.message = userErr.name + ": " + userErr.message;
+        user.comparePassword(oldPassword, (passErr, isMatch) => {
+            if (passErr) {
+              failRes.message = passErr.name + ": " + passErr.message;
               return res.status(500).json(failRes);
             }
-            return res.status(200).json(successRes);
+            if (!isMatch) {
+              failRes.message = "That is the wrong password for this account. Please try again";
+              return res.status(401).json(failRes);
+            }
+            user.password = req.body.newPassword;
+            user.save(userErr => {
+                if (userErr) {
+                  failRes.message = userErr.name + ": " + userErr.message;
+                  return res.status(500).json(failRes);
+                }
+                return res.status(200).json(successRes);
+            });
         });
     }); 
 });
@@ -398,7 +403,7 @@ app.get("/tasks", verifyToken, (req, res) => {
 var server = http.createServer(app);
 
 server.listen(port, () => {
-  console.log("Server listening on port " + port);
+    console.log("Server listening on port " + port);
 });
 
 // routes.call(app);
