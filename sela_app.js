@@ -210,12 +210,18 @@ app.post("/changePhone", verifyToken, (req, res) => {
     var successRes = { success: true };
     var failRes = { success: false };
     var userId = req.userId;
+    var oldPhone = req.body.oldPhone;
+    var newPhone = req.body.newPhone;
     User.findById(userId, (userFindErr, user) => {
         if (!user) {
           failRes.message = "Sela does not have a user with ID: " + userId;
           return res.status(401).json(failRes);
         }
-        user.phone = req.body.phone;
+        if (oldPhone != user.phone) {
+          failRes.message = "The phone number you have entered for this account (" + oldPhone + ") is incorrect. Please try again";
+          return res.status(401).json(failRes);
+        }
+        user.phone = req.body.newPhone;
         user.save(userErr => {
             if (userErr) {
               failRes.message = userErr.name + ": " + userErr.message;
@@ -230,12 +236,18 @@ app.post("/changeEmail", verifyToken, (req, res) => {
     var successRes = { success: true };
     var failRes = { success: false };
     var userId = req.userId;
+    var oldEmail = req.body.oldEmail;
+    var newEmail = req.body.newEmail;
     User.findById(userId, (userFindErr, user) => {
         if (!user) {
           failRes.message = "Sela does not have a user with ID: " + userId;
           return res.status(401).json(failRes);
         }
-        user.email = req.body.email;
+        if (oldEmail != user.email) {
+          failRes.message = "The e-mail address you have entered for this account (" + oldEmail + ") is incorrect. Please try again";
+          return res.status(401).json(failRes);
+        }
+        user.email = req.body.newEmail;
         user.save(userErr => {
             if (userErr) {
               failRes.message = userErr.name + ": " + userErr.message;
@@ -250,12 +262,18 @@ app.post("/changePassword", verifyToken, (req, res) => {
     var successRes = { success: true };
     var failRes = { success: false };
     var userId = req.userId;
+    var oldPassword = req.body.oldPassword;
+    var newPassword = req.body.newPassword;
     User.findById(userId, (userFindErr, user) => {
         if (!user) {
           failRes.message = "Sela does not have a user with ID: " + userId;
           return res.status(401).json(failRes);
         }
-        user.password = req.body.password;
+        if (oldPassword != user.password) {
+          failRes.message = "The password you have entered for this account (" + oldPassword + ") is incorrect. Please try again";
+          return res.status(401).json(failRes);
+        }
+        user.password = req.body.newPassword;
         user.save(userErr => {
             if (userErr) {
               failRes.message = userErr.name + ": " + userErr.message;
