@@ -2,7 +2,6 @@ import React from "react";
 import { NavLink } from "react-router-dom";
 
 import fullogo from "../../../assets/icons/full-logo.svg";
-import account from "../../../assets/icons/account.svg";
 import settings from "../../../assets/icons/settings.svg";
 import briefcase from "../../../assets/icons/briefcase.svg";
 import logout from "../../../assets/icons/logout.svg";
@@ -49,9 +48,9 @@ const MobileDashboardSidebar = ({ dispatch, isOpened, toggleMenu }) => {
           id="create"
           onClick={() => dispatch(showModal(modals.add_project))}
         >
-          + Create Project
+          + New Project
         </button>
-
+        <span id="line-break" />
         <h4>MANAGE</h4>
         <ul>
           <li>
@@ -60,12 +59,7 @@ const MobileDashboardSidebar = ({ dispatch, isOpened, toggleMenu }) => {
               <span>Projects</span>
             </NavLink>
           </li>
-          <li>
-            <NavLink to="/account" activeClassName="active">
-              <img src={account} alt="account" />
-              <span>Account</span>
-            </NavLink>
-          </li>
+
           <li>
             <NavLink to="/settings" activeClassName="active">
               <img src={settings} alt="settings" />
@@ -96,12 +90,11 @@ const WebDashboardSidebar = ({ dispatch }) => {
     <WebSidebar>
       <div id="top">
         <img src={fullogo} alt="logo" />
-        <button onClick={() => dispatch(showModal(modals.add_project))}>
-          + Create Project
-        </button>
       </div>
 
       <div id="bottom">
+        <span id="line-break" />
+
         <h4>MANAGE</h4>
         <ul>
           <li>
@@ -110,12 +103,7 @@ const WebDashboardSidebar = ({ dispatch }) => {
               <span>Projects</span>
             </NavLink>
           </li>
-          <li>
-            <NavLink to="/account" activeClassName="active">
-              <img src={account} alt="account" />
-              <span>Account</span>
-            </NavLink>
-          </li>
+
           <li>
             <NavLink to="/settings" activeClassName="active">
               <img src={settings} alt="settings" />
@@ -124,6 +112,13 @@ const WebDashboardSidebar = ({ dispatch }) => {
           </li>
         </ul>
       </div>
+
+      <button
+        id="create-btn"
+        onClick={() => dispatch(showModal(modals.add_project))}
+      >
+        + New Project
+      </button>
 
       <div id="fixed-bottom">
         <div id="logout">

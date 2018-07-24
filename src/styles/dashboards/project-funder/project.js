@@ -5,7 +5,7 @@ export const ProjectWrapper = styled.div`
   #top {
     padding: 10vh 0 1.5vh;
     h3 {
-      text-align: center;
+      text-align: left;
     }
 
     #in-progress {
@@ -26,6 +26,7 @@ export const ProjectWrapper = styled.div`
         line-height: normal;
         font-size: .9em;
         text-align; center;
+        font-weight: 300;
         color: #828282;
         margin: auto;
         display: block;

@@ -5,6 +5,24 @@ export const WebSidebar = styled.div`
   position: relative;
   height: 100%;
 
+  button#top,
+  #create-btn {
+    &:active,
+    &:focus,
+    &:hover {
+      background: #156edc;
+      color: white;
+    }
+
+    background: #fbfbfb;
+    border-radius: 0.75em;
+    height: 3.25em;
+    font-size: 0.75em;
+    width: 100%;
+    border: 0;
+    color: #adb5bd;
+  }
+
   #top {
     text-align: center;
     img {
@@ -76,6 +94,14 @@ export const WebSidebar = styled.div`
       width: 80%;
     }
 
+    #line-break {
+      padding: 0.5em 0;
+      border-top: 1px solid #f2f2f2;
+      display: block;
+      width: 60%;
+      margin: auto;
+    }
+
     h4 {
       font-size: 0.75em;
       font-weight: 400;
@@ -83,6 +109,7 @@ export const WebSidebar = styled.div`
       line-height: normal;
       letter-spacing: 0.03em;
       text-transform: uppercase;
+      font-weight: 300;
       color: #156edc;
     }
 
@@ -95,19 +122,27 @@ export const WebSidebar = styled.div`
         }
         a {
           display: inline-block;
-          padding: 0.25em 0;
           transition: 250ms;
+          padding: 0.25em 0.85em;
+          width: 100%;
+          border-radius: 9px;
+
+          &:active,
+          &:focus,
+          &.active {
+            background: #eff5fb;
+
+            span {
+              color: cornflowerblue;
+            }
+          }
+
           &:hover {
             span {
               color: cornflowerblue;
-              transform: scale(1.2);
             }
           }
-          &:active {
-            span {
-              color: cornflowerblue;
-            }
-          }
+
           img {
             display: inline-block;
             position: relative;
@@ -117,7 +152,7 @@ export const WebSidebar = styled.div`
           span {
             line-height: normal;
             font-size: 0.85em;
-            padding: 0 1em;
+            padding: 0 1em 0.35em;
             display: inline-block;
             color: #828282;
           }
@@ -137,6 +172,13 @@ export const MobileSidebar = styled.div`
       height: 2.5em;
       margin-top: 0.5em;
     }
+  }
+
+  #line-break {
+    padding: 0.5em 0;
+    display: block;
+    width: 60%;
+    margin: 1em auto;
   }
 
   #bottom {
@@ -186,20 +228,34 @@ export const MobileSidebar = styled.div`
 
     ul {
       li {
+        .active {
+          span {
+            color: cornflowerblue;
+          }
+        }
         a {
-          display: block;
-          padding: 0.25em 0;
+          display: inline-block;
+          transition: 250ms;
+          padding: 0.25em 0.85em;
+          width: 100%;
+          border-radius: 9px;
+
+          &:active,
+          &:focus,
+          &.active {
+            background: #eff5fb;
+
+            span {
+              color: cornflowerblue;
+            }
+          }
+
           &:hover {
             span {
               color: cornflowerblue;
-              transform: scale(1.2);
             }
           }
-          &:active {
-            span {
-              color: cornflowerblue;
-            }
-          }
+
           img {
             display: inline-block;
             position: relative;
@@ -209,7 +265,8 @@ export const MobileSidebar = styled.div`
           span {
             line-height: normal;
             font-size: 0.85em;
-            padding: 0 1em;
+            padding: 0 1em 0.35em;
+            display: inline-block;
             color: #828282;
           }
         }
@@ -217,16 +274,20 @@ export const MobileSidebar = styled.div`
     }
 
     button#create {
-      display: block;
-      background: #156edc;
+      &:active,
+      &:focus,
+      &:hover {
+        background: #156edc;
+        color: white;
+      }
+
+      background: #fbfbfb;
       border-radius: 0.75em;
       height: 3.25em;
       font-size: 0.75em;
       width: 100%;
-      max-width: 15em;
       border: 0;
-      color: white;
-      margin-bottom: 3em;
+      color: #adb5bd;
     }
   }
   #fixed-bottom {

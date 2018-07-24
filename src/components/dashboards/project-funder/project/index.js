@@ -7,7 +7,7 @@ import moment from "moment";
 
 const ProjectComponent = ({ info }) => {
   const {
-    name,
+    title,
     end_date,
     start_date,
     percentage,
@@ -18,7 +18,7 @@ const ProjectComponent = ({ info }) => {
   return (
     <ProjectWrapper className="xs-10 xs-off-1">
       <div id="top" className="xs-12">
-        <h3>{name}</h3>
+        <h3>{title}</h3>
 
         <div id="in-progress" className="xs-12">
           <div className="xs-12 md-10 pd">

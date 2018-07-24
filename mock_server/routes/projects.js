@@ -1,16 +1,18 @@
 const lo = require("lodash");
 
-const Kdere =
-    "https://s3.eu-west-2.amazonaws.com/selalabs/assets/images/k-dere.png",
-  ImoBridge =
-    "https://s3.eu-west-2.amazonaws.com/selalabs/assets/images/imo-bridge.png",
-  PhRoad =
-    "https://s3.eu-west-2.amazonaws.com/selalabs/assets/images/ph-road.png",
-  Class = "https://s3.eu-west-2.amazonaws.com/selalabs/assets/images/class.png",
-  EnuguRoad =
-    "https://s3.eu-west-2.amazonaws.com/selalabs/assets/images/enugu-road.png",
-  Ajegunle =
-    "https://s3.eu-west-2.amazonaws.com/selalabs/assets/images/ajegunle.png",
+// https://ibb.co/b7qoMy
+// https://ibb.co/n3Ya1y
+// https://ibb.co/dcB68d
+// https://ibb.co/jjYm8d
+// https://ibb.co/cqGHEJ
+// https://ibb.co/eqxqZJ
+
+const Kdere = "https://image.ibb.co/h7dm8d/k_dere.png",
+  ImoBridge = "https://image.ibb.co/gn5cEJ/imo_bridge.png",
+  PhRoad = "https://image.ibb.co/g5W68d/enugu_road.png",
+  Class = "https://image.ibb.co/jMVNgy/class.png",
+  EnuguRoad = "https://image.ibb.co/cAdKTd/ph_road.png",
+  Ajegunle = "https://image.ibb.co/eC1v1y/ajegunle.png",
   ellipse = "https://s3.eu-west-2.amazonaws.com/selalabs/assets/ellipse.png",
   si = "https://s3.eu-west-2.amazonaws.com/selalabs/assets/group.png";
 

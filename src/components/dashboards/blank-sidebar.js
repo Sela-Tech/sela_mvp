@@ -2,20 +2,24 @@ import React from "react";
 import fullogo from "../../assets/icons/full-logo.svg";
 import { WebSidebar } from "../../styles/dashboards/project-funder/sidebar";
 
-const WebDashboardSidebar = ({ dispatch }) => {
+const WebDashboardSidebar = () => {
   return (
     <WebSidebar>
       <div id="top">
         <img src={fullogo} alt="logo" />
-        <button />
       </div>
       <div id="bottom">
+        <span id="line-break" />
+        <h4>MANAGE</h4>
+
         <span className="sm" />
         <span className="md" />
         <span className="lg" />
         <span className="lg" />
         <span className="md" />
       </div>
+
+      <button id="create-btn">+ New Project</button>
     </WebSidebar>
   );
 };

@@ -59,8 +59,8 @@ export const NotEmptyWrapper = styled.div`
 
     .box {
       background: #ffffff;
-      border: 2px solid #f1f3f5;
-      border-radius: 17px;
+      border: 1px solid #f1f3f5;
+      border-radius: 9px;
       margin: 0.5em 1em;
       overflow: auto;
       transition: 250ms;
@@ -76,13 +76,13 @@ export const NotEmptyWrapper = styled.div`
         border: 0;
         font-size: 1em;
         color: #adb5bd;
-        height: 249px;
+        height: 380px;
         text-align: center;
         width: 100%;
       }
 
       img {
-        height: 5.5em;
+        height: 10em;
         width: 100%;
         object-fit: cover;
         background: #444;
