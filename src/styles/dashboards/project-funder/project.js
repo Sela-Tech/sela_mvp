@@ -2,6 +2,16 @@ import styled from "styled-components";
 
 export const ProjectWrapper = styled.div`
   height: 100%;
+  .top-title {
+    margin-top: 0;
+    margin-bottom: 0.85em;
+    font-weight: 300;
+    line-height: normal;
+    font-size: 14px;
+    letter-spacing: 0.06em;
+    text-transform: uppercase;
+    color: #a3a3a3;
+  }
   #top {
     padding: 10vh 0 1.5vh;
     h3 {

@@ -2,8 +2,9 @@ import React from "react";
 import { ProjectWrapper } from "../../../../styles/dashboards/project-funder/project";
 import { Line } from "rc-progress";
 import Tasks from "./tasks.js";
-import SidebarPhotos from "./sidebar-photos";
+// import SidebarPhotos from "./sidebar-photos";
 import moment from "moment";
+import TransactionHistory from "./transaction-history";
 
 const ProjectComponent = ({ info }) => {
   const {
@@ -13,8 +14,10 @@ const ProjectComponent = ({ info }) => {
     percentage,
     status,
     tasks,
-    photos
+    // photos,
+    transactions
   } = info;
+
   return (
     <ProjectWrapper className="xs-10 xs-off-1">
       <div id="top" className="xs-12">
@@ -51,8 +54,12 @@ const ProjectComponent = ({ info }) => {
       </div>
 
       <div id="bottom" className="xs-12">
-        <Tasks className={"xs-12 md-8"} tasks={tasks} />
-        <SidebarPhotos className={"xs-12 md-4"} photos={photos} />
+        <Tasks className={"xs-12 md-7"} tasks={tasks} />
+        {/* <SidebarPhotos className={"xs-12 md-4"} photos={photos} /> */}
+        <TransactionHistory
+          className={"xs-12 md-5"}
+          transactions={transactions}
+        />
       </div>
     </ProjectWrapper>
   );
