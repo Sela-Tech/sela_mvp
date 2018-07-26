@@ -1,5 +1,5 @@
-const b = "https://notable-sazkhkmwza.now.sh/";
-// const b = "http://localhost:8000/";
+const b = "https://notable-lkeftfyjcz.now.sh/";
+//const b = "http://localhost:8000/";
 export default {
   signin: b + "login",
   signup: b + "register",
