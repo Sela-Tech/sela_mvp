@@ -292,16 +292,12 @@ app.post("/changePassword", verifyToken, (req, res) => {
 app.post("/project", verifyToken, (req, res) => {
     var successRes = { success: true };
     var failRes = { success: false };
-    if (req.body.owner != req.userId) {
-      failRes.message = "You cannot create a project on behalf of another user";
-      return res.status(500).json(failRes);
-    }
     var projectObj = {};
     projectObj.name = req.body.name;
     projectObj.description = req.body.description;
     projectObj.startDate = req.body.startDate;
     projectObj.endDate = req.body.endDate;
-    projectObj.owner = req.body.owner;
+    projectObj.owner = req.userId;
     var newProject = new Project(projectObj);
     newProject.save(projErr => {
         if (projErr) {

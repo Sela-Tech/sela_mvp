@@ -79,7 +79,6 @@ Sela includes a REST API in the backend that performs business-critical operatio
       - *description*: description of project
       - *startDate*: start date of project
       - *endDate*: end date of project
-      - *owner*: owner of project
   - Response: ----------------
 
 - **GetProjects**
