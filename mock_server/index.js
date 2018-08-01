@@ -1,19 +1,3 @@
-// const express = require("express"),
-//   MongoClient = require("mongodb").MongoClient,
-//   bodyParser = require("body-parser"),
-//   app = express(),
-//   cors = require("cors"),
-//   port = 8000;
-
-// app.use(bodyParser.urlencoded({ extended: true }));
-// app.use(cors());
-
-// require("./routes")(app, {});
-
-// app.listen(port, () => {
-//   console.log("We are live on " + port);
-// });
-
 // 1. Include Packages
 var express = require("express");
 var bodyParser = require("body-parser");

@@ -13,10 +13,12 @@ const TaskStyleWrapper = styled.div`
   h3 {
     margin-top: 0;
     margin-bottom: 0.85em;
-    font-weight: 400;
+    font-weight: 300;
     line-height: normal;
-    font-size: 18px;
-    color: #4f4f4f;
+    font-size: 14px;
+    letter-spacing: 0.06em;
+    text-transform: uppercase;
+    color: #a3a3a3;
   }
   .checkbox-part {
     margin-top: 0.3em;
@@ -191,7 +193,7 @@ const Tasks = ({ className, dispatch, tasks }) => {
   return (
     <TaskStyleWrapper className={className}>
       <div className="xs-12 md-11">
-        <h3>Tasks</h3>
+        <h3>TASKS</h3>
         <ul className="xs-12">{tasksElements}</ul>
         <div className="xs-12">
           <button

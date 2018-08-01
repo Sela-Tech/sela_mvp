@@ -15,6 +15,13 @@ const MetaData = ({ viewName, projectName }) => {
         </Helmet>
       );
 
+    case "settings":
+      return (
+        <Helmet>
+          <meta charSet="utf-8" />
+          <title> Sela - Settings </title>
+        </Helmet>
+      );
     case "projects":
       return (
         <Helmet>

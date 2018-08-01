@@ -30,6 +30,13 @@ const FilterDashboard = (type, isAuthenticated = false) => {
           isAuthenticated={isAuthenticated}
           component={r.funder_dashboard_home}
         />,
+        <PrivateRoute
+          key={1}
+          exact
+          path="/settings"
+          isAuthenticated={isAuthenticated}
+          component={r.funder_dashboard_settings}
+        />,
 
         <PrivateRoute
           key={2}

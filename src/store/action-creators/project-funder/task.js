@@ -12,7 +12,7 @@ export const addTask = obj => {
       method: "POST",
       data: Qs.stringify(obj),
       headers: {
-        token: retrieveToken()
+        "x-access-token": retrieveToken()
       }
     })
       .then(({ data }) => {

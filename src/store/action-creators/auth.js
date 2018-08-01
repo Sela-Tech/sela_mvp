@@ -157,3 +157,81 @@ export const send_recovery_mail = obj => {
       });
   };
 };
+
+export const change_phone = obj => {
+  return dispatch => {
+    dispatch({ type: authActions.CHANGE_PHONE_NUMBER_IN_PROGRESS });
+    ax({
+      method: "POST",
+      data: obj,
+      url: e.change_phone,
+      headers: {
+        "x-access-token": retrieveToken()
+      }
+    })
+      .then(({ data }) => {
+        dispatch({ type: authActions.CHANGE_PHONE_NUMBER_SUCCESSFUL, data });
+      })
+      .catch(({ response }) => {
+        let message;
+        if (response) {
+          message = response.message || response.data.message;
+        } else {
+          message = "connection error";
+        }
+        dispatch({ type: authActions.CHANGE_PHONE_NUMBER_FAILED, message });
+      });
+  };
+};
+
+export const change_pass = obj => {
+  return dispatch => {
+    dispatch({ type: authActions.CHANGE_PASSWORD_IN_PROGRESS });
+    ax({
+      method: "POST",
+      data: obj,
+      url: e.change_pass,
+      headers: {
+        "x-access-token": retrieveToken()
+      }
+    })
+      .then(({ data }) => {
+        dispatch({ type: authActions.CHANGE_PASSWORD_SUCCESSFUL, data });
+      })
+      .catch(({ response }) => {
+        let message;
+        if (response) {
+          message = response.message || response.data.message;
+        } else {
+          message = "connection error";
+        }
+        dispatch({ type: authActions.CHANGE_PASSWORD_FAILED, message });
+      });
+  };
+};
+
+export const change_email = obj => {
+  return dispatch => {
+    dispatch({ type: authActions.CHANGE_EMAIL_IN_PROGRESS });
+    ax({
+      method: "POST",
+      data: obj,
+      url: e.change_email,
+      headers: {
+        "x-access-token": retrieveToken()
+      }
+    })
+      .then(({ data }) => {
+        dispatch({ type: authActions.CHANGE_EMAIL_SUCCESSFUL, data });
+      })
+      .catch(({ response }) => {
+        let message;
+        if (response) {
+          message = response.message || response.data.message;
+        } else {
+          message = "connection error";
+        }
+        dispatch({ type: authActions.CHANGE_EMAIL_FAILED, message });
+      });
+  };
+};

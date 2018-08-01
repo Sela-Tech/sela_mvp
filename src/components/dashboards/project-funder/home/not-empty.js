@@ -2,8 +2,8 @@ import React from "react";
 
 import { connect } from "react-redux";
 import { Line } from "rc-progress";
-import { showModal } from "../../../../store/action-creators/project-funder/modal";
-import modals from "../../../../store/actions/project-funder/modals";
+// import { showModal } from "../../../../store/action-creators/project-funder/modal";
+// import modals from "../../../../store/actions/project-funder/modals";
 import { withRouter } from "react-router-dom";
 import { NotEmptyWrapper } from "../../../../styles/dashboards/project-funder/home";
 
@@ -26,7 +26,7 @@ const ProjectTemplate = ({ c, t, d, p, pr, go }) => {
               strokeColor="#156EDC"
               trailColor="#F2F2F2"
             />
-            <p>{c} Remaining Tasks</p>
+            <p>{c.length} Remaining Tasks</p>
           </div>
         </div>
       </div>
@@ -56,7 +56,7 @@ const NotEmptyHomeView = ({ dispatch, projects, history }) => {
           );
         })}
 
-        <div className="xs-12 sm-6 md-4">
+        {/* <div className="xs-12 sm-6 md-4">
           <div className="box">
             <button
               id="add"
@@ -66,7 +66,7 @@ const NotEmptyHomeView = ({ dispatch, projects, history }) => {
               + New Project
             </button>
           </div>
-        </div>
+        </div> */}
       </div>
     </NotEmptyWrapper>
   );

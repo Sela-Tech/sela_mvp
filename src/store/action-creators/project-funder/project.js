@@ -11,7 +11,7 @@ export const fetchProjects = () => {
       url: e.fetch_projects,
       method: "GET",
       headers: {
-        token: retrieveToken()
+        "x-access-token": retrieveToken()
       }
     })
       .then(({ data }) => {
@@ -40,7 +40,7 @@ export const addProject = obj => {
       method: "POST",
       data: Qs.stringify(obj),
       headers: {
-        token: retrieveToken()
+        "x-access-token": retrieveToken()
       }
     })
       .then(({ data }) => {
@@ -67,7 +67,7 @@ export const fetchProject = id => {
       url: e.fetch_project + id,
       method: "GET",
       headers: {
-        token: retrieveToken()
+        "x-access-token": retrieveToken()
       }
     })
       .then(({ data }) => {

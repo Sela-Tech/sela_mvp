@@ -4,9 +4,9 @@ export const Form = styled.form`
   > p#info {
     font-size: 1em;
     text-align: center;
-    color: #828282;
+    color: #4f4f4f;
     padding: 0 2em;
-    font-weight: 100;
+    font-weight: 300;
   }
 
   #date-part {
@@ -17,13 +17,12 @@ export const Form = styled.form`
   input[type="text"],
   textarea {
     background: #ffffff;
-    border: 3px solid #f1f3f5;
-    border-radius: 17px;
+    border: 1.5px solid #f1f3f5;
+    border-radius: 5px;
     width: 100%;
     font-size: 1em;
     padding: 1em;
     line-height: normal;
-    font-size: 20px;
     color: #bdbdbd;
     transition: 150ms;
     font-weight: 300;
@@ -89,7 +88,7 @@ export const Form = styled.form`
 
     background: #ffffff;
     border: 3px solid #f1f3f5;
-    border-radius: 17px;
+    border-radius: 5px;
 
     input[type="date"] {
       border: 0;
@@ -110,12 +109,12 @@ export const Form = styled.form`
   }
 
   #create-project-btn {
-    height: 74px;
     width: 100%;
     background: #156edc;
-    border-radius: 17px;
+    height: 55px;
+    border-radius: 5px;
     border: 0;
-    font-size: 20px;
+    font-size: 1em;
     color: white;
     letter-spacing: 1px;
   }

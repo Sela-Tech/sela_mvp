@@ -20,6 +20,12 @@ export default {
       LoadingComponent: Blank
     }
   ),
+  funder_dashboard_settings: loadable(
+    () => import("./pages/dashboards/project-funder/settings"),
+    {
+      LoadingComponent: Blank
+    }
+  ),
   auth,
   errors,
   projects,
