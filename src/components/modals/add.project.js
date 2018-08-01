@@ -4,7 +4,10 @@ import DatePicker from "react-datepicker";
 import moment from "moment";
 import "react-datepicker/dist/react-datepicker.css";
 import { connect } from "react-redux";
-import { addProject } from "../../store/action-creators/project-funder/project";
+import {
+  addProject,
+  fetchProjects
+} from "../../store/action-creators/project-funder/project";
 import AsyncButton from "../authentication/async-button";
 import dA from "../../store/actions/project-funder/dashboard";
 import MessageToShow from "../errors/messageToShow";
@@ -81,6 +84,10 @@ export default connect(mapStateToProps)(
 
     componentWillReceiveProps(nextProps) {
       if (this.props !== nextProps) {
+        // pull fresh projects after adding
+        if (nextProps.type === dA.ADD_PROJECT_SUCCESSFUL) {
+          nextProps.dispatch(fetchProjects());
+        }
         this.setState({
           type: nextProps.type,
           message: nextProps.message

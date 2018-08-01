@@ -51,7 +51,7 @@ const NotEmptyHomeView = ({ dispatch, projects, history }) => {
               p={p.picture}
               d={p.description}
               pr={p.percentage}
-              go={() => go(p.id)}
+              go={() => go(p._id)}
             />
           );
         })}
