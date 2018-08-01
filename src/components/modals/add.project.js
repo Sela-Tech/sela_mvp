@@ -29,8 +29,8 @@ export default connect(mapStateToProps)(
         "end-date-unformatted": moment(placeholderDate),
         "start-date-unformatted": moment(placeholderDate),
         form: {
-          "end-date": moment(placeholderDate).format("MM-DD-YYYY"),
-          "start-date": moment(placeholderDate).format("MM-DD-YYYY")
+          endDate: moment(placeholderDate).format("MM-DD-YYYY"),
+          startDate: moment(placeholderDate).format("MM-DD-YYYY")
         }
       };
     }
@@ -63,7 +63,7 @@ export default connect(mapStateToProps)(
         "start-date-unformatted": date,
         form: {
           ...this.state.form,
-          "start-date": moment(date).format("MM-DD-YYYY")
+          startDate: date.toDate().toISOString() // moment(date).format("MM-DD-YYYY")
         }
       });
     };
@@ -74,7 +74,7 @@ export default connect(mapStateToProps)(
         "end-date-unformatted": date,
         form: {
           ...this.state.form,
-          "end-date": moment(date).format("MM-DD-YYYY")
+          endDate: date.toDate().toISOString() //moment(date).format("MM-DD-YYYY")
         }
       });
     };
@@ -99,9 +99,9 @@ export default connect(mapStateToProps)(
           <div className="form-control">
             <input
               type="text"
-              name="project-name"
+              name="name"
               placeholder="Project Name"
-              value={fd["project-name"] || ""}
+              value={fd["name"] || ""}
               onChange={this.handleChange}
               required
             />
@@ -109,9 +109,9 @@ export default connect(mapStateToProps)(
           <div className="form-control">
             <textarea
               type="text"
-              name="project-description"
+              name="description"
               placeholder="Project Description"
-              value={fd["project-description"] || ""}
+              value={fd["description"] || ""}
               onChange={this.handleChange}
               required
             />

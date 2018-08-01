@@ -1,7 +1,6 @@
 import ax from "axios";
 import authActions from "../actions/auth";
 import e from "../../endpoints";
-// import Qs from "querystring";
 import { retrieveToken, setToken } from "../../helpers/TokenManager";
 
 export const signout = () => {

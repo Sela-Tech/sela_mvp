@@ -10,7 +10,7 @@ export default {
   verify_user_token: b + "verifyToken",
   fetch_projects: b + "projects",
   fetch_project: b + "project/",
-  add_project: b + "projects",
+  add_project: b + "project",
   add_task: b + "task",
   get_tasks: b + "tasks",
   fetch_taks: b + "projects" //:id/tasks

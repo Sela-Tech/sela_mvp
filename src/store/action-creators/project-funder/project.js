@@ -17,7 +17,12 @@ export const fetchProjects = () => {
       .then(({ data }) => {
         dispatch({
           type: dA.FETCHING_PROJECTS_SUCCESSFUL,
-          projects: data
+          projects: [
+            ...data.projects.map(p => {
+              p.tasks = [];
+              return p;
+            })
+          ]
         });
       })
       .catch(({ response }) => {

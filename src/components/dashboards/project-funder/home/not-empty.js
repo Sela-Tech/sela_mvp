@@ -55,18 +55,6 @@ const NotEmptyHomeView = ({ dispatch, projects, history }) => {
             />
           );
         })}
-
-        {/* <div className="xs-12 sm-6 md-4">
-          <div className="box">
-            <button
-              id="add"
-              onClick={() => dispatch(showModal(modals.add_project))}
-            >
-              {" "}
-              + New Project
-            </button>
-          </div>
-        </div> */}
       </div>
     </NotEmptyWrapper>
   );

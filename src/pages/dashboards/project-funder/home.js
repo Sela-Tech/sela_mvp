@@ -19,7 +19,7 @@ class DashboardHomeContainer extends React.Component {
 
   render() {
     const { projects, project_action_type } = this.props;
-
+    console.log(projects);
     switch (project_action_type) {
       case dashboard.FETCHING_PROJECTS_IN_PROGRESS:
         return (

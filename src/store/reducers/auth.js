@@ -14,6 +14,54 @@ const initstate = {
 
 export default (state = initstate, payload) => {
   switch (payload.type) {
+    case authActions.CHANGE_EMAIL_FAILED:
+      return {
+        ...state,
+        action: {
+          type: authActions.CHANGE_EMAIL_FAILED
+        }
+      };
+
+    case authActions.CHANGE_EMAIL_IN_PROGRESS:
+      return {
+        ...state,
+        action: {
+          type: authActions.CHANGE_EMAIL_IN_PROGRESS
+        }
+      };
+
+    case authActions.CHANGE_EMAIL_SUCCESSFUL:
+      return {
+        ...state,
+        action: {
+          type: authActions.CHANGE_EMAIL_SUCCESSFUL
+        }
+      };
+
+    case authActions.CHANGE_PASSWORD_FAILED:
+      return {
+        ...state,
+        action: {
+          type: authActions.CHANGE_PASSWORD_FAILED
+        }
+      };
+
+    case authActions.CHANGE_PASSWORD_IN_PROGRESS:
+      return {
+        ...state,
+        action: {
+          type: authActions.CHANGE_PASSWORD_IN_PROGRESS
+        }
+      };
+
+    case authActions.CHANGE_PASSWORD_SUCCESSFUL:
+      return {
+        ...state,
+        action: {
+          type: authActions.CHANGE_PASSWORD_SUCCESSFUL
+        }
+      };
+
     case authActions.TOKEN_VERIFICATION_IN_PROGRESS:
       return {
         ...state,

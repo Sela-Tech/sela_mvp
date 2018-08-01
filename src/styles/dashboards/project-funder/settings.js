@@ -69,6 +69,10 @@ export default styled.div`
         font-weight: 100;
         border: 0;
         padding: 0.95em 2.5em;
+
+        span {
+          color: white;
+        }
       }
 
       label {
