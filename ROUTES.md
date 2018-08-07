@@ -35,6 +35,26 @@ Sela includes a REST API in the backend that performs business-critical operatio
       - *password*: user's password
   - Response: ----------------
 
+- **GetPhone**
+  - Route: /phone
+  - Method: GET
+  - Parameters:
+    - Header:
+      - *token*: token authenticating user in system
+    - Body: ----------------
+  - Response:
+    - *phone*: user's current phone number
+
+- **GetEmail**
+  - Route: /email
+  - Method: GET
+  - Parameters:
+    - Header:
+      - *token*: token authenticating user in system
+    - Body: ----------------
+  - Response:
+    - *phone*: user's current e-mail address
+
 - **ChangePhone**
   - Route: /changePhone
   - Method: POST
@@ -42,7 +62,6 @@ Sela includes a REST API in the backend that performs business-critical operatio
     - Header:
       - *token*: token authenticating user in system
     - Body:
-      - *oldPhone*: user's old phone number
       - *newPhone*: user's new phone number
   - Response: ----------------
 
@@ -53,7 +72,6 @@ Sela includes a REST API in the backend that performs business-critical operatio
     - Header:
       - *token*: token authenticating user in system
     - Body:
-      - *oldEmail*: user's old email address
       - *newEmail*: user's new email address
   - Response: ----------------
 

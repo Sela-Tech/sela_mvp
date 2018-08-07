@@ -205,19 +205,42 @@ app.post("/login", (req, res) => {
     });
 });
 
-app.post("/changePhone", verifyToken, (req, res) => {
+app.get("/phone", verifyToken, (req, res) => {
     var successRes = { success: true };
     var failRes = { success: false };
     var userId = req.userId;
-    var oldPhone = req.body.oldPhone;
-    var newPhone = req.body.newPhone;
     User.findById(userId, (userFindErr, user) => {
         if (!user) {
           failRes.message = "Sela does not have a user with ID: " + userId;
           return res.status(401).json(failRes);
         }
-        if (oldPhone != user.phone) {
-          failRes.message = "That is the wrong phone number for this account. Please try again";
+        successRes.phone = user.phone;
+        return res.status(200).json(successRes);
+    });
+});
+
+app.get("/email", verifyToken, (req, res) => {
+    var successRes = { success: true };
+    var failRes = { success: false };
+    var userId = req.userId;
+    User.findById(userId, (userFindErr, user) => {
+        if (!user) {
+          failRes.message = "Sela does not have a user with ID: " + userId;
+          return res.status(401).json(failRes);
+        }
+        successRes.email = user.email;
+        return res.status(200).json(successRes);
+    });
+});
+
+app.post("/changePhone", verifyToken, (req, res) => {
+    var successRes = { success: true };
+    var failRes = { success: false };
+    var userId = req.userId;
+    var newPhone = req.body.newPhone;
+    User.findById(userId, (userFindErr, user) => {
+        if (!user) {
+          failRes.message = "Sela does not have a user with ID: " + userId;
           return res.status(401).json(failRes);
         }
         user.phone = req.body.newPhone;
@@ -235,15 +258,10 @@ app.post("/changeEmail", verifyToken, (req, res) => {
     var successRes = { success: true };
     var failRes = { success: false };
     var userId = req.userId;
-    var oldEmail = req.body.oldEmail;
     var newEmail = req.body.newEmail;
     User.findById(userId, (userFindErr, user) => {
         if (!user) {
           failRes.message = "Sela does not have a user with ID: " + userId;
-          return res.status(401).json(failRes);
-        }
-        if (oldEmail != user.email) {
-          failRes.message = "That is the wrong e-mail address for this account. Please try again";
           return res.status(401).json(failRes);
         }
         user.email = req.body.newEmail;
@@ -403,4 +421,3 @@ server.listen(port, () => {
 });
 
 // routes.call(app);
-
