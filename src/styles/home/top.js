@@ -2,28 +2,38 @@ import styled from "styled-components";
 
 export default styled.div`
   position: relative;
-  background-color: #222;
-  background-repeat: no-repeat;
-  background-position: center;
-  background-size: cover;
-  padding: 2em 8vw;
-  min-height: 34em;
-  overflow: hidden;
-
-  &::before {
-    content: "";
-    position: absolute;
-    height: 100%;
-    width: 100%;
-    left: 0;
-    right: 0;
-    bottom: 0;
-    top: 0;
-    background: rgba(0, 0, 0, 0.4);
-    z-index: 1;
-  }
-
-  #background,
+  ${props =>
+    props.basic === true
+      ? `
+      padding: 2em 8vw;
+      
+      `
+      : ` 
+      background-color: #222;
+      background-repeat: no-repeat;
+      background-position: center;
+      background-size: cover;
+      padding: 2em 8vw;
+      min-height: 34em;
+      overflow: hidden;
+      &::before {
+        content: "";
+        position: absolute;
+        height: 100%;
+        width: 100%;
+        left: 0;
+        right: 0;
+        bottom: 0;
+        top: 0;
+        background: rgba(0, 0, 0, 0.4);
+        z-index: 1;
+      }
+      .nav-container {
+        border-bottom: 1px solid rgba(255, 255, 255, 0.15);
+        padding: 1em 0 0.5em;
+        line-height: 3em;
+      }
+      `} #background,
   #overlay-background {
     height: 100%;
     width: 100%;
@@ -52,11 +62,7 @@ export default styled.div`
       height: 3em;
     }
   }
-  .nav-container {
-    border-bottom: 1px solid rgba(255, 255, 255, 0.15);
-    padding: 1em 0 0.5em;
-    line-height: 3em;
-  }
+
   nav {
     a {
       padding: 1em 1.2em;
@@ -73,15 +79,34 @@ export default styled.div`
       }
     }
 
-    #get-started {
-      border: 1px solid #f1c157;
-      border-radius: 4px;
+    ${props =>
+      props.basic === true
+        ? `#get-started {
+          border: 1px solid #f1c157;
+          border-radius: 4px;
+          background: #f1c157;
+            
+            color: black;
+          
+        }
+        
+        a{
+          color: #333;
+        }
+        `
+        : `
+        a{
+          color: white;
+        }
+        #get-started {
+  border: 1px solid #f1c157;
+  border-radius: 4px;
 
-      &:hover {
-        background: #f1c157;
-        color: black;
-      }
-    }
+  &:hover {
+    background: #f1c157;
+    color: black;
+  }
+}`};
   }
 
   .home,
