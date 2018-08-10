@@ -1,10 +1,10 @@
 import React from "react";
 import { connect } from "react-redux";
-import TopWrapper from "../components/home/top/wrapper";
-import TopHome from "../components/home/top/home";
+import TopBasic from "../components/home/top/basic";
 import Projects from "../components/home/projects";
 import Footer from "../components/home/footer";
 import Helmet from "react-helmet";
+
 class HomePageContainer extends React.Component {
   constructor(props) {
     super(props);
@@ -28,9 +28,8 @@ class HomePageContainer extends React.Component {
           <meta charSet="utf-8" />
           <title>Home - Sela </title>
         </Helmet>
-        <TopWrapper>
-          <TopHome />
-        </TopWrapper>
+
+        <TopBasic />
         <Projects
           heading="Ongoing Projects"
           projects={this.state.projects.ongoing}
