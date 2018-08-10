@@ -3,7 +3,7 @@ import styled from "styled-components";
 
 const Progress = styled.div`
   width: 85%;
-  margin: auto;
+  margin: 0.5em auto;
   position: absolute;
   height: 2em;
   left: 0;
@@ -12,9 +12,9 @@ const Progress = styled.div`
 
   .bar {
     width: 100%;
-    height: 2em;
+    height: 1em;
     background: #eff5fb;
-    border-radius: 2px;
+    border-radius: 1em;
     position: relative;
   }
 
@@ -36,13 +36,16 @@ const Progress = styled.div`
   .value {
     width: ${p => p.percentage}%;
     background: #156edc;
-    height: 2em;
     position: absolute;
     z-index: 1;
     left: 0;
     right: 0;
     bottom: 0;
     top: 0;
+
+    height: 1em;
+    border-top-left-radius: 1em;
+    border-bottom-left-radius: 1em;
   }
 `;
 
@@ -50,7 +53,7 @@ export default ({ percentage, style }) => {
   return (
     <Progress className="progress-bar" style={style} percentage={percentage}>
       <div className="bar" />
-      <h4>{percentage}% funded</h4>
+      {/* <h4>{percentage}% funded</h4> */}
       <div className="value" />
     </Progress>
   );

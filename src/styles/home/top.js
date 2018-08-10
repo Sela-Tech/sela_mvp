@@ -9,27 +9,15 @@ export default styled.div`
       
       `
       : ` 
-      background-color: #222;
+      background-color: #07121F;
       background-repeat: no-repeat;
       background-position: center;
       background-size: cover;
       padding: 2em 8vw;
       min-height: 34em;
       overflow: hidden;
-      &::before {
-        content: "";
-        position: absolute;
-        height: 100%;
-        width: 100%;
-        left: 0;
-        right: 0;
-        bottom: 0;
-        top: 0;
-        background: rgba(0, 0, 0, 0.4);
-        z-index: 1;
-      }
+      
       .nav-container {
-        border-bottom: 1px solid rgba(255, 255, 255, 0.15);
         padding: 1em 0 0.5em;
         line-height: 3em;
       }
@@ -75,7 +63,7 @@ export default styled.div`
       transition: 150ms;
       &:hover {
         color: golden;
-        transform: scale(1.1);
+        transform: scale(1.01);
       }
     }
 
@@ -117,9 +105,34 @@ export default styled.div`
   }
 
   .project {
+    #picture-of-project {
+      margin-bottom: 1em;
+    }
+    #initiated-by {
+      margin: 0.3em 0;
+    }
+    .initiated {
+      h4 {
+        padding-top: 0 !important;
+      }
+      h5 {
+        margin: 0.3em 0 !important;
+        font-size: 18px;
+      }
+      p {
+        margin: 0.2em 0;
+        font-size: 18px;
+        color: #8795a1;
+      }
+      img {
+        height: 60px;
+        width: 60px;
+        object-fit: contain;
+      }
+    }
     .content {
       #progress {
-        padding: 1.5em 0;
+        padding: 0 1em 0 0;
       }
       h3,
       h4,
@@ -129,6 +142,13 @@ export default styled.div`
       }
       h3 {
         color: white;
+        font-weight: 100;
+        font-size: 17px;
+        span {
+          color: #156edc;
+          font-weight: 500;
+          font-size: 25px;
+        }
       }
       h4,
       h5 {
@@ -142,6 +162,7 @@ export default styled.div`
         color: #ffffff;
         font-weight: 300;
         padding-top: 2em;
+        margin-bottom: 0.5em;
       }
 
       #funder {
@@ -152,7 +173,7 @@ export default styled.div`
       }
 
       .inner {
-        padding-top: 3em;
+        padding-top: 0;
         h4 {
           padding-top: 1.5em;
           line-height: normal;
@@ -163,28 +184,33 @@ export default styled.div`
 
         h3 {
           line-height: normal;
-          font-size: 24px;
-          letter-spacing: 0.02em;
+
+          font-size: 20px;
+          letter-spacing: 0.03em;
           color: #ffffff;
         }
       }
+    }
+    .c {
+      text-align: center;
+    }
 
-      #donate-btn {
-        background: #f1c157;
-        border-radius: 4px;
-        height: 2em;
-        padding: 0em 2em;
-        font-style: normal;
-        font-weight: 600;
-        font-size: 16px;
-        text-align: center;
-        border: 0;
-        color: #22292f;
-        transition: 100ms;
+    #donate-btn {
+      margin: 3em auto;
+      background: #f1c157;
+      border-radius: 4px;
+      height: 3em;
+      padding: 0em 5em;
+      font-style: normal;
+      font-weight: 600;
+      font-size: 16px;
+      text-align: center;
+      border: 0;
+      color: #22292f;
+      transition: 100ms;
 
-        &:hover {
-          transform: scale(1.1);
-        }
+      &:hover {
+        transform: scale(1.1);
       }
     }
   }
@@ -243,7 +269,7 @@ export default styled.div`
         height: 100px;
       }
       &.yes {
-        height: 400px;
+        height: 250px;
       }
     }
     nav {

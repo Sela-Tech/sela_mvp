@@ -37,8 +37,8 @@ export default connect(state => {
                 </Link>
               </div>
 
-              <div className="xs-3 hide-sm">
-                <Hamburger onClick={this.toggleNav} />
+              <div className="xs-2 xs-off-1 hide-sm">
+                <Hamburger basic onClick={this.toggleNav} />
               </div>
             </div>
 

@@ -70,27 +70,47 @@ export default () => {
 
         <div className="xs-12 md-6">
           <nav>
-            <Link to="/join-telegram">Projects</Link>
-            <Link to="/contact-us">Blog</Link>
-            <Link to="/about">Privacy Policy</Link>
-            <Link to="/blog">Terms of Use</Link>
+            <Link to="#">Projects</Link>
+            <Link to="#">Blog</Link>
+            <Link to="#">Privacy Policy</Link>
+            <Link to="#">Terms of Use</Link>
           </nav>
         </div>
 
         <div className="xs-12 md-4 soc-media">
-          <a href="youtube" target="_blank">
+          <a
+            href="https://www.youtube.com/channel/UC0gmyPpmWLMmJeSsgbCizNg"
+            target="_blank"
+            rel="noopener noreferrer"
+          >
             <img src={Youtube} alt="youtube" className="social-media" />
           </a>
-          <a href="telegram" target="_blank">
+          <a
+            href="https://t.me/joinchat/Fv7QHxBSvTTzLftEWtBNSA"
+            target="_blank"
+            rel="noopener noreferrer"
+          >
             <img src={Telegram} alt="telegram" className="social-media" />
           </a>
-          <a href="twitter" target="_blank">
+          <a
+            href="http://twitter.com/sela_labs"
+            target="_blank"
+            rel="noopener noreferrer"
+          >
             <img src={Twitter} alt="twitter" className="social-media" />
           </a>
-          <a href="instagram" target="_blank">
+          <a
+            href="http://instagram.com/sela"
+            target="_blank"
+            rel="noopener noreferrer"
+          >
             <img src={Instagram} className="social-media" alt="instagram" />
           </a>
-          <a href="medium" target="_blank">
+          <a
+            href="http://medium.com/sela-labs"
+            target="_blank"
+            rel="noopener noreferrer"
+          >
             <img src={Medium} alt="medium" className="social-media" />
           </a>
         </div>

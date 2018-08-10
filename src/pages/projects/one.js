@@ -4,7 +4,46 @@ import TopWrapper from "../../components/home/top/wrapper";
 import TopProject from "../../components/home/top/project";
 import Footer from "../../components/home/footer";
 import Helmet from "react-helmet";
-// import More from "./more/wrapper";
+import styled from "styled-components";
+
+const More = styled.div`
+  .selector * {
+    text-align: center;
+  }
+
+  button {
+    width: 100%;
+    padding: 1.75em 0;
+    font-size: 1em;
+    color: #8796a1;
+    background: transparent;
+    border: 0;
+    font-weight: 300;
+
+    border-bottom: 2px solid rgba(135, 149, 161, 0.05);
+  }
+
+  .project-description {
+    padding: 4em 0;
+    h3 {
+      font-family: Cabin;
+      font-style: normal;
+      font-weight: 600;
+      line-height: normal;
+      font-size: 24px;
+      letter-spacing: 0.02em;
+      color: #156edc;
+      text-align: center;
+      margin: 0;
+    }
+    p {
+      line-height: 26px;
+      font-size: 16px;
+      font-weight: 300;
+      color: #22292f;
+    }
+  }
+`;
 
 class HomePageContainer extends React.Component {
   constructor(props) {
@@ -40,7 +79,6 @@ class HomePageContainer extends React.Component {
 
   render() {
     const { project } = this.state;
-
     return (
       <React.Fragment>
         <Helmet>
@@ -52,8 +90,71 @@ class HomePageContainer extends React.Component {
           <TopProject {...project} />
         </TopWrapper>
 
-        {/* <More /> */}
+        <More className="xs-12">
+          <div className="sm-off-3 sm-6 selectors">
+            <div className="sm-4">
+              <button>Project Description</button>
+            </div>
+            <div className="sm-4">
+              <button>Transactions</button>
+            </div>
+            <div className="sm-4">
+              <button>Project Updates</button>
+            </div>
+          </div>
 
+          <div className="project-description xs-10 xs-off-1">
+            <h3> Project Description </h3>
+            <p>
+              This is where the project description goes. This is where the
+              project description goes. This is where the project description
+              goes. This is where the project description goes. This is where
+              the project description goes. This is where the project
+              description goes. This is where the project description goes.
+            </p>
+            <p>
+              The project is described here. The project is described here. The
+              project is described here. The project is described here. The
+              project is described here. The project is described here. The
+              project is described here. The project is described here. The
+              project is described here. The project is described here.
+            </p>
+            <p>
+              What is the project all about? It’s all stated here. What is the
+              project all about? It’s all stated here. What is the project all
+              about? It’s all stated here. What is the project all about? It’s
+              all stated here. What is the project all about? It’s all stated
+              here. What is the project all about? It’s all stated here. What is
+              the project all about? It’s all stated here.
+            </p>
+          </div>
+
+          <div className="project-transactions xs-10 xs-off-1">
+            <h3> Transactions </h3>
+            <p>
+              This is where the project description goes. This is where the
+              project description goes. This is where the project description
+              goes. This is where the project description goes. This is where
+              the project description goes. This is where the project
+              description goes. This is where the project description goes.
+            </p>
+            <p>
+              The project is described here. The project is described here. The
+              project is described here. The project is described here. The
+              project is described here. The project is described here. The
+              project is described here. The project is described here. The
+              project is described here. The project is described here.
+            </p>
+            <p>
+              What is the project all about? It’s all stated here. What is the
+              project all about? It’s all stated here. What is the project all
+              about? It’s all stated here. What is the project all about? It’s
+              all stated here. What is the project all about? It’s all stated
+              here. What is the project all about? It’s all stated here. What is
+              the project all about? It’s all stated here.
+            </p>
+          </div>
+        </More>
         <Footer />
       </React.Fragment>
     );
