@@ -1,12 +1,5 @@
 const lo = require("lodash");
 
-// https://ibb.co/b7qoMy
-// https://ibb.co/n3Ya1y
-// https://ibb.co/dcB68d
-// https://ibb.co/jjYm8d
-// https://ibb.co/cqGHEJ
-// https://ibb.co/eqxqZJ
-
 const Kdere = "https://image.ibb.co/h7dm8d/k_dere.png",
   ImoBridge = "https://image.ibb.co/gn5cEJ/imo_bridge.png",
   PhRoad = "https://image.ibb.co/g5W68d/enugu_road.png",
@@ -56,9 +49,12 @@ let projects = [
     picture: Kdere,
     fundingTarget: "$10,000.00",
     amountRaised: "$5,000.00",
-    funderPicture: si,
+    funderPicture: "https://randomuser.me/api/portraits/women/17.jpg",
+    funderName: "Inui Chen",
+    reputationScore: 88,
     general_status: "ongoing",
     photos: [Kdere],
+    investors: 14,
     transactions: mockTrans,
     tasks: [
       {
@@ -66,6 +62,8 @@ let projects = [
         task_created: new Date("March 17, 2018 03:24:00"),
         deadline: new Date("December 17, 2018 03:24:00"),
         contractor_assigned: "Dotun Longe",
+        description:
+          "This is where the brief description of the task goes. This is where the brief description of the task goes. This is where the brief description of the task goes. This is where the brief description of the task goes. This is where the brief description of the task goes. ",
         status: "in-progress",
         evaluation_submissions: [
           {
@@ -94,6 +92,9 @@ let projects = [
         task_created: new Date("March 17, 2018 03:24:00"),
         deadline: new Date("December 17, 2018 03:24:00"),
         contractor_assigned: "Dotun Longe",
+        description:
+          "This is where the brief description of the task goes. This is where the brief description of the task goes. This is where the brief description of the task goes. This is where the brief description of the task goes. This is where the brief description of the task goes. ",
+
         status: "complete",
         evaluation_submissions: [
           {
@@ -112,8 +113,7 @@ let projects = [
             name: "Task 3",
             type: "video",
             status: "bad",
-            src:
-              "https://www.sample-videos.com/video/mp4/720/big_buck_bunny_720p_10mb.mp4"
+            src: "http://mirrors.standaloneinstaller.com/video-sample/grb_2.mp4"
           }
         ]
       },
@@ -122,6 +122,9 @@ let projects = [
         task_created: new Date("March 17, 2018 03:24:00"),
         deadline: new Date("December 17, 2018 03:24:00"),
         contractor_assigned: "Dotun Longe",
+        description:
+          "This is where the brief description of the task goes. This is where the brief description of the task goes. This is where the brief description of the task goes. This is where the brief description of the task goes. This is where the brief description of the task goes. ",
+
         status: "not-started",
         evaluation_submissions: [
           {
@@ -140,8 +143,7 @@ let projects = [
             name: "Task 3",
             type: "video",
             status: "bad",
-            src:
-              "https://www.sample-videos.com/video/mp4/720/big_buck_bunny_720p_10mb.mp4"
+            src: "http://mirrors.standaloneinstaller.com/video-sample/grb_2.mp4"
           }
         ]
       }
@@ -159,17 +161,23 @@ let projects = [
     picture: ImoBridge,
     fundingTarget: "$10,000.00",
     amountRaised: "$9,000.00",
-    funderPicture: ellipse,
+    funderPicture: "https://randomuser.me/api/portraits/women/87.jpg",
+    funderName: "Bridgette Carr",
     general_status: "ongoing",
+    reputationScore: 92,
     photos: [ImoBridge],
+    investors: 30,
     tasks: 3,
     transactions: mockTrans,
-    tasksData: [
+    tasks: [
       {
         name: "Survey site for bridge construction",
         task_created: new Date("March 17, 2018 03:24:00"),
         deadline: new Date("December 17, 2018 03:24:00"),
         contractor_assigned: "Dotun Longe",
+        description:
+          "This is where the brief description of the task goes. This is where the brief description of the task goes. This is where the brief description of the task goes. This is where the brief description of the task goes. This is where the brief description of the task goes. ",
+
         status: "in-progress",
         evaluation_submissions: [
           {
@@ -198,6 +206,9 @@ let projects = [
         task_created: new Date("March 17, 2018 03:24:00"),
         deadline: new Date("December 17, 2018 03:24:00"),
         contractor_assigned: "Dotun Longe",
+        description:
+          "This is where the brief description of the task goes. This is where the brief description of the task goes. This is where the brief description of the task goes. This is where the brief description of the task goes. This is where the brief description of the task goes. ",
+
         status: "complete",
         evaluation_submissions: [
           {
@@ -216,8 +227,7 @@ let projects = [
             name: "Task 3",
             type: "video",
             status: "bad",
-            src:
-              "https://www.sample-videos.com/video/mp4/720/big_buck_bunny_720p_10mb.mp4"
+            src: "http://mirrors.standaloneinstaller.com/video-sample/grb_2.mp4"
           }
         ]
       },
@@ -226,6 +236,9 @@ let projects = [
         task_created: new Date("March 17, 2018 03:24:00"),
         deadline: new Date("December 17, 2018 03:24:00"),
         contractor_assigned: "Dotun Longe",
+        description:
+          "This is where the brief description of the task goes. This is where the brief description of the task goes. This is where the brief description of the task goes. This is where the brief description of the task goes. This is where the brief description of the task goes. ",
+
         status: "not-started",
         evaluation_submissions: [
           {
@@ -244,8 +257,7 @@ let projects = [
             name: "Task 3",
             type: "video",
             status: "bad",
-            src:
-              "https://www.sample-videos.com/video/mp4/720/big_buck_bunny_720p_10mb.mp4"
+            src: "http://mirrors.standaloneinstaller.com/video-sample/grb_2.mp4"
           }
         ]
       }
@@ -263,9 +275,12 @@ let projects = [
     fundingTarget: "$10,000.00",
     amountRaised: "$3,000.00",
     picture: PhRoad,
-    funderPicture: si,
+    reputationScore: 95,
+    funderPicture: "https://randomuser.me/api/portraits/men/54.jpg",
+    funderName: "Simeone Lesotho",
     general_status: "ongoing",
     photos: [PhRoad],
+    investors: 6,
     transactions: mockTrans,
 
     tasks: [
@@ -274,6 +289,9 @@ let projects = [
         task_created: new Date("March 17, 2018 03:24:00"),
         deadline: new Date("December 17, 2018 03:24:00"),
         contractor_assigned: "Dotun Longe",
+        description:
+          "This is where the brief description of the task goes. This is where the brief description of the task goes. This is where the brief description of the task goes. This is where the brief description of the task goes. This is where the brief description of the task goes. ",
+
         status: "in-progress",
         evaluation_submissions: [
           {
@@ -302,6 +320,9 @@ let projects = [
         task_created: new Date("March 17, 2018 03:24:00"),
         deadline: new Date("December 17, 2018 03:24:00"),
         contractor_assigned: "Dotun Longe",
+        description:
+          "This is where the brief description of the task goes. This is where the brief description of the task goes. This is where the brief description of the task goes. This is where the brief description of the task goes. This is where the brief description of the task goes. ",
+
         status: "complete",
         evaluation_submissions: [
           {
@@ -320,8 +341,7 @@ let projects = [
             name: "Task 3",
             type: "video",
             status: "bad",
-            src:
-              "https://www.sample-videos.com/video/mp4/720/big_buck_bunny_720p_10mb.mp4"
+            src: "http://mirrors.standaloneinstaller.com/video-sample/grb_2.mp4"
           }
         ]
       },
@@ -330,6 +350,9 @@ let projects = [
         task_created: new Date("March 17, 2018 03:24:00"),
         deadline: new Date("December 17, 2018 03:24:00"),
         contractor_assigned: "Dotun Longe",
+        description:
+          "This is where the brief description of the task goes. This is where the brief description of the task goes. This is where the brief description of the task goes. This is where the brief description of the task goes. This is where the brief description of the task goes. ",
+
         status: "not-started",
         evaluation_submissions: [
           {
@@ -348,8 +371,7 @@ let projects = [
             name: "Task 3",
             type: "video",
             status: "bad",
-            src:
-              "https://www.sample-videos.com/video/mp4/720/big_buck_bunny_720p_10mb.mp4"
+            src: "http://mirrors.standaloneinstaller.com/video-sample/grb_2.mp4"
           }
         ]
       }
@@ -365,11 +387,14 @@ let projects = [
     description: `Construction of five classroom blocks to improve education standards`,
     percentage: 0,
     picture: Class,
-    funderPicture: si,
+    funderPicture: "https://randomuser.me/api/portraits/men/31.jpg",
+    funderName: "John Adams",
     fundingTarget: "$10,000.00",
+    reputationScore: 68,
     amountRaised: "$0.00",
     general_status: "proposed",
     photos: [Class],
+    investors: 0,
     transactions: mockTrans,
 
     tasks: [
@@ -378,6 +403,9 @@ let projects = [
         task_created: new Date("March 17, 2018 03:24:00"),
         deadline: new Date("December 17, 2018 03:24:00"),
         contractor_assigned: "Dotun Longe",
+        description:
+          "This is where the brief description of the task goes. This is where the brief description of the task goes. This is where the brief description of the task goes. This is where the brief description of the task goes. This is where the brief description of the task goes. ",
+
         status: "in-progress",
         evaluation_submissions: [
           {
@@ -406,6 +434,9 @@ let projects = [
         task_created: new Date("March 17, 2018 03:24:00"),
         deadline: new Date("December 17, 2018 03:24:00"),
         contractor_assigned: "Dotun Longe",
+        description:
+          "This is where the brief description of the task goes. This is where the brief description of the task goes. This is where the brief description of the task goes. This is where the brief description of the task goes. This is where the brief description of the task goes. ",
+
         status: "complete",
         evaluation_submissions: [
           {
@@ -424,8 +455,7 @@ let projects = [
             name: "Task 3",
             type: "video",
             status: "bad",
-            src:
-              "https://www.sample-videos.com/video/mp4/720/big_buck_bunny_720p_10mb.mp4"
+            src: "http://mirrors.standaloneinstaller.com/video-sample/grb_2.mp4"
           }
         ]
       },
@@ -434,6 +464,9 @@ let projects = [
         task_created: new Date("March 17, 2018 03:24:00"),
         deadline: new Date("December 17, 2018 03:24:00"),
         contractor_assigned: "Dotun Longe",
+        description:
+          "This is where the brief description of the task goes. This is where the brief description of the task goes. This is where the brief description of the task goes. This is where the brief description of the task goes. This is where the brief description of the task goes. ",
+
         status: "not-started",
         evaluation_submissions: [
           {
@@ -452,8 +485,7 @@ let projects = [
             name: "Task 3",
             type: "video",
             status: "bad",
-            src:
-              "https://www.sample-videos.com/video/mp4/720/big_buck_bunny_720p_10mb.mp4"
+            src: "http://mirrors.standaloneinstaller.com/video-sample/grb_2.mp4"
           }
         ]
       }
@@ -471,9 +503,12 @@ let projects = [
     fundingTarget: "$10,000.00",
     amountRaised: "$1,000.00",
     picture: EnuguRoad,
-    funderPicture: si,
+    reputationScore: 92,
+    funderPicture: "https://randomuser.me/api/portraits/men/64.jpg",
+    funderName: "Harry Grillo",
     general_status: "proposed",
     photos: [EnuguRoad],
+    investors: 3,
     transactions: mockTrans,
 
     tasks: [
@@ -482,6 +517,9 @@ let projects = [
         task_created: new Date("March 17, 2018 03:24:00"),
         deadline: new Date("December 17, 2018 03:24:00"),
         contractor_assigned: "Dotun Longe",
+        description:
+          "This is where the brief description of the task goes. This is where the brief description of the task goes. This is where the brief description of the task goes. This is where the brief description of the task goes. This is where the brief description of the task goes. ",
+
         status: "in-progress",
         evaluation_submissions: [
           {
@@ -510,6 +548,9 @@ let projects = [
         task_created: new Date("March 17, 2018 03:24:00"),
         deadline: new Date("December 17, 2018 03:24:00"),
         contractor_assigned: "Dotun Longe",
+        description:
+          "This is where the brief description of the task goes. This is where the brief description of the task goes. This is where the brief description of the task goes. This is where the brief description of the task goes. This is where the brief description of the task goes. ",
+
         status: "complete",
         evaluation_submissions: [
           {
@@ -528,8 +569,7 @@ let projects = [
             name: "Task 3",
             type: "video",
             status: "bad",
-            src:
-              "https://www.sample-videos.com/video/mp4/720/big_buck_bunny_720p_10mb.mp4"
+            src: "http://mirrors.standaloneinstaller.com/video-sample/grb_2.mp4"
           }
         ]
       },
@@ -538,6 +578,9 @@ let projects = [
         task_created: new Date("March 17, 2018 03:24:00"),
         deadline: new Date("December 17, 2018 03:24:00"),
         contractor_assigned: "Dotun Longe",
+        description:
+          "This is where the brief description of the task goes. This is where the brief description of the task goes. This is where the brief description of the task goes. This is where the brief description of the task goes. This is where the brief description of the task goes. ",
+
         status: "not-started",
         evaluation_submissions: [
           {
@@ -556,8 +599,7 @@ let projects = [
             name: "Task 3",
             type: "video",
             status: "bad",
-            src:
-              "https://www.sample-videos.com/video/mp4/720/big_buck_bunny_720p_10mb.mp4"
+            src: "http://mirrors.standaloneinstaller.com/video-sample/grb_2.mp4"
           }
         ]
       }
@@ -572,12 +614,15 @@ let projects = [
     status: "In Progress",
     description: `Construction of housing units to provide accomodation for low-income families`,
     percentage: 0,
-    funderPicture: ellipse,
+    funderPicture: "https://randomuser.me/api/portraits/women/90.jpg",
+    funderName: "Tina May",
     picture: Ajegunle,
+    reputationScore: 78,
     fundingTarget: "$10,000.00",
     amountRaised: "$0.00",
     general_status: "proposed",
     photos: [ImoBridge],
+    investors: 0,
     transactions: mockTrans,
 
     tasks: [
@@ -586,6 +631,9 @@ let projects = [
         task_created: new Date("March 17, 2018 03:24:00"),
         deadline: new Date("December 17, 2018 03:24:00"),
         contractor_assigned: "Dotun Longe",
+        description:
+          "This is where the brief description of the task goes. This is where the brief description of the task goes. This is where the brief description of the task goes. This is where the brief description of the task goes. This is where the brief description of the task goes. ",
+
         status: "in-progress",
         evaluation_submissions: [
           {
@@ -614,6 +662,9 @@ let projects = [
         task_created: new Date("March 17, 2018 03:24:00"),
         deadline: new Date("December 17, 2018 03:24:00"),
         contractor_assigned: "Dotun Longe",
+        description:
+          "This is where the brief description of the task goes. This is where the brief description of the task goes. This is where the brief description of the task goes. This is where the brief description of the task goes. This is where the brief description of the task goes. ",
+
         status: "complete",
         evaluation_submissions: [
           {
@@ -632,8 +683,7 @@ let projects = [
             name: "Task 3",
             type: "video",
             status: "bad",
-            src:
-              "https://www.sample-videos.com/video/mp4/720/big_buck_bunny_720p_10mb.mp4"
+            src: "http://mirrors.standaloneinstaller.com/video-sample/grb_2.mp4"
           }
         ]
       },
@@ -642,6 +692,9 @@ let projects = [
         task_created: new Date("March 17, 2018 03:24:00"),
         deadline: new Date("December 17, 2018 03:24:00"),
         contractor_assigned: "Dotun Longe",
+        description:
+          "This is where the brief description of the task goes. This is where the brief description of the task goes. This is where the brief description of the task goes. This is where the brief description of the task goes. This is where the brief description of the task goes. ",
+
         status: "not-started",
         evaluation_submissions: [
           {
@@ -660,8 +713,7 @@ let projects = [
             name: "Task 3",
             type: "video",
             status: "bad",
-            src:
-              "https://www.sample-videos.com/video/mp4/720/big_buck_bunny_720p_10mb.mp4"
+            src: "http://mirrors.standaloneinstaller.com/video-sample/grb_2.mp4"
           }
         ]
       }
@@ -676,11 +728,14 @@ module.exports = function(app, db, config) {
     }, config.timeout);
   });
 
-  app.get("/projects", (req, res) => {
+  app.get("/projects/:of", (req, res) => {
     setTimeout(() => {
-      const data = lo.filter(projects, o => {
-        return o.funder == "Sustainability International";
-      });
+      const data =
+        req.params.of !== "all"
+          ? lo.filter(projects, o => {
+              return o.funder == "Sustainability International";
+            })
+          : projects;
 
       res.status(200).json(data);
     }, config.timeout);
