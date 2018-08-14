@@ -48,7 +48,7 @@ const Hamwrap = styled.div`
     height: 4px;
     width: 36px;
     border-radius: 2px;
-    background: #006fdf;
+    background: #fff;
   }
 
   .top {

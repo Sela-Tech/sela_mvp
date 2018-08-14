@@ -47,14 +47,19 @@ const Progress = styled.div`
     border-top-left-radius: 1em;
     border-bottom-left-radius: 1em;
   }
+
+  #text {
+    margin: 0.5em 0;
+    display: block;
+  }
 `;
 
-export default ({ percentage, style }) => {
+export default ({ percentage, style, displayText }) => {
   return (
     <Progress className="progress-bar" style={style} percentage={percentage}>
       <div className="bar" />
-      {/* <h4>{percentage}% funded</h4> */}
       <div className="value" />
+      {displayText && <p id="text"> {percentage}% funded</p>}
     </Progress>
   );
 };

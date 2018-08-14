@@ -109,7 +109,7 @@ export default styled.div`
       margin-bottom: 1em;
     }
     #initiated-by {
-      margin: 0.3em 0;
+      margin: 0.3em 0 1em;
     }
     .initiated {
       h4 {
@@ -128,6 +128,7 @@ export default styled.div`
         height: 60px;
         width: 60px;
         object-fit: contain;
+        border-radius: 60px;
       }
     }
     .content {

@@ -1,15 +1,18 @@
 import React from "react";
 import Progressbar from "../../unique/progressbar";
 import defaultImage from "../../../assets/top-min.jpeg";
-import face from "../../../assets/face.png";
 
 const TopProject = ({
   title,
   funder,
   fundingTarget,
+  funderName,
+  funderPicture,
   amountRaised,
   percentage,
-  picture
+  picture,
+  reputationScore,
+  investors
 }) => {
   return (
     <div className="project xs-12">
@@ -46,19 +49,19 @@ const TopProject = ({
               />
 
               <h3>
-                <span>36</span> investors
+                <span>{investors}</span> investors
               </h3>
 
               <h4 id="initiated-by"> INITIATED BY </h4>
 
               <div className="xs-12 initiated">
                 <div className="xs-2 sm-3 md-2">
-                  <img src={face} alt="face" />
+                  <img src={funderPicture} alt="face" id="face" />
                 </div>
                 <div className="xs-10 sm-9 md-10">
-                  <h4> Hawa Mohammed </h4>
-                  <h5> Reputation Score: 80% </h5>
-                  <p> Contractor, Sustainability International </p>
+                  <h4> {funderName} </h4>
+                  <h5> Reputation Score: {reputationScore}% </h5>
+                  <p> Contractor, {funder} </p>
                 </div>
               </div>
             </div>
