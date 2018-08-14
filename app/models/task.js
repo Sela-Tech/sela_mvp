@@ -121,7 +121,7 @@ var schemaOptions = {
     strict: process.env.NODE_ENV !== 'development'
 };
 
-var locationSchema = new Schema(locationStructure, schemaOptions);
+var LocationSchema = new Schema(locationStructure, schemaOptions);
 
 var TaskSchema = new Schema(taskStructure, schemaOptions);
 

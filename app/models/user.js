@@ -1,7 +1,49 @@
+var _ = require('underscore');
 var bcrypt = require('bcrypt');
 var moment = require('moment');
 var mongoose = require('mongoose');
 var Schema = mongoose.Schema;
+var ObjectId = Schema.Types.ObjectId;
+
+var userRoleStructure = {
+    user: {
+        type: ObjectId,
+        required: true
+    },
+    organization: {
+        type: ObjectId,
+        required: true
+    },
+    type: {
+        type: String,
+        enum : ['EVALUATOR', 'CONTRACTOR', 'FUNDER'],
+        default: 'EVALUATOR'
+    }
+};
+
+var schemaOptions = {
+    minimize: false,
+    id: false,
+    toJSON: {
+        getters: true,
+        virtuals: true,
+        minimize: false,
+        versionKey: false,
+        retainKeyOrder: true
+    },
+    toObject: {
+        getters: true,
+        virtuals: true,
+        minimize: false,
+        versionKey: false,
+        retainKeyOrder: true
+    },
+    autoIndex: false,
+    safe: true,
+    strict: process.env.NODE_ENV !== 'development' // Only use strict in production
+};
+
+var UserRoleSchema = new Schema(userRoleStructure, schemaOptions);
 
 var userStructure = {
     firstName: {
@@ -37,7 +79,7 @@ var userStructure = {
         type: String,
         unique: true
     },
-    isFunder: {
+    isEvaluator: {
         type: Boolean,
         required: true,
         default: false
@@ -47,7 +89,7 @@ var userStructure = {
         required: true,
         default: false
     },
-    isEvaluator: {
+    isFunder: {
         type: Boolean,
         required: true,
         default: false
@@ -75,30 +117,6 @@ var userStructure = {
     }
 };
 
-var schemaOptions = {
-    minimize: false,
-    id: false,
-    toJSON: {
-        getters: true,
-        virtuals: true,
-        minimize: false,
-        versionKey: false,
-        retainKeyOrder: true,
-        transform: transformer // Add a Transformer to remove hide private fields
-    },
-    toObject: {
-        getters: true,
-        virtuals: true,
-        minimize: false,
-        versionKey: false,
-        retainKeyOrder: true
-    },
-    autoIndex: false,
-    safe: true,
-    collection: 'users', // Sets Collection Name
-    strict: process.env.NODE_ENV !== 'development' // Only use strict in production
-};
-
 if (process.env.NODE_ENV === 'development') {
     userStructure.test = {
         type: Boolean,
@@ -108,7 +126,14 @@ if (process.env.NODE_ENV === 'development') {
 
 var transformer = function(doc, ret) {};
 
-var UserSchema = new Schema(userStructure, schemaOptions);
+var userSchemaOptions = _.extend({}, schemaOptions, {
+    collection: 'users',
+    toJSON: {
+        transform: transformer // Add a Transformer to remove hide private fields
+    }
+});
+
+var UserSchema = new Schema(userStructure, userSchemaOptions);
 
 UserSchema.pre('save', true, function(next, done) {
 

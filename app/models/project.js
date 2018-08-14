@@ -40,11 +40,7 @@ var schemaOptions = {
     strict: process.env.NODE_ENV !== 'development'
 };
 
-var locationSchema = new Schema(locationStructure, schemaOptions);
-
-var projectSchemaOptions = _.extend({}, schemaOptions, {
-	collection: 'projects'
-});
+var LocationSchema = new Schema(locationStructure, schemaOptions);
 
 var projectStructure = {
     name: {
@@ -66,7 +62,7 @@ var projectStructure = {
         default: null
     },
     location: {
-        type: locationSchema,
+        type: LocationSchema,
         default: null
     },
     createdBy: {
@@ -79,8 +75,8 @@ var projectStructure = {
     },
     status: {
         type: String,
-        enum : ['Dormant', 'Accepted','Started','Terminated','Completed'],
-        default: 'Dormant' 
+        enum : ['DORMANT', 'ACCEPTED', 'STARTED', 'TERMINATED', 'COMPLETED'],
+        default: 'DORMANT' 
     },
     createdOn: {
         type: Date,
@@ -98,6 +94,10 @@ if (process.env.NODE_ENV === 'development') {
         default: true
     };
 }
+
+var projectSchemaOptions = _.extend({}, schemaOptions, {
+	collection: 'projects'
+});
 
 var ProjectSchema = new Schema(projectStructure, projectSchemaOptions);
 
