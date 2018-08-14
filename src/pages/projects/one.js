@@ -6,11 +6,18 @@ import Footer from "../../components/home/footer";
 import Helmet from "react-helmet";
 import styled from "styled-components";
 
+import TransactionHistory from "../../components/dashboards/project-funder/project/transaction-history";
+import { fetchProject } from "../../store/action-creators/homepage";
+import Spinner from "../../components/spinners/typetwo";
+import Updates from "../../components/home/updates";
+
 const More = styled.div`
   .selector * {
     text-align: center;
   }
-
+  .border {
+    border-bottom: 2px solid rgba(135, 149, 161, 0.05);
+  }
   button {
     width: 100%;
     padding: 1.75em 0;
@@ -20,10 +27,17 @@ const More = styled.div`
     border: 0;
     font-weight: 300;
 
-    border-bottom: 2px solid rgba(135, 149, 161, 0.05);
+    &.active {
+      border-bottom: 2px solid #156edc;
+    }
   }
 
   .project-description {
+    text-align: center;
+  }
+  .project-description,
+  .project-transactions,
+  .project-updates {
     padding: 4em 0;
     h3 {
       font-family: Cabin;
@@ -34,7 +48,7 @@ const More = styled.div`
       letter-spacing: 0.02em;
       color: #156edc;
       text-align: center;
-      margin: 0;
+      margin: 1em 0;
     }
     p {
       line-height: 26px;
@@ -49,21 +63,15 @@ class HomePageContainer extends React.Component {
   constructor(props) {
     super(props);
     this.state = {
-      project: this.findOne(this.props.match.params.id)
+      activeButton: {
+        description: "active",
+        transaction: "",
+        update: ""
+      },
+      project: {}
     };
+    this.props.find(this.props.match.params.id);
   }
-
-  findOne = id => {
-    const { proposed, ongoing } = this.props.projects,
-      checkedProposed = proposed.filter(p => {
-        return `${p.id}` === `${id}`;
-      }),
-      checkedOngoing = ongoing.filter(p => {
-        return `${p.id}` === `${id}`;
-      });
-
-    return checkedProposed.length > 0 ? checkedProposed[0] : checkedOngoing[0];
-  };
 
   componentDidMount() {
     document.getElementById("root").scrollTop = 0;
@@ -72,103 +80,151 @@ class HomePageContainer extends React.Component {
   componentWillReceiveProps(nextProps) {
     if (this.props !== nextProps) {
       this.setState({
-        project: nextProps.project
+        project: nextProps.project,
+        loaded: Boolean(Object.keys(nextProps.project).length)
       });
     }
   }
 
+  scroll = e => {
+    this.setState({
+      activeButton: {
+        [e.target.name]: "active"
+      }
+    });
+  };
+
   render() {
-    const { project } = this.state;
-    return (
-      <React.Fragment>
-        <Helmet>
-          <meta charSet="utf-8" />
-          <title>Sela Project - {project.title} </title>
-        </Helmet>
+    const { project, loaded } = this.state;
 
-        <TopWrapper projectPicture={project.picture}>
-          <TopProject {...project} />
-        </TopWrapper>
+    if (loaded) {
+      return (
+        <React.Fragment>
+          <Helmet>
+            <meta charSet="utf-8" />
+            <title>Sela Project - {project.title || ""} </title>
+          </Helmet>
 
-        <More className="xs-12">
-          <div className="sm-off-3 sm-6 selectors">
-            <div className="sm-4">
-              <button>Project Description</button>
+          <TopWrapper projectPicture={project.picture}>
+            <TopProject {...project} />
+          </TopWrapper>
+
+          <More className="xs-12">
+            <div className="xs-12 border">
+              <div className="sm-off-3 sm-6 selectors">
+                <div className="sm-4">
+                  <button
+                    className={this.state.activeButton.description}
+                    name="description"
+                    onClick={this.scroll}
+                  >
+                    Project Description
+                  </button>
+                </div>
+                <div className="sm-4">
+                  <button
+                    className={this.state.activeButton.transaction}
+                    name="transaction"
+                    onClick={this.scroll}
+                  >
+                    Transactions
+                  </button>
+                </div>
+                <div className="sm-4">
+                  <button
+                    className={this.state.activeButton.update}
+                    name="update"
+                    onClick={this.scroll}
+                  >
+                    Project Updates
+                  </button>
+                </div>
+              </div>
             </div>
-            <div className="sm-4">
-              <button>Transactions</button>
-            </div>
-            <div className="sm-4">
-              <button>Project Updates</button>
-            </div>
-          </div>
 
-          <div className="project-description xs-10 xs-off-1">
-            <h3> Project Description </h3>
-            <p>
-              This is where the project description goes. This is where the
-              project description goes. This is where the project description
-              goes. This is where the project description goes. This is where
-              the project description goes. This is where the project
-              description goes. This is where the project description goes.
-            </p>
-            <p>
-              The project is described here. The project is described here. The
-              project is described here. The project is described here. The
-              project is described here. The project is described here. The
-              project is described here. The project is described here. The
-              project is described here. The project is described here.
-            </p>
-            <p>
-              What is the project all about? It’s all stated here. What is the
-              project all about? It’s all stated here. What is the project all
-              about? It’s all stated here. What is the project all about? It’s
-              all stated here. What is the project all about? It’s all stated
-              here. What is the project all about? It’s all stated here. What is
-              the project all about? It’s all stated here.
-            </p>
-          </div>
+            <div className="project-description xs-10 xs-off-1">
+              <h3> Project Description </h3>
+              <p>{project.description}</p>
+            </div>
 
-          <div className="project-transactions xs-10 xs-off-1">
-            <h3> Transactions </h3>
-            <p>
-              This is where the project description goes. This is where the
-              project description goes. This is where the project description
-              goes. This is where the project description goes. This is where
-              the project description goes. This is where the project
-              description goes. This is where the project description goes.
-            </p>
-            <p>
-              The project is described here. The project is described here. The
-              project is described here. The project is described here. The
-              project is described here. The project is described here. The
-              project is described here. The project is described here. The
-              project is described here. The project is described here.
-            </p>
-            <p>
-              What is the project all about? It’s all stated here. What is the
-              project all about? It’s all stated here. What is the project all
-              about? It’s all stated here. What is the project all about? It’s
-              all stated here. What is the project all about? It’s all stated
-              here. What is the project all about? It’s all stated here. What is
-              the project all about? It’s all stated here.
-            </p>
-          </div>
-        </More>
-        <Footer />
-      </React.Fragment>
-    );
+            <div className="project-transactions xs-10 xs-off-1">
+              <h3> Transactions </h3>
+              <TransactionHistory
+                transactions={project.transactions}
+                showDefaultTitle={false}
+                link={"/project/" + project.id + "/transactions"}
+                borderless={true}
+              />
+            </div>
+
+            <div className="project-updates xs-10 xs-off-1">
+              <h3> Project Updates </h3>
+              <Updates tasks={project.tasks} />
+            </div>
+          </More>
+
+          <Footer />
+        </React.Fragment>
+      );
+    } else {
+      return (
+        <React.Fragment>
+          <Helmet>
+            <meta charSet="utf-8" />
+            <title>Sela Project - Loading </title>
+          </Helmet>
+
+          <TopWrapper projectPicture={project.picture}>
+            <div className="center-wrapper" style={{ height: "50vh" }}>
+              <div className="center">
+                <Spinner />
+                <p
+                  id="loading-text"
+                  style={{
+                    color: "#eaeaea",
+                    display: "block",
+                    margin: "25px 0"
+                  }}
+                >
+                  Fetching Project Data...
+                </p>
+              </div>
+            </div>
+          </TopWrapper>
+
+          <More>
+            <div className="xs-12 border">
+              <div className="sm-off-3 sm-6 selectors">
+                <div className="sm-4">
+                  <button>Project Description</button>
+                </div>
+                <div className="sm-4">
+                  <button name="transaction">Transactions</button>
+                </div>
+                <div className="sm-4">
+                  <button>Project Updates</button>
+                </div>
+              </div>
+            </div>
+          </More>
+
+          <Footer />
+        </React.Fragment>
+      );
+    }
   }
 }
 
-const mapStateToProps = (state, props) => {
+const mapStateToProps = state => {
   return {
-    projects: state.home.projects
+    project: state.home.project
   };
 };
 
 const mapDispatchToProps = dispatch => {
-  return {};
+  return {
+    find: id => dispatch(fetchProject(id))
+  };
 };
 
 export default connect(

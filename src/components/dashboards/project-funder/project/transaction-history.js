@@ -7,7 +7,7 @@ const TransactionWrapper = styled.div`
   ul {
     padding: 0.85em;
     background: #ffffff;
-    border: 2px solid #f1f3f5;
+    border: ${props => (props.borderless ? "" : "2px solid #f1f3f5")};
     border-radius: 17px;
     margin: 0;
     max-height: 400px;
@@ -109,18 +109,28 @@ const Transaction = ({ data }) => {
   );
 };
 
-const TransactionHistory = ({ className, transactions }) => {
+const TransactionHistory = ({
+  className,
+  transactions,
+  link,
+  showDefaultTitle,
+  borderless
+}) => {
   return (
-    <TransactionWrapper className={className}>
+    <TransactionWrapper className={className} borderless={borderless}>
       <div className="xs-12">
-        <h3 className=" top-title ">TRANSACTION HISTORY</h3>
+        {showDefaultTitle === true ? (
+          <h3 className=" top-title ">TRANSACTION HISTORY</h3>
+        ) : (
+          ""
+        )}
         <ul className="xs-12">
           {transactions.map((p, i) => {
             return <Transaction data={p} key={i} />;
           })}
         </ul>
         <div className="xs-12">
-          <Link id="see-all" to="/transactions">
+          <Link id="see-all" to={link}>
             See all transactions
             <span className="chevron right" />
           </Link>

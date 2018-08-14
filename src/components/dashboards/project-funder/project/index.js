@@ -14,6 +14,7 @@ const ProjectComponent = ({ info }) => {
     percentage,
     status,
     tasks,
+    id,
     // photos,
     transactions
   } = info;
@@ -59,6 +60,8 @@ const ProjectComponent = ({ info }) => {
         <TransactionHistory
           className={"xs-12 md-5"}
           transactions={transactions}
+          showDefaultTitle={true}
+          link={"/project/" + id + "/transactions"}
         />
       </div>
     </ProjectWrapper>

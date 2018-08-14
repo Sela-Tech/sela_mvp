@@ -8,7 +8,7 @@ export const fetchProjects = () => {
   return dispatch => {
     dispatch({ type: dA.FETCHING_PROJECTS_IN_PROGRESS });
     ax({
-      url: e.fetch_projects,
+      url: e.fetch_projects + "/si",
       method: "GET",
       headers: {
         token: retrieveToken()
