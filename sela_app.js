@@ -62,7 +62,33 @@ if (process.env.NODE_ENV === "development") {
 
 environmentsAll.call(app);
 
+function verifyTokenHelper(req, res) {
+    var successRes = { success: true };
+    var failRes = { success: false };
+    var token = req.headers[tokenHeaderField];
+    if (!token) {
+      failRes.message = "No token provided.";
+      return res.status(403).json(failRes);
+    }
+    jwt.verify(token, process.env.SECRET, (verifyErr, user) => {
+        if (verifyErr) {
+          failRes.message = "Failed to authenticate token.";
+          return res.status(500).json(failRes);
+        }
+        req.userId = user.id;
+        return req.userId;
+    });
+}
+
 function verifyToken(req, res, next) {
+    var verifyTokenHelperResponse = verifyTokenHelper(req, res);
+    if (req.userId) {
+      next();
+    }
+    return verifyTokenHelperResponse;
+}
+
+/*function verifyToken(req, res, next) {
     var successRes = { success: true };
     var failRes = { success: false };
     var token = req.headers[tokenHeaderField];
@@ -78,7 +104,7 @@ function verifyToken(req, res, next) {
         req.userId = user.id;
         next();
     });
-}
+}*/
 
 app.post("/verifyToken", (req, res) => {
     var successRes = { success: true };
@@ -326,10 +352,26 @@ app.post("/project", verifyToken, (req, res) => {
     });
 });
 
-app.get("/projects", verifyToken, (req, res) => {
+app.get("/projects", (req, res) => {
     var successRes = { success: true };
     var failRes = { success: false };
-    var checkQuery = { owner: req.userId };
+    var checkQuery;
+    if (!req.body.public) {
+      var verifyTokenHelperResponse = verifyTokenHelper(req, res);
+      if (!req.userId) {
+        return verifyTokenHelperResponse;
+      }
+      checkQuery = { owner: req.userId };
+      Project.find(checkQuery, (checkErr, projects) => {
+          if (checkErr) {
+            failRes.message = checkErr.name + ": " + checkErr.message;
+            return res.status(500).json(failRes);
+          }
+          successRes.projects = projects;
+          return res.status(200).json(successRes);
+      });
+    }
+    checkQuery = { };
     Project.find(checkQuery, (checkErr, projects) => {
         if (checkErr) {
           failRes.message = checkErr.name + ": " + checkErr.message;
