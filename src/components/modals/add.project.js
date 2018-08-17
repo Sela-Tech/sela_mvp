@@ -102,105 +102,119 @@ export default connect(mapStateToProps)(
         startDate = this.state["start-date-unformatted"],
         disabled = endDate < startDate;
       return (
-        <Form onSubmit={this.handleSubmit} className="xs-12">
-          <div className="form-control">
-            <input
-              type="text"
-              name="name"
-              placeholder="Project Name"
-              value={fd["name"] || ""}
-              onChange={this.handleChange}
-              required
-            />
+        <React.Fragment>
+          <div className="xs-12">
+            <p className="below-text">
+              Add your funded development project and relevant contractors and
+              collaborators.
+            </p>
           </div>
-          <div className="form-control">
-            <textarea
-              type="text"
-              name="description"
-              placeholder="Project Description"
-              value={fd["description"] || ""}
-              onChange={this.handleChange}
-              required
-            />
-          </div>
-          <div className="form-control">
-            <input
-              type="text"
-              name="location"
-              placeholder="Location"
-              value={fd["location"] || ""}
-              onChange={this.handleChange}
-              required
-            />
-          </div>
-          <div className="form-control xs-12" id="date-part">
-            <div className={"xs-12 sm-5 date-wrpr show"}>
-              <label
-                onClick={() => this.forceFocus("show-start-date")}
-                className="xs-10"
-              >
-                Start Date
-              </label>
-              <div className="xs-10 adjusted">
-                <DatePicker
-                  type="date"
-                  name="start-date"
-                  id="start-date"
-                  ref="start-date"
-                  selected={this.state["start-date-unformatted"]}
-                  onChange={this.handleStartDatePick}
-                />
-              </div>
+          <Form onSubmit={this.handleSubmit} className="xs-12">
+            <div className="form-control">
+              <label> Name your project </label>
+              <input
+                type="text"
+                name="name"
+                placeholder="Project Name"
+                value={fd["name"] || ""}
+                onChange={this.handleChange}
+                required
+              />
+            </div>
+            <div className="form-control">
+              <label> Add a project description </label>
 
-              <div className="xs-2" id="c-one">
-                <img src={calendericon} alt="calender-icon" />
-              </div>
+              <textarea
+                type="text"
+                name="description"
+                placeholder="Project Description"
+                value={fd["description"] || ""}
+                onChange={this.handleChange}
+                required
+              />
+            </div>
+            <div className="form-control">
+              <label> Set the location </label>
+
+              <input
+                type="text"
+                name="location"
+                placeholder="Location"
+                value={fd["location"] || ""}
+                onChange={this.handleChange}
+                required
+              />
             </div>
 
-            <span className="xs-12 sm-2">
-              <p id="dash">-</p>
-            </span>
+            <div className="form-control xs-12" id="date-part">
+              <div className={"xs-12 sm-5 date-wrpr show"}>
+                <label
+                  onClick={() => this.forceFocus("show-start-date")}
+                  className="xs-10"
+                >
+                  Start Date
+                </label>
+                <div className="xs-10 adjusted">
+                  <DatePicker
+                    type="date"
+                    name="start-date"
+                    id="start-date"
+                    ref="start-date"
+                    selected={this.state["start-date-unformatted"]}
+                    onChange={this.handleStartDatePick}
+                  />
+                </div>
 
-            <div className={"xs-12 sm-5 date-wrpr show"}>
-              <label
-                onClick={() => this.forceFocus("show-end-date")}
-                className="xs-10 "
-              >
-                End Date
-              </label>
-
-              <div className="xs-10 adjusted">
-                <DatePicker
-                  type="date"
-                  name="end-date"
-                  id="end-date"
-                  ref="end-date"
-                  selected={this.state["end-date-unformatted"]}
-                  onChange={this.handleEndDatePick}
-                />
+                <div className="xs-2" id="c-one">
+                  <img src={calendericon} alt="calender-icon" />
+                </div>
               </div>
 
-              <div className="xs-2" id="c-one">
-                <img src={calendericon} alt="calender-icon" />
+              <span className="xs-12 sm-2">
+                <p id="dash">-</p>
+              </span>
+
+              <div className={"xs-12 sm-5 date-wrpr show"}>
+                <label
+                  onClick={() => this.forceFocus("show-end-date")}
+                  className="xs-10 "
+                >
+                  End Date
+                </label>
+
+                <div className="xs-10 adjusted">
+                  <DatePicker
+                    type="date"
+                    name="end-date"
+                    id="end-date"
+                    ref="end-date"
+                    selected={this.state["end-date-unformatted"]}
+                    onChange={this.handleEndDatePick}
+                  />
+                </div>
+
+                <div className="xs-2" id="c-one">
+                  <img src={calendericon} alt="calender-icon" />
+                </div>
               </div>
             </div>
-          </div>
-          <div className="form-control xs-12">
-            <AsyncButton
-              attempt={this.props.add_project_in_progress}
-              type="submit"
-              id="create-project-btn"
-              disabled={disabled}
-            >
-              Create Project
-            </AsyncButton>
-          </div>
-          <MessageToShow
-            type={type}
-            message={message}
-            match={dA.ADD_PROJECT_SUCCESSFUL}
-          />
-        </Form>
+            <div className="form-control xs-12">
+              <AsyncButton
+                attempt={this.props.add_project_in_progress}
+                type="submit"
+                id="create-project-btn"
+                disabled={disabled}
+              >
+                Create Project
+              </AsyncButton>
+            </div>
+            <MessageToShow
+              type={type}
+              message={message}
+              match={dA.ADD_PROJECT_SUCCESSFUL}
+            />
+          </Form>
+        </React.Fragment>
       );
     }
   }

@@ -13,11 +13,11 @@ export const Form = styled.form`
     border-radius: 5px;
     width: 100%;
     font-size: 1em;
-    padding: 1em;
+    padding: 0.85em;
     line-height: normal;
     color: #bdbdbd;
     transition: 150ms;
-    font-weight: 300;
+    font-weight: 100;
     &:focus,
     &:active {
       border-color: #156edc;
@@ -88,7 +88,7 @@ export const Form = styled.form`
   }
 
   textarea {
-    min-height: 6em;
+    min-height: 5em;
   }
 
   .form-control {

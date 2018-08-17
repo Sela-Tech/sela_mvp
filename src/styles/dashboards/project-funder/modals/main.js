@@ -15,6 +15,24 @@ export const SharedCloseButton = styled.button`
 `;
 
 export const ModalWrapperStyler = styled.div`
+  .below-text {
+    margin-bottom: 0;
+    line-height: normal;
+    font-size: 14px;
+    text-align: center;
+    color: #4f4f4f;
+    font-weight: 300;
+  }
+
+  label {
+    line-height: 16px;
+    font-size: 12.5px;
+    padding: 0 0 0.5em 0;
+    display: block;
+    color: #8a94a6;
+    text-align: left;
+    font-weight: 300;
+  }
   position: fixed;
   z-index: 2;
   top: 0;

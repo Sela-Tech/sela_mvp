@@ -1,5 +1,5 @@
 import React from "react";
-import company_logo from "../assets/icons/logo.svg";
+import company_logo from "../assets/icons/sela-full-logo-blue.svg";
 import { Route } from "react-router-dom";
 
 const style = {

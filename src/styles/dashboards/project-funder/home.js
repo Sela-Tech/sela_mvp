@@ -1,6 +1,10 @@
 import styled from "styled-components";
 
 export const EmptyWrapper = styled.div`
+  #default-img {
+    height: 225px;
+    width: 225px;
+  }
   text-align: center;
   height: 100vh;
   #top {
@@ -10,6 +14,9 @@ export const EmptyWrapper = styled.div`
   #bottom {
     height: calc(100% - 30vh);
     width: 100%;
+    .white {
+      background: white;
+    }
   }
 
   h3 {

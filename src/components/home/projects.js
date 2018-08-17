@@ -19,16 +19,16 @@ const ProjectWrapper = styled.div`
     color: #22292f;
     text-transform: capitalize;
   }
-  padding: 3em 0 1.5em;
 
+  padding: 0 0 2.5em;
   .card {
     cursor: pointer;
-    background: #f9fafc;
+    background: white;
     border-radius: 2px;
     padding-bottom: 2em;
     position: relative;
-    max-height: 430px;
-    min-height: 430px;
+    max-height: 360px;
+    min-height: 360px;
 
     &:hover {
       box-shadow: 0px 0px 1px 1px skyblue;
@@ -93,42 +93,141 @@ const ProjectWrapper = styled.div`
     font-size: 18px;
     color: #156edc;
   }
+
+  .loading-title,
+  .loading-funder {
+    background: #eaeaea;
+    display: block;
+    margin: 8.5px 0;
+
+    animation-name: colorchange;
+    animation-duration: 0.45s;
+    animation-iteration-count: infinite;
+  }
+
+  @keyframes colorchange {
+    0% {
+      background: linear-gradient(
+        to right,
+        rgba(234, 234, 234, 1) 0%,
+        rgba(243, 234, 243, 1) 15%,
+        rgba(235, 235, 235, 1) 100%
+      );
+    }
+    25% {
+      background: linear-gradient(
+        to right,
+        rgba(234, 234, 234, 1) 0%,
+        rgba(243, 234, 243, 1) 35%,
+        rgba(235, 235, 235, 1) 100%
+      );
+    }
+    50% {
+      background: linear-gradient(
+        to right,
+        rgba(234, 234, 234, 1) 0%,
+        rgba(229, 229, 229, 1) 55%,
+        rgba(235, 235, 235, 1) 100%
+      );
+    }
+    75% {
+      background: linear-gradient(
+        to right,
+        rgba(234, 234, 234, 1) 0%,
+        rgba(243, 234, 243, 1) 75%,
+        rgba(235, 235, 235, 1) 100%
+      );
+    }
+    100% {
+      background: linear-gradient(
+        to right,
+        rgba(234, 234, 234, 1) 0%,
+        rgba(243, 234, 243, 1) 95%,
+        rgba(235, 235, 235, 1) 100%
+      );
+    }
+  }
+
+  .loading-title {
+    height: 1em;
+    width: 50%;
+    margin-bottom: 4.5px;
+  }
+
+  .loading-funder {
+    height: 1em;
+    width: 60%;
+    margin-bottom: 3.5px;
+  }
 `;
 
 const Projects = ({ projects, heading, type }) => {
-  return (
-    <ProjectWrapper className="xs-10 xs-off-1">
-      <h3 id="heading">{heading}</h3>
-      {projects.map((p, i) => {
-        return (
-          <div className="xs-12 sm-4 card-wrapper" key={i}>
-            <Link to={`/projects/${p.id}`}>
-              <div className="xs-12 sm-11 card">
-                <img src={p.picture} alt="" className="project-picture" />
-                <img src={p.funderPicture} alt="" className="project-funder" />
-                <div className="inner">
-                  <h4>{p.title}</h4>
-                  <h5>{p.funder}</h5>
-                  <p>{p.description}</p>
-                </div>
+  //empty project card template
+  let empty = (
+    <div className="xs-12 sm-4 card-wrapper">
+      <Link to={`#`}>
+        <div className="xs-12 sm-11 card">
+          <img
+            src="http://placehold.it/200"
+            alt=""
+            className="project-picture"
+          />
 
-                <ProgressBar percentage={p.percentage} />
-              </div>
-            </Link>
+          <div className="inner">
+            <span className="loading-title" />
+            <span className="loading-funder" />
           </div>
-        );
-      })}
 
-      {type !== "all" && (
-        <Link
-          className="see-all"
-          to={`/projects/all/${heading.replace(" ", "-").toLowerCase()}`}
-        >
-          See all
-        </Link>
-      )}
-    </ProjectWrapper>
+          <ProgressBar percentage={10} />
+        </div>
+      </Link>
+    </div>
   );
+
+  if (projects.length > 0) {
+    return (
+      <ProjectWrapper className="xs-10 xs-off-1">
+        <h3 id="heading">{heading}</h3>
+        {projects.map((p, i) => {
+          return (
+            <div className="xs-12 sm-4 card-wrapper" key={i}>
+              <Link to={`/projects/${p.id}`}>
+                <div className="xs-12 sm-11 card">
+                  <img src={p.picture} alt="" className="project-picture" />
+
+                  <div className="inner">
+                    <h4>{p.title}</h4>
+                    <h5>{p.funder}</h5>
+                    <ProgressBar percentage={p.percentage} displayText={true} />
+                  </div>
+                </div>
+              </Link>
+            </div>
+          );
+        })}
+
+        <div className="xs-12">
+          {type !== "all" && (
+            <Link
+              className="see-all"
+              to={`/projects/all/${heading.replace(" ", "-").toLowerCase()}`}
+            >
+              See all
+            </Link>
+          )}
+        </div>
+      </ProjectWrapper>
+    );
+  } else {
+    return (
+      <ProjectWrapper className="xs-10 xs-off-1">
+        <h3 id="heading">{heading}</h3>
+        {empty}
+        {empty}
+        {empty}
+      </ProjectWrapper>
+    );
+  }
 };
 
 export default Projects;

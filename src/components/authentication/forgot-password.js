@@ -1,6 +1,6 @@
 import React from "react";
 import Wrapper from "../../components/authentication/wrapper";
-import Logo from "../../assets/icons/logo.svg";
+import Logo from "../../assets/icons/sela-circle-blue.svg";
 import { Link } from "react-router-dom";
 import AsycnButton from "../../components/authentication/async-button";
 

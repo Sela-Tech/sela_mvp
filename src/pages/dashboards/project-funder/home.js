@@ -9,6 +9,7 @@ import LoadingRoute from "../../../helpers/loadingRoute";
 import dashboard from "../../../store/actions/project-funder/dashboard";
 import EmptyHomeView from "../../../components/dashboards/project-funder/home/empty";
 import NotEmptyHomeView from "../../../components/dashboards/project-funder/home/not-empty";
+import FirstTime from "../../../components/dashboards/project-funder/home/firstTime";
 
 class DashboardHomeContainer extends React.Component {
   constructor(props) {
@@ -19,7 +20,6 @@ class DashboardHomeContainer extends React.Component {
 
   render() {
     const { projects, project_action_type } = this.props;
-    console.log(projects);
     switch (project_action_type) {
       case dashboard.FETCHING_PROJECTS_IN_PROGRESS:
         return (
@@ -34,6 +34,7 @@ class DashboardHomeContainer extends React.Component {
       default:
         return (
           <DashboardWrapper viewName="home">
+            <FirstTime />
             {projects.length > 0 ? (
               <NotEmptyHomeView projects={projects} />
             ) : (

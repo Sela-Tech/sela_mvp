@@ -1,6 +1,7 @@
 import React from "react";
 // icons
-import logo from "../../assets/icons/logo.svg";
+
+import Logo from "../../assets/icons/sela-circle-blue.svg";
 import phone from "../../assets/icons/phone.svg";
 import success from "../../assets/icons/success.svg";
 
@@ -262,7 +263,7 @@ class Signup extends React.Component {
             <SignUpWrapper className="container">
               <div className="xs-12">
                 <Link to="/">
-                  <img src={logo} alt="logo" id="logo" />
+                  <img src={Logo} alt="logo" id="logo" />
                 </Link>
               </div>
               <div className="xs-12">

@@ -9,6 +9,7 @@ export const retrieveToken = () => {
     sessionStorage.getItem(token) === null
       ? undefined
       : sessionStorage.getItem(token);
+
   return ls || ss || undefined;
 };
 

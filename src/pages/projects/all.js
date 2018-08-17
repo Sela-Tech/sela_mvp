@@ -1,10 +1,20 @@
 import React from "react";
 import { connect } from "react-redux";
-import TopWrapper from "../../components/home/top/wrapper";
-import TopHome from "../../components/home/top/home";
+import TopBasic from "../../components/home/top/basic";
 import Projects from "../../components/home/projects";
 import Footer from "../../components/home/footer";
 import Helmet from "react-helmet";
+
+import styled from "styled-components";
+const Wrap = styled.div`
+  background-color: #f9fafc;
+  height: auto;
+  width: 100%;
+
+  .p {
+    margin: 3em 0;
+  }
+`;
 
 class ProjectsPageContainer extends React.Component {
   constructor(props) {
@@ -31,17 +41,18 @@ class ProjectsPageContainer extends React.Component {
           : this.state.projects.proposed;
     return (
       <React.Fragment>
-        <Helmet>
-          <meta charSet="utf-8" />
-          <title>Home - Sela </title>
-        </Helmet>
+        <Wrap className="xs-12">
+          <Helmet>
+            <meta charSet="utf-8" />
+            <title>Home - Sela </title>
+          </Helmet>
 
-        <TopWrapper>
-          <TopHome />
-        </TopWrapper>
+          <TopBasic />
 
-        <Projects heading={name} projects={projects} type="all" />
-        <Footer />
+          <Projects heading={name} projects={projects} type="all" />
+
+          <Footer />
+        </Wrap>
       </React.Fragment>
     );
   }

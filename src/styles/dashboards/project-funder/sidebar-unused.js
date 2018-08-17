@@ -4,7 +4,7 @@ export const WebSidebar = styled.div`
   padding: 3em 1.5em 0;
   position: relative;
   height: 100%;
-
+  background: #07121f;
   button#top,
   #create-btn {
     &:active,
@@ -130,8 +130,6 @@ export const WebSidebar = styled.div`
           &:active,
           &:focus,
           &.active {
-            background: #eff5fb;
-
             span {
               color: cornflowerblue;
             }
@@ -147,6 +145,7 @@ export const WebSidebar = styled.div`
             display: inline-block;
             position: relative;
             top: 0.25em;
+            height: 1em;
           }
 
           span {

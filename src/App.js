@@ -74,7 +74,14 @@ const App = ({ isAuthenticated, actionType, dashboardType }) => {
       {actionType === authActions.TOKEN_VERIFICATION_IN_PROGRESS ? (
         <Switch>
           <Route exact path="/" component={r.home} />
-          <LoadingRoute text={"Please Wait..."} />
+          <Route exact path="/team" component={r.home} />
+          <Route exact path="/projects/:id" component={r.project} />
+          <Route exact path="/projects/all/:type" component={r.projects} />
+
+          <Route exact path="/blog" component={r.home} />
+          <Route exact path="/crowdfund" component={r.home} />
+
+          <LoadingRoute text={"Please Wait... Authenticating"} />
         </Switch>
       ) : (
         <Switch>

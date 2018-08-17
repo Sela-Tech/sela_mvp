@@ -92,9 +92,13 @@ const MediaElemWrapper = styled.div`
   }
 
   p.name {
-    font-size: 0.65em;
-    text-align: center;
+    font-size: 0.65em !important;
+    text-align: center !important;
+    margin: auto;
+    padding: auto;
   }
+
+text-align: center;
 `;
 
 const mapStateToProps = state => {

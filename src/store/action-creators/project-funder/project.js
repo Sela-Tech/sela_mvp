@@ -8,21 +8,16 @@ export const fetchProjects = () => {
   return dispatch => {
     dispatch({ type: dA.FETCHING_PROJECTS_IN_PROGRESS });
     ax({
-      url: e.fetch_projects,
+      url: e.fetch_projects + "/si",
       method: "GET",
       headers: {
-        "x-access-token": retrieveToken()
+        token: retrieveToken()
       }
     })
       .then(({ data }) => {
         dispatch({
           type: dA.FETCHING_PROJECTS_SUCCESSFUL,
-          projects: [
-            ...data.projects.map(p => {
-              p.tasks = [];
-              return p;
-            })
-          ]
+          projects: data
         });
       })
       .catch(({ response }) => {
@@ -45,7 +40,7 @@ export const addProject = obj => {
       method: "POST",
       data: Qs.stringify(obj),
       headers: {
-        "x-access-token": retrieveToken()
+        token: retrieveToken()
       }
     })
       .then(({ data }) => {
@@ -72,7 +67,7 @@ export const fetchProject = id => {
       url: e.fetch_project + id,
       method: "GET",
       headers: {
-        "x-access-token": retrieveToken()
+        token: retrieveToken()
       }
     })
       .then(({ data }) => {
