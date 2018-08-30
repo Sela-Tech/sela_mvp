@@ -57,43 +57,47 @@ export const signin = obj => {
 };
 
 export const verify_user_token = () => {
-  return dispatch => {
-    dispatch({ type: authActions.TOKEN_VERIFICATION_IN_PROGRESS });
-    ax({
-      url: e.verify_user_token,
-      method: "POST",
-      headers: {
-        "x-access-token": retrieveToken()
-      }
-    })
-      .then(({ data }) => {
-        switch (true) {
-          case data.isEvaluator:
-            data.signUpType = "evaluation-agent";
-            break;
-          case data.isContractor:
-            data.signUpType = "contractor";
-            break;
-
-          case data.isFunder:
-            data.signUpType = "project-funder";
-            break;
-          default:
-            data.signUpType = undefined;
+  if (retrieveToken()) {
+    return dispatch => {
+      dispatch({ type: authActions.TOKEN_VERIFICATION_IN_PROGRESS });
+      ax({
+        url: e.verify_user_token,
+        method: "POST",
+        headers: {
+          "x-access-token": retrieveToken()
         }
-
-        dispatch({ type: authActions.TOKEN_VERIFICATION_SUCCESSFUL, data });
       })
-      .catch(({ response }) => {
-        let message;
-        if (response) {
-          message = response.message || response.data.message;
-        } else {
-          message = "Connection Error";
-        }
-        dispatch({ type: authActions.TOKEN_VERIFICATION_FAILED, message });
-      });
-  };
+        .then(({ data }) => {
+          switch (true) {
+            case data.isEvaluator:
+              data.signUpType = "evaluation-agent";
+              break;
+            case data.isContractor:
+              data.signUpType = "contractor";
+              break;
+
+            case data.isFunder:
+              data.signUpType = "project-funder";
+              break;
+            default:
+              data.signUpType = undefined;
+          }
+
+          dispatch({ type: authActions.TOKEN_VERIFICATION_SUCCESSFUL, data });
+        })
+        .catch(({ response }) => {
+          let message;
+          if (response) {
+            message = response.message || response.data.message;
+          } else {
+            message = "Connection Error";
+          }
+          dispatch({ type: authActions.TOKEN_VERIFICATION_FAILED, message });
+        });
+    };
+  } else {
+    return { type: "" };
+  }
 };
 
 export const signup = obj => {

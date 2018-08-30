@@ -1,4 +1,4 @@
-const b = "https://notable-etrfwnitkl.now.sh/";
+const b = "https://notable-qdounjoftp.now.sh/";
 //const b = "http://localhost:8000/";
 export default {
   signin: b + "login",

@@ -52,7 +52,11 @@ export default connect(state => {
                     </Link>
                   </React.Fragment>
                 ) : (
-                  <Link to="#" onClick={() => dispatch(signout())}>
+                  <Link
+                    to="#"
+                    id="get-started"
+                    onClick={() => dispatch(signout())}
+                  >
                     Logout
                   </Link>
                 )}
