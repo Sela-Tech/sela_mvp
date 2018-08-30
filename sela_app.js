@@ -12,6 +12,7 @@ var port = process.env.PORT || 3000;
 var jwt = require("jsonwebtoken");
 var path = require("path");
 var tokenValidityPeriod = 86400; // in seconds; 86400 seconds = 24 hours
+var visibilityHeaderField = "public";
 var tokenHeaderField = "x-access-token";
 var cookieParser = require("cookie-parser");
 var bodyParser = require("body-parser");
@@ -66,6 +67,10 @@ function verifyTokenHelper(req, res) {
     var successRes = { success: true };
     var failRes = { success: false };
     var token = req.headers[tokenHeaderField];
+    if (req.headers[visibilityHeaderField]) {
+      req.userId = user.id;
+      return req.userId;
+    } 
     if (!token) {
       failRes.message = "No token provided.";
       return res.status(403).json(failRes);
@@ -356,22 +361,14 @@ app.get("/projects", (req, res) => {
     var successRes = { success: true };
     var failRes = { success: false };
     var checkQuery;
-    if (!req.body.public) {
-      var verifyTokenHelperResponse = verifyTokenHelper(req, res);
-      if (!req.userId) {
-        return verifyTokenHelperResponse;
-      }
-      checkQuery = { owner: req.userId };
-      Project.find(checkQuery, (checkErr, projects) => {
-          if (checkErr) {
-            failRes.message = checkErr.name + ": " + checkErr.message;
-            return res.status(500).json(failRes);
-          }
-          successRes.projects = projects;
-          return res.status(200).json(successRes);
-      });
+    var verifyTokenHelperResponse = verifyTokenHelper(req, res);
+    if (!req.userId) {
+      return verifyTokenHelperResponse;
     }
     checkQuery = { };
+    if (!req.headers[visibilityHeaderField]) {
+      checkQuery = { owner: req.userId };
+    }
     Project.find(checkQuery, (checkErr, projects) => {
         if (checkErr) {
           failRes.message = checkErr.name + ": " + checkErr.message;

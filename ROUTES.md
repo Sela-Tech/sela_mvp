@@ -104,9 +104,9 @@ Sela includes a REST API in the backend that performs business-critical operatio
   - Method: GET
   - Parameters:
     - Header:
-      - *token*: token authenticating user in system
-    - Body:
+      - *token*: token authenticating user in system)
       - *public*: boolean value representing visibility of project
+    - Body: ----------------
   - Response:
     - *projects*: list of projects with which user is associated
 
