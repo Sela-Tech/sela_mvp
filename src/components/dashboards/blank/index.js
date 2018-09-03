@@ -1,9 +1,9 @@
 import React from "react";
 import Helmet from "react-helmet";
-import { StyledWrapperElem } from "../../styles/dashboards/project-funder/wrapper";
+import { StyledWrapperElem } from "../../../styles/dashboards/project-funder/wrapper";
 import DashboardSidebar from "./blank-sidebar";
-import SpinnerTypeone from "../spinners/typeone";
-import LoadingRoute from "../../helpers/loadingRoute";
+import Spinner from "../../spinners";
+import { LoadingRoute } from "../../../helpers/routes";
 
 export default () => {
   return (
@@ -19,7 +19,7 @@ export default () => {
 
         <div style={{ width: "100%", height: "100vh" }}>
           <LoadingRoute>
-            <SpinnerTypeone />
+            <Spinner type="one" />
           </LoadingRoute>
         </div>
       </div>

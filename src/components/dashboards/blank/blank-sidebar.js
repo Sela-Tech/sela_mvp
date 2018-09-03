@@ -1,6 +1,5 @@
 import React from "react";
-import fullogo from "../../assets/icons/sela-circle-white.svg";
-
+import fullogo from "../../../assets/icons/sela-circle-white.svg";
 import styled from "styled-components";
 
 const WebSidebar = styled.div`
