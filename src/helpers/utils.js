@@ -1,4 +1,17 @@
-export default (val, type) => {
+import { createBrowserHistory } from "history";
+
+export const detectAuthType = match => {
+  switch (match.path) {
+    case "/signin":
+      return "Signin";
+    case "/signup":
+      return "Signup";
+    default:
+      return "Login";
+  }
+};
+
+export const validator = (val, type) => {
   switch (type) {
     case "email":
       return val.match(/^([\w.%+-]+)@([\w-]+\.)+([\w]{2,})$/i) ? true : false; // returns a boolean
@@ -13,3 +26,5 @@ export default (val, type) => {
       return val.match(/\S+/) ? true : false;
   }
 };
+
+export const history = createBrowserHistory();
