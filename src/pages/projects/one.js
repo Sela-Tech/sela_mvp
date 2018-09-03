@@ -8,7 +8,7 @@ import styled from "styled-components";
 
 import TransactionHistory from "../../components/dashboards/project-funder/project/transaction-history";
 import { fetchProject } from "../../store/action-creators/homepage";
-import Spinner from "../../components/spinners/typetwo";
+import Spinner from "../../components/spinners";
 import Updates from "../../components/home/updates";
 
 const More = styled.div`
@@ -177,7 +177,7 @@ class HomePageContainer extends React.Component {
           <TopWrapper projectPicture={project.picture}>
             <div className="center-wrapper" style={{ height: "50vh" }}>
               <div className="center">
-                <Spinner />
+                <Spinner type="two" />
                 <p
                   id="loading-text"
                   style={{

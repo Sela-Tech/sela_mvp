@@ -6,11 +6,10 @@ import {
   Redirect
 } from "react-router-dom";
 import r from "./routes";
-import PrivateRoute from "./helpers/privateRoute";
 
 import { connect } from "react-redux";
 import authActions from "./store/actions/auth";
-import LoadingRoute from "./helpers/loadingRoute";
+import { LoadingRoute, PrivateRoute } from "./helpers/routes";
 import Errors from "./pages/errors";
 
 const FilterDashboard = (type, isAuthenticated = false) => {

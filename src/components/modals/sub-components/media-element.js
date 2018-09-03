@@ -4,7 +4,7 @@ import Icon from "react-fa";
 import pdf from "../../../assets/pdf.svg";
 import { connect } from "react-redux";
 import { watch_video } from "../../../store/action-creators/project-funder/task";
-import Spinner from "../../spinners/typetwo";
+import Spinner from "../../spinners";
 
 const MediaElemWrapper = styled.div`
   .loading{
@@ -211,7 +211,7 @@ export default connect(mapStateToProps)(
                     <div className="loading">
                       <div className="center-wrapper">
                         <div className="center">
-                          <Spinner />
+                          <Spinner type="two" />
                         </div>
                       </div>
                     </div>

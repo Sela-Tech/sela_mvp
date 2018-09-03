@@ -9,7 +9,7 @@ import { signin } from "../../store/action-creators/auth";
 import AsycnButton from "../../components/authentication/async-button";
 import auth from "../../store/actions/auth";
 import MessageToShow from "../../components/errors/messageToShow";
-import validator from "../../helpers/validator";
+import { validator } from "../../helpers/utils";
 
 class Login extends React.Component {
   constructor(props) {

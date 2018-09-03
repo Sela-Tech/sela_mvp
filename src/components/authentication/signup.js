@@ -7,7 +7,7 @@ import success from "../../assets/icons/success.svg";
 
 // others
 import { Link } from "react-router-dom";
-import validator from "../../helpers/validator";
+import { validator } from "../../helpers/utils";
 
 // store related
 import { connect } from "react-redux";

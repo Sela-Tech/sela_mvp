@@ -3,8 +3,8 @@ import { connect } from "react-redux";
 import { bindActionCreators } from "redux";
 import DashboardWrapper from "../../../components/dashboards/project-funder/wrapper";
 import dashboard from "../../../store/actions/project-funder/dashboard";
-import LoadingRoute from "../../../helpers/loadingRoute";
-import SpinnerTypeone from "../../../components/spinners/typeone";
+import { LoadingRoute } from "../../../helpers/routes";
+import Spinner from "../../../components/spinners";
 import ProjectComponent from "../../../components/dashboards/project-funder/project";
 import * as actions from "../../../store/action-creators/project-funder/project";
 import NoProject from "../../../components/errors/noProject";
@@ -25,7 +25,7 @@ class Project extends React.Component {
           <DashboardWrapper viewName="project" projectName={"Loading"}>
             <div style={{ width: "100%", height: "100vh" }}>
               <LoadingRoute>
-                <SpinnerTypeone />
+                <Spinner type="one" />
               </LoadingRoute>
             </div>
           </DashboardWrapper>

@@ -7,7 +7,8 @@ export const Form = styled.form`
 
   padding: 1.5em 0;
   input[type="text"],
-  textarea {
+  textarea,
+  select {
     background: #ffffff;
     border: 1.5px solid #f1f3f5;
     border-radius: 5px;
@@ -41,6 +42,9 @@ export const Form = styled.form`
     padding: 0.5em;
     max-height: 65px;
     position: relative;
+    background: #ffffff;
+    border: 2px solid #f1f3f5;
+    border-radius: 5px;
 
     &:focus-within {
       border-color: #156edc;
@@ -62,6 +66,8 @@ export const Form = styled.form`
 
         img {
           top: 0;
+          right: 1px;
+          height: 14px;
         }
       }
     }
@@ -77,10 +83,6 @@ export const Form = styled.form`
       display: inline-block;
       transition: 100ms;
     }
-
-    background: #ffffff;
-    border: 3px solid #f1f3f5;
-    border-radius: 17px;
 
     input[type="date"] {
       border: 0;

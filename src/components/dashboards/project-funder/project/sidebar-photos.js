@@ -1,6 +1,6 @@
 import React from "react";
 import styled from "styled-components";
-import Spinner from "../../../spinners/typetwo";
+import Spinner from "../../../spinners";
 import { connect } from "react-redux";
 import { showImageInModal } from "../../../../store/action-creators/project-funder/modal";
 import modals from "../../../../store/actions/project-funder/modals";
@@ -76,7 +76,7 @@ const Image = connect()(
           <div className="loading">
             <div className="center-wrapper">
               <div className="center">
-                <Spinner />
+                <Spinner type="two" />
               </div>
             </div>
           </div>

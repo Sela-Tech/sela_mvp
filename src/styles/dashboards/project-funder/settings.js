@@ -17,7 +17,7 @@ export default styled.div`
 
   .select {
     padding: 0.25em 0;
-    font-family: ProximaNova;
+    font-family: ProximaNova, sans-serif !important;
     line-height: 20px;
     font-size: 1em;
     text-align: center;
@@ -39,7 +39,7 @@ export default styled.div`
   padding: 5%;
   margin: 2em 0;
   h3 {
-    font-family: ProximaNova;
+    font-family: ProximaNova, sans-serif !important;
     line-height: normal;
     font-size: 1.8em;
     font-weight: 300;
@@ -48,7 +48,7 @@ export default styled.div`
   }
 
   h5 {
-    font-family: ProximaNova;
+    font-family: ProximaNova, sans-serif !important;
     line-height: 20px;
     font-size: 0.9em;
     font-weight: 100;

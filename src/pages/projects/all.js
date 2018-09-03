@@ -16,48 +16,6 @@ const Wrap = styled.div`
   }
 `;
 
-class ProjectsPageContainer extends React.Component {
-  constructor(props) {
-    super(props);
-    this.state = {
-      name: this.props.match.params.type.replace("-", " "),
-      projects: this.props.projects
-    };
-  }
-
-  componentWillReceiveProps(nextProps) {
-    if (this.props !== nextProps) {
-      this.setState({
-        projects: nextProps.projects
-      });
-    }
-  }
-
-  render() {
-    const { name } = this.state,
-      projects =
-        this.props.match.params.type === "ongoing-projects"
-          ? this.state.projects.ongoing
-          : this.state.projects.proposed;
-    return (
-      <React.Fragment>
-        <Wrap className="xs-12">
-          <Helmet>
-            <meta charSet="utf-8" />
-            <title>Home - Sela </title>
-          </Helmet>
-
-          <TopBasic />
-
-          <Projects heading={name} projects={projects} type="all" />
-
-          <Footer />
-        </Wrap>
-      </React.Fragment>
-    );
-  }
-}
-
 const mapStateToProps = (state, props) => {
   return { projects: state.home.projects };
 };
@@ -69,4 +27,46 @@ const mapDispatchToProps = dispatch => {
 export default connect(
   mapStateToProps,
   mapDispatchToProps
-)(ProjectsPageContainer);
+)(
+  class ProjectsPageContainer extends React.Component {
+    constructor(props) {
+      super(props);
+      this.state = {
+        name: this.props.match.params.type.replace("-", " "),
+        projects: this.props.projects
+      };
+    }
+
+    componentWillReceiveProps(nextProps) {
+      if (this.props !== nextProps) {
+        this.setState({
+          projects: nextProps.projects
+        });
+      }
+    }
+
+    render() {
+      const { name } = this.state,
+        projects =
+          this.props.match.params.type === "ongoing-projects"
+            ? this.state.projects.ongoing
+            : this.state.projects.proposed;
+      return (
+        <React.Fragment>
+          <Wrap className="xs-12">
+            <Helmet>
+              <meta charSet="utf-8" />
+              <title>Home - Sela </title>
+            </Helmet>
+
+            <TopBasic />
+
+            <Projects heading={name} projects={projects} type="all" />
+
+            <Footer />
+          </Wrap>
+        </React.Fragment>
+      );
+    }
+  }
+);

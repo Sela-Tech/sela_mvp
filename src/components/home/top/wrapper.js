@@ -3,7 +3,6 @@ import Top from "../../../styles/home/top";
 import { Link } from "react-router-dom";
 import LogoWhite from "../../../assets/icons/sela-full-logo-white.svg";
 import Hamburger from "../../unique/harmburger";
-// import Spinner from "../../spinners/typetwo";
 import { signout } from "../../../store/action-creators/auth";
 import { connect } from "react-redux";
 

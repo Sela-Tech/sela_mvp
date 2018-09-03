@@ -1,7 +1,7 @@
 import React from "react";
 import { button } from "styled-components";
 // import Spinner from "../../assets/spinner.svg";
-import Spinner from "../spinners/typetwo";
+import Spinner from "../spinners";
 
 export default ({
   attempt,
@@ -22,7 +22,7 @@ export default ({
         disabled={attempt}
       >
         {attempt === true ? (
-          <Spinner />
+          <Spinner type="two" />
         ) : (
           // <img src={Spinner} alt="spinner" height="15px" />
           children
