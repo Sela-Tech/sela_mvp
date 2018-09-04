@@ -37,7 +37,7 @@ module.exports = function() {
     res.header("Access-Control-Allow-Methods", "OPTIONS,GET,PUT,POST,DELETE");
     res.header(
       "Access-Control-Allow-Headers",
-      "X-Access-Token,Origin, X-Requested-With, Content-Type, Accept, Authorization, x-api-version"
+      "X-Access-Token,Public,Origin, X-Requested-With, Content-Type, Accept, Authorization, x-api-version"
     );
 
     next();
