@@ -325,7 +325,6 @@ app.get("/projects?", verifyToken, async (req, res) => {
     ? { ...otherQueryParams, owner: req.userId }
     : otherQueryParams;
 
-  checkQuery = otherQueryParams;
   FindProjects = Project.find(checkQuery)
     .populate("owner", "organization firstName lastName")
     .skip(skip)
