@@ -28,6 +28,7 @@ var http = require("http");
 var User = require("./app/models/user");
 var Project = require("./app/models/project");
 var Task = require("./app/models/task");
+var Organization = require("./app/models/in-use/organization");
 
 var { verifyToken } = require("./in-use/utils");
 
@@ -60,16 +61,25 @@ if (process.env.NODE_ENV === "development") {
 
 environmentsAll.call(app);
 
+app.get("/organizations", verifyToken, (req, res) => {
+  Organization.find({}, (err, response) => {
+    if (err) return res.status(401).json({ message: err.message });
+    return res.json(response);
+  });
+});
+
 app.post("/verifyToken", verifyToken, (req, res) => {
   return res.json(req.decodedTokenData);
 });
 
-app.post("/register", (req, res) => {
+app.post("/register", async (req, res) => {
   var successRes = { success: true };
   var failRes = { success: false };
 
   const { email, phone } = req.body,
     query = email ? { email } : { phone };
+
+  // let fetchOrganizationData = await Organization.find({_id: req.body.organization.id}).exec();
 
   User.findOne(query, (checkErr, user) => {
     if (checkErr) {
@@ -282,12 +292,9 @@ app.post("/changePassword", verifyToken, (req, res) => {
 app.post("/project", verifyToken, (req, res) => {
   var successRes = { success: true };
   var failRes = { success: false };
-  var projectObj = {};
-  projectObj.name = req.body.name;
-  projectObj.description = req.body.description;
-  projectObj.startDate = req.body.startDate;
-  projectObj.endDate = req.body.endDate;
+  var projectObj = req.body;
   projectObj.owner = req.userId;
+
   var newProject = new Project(projectObj);
   newProject.save(projErr => {
     if (projErr) {
@@ -302,45 +309,39 @@ app.get("/projects?", verifyToken, async (req, res) => {
   var successRes = { success: true };
   var failRes = { success: false };
   var checkQuery = {};
-
+  // limit result else return all
   let limit = parseInt(req.query.limit ? req.query.limit : 0, 10);
+  // pagination logic
   let page = req.query.page ? req.query.page : 1;
+  // page hopping logic
   let skip = parseInt(page * limit - limit, 10);
+  // let the remaining queries stay in the variable
   let otherQueryParams = req.query;
+  // delete thes because they will affect the look up in the db
   delete otherQueryParams.limit;
   delete otherQueryParams.page;
 
-  if (req.token) {
-    checkQuery = { ...otherQueryParams, owner: req.userId };
+  checkQuery = req.tokenExists
+    ? { ...otherQueryParams, owner: req.userId }
+    : otherQueryParams;
 
-    Project.find(checkQuery)
-      .skip(skip)
-      .limit(limit)
-      .exec(function(checkErr, projects) {
-        if (checkErr) {
-          failRes.message = checkErr.name + ": " + checkErr.message;
-          return res.status(500).json(failRes);
-        }
-        successRes.projects = projects;
-        return res.status(200).json(successRes);
-      });
-  } else {
-    checkQuery = otherQueryParams;
-    FindProjects = Project.find(checkQuery)
-      .skip(skip)
-      .limit(limit)
-      .exec(function(err, projects) {
-        if (err) return res.status(400).json({ message: err.message });
+  checkQuery = otherQueryParams;
+  FindProjects = Project.find(checkQuery)
+    .populate("owner", "organization firstName lastName")
+    .skip(skip)
+    .limit(limit)
+    .exec(function(err, projects) {
+      failRes.message = err.message;
+      if (err) return res.status(400).json(failRes);
 
-        if (!projects)
-          return res.json({
-            message: "No Projects Found"
-          });
+      if (!projects)
+        return res.json({
+          message: "No Projects Found"
+        });
 
-        successRes.projects = projects;
-        return res.json(successRes);
-      });
-  }
+      successRes.projects = projects;
+      return res.json(successRes);
+    });
 });
 
 app.post("/task", verifyToken, (req, res) => {

@@ -18,7 +18,7 @@ exports.verifyToken = (req, res, next) => {
       }).length
     );
 
-    req.token = false;
+    req.tokenExists = false;
 
     if (isWhitelisted) {
       next();
@@ -34,6 +34,7 @@ exports.verifyToken = (req, res, next) => {
           message: err.message
         });
       } else {
+        req.tokenExists = true;
         req.userId = decoded.id;
         req.decodedTokenData = decoded;
         next();

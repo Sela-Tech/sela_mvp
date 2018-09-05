@@ -1,134 +1,127 @@
-var _ = require('underscore');
-var moment = require('moment');
-var mongoose = require('mongoose');
+var _ = require("underscore");
+var moment = require("moment");
+var mongoose = require("mongoose");
 var Schema = mongoose.Schema;
 var ObjectId = Schema.Types.ObjectId;
 
 var locationStructure = {
-    name: {
-        type: String,
-        required: true
-    },
-    lat: {
-        type: Number,
-        required: true
-    },
-    long: {
-        type: Number,
-        required: true
-    }
+  name: {
+    type: String,
+    required: true
+  },
+  lat: {
+    type: Number
+    // required: true
+  },
+  long: {
+    type: Number
+    // required: true
+  }
 };
 
 var schemaOptions = {
+  minimize: false,
+  id: false,
+  toJSON: {
+    getters: true,
+    virtuals: true,
     minimize: false,
-    id: false,
-    toJSON: {
-        getters: true,
-        virtuals: true,
-        minimize: false,
-        versionKey: false,
-        retainKeyOrder: true
-    },
-    toObject: {
-        getters: true,
-        virtuals: true,
-        minimize: false,
-        versionKey: false,
-        retainKeyOrder: true
-    },
-    autoIndex: process.env.NODE_ENV === 'development',
-    strict: process.env.NODE_ENV !== 'development'
+    versionKey: false,
+    retainKeyOrder: true
+  },
+  toObject: {
+    getters: true,
+    virtuals: true,
+    minimize: false,
+    versionKey: false,
+    retainKeyOrder: true
+  },
+  autoIndex: process.env.NODE_ENV === "development",
+  strict: process.env.NODE_ENV !== "development"
 };
 
 var LocationSchema = new Schema(locationStructure, schemaOptions);
 
 var projectStructure = {
-    name: {
-        type: String,
-        required: true,
-        max: 100
-    },
-    description: {
-        type: String,
-        required: true,
-        max: 100
-    },
-    startDate: {
-        type: Date,
-        required: true
-    },
-    endDate: {
-        type: Date,
-        default: null
-    },
-    location: {
-        type: LocationSchema,
-        default: null
-    },
-    createdBy: {
-        type: ObjectId,
-        ref: 'User'
-    },
-    owner: {
-        type: ObjectId,
-        ref: 'Organization'
-    },
-    status: {
-        type: String,
-        enum : ['DORMANT', 'ACCEPTED', 'STARTED', 'TERMINATED', 'COMPLETED'],
-        default: 'DORMANT' 
-    },
-    createdOn: {
-        type: Date,
-        default: Date.now()
-    },
-    updatedOn: {
-        type: Date,
-        default: Date.now()
-    }
+  name: {
+    type: String,
+    required: true,
+    max: 100
+  },
+  description: {
+    type: String,
+    required: true,
+    max: 100
+  },
+  startDate: {
+    type: Date,
+    required: true
+  },
+  endDate: {
+    type: Date,
+    default: null
+  },
+  location: {
+    type: LocationSchema,
+    default: null
+  },
+  createdBy: {
+    type: ObjectId,
+    ref: "User"
+  },
+  owner: {
+    type: ObjectId,
+    ref: "User"
+  },
+  status: {
+    type: String,
+    enum: ["DORMANT", "ACCEPTED", "STARTED", "TERMINATED", "COMPLETED"],
+    default: "DORMANT"
+  },
+  createdOn: {
+    type: Date,
+    default: Date.now()
+  },
+  updatedOn: {
+    type: Date,
+    default: Date.now()
+  }
 };
 
-if (process.env.NODE_ENV === 'development') {
-    projectStructure.test = {
-        type: Boolean,
-        default: true
-    };
+if (process.env.NODE_ENV === "development") {
+  projectStructure.test = {
+    type: Boolean,
+    default: true
+  };
 }
 
 var projectSchemaOptions = _.extend({}, schemaOptions, {
-	collection: 'projects'
+  collection: "projects"
 });
 
 var ProjectSchema = new Schema(projectStructure, projectSchemaOptions);
 
-ProjectSchema.pre('save', true, function(next, done) {
+ProjectSchema.pre("save", true, function(next, done) {
+  next();
 
-    next();
+  this.updatedOn = new Date();
 
-    this.updatedOn = new Date();
-
-    done();
+  done();
 });
 
-ProjectSchema.pre('update', true, function(next, done) {
+ProjectSchema.pre("update", true, function(next, done) {
+  next();
 
-    next();
-
-    this.update({}, {
-        $set: {
-            updatedOn: new Date()
-        }
-    });
-
-    done();
-});
-
-//Export model
-/*module.exports = function(connection) {
-
-    if (!connection) {
-        connection = mongoose;
+  this.update(
+    {},
+    {
+      $set: {
+        updatedOn: new Date()
+      }
     }
-    connection.model('Project', ProjectSchema);
-};*/
-module.exports = mongoose.model('Project', ProjectSchema);
+  );
+
+  done();
+});
+
+module.exports = mongoose.model("Project", ProjectSchema);
