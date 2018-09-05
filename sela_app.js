@@ -331,9 +331,10 @@ app.get("/projects?", verifyToken, async (req, res) => {
     .skip(skip)
     .limit(limit)
     .exec(function(err, projects) {
-      failRes.message = err.message;
-      if (err) return res.status(400).json(failRes);
-
+      if (err) {
+        failRes.message = err.message;
+        return res.status(400).json(failRes);
+      }
       if (!projects)
         return res.json({
           message: "No Projects Found"
