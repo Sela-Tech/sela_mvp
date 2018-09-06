@@ -61,12 +61,35 @@ if (process.env.NODE_ENV === "development") {
 
 environmentsAll.call(app);
 
-app.get("/organizations", verifyToken, (req, res) => {
-  Organization.find({}, (err, response) => {
-    if (err) return res.status(401).json({ message: err.message });
-    return res.json(response);
-  });
-});
+app.get(
+  "/organizations",
+  // verifyToken,
+  async (req, res) => {
+    try {
+      let organizations = await Organization.find({});
+      return res.json(organizations);
+    } catch (e) {
+      return res.status(402).json({
+        message: e.message
+      });
+    }
+  }
+);
+
+// app.post(
+//   "/organizations",
+//   // verifyToken,
+//   async (req, res) => {
+//     try {
+//       new Organization(req.body).save();
+//       return res.json({ message: "Organization Created Successfully" });
+//     } catch (e) {
+//       return res.status(402).json({
+//         message: e.message
+//       });
+//     }
+//   }
+// );
 
 app.post("/verifyToken", verifyToken, (req, res) => {
   return res.json(req.decodedTokenData);
@@ -79,13 +102,11 @@ app.post("/register", async (req, res) => {
   const { email, phone } = req.body,
     query = email ? { email } : { phone };
 
-  // let fetchOrganizationData = await Organization.find({_id: req.body.organization.id}).exec();
+  let user;
 
-  User.findOne(query, (checkErr, user) => {
-    if (checkErr) {
-      failRes.message = checkErr.name + ": " + checkErr.message;
-      return res.status(500).json(failRes);
-    }
+  try {
+    user = await User.findOne(query);
+  } catch (error) {
     if (user) {
       if (user.phone == req.body.phone) {
         failRes.message =
@@ -101,40 +122,64 @@ app.post("/register", async (req, res) => {
       }
       return res.status(401).json(failRes);
     }
-    var userObj = {};
-    userObj.firstName = req.body.firstName;
-    userObj.lastName = req.body.lastName;
-    // userObj.username = req.body.username;
-    userObj.email = req.body.email;
-    userObj.phone = req.body.phone;
-    userObj.publicKey = req.body.publicKey;
-    /*userObj.userTypes = [];
-          userObj.userTypes.push(req.body.userType);*/
-    userObj.isFunder = req.body.isFunder;
-    userObj.isEvaluator = req.body.isEvaluator;
-    userObj.isContractor = req.body.isContractor;
-    userObj.password = req.body.password;
-    var newUser = new User(userObj);
-    newUser.save(regErr => {
-      if (regErr) {
-        failRes.message = regErr.name + ": " + regErr.message;
-        return res.status(500).json(failRes);
-      }
+  }
 
-      const { isFunder, isEvaluator, isContractor } = newUser,
-        signThis = { id: newUser._id, isFunder, isEvaluator, isContractor };
+  var userObj = req.body;
 
-      var token = jwt.sign(signThis, process.env.SECRET, {
-        expiresIn: tokenValidityPeriod
+  if (req.body.organization.id) {
+    try {
+      let fetchOrg = await Organization.findOne({
+        _id: req.body.organization.id
       });
+      userObj.organization = fetchOrg.id;
+    } catch (checkErr) {
+      failRes.message = checkErr.name + ": " + checkErr.message;
+      return res.status(500).json(failRes);
+    }
+  } else {
+    try {
+      let newOrgData = req.body.organization;
+      let obj = new Organization(newOrgData);
+      await obj.save();
+      userObj.organization = obj._id;
+    } catch (checkErr) {
+      failRes.message = checkErr.name + ": " + checkErr.message;
+      return res.status(500).json(failRes);
+    }
+  }
 
-      return res.status(200).json({
-        ...successRes,
-        ...signThis,
-        token
-      });
+  var newUser = new User(userObj);
+
+  try {
+    await newUser.save();
+
+    const { isFunder, isEvaluator, isContractor } = newUser,
+      signThis = {
+        id: newUser._id,
+        isFunder,
+        isEvaluator,
+        isContractor,
+        firstName: newUser.firstName,
+        organization: {
+          name: newUser.organization.name,
+          id: newUser.organization._id
+        },
+        lastName: newUser.lastName
+      };
+
+    var token = jwt.sign(signThis, process.env.SECRET, {
+      expiresIn: tokenValidityPeriod
     });
-  });
+
+    return res.status(200).json({
+      ...successRes,
+      ...signThis,
+      token
+    });
+  } catch (regErr) {
+    failRes.message = regErr.name + ": " + regErr.message;
+    return res.status(500).json(failRes);
+  }
 });
 
 app.post("/login", (req, res) => {
@@ -144,7 +189,7 @@ app.post("/login", (req, res) => {
   const { email, phone } = req.body,
     query = email ? { email } : { phone };
 
-  User.findOne(query, (checkErr, user) => {
+  User.findOne(query).exec((checkErr, user) => {
     if (checkErr) {
       failRes.message = checkErr.name + ": " + checkErr.message;
       return res.status(500).json(failRes);
@@ -166,20 +211,29 @@ app.post("/login", (req, res) => {
         return res.status(401).json(failRes);
       }
       const { isFunder, isEvaluator, isContractor } = user,
-        signThis = { id: user._id, isFunder, isEvaluator, isContractor };
+        signThis = {
+          id: user._id,
+          isFunder,
+          isEvaluator,
+          isContractor,
+          firstName: user.firstName,
+          organization: {
+            name: user.organization.name,
+            id: user.organization._id
+          },
+          lastName: user.lastName
+        };
 
       var token = jwt.sign(signThis, process.env.SECRET, {
         expiresIn: tokenValidityPeriod
       });
 
-      // successRes.token = token;
-      // successRes.isFunder = isFunder;
-      // successRes.isEvaluator = isEvaluator;
-      // successRes.isContractor = isContractor;
-
       return res.status(200).json({
         ...successRes,
         ...signThis,
+        firstName: user.firstName,
+        lastName: user.lastName,
+        organization: user.organization,
         token
       });
     });
@@ -326,7 +380,6 @@ app.get("/projects?", verifyToken, async (req, res) => {
     : otherQueryParams;
 
   FindProjects = Project.find(checkQuery)
-    .populate("owner", "organization firstName lastName")
     .skip(skip)
     .limit(limit)
     .exec(function(err, projects) {
