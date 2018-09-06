@@ -3,11 +3,13 @@ var bcrypt = require("bcrypt");
 var mongoose = require("mongoose");
 var Schema = mongoose.Schema;
 var ObjectId = Schema.Types.ObjectId;
+var autoPopulate = require("mongoose-autopopulate");
 
 var userStructure = {
   organization: {
     type: ObjectId,
-    ref: "Organization"
+    ref: "Organization",
+    autopopulate: { select: "name _id" }
   },
   firstName: {
     type: String,
@@ -155,5 +157,6 @@ UserSchema.methods.comparePassword = function(password, cb) {
   });
 };
 
+UserSchema.plugin(autoPopulate);
 //Export model
 module.exports = mongoose.model("User", UserSchema);

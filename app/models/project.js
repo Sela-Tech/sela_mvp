@@ -1,6 +1,8 @@
 var _ = require("underscore");
 var moment = require("moment");
 var mongoose = require("mongoose");
+var autoPopulate = require("mongoose-autopopulate");
+
 var Schema = mongoose.Schema;
 var ObjectId = Schema.Types.ObjectId;
 
@@ -71,7 +73,8 @@ var projectStructure = {
   },
   owner: {
     type: ObjectId,
-    ref: "User"
+    ref: "User",
+    autopopulate: { select: "organization firstName lastName _id" }
   },
   status: {
     type: String,
@@ -124,4 +127,5 @@ ProjectSchema.pre("update", true, function(next, done) {
   done();
 });
 
+ProjectSchema.plugin(autoPopulate);
 module.exports = mongoose.model("Project", ProjectSchema);
