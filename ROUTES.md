@@ -1,140 +1,171 @@
 ### Sela Backend REST API
+
 Sela includes a REST API in the backend that performs business-critical operations on behalf of the client. The following is an outline of the REST API\*:
 
-- **VerifyToken**
+- **Get Organizations**
+
+  - Route: /organizations
+  - Method: GET
+  - Parameters:
+    - Header: ----------
+    - Body: ----------------
+  - Response: ----------------
+
+* **VerifyToken**
+
   - Route: /verifyToken
   - Method: POST
   - Parameters:
     - Header:
-      - *token*: token authenticating user in system
+      - _token_: token authenticating user in system
     - Body: ----------------
   - Response: ----------------
 
-- **Register**
+* **Register**
+
   - Route: /register
   - Method: POST
   - Parameters:
+
     - Header: ----------------
     - Body:
-      - *firstName*: user's first name
-      - *lastName*: user's last name
-      - *email*: user's e-mail address
-      - *phone*: user's phone number
-      - *publicKey*: user's public key
-      - *password*: user's password
+
+      - _firstName_: user's first name
+      - _lastName_: user's last name
+      - _email_: user's e-mail address
+      - _phone_: user's phone number
+      - _publicKey_: user's public key
+      - _password_: user's password
+      - _organization_: Obj -> {
+        name: i.e name of organization
+        }
+
   - Response: ----------------
 
-- **Login**
+* **Login**
+
   - Route: /login
   - Method: POST
   - Parameters:
     - Header: ----------------
     - Body:
-      - *email*: user's e-mail address
-      - *phone*: user's phone number
-      - *password*: user's password
+      - _email_: user's e-mail address
+      - _phone_: user's phone number
+      - _password_: user's password
   - Response: ----------------
 
-- **GetPhone**
+* **GetPhone**
+
   - Route: /phone
   - Method: GET
   - Parameters:
     - Header:
-      - *token*: token authenticating user in system
+      - _token_: token authenticating user in system
     - Body: ----------------
   - Response:
-    - *phone*: user's current phone number
+    - _phone_: user's current phone number
 
-- **GetEmail**
+* **GetEmail**
+
   - Route: /email
   - Method: GET
   - Parameters:
     - Header:
-      - *token*: token authenticating user in system
+      - _token_: token authenticating user in system
     - Body: ----------------
   - Response:
-    - *phone*: user's current e-mail address
+    - _phone_: user's current e-mail address
 
-- **ChangePhone**
+* **ChangePhone**
+
   - Route: /changePhone
   - Method: POST
   - Parameters:
     - Header:
-      - *token*: token authenticating user in system
+      - _token_: token authenticating user in system
     - Body:
-      - *newPhone*: user's new phone number
+      - _newPhone_: user's new phone number
   - Response: ----------------
 
-- **ChangeEmail**
+* **ChangeEmail**
+
   - Route: /changeEmail
   - Method: POST
   - Parameters:
     - Header:
-      - *token*: token authenticating user in system
+      - _token_: token authenticating user in system
     - Body:
-      - *newEmail*: user's new email address
+      - _newEmail_: user's new email address
   - Response: ----------------
 
-- **ChangePassword**
+* **ChangePassword**
+
   - Route: /changePassword
   - Method: POST
   - Parameters:
     - Header:
-      - *token*: token authenticating user in system
+      - _token_: token authenticating user in system
     - Body:
-      - *oldPassword*: user's old password
-      - *newPassword*: user's new password
+      - _oldPassword_: user's old password
+      - _newPassword_: user's new password
   - Response: ----------------
 
-- **PostProject**
+* **PostProject**
+
   - Route: /project
   - Method: POST
   - Parameters:
     - Header:
-      - *token*: token authenticating user in system
+      - _token_: token authenticating user in system
     - Body:
-      - *name*: name of project
-      - *description*: description of project
-      - *startDate*: start date of project
-      - *endDate*: end date of project
+      - _name_: name of project
+      - _description_: description of project
+      - _startDate_: start date of project
+      - _endDate_: end date of project
+      - _location_: Obj -> {
+        name: i.e name of location,
+        }
   - Response: ----------------
 
-- **GetProjects**
+* **GetProjects**
+
   - Route: /projects
   - Method: GET
   - Parameters:
     - Header:
-      - *token*: token authenticating user in system)
-      - *public*: boolean value representing visibility of project
+      - _token_: token authenticating user in system)
+      - _public_: boolean value representing visibility of project
     - Body: ----------------
   - Response:
-    - *projects*: list of projects with which user is associated
+    - _projects_: list of projects with which user is associated
 
-- **PostTask**
+* **PostTask**
+
   - Route: /task
   - Method: POST
   - Parameters:
     - Header:
-      - *token*: token authenticating user in system
-    - Body: 
-      - *name*: name of task
-      - *description*: description of task
-      - *project*: id of project with which task is associated
-      - *dueDate*: due date of task 
-      - *assignedTo*: id of task assignee
-      - *createdBy*: id of task creator
+      - _token_: token authenticating user in system
+    - Body:
+      - _name_: name of task
+      - _description_: description of task
+      - _project_: id of project with which task is associated
+      - _dueDate_: due date of task
+      - _assignedTo_: id of task assignee
+      - _createdBy_: id of task creator
   - Response: ----------------
 
-- **GetTasks**
+* **GetTasks**
   - Route: /tasks
   - Method: GET
   - Parameters:
     - Header:
-      - *token*: token authenticating user in system
+      - _token_: token authenticating user in system
     - Body: ----------------
   - Response:
-    - *tasks*: list of tasks with which user is associated
+    - _tasks_: list of tasks with which user is associated
 
-\**Note*:
+\*_Note_:
+
 - The root URL for each route is https://sela-labs.herokuapp.com.
-- All routes return a *success* field, indicating whether the call was successful, and a *message* field for unseccussful calls, explaining the failure mode
+- All routes return a _success_ field, indicating whether the call was successful, and a _message_ field for unseccussful calls, explaining the failure mode
