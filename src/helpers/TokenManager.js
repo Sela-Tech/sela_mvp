@@ -1,4 +1,4 @@
-const token = "token";
+const token = "x-access-token";
 
 export const retrieveToken = () => {
   const ls =

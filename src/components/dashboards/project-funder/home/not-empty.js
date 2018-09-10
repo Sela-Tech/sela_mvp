@@ -26,7 +26,7 @@ const ProjectTemplate = ({ c, t, d, p, pr, go }) => {
               strokeColor="#156EDC"
               trailColor="#F2F2F2"
             />
-            <p>{c.length} Remaining Tasks</p>
+            {/* <p>{c.length} Remaining Tasks</p> */}
           </div>
         </div>
       </div>
@@ -43,6 +43,7 @@ const NotEmptyHomeView = ({ dispatch, projects, history }) => {
       </div>
       <div id="bottom" className="xs-12">
         {projects.map((p, i) => {
+          console.log(p);
           return (
             <ProjectTemplate
               key={i}

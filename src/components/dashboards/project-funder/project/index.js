@@ -15,7 +15,6 @@ const ProjectComponent = ({ info }) => {
     status,
     tasks,
     id,
-    // photos,
     transactions
   } = info;
 
@@ -56,7 +55,6 @@ const ProjectComponent = ({ info }) => {
 
       <div id="bottom" className="xs-12">
         <Tasks className={"xs-12 md-7"} tasks={tasks} />
-        {/* <SidebarPhotos className={"xs-12 md-4"} photos={photos} /> */}
         <TransactionHistory
           className={"xs-12 md-5"}
           transactions={transactions}

@@ -21,6 +21,9 @@ import AsycnButton from "../../components/authentication/async-button";
 import auth from "../../store/actions/auth";
 import MessageToShow from "../../components/errors/messageToShow";
 
+import { Creatable as Select } from "react-select";
+import { fetchOrganizations } from "../../store/action-creators/organizations";
+
 const Button = ({ active, title, description, name, Ftn }) => {
   let onClick = () => Ftn(name);
 
@@ -48,6 +51,7 @@ class Signup extends React.Component {
   constructor(props) {
     super(props);
     this.state = {
+      organizations: [],
       formData: {
         firstName: { value: "", valid: false },
         lastName: { value: "", valid: false },
@@ -55,11 +59,14 @@ class Signup extends React.Component {
           value: "",
           valid: false
         },
+        organization: { name: "", id: "", valid: false },
         email: { value: "", valid: false },
         password: { value: "", valid: false },
         phone: { value: "", valid: false }
       }
     };
+
+    this.props.fetchOrganizations();
   }
 
   onSubmit = e => {
@@ -69,19 +76,51 @@ class Signup extends React.Component {
     Object.keys(formData).map(key => {
       return (objToSubmit = { ...objToSubmit, [key]: formData[key].value });
     });
+
+    objToSubmit = {
+      ...objToSubmit,
+      organization: {
+        name: formData.organization.name,
+        id: formData.organization.id
+      }
+    };
     this.props.signup(objToSubmit);
   };
 
   onSelect = name => {
-    this.setState({
-      formData: {
-        ...this.state.formData,
-        signUpType: {
-          value: name,
-          valid: true
+    this.setState(p => {
+      return {
+        formData: {
+          ...p.formData,
+          signUpType: {
+            value: name,
+            valid: true
+          }
         }
-      }
+      };
     });
+  };
+
+  handleOrgSelect = selectedOption => {
+    const { value, id } = selectedOption;
+    this.setState(
+      p => {
+        return {
+          selectedOption,
+          formData: {
+            ...p.formData,
+            organization: {
+              name: value,
+              id,
+              valid: validator(value, "string")
+            }
+          }
+        };
+      },
+      () => {
+        console.log(this.state.formData.organization);
+      }
+    );
   };
 
   onChange = e => {
@@ -99,23 +138,37 @@ class Signup extends React.Component {
 
   componentWillReceiveProps(nextProps) {
     if (this.props !== nextProps) {
-      const { type, message, inprogress } = nextProps;
+      const { type, message, inprogress, organizations } = nextProps;
       this.setState({
         type,
         message,
-        inprogress
+        inprogress,
+        organizations: organizations.map(o => {
+          return {
+            label: o.name,
+            value: o.name,
+            id: o._id
+          };
+        })
       });
     }
   }
   render() {
-    let { inprogress, type, message } = this.state;
+    let {
+      inprogress,
+      type,
+      message,
+      selectedOption,
+      organizations
+    } = this.state;
 
     const { formData } = this.state,
       checkFormCompletion =
         Object.keys(formData).filter(key => {
           return formData[key].valid === true;
-        }).length !== 6;
+        }).length !== 7;
 
+    console.log(formData);
     switch (type) {
       case auth.SIGNUP_SUCCESSFUL:
         switch (this.state.formData["signUpType"].value) {
@@ -333,6 +386,20 @@ class Signup extends React.Component {
                   </div>
 
                   <div className="form-group xs-12">
+                    <Select
+                      name="organization"
+                      className="form-control"
+                      value={selectedOption}
+                      onChange={this.handleOrgSelect}
+                      options={organizations}
+                      isSearchable
+                      isClearable
+                      required
+                      placeholder="Organization"
+                    />
+                  </div>
+
+                  <div className="form-group xs-12">
                     <input
                       name="email"
                       type="email"
@@ -412,12 +479,14 @@ const mapStateToProps = state => {
   return {
     type: type,
     inprogress: type === auth.SIGNUP_IN_PROGRESS,
-    message
+    message,
+    organizations: state.organizations.list
   };
 };
 const mapDispatchToProps = dispatch => {
   return {
-    signup: bindActionCreators(signup, dispatch)
+    signup: bindActionCreators(signup, dispatch),
+    fetchOrganizations: () => dispatch(fetchOrganizations())
   };
 };
 export default connect(

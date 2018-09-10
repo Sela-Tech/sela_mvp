@@ -23,7 +23,7 @@ export const validator = (val, type) => {
       return val.match(/^\d+$/) ? true : false; // returns a boolean
 
     default:
-      return val.match(/\S+/) ? true : false;
+      return val && val.match(/\S+/) ? true : false;
   }
 };
 

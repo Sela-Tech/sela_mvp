@@ -2,7 +2,7 @@ import React from "react";
 import styled from "styled-components";
 
 export default ({ message, type, match }) => {
-  switch (message === undefined) {
+  switch (message === undefined || message === "") {
     case false:
       const color = type.includes("SUCCESSFUL") ? "#3dcc4a" : "#f54e23c7";
 

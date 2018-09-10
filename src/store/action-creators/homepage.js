@@ -3,25 +3,27 @@ import hA from "../actions/home";
 import e from "../../endpoints";
 import { retrieveToken } from "../../helpers/TokenManager";
 
+const statuses = ["DORMANT", "ACCEPTED", "STARTED", "TERMINATED", "COMPLETED"];
+
 export const fetchProjects = () => {
   return dispatch => {
     dispatch({ type: hA.FETCHING_HOMEPAGE_PROJECTS_IN_PROGRESS });
     ax({
-      url: e.fetch_projects + "/all",
+      url: e.fetch_projects + "limit=12",
       method: "GET",
       headers: {
-        token: retrieveToken()
+        public: true
       }
     })
       .then(({ data }) => {
         dispatch({
           type: hA.FETCHING_HOMEPAGE_PROJECTS_SUCCESSFUL,
           projects: {
-            ongoing: data.filter(p => {
-              return p.general_status === "ongoing";
+            ongoing: data.projects.filter(p => {
+              return p.status !== statuses[0] && p.status !== statuses[1];
             }),
-            proposed: data.filter(p => {
-              return p.general_status === "proposed";
+            proposed: data.projects.filter(p => {
+              return p.status === statuses[0] || p.status === statuses[1];
             })
           }
         });

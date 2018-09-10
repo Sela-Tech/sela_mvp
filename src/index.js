@@ -5,9 +5,11 @@ import App from "./App";
 import store from "./store";
 import { Provider } from "react-redux";
 import { verify_user_token } from "./store/action-creators/auth";
+import { retrieveToken } from "./helpers/TokenManager";
 
-store.dispatch(verify_user_token());
-
+if (retrieveToken()) {
+  store.dispatch(verify_user_token());
+}
 ReactDOM.render(
   <Provider store={store}>
     <App />

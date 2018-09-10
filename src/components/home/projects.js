@@ -2,6 +2,7 @@ import React from "react";
 import styled from "styled-components";
 import { Link } from "react-router-dom";
 import ProgressBar from "../unique/progressbar";
+import home from "../../store/actions/home";
 
 const ProjectWrapper = styled.div`
   img {
@@ -161,9 +162,8 @@ const ProjectWrapper = styled.div`
   }
 `;
 
-const Projects = ({ projects, heading, type }) => {
-  //empty project card template
-  let empty = (
+const EmptyProjectCard = () => {
+  return (
     <div className="xs-12 sm-4 card-wrapper">
       <Link to={`#`}>
         <div className="xs-12 sm-11 card">
@@ -183,50 +183,66 @@ const Projects = ({ projects, heading, type }) => {
       </Link>
     </div>
   );
+};
 
-  if (projects.length > 0) {
-    return (
-      <ProjectWrapper className="xs-10 xs-off-1">
-        <h3 id="heading">{heading}</h3>
-        {projects.map((p, i) => {
-          return (
-            <div className="xs-12 sm-4 card-wrapper" key={i}>
-              <Link to={`/projects/${p.id}`}>
-                <div className="xs-12 sm-11 card">
-                  <img src={p.picture} alt="" className="project-picture" />
+const NotEmptyCard = ({ p }) => {
+  return (
+    <div className="xs-12 sm-4 card-wrapper">
+      <Link to={`/projects/${p._id}`}>
+        <div className="xs-12 sm-11 card">
+          <img src={p.picture} alt="" className="project-picture" />
 
-                  <div className="inner">
-                    <h4>{p.title}</h4>
-                    <h5>{p.funder}</h5>
-                    <ProgressBar percentage={p.percentage} displayText={true} />
-                  </div>
-                </div>
-              </Link>
-            </div>
-          );
-        })}
-
-        <div className="xs-12">
-          {type !== "all" && (
-            <Link
-              className="see-all"
-              to={`/projects/all/${heading.replace(" ", "-").toLowerCase()}`}
-            >
-              See all
-            </Link>
-          )}
+          <div className="inner">
+            <h4>{p.name}</h4>
+            <h5>{p.owner.organization.name}</h5>
+            <ProgressBar percentage={p.percentage} displayText={true} />
+          </div>
         </div>
-      </ProjectWrapper>
-    );
-  } else {
-    return (
-      <ProjectWrapper className="xs-10 xs-off-1">
-        <h3 id="heading">{heading}</h3>
-        {empty}
-        {empty}
-        {empty}
-      </ProjectWrapper>
-    );
+      </Link>
+    </div>
+  );
+};
+
+const Projects = ({ projects, heading, type, action }) => {
+  switch (action) {
+    case home.FETCHING_HOMEPAGE_PROJECTS_SUCCESSFUL:
+      return (
+        <ProjectWrapper className="xs-10 xs-off-1">
+          <h3 id="heading">{heading}</h3>
+
+          {projects.length > 0 ? (
+            projects.map((p, i) => {
+              return <NotEmptyCard p={p} key={i} />;
+            })
+          ) : (
+            <h4> No Projects Found. </h4>
+          )}
+
+          <div className="xs-12">
+            {type !== "all" &&
+              projects.length > 12 && (
+                <Link
+                  className="see-all"
+                  to={`/projects/all/${heading
+                    .replace(" ", "-")
+                    .toLowerCase()}`}
+                >
+                  See all
+                </Link>
+              )}
+          </div>
+        </ProjectWrapper>
+      );
+
+    default:
+      return (
+        <ProjectWrapper className="xs-10 xs-off-1">
+          <h3 id="heading">{heading}</h3>
+          <EmptyProjectCard />
+          <EmptyProjectCard />
+          <EmptyProjectCard />
+        </ProjectWrapper>
+      );
   }
 };
 

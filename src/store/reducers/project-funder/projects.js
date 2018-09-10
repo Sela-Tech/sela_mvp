@@ -1,4 +1,5 @@
 import dA from "../../actions/project-funder/dashboard";
+
 const initstate = {
   add: {
     action: {
@@ -19,6 +20,14 @@ const initstate = {
       message: ""
     },
     collection: []
+  },
+  funders: {
+    action: {
+      type: "",
+      message: ""
+    },
+    list: [],
+    selected: []
   }
 };
 
@@ -122,6 +131,50 @@ export default (state = initstate, payload) => {
           action: {
             type: dA.ADD_PROJECT_FAILED,
             message: payload.message || "Could Not Add A Project."
+          }
+        }
+      };
+
+    case dA.FETCHING_FUNDERS_IN_PROGRESS:
+      return {
+        ...state,
+        funders: {
+          action: {
+            type: dA.FETCHING_FUNDERS_IN_PROGRESS
+          }
+        }
+      };
+
+    case dA.SELECT_FUNDERS:
+      return {
+        ...state,
+        funders: {
+          ...state.funders,
+          action: {
+            type: dA.SELECT_FUNDERS
+          },
+          selected: []
+        }
+      };
+    case dA.FETCHING_FUNDERS_SUCCESSFUL:
+      return {
+        ...state,
+        funders: {
+          action: {
+            type: dA.FETCHING_FUNDERS_SUCCESSFUL,
+            message: payload.message || "Funders Fetched Successfully"
+          },
+          list: payload.data
+        }
+      };
+
+    case dA.FETCHING_FUNDERS_FAILED:
+      return {
+        ...state,
+        funders: {
+          action: {
+            type: dA.FETCHING_FUNDERS_FAILED,
+            message: payload.message || "Could Not Fetch Possible Funders."
           }
         }
       };

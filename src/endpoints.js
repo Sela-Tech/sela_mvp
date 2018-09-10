@@ -1,5 +1,10 @@
-const b = "https://sela-labs.herokuapp.com/";
+let b = "";
 
+if (process.env.REACT_APP_NODE_ENV === "development") {
+  b = "http://localhost:3000/";
+} else {
+  b = "https://sela-labs.herokuapp.com/";
+}
 export default {
   signin: b + "login",
   signup: b + "register",
@@ -8,10 +13,11 @@ export default {
   change_email: b + "changeEmail",
   send_recovery_mail: "",
   verify_user_token: b + "verifyToken",
-  fetch_projects: b + "projects",
+  fetch_projects: b + "projects?",
   fetch_project: b + "project/",
+  fetch_organizations: b + "organizations",
   add_project: b + "project",
   add_task: b + "task",
   get_tasks: b + "tasks",
-  fetch_taks: b + "projects" //:id/tasks
+  fetch_tasks: b + "projects" //:id/tasks
 };

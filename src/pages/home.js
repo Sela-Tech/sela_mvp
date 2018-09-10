@@ -27,10 +27,15 @@ class HomePageContainer extends React.Component {
     this.props.fetchProjects();
   }
 
+  shouldComponentUpdate(nextProps) {
+    return this.props !== nextProps;
+  }
+
   componentWillReceiveProps(nextProps) {
     if (this.props !== nextProps) {
       this.setState({
-        projects: nextProps.projects
+        projects: nextProps.projects,
+        action: nextProps.action
       });
     }
   }
@@ -49,10 +54,13 @@ class HomePageContainer extends React.Component {
             <Projects
               heading="Ongoing Projects"
               projects={this.state.projects.ongoing}
+              action={this.state.action}
             />
+
             <Projects
               heading="Proposed Projects"
               projects={this.state.projects.proposed}
+              action={this.state.action}
             />
           </div>
 
@@ -65,7 +73,8 @@ class HomePageContainer extends React.Component {
 
 const mapStateToProps = state => {
   return {
-    projects: state.home.projects
+    projects: state.home.projects,
+    action: state.home.action
   };
 };
 

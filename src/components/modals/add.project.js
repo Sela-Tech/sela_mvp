@@ -12,6 +12,7 @@ import AsyncButton from "../authentication/async-button";
 import dA from "../../store/actions/project-funder/dashboard";
 import MessageToShow from "../errors/messageToShow";
 import { Form } from "../../styles/dashboards/project-funder/modals/add";
+import ContractorLoader from "./sub-components/contractor-loader";
 
 const mapStateToProps = state => {
   const { type, message } = state.projects.add.action;
@@ -33,7 +34,8 @@ export default connect(mapStateToProps)(
         "start-date-unformatted": moment(placeholderDate),
         form: {
           endDate: moment(placeholderDate).format("MM-DD-YYYY"),
-          startDate: moment(placeholderDate).format("MM-DD-YYYY")
+          startDate: moment(placeholderDate).format("MM-DD-YYYY"),
+          location: {}
         }
       };
     }
@@ -56,6 +58,19 @@ export default connect(mapStateToProps)(
         form: {
           ...this.state.form,
           [name]: value
+        }
+      });
+    };
+
+    handleLocationChange = e => {
+      const { value } = e.target;
+      this.setState({
+        message: undefined,
+        form: {
+          ...this.state.form,
+          location: {
+            name: value
+          }
         }
       });
     };
@@ -101,6 +116,7 @@ export default connect(mapStateToProps)(
         endDate = this.state["end-date-unformatted"],
         startDate = this.state["start-date-unformatted"],
         disabled = endDate < startDate;
+
       return (
         <React.Fragment>
           <div className="xs-12">
@@ -140,11 +156,13 @@ export default connect(mapStateToProps)(
                 type="text"
                 name="location"
                 placeholder="Location"
-                value={fd["location"] || ""}
-                onChange={this.handleChange}
+                value={fd["location"].name || ""}
+                onChange={this.handleLocationChange}
                 required
               />
             </div>
+
+            <ContractorLoader onchange={this.handleChange} />
 
             <div className="form-control xs-12" id="date-part">
               <div className={"xs-12 sm-5 date-wrpr show"}>
