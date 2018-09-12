@@ -46,3 +46,15 @@ exports.verifyToken = (req, res, next) => {
     });
   }
 };
+
+exports.generalError = function(err, req, res, next) {
+  res.status(err.status || 500);
+  res.send(err.message);
+};
+
+exports.pageNotFound = function(req, res, next) {
+  res.status(404);
+  res.send({
+    message: "Route Not Found"
+  });
+};
