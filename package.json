@@ -7,7 +7,7 @@
   },
   "main": "sela_app.js",
   "scripts": {
-    "start": "concurrently \"npm run server\" \"npm run client\"",
+    "start": "nodemon sela_app.js",
     "server": "nodemon sela_app.js",
     "client": "nodemon start-client.js",
     "dev": "echo \"This command has been deprecated. Use 'npm start'\" && exit 1",
@@ -28,6 +28,7 @@
     "connect-flash": "*",
     "connect-mongo": "2.0.0",
     "cookie-parser": "^1.4.1",
+    "cors": "^2.8.4",
     "dotenv": "^4.0.0",
     "ed25519": "0.0.4",
     "ejs": "^2.5.6",

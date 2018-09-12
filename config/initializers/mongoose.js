@@ -11,10 +11,15 @@ module.exports = function(done) {
   // the mongoose models and the mongoose connection don't need to happen in order
 
   require(ROOT + "/app/models")();
+
   mongoose.Promise = global.Promise;
   mongoose.connect(
     process.env.MONGO_URI,
-    { useMongoClient: true }
+    {
+      useMongoClient: true,
+      reconnectTries: 9999999999,
+      connectTimeoutMS: 2000
+    }
   );
 
   mongoose.connection.on("error", function(err) {
