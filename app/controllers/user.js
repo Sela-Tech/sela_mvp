@@ -1,9 +1,9 @@
 "use strict";
 require("dotenv").config();
-var jwt = require("jsonwebtoken"),
-  mongoose = require("mongoose"),
-  User = mongoose.model("User"),
-  tokenValidityPeriod = 86400; // in seconds; 86400 seconds = 24 hours
+var jwt = require("jsonwebtoken");
+var  mongoose = require("mongoose");
+var  User = mongoose.model("User");
+var  tokenValidityPeriod = 86400; // in seconds; 86400 seconds = 24 hours
 
 exports.register = async (req, res) => {
   var successRes = { success: true };
@@ -82,8 +82,8 @@ exports.register = async (req, res) => {
     });
 
     return res.status(200).json({
-      ...successRes,
-      ...signThis,
+      successRes,
+      signThis,
       token
     });
   } catch (regErr) {
@@ -143,8 +143,8 @@ exports.login = (req, res) => {
       });
 
       return res.status(200).json({
-        ...successRes,
-        ...signThis,
+        successRes,
+        signThis,
         firstName: user.firstName,
         lastName: user.lastName,
         organization: user.organization,

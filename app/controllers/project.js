@@ -36,7 +36,7 @@ exports.find = async (req, res) => {
   delete otherQueryParams.page;
 
   checkQuery = req.tokenExists
-    ? { ...otherQueryParams, owner: req.userId }
+    ? { otherQueryParams, owner: req.userId }
     : otherQueryParams;
 
   Project.find(checkQuery)
