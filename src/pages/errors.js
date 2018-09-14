@@ -1,7 +1,7 @@
 import React from "react";
 
-import A404 from "../components/errors/a404";
-import UnderConstruction from "../components/errors/under-construction";
+import A404 from "../shared-components/errors/a404";
+import UnderConstruction from "../shared-components/errors/under-construction";
 
 const ErrorToReturn = ({ errorName }) => {
   switch (errorName) {

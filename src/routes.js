@@ -1,10 +1,10 @@
-import home from "./pages/home";
+import home from "./pages/public/home";
 import auth from "./pages/authentication";
 import errors from "./pages/errors";
 import loadable from "loadable-components";
-import Blank from "./components/dashboards/blank/";
-import projects from "./pages/projects/all";
-import project from "./pages/projects/one";
+import Blank from "./shared-components/dashboards/blank/";
+import view_all_projects from "./pages/public/projects/view-all-pojects";
+import view_project_info from "./pages/public/projects/view-project-info";
 
 export default {
   home,
@@ -28,6 +28,6 @@ export default {
   ),
   auth,
   errors,
-  projects,
-  project
+  view_all_projects,
+  view_project_info
 };

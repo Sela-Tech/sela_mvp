@@ -1,13 +1,13 @@
 import React from "react";
 import { connect } from "react-redux";
 import { bindActionCreators } from "redux";
-import DashboardWrapper from "../../../components/dashboards/project-funder/wrapper";
+import DashboardWrapper from "../../../shared-components/dashboards/project-funder/wrapper";
 import dashboard from "../../../store/actions/project-funder/dashboard";
 import { LoadingRoute } from "../../../helpers/routes";
-import Spinner from "../../../components/spinners";
-import ProjectComponent from "../../../components/dashboards/project-funder/project";
+import Spinner from "../../../shared-components/spinners";
+import ProjectComponent from "../../../shared-components/dashboards/project-funder/project";
 import * as actions from "../../../store/action-creators/project-funder/project";
-import NoProject from "../../../components/errors/noProject";
+import NoProject from "../../../shared-components/errors/noProject";
 
 class Project extends React.Component {
   constructor(props) {

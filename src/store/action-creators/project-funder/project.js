@@ -122,3 +122,32 @@ export const fetchProject = id => {
       });
   };
 };
+
+export const deleteProject = id => {
+  return dispatch => {
+    dispatch({ type: dA.DELETE_PROJECT_IN_PROGRESS });
+
+    ax({
+      url: e.fetch_project + id,
+      method: "DELETE",
+      headers: {
+        "x-access-token": retrieveToken()
+      }
+    })
+      .then(({ data }) => {
+        dispatch({
+          type: dA.DELETE_PROJECT_SUCCESSFUL,
+          info: data
+        });
+      })
+      .catch(({ response }) => {
+        let message;
+        if (response) {
+          message = response.message || response.data.message;
+        } else {
+          message = "connection error";
+        }
+        dispatch({ type: dA.DELTE_PROJECT_FAILED, message });
+      });
+  };
+};

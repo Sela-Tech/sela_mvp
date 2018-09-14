@@ -1,15 +1,15 @@
 import React from "react";
 import { connect } from "react-redux";
 import { bindActionCreators } from "redux";
-import DashboardWrapper from "../../../components/dashboards/project-funder/wrapper";
+import DashboardWrapper from "../../../shared-components/dashboards/project-funder/wrapper";
 import * as actions from "../../../store/action-creators/project-funder/project";
 
-import Spinner from "../../../components/spinners";
+import Spinner from "../../../shared-components/spinners";
 import { LoadingRoute } from "../../../helpers/routes";
 import dashboard from "../../../store/actions/project-funder/dashboard";
-import EmptyHomeView from "../../../components/dashboards/project-funder/home/empty";
-import NotEmptyHomeView from "../../../components/dashboards/project-funder/home/not-empty";
-import FirstTime from "../../../components/dashboards/project-funder/home/firstTime";
+import EmptyHomeView from "./components/empty";
+import NotEmptyHomeView from "./components/not-empty";
+import FirstTime from "./components/firstTime";
 
 const mapStateToProps = (state, props) => {
   return {

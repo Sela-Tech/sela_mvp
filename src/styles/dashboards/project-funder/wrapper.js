@@ -2,6 +2,7 @@ import styled from "styled-components";
 
 export const StyledWrapperElem = styled.div`
   height: 100%;
+  overflow: auto;
   #sdbar-wrpr {
     position: fixed;
     left: 0;

@@ -1,8 +1,8 @@
 import React from "react";
 import { connect } from "react-redux";
-import AccountDetails from "../../../components/dashboards/project-funder/settings/account_details";
-import ChangePassword from "../../../components/dashboards/project-funder/settings/change_password";
-import DashboardWrapper from "../../../components/dashboards/project-funder/wrapper";
+import AccountDetails from "../../../shared-components/dashboards/project-funder/settings/account_details";
+import ChangePassword from "../../../shared-components/dashboards/project-funder/settings/change_password";
+import DashboardWrapper from "../../../shared-components/dashboards/project-funder/wrapper";
 import SettingsStyleWrapper from "../../../styles/dashboards/project-funder/settings";
 // import { bindActionCreators } from "redux";
 

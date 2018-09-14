@@ -74,8 +74,12 @@ const App = ({ isAuthenticated, actionType, dashboardType }) => {
         <Switch>
           <Route exact path="/" component={r.home} />
           <Route exact path="/team" component={r.home} />
-          <Route exact path="/projects/:id" component={r.project} />
-          <Route exact path="/projects/all/:type" component={r.projects} />
+          <Route exact path="/projects/:id" component={r.view_project_info} />
+          <Route
+            exact
+            path="/projects/all/:type"
+            component={r.view_all_projects}
+          />
 
           <Route exact path="/blog" component={r.home} />
           <Route exact path="/crowdfund" component={r.home} />
@@ -86,8 +90,12 @@ const App = ({ isAuthenticated, actionType, dashboardType }) => {
         <Switch>
           <Route exact path="/" component={r.home} />
           <Route exact path="/team" component={r.home} />
-          <Route exact path="/projects/:id" component={r.project} />
-          <Route exact path="/projects/all/:type" component={r.projects} />
+          <Route exact path="/projects/:id" component={r.view_project_info} />
+          <Route
+            exact
+            path="/projects/all/:type"
+            component={r.view_all_projects}
+          />
 
           <Route exact path="/blog" component={r.home} />
           <Route exact path="/crowdfund" component={r.home} />

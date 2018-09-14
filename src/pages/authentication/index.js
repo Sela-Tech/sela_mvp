@@ -1,7 +1,7 @@
 import React from "react";
-import Signin from "./authentication/components/signin";
-import Signup from "./authentication/components/signup";
-import ForgotPassword from "./authentication/components/forgot-password";
+import Signin from "./components/signin";
+import Signup from "./components/signup";
+import ForgotPassword from "./components/forgot-password";
 import { withRouter } from "react-router-dom";
 
 export default withRouter(({ match }) => {

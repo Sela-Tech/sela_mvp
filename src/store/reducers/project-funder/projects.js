@@ -7,6 +7,12 @@ const initstate = {
       message: ""
     }
   },
+  delete: {
+    action: {
+      type: "",
+      message: ""
+    }
+  },
   single: {
     action: {
       type: "",
