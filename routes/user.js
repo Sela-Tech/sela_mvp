@@ -26,6 +26,16 @@ module.exports = function(app) {
   app.route("/verifyToken").post(verifyToken, user_controller.verify);
   app.route("/imageUpload")
     .post(upload.single('verificationImage'), (req,res, next) => {
-      console.log(req.file);
+      if (!req.file) {
+        console.log("No file received");
+        return res.send({
+          success:false
+        });
+      } else {
+        console.log('File received');
+        return res.send({
+          success:true
+        })
+      }
   });
 };
