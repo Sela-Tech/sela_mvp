@@ -1,25 +1,25 @@
 var _ = require("underscore");
-var moment = require("moment");
+// var moment = require("moment");
 var mongoose = require("mongoose");
 var autoPopulate = require("mongoose-autopopulate");
 
 var Schema = mongoose.Schema;
 var ObjectId = Schema.Types.ObjectId;
 
-var locationStructure = {
-  name: {
-    type: String,
-    required: true
-  },
-  lat: {
-    type: Number
-    // required: true
-  },
-  long: {
-    type: Number
-    // required: true
-  }
-};
+// var locationStructure = {
+//   name: {
+//     type: String,
+//     required: true
+//   },
+//   lat: {
+//     type: Number
+//     // required: true
+//   },
+//   long: {
+//     type: Number
+//     // required: true
+//   }
+// };
 
 var schemaOptions = {
   minimize: false,
@@ -42,7 +42,7 @@ var schemaOptions = {
   strict: process.env.NODE_ENV !== "development"
 };
 
-var LocationSchema = new Schema(locationStructure, schemaOptions);
+// var LocationSchema = new Schema(locationStructure, schemaOptions);
 
 var projectStructure = {
   name: {
@@ -64,8 +64,10 @@ var projectStructure = {
     default: null
   },
   location: {
-    type: LocationSchema,
-    default: null
+    // type: LocationSchema,
+    type: ObjectId,
+    ref: "Location",
+    autopopulate: { select: "name lat lng _id" }
   },
   createdBy: {
     type: ObjectId,

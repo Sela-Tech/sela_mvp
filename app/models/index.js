@@ -1,6 +1,6 @@
 module.exports = function(connection) {
   require("./chat.js")(connection);
-  //   require("./organization.js")(connection);
+  require("./in-use/location")(connection);
   require("./password_reset.js")(connection);
   require("./in-use/project.js")(connection);
   require("./project_contractor.js")(connection);

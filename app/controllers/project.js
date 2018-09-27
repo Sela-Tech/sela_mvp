@@ -35,15 +35,22 @@ exports.find = async (req, res) => {
   delete otherQueryParams.limit;
   delete otherQueryParams.page;
 
-  checkQuery = req.tokenExists
-    ? { ...otherQueryParams, owner: req.userId }
-    : otherQueryParams;
+  if (req.tokenExists) {
+    checkQuery = { ...otherQueryParams, owner: req.userId };
+  } else {
+    checkQuery = otherQueryParams;
+    if (checkQuery.location) {
+      const name = checkQuery.location;
+      checkQuery.location = name;
+    }
+  }
 
   Project.find(checkQuery)
     .skip(skip)
     .limit(limit)
     .exec(function(err, projects) {
       if (err) {
+        console.log(err);
         failRes.message = err.message;
         return res.status(400).json(failRes);
       }
