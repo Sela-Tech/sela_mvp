@@ -5,7 +5,7 @@ import Progressbar from "../../unique/progressbar";
 
 const EmptyCard = () => {
   return (
-    <EmptyCardStyling className="xs-12 sm-4 card-wrapper">
+    <EmptyCardStyling className="xs-12 sm-6 card-wrapper">
       <Link to={`#`}>
         <div className="xs-12 sm-11 card">
           <img

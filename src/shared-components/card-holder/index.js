@@ -10,8 +10,6 @@ const CardHolder = ({ projects, heading, type, action }) => {
     case home.FETCHING_HOMEPAGE_PROJECTS_SUCCESSFUL:
       return (
         <CardHolderStyle className="xs-10 xs-off-1">
-          <h3 id="heading">{heading}</h3>
-
           {projects.length > 0 ? (
             projects.map((p, i) => {
               return <NotEmptyCard p={p} key={i} />;
@@ -39,7 +37,6 @@ const CardHolder = ({ projects, heading, type, action }) => {
     default:
       return (
         <CardHolderStyle className="xs-10 xs-off-1">
-          <h3 id="heading">{heading}</h3>
           <EmptyCard />
           <EmptyCard />
           <EmptyCard />

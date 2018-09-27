@@ -3,8 +3,8 @@ import auth from "./pages/authentication";
 import errors from "./pages/errors";
 import loadable from "loadable-components";
 import Blank from "./shared-components/dashboards/blank/";
-import view_all_projects from "./pages/public/projects/view-all-pojects";
-import view_project_info from "./pages/public/projects/view-project-info";
+// import view_all_projects from "./pages/public/projects/view-all-projects";
+// import view_project from "./pages/public/projects/view-project";
 
 export default {
   home,
@@ -28,6 +28,8 @@ export default {
   ),
   auth,
   errors,
-  view_all_projects,
-  view_project_info
+  view_all_projects: loadable(() =>
+    import("./pages/public/projects/view-all-projects")
+  ),
+  view_project: loadable(() => import("./pages/public/projects/view-project"))
 };

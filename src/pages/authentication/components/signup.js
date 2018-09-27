@@ -103,24 +103,19 @@ class Signup extends React.Component {
 
   handleOrgSelect = selectedOption => {
     const { value, id } = selectedOption;
-    this.setState(
-      p => {
-        return {
-          selectedOption,
-          formData: {
-            ...p.formData,
-            organization: {
-              name: value,
-              id,
-              valid: validator(value, "string")
-            }
+    this.setState(p => {
+      return {
+        selectedOption,
+        formData: {
+          ...p.formData,
+          organization: {
+            name: value,
+            id,
+            valid: validator(value, "string")
           }
-        };
-      },
-      () => {
-        console.log(this.state.formData.organization);
-      }
-    );
+        }
+      };
+    });
   };
 
   onChange = e => {
@@ -168,7 +163,6 @@ class Signup extends React.Component {
           return formData[key].valid === true;
         }).length !== 7;
 
-    console.log(formData);
     switch (type) {
       case auth.SIGNUP_SUCCESSFUL:
         switch (this.state.formData["signUpType"].value) {

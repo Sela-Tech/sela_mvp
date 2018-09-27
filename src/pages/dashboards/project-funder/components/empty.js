@@ -3,7 +3,7 @@ import React from "react";
 import { showModal } from "../../../../store/action-creators/project-funder/modal";
 import { connect } from "react-redux";
 import modals from "../../../../store/actions/project-funder/modals";
-import EmptyWrapper from "./not-empty.style";
+import EmptyWrapper from "./empty.style";
 
 const EmptyHomeView = ({ dispatch }) => {
   return (

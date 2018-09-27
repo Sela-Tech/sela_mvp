@@ -51,6 +51,7 @@ export default connect(
         });
       }
     }
+
     render() {
       const { selectedOption, funders } = this.state;
 

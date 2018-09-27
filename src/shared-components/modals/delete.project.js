@@ -5,7 +5,7 @@ import { closeModal } from "../../store/action-creators/project-funder/modal";
 import AsyncButton from "../unique/async-button";
 import dA from "../../store/actions/project-funder/dashboard";
 import MessageToShow from "../errors/messageToShow";
-import { Form } from "../../styles/dashboards/project-funder/modals/delete";
+import { Form } from "./styles.modals/delete";
 
 const mapStateToProps = state => {
   const { type, message } = state.projects.delete.action;

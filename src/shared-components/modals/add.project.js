@@ -11,9 +11,13 @@ import {
 
 import dA from "../../store/actions/project-funder/dashboard";
 import MessageToShow from "../errors/messageToShow";
-import { Form } from "../../styles/dashboards/project-funder/modals/add";
+import { Form } from "./styles.modals/add";
+
 import ContractorLoader from "./sub-components/contractor-loader";
 import AsyncButton from "../unique/async-button";
+
+import LocationLoader from "./sub-components/location-loader";
+import GeoSuggest from "react-geosuggest";
 
 const mapStateToProps = state => {
   const { type, message } = state.projects.add.action;
@@ -63,17 +67,20 @@ export default connect(mapStateToProps)(
       });
     };
 
-    handleLocationChange = e => {
-      const { value } = e.target;
-      this.setState({
-        message: undefined,
-        form: {
-          ...this.state.form,
-          location: {
-            name: value
+    onSuggestSelect = suggest => {
+      if (suggest) {
+        this.setState({
+          form: {
+            ...this.state.form,
+            location: {
+              name: suggest.label,
+              lat: suggest.location.lat,
+              lng: suggest.location.lng
+            }
           }
-        }
-      });
+        });
+      }
+      this.geoSuggest.hideSuggests();
     };
 
     handleStartDatePick = date => {
@@ -153,14 +160,21 @@ export default connect(mapStateToProps)(
             <div className="form-control">
               <label> Set the location </label>
 
-              <input
+              {/* <input
                 type="text"
                 name="location"
                 placeholder="Location"
                 value={fd["location"].name || ""}
                 onChange={this.handleLocationChange}
                 required
-              />
+              /> */}
+
+              <LocationLoader>
+                <GeoSuggest
+                  ref={el => (this.geoSuggest = el)}
+                  onSuggestSelect={this.onSuggestSelect}
+                />
+              </LocationLoader>
             </div>
 
             <ContractorLoader onchange={this.handleChange} />

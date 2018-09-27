@@ -14,7 +14,7 @@ import {
   SharedCloseButton,
   ModalWrapperStyler,
   ViewTaskMotherWrapper
-} from "../../styles/dashboards/project-funder/modals/main";
+} from "./styles.modals/main";
 
 const ModalSelector = ({ name }) => {
   switch (name) {

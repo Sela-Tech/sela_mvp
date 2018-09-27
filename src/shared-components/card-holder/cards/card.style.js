@@ -121,3 +121,109 @@ export const EmptyCardStyling = styled.div`
     margin-bottom: 3.5px;
   }
 `;
+
+export const NotEmptyCardStyling2 = styled.div`
+  .container {
+    margin-bottom: 1.5em;
+    position: relative;
+  }
+
+  .options {
+    float: right;
+    position: absolute;
+    right: 0;
+    bottom: 18px;
+    top: 19em;
+    margin-top: 1em;
+    border-radius: 3px;
+    z-index: 4;
+
+    ul {
+      list-style-type: none;
+      background: white;
+
+      li {
+        display: block;
+        padding: 0.75em;
+        color: #828282;
+        font-size: 15px;
+        font-weight: 300;
+        cursor: pointer;
+        &:hover {
+          background: #eee;
+        }
+        &.delete {
+          color: #eb5757;
+        }
+      }
+    }
+  }
+  .box {
+    background: #ffffff;
+    border-radius: 9px;
+    overflow: auto;
+    transition: 250ms;
+    cursor: pointer;
+    &:hover {
+      border-color: #156edc;
+      #add {
+        color: #156edc;
+      }
+    }
+    #add {
+      background: #ffffff;
+      border: 0;
+      font-size: 1em;
+      color: #adb5bd;
+      height: 380px;
+      text-align: center;
+      width: 100%;
+    }
+
+    img {
+      height: 10em;
+      width: 100%;
+      object-fit: cover;
+      background: #eff5fb;
+    }
+
+    .inner {
+      padding: 1em 1.25em;
+      .text {
+        margin-bottom: 1em;
+        h3,
+        p {
+          text-align: left;
+          margin: 0.4em 0;
+          padding: 0;
+        }
+        h3 {
+          font-size: 1em;
+          color: #22292f;
+          font-weight: 300;
+        }
+        p {
+          font-size: 0.9em;
+          font-weight: 100;
+          color: #8795a1;
+          margin: 0;
+        }
+      }
+
+      .tasks {
+        .dw {
+          margin: 0.95em 0 0.75em;
+        }
+        position: relative;
+
+        p {
+          font-size: 0.85em;
+          font-weight: 100;
+          color: #bdbdbd;
+          text-align: left;
+          margin: 0;
+        }
+      }
+    }
+  }
+`;

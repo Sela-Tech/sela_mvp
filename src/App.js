@@ -73,8 +73,9 @@ const App = ({ isAuthenticated, actionType, dashboardType }) => {
       {actionType === authActions.TOKEN_VERIFICATION_IN_PROGRESS ? (
         <Switch>
           <Route exact path="/" component={r.home} />
+
           <Route exact path="/team" component={r.home} />
-          <Route exact path="/projects/:id" component={r.view_project_info} />
+          <Route path="/projects/:id" component={r.view_project} />
           <Route
             exact
             path="/projects/all/:type"
@@ -90,7 +91,7 @@ const App = ({ isAuthenticated, actionType, dashboardType }) => {
         <Switch>
           <Route exact path="/" component={r.home} />
           <Route exact path="/team" component={r.home} />
-          <Route exact path="/projects/:id" component={r.view_project_info} />
+          <Route path="/projects/:id" component={r.view_project} />
           <Route
             exact
             path="/projects/all/:type"

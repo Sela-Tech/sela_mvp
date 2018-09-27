@@ -5,6 +5,7 @@
   "dependencies": {
     "axios": "^0.18.0",
     "global": "^4.3.2",
+    "google-map-react": "^1.0.8",
     "loadable-components": "^2.2.2",
     "moment": "^2.22.2",
     "now": "^11.2.1",
@@ -14,6 +15,7 @@
     "react-datepicker": "^1.5.0",
     "react-dom": "^16.3.2",
     "react-fa": "^5.0.0",
+    "react-geosuggest": "^2.8.0",
     "react-helmet": "^5.2.0",
     "react-redux": "^5.0.7",
     "react-router-dom": "^4.2.2",

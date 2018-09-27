@@ -3,11 +3,9 @@ import homepageActions from "../actions/home";
 const init = {
   action: "",
   message: "",
-  projects: {
-    proposed: [],
-    ongoing: []
-  },
-  project: {}
+  projects: [],
+  project: {},
+  locations: []
 };
 
 export default (state = init, payload) => {
@@ -29,8 +27,13 @@ export default (state = init, payload) => {
       return {
         ...state,
         action: homepageActions.FETCHING_HOMEPAGE_PROJECTS_SUCCESSFUL,
-
         projects: payload.projects
+      };
+
+    case homepageActions.FETCHING_LOCATIONS_SUCCESSFUL:
+      return {
+        ...state,
+        locations: payload.locations
       };
 
     case homepageActions.FETCHING_HOMEPAGE_PROJECT_IN_PROGRESS:

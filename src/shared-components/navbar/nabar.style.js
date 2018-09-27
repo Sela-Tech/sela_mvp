@@ -1,9 +1,14 @@
 import styled from "styled-components";
 
-export default styled.div`
-  position: relative;
-  padding: 2em 8vw;
+const height = "78px";
 
+export default styled.div`
+  background: #ffffff;
+  box-shadow: 0px 0px 6px 0px rgba(34, 40, 41, 0.04);
+  #ham-needs-padding {
+    padding-top: 14px;
+  }
+  position: relative;
   #background,
   #overlay-background {
     height: 100%;
@@ -21,20 +26,26 @@ export default styled.div`
   * {
     font-family: cabin !important;
   }
+  #needs-line-height {
+    height: ${height};
+    line-height: 7;
+  }
 
   #logo {
     color: white;
     display: block;
+
     img {
       position: relative;
       margin: 0;
       padding: 0;
       object-fit: cover;
-      height: 3em;
+      height: 2.5em;
     }
   }
 
   nav {
+    line-height: ${height};
     a {
       padding: 1em 1.2em;
       color: white;
@@ -108,6 +119,8 @@ export default styled.div`
   }
 
   @media (min-width: 768px) {
+    height: ${height};
+
     nav {
       float: right;
     }
@@ -123,7 +136,7 @@ export default styled.div`
         height: 100px;
       }
       &.yes {
-        height: 350px;
+        height: 380px;
       }
     }
     nav {

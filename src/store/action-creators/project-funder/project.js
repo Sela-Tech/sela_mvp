@@ -75,7 +75,8 @@ export const addProject = obj => {
       method: "POST",
       data: obj,
       headers: {
-        "x-access-token": retrieveToken()
+        "x-access-token": retrieveToken(),
+        contentType: "application/json; charset=UTF-8"
       }
     })
       .then(({ data }) => {
