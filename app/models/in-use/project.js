@@ -64,7 +64,6 @@ var projectStructure = {
     default: null
   },
   location: {
-    // type: LocationSchema,
     type: ObjectId,
     ref: "Location",
     autopopulate: { select: "name lat lng _id" }

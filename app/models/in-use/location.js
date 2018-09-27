@@ -7,12 +7,12 @@ var locationStructure = {
     required: true
   },
   lat: {
-    type: Number
-    // required: true
+    type: Number,
+    required: true
   },
-  long: {
-    type: Number
-    // required: true
+  lng: {
+    type: Number,
+    required: true
   }
 };
 

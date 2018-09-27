@@ -1,22 +1,46 @@
 "use strict";
 require("dotenv").config();
 const mongoose = require("mongoose"),
-  Project = mongoose.model("Project");
+  Project = mongoose.model("Project"),
+  Location = mongoose.model("Location");
 
 exports.new = (req, res) => {
   var successRes = { success: true };
   var failRes = { success: false };
   var projectObj = req.body;
   projectObj.owner = req.userId;
+  var newLocation = new Location(req.body.location);
 
-  var newProject = new Project(projectObj);
-  newProject.save(projErr => {
-    if (projErr) {
-      failRes.message = projErr.name + ": " + projErr.message;
-      return res.status(500).json(failRes);
+  const saveProject = projectObj => {
+    var newProject = new Project(projectObj);
+    newProject.save(projErr => {
+      if (projErr) {
+        failRes.message = projErr.name + ": " + projErr.message;
+        return res.status(500).json(failRes);
+      }
+      return res.status(200).json(successRes);
+    });
+  };
+
+  Location.findOne(
+    {
+      name: req.body.location.name,
+      lat: req.body.location.lat,
+      lng: req.body.location.lng
+    },
+    (err, single) => {
+      if (single === null) {
+        newLocation.save((err, l) => {
+          if (err) return res.status(500).json({ message: err.message });
+          projectObj.location = l._id;
+          saveProject(projectObj);
+        });
+      } else {
+        projectObj.location = single._id;
+        saveProject(projectObj);
+      }
     }
-    return res.status(200).json(successRes);
-  });
+  );
 };
 
 exports.find = async (req, res) => {
@@ -35,14 +59,13 @@ exports.find = async (req, res) => {
   delete otherQueryParams.limit;
   delete otherQueryParams.page;
 
+  const locationName = otherQueryParams.location;
+  delete otherQueryParams.location;
+
   if (req.tokenExists) {
     checkQuery = { ...otherQueryParams, owner: req.userId };
   } else {
     checkQuery = otherQueryParams;
-    if (checkQuery.location) {
-      const name = checkQuery.location;
-      checkQuery.location = name;
-    }
   }
 
   Project.find(checkQuery)
@@ -59,7 +82,14 @@ exports.find = async (req, res) => {
           message: "No Projects Found"
         });
 
-      successRes.projects = projects;
+      if (locationName) {
+        successRes.projects = projects.filter(p => {
+          return p.location.name === locationName.replace(/%20/g, " ");
+        });
+      } else {
+        successRes.projects = projects;
+      }
+
       return res.json(successRes);
     });
 };
