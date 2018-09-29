@@ -36,7 +36,7 @@ exports.find = async (req, res) => {
   delete otherQueryParams.page;
 
   if (req.tokenExists) {
-    checkQuery = { ...otherQueryParams, owner: req.userId };
+    checkQuery = { otherQueryParams, owner: req.userId };
   } else {
     checkQuery = otherQueryParams;
     if (checkQuery.location) {

@@ -4,7 +4,22 @@ var { verifyToken } = require("../in-use/utils");
 let user_controller = require("../app/controllers/user");
 
 const multer = require('multer');
-const upload = multer({dest:'uploads/'});
+const mime = require('mime');
+var crypto = require('crypto');
+
+
+var storage = multer.diskStorage({
+  destination: function (req, file, cb) {
+    cb(null, './uploads/')
+  },
+  filename: function (req, file, cb) {
+    crypto.pseudoRandomBytes(16, function (err, raw) {
+      cb(null, raw.toString('hex') + Date.now() + '.' + mime.getExtension(file.mimetype));
+    });
+  }
+});
+
+var upload = multer({ storage: storage });
 const ipfsAPI = require('ipfs-api');
 const path = require('path');
 const fs = require('fs');
@@ -46,9 +61,10 @@ module.exports = function(app) {
         });
       }
 
-      const mime = req.file.mimetype;
-      console.log(mime);
-      if (mime.split('/')[0] !== 'image') {
+      console.log(req.file);
+      const mimetype = req.file.mimetype;
+      console.log(mimetype);
+      if (mimetype.split('/')[0] !== 'image') {
         fs.unlink(req.file.path);
         return res.status(422).send({
           success:false,
@@ -67,21 +83,21 @@ module.exports = function(app) {
       }
 
       const data = fs.readFileSync(req.file.path);
-      console.log(data);
+      const file_name = req.file.path.split('/').slice(-1)[0];
       const params = {
        Bucket: 'selamvp',
-       Key: 'test.jpg',
+       Key: file_name,
        Body: data
       };
 
-      /*s3.putObject(params, function(perr, press) {
+      s3.putObject(params, function(perr, press) {
         if (perr) {
           console.log("Error uploading image: ", perr);
         } else {
           console.log("Uploading image successfully");
 
         }
-      }); */
+      }); 
       return res.status(500).json({
         error: 'err',
         success: false,
@@ -99,9 +115,9 @@ module.exports = function(app) {
         });
       }
 
-      const mime = req.file.mimetype;
-      console.log(mime);
-      if (mime.split('/')[0] !== 'application') {
+      const mimetype = req.file.mimetype;
+      console.log(mimetype);
+      if (mimetype.split('/')[0] !== 'application') {
         fs.unlink(req.file.path);
         return res.status(422).send({
           success:false,
@@ -120,10 +136,10 @@ module.exports = function(app) {
       }
 
       const data = fs.readFileSync(req.file.path);
-      console.log(data);
+      const file_name = req.file.path.split('/').slice(-1)[0];
       const params = {
        Bucket: 'selamvp',
-       Key: 'test.doc',
+       Key: file_name,
        Body: data
       };
 
@@ -152,9 +168,9 @@ module.exports = function(app) {
         });
       }
 
-      const mime = req.file.mimetype;
+      const mimetype = req.file.mimetype;
       console.log(mime);
-      if (mime.split('/')[0] !== 'video') {
+      if (mimetype.split('/')[0] !== 'video') {
         fs.unlink(req.file.path);
         return res.status(422).send({
           success:false,
@@ -173,10 +189,10 @@ module.exports = function(app) {
       }
 
       const data = fs.readFileSync(req.file.path);
-      console.log(data);
+      const file_name = req.file.path.split('/').slice(-1)[0];
       const params = {
        Bucket: 'selamvp',
-       Key: 'test',
+       Key: file_name,
        Body: data
       };
 

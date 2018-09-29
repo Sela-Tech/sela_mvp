@@ -82,8 +82,8 @@ exports.register = async (req, res) => {
     });
 
     return res.status(200).json({
-      ...successRes,
-      ...signThis,
+      successRes,
+      signThis,
       token
     });
   } catch (regErr) {
@@ -143,8 +143,8 @@ exports.login = (req, res) => {
       });
 
       return res.status(200).json({
-        ...successRes,
-        ...signThis,
+        successRes,
+        signThis,
         firstName: user.firstName,
         lastName: user.lastName,
         organization: user.organization,
