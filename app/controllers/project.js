@@ -93,3 +93,14 @@ exports.find = async (req, res) => {
       return res.json(successRes);
     });
 };
+
+exports.find_one = async (req, res) => {
+  try {
+    let project = await Project.findOne({ _id: req.body._id });
+    res.status(200).json(project);
+  } catch (error) {
+    res.status(400).json({
+      message: error.message
+    });
+  }
+};
