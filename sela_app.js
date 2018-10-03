@@ -30,6 +30,22 @@ app.use(bodyParser.json());
 app.use(bodyParser.urlencoded({ extended: false }));
 
 app.use(cors());
+
+app.use(
+  "/s3",
+  require("react-s3-uploader/s3router")({
+    bucket: "selamvp",
+    region: "us-east-2", //optional
+    signatureVersion: "v4", //optional (use for some amazon regions: frankfurt and others)
+    headers: {
+      "Access-Control-Allow-Origin": "http://localhost:3065",
+      "Access-Control-Allow-Credentials": true
+    }, // optional
+    ACL: "public-read", // this is default
+    uniquePrefix: true // (4.0.2 and above) default is true, setting the attribute to false preserves the original filename in S3
+  })
+);
+
 var http = require("http").Server(app);
 
 if (process.env.NODE_ENV === "development") {
@@ -46,18 +62,6 @@ require("./routes")(app);
 app.use(pageNotFound);
 // error handler
 app.use(generalError);
-
-app.use(
-  "/s3",
-  require("react-s3-uploader/s3router")({
-    bucket: "selamvp",
-    region: "us-east-2", //optional
-    signatureVersion: "v4", //optional (use for some amazon regions: frankfurt and others)
-    headers: { "Access-Control-Allow-Origin": "*" }, // optional
-    ACL: "private", // this is default
-    uniquePrefix: true // (4.0.2 and above) default is true, setting the attribute to false preserves the original filename in S3
-  })
-);
 
 http.listen(port, function() {
   console.log("listening on port " + port);

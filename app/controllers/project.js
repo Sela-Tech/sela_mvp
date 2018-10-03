@@ -94,6 +94,25 @@ exports.find = async (req, res) => {
     });
 };
 
+exports.delete = async (req, res) => {
+  try {
+    let response = await Project.deleteOne({ _id: req.params.id });
+
+    if (response.result.n === 1) {
+      res.status(200).json({
+        success: true
+      });
+    } else {
+      res.status(400).json({
+        success: false
+      });
+    }
+  } catch (error) {
+    res.status(400).json({
+      message: error.message
+    });
+  }
+};
 exports.find_one = async (req, res) => {
   try {
     let project = await Project.findOne({ _id: req.body._id });

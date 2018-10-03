@@ -59,6 +59,9 @@ var projectStructure = {
     type: Date,
     required: true
   },
+  "project-avatar": {
+    type: String
+  },
   endDate: {
     type: Date,
     default: null

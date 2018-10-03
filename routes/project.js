@@ -9,7 +9,9 @@ module.exports = function(app) {
   app.route("/projects?").get(verifyToken, project.find);
 
   //real routes
-  app.route("/projects/:id").get(verifyToken, project.find_one);
+  app.route("/project/:id").get(verifyToken, project.find_one);
+
+  app.route("/project/:id").delete(verifyToken, project.delete);
 
   // test routes
   app.route("/test/projects?").get(project.find);
