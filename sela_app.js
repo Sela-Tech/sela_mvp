@@ -38,7 +38,10 @@ app.use(
     region: "us-east-2", //optional
     signatureVersion: "v4", //optional (use for some amazon regions: frankfurt and others)
     headers: {
-      "Access-Control-Allow-Origin": "*",
+      "Access-Control-Allow-Origin":
+        process.env.NODE_ENV === "production"
+          ? process.env.production
+          : process.env.development,
       "Access-Control-Allow-Credentials": true
     }, // optional
     ACL: "public-read", // this is default
