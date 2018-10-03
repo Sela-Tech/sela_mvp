@@ -38,7 +38,7 @@ app.use(
     region: "us-east-2", //optional
     signatureVersion: "v4", //optional (use for some amazon regions: frankfurt and others)
     headers: {
-      "Access-Control-Allow-Origin": "http://localhost:3065",
+      "Access-Control-Allow-Origin": `http://localhost:3065, http://sharp-roentgen-ee9b95.netlify.com, https://sharp-roentgen-ee9b95.netlify.com, http://sela-labs.com, https://sela-labs.com,http://www.sela-labs.com, https://www.sela-labs.com`,
       "Access-Control-Allow-Credentials": true
     }, // optional
     ACL: "public-read", // this is default
