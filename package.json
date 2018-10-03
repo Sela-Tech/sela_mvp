@@ -20,6 +20,7 @@
     ]
   },
   "dependencies": {
+    "aws-sdk": "^2.325.0",
     "bcrypt": "^1.0.3",
     "bcryptjs": "*",
     "body-parser": "^1.18.2",
@@ -39,6 +40,7 @@
     "express-session": "^1.15.6",
     "express-validator": "*",
     "install": "^0.10.2",
+    "ipfs-api": "^24.0.2",
     "js-schema": "^1.0.1",
     "jsonwebtoken": "^8.2.2",
     "moment": "2.20.1",
@@ -55,6 +57,7 @@
     "passport-local": "*",
     "react": "16.0.0",
     "react-router-dom": "^4.2.2",
+    "react-s3-uploader": "^4.8.0",
     "request-param": "^1.0.1",
     "session": "0.1.0",
     "stellar-sdk": "^0.8.0",
