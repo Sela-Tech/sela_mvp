@@ -30,6 +30,11 @@ app.use(bodyParser.json());
 app.use(bodyParser.urlencoded({ extended: false }));
 
 app.use(cors());
+const AWS = require("aws-sdk");
+const s3 = new AWS.S3({
+  accessKeyId: process.env.AWS_ACCESS_KEY,
+  secretAccessKey: process.env.AWS_SECRET_ACCESS_KEY
+});
 
 app.use(
   "/s3",
@@ -38,11 +43,7 @@ app.use(
     region: "us-east-2", //optional
     signatureVersion: "v4", //optional (use for some amazon regions: frankfurt and others)
     headers: {
-      "Access-Control-Allow-Origin":
-        process.env.NODE_ENV === "development"
-          ? "http://localhost:3065"
-          : "https://sharp-roentgen-ee9b95.netlify.com/",
-      "Access-Control-Allow-Credentials": true
+      "Access-Control-Allow-Origin": "*"
     }, // optional
     ACL: "public-read",
     uniquePrefix: true // (4.0.2 and above) default is true, setting the attribute to false preserves the original filename in S3
