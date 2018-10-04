@@ -32,8 +32,8 @@ app.use(bodyParser.urlencoded({ extended: false }));
 app.use(cors());
 const AWS = require("aws-sdk");
 AWS.config = {
-  accessKeyId: "AKIAJ5AW63FZENZ7FCJA",
-  secretAccessKey: "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",
+  accessKeyId: process.env.AWSaccessKeyId,
+  secretAccessKey: process.env.AWSsecretAccessKey,
   region: "us-east-2"
 };
 
