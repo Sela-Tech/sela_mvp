@@ -31,10 +31,11 @@ app.use(bodyParser.urlencoded({ extended: false }));
 
 app.use(cors());
 const AWS = require("aws-sdk");
-const s3 = new AWS.S3({
-  accessKeyId: process.env.AWS_ACCESS_KEY,
-  secretAccessKey: process.env.AWS_SECRET_ACCESS_KEY
-});
+AWS.config = {
+  accessKeyId: "AKIAJ5AW63FZENZ7FCJA",
+  secretAccessKey: "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",
+  region: "us-east-2" //optional
+};
 
 app.use(
   "/s3",
@@ -46,7 +47,8 @@ app.use(
       "Access-Control-Allow-Origin": "*"
     }, // optional
     ACL: "public-read",
-    uniquePrefix: true // (4.0.2 and above) default is true, setting the attribute to false preserves the original filename in S3
+    uniquePrefix: true
+    // (4.0.2 and above) default is true, setting the attribute to false preserves the original filename in S3
   })
 );
 
