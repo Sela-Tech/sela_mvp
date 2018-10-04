@@ -41,7 +41,7 @@ app.use(
       "Access-Control-Allow-Origin":
         process.env.NODE_ENV === "development"
           ? "http://localhost:3065"
-          : "https://sharp-roentgen-ee9b95.netlify.com/",
+          : "https://sharp-roentgen-ee9b95.netlify.com",
       "Access-Control-Allow-Credentials": true
     }, // optional
     ACL: "public-read",
