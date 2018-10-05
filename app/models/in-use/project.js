@@ -71,6 +71,11 @@ var projectStructure = {
     ref: "Location",
     autopopulate: { select: "name lat lng _id" }
   },
+  fundingInformation: {
+    type: ObjectId,
+    ref: "FundingInformation",
+    autopopulate: true
+  },
   createdBy: {
     type: ObjectId,
     ref: "User"

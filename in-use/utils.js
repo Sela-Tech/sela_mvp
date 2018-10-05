@@ -28,8 +28,6 @@ exports.verifyToken = (req, res, next) => {
       });
     }
   } else if (typeof token !== "undefined") {
-    console.log(token);
-
     jwt.verify(token, process.env.SECRET, function(err, decoded) {
       if (err) {
         return res.status(400).json({

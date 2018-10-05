@@ -2,14 +2,18 @@
 require("dotenv").config();
 const mongoose = require("mongoose"),
   Project = mongoose.model("Project"),
-  Location = mongoose.model("Location");
+  Location = mongoose.model("Location"),
+  FundingInfo = mongoose.model("FundingInformation");
 
-exports.new = (req, res) => {
+exports.new = async (req, res) => {
   var successRes = { success: true };
   var failRes = { success: false };
   var projectObj = req.body;
   projectObj.owner = req.userId;
   var newLocation = new Location(req.body.location);
+  var newFundingInfo = await new FundingInfo().save();
+
+  projectObj.fundingInformation = newFundingInfo._id;
 
   const saveProject = projectObj => {
     var newProject = new Project(projectObj);
@@ -96,18 +100,43 @@ exports.find = async (req, res) => {
 
 exports.delete = async (req, res) => {
   try {
-    let response = await Project.deleteOne({ _id: req.params.id });
+    let project = await Project.findOne({ _id: req.params.id });
 
-    if (response.result.n === 1) {
-      res.status(200).json({
-        success: true
+    // find if multiple projects share a location
+    let locations = await Project.find({ location: project.location });
+
+    console.log(locations.length);
+    let proceed = true;
+    // if only one then delete
+    if (locations.length < 2) {
+      let location_delete = await Location.deleteOne({
+        _id: project.location._id
       });
+      if (location_delete.result.n === 0) {
+        proceed = false;
+      }
+    }
+
+    if (proceed === true) {
+      // delete project
+      let response = await Project.deleteOne({ _id: req.params.id });
+
+      if (response.result.n === 1) {
+        res.status(200).json({
+          success: true
+        });
+      } else {
+        res.status(400).json({
+          success: false
+        });
+      }
     } else {
       res.status(400).json({
         success: false
       });
     }
   } catch (error) {
+    console.log(error);
     res.status(400).json({
       message: error.message
     });

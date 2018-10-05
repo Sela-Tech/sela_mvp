@@ -9,4 +9,5 @@ module.exports = function(connection) {
   require("./in-use/user.js")(connection);
   require("./in-use/organization")(connection);
   require("./verification.js")(connection);
+  require("./in-use/funding.js")(connection);
 };
