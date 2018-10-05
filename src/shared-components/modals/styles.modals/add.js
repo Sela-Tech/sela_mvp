@@ -5,6 +5,36 @@ export const Form = styled.form`
     overflow: unset !important;
   }
 
+  #label-image {
+    height: 250px;
+    width: 100%;
+    background: silver;
+    cursor: pointer;
+    position: relative;
+    img {
+      position: absolute;
+      background: transparent;
+      top: 0;
+      bottom: 0;
+      right: 0;
+      left: 0;
+      height: 100%;
+      width: 100%;
+      object-fit: cover;
+      object-position: center;
+    }
+    p {
+      font-size: 2em;
+      color: white;
+      font-weight: 900;
+    }
+  }
+  input[type="file"] {
+    height: 0.1px;
+    width: 0.1px;
+    overflow: hidden;
+  }
+
   padding: 1.5em 0;
   input[type="text"],
   textarea,

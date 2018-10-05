@@ -18,6 +18,8 @@ import AsyncButton from "../unique/async-button";
 
 import LocationLoader from "./sub-components/location-loader";
 import GeoSuggest from "react-geosuggest";
+import ReactS3Uploader from "react-s3-uploader";
+import endpoints from "../../endpoints";
 
 const mapStateToProps = state => {
   const { type, message } = state.projects.add.action;
@@ -28,18 +30,23 @@ const mapStateToProps = state => {
   };
 };
 
-const placeholderDate = new Date().getFullYear() + "-01-01";
-
 export default connect(mapStateToProps)(
   class AddProjectModal extends React.Component {
     constructor(props) {
       super(props);
       this.state = {
-        "end-date-unformatted": moment(placeholderDate),
-        "start-date-unformatted": moment(placeholderDate),
+        "end-date-unformatted": moment().add(1, "d"),
+        "start-date-unformatted": moment(),
+        "project-avatar": {},
+        uploading: 0,
         form: {
-          endDate: moment(placeholderDate).format("MM-DD-YYYY"),
-          startDate: moment(placeholderDate).format("MM-DD-YYYY"),
+          startDate: moment().format("MM-DD-YYYY"),
+          endDate: moment()
+            .add(1, "d")
+            .format("MM-DD-YYYY"),
+          defaultEndDate: moment()
+            .add(1, "d")
+            .format("MM-DD-YYYY"),
           location: {}
         }
       };
@@ -47,7 +54,16 @@ export default connect(mapStateToProps)(
 
     handleSubmit = e => {
       e.preventDefault();
-      this.props.dispatch(addProject(this.state.form));
+
+      this.setState({
+        uploading: 1,
+        add_project_in_progress: true
+      });
+      if (this.state["project-avatar"].file) {
+        this.next(this.state["project-avatar"].file);
+      } else {
+        this.props.dispatch(addProject(this.state.form));
+      }
     };
 
     forceFocus = name => {
@@ -84,14 +100,23 @@ export default connect(mapStateToProps)(
     };
 
     handleStartDatePick = date => {
-      this.setState({
+      // set in-date normally and set default minimum date of out date to in-date
+      let obj = {
         message: undefined,
         "start-date-unformatted": date,
+        "end-date-unformatted": moment(date).add(1, "d"),
+
         form: {
           ...this.state.form,
-          startDate: date.toDate().toISOString() // moment(date).format("MM-DD-YYYY")
+          startDate: date.toDate().toISOString(), // moment(date).format("MM-DD-YYYY"),
+          endDate: moment(date)
+            .add(1, "d")
+            .toDate()
+            .toISOString()
         }
-      });
+      };
+
+      this.setState(obj);
     };
 
     handleEndDatePick = date => {
@@ -105,6 +130,17 @@ export default connect(mapStateToProps)(
       });
     };
 
+    handleImageChange = (file, next) => {
+      this.setState({
+        "project-avatar": {
+          preview: URL.createObjectURL(file),
+          file
+        }
+      });
+      // next();
+      this.next = next;
+    };
+
     componentWillReceiveProps(nextProps) {
       if (this.props !== nextProps) {
         // pull fresh projects after adding
@@ -113,10 +149,33 @@ export default connect(mapStateToProps)(
         }
         this.setState({
           type: nextProps.type,
-          message: nextProps.message
+          message: nextProps.message,
+          add_project_in_progress: nextProps.add_project_in_progress
         });
       }
     }
+
+    onUploadFinish = upload => {
+      this.setState(
+        {
+          form: {
+            ...this.state.form,
+            "project-avatar":
+              "https://s3.us-east-2.amazonaws.com/selamvp/" + upload.filename
+          }
+        },
+        () => {
+          console.log(this.state.form);
+          this.props.dispatch(addProject(this.state.form));
+        }
+      );
+    };
+
+    onUploadProgress = count => {
+      this.setState({
+        uploading: count
+      });
+    };
 
     render() {
       let fd = this.state.form,
@@ -134,113 +193,159 @@ export default connect(mapStateToProps)(
             </p>
           </div>
           <Form onSubmit={this.handleSubmit} className="xs-12">
-            <div className="form-control">
-              <label> Name your project </label>
-              <input
-                type="text"
-                name="name"
-                placeholder="Project Name"
-                value={fd["name"] || ""}
-                onChange={this.handleChange}
-                required
-              />
+            <div className="xs-12 sm-6">
+              <div className="xs-12 sm-11">
+                <div className="form-control">
+                  <label> Project Avatar</label>
+                  <label htmlFor="avatar" id="label-image">
+                    <img src={this.state["project-avatar"].preview} alt="" />
+                    <div className="c-w">
+                      <div className="c t-c">
+                        <p>+</p>
+                      </div>
+                    </div>
+
+                    <ReactS3Uploader
+                      id="avatar"
+                      name="project-avatar"
+                      server={endpoints.b}
+                      signingUrl="s3/sign"
+                      signingUrlMethod="GET"
+                      accept="image/*"
+                      s3path="project-avatars/"
+                      preprocess={this.handleImageChange}
+                      onSignedUrl={this.onSignedUrl}
+                      onProgress={this.onUploadProgress}
+                      onError={this.onUploadError}
+                      onFinish={this.onUploadFinish}
+                      // signingUrlWithCredentials={true} // in case when need to pass authentication credentials via CORS
+                      uploadRequestHeaders={{ "x-amz-acl": "public-read" }} // this is the default
+                      contentDisposition="auto"
+                      scrubFilename={filename =>
+                        filename.replace(/[^\w\d_\-.]+/gi, "")
+                      }
+                      autoUpload={true}
+                    />
+                  </label>
+                </div>
+                <div className="form-control">
+                  <label> Name your project </label>
+                  <input
+                    type="text"
+                    name="name"
+                    placeholder="Project Name"
+                    value={fd["name"] || ""}
+                    onChange={this.handleChange}
+                    required
+                  />
+                </div>
+              </div>
             </div>
-            <div className="form-control">
-              <label> Add a project description </label>
 
-              <textarea
-                type="text"
-                name="description"
-                placeholder="Project Description"
-                value={fd["description"] || ""}
-                onChange={this.handleChange}
-                required
-              />
-            </div>
-            <div className="form-control">
-              <label> Set the location </label>
+            <div className="xs-12 sm-6">
+              <div className="form-control">
+                <label> Set the location </label>
 
-              {/* <input
-                type="text"
-                name="location"
-                placeholder="Location"
-                value={fd["location"].name || ""}
-                onChange={this.handleLocationChange}
-                required
-              /> */}
+                <LocationLoader>
+                  <GeoSuggest
+                    ref={el => (this.geoSuggest = el)}
+                    onSuggestSelect={this.onSuggestSelect}
+                  />
+                </LocationLoader>
+              </div>
 
-              <LocationLoader>
-                <GeoSuggest
-                  ref={el => (this.geoSuggest = el)}
-                  onSuggestSelect={this.onSuggestSelect}
+              <div className="form-control">
+                <label> Add a project description </label>
+
+                <textarea
+                  type="text"
+                  name="description"
+                  placeholder="Project Description"
+                  value={fd["description"] || ""}
+                  onChange={this.handleChange}
+                  required
                 />
-              </LocationLoader>
-            </div>
-
-            <ContractorLoader onchange={this.handleChange} />
-
-            <div className="form-control xs-12" id="date-part">
-              <div className={"xs-12 sm-5 date-wrpr show"}>
-                <label
-                  onClick={() => this.forceFocus("show-start-date")}
-                  className="xs-10"
-                >
-                  Start Date
-                </label>
-                <div className="xs-10 adjusted">
-                  <DatePicker
-                    type="date"
-                    name="start-date"
-                    id="start-date"
-                    ref="start-date"
-                    selected={this.state["start-date-unformatted"]}
-                    onChange={this.handleStartDatePick}
-                  />
-                </div>
-
-                <div className="xs-2" id="c-one">
-                  <img src={calendericon} alt="calender-icon" />
-                </div>
               </div>
 
-              <span className="xs-12 sm-2">
-                <p id="dash">-</p>
-              </span>
+              <ContractorLoader onchange={this.handleChange} />
 
-              <div className={"xs-12 sm-5 date-wrpr show"}>
-                <label
-                  onClick={() => this.forceFocus("show-end-date")}
-                  className="xs-10 "
-                >
-                  End Date
-                </label>
+              <div className="form-control xs-12" id="date-part">
+                <div className={"xs-12 sm-5 date-wrpr show"}>
+                  <label
+                    onClick={() => this.forceFocus("show-start-date")}
+                    className="xs-10"
+                  >
+                    Start Date
+                  </label>
+                  <div className="xs-10 adjusted">
+                    <DatePicker
+                      type="date"
+                      name="start-date"
+                      id="start-date"
+                      ref="start-date"
+                      selected={this.state["start-date-unformatted"]}
+                      onChange={this.handleStartDatePick}
+                      minDate={moment()}
+                    />
+                  </div>
 
-                <div className="xs-10 adjusted">
-                  <DatePicker
-                    type="date"
-                    name="end-date"
-                    id="end-date"
-                    ref="end-date"
-                    selected={this.state["end-date-unformatted"]}
-                    onChange={this.handleEndDatePick}
-                  />
+                  <div className="xs-2" id="c-one">
+                    <img src={calendericon} alt="calender-icon" />
+                  </div>
                 </div>
 
-                <div className="xs-2" id="c-one">
-                  <img src={calendericon} alt="calender-icon" />
+                <span className="xs-12 sm-2">
+                  <p id="dash">-</p>
+                </span>
+
+                <div className={"xs-12 sm-5 date-wrpr show"}>
+                  <label
+                    onClick={() => this.forceFocus("show-end-date")}
+                    className="xs-10 "
+                  >
+                    End Date
+                  </label>
+
+                  <div className="xs-10 adjusted">
+                    <DatePicker
+                      type="date"
+                      name="end-date"
+                      id="end-date"
+                      ref="end-date"
+                      selected={this.state["end-date-unformatted"]}
+                      onChange={this.handleEndDatePick}
+                      minDate={this.state["end-date-unformatted"]}
+                    />
+                  </div>
+
+                  <div className="xs-2" id="c-one">
+                    <img src={calendericon} alt="calender-icon" />
+                  </div>
                 </div>
               </div>
+              <div className="form-control xs-12">
+                <AsyncButton
+                  attempt={this.state.add_project_in_progress}
+                  type="submit"
+                  id="create-project-btn"
+                  disabled={disabled}
+                >
+                  Create Project
+                </AsyncButton>
+
+                {Boolean(this.state.uploading) && (
+                  <label
+                    style={{
+                      display: "block",
+                      marginTop: "5px"
+                    }}
+                  >
+                    Uploading Picture: {this.state.uploading}%
+                  </label>
+                )}
+              </div>
             </div>
-            <div className="form-control xs-12">
-              <AsyncButton
-                attempt={this.props.add_project_in_progress}
-                type="submit"
-                id="create-project-btn"
-                disabled={disabled}
-              >
-                Create Project
-              </AsyncButton>
-            </div>
+
             <MessageToShow
               type={type}
               message={message}

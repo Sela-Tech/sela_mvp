@@ -7,6 +7,28 @@ export default styled.div`
   .p {
     margin: 3em 0;
   }
+  label {
+    font-weight: 100;
+    font-size: 13px;
+  }
+
+  #show-map {
+    height: 50px;
+    width: 50px;
+    background: transparent;
+    border-radius: 50px;
+    border: 1px solid #eee;
+    margin: 30px 0 0;
+    text-align: center;
+    padding: 0;
+    img {
+      height: 25px;
+      width: 25px;
+      object-fit: contain;
+      object-position: center;
+    }
+  }
+  padding-bottom: 5em;
 
   #projects-h2 {
     font-family: Cabin;

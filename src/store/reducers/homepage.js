@@ -5,14 +5,38 @@ const init = {
   message: "",
   projects: [],
   project: {},
-  locations: []
+  locations: [],
+  centerize: false,
+  map: {
+    show: false,
+    fullscreen: false
+  }
 };
 
 export default (state = init, payload) => {
   switch (payload.type) {
+    case homepageActions.SHOW_MAP:
+      return {
+        ...state,
+        map: {
+          ...state.map,
+          show: !state.show_map
+        }
+      };
+
+    case homepageActions.TOGGLE_FULLSCREEN:
+      return {
+        ...state,
+        map: {
+          ...state.map,
+          fullscreen: !state.map.fullscreen
+        }
+      };
+
     case homepageActions.FETCHING_HOMEPAGE_PROJECTS_IN_PROGRESS:
       return {
-        ...init,
+        ...state,
+        projects: [],
         action: homepageActions.FETCHING_HOMEPAGE_PROJECTS_IN_PROGRESS
       };
 
@@ -27,7 +51,8 @@ export default (state = init, payload) => {
       return {
         ...state,
         action: homepageActions.FETCHING_HOMEPAGE_PROJECTS_SUCCESSFUL,
-        projects: payload.projects
+        projects: payload.projects,
+        centerize: payload.centerize
       };
 
     case homepageActions.FETCHING_LOCATIONS_SUCCESSFUL:

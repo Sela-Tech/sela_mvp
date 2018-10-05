@@ -2,8 +2,8 @@ import React, { Component } from "react";
 import GoogleMapReact from "google-map-react";
 import Config from "./config";
 import Target from "./assets/target.svg";
-import MyLocation from "./assets/mylocation.png";
-import { TargetButton } from "./map-view.style";
+// import MyLocation from "./assets/mylocation.png";
+import { TargetButton, Expand } from "./map-view.style";
 import createMarkers from "./markers";
 import { Wrapper } from "./map-section.style";
 
@@ -17,13 +17,33 @@ class SimpleMap extends Component {
   };
 
   state = {
-    projects: []
+    projects: this.props.projects
   };
 
   apiIsLoaded = (map, maps) => {
     if (map) {
       this.setState({ map, maps });
-      this.getMyLocation(map, maps);
+
+      if (this.props.centerize && Boolean(this.props.projects.length)) {
+        this.recenter(null, null, this.props.projects);
+      } else {
+        this.getMyLocation(map, maps);
+      }
+    }
+  };
+
+  recenter = (m, ms, projects) => {
+    const map = this.state.map ? this.state.map : m;
+    // const maps = this.state.maps ? this.state.maps : ms;
+
+    if (map) {
+      let pos = projects[0].location;
+      // const myLocation = new maps.Marker({
+      //   position: new maps.LatLng(parseInt(pos.lat, 10), parseInt(pos.lng, 10))
+      // });
+
+      // myLocation.setMap(map);
+      map.setCenter(pos);
     }
   };
 
@@ -40,8 +60,8 @@ class SimpleMap extends Component {
           };
 
           const myLocation = new maps.Marker({
-            position: new maps.LatLng(pos.lat, pos.lng),
-            icon: MyLocation
+            position: new maps.LatLng(pos.lat, pos.lng)
+            // icon: MyLocation
           });
 
           myLocation.setMap(map);
@@ -59,7 +79,8 @@ class SimpleMap extends Component {
       panControl: true,
       streetViewControl: false,
       mapTypeControl: false,
-      scrollwheel: false
+      scrollwheel: false,
+      fullscreenControl: false
     };
   }
 
@@ -68,15 +89,21 @@ class SimpleMap extends Component {
       this.setState({
         projects: nextProps.projects
       });
+
+      if (nextProps.centerize === true && nextProps.projects.length > 0) {
+        this.recenter(null, null, nextProps.projects);
+      }
     }
   }
 
   render() {
     const markers = createMarkers(this.state.projects);
-
     return (
       <Wrapper className="xs-12 i-h">
         <React.Fragment>
+          <Expand onClick={this.props.toggleFullScreen}>
+            {this.props.fullscreen ? "Collapse" : "Expand"}
+          </Expand>
           <GoogleMapReact
             bootstrapURLKeys={{
               key: Config.map.googleMapsAPIKey,
@@ -88,6 +115,7 @@ class SimpleMap extends Component {
             options={this.createMapOptions}
             yesIWantToUseGoogleMapApiInternals
             onGoogleApiLoaded={({ map, maps }) => this.apiIsLoaded(map, maps)}
+            hoveringDistance={50}
           >
             {markers}
           </GoogleMapReact>

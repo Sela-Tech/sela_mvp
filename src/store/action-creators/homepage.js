@@ -4,6 +4,14 @@ import e from "../../endpoints";
 import { retrieveToken } from "../../helpers/TokenManager";
 import { extractMessage } from "../../helpers/utils";
 
+export const showMap = {
+  type: hA.SHOW_MAP
+};
+
+export const toggleFullScreen = {
+  type: hA.TOGGLE_FULLSCREEN
+};
+
 export const fetchProjects = (query = "") => {
   let url = `${e.fetch_projects}${
     query !== "" ? "limit=12&" + query : "limit=12"
@@ -15,7 +23,8 @@ export const fetchProjects = (query = "") => {
     ax.get(url, { headers: { public: true } }).then(projects_response => {
       dispatch({
         type: hA.FETCHING_HOMEPAGE_PROJECTS_SUCCESSFUL,
-        projects: projects_response.data.projects
+        projects: projects_response.data.projects,
+        centerize: query !== ""
       });
     });
   };

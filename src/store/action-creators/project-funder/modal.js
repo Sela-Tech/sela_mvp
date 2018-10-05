@@ -1,8 +1,9 @@
 import dA from "../../actions/project-funder/dashboard";
-export const showModal = name => {
+export const showModal = (name, id) => {
   return {
     type: dA.SHOW_MODAL_FORM,
-    name
+    name,
+    id
   };
 };
 

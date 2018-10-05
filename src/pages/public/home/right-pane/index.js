@@ -2,12 +2,14 @@ import React from "react";
 import RightPaneStyle from "./right.pane.style";
 import SimpleMap from "./map";
 import { connect } from "react-redux";
+import { toggleFullScreen } from "../../../../store/action-creators/homepage";
 
 class RightPane extends React.Component {
   render() {
+    const { className } = this.props;
     return (
-      <RightPaneStyle className="xs-12 sm-6">
-        <SimpleMap projects={this.props.projects} />
+      <RightPaneStyle className={className}>
+        <SimpleMap {...this.props} />
       </RightPaneStyle>
     );
   }
@@ -15,8 +17,18 @@ class RightPane extends React.Component {
 
 const mapStateToProps = state => {
   return {
-    projects: state.home.projects
+    projects: state.home.projects,
+    centerize: state.home.centerize,
+    fullscreen: state.home.map.fullscreen
   };
 };
 
-export default connect(mapStateToProps)(RightPane);
+const mapDispatchToProps = dispatch => {
+  return {
+    toggleFullScreen: () => dispatch(toggleFullScreen)
+  };
+};
+export default connect(
+  mapStateToProps,
+  mapDispatchToProps
+)(RightPane);

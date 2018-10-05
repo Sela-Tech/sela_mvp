@@ -1,11 +1,12 @@
 let b = "";
 
-if (process.env.REACT_APP_NODE_ENV === "development") {
+if (process.env.NODE_ENV === "development") {
   b = "http://localhost:3000/";
 } else {
   b = "https://sela-labs.herokuapp.com/";
 }
 export default {
+  b,
   signin: b + "login",
   signup: b + "register",
   change_phone: b + "changePhone",

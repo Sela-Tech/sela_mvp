@@ -2,26 +2,44 @@ import React from "react";
 import colors from "./colors.json";
 
 import { Marker } from "./map-view.style";
-// let counter = 0;
+
+class MarkerClass extends React.Component {
+  render() {
+    const { project } = this.props;
+
+    console.log(this.props);
+    return (
+      <Marker {...this.props}>
+        <span id="arrow" />
+        {project.name}
+
+        {this.props.$hover && (
+          <div className="hovered">
+            <img src={project["project-avatar"]} alt="img" />
+            <div className="inner">
+              <h1>{project.name}</h1>
+              <p>{project.description}</p>
+            </div>
+          </div>
+        )}
+      </Marker>
+    );
+  }
+}
 
 export default projects => {
   return projects.map((project, index) => {
-    console.log(project);
-    // counter = counter + 1;
-    // if (counter >= colors.length) counter = 0;
     const width = project.name.length * 13;
 
     return (
-      <Marker
+      <MarkerClass
         key={index}
+        project={project}
         lat={project.location.lat}
         lng={project.location.lng}
         markerWidth={width}
         backgroundColor={colors[project.status]}
-      >
-        <span id="arrow" />
-        {project.name}
-      </Marker>
+      />
     );
   });
 };

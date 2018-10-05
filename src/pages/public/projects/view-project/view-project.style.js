@@ -97,4 +97,61 @@ export default styled.div`
       border-radius: 5px;
     }
   }
+
+  .variable {
+    padding: 2em 0;
+    h3 {
+      font-family: Cabin;
+      font-style: normal;
+      font-weight: 600;
+      line-height: normal;
+      font-size: 24px;
+      letter-spacing: 0.02em;
+      color: #156edc;
+    }
+
+    .card {
+      @media (min-width: 768px) {
+        width: 95%;
+      }
+
+      margin: 16px 0;
+      padding: 1em;
+      border: 1px solid rgba(135, 149, 161, 0.25);
+      box-sizing: border-box;
+      border-radius: 5px;
+
+      img {
+        height: 50px;
+        width: 50px;
+        border-radius: 50px;
+      }
+      h4,
+      p,
+      span,
+      a {
+        margin: 0;
+        margin-bottom: 0.35em;
+        font-family: ProximaNova;
+      }
+
+      h4 {
+        font-size: 17px;
+        color: #156edc;
+        font-weight: 300;
+      }
+
+      p {
+        font-size: 15px;
+        color: #3d4851;
+        font-weight: 300;
+      }
+
+      span {
+        font-size: 15px;
+        color: #8795a1;
+        font-weight: 100;
+      }
+    }
+  }
 `;

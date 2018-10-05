@@ -9,7 +9,8 @@ export default (state = initstate, payload) => {
     case dA.SHOW_MODAL_FORM:
       return {
         ...state,
-        modalToShow: payload.name
+        modalToShow: payload.name,
+        id: payload.id
       };
 
     case dA.SHOW_IMAGE_IN_MODAL_FORM:

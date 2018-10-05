@@ -6,11 +6,17 @@ import Navbar from "../../../../shared-components/navbar";
 
 import { Line } from "rc-progress";
 import Description from "./subs/description";
+import Stakeholders from "./subs/stakeholders";
+import Updates from "./subs/updates";
 
-const DetermineWhatToShow = ({ path }) => {
-  switch (path) {
+const DetermineWhatToShow = ({ show, id }) => {
+  switch (show) {
+    case "updates":
+      return <Updates />;
+    case "stakeholders":
+      return <Stakeholders />;
     default:
-      return <Description />;
+      return <Description id={id} />;
   }
 };
 
@@ -18,6 +24,7 @@ class ViewProject extends React.Component {
   state = {
     id: this.props.match.params.id
   };
+
   render() {
     const { id } = this.state;
     return (
@@ -77,7 +84,11 @@ class ViewProject extends React.Component {
             <div className="xs-10 xs-off-1">
               <div className="xs-12 sm-7">
                 <div className="xs-12 sm-6 md-3">
-                  <NavLink to={`/projects/${id}/description`}>
+                  <NavLink
+                    to={`/projects/${id}/description`}
+                    name="description"
+                    onClick={this.select}
+                  >
                     Project description
                   </NavLink>
                 </div>
@@ -108,8 +119,8 @@ class ViewProject extends React.Component {
             </div>
           </div>
 
-          <div className="xs-12">
-            <DetermineWhatToShow path={this.props.match.params.path} />
+          <div className="xs-12 variable">
+            <DetermineWhatToShow show={this.props.match.params.show} id={id} />
           </div>
         </ViewProjectStyle>
       </React.Fragment>

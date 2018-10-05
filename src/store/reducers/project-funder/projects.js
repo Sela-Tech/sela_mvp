@@ -109,6 +109,38 @@ export default (state = initstate, payload) => {
         }
       };
 
+    case dA.DELETE_PROJECT_IN_PROGRESS:
+      return {
+        ...state,
+        delete: {
+          action: {
+            type: dA.DELETE_PROJECT_IN_PROGRESS
+          }
+        }
+      };
+
+    case dA.DELETE_PROJECT_SUCCESSFUL:
+      return {
+        ...state,
+        delete: {
+          action: {
+            type: dA.DELETE_PROJECT_SUCCESSFUL,
+            message: payload.message || "Project Deleted Successfully"
+          }
+        }
+      };
+
+    case dA.DELETE_PROJECT_FAILED:
+      return {
+        ...state,
+        delete: {
+          action: {
+            type: dA.DELETE_PROJECT_FAILED,
+            message: payload.message || "Could Not Delete A Project."
+          }
+        }
+      };
+
     case dA.ADD_PROJECT_IN_PROGRESS:
       return {
         ...state,

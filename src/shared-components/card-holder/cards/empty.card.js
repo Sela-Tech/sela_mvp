@@ -3,9 +3,17 @@ import { Link } from "react-router-dom";
 import { EmptyCardStyling } from "./card.style";
 import Progressbar from "../../unique/progressbar";
 
-const EmptyCard = () => {
+import { connect } from "react-redux";
+
+const EmptyCard = ({ showMap }) => {
   return (
-    <EmptyCardStyling className="xs-12 sm-6 card-wrapper">
+    <EmptyCardStyling
+      className={
+        showMap === true
+          ? "xs-12 sm-6  card-wrapper"
+          : "xs-12 sm-6 md-4  card-wrapper"
+      }
+    >
       <Link to={`#`}>
         <div className="xs-12 sm-11 card">
           <img
@@ -26,4 +34,10 @@ const EmptyCard = () => {
   );
 };
 
-export default EmptyCard;
+const mapStateToProps = state => {
+  return {
+    showMap: state.home.map.show
+  };
+};
+
+export default connect(mapStateToProps)(EmptyCard);

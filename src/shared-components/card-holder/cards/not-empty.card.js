@@ -6,13 +6,17 @@ import { NotEmptyCardStyling2 } from "./card.style";
 import { Line } from "rc-progress";
 import { withRouter } from "react-router";
 
-const NotEmptyCard = ({ p, history }) => {
+import { connect } from "react-redux";
+
+const NotEmptyCard = ({ p, history, showMap }) => {
   return (
-    <NotEmptyCardStyling2 className="xs-12 sm-6">
+    <NotEmptyCardStyling2
+      className={showMap === true ? "xs-12 sm-6 " : "xs-12 sm-6 md-4"}
+    >
       <div className="container xs-12">
         <div className="box xs-12 md-11 sm-11">
           <img
-            src={p.picture}
+            src={p["project-avatar"]}
             alt={""}
             onClick={() => history.push(`/projects/${p._id}/description`)}
           />
@@ -38,21 +42,12 @@ const NotEmptyCard = ({ p, history }) => {
         </div>
       </div>
     </NotEmptyCardStyling2>
-
-    // <NotEmptyCardStyling className="xs-12 sm-6 card-wrapper">
-    //   <Link to={`/projects/${p._id}`}>
-    //     <div className="xs-12 sm-11 card">
-    //       <img src={p.picture} alt="" className="project-picture" />
-
-    //       <div className="inner">
-    //         <h4>{p.name}</h4>
-    //         <h5>{p.owner.organization.name}</h5>
-    //         <Progressbar percentage={p.percentage} displayText={true} />
-    //       </div>
-    //     </div>
-    //   </Link>
-    // </NotEmptyCardStyling>
   );
 };
 
-export default withRouter(NotEmptyCard);
+const mapStateToProps = state => {
+  return {
+    showMap: state.home.map.show
+  };
+};
+export default withRouter(connect(mapStateToProps)(NotEmptyCard));

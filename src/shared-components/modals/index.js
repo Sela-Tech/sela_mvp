@@ -95,6 +95,34 @@ class ModalWrapper extends React.Component {
             </ViewTaskMotherWrapper>
           );
 
+        case modals.add_project:
+          return (
+            <ModalWrapperStyler>
+              <div className="center-wrapper">
+                <div className="center">
+                  <div
+                    id="form-container"
+                    className={"xs-12 sm-6 sm-off-3 md-8 md-off-2"}
+                  >
+                    <div className="xs-11">
+                      <h1 id="form-heading">{name}</h1>
+                    </div>
+
+                    <div className={"xs-1"}>
+                      <SharedCloseButton
+                        id="close-button"
+                        onClick={() => dispatch(closeModal())}
+                      >
+                        x
+                      </SharedCloseButton>
+                    </div>
+                    <ModalSelector name={name} />
+                  </div>
+                </div>
+              </div>
+            </ModalWrapperStyler>
+          );
+
         default:
           return (
             <ModalWrapperStyler>

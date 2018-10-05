@@ -65,7 +65,13 @@ class ProjectTemplate extends React.Component {
           <div className="options xs-3">
             <ul>
               <li onClick={go}> View</li>
-              <li className="delete" onClick={triggerDeleteModal}>
+              <li
+                className="delete"
+                onClick={() => {
+                  triggerDeleteModal();
+                  this.toggle();
+                }}
+              >
                 Delete
               </li>
             </ul>
@@ -77,7 +83,10 @@ class ProjectTemplate extends React.Component {
 }
 const NotEmptyHomeView = ({ dispatch, projects, history }) => {
   const go = id => history.push("/dashboard/project/" + id);
-  const triggerDeleteModal = () => dispatch(showModal(modals.delete_project));
+
+  const triggerDeleteModal = id =>
+    dispatch(showModal(modals.delete_project, id));
+
   return (
     <NotEmptyWrapper className="xs-12">
       <div id="top">
@@ -99,12 +108,12 @@ const NotEmptyHomeView = ({ dispatch, projects, history }) => {
               key={i}
               c={p.tasks}
               t={p.name}
-              p={p.picture}
+              p={p["project-avatar"]}
               o={p.owner.organization.name}
               pr={p.percentage}
               id={p._id}
               go={() => go(p._id)}
-              triggerDeleteModal={triggerDeleteModal}
+              triggerDeleteModal={() => triggerDeleteModal(p._id)}
             />
           );
         })}

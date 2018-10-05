@@ -3,11 +3,14 @@ import LeftPaneStyle from "./left.pane.style";
 import { connect } from "react-redux";
 import {
   fetchProjects,
-  fetchLocations
+  fetchLocations,
+  showMap
 } from "../../../../store/action-creators/homepage";
 import CardHolder from "../../../../shared-components/card-holder";
 import { withRouter } from "react-router";
 import { getQueryString } from "../../../../helpers/utils";
+
+import map from "./map.png";
 
 const statuses = ["DORMANT", "ACCEPTED", "STARTED", "TERMINATED", "COMPLETED"];
 
@@ -17,12 +20,28 @@ class LeftPane extends React.Component {
     this.state = {
       projects: this.props.projects,
       locations: this.props.locations,
-      location: ""
+      location: "Unspecified",
+      status: "Unspecified",
+      isBigScreen: window.innerWidth > 767
     };
     this.timeout = 0;
     this.props.fetchLocations();
     this.props.fetchProjects(getQueryString(window.location.href));
   }
+
+  componentWillMount() {
+    window.addEventListener("resize", this.resizeListener);
+  }
+  componentWillUnmount() {
+    window.removeEventListener("resize", this.resizeListener);
+    document.getElementById("root").style.overflow = "auto";
+  }
+
+  resizeListener = e => {
+    this.setState({
+      isBigScreen: window.innerWidth > 767
+    });
+  };
 
   componentWillReceiveProps(nextProps) {
     if (this.props !== nextProps) {
@@ -57,14 +76,10 @@ class LeftPane extends React.Component {
       } else if (location) {
         if (
           location === status ||
-          (location === "Unspecified" && status === undefined)
+          (location === "Unspecified" && status === "Unspecified")
         ) {
           this.props.history.push("/");
-        } else if (
-          location === "Unspecified" &&
-          status !== undefined &&
-          status !== "Unspecified"
-        ) {
+        } else if (location === "Unspecified" && status !== "Unspecified") {
           this.props.history.push(`/?status=${status}`);
         } else {
           this.props.history.push(`/?location=${location}`);
@@ -90,56 +105,104 @@ class LeftPane extends React.Component {
     }, 300);
   };
 
+  handleScroll = e => {
+    e.persist();
+
+    if (e.target.scrollTop > e.target.clientHeight) {
+      document.getElementById("root").style.overflow = "auto";
+    }
+  };
+  freezeRoot = () => {
+    document.getElementById("root").style.overflow = "hidden";
+  };
+
+  unfreezeRoot = () => {
+    document.getElementById("root").style.overflow = "auto";
+  };
+
   render() {
-    const { locations, location } = this.state;
+    const { locations, location, status } = this.state;
 
     return (
-      <LeftPaneStyle className="xs-12 sm-6">
+      <LeftPaneStyle
+        id="leftpane"
+        className={this.props.className}
+        onMouseOver={this.freezeRoot}
+        onMouseLeave={this.unfreezeRoot}
+        onScroll={this.handleScroll}
+      >
         <div className="xs-10 xs-off-1">
           <h2 id="projects-h2">Projects</h2>
+          <div className={this.props.showMap ? "xs-12" : "xs-12 sm-8"}>
+            <div className="xs-12 sm-5 md-5">
+              <label>Select Location</label>
+              <select
+                className="boma-select xs-12 sm-11"
+                name="location"
+                onChange={this.handleSelect}
+                value={location}
+              >
+                <option value="Unspecified"> Unspecified</option>
+                {locations.map((l, i) => {
+                  return (
+                    <option value={l.name} key={i}>
+                      {l.name}
+                    </option>
+                  );
+                })}
+              </select>
+            </div>
+            <div className="xs-12 sm-5 md-5">
+              <label>Select Project Status</label>
 
-          <div className="xs-6">
-            <select
-              className="boma-select xs-12 sm-11"
-              name="location"
-              onChange={this.handleSelect}
-              value={location}
-            >
-              <option value="" default hidden>
-                Select Location
-              </option>
+              <select
+                className="boma-select xs-12 sm-11"
+                name="status"
+                onChange={this.handleSelect}
+                value={status}
+              >
+                <option value="Unspecified"> Unspecified</option>
 
-              <option value="Unspecified"> Unspecified</option>
-              {locations.map((l, i) => {
-                return (
-                  <option value={l.name} key={i}>
-                    {l.name}
-                  </option>
-                );
-              })}
-            </select>
+                {statuses.map((s, i) => {
+                  return (
+                    <option value={s} key={i}>
+                      {s}
+                    </option>
+                  );
+                })}
+              </select>
+            </div>
+
+            {this.props.showMap &&
+              this.state.isBigScreen && (
+                <div className="sm-2 t-c">
+                  <button
+                    id="show-map"
+                    name="show-map"
+                    onClick={this.props.toggleMap}
+                  >
+                    <img src={map} alt="" />
+                  </button>
+                </div>
+              )}
           </div>
-          <div className="xs-6">
-            <select
-              className="boma-select xs-12 sm-11"
-              name="status"
-              onChange={this.handleSelect}
-            >
-              <option value="" default hidden>
-                Select Project Status
-              </option>
-              <option value="Unspecified"> Unspecified</option>
 
-              {statuses.map((s, i) => {
-                return (
-                  <option value={s} key={i}>
-                    {s}
-                  </option>
-                );
-              })}
-            </select>
-          </div>
+          {!this.props.showMap &&
+            this.state.isBigScreen && (
+              <div className="xs-4">
+                <div className="xs-off-8 xs-4 t-c">
+                  <button
+                    id="show-map"
+                    name="show-map"
+                    onClick={this.props.toggleMap}
+                  >
+                    <img src={map} alt="" />
+                  </button>
+                </div>
+              </div>
+            )}
         </div>
+
         <CardHolder projects={this.state.projects} action={this.state.action} />
       </LeftPaneStyle>
     );
@@ -150,14 +213,16 @@ const mapStateToProps = state => {
   return {
     projects: state.home.projects,
     locations: state.home.locations,
-    action: state.home.action
+    action: state.home.action,
+    showMap: state.home.map.show
   };
 };
 
 const mapDispatchToProps = dispatch => {
   return {
     fetchProjects: query => dispatch(fetchProjects(query)),
-    fetchLocations: () => dispatch(fetchLocations())
+    fetchLocations: () => dispatch(fetchLocations()),
+    toggleMap: () => dispatch(showMap)
   };
 };
 

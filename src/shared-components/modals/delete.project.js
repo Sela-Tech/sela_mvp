@@ -1,6 +1,9 @@
 import React from "react";
 import { connect } from "react-redux";
-import { deleteProject } from "../../store/action-creators/project-funder/project";
+import {
+  deleteProject,
+  fetchProjects
+} from "../../store/action-creators/project-funder/project";
 import { closeModal } from "../../store/action-creators/project-funder/modal";
 import AsyncButton from "../unique/async-button";
 import dA from "../../store/actions/project-funder/dashboard";
@@ -9,10 +12,13 @@ import { Form } from "./styles.modals/delete";
 
 const mapStateToProps = state => {
   const { type, message } = state.projects.delete.action;
+  const { id } = state.dashboard;
+
   return {
     delete_project_in_progress: type === dA.DELETE_PROJECT_IN_PROGRESS,
     message,
-    type
+    type,
+    id
   };
 };
 
@@ -25,7 +31,7 @@ export default connect(mapStateToProps)(
 
     handleSubmit = e => {
       e.preventDefault();
-      this.props.dispatch(deleteProject(this.state.projectID));
+      this.props.dispatch(deleteProject(this.props.id));
     };
 
     close = () => {
@@ -34,6 +40,10 @@ export default connect(mapStateToProps)(
 
     componentWillReceiveProps(nextProps) {
       if (this.props !== nextProps) {
+        // pull fresh projects after adding
+        if (nextProps.type === dA.DELETE_PROJECT_SUCCESSFUL) {
+          nextProps.dispatch(fetchProjects());
+        }
         this.setState({
           type: nextProps.type,
           message: nextProps.message
@@ -43,6 +53,7 @@ export default connect(mapStateToProps)(
 
     render() {
       const { type, message } = this.state;
+
       return (
         <Form onSubmit={this.handleSubmit} className="xs-12">
           <p id="info">Are you sure you want to delete this project ?</p>
