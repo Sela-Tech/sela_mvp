@@ -17,13 +17,17 @@ export default styled.div`
     width: 50px;
     background: transparent;
     border-radius: 50px;
-    border: 1px solid #eee;
+    border: 1px solid rgba(135, 149, 161, 0.25);
     margin: 30px 0 0;
     text-align: center;
     padding: 0;
+
+    &:hover {
+      border-color: #0073e0;
+    }
     img {
-      height: 25px;
-      width: 25px;
+      height: 15px;
+      width: 15px;
       object-fit: contain;
       object-position: center;
     }

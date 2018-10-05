@@ -17,7 +17,7 @@ export default styled.div`
     text-transform: capitalize;
   }
 
-  padding: 0 0 2.5em;
+  padding: 1em 0 2.5em;
 
   .card {
     cursor: pointer;

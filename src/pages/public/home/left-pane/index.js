@@ -32,6 +32,7 @@ class LeftPane extends React.Component {
   componentWillMount() {
     window.addEventListener("resize", this.resizeListener);
   }
+
   componentWillUnmount() {
     window.removeEventListener("resize", this.resizeListener);
     document.getElementById("root").style.overflow = "auto";
@@ -113,7 +114,11 @@ class LeftPane extends React.Component {
     }
   };
   freezeRoot = () => {
-    document.getElementById("root").style.overflow = "hidden";
+    if (this.props.showMap === true) {
+      document.getElementById("root").style.overflow = "hidden";
+    } else {
+      document.getElementById("root").style.overflow = "auto";  
+    }
   };
 
   unfreezeRoot = () => {

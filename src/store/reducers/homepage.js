@@ -20,7 +20,7 @@ export default (state = init, payload) => {
         ...state,
         map: {
           ...state.map,
-          show: !state.show_map
+          show: !state.map.show
         }
       };
 

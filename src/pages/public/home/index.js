@@ -9,8 +9,6 @@ import { connect } from "react-redux";
 
 class HomePageContainer extends React.Component {
   render() {
-    console.log(this.props.showMap);
-
     return (
       <React.Fragment>
         <Helmet>
