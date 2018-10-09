@@ -2,18 +2,15 @@
 require("dotenv").config();
 const mongoose = require("mongoose"),
   Project = mongoose.model("Project"),
-  Location = mongoose.model("Location"),
-  FundingInfo = mongoose.model("FundingInformation");
+  Location = mongoose.model("Location");
 
 exports.new = async (req, res) => {
   var successRes = { success: true };
   var failRes = { success: false };
   var projectObj = req.body;
   projectObj.owner = req.userId;
-  var newLocation = new Location(req.body.location);
-  var newFundingInfo = await new FundingInfo().save();
 
-  projectObj.fundingInformation = newFundingInfo._id;
+  var newLocation = new Location(req.body.location);
 
   const saveProject = projectObj => {
     var newProject = new Project(projectObj);
@@ -76,8 +73,12 @@ exports.find = async (req, res) => {
     .skip(skip)
     .limit(limit)
     .exec(function(err, projects) {
+      if (!req.tokenExists)
+        projects = projects.filter(p => {
+          return p.activated === true;
+        });
+
       if (err) {
-        console.log(err);
         failRes.message = err.message;
         return res.status(400).json(failRes);
       }
@@ -99,46 +100,81 @@ exports.find = async (req, res) => {
 };
 
 exports.delete = async (req, res) => {
-  try {
-    let project = await Project.findOne({ _id: req.params.id });
+  // find the project
+  let findProjectResponse = await Project.findOne({ _id: req.params.id });
 
-    // find if multiple projects share a location
-    let locations = await Project.find({ location: project.location });
+  //  make sure the person trying to perform this action, is the owner of the project
+  if (req.userId == findProjectResponse.owner._id) {
+    // if the authorization to delete is provided i.e. true delete the project
+    // in the future, it may become send delete request to admin or something
+    if (req.headers.authorization === "true") {
+      try {
+        let project = await Project.findOne({ _id: req.params.id });
 
-    console.log(locations.length);
-    let proceed = true;
-    // if only one then delete
-    if (locations.length < 2) {
-      let location_delete = await Location.deleteOne({
-        _id: project.location._id
-      });
-      if (location_delete.result.n === 0) {
-        proceed = false;
-      }
-    }
+        // find if multiple projects share a location
+        let locations = await Project.find({ location: project.location });
 
-    if (proceed === true) {
-      // delete project
-      let response = await Project.deleteOne({ _id: req.params.id });
+        let proceed = true;
+        // if only one then delete
+        if (locations.length < 2) {
+          let location_delete = await Location.deleteOne({
+            _id: project.location._id
+          });
+          if (location_delete.result.n === 0) {
+            proceed = false;
+          }
+        }
 
-      if (response.result.n === 1) {
-        res.status(200).json({
-          success: true
-        });
-      } else {
+        if (proceed === true) {
+          // delete project
+          let response = await Project.deleteOne({ _id: req.params.id });
+
+          if (response.result.n === 1) {
+            res.status(200).json({
+              success: true
+            });
+          } else {
+            res.status(400).json({
+              success: false
+            });
+          }
+        } else {
+          res.status(400).json({
+            success: false
+          });
+        }
+      } catch (error) {
         res.status(400).json({
-          success: false
+          message: error.message
         });
       }
     } else {
-      res.status(400).json({
-        success: false
-      });
+      // just toggle the project's activation status so it's shown or not shown to the public
+      try {
+        let project = await Project.updateOne(
+          { _id: req.params.id },
+          { activated: !findProjectResponse.activated }
+        );
+        if (project.n === 1) {
+          res.status(200).json({
+            success: true
+          });
+        } else {
+          res.status(400).json({
+            success: false
+          });
+        }
+      } catch (error) {
+        res.status(400).json({
+          message: error.message,
+          success: false
+        });
+      }
     }
-  } catch (error) {
-    console.log(error);
+  } else {
     res.status(400).json({
-      message: error.message
+      success: false,
+      message: "You don't have the rights"
     });
   }
 };
@@ -146,7 +182,13 @@ exports.delete = async (req, res) => {
 exports.find_one = async (req, res) => {
   try {
     let project = await Project.findOne({ _id: req.params.id });
-    res.status(200).json(project);
+    if (project.activated) {
+      res.status(200).json(project);
+    } else {
+      res.status(400).json({
+        message: "This project has been de-activated"
+      });
+    }
   } catch (error) {
     res.status(400).json({
       message: error.message

@@ -3,6 +3,8 @@ require("dotenv").config();
 var jwt = require("jsonwebtoken");
 var mongoose = require("mongoose");
 var User = mongoose.model("User");
+var Organization = mongoose.model("Organization");
+
 var tokenValidityPeriod = 86400; // in seconds; 86400 seconds = 24 hours
 
 exports.register = async (req, res) => {
@@ -14,9 +16,10 @@ exports.register = async (req, res) => {
 
   let user;
 
+  console.log(query);
+
   try {
     user = await User.findOne(query);
-  } catch (error) {
     if (user) {
       if (user.phone == req.body.phone) {
         failRes.message =
@@ -32,6 +35,10 @@ exports.register = async (req, res) => {
       }
       return res.status(401).json(failRes);
     }
+  } catch (error) {
+    return res.status(401).json({
+      message: error.message
+    });
   }
 
   var userObj = req.body;
@@ -41,6 +48,7 @@ exports.register = async (req, res) => {
       let fetchOrg = await Organization.findOne({
         _id: req.body.organization.id
       });
+
       userObj.organization = fetchOrg.id;
     } catch (checkErr) {
       failRes.message = checkErr.name + ": " + checkErr.message;
@@ -126,6 +134,7 @@ exports.login = (req, res) => {
       }
       const { isFunder, isEvaluator, isContractor } = user,
         signThis = {
+          profilePhoto: user.profilePhoto,
           id: user._id,
           isFunder,
           isEvaluator,
@@ -255,4 +264,25 @@ exports.change_password = (req, res) => {
       });
     });
   });
+};
+
+exports.find = async (req, res) => {
+  let users = await User.find({});
+
+  users = users.filter(u => {
+    return u._id != req.userId;
+  });
+  users = users.map(u => {
+    let temp = {
+      firstName: u.firstName,
+      lastName: u.lastName,
+      isFunder: u.isFunder,
+      isContractor: u.isContractor,
+      isEvaluator: u.isEvaluator,
+      organization: u.organization,
+      _id: u._id
+    };
+    return temp;
+  });
+  return res.status(200).json(users);
 };

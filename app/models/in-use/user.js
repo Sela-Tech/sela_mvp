@@ -11,6 +11,9 @@ var userStructure = {
     ref: "Organization",
     autopopulate: { select: "name _id" }
   },
+  profilePhoto: {
+    type: String
+  },
   firstName: {
     type: String,
     required: true,
@@ -74,6 +77,10 @@ var userStructure = {
       },
       "Password is incorrect"
     ]
+  },
+  activated: {
+    type: Boolean,
+    default: false
   },
   createdOn: {
     type: Date,

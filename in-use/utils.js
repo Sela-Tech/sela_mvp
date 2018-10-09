@@ -4,7 +4,7 @@ var tokenHeaderField = "x-access-token";
 var jwt = require("jsonwebtoken");
 
 exports.verifyToken = (req, res, next) => {
-  const whitelisted = ["/projects"];
+  const whitelisted = ["/projects", "/projects/:id"];
 
   const token = req.headers[tokenHeaderField],
     public = req.headers[visibilityHeaderField];
@@ -19,6 +19,10 @@ exports.verifyToken = (req, res, next) => {
     );
 
     req.tokenExists = false;
+
+    if (whitelisted[1].split("/").length === req.path.split("/").length) {
+      isWhitelisted = true;
+    }
 
     if (isWhitelisted) {
       next();

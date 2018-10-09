@@ -3,48 +3,35 @@ var mongoose = require("mongoose");
 var Schema = mongoose.Schema;
 var ObjectId = Schema.Types.ObjectId;
 
-var taskStructure = {
-  name: {
+var transactionStructure = {
+  id: {
     type: String,
     required: true,
     max: 100
   },
-  description: {
-    type: String,
-    required: true,
-    max: 100
-  },
-  // TODO: Should the due date be required when creating a task?
   project: {
     type: ObjectId,
-    ref: "Project"
-  }, // reference to associated project
-  dueDate: {
-    type: Date,
+    ref: "Project",
     required: true
   },
-  endDate: {
-    type: Date,
-    default: null
+  sender: {
+    type: ObjectId,
+    ref: "User",
+    required: true
+  },
+  receiver: {
+    type: ObjectId,
+    ref: "User",
+    required: true
+  },
+  value: {
+    type: Number,
+    required: true
   },
   status: {
     type: String,
-    enum: ["UNASSIGNED", "ASSIGNED", "STARTED", "TERMINATED", "COMPLETED"],
-    default: "UNASSIGNED"
-  },
-  createdBy: {
-    type: ObjectId,
-    ref: "User"
-  },
-  assignedTo: {
-    type: ObjectId,
-    ref: "User",
-    default: null
-  },
-  completedBy: {
-    type: ObjectId,
-    ref: "User",
-    default: null
+    enum: ["PENDING", "CONFIRMED"],
+    default: "PENDING"
   },
   createdOn: {
     type: Date,
@@ -57,7 +44,7 @@ var taskStructure = {
 };
 
 var schemaOptions = {
-  collection: "tasks",
+  collection: "transactions",
   minimize: false,
   id: false,
   toJSON: {
@@ -79,7 +66,7 @@ var schemaOptions = {
 };
 
 if (process.env.NODE_ENV === "development") {
-  taskStructure.test = {
+  transactionStructure.test = {
     type: Boolean,
     default: true
   };
@@ -121,11 +108,11 @@ var schemaOptions = {
   strict: process.env.NODE_ENV !== "development"
 };
 
-var LocationSchema = new Schema(locationStructure, schemaOptions);
+var locationSchema = new Schema(locationStructure, schemaOptions);
 
-var TaskSchema = new Schema(taskStructure, schemaOptions);
+var TransactionSchema = new Schema(transactionStructure, schemaOptions);
 
-TaskSchema.pre("save", true, function(next, done) {
+TransactionSchema.pre("save", true, function(next, done) {
   next();
 
   this.updatedOn = new Date();
@@ -133,7 +120,7 @@ TaskSchema.pre("save", true, function(next, done) {
   done();
 });
 
-TaskSchema.pre("update", true, function(next, done) {
+TransactionSchema.pre("update", true, function(next, done) {
   next();
 
   this.update(
@@ -148,4 +135,12 @@ TaskSchema.pre("update", true, function(next, done) {
   done();
 });
 
-module.exports = mongoose.model("Task", TaskSchema);
+//Export model
+/*module.exports = function(connection) {
+
+    if (!connection) {
+        connection = mongoose;
+    }
+    connection.model('Transaction', TransactionSchema);
+};*/
+module.exports = mongoose.model("Transaction", TransactionSchema);

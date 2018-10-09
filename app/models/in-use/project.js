@@ -6,21 +6,6 @@ var autoPopulate = require("mongoose-autopopulate");
 var Schema = mongoose.Schema;
 var ObjectId = Schema.Types.ObjectId;
 
-// var locationStructure = {
-//   name: {
-//     type: String,
-//     required: true
-//   },
-//   lat: {
-//     type: Number
-//     // required: true
-//   },
-//   long: {
-//     type: Number
-//     // required: true
-//   }
-// };
-
 var schemaOptions = {
   minimize: false,
   id: false,
@@ -42,13 +27,15 @@ var schemaOptions = {
   strict: process.env.NODE_ENV !== "development"
 };
 
-// var LocationSchema = new Schema(locationStructure, schemaOptions);
-
 var projectStructure = {
   name: {
     type: String,
     required: true,
     max: 100
+  },
+  activated: {
+    type: Boolean,
+    default: true
   },
   description: {
     type: String,
@@ -71,19 +58,40 @@ var projectStructure = {
     ref: "Location",
     autopopulate: { select: "name lat lng _id" }
   },
-  fundingInformation: {
-    type: ObjectId,
-    ref: "FundingInformation",
-    autopopulate: true
+  goal: {
+    type: Number,
+    default: 0
   },
-  createdBy: {
-    type: ObjectId,
-    ref: "User"
+  raised: {
+    type: Number,
+    default: 0
   },
+  tasks: [{ type: ObjectId, ref: "Task", autopopulate: true }],
+  transactions: [{ type: ObjectId, ref: "Transaction", autopopulate: true }],
+  stakeholders: [
+    {
+      user: {
+        information: {
+          type: ObjectId,
+          ref: "User",
+          autopopulate: {
+            select:
+              "isFunder isContractor isEvaluator firstName email _id organization profilePhoto "
+          }
+        },
+        agreed: {
+          type: Boolean,
+          default: true
+        }
+      }
+    }
+  ],
   owner: {
     type: ObjectId,
     ref: "User",
-    autopopulate: { select: "organization firstName lastName _id" }
+    autopopulate: {
+      select: "organization firstName lastName _id activated profilePhoto "
+    }
   },
   status: {
     type: String,
