@@ -100,14 +100,35 @@ class ModalWrapper extends React.Component {
             <ModalWrapperStyler>
               <div className="center-wrapper">
                 <div className="center">
-                  <div
-                    id="form-container"
-                    className={"xs-12 sm-6 sm-off-3 md-8 md-off-2"}
-                  >
+                  <div id="form-container" className={"xs-12 sm-8 sm-off-2"}>
                     <div className="xs-11">
                       <h1 id="form-heading">{name}</h1>
                     </div>
 
+                    <div className={"xs-1"}>
+                      <SharedCloseButton
+                        id="close-button"
+                        onClick={() => dispatch(closeModal())}
+                      >
+                        x
+                      </SharedCloseButton>
+                    </div>
+                    <ModalSelector name={name} />
+                  </div>
+                </div>
+              </div>
+            </ModalWrapperStyler>
+          );
+
+        case modals.delete_project:
+          return (
+            <ModalWrapperStyler>
+              <div className="center-wrapper">
+                <div className="center">
+                  <div
+                    id="form-container"
+                    className={"xs-12 sm-6 sm-off-3 md-4 md-off-4"}
+                  >
                     <div className={"xs-1"}>
                       <SharedCloseButton
                         id="close-button"

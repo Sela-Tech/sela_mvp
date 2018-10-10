@@ -1,14 +1,14 @@
 import ax from "axios";
 import dA from "../../actions/project-funder/dashboard";
 import e from "../../../endpoints";
-// import Qs from "querystring";
 import { retrieveToken } from "../../../helpers/TokenManager";
+import { extractMessage } from "../../../helpers/utils";
 
 export const fetchFunders = () => {
   return dispatch => {
     dispatch({ type: dA.FETCHING_FUNDERS_IN_PROGRESS });
     ax({
-      url: e.fetch_projects,
+      url: e.fetch_users,
       method: "GET",
       headers: {
         "x-access-token": retrieveToken()
@@ -17,7 +17,7 @@ export const fetchFunders = () => {
       .then(({ data }) => {
         dispatch({
           type: dA.FETCHING_FUNDERS_SUCCESSFUL,
-          projects: data
+          funders: data
         });
       })
       .catch(({ response }) => {
@@ -124,7 +124,7 @@ export const fetchProject = id => {
   };
 };
 
-export const deleteProject = id => {
+export const deleteProject = (id, type) => {
   return dispatch => {
     dispatch({ type: dA.DELETE_PROJECT_IN_PROGRESS });
 
@@ -132,7 +132,8 @@ export const deleteProject = id => {
       url: e.fetch_project + id,
       method: "DELETE",
       headers: {
-        "x-access-token": retrieveToken()
+        "x-access-token": retrieveToken(),
+        authorization: type === "delete"
       }
     })
       .then(({ data }) => {
@@ -141,14 +142,11 @@ export const deleteProject = id => {
           info: data
         });
       })
-      .catch(({ response }) => {
-        let message;
-        if (response) {
-          message = response.message || response.data.message;
-        } else {
-          message = "connection error";
-        }
-        dispatch({ type: dA.DELTE_PROJECT_FAILED, message });
+      .catch(res => {
+        dispatch({
+          type: dA.DELETE_PROJECT_FAILED,
+          message: extractMessage(res)
+        });
       });
   };
 };

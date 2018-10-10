@@ -80,9 +80,9 @@ export default styled.div`
 
         li {
           display: block;
-          padding: 0.75em;
+          padding: 0.75em 0;
           color: #828282;
-          font-size: 15px;
+          font-size: 13px;
           font-weight: 300;
           cursor: pointer;
           &:hover {
@@ -90,6 +90,14 @@ export default styled.div`
           }
           &.delete {
             color: #eb5757;
+          }
+
+          &.de {
+            color: #673ab7;
+          }
+
+          &.re {
+            color: skyblue;
           }
         }
       }

@@ -6,21 +6,15 @@ import {
 } from "../../../store/action-creators/project-funder/project";
 import Select from "react-select";
 
-// const options = [
-//   { value: "chocolate", label: "Chocolate" },
-//   { value: "strawberry", label: "Strawberry" },
-//   { value: "vanilla", label: "Vanilla" }
-// ];
-
 const mapStateToProps = state => {
   return {
-    funders: state.projects.funders.list
+    funders: state.projects.funders.options
   };
 };
 
 const mapDispatchToProps = dispatch => {
   return {
-    fetchFunders: () => dispatch(fetchFunders),
+    fetchFunders: () => dispatch(fetchFunders()),
     selectFunders: selected => dispatch(selectFunders(selected))
   };
 };
@@ -33,6 +27,7 @@ export default connect(
     constructor(props) {
       super(props);
       this.state = {};
+      this.props.fetchFunders();
     }
 
     handleChange = selectedOption => {
@@ -41,7 +36,6 @@ export default connect(
         return o.value;
       });
       this.props.selectFunders(onlyValues);
-      console.log(`Option selected:`, onlyValues);
     };
 
     componentWillReceiveProps(nextProps) {
@@ -54,7 +48,6 @@ export default connect(
 
     render() {
       const { selectedOption, funders } = this.state;
-
       return (
         <div
           className="form-control"

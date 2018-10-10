@@ -1,8 +1,18 @@
 import dA from "../../actions/project-funder/dashboard";
+import modals from "../../actions/project-funder/modals";
 export const showModal = (name, id) => {
   return {
     type: dA.SHOW_MODAL_FORM,
     name,
+    id
+  };
+};
+
+export const showDeleteModal = (id, activated) => {
+  return {
+    type: dA.SHOW_DELETE_MODAL_FORM,
+    name: modals.delete_project,
+    activated,
     id
   };
 };

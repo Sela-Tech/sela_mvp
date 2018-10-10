@@ -3,8 +3,6 @@ import auth from "./pages/authentication";
 import errors from "./pages/errors";
 import loadable from "loadable-components";
 import Blank from "./shared-components/dashboards/blank/";
-// import view_all_projects from "./pages/public/projects/view-all-projects";
-// import view_project from "./pages/public/projects/view-project";
 
 export default {
   home,
@@ -14,8 +12,8 @@ export default {
       LoadingComponent: Blank
     }
   ),
-  funder_dashboard_project: loadable(
-    () => import("./pages/dashboards/project-funder/project"),
+  funder_dashboard_view_project: loadable(
+    () => import("./pages/dashboards/project-funder/view_project"),
     {
       LoadingComponent: Blank
     }
@@ -28,8 +26,7 @@ export default {
   ),
   auth,
   errors,
-  view_all_projects: loadable(() =>
-    import("./pages/public/projects/view-all-projects")
-  ),
-  view_project: loadable(() => import("./pages/public/projects/view-project"))
+  public_view_project: loadable(() =>
+    import("./pages/public/projects/view-project")
+  )
 };

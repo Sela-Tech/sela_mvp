@@ -12,13 +12,14 @@ import { Form } from "./styles.modals/delete";
 
 const mapStateToProps = state => {
   const { type, message } = state.projects.delete.action;
-  const { id } = state.dashboard;
+  const { id, activated } = state.dashboard;
 
   return {
     delete_project_in_progress: type === dA.DELETE_PROJECT_IN_PROGRESS,
     message,
     type,
-    id
+    id,
+    activated
   };
 };
 
@@ -31,7 +32,8 @@ export default connect(mapStateToProps)(
 
     handleSubmit = e => {
       e.preventDefault();
-      this.props.dispatch(deleteProject(this.props.id));
+      let type = this.props.activated === undefined ? "delete" : "toggle";
+      this.props.dispatch(deleteProject(this.props.id, type));
     };
 
     close = () => {
@@ -46,40 +48,56 @@ export default connect(mapStateToProps)(
         }
         this.setState({
           type: nextProps.type,
-          message: nextProps.message
+          message: nextProps.message,
+          activated: nextProps.activated
         });
       }
     }
 
     render() {
       const { type, message } = this.state;
+      const { activated } = this.props;
 
       return (
         <Form onSubmit={this.handleSubmit} className="xs-12">
-          <p id="info">Are you sure you want to delete this project ?</p>
+          {type !== dA.DELETE_PROJECT_SUCCESSFUL && (
+            <React.Fragment>
+              <p id="info">
+                {activated !== undefined
+                  ? `Are you sure you want to 
+                  ${
+                    activated === true ? "De-Activate" : "Activate"
+                  } this project`
+                  : "Are you sure you want to Delete this project ?"}
+              </p>
 
-          <div className="form-control xs-12">
-            <div className="xs-6">
-              <AsyncButton
-                attempt={this.props.delete_project_in_progress}
-                type="submit"
-                id="create-project-btn"
-              >
-                Delete Project
-              </AsyncButton>
-            </div>
+              <div className="form-control xs-12">
+                <div className="xs-6">
+                  <AsyncButton
+                    attempt={this.props.delete_project_in_progress}
+                    type="submit"
+                    id="create-project-btn"
+                  >
+                    {activated !== undefined
+                      ? activated === true
+                        ? "De-Activate"
+                        : "Activate"
+                      : "Delete Project "}
+                  </AsyncButton>
+                </div>
 
-            <div className="xs-6">
-              <button onClick={this.close} id="delete-btn">
-                No
-              </button>
-            </div>
-          </div>
-
+                <div className="xs-6">
+                  <button onClick={this.close} id="delete-btn">
+                    No
+                  </button>
+                </div>
+              </div>
+            </React.Fragment>
+          )}
           <MessageToShow
             type={type}
             message={message}
-            match={dA.ADD_TASK_SUCCESSFUL}
+            match={dA.DELETE_PROJECT_SUCCESSFUL}
           />
         </Form>
       );

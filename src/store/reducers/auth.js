@@ -207,6 +207,9 @@ export default (state = initstate, payload) => {
         }
       };
 
+    case authActions.CLEAR:
+      return initstate;
+
     case authActions.SIGNOUT:
       clearToken();
       return {

@@ -6,7 +6,7 @@ const WebSidebar = styled.div`
 padding: 3em 1em 0;
 position: relative;
 height: 100%;
-background: #07121f;
+background: #242A32;
 
   #top {
     text-align: center;

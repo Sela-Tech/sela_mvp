@@ -52,12 +52,12 @@ export const Marker = styled.div`
   color: white;
   min-height: 40px;
   min-width: ${props => props.markerWidth}px;
-  top: -20px;
-  left: -30px;
+  top: -40px;
+  left: -${props => props.markerWidth / 2.1}px;
   text-align: center;
   line-height: 40px;
-  font-family: Nunito;
-  font-weight: bold;
+  font-family: ProximaNova;
+  font-weight: 300;
   font-size: 17px;
 
   color: #ffffff;

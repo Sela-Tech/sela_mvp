@@ -24,6 +24,9 @@ import MessageToShow from "../../../shared-components/errors/messageToShow";
 import { Creatable as Select } from "react-select";
 import { fetchOrganizations } from "../../../store/action-creators/organizations";
 
+import ReactS3Uploader from "react-s3-uploader";
+import endpoints from "../../../endpoints";
+
 const Button = ({ active, title, description, name, Ftn }) => {
   let onClick = () => Ftn(name);
 
@@ -59,20 +62,27 @@ class Signup extends React.Component {
           value: "",
           valid: false
         },
+        profilePhoto: { preview: "", file: "" },
         organization: { name: "", id: "", valid: false },
         email: { value: "", valid: false },
         password: { value: "", valid: false },
         phone: { value: "", valid: false }
       }
     };
-
+    this.props.clear();
     this.props.fetchOrganizations();
   }
 
   onSubmit = e => {
     e.preventDefault();
+
+    this.setState({
+      inprogress: true
+    });
+
     let { formData } = this.state,
       objToSubmit = {};
+
     Object.keys(formData).map(key => {
       return (objToSubmit = { ...objToSubmit, [key]: formData[key].value });
     });
@@ -84,7 +94,12 @@ class Signup extends React.Component {
         id: formData.organization.id
       }
     };
-    this.props.signup(objToSubmit);
+
+    if (this.state.formData.profilePhoto.file) {
+      this.next(this.state.formData.profilePhoto.file);
+    } else {
+      this.props.signup(objToSubmit);
+    }
   };
 
   onSelect = name => {
@@ -102,7 +117,15 @@ class Signup extends React.Component {
   };
 
   handleOrgSelect = selectedOption => {
-    const { value, id } = selectedOption;
+    let value, id;
+
+    if (selectedOption === null) {
+      selectedOption = undefined;
+    } else {
+      value = selectedOption.value;
+      id = selectedOption.id;
+    }
+
     this.setState(p => {
       return {
         selectedOption,
@@ -148,6 +171,48 @@ class Signup extends React.Component {
       });
     }
   }
+
+  handleImageChange = (file, next) => {
+    this.setState({
+      formData: {
+        ...this.state.formData,
+        profilePhoto: {
+          preview: URL.createObjectURL(file),
+          file
+        }
+      }
+    });
+    this.next = next;
+  };
+
+  onUploadFinish = upload => {
+    let { formData } = this.state,
+      objToSubmit = {};
+
+    Object.keys(formData).map(key => {
+      objToSubmit = { ...objToSubmit, [key]: formData[key].value };
+      return null;
+    });
+
+    objToSubmit = {
+      ...objToSubmit,
+      profilePhoto:
+        "https://s3.us-east-2.amazonaws.com/selamvp/" + upload.filename,
+      organization: {
+        name: formData.organization.name,
+        id: formData.organization.id
+      }
+    };
+
+    this.props.signup(objToSubmit);
+  };
+
+  onUploadProgress = count => {
+    this.setState({
+      uploading: count
+    });
+  };
+
   render() {
     let {
       inprogress,
@@ -157,6 +222,7 @@ class Signup extends React.Component {
       organizations
     } = this.state;
 
+    console.log(selectedOption);
     const { formData } = this.state,
       checkFormCompletion =
         Object.keys(formData).filter(key => {
@@ -355,28 +421,68 @@ class Signup extends React.Component {
                   </div>
 
                   <div className="form-group xs-12 md-6">
-                    <input
-                      name="firstName"
-                      type="text"
-                      className="form-control"
-                      id="firstname"
-                      placeholder="First Name"
-                      value={this.state.formData.firstName.value}
-                      onChange={this.onChange}
-                      required
-                    />
+                    <label htmlFor="photo" className="profile-photo">
+                      {formData.profilePhoto.preview && (
+                        <img
+                          src={formData.profilePhoto.preview}
+                          alt="profilePhoto"
+                          id="profilePhoto"
+                        />
+                      )}
+                      <div className="c-w">
+                        <div className="c t-c">
+                          <span>+</span>
+                        </div>
+                      </div>
+
+                      <ReactS3Uploader
+                        id="photo"
+                        name="profile-photo"
+                        server={endpoints.b}
+                        signingUrl="s3/sign"
+                        signingUrlMethod="GET"
+                        accept="image/*"
+                        s3path="user-avatars/"
+                        preprocess={this.handleImageChange}
+                        onSignedUrl={this.onSignedUrl}
+                        onProgress={this.onUploadProgress}
+                        onError={this.onUploadError}
+                        onFinish={this.onUploadFinish}
+                        uploadRequestHeaders={{ "x-amz-acl": "public-read" }} // this is the default
+                        contentDisposition="auto"
+                        scrubFilename={filename =>
+                          filename.replace(/[^\w\d_\-.]+/gi, "")
+                        }
+                        autoUpload={true}
+                      />
+                    </label>
                   </div>
 
                   <div className="form-group xs-12 md-6">
-                    <input
-                      name="lastName"
-                      type="text"
-                      className="form-control"
-                      placeholder="Last Name / Surname"
-                      value={this.state.formData.lastName.value}
-                      onChange={this.onChange}
-                      required
-                    />
+                    <div className="form-group xs-12">
+                      <input
+                        name="firstName"
+                        type="text"
+                        className="form-control"
+                        id="firstname"
+                        placeholder="First Name"
+                        value={this.state.formData.firstName.value}
+                        onChange={this.onChange}
+                        required
+                      />
+                    </div>
+
+                    <div className="form-group xs-12">
+                      <input
+                        name="lastName"
+                        type="text"
+                        className="form-control"
+                        placeholder="Last Name / Surname"
+                        value={this.state.formData.lastName.value}
+                        onChange={this.onChange}
+                        required
+                      />
+                    </div>
                   </div>
 
                   <div className="form-group xs-12">
@@ -480,7 +586,8 @@ const mapStateToProps = state => {
 const mapDispatchToProps = dispatch => {
   return {
     signup: bindActionCreators(signup, dispatch),
-    fetchOrganizations: () => dispatch(fetchOrganizations())
+    fetchOrganizations: () => dispatch(fetchOrganizations()),
+    clear: () => dispatch({ type: auth.CLEAR })
   };
 };
 export default connect(

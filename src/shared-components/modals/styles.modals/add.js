@@ -6,7 +6,7 @@ export const Form = styled.form`
   }
 
   #label-image {
-    height: 250px;
+    height: 240px;
     width: 100%;
     background: silver;
     cursor: pointer;
@@ -37,6 +37,7 @@ export const Form = styled.form`
 
   padding: 1.5em 0;
   input[type="text"],
+  input[type="number"],
   textarea,
   select {
     background: #ffffff;

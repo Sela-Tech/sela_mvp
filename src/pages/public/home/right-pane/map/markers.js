@@ -6,8 +6,6 @@ import { Marker } from "./map-view.style";
 class MarkerClass extends React.Component {
   render() {
     const { project } = this.props;
-
-    console.log(this.props);
     return (
       <Marker {...this.props}>
         <span id="arrow" />
@@ -29,7 +27,7 @@ class MarkerClass extends React.Component {
 
 export default projects => {
   return projects.map((project, index) => {
-    const width = project.name.length * 13;
+    const width = project.name.length * 12;
 
     return (
       <MarkerClass

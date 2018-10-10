@@ -13,6 +13,14 @@ export default (state = initstate, payload) => {
         id: payload.id
       };
 
+    case dA.SHOW_DELETE_MODAL_FORM:
+      return {
+        ...state,
+        modalToShow: payload.name,
+        id: payload.id,
+        activated: payload.activated
+      };
+
     case dA.SHOW_IMAGE_IN_MODAL_FORM:
       return {
         ...state,

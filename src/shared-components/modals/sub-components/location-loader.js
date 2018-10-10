@@ -23,7 +23,7 @@ let GeoWrapper = styled.div`
    list-style-type: none;
    background: white;
    padding: 0;
-   margin: 0;
+   margin: 5px 0 0 0;
    border-left: 1px solid #eee;
    border-bottom: 1px solid #eee;
    border-bottom-left-radius: 6px;
@@ -33,8 +33,10 @@ let GeoWrapper = styled.div`
      cursor: pointer;
 
      &:hover {
+       span, span *{
        color: white;
-       background: #2d9cdb;
+       }
+       background: #006fdf;
      }
      & + li {
        border-top: 1px solid #eee;

@@ -1,13 +1,13 @@
 import React from "react";
 import { connect } from "react-redux";
 import { bindActionCreators } from "redux";
-import DashboardWrapper from "../../../shared-components/dashboards/project-funder/wrapper";
-import dashboard from "../../../store/actions/project-funder/dashboard";
-import { LoadingRoute } from "../../../helpers/routes";
-import Spinner from "../../../shared-components/spinners";
-import ProjectComponent from "../../../shared-components/dashboards/project-funder/project";
-import * as actions from "../../../store/action-creators/project-funder/project";
-import NoProject from "../../../shared-components/errors/noProject";
+import DashboardWrapper from "../../../../shared-components/dashboards/project-funder/wrapper";
+import dashboard from "../../../../store/actions/project-funder/dashboard";
+import { LoadingRoute } from "../../../../helpers/routes";
+import Spinner from "../../../../shared-components/spinners";
+import ProjectComponent from "./main.js";
+import * as actions from "../../../../store/action-creators/project-funder/project";
+import NoProject from "../../../../shared-components/errors/noProject";
 
 class Project extends React.Component {
   constructor(props) {
@@ -18,7 +18,6 @@ class Project extends React.Component {
 
   render() {
     const { project_info, project_action_type } = this.props;
-
     switch (project_action_type) {
       case dashboard.FETCHING_PROJECT_IN_PROGRESS:
         return (
@@ -61,7 +60,7 @@ class Project extends React.Component {
     }
   }
 }
-const mapStateToProps = (state, props) => {
+const mapStateToProps = state => {
   return {
     project_action_type: state.projects.single.action.type,
     project_info: state.projects.single.info

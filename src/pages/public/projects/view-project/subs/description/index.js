@@ -11,6 +11,27 @@ const DescriptionWrapper = styled.div`
     font-weight: 100;
   }
 
+  #loading {
+    span {
+      display: block;
+      height: 15px;
+      margin: 10px 0;
+      background: #ddd;
+      &:nth-child(1) {
+        width: 80%;
+      }
+      &:nth-child(2) {
+        width: 70%;
+      }
+      &:nth-child(3) {
+        width: 60%;
+      }
+      &:nth-child(4) {
+        width: 50%;
+      }
+    }
+  }
+
   #initiated-section {
     h4 {
       font-family: Cabin;
@@ -32,6 +53,8 @@ const DescriptionWrapper = styled.div`
         height: 60px;
         width: 60px;
         border-radius: 60px;
+        display: block;
+        background: silver;
       }
       h4,
       p,
@@ -74,7 +97,7 @@ const DescriptionWrapper = styled.div`
     }
   }
 `;
-export default ({ id }) => {
+export default ({ id, project }) => {
   return (
     <DescriptionWrapper className="xs-12">
       <div className="xs-10 xs-off-1">
@@ -82,21 +105,18 @@ export default ({ id }) => {
           <h3> Project Description </h3>
 
           <div className="xs-10 sm-10">
-            <p>
-              This is where the project description goes. This is where the
-              project description goes. This is where the project description
-              goes. This is where the project description goes. This is where
-              the project description goes.
-            </p>
-            <p>
-              This is where the project description goes. This is where the
-              project description goes. This is where the project description
-              goes. This is where the project description goes. This is where
-              the project description goes. This is where the project
-              description goes. This is where the project description goes. This
-              is where the project description goes. This is where the project
-              description goes.
-            </p>
+            {project.description ? (
+              <p>{project.description}</p>
+            ) : (
+              <React.Fragment>
+                <p id="loading">
+                  <span />
+                  <span />
+                  <span />
+                  <span />
+                </p>
+              </React.Fragment>
+            )}
           </div>
         </div>
 
@@ -104,18 +124,19 @@ export default ({ id }) => {
           <h4>INITIATED BY</h4>
           <div className="card xs-12">
             <div className="xs-3">
-              <img src={"http://placehold.it/200"} alt="pic" />
+              <img src={project.owner.profilePhoto} alt="" />
             </div>
             <div className="xs-9">
-              <h4>Hawa Mohammed</h4>
-              <p>Reputation Score: 80%</p>
-              <span>Director, Sustainability Int'l</span>
+              <h4>
+                {project.owner.lastName} {project.owner.firstName}
+              </h4>
+              <p>Reputation Score: {project.owner.reputationScore}</p>
+              <span>{project.owner.organization.name}</span>
             </div>
           </div>
           <div className="xs-12">
             <Link to={`/projects/${id}/stakeholders`} id="see-all">
               Sell All Stakeholders
-              {"  "}
               <img src={arrow} alt="arrow" />
             </Link>
           </div>

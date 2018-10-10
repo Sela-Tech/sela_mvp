@@ -20,6 +20,7 @@ export default {
   add_project: b + "project",
   add_task: b + "task",
   get_tasks: b + "tasks",
+  fetch_users: b + "users",
   fetch_locations: b + "locations",
   fetch_tasks: b + "projects" //:id/tasks
 };

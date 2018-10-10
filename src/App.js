@@ -23,26 +23,26 @@ const FilterDashboard = (type, isAuthenticated = false) => {
     case "project-funder":
       return [
         <PrivateRoute
-          key={1}
           exact
           path="/dashboard"
           isAuthenticated={isAuthenticated}
           component={r.funder_dashboard_home}
+          key={1}
         />,
         <PrivateRoute
-          key={1}
           exact
           path="/settings"
           isAuthenticated={isAuthenticated}
           component={r.funder_dashboard_settings}
+          key={2}
         />,
 
         <PrivateRoute
-          key={2}
           exact
-          path="/dashboard/project/:id"
+          path="/dashboard/project/:id/:view"
           isAuthenticated={isAuthenticated}
-          component={r.funder_dashboard_project}
+          component={r.funder_dashboard_view_project}
+          key={3}
         />
       ];
 
@@ -61,7 +61,7 @@ const FilterDashboard = (type, isAuthenticated = false) => {
           exact
           path="/dashboard/project/:id"
           isAuthenticated={isAuthenticated}
-          component={r.funder_dashboard_project}
+          component={r.funder_dashboard_view_project}
         />
       ];
   }
@@ -75,13 +75,11 @@ const App = ({ isAuthenticated, actionType, dashboardType }) => {
           <Route exact path="/" component={r.home} />
 
           <Route exact path="/team" component={r.home} />
-          <Route exact path="/projects/:id" component={r.view_project} />
-          <Route exact path="/projects/:id/:show" component={r.view_project} />
-
+          <Route exact path="/projects/:id" component={r.public_view_project} />
           <Route
             exact
-            path="/projects/all/:type"
-            component={r.view_all_projects}
+            path="/projects/:id/:show"
+            component={r.public_view_project}
           />
 
           <Route exact path="/blog" component={r.home} />
@@ -93,13 +91,11 @@ const App = ({ isAuthenticated, actionType, dashboardType }) => {
         <Switch>
           <Route exact path="/" component={r.home} />
           <Route exact path="/team" component={r.home} />
-          <Route exact path="/projects/:id" component={r.view_project} />
-          <Route exact path="/projects/:id/:show" component={r.view_project} />
-
+          <Route exact path="/projects/:id" component={r.public_view_project} />
           <Route
             exact
-            path="/projects/all/:type"
-            component={r.view_all_projects}
+            path="/projects/:id/:show"
+            component={r.public_view_project}
           />
 
           <Route exact path="/blog" component={r.home} />
@@ -129,7 +125,6 @@ const App = ({ isAuthenticated, actionType, dashboardType }) => {
           />
 
           {FilterDashboard(dashboardType, isAuthenticated)}
-
           <Route component={r.errors} />
         </Switch>
       )}

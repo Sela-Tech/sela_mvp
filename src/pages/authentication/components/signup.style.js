@@ -1,6 +1,47 @@
 import styled from "styled-components";
 
 export default styled.div`
+  .profile-photo {
+    height: 200px;
+    width: 200px;
+    background: #e0e0e0;
+    border-radius: 200px;
+    cursor: pointer;
+    display: block;
+    margin: auto;
+    position: relative;
+
+    @media (max-width: 767px) {
+      margin: 1.5em auto 0;
+    }
+    span {
+      display: block;
+      color: #bbbaba;
+      font-size: 2.3em;
+      font-weight: 600;
+    }
+    input {
+      height: 0;
+      width: 0;
+      overflow: hidden;
+      border: 0;
+      padding: 0;
+    }
+  }
+
+  form {
+    #profilePhoto {
+      height: 100%;
+      display: block;
+      border-radius: 100%;
+      width: 100%;
+      background: transparent;
+      position: absolute;
+      top: 0;
+      object-fit: cover;
+      object-position: center;
+    }
+  }
   #signup-info-text {
     > * {
       font-size: 1em;
@@ -21,15 +62,15 @@ export default styled.div`
       padding: 0.5em 0;
       background: #eff5fb;
 
-      @media(max-width:1023px){
+      @media (max-width: 1023px) {
         height: 2em;
         width: 100%;
-     
-        .checkbox-part{
+
+        .checkbox-part {
           height: 100%;
           display: table;
 
-          label{
+          label {
             height: 100%;
             display: table-cell;
             vertical-align: middle;
@@ -37,7 +78,7 @@ export default styled.div`
         }
       }
 
-      @media(min-width: 1024px){
+      @media (min-width: 1024px) {
         height: auto;
         width: auto;
       }
@@ -200,8 +241,8 @@ export default styled.div`
     font-size: 1em !important;
   }
 
-  #phone-wrapper{
-    background: #EFF5FB;
+  #phone-wrapper {
+    background: #eff5fb;
     padding: 1em;
     border-radius: 50%;
     height: 10em;
@@ -210,11 +251,11 @@ export default styled.div`
     text-align: center;
     margin: auto;
 
-    #phone{
+    #phone {
       display: table-cell;
       vertical-align: middle;
 
-      img{
+      img {
         margin-bottom: 0;
         height: 5em;
         width: 5em;
@@ -222,83 +263,76 @@ export default styled.div`
     }
   }
 
-  #success-icon{
+  #success-icon {
     position: relative;
-    top: .25em;
-    margin-right: .25em;
+    top: 0.25em;
+    margin-right: 0.25em;
   }
-  
 
-  #video-wrapper{
-    video{
+  #video-wrapper {
+    video {
       margin-top: 2em;
       object-fit: cover;
     }
   }
 
-
-  #list{
+  #list {
     padding: 0;
-    li{
-      
+    li {
       list-style-type: none;
       overflow: auto;
       margin: 2em 0;
 
-      .xs-10{
-        p{
+      .xs-10 {
+        p {
           text-align: left;
           margin: 0 0 1em;
         }
-        .space{
+        .space {
           margin: 1em 0;
-          a{
+          a {
             text-align: left;
             display: block;
-            padding: .5em 0;
+            padding: 0.5em 0;
           }
         }
       }
-      .round{           
-        background: #F5F9FC;
+      .round {
+        background: #f5f9fc;
         margin: 0;
         width: 2.4em;
         line-height: 2.4em;
         height: 2.4em;
         border-radius: 3em;
-      
-        span{
+
+        span {
           line-height: normal;
           font-size: 14px;
           text-align: center;
-          color: #156EDC;
+          color: #156edc;
         }
-      
       }
     }
   }
 
-
-  .sp-text-styles{
-    p{
-      strong{
+  .sp-text-styles {
+    p {
+      strong {
         font-size: 1.025em;
       }
 
-      &.type-1{
-
+      &.type-1 {
       }
 
-      &.type-2{
+      &.type-2 {
         line-height: 1.7em;
         font-weight: 300;
       }
     }
   }
 
-
-  #open-chat{
-    background: #1ECD97;
+  #open-chat {
+    background: #1ecd97;
     border-radius: 4px;
     color: white;
     display: inline-block;

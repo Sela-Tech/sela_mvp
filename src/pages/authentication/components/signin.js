@@ -155,6 +155,8 @@ class Login extends React.Component {
           </div>
           <div className="xs-12">
             <h2> Sign in to Sela </h2>
+            <p>test@gmail.com</p>
+            <p>password</p>
           </div>
 
           <div className="xs-12">

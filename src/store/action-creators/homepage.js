@@ -1,7 +1,6 @@
 import ax from "axios";
 import hA from "../actions/home";
 import e from "../../endpoints";
-import { retrieveToken } from "../../helpers/TokenManager";
 import { extractMessage } from "../../helpers/utils";
 
 export const showMap = {
@@ -48,7 +47,7 @@ export const fetchProject = id => {
       url: e.fetch_project + id,
       method: "GET",
       headers: {
-        token: retrieveToken()
+        public: true
       }
     })
       .then(({ data }) => {

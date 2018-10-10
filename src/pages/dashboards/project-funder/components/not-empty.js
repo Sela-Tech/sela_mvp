@@ -5,7 +5,10 @@ import { Line } from "rc-progress";
 import { withRouter } from "react-router-dom";
 import NotEmptyWrapper from "./not-empty.style";
 import modals from "../../../../store/actions/project-funder/modals";
-import { showModal } from "../../../../store/action-creators/project-funder/modal";
+import {
+  showModal,
+  showDeleteModal
+} from "../../../../store/action-creators/project-funder/modal";
 
 class ProjectTemplate extends React.Component {
   state = {
@@ -21,7 +24,18 @@ class ProjectTemplate extends React.Component {
   };
 
   render() {
-    const { t, o, p, go, triggerDeleteModal } = this.props,
+    const {
+        t,
+        o,
+        p,
+        go,
+        triggerDeleteModal,
+        triggerToggleModal,
+        activated,
+        goal,
+        raised,
+        tasks
+      } = this.props,
       { hidden } = this.state;
 
     return (
@@ -36,14 +50,14 @@ class ProjectTemplate extends React.Component {
 
             <div className="tasks xs-12">
               <Line
-                percent={12}
+                percent={(raised / goal) * 100}
                 strokeWidth="4"
                 trailWidth="4"
                 strokeColor="#156EDC"
                 trailColor="#F2F2F2"
               />
               <div className="xs-12 dw">
-                <p className="xs-9">12 Remaining Tasks</p>
+                <p className="xs-9">{tasks.length} Tasks</p>
 
                 <div className="xs-3">
                   <button
@@ -65,6 +79,17 @@ class ProjectTemplate extends React.Component {
           <div className="options xs-3">
             <ul>
               <li onClick={go}> View</li>
+
+              <li
+                className={activated ? "de" : "re"}
+                onClick={() => {
+                  triggerToggleModal();
+                  this.toggle();
+                }}
+              >
+                {activated ? "De-Activate" : "Re-Activate"}
+              </li>
+
               <li
                 className="delete"
                 onClick={() => {
@@ -82,10 +107,7 @@ class ProjectTemplate extends React.Component {
   }
 }
 const NotEmptyHomeView = ({ dispatch, projects, history }) => {
-  const go = id => history.push("/dashboard/project/" + id);
-
-  const triggerDeleteModal = id =>
-    dispatch(showModal(modals.delete_project, id));
+  const go = id => history.push("/dashboard/project/" + id + "/overview");
 
   return (
     <NotEmptyWrapper className="xs-12">
@@ -110,10 +132,16 @@ const NotEmptyHomeView = ({ dispatch, projects, history }) => {
               t={p.name}
               p={p["project-avatar"]}
               o={p.owner.organization.name}
-              pr={p.percentage}
               id={p._id}
+              goal={p.goal}
+              tasks={p.tasks}
+              raised={p.raised}
               go={() => go(p._id)}
-              triggerDeleteModal={() => triggerDeleteModal(p._id)}
+              activated={p.activated}
+              triggerDeleteModal={() => dispatch(showDeleteModal(p._id))}
+              triggerToggleModal={() =>
+                dispatch(showDeleteModal(p._id, p.activated))
+              }
             />
           );
         })}

@@ -125,7 +125,7 @@ export default (state = initstate, payload) => {
         delete: {
           action: {
             type: dA.DELETE_PROJECT_SUCCESSFUL,
-            message: payload.message || "Project Deleted Successfully"
+            message: payload.message || "Action Carried Out Successfully"
           }
         }
       };
@@ -136,7 +136,7 @@ export default (state = initstate, payload) => {
         delete: {
           action: {
             type: dA.DELETE_PROJECT_FAILED,
-            message: payload.message || "Could Not Delete A Project."
+            message: payload.message || "Could Not Carry Out Action"
           }
         }
       };
@@ -173,6 +173,18 @@ export default (state = initstate, payload) => {
         }
       };
 
+    case dA.SELECT_FUNDERS:
+      return {
+        ...state,
+        funders: {
+          ...state.funders,
+          action: {
+            type: dA.SELECT_FUNDERS
+          },
+          selected: payload.selected
+        }
+      };
+
     case dA.FETCHING_FUNDERS_IN_PROGRESS:
       return {
         ...state,
@@ -183,17 +195,6 @@ export default (state = initstate, payload) => {
         }
       };
 
-    case dA.SELECT_FUNDERS:
-      return {
-        ...state,
-        funders: {
-          ...state.funders,
-          action: {
-            type: dA.SELECT_FUNDERS
-          },
-          selected: []
-        }
-      };
     case dA.FETCHING_FUNDERS_SUCCESSFUL:
       return {
         ...state,
@@ -202,7 +203,17 @@ export default (state = initstate, payload) => {
             type: dA.FETCHING_FUNDERS_SUCCESSFUL,
             message: payload.message || "Funders Fetched Successfully"
           },
-          list: payload.data
+          options: payload.funders.map(f => {
+            return {
+              value: f._id,
+              label: `${f.lastName} ${f.firstName}, Org: ${
+                f.organization.name
+              }, ${(f.isFunder === true && "Funds Projects") ||
+                (f.isContractor === true && "Contractor") ||
+                (f.isEvaluator === true && "Evaluation Agent")}`,
+              organization: f.organization.name
+            };
+          })
         }
       };
 

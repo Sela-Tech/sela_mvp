@@ -28,9 +28,12 @@ export default styled.div`
       margin-top: 5px;
       margin-bottom: 25px;
     }
-    video {
+    video,
+    img {
       width: 100%;
       height: 250px;
+      display: block;
+      background: #e3e4e4;
       object-fit: cover;
       object-position: center;
     }

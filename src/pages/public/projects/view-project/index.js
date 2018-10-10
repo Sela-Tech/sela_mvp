@@ -8,25 +8,48 @@ import { Line } from "rc-progress";
 import Description from "./subs/description";
 import Stakeholders from "./subs/stakeholders";
 import Updates from "./subs/updates";
+import { fetchProject } from "../../../../store/action-creators/homepage";
 
-const DetermineWhatToShow = ({ show, id }) => {
+const DetermineWhatToShow = ({ show, id, project }) => {
   switch (show) {
     case "updates":
-      return <Updates />;
+      return <Updates project={project} />;
     case "stakeholders":
-      return <Stakeholders />;
+      return <Stakeholders project={project} />;
     default:
-      return <Description id={id} />;
+      return <Description id={id} project={project} />;
   }
 };
 
 class ViewProject extends React.Component {
-  state = {
-    id: this.props.match.params.id
-  };
+  constructor(props) {
+    super(props);
+    this.props.fetchProject(this.props.match.params.id);
+    this.state = {
+      id: this.props.match.params.id,
+      project: {
+        owner: {
+          organization: {}
+        },
+        stakeholders: []
+      }
+    };
+  }
+
+  componentWillReceiveProps(nextProps) {
+    if (
+      this.props.project !== nextProps.project &&
+      Object.keys(nextProps.project).length !== 0
+    ) {
+      this.setState({
+        project: nextProps.project
+      });
+    }
+  }
 
   render() {
-    const { id } = this.state;
+    const { id, project } = this.state;
+
     return (
       <React.Fragment>
         <Navbar />
@@ -40,30 +63,35 @@ class ViewProject extends React.Component {
               </div>
 
               <div className="xs-12 sm-8 sm-off-2 t-c">
-                <h1>K-Dere Oil Spill Clean Up</h1>
-                <p>Sustainability International</p>
+                <h1>{project.name}</h1>
+                <p>{project.owner.organization.name}</p>
 
                 <div className="xs-12">
-                  <video
-                    poster={"http://placehold.it/200"}
-                    src="http://commondatastorage.googleapis.com/gtv-videos-bucket/sample/BigBuckBunny.mp4"
-                    alt="vid"
-                  />
+                  {project["project-video"] ? (
+                    <video
+                      poster={"http://placehold.it/200"}
+                      src="http://commondatastorage.googleapis.com/gtv-videos-bucket/sample/BigBuckBunny.mp4"
+                      alt=""
+                    />
+                  ) : (
+                    <img src={project["project-avatar"]} alt="" />
+                  )}
                 </div>
 
                 <div className="xs-12 info">
                   <div className="xs-12 sm-4 l">
                     <h3>
-                      $5,000.00 <span>raised</span>
+                      ${project.raised} <span>raised</span>
                     </h3>
                   </div>
 
                   <div className="xs-12 sm-5 t-c">
                     <h4>
-                      50% <span>of</span> $10,000.00 <span> goal</span>
+                      {(project.raised / project.goal) * 100}% <span>of</span> $
+                      {project.goal} <span> goal</span>
                     </h4>
                     <Line
-                      percent={20}
+                      percent={(project.raised / project.goal) * 100}
                       strokeWidth="4"
                       trailWidth="4"
                       strokeColor="#156EDC"
@@ -72,7 +100,7 @@ class ViewProject extends React.Component {
                   </div>
                   <div className="xs-12 sm-3 r">
                     <h3>
-                      36 <span>investors</span>
+                      {project.stakeholders.length} <span>stakeholder(s)</span>
                     </h3>
                   </div>
                 </div>
@@ -120,7 +148,11 @@ class ViewProject extends React.Component {
           </div>
 
           <div className="xs-12 variable">
-            <DetermineWhatToShow show={this.props.match.params.show} id={id} />
+            <DetermineWhatToShow
+              show={this.props.match.params.show}
+              id={id}
+              project={project}
+            />
           </div>
         </ViewProjectStyle>
       </React.Fragment>
@@ -129,7 +161,18 @@ class ViewProject extends React.Component {
 }
 
 const mapStateToProps = state => {
-  return {};
+  return {
+    project: state.home.project
+  };
 };
 
-export default connect(mapStateToProps)(ViewProject);
+const mapDispatchToProps = dispatch => {
+  return {
+    fetchProject: id => dispatch(fetchProject(id))
+  };
+};
+
+export default connect(
+  mapStateToProps,
+  mapDispatchToProps
+)(ViewProject);

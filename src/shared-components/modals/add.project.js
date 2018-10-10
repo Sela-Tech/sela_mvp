@@ -26,7 +26,8 @@ const mapStateToProps = state => {
   return {
     add_project_in_progress: type === dA.ADD_PROJECT_IN_PROGRESS,
     message,
-    type
+    type,
+    selected: state.projects.funders.selected
   };
 };
 
@@ -54,15 +55,25 @@ export default connect(mapStateToProps)(
 
     handleSubmit = e => {
       e.preventDefault();
+      let selected = this.props.selected;
 
       this.setState({
         uploading: 1,
         add_project_in_progress: true
       });
+
+      let formData = this.state.form;
+
+      if (selected && selected.length > 0) {
+        formData.stakeholders = selected.map(s => {
+          return { user: { information: s } };
+        });
+      }
+
       if (this.state["project-avatar"].file) {
         this.next(this.state["project-avatar"].file);
       } else {
-        this.props.dispatch(addProject(this.state.form));
+        this.props.dispatch(addProject(formData));
       }
     };
 
@@ -235,6 +246,18 @@ export default connect(mapStateToProps)(
                     name="name"
                     placeholder="Project Name"
                     value={fd["name"] || ""}
+                    onChange={this.handleChange}
+                    required
+                  />
+                </div>
+
+                <div className="form-control">
+                  <label> Financial Goal (USD) </label>
+                  <input
+                    type="number"
+                    name="goal"
+                    placeholder="Amount you expect to raise"
+                    value={fd["goal"] || ""}
                     onChange={this.handleChange}
                     required
                   />
