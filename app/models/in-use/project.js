@@ -76,7 +76,7 @@ var projectStructure = {
           ref: "User",
           autopopulate: {
             select:
-              "isFunder isContractor isEvaluator firstName email _id organization profilePhoto "
+              "isFunder isContractor isEvaluator reputationScore firstName lastName email _id organization profilePhoto "
           }
         },
         agreed: {
@@ -90,7 +90,8 @@ var projectStructure = {
     type: ObjectId,
     ref: "User",
     autopopulate: {
-      select: "organization firstName lastName _id activated profilePhoto "
+      select:
+        "organization firstName reputationScore lastName _id activated profilePhoto "
     }
   },
   status: {

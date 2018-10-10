@@ -14,6 +14,10 @@ var userStructure = {
   profilePhoto: {
     type: String
   },
+  reputationScore: {
+    type: Number,
+    default: 0
+  },
   firstName: {
     type: String,
     required: true,
