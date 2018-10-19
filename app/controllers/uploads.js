@@ -1,15 +1,14 @@
 "use strict";
 require("dotenv").config();
 const mongoose = require("mongoose"),
-  Project = mongoose.model("Project");
+  Upload = mongoose.model("Upload");
 
 exports.new = (req, res) => {
   var successRes = { success: true };
   var failRes = { success: false };
-  var projectObj = req.body;
-  projectObj.owner = req.userId;
+  var uploadObj = req.body;
 
-  var newProject = new Project(projectObj);
+  var newProject = new Upload(uploadObj);
   newProject.save(projErr => {
     if (projErr) {
       failRes.message = projErr.name + ": " + projErr.message;
@@ -22,6 +21,7 @@ exports.new = (req, res) => {
 exports.find = async (req, res) => {
   var successRes = { success: true };
   var failRes = { success: false };
+
   var checkQuery = {};
   // limit result else return all
   let limit = parseInt(req.query.limit ? req.query.limit : 0, 10);
@@ -39,20 +39,20 @@ exports.find = async (req, res) => {
     ? { otherQueryParams, owner: req.userId }
     : otherQueryParams;
 
-  Project.find(checkQuery)
+  Upload.find(checkQuery)
     .skip(skip)
     .limit(limit)
-    .exec(function(err, projects) {
+    .exec(function(err, uploads) {
       if (err) {
         failRes.message = err.message;
         return res.status(400).json(failRes);
       }
-      if (!projects)
+      if (!uploads)
         return res.json({
-          message: "No Projects Found"
+          message: "No Uploads Found"
         });
 
-      successRes.projects = projects;
+      successRes.uploads = uploads;
       return res.json(successRes);
     });
 };

@@ -4,8 +4,39 @@ var jwt = require("jsonwebtoken");
 var mongoose = require("mongoose");
 var User = mongoose.model("User");
 var Organization = mongoose.model("Organization");
+var Project = mongoose.model("Project");
+var Transaction = mongoose.model("Transaction");
+var Uploads = mongoose.model("Upload");
 
 var tokenValidityPeriod = 86400; // in seconds; 86400 seconds = 24 hours
+
+exports.find_stakeholder_info = async (req, res) => {
+  let userInfo = await User.findOne({ _id: req.body.id });
+  let projects = await Project.find({ owner: req.body.id });
+  let transactions = await Transaction.find({ sender: req.body.id });
+  let uploads = await Uploads.find({ owner: req.body.id });
+
+  userInfo = userInfo.toJSON();
+
+  delete userInfo.password;
+  delete userInfo.updateOn;
+  delete userInfo.activated;
+  delete userInfo.username;
+  delete userInfo.email;
+
+  let json = {
+    userInfo,
+    projects,
+    transactions: transactions.length,
+    uploads: uploads.length
+  };
+
+  if (json !== null) {
+    return res.status(200).json(json);
+  } else {
+    return res.status(401).json({});
+  }
+};
 
 exports.register = async (req, res) => {
   var successRes = { success: true };
@@ -15,8 +46,6 @@ exports.register = async (req, res) => {
     query = email ? { email } : { phone };
 
   let user;
-
-  console.log(query);
 
   try {
     user = await User.findOne(query);
