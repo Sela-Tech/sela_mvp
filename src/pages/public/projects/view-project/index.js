@@ -8,7 +8,11 @@ import { Line } from "rc-progress";
 import Description from "./subs/description";
 import Stakeholders from "./subs/stakeholders";
 import Updates from "./subs/updates";
-import { fetchProject } from "../../../../store/action-creators/homepage";
+import {
+  fetchProject,
+  ignoreProjectId
+} from "../../../../store/action-creators/homepage";
+import { closeModal } from "../../../../store/action-creators/project-funder/modal";
 
 const DetermineWhatToShow = ({ show, id, project }) => {
   switch (show) {
@@ -34,6 +38,8 @@ class ViewProject extends React.Component {
         stakeholders: []
       }
     };
+
+    this.props.ignoreProjectId(this.props.match.params.id);
   }
 
   componentWillReceiveProps(nextProps) {
@@ -44,6 +50,20 @@ class ViewProject extends React.Component {
       this.setState({
         project: nextProps.project
       });
+    }
+
+    if (this.props.match.params.id !== nextProps.match.params.id) {
+      this.setState(
+        {
+          id: nextProps.match.params.id
+        },
+        () => {
+          nextProps.fetchProject(nextProps.match.params.id);
+          nextProps.dismissModal();
+          document.getElementById("root").scrollTop = 0;
+          nextProps.ignoreProjectId(nextProps.match.params.id);
+        }
+      );
     }
   }
 
@@ -68,11 +88,7 @@ class ViewProject extends React.Component {
 
                 <div className="xs-12">
                   {project["project-video"] ? (
-                    <video
-                      poster={"http://placehold.it/200"}
-                      src="http://commondatastorage.googleapis.com/gtv-videos-bucket/sample/BigBuckBunny.mp4"
-                      alt=""
-                    />
+                    <video src={project["project-video"]} alt="" />
                   ) : (
                     <img src={project["project-avatar"]} alt="" />
                   )}
@@ -168,7 +184,9 @@ const mapStateToProps = state => {
 
 const mapDispatchToProps = dispatch => {
   return {
-    fetchProject: id => dispatch(fetchProject(id))
+    fetchProject: id => dispatch(fetchProject(id)),
+    ignoreProjectId: id => dispatch(ignoreProjectId(id)),
+    dismissModal: () => dispatch(closeModal())
   };
 };
 

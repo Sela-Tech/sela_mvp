@@ -3,5 +3,7 @@ export default {
   add_project: "Add New Project",
   view_task: "View Task",
   view_image: "View Image",
-  delete_project: "Delete Project"
+  delete_project: "Delete Project",
+  add_stakeholder: "Add Stakeholder",
+  view_stakeholder: "SELA CITIZEN CARD"
 };

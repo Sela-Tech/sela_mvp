@@ -5,6 +5,12 @@ export const Form = styled.form`
     overflow: unset !important;
   }
 
+  #select-contractor {
+    > div {
+      overflow: auto;
+    }
+  }
+
   #label-image {
     height: 240px;
     width: 100%;

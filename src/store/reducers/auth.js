@@ -14,52 +14,30 @@ const initstate = {
 
 export default (state = initstate, payload) => {
   switch (payload.type) {
-    case authActions.CHANGE_EMAIL_FAILED:
+    case authActions.CHANGE_USER_DETAILS_FAILED:
       return {
         ...state,
         action: {
-          type: authActions.CHANGE_EMAIL_FAILED
+          type: authActions.CHANGE_USER_DETAILS_FAILED,
+          message: payload.message
         }
       };
 
-    case authActions.CHANGE_EMAIL_IN_PROGRESS:
+    case authActions.CHANGE_USER_DETAILS_IN_PROGRESS:
       return {
         ...state,
         action: {
-          type: authActions.CHANGE_EMAIL_IN_PROGRESS
+          type: authActions.CHANGE_USER_DETAILS_IN_PROGRESS
         }
       };
 
-    case authActions.CHANGE_EMAIL_SUCCESSFUL:
+    case authActions.CHANGE_USER_DETAILS_SUCCESSFUL:
       return {
         ...state,
         action: {
-          type: authActions.CHANGE_EMAIL_SUCCESSFUL
-        }
-      };
-
-    case authActions.CHANGE_PASSWORD_FAILED:
-      return {
-        ...state,
-        action: {
-          type: authActions.CHANGE_PASSWORD_FAILED
-        }
-      };
-
-    case authActions.CHANGE_PASSWORD_IN_PROGRESS:
-      return {
-        ...state,
-        action: {
-          type: authActions.CHANGE_PASSWORD_IN_PROGRESS
-        }
-      };
-
-    case authActions.CHANGE_PASSWORD_SUCCESSFUL:
-      return {
-        ...state,
-        action: {
-          type: authActions.CHANGE_PASSWORD_SUCCESSFUL
-        }
+          type: authActions.CHANGE_USER_DETAILS_SUCCESSFUL
+        },
+        credentials: payload.data
       };
 
     case authActions.TOKEN_VERIFICATION_IN_PROGRESS:

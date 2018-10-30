@@ -8,6 +8,8 @@ export const WebSidebar = styled.div`
     height: 50px;
     width: 50px;
     border-radius: 50px;
+    object-fit: cover;
+    object-position: center;
   }
   h3,p{
     font-family: ProximaNova;
@@ -34,10 +36,11 @@ export const WebSidebar = styled.div`
   
   }
 }
-  padding: 3em 1em 0;
+  padding: 3em 0 0;
   position: relative;
   height: 100%;
   background: #242A32;
+
 
   button#top,
   #create-btn {
@@ -151,20 +154,16 @@ export const WebSidebar = styled.div`
     ul {
       li {
         .active {
-          span {
-            color: #156EDC;
-          }
-        }
+          background: rgba(255, 255, 255, 0.05);
+                  }
         a {
           display: inline-block;
           transition: 250ms;
           padding: 0.25em 0.85em;
           width: 100%;
-          border-radius: 9px;
 
-          &:active,
-          &:focus,
-          &.active {
+        
+          &:focus {
             span {
               color: #156EDC;
             }

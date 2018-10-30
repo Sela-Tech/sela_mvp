@@ -672,6 +672,13 @@ input:invalid {
   float: left !important;
 }
 
+@media (max-width: 767px) {
+  .f-r.c-sm-screen,
+  .f-l.c-sm-screen {
+    float: unset !important;
+  }
+}
+
 .c-w {
   height: 100%;
   width: 100%;

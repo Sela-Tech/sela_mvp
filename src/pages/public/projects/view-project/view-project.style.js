@@ -114,6 +114,11 @@ export default styled.div`
     }
 
     .card {
+      cursor: pointer;
+
+      &:hover {
+        border-color: #156edc;
+      }
       @media (min-width: 768px) {
         width: 95%;
       }
@@ -142,12 +147,14 @@ export default styled.div`
         font-size: 17px;
         color: #156edc;
         font-weight: 300;
+        text-transform: Capitalize;
       }
 
       p {
         font-size: 15px;
         color: #3d4851;
         font-weight: 300;
+        text-transform: Capitalize;
       }
 
       span {

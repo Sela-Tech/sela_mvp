@@ -7,6 +7,12 @@ const initstate = {
       message: ""
     }
   },
+  stakeholder: {
+    action: {
+      type: "",
+      message: ""
+    }
+  },
   delete: {
     action: {
       type: "",
@@ -39,6 +45,37 @@ const initstate = {
 
 export default (state = initstate, payload) => {
   switch (payload.type) {
+    case dA.ADD_STAKEHOLDER_FAILED:
+      return {
+        ...state,
+        stakeholder: {
+          action: {
+            type: dA.ADD_STAKEHOLDER_FAILED,
+            message: payload.message
+          }
+        }
+      };
+
+    case dA.ADD_STAKEHOLDER_IN_PROGRESS:
+      return {
+        ...state,
+        stakeholder: {
+          action: {
+            type: dA.ADD_STAKEHOLDER_IN_PROGRESS
+          }
+        }
+      };
+
+    case dA.ADD_STAKEHOLDER_SUCCESSFUL:
+      return {
+        ...state,
+        stakeholder: {
+          action: {
+            type: dA.ADD_STAKEHOLDER_SUCCESSFUL,
+            message: payload.message
+          }
+        }
+      };
     case dA.FETCHING_PROJECT_IN_PROGRESS:
       return {
         ...state,

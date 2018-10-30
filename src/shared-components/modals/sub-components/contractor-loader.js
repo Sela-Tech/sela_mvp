@@ -1,7 +1,7 @@
 import React from "react";
 import { connect } from "react-redux";
 import {
-  fetchFunders,
+  fetchPossibleStakeholders,
   selectFunders
 } from "../../../store/action-creators/project-funder/project";
 import Select from "react-select";
@@ -14,7 +14,7 @@ const mapStateToProps = state => {
 
 const mapDispatchToProps = dispatch => {
   return {
-    fetchFunders: () => dispatch(fetchFunders()),
+    fetchPossibleStakeholders: () => dispatch(fetchPossibleStakeholders()),
     selectFunders: selected => dispatch(selectFunders(selected))
   };
 };
@@ -27,7 +27,7 @@ export default connect(
     constructor(props) {
       super(props);
       this.state = {};
-      this.props.fetchFunders();
+      this.props.fetchPossibleStakeholders();
     }
 
     handleChange = selectedOption => {

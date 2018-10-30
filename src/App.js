@@ -11,6 +11,7 @@ import { connect } from "react-redux";
 import authActions from "./store/actions/auth";
 import { LoadingRoute, PrivateRoute } from "./helpers/routes";
 import Errors from "./pages/errors";
+import Modals from "./shared-components/modals";
 
 const FilterDashboard = (type, isAuthenticated = false) => {
   switch (type) {
@@ -31,12 +32,42 @@ const FilterDashboard = (type, isAuthenticated = false) => {
         />,
         <PrivateRoute
           exact
-          path="/settings"
+          path="/dashboard/settings"
           isAuthenticated={isAuthenticated}
           component={r.funder_dashboard_settings}
           key={2}
         />,
+        <PrivateRoute
+          exact
+          path="/dashboard/project/:id/:view"
+          isAuthenticated={isAuthenticated}
+          component={r.funder_dashboard_view_project}
+          key={3}
+        />,
+        <PrivateRoute
+          exactpath="/dashboard/team"
+          isAuthenticated={isAuthenticated}
+          component={r.funder_dashboard_team}
+          key={4}
+        />
+      ];
 
+    case "contractor":
+      return [
+        <PrivateRoute
+          exact
+          path="/dashboard"
+          isAuthenticated={isAuthenticated}
+          component={r.funder_dashboard_home}
+          key={1}
+        />,
+        <PrivateRoute
+          exact
+          path="/dashboard/settings"
+          isAuthenticated={isAuthenticated}
+          component={r.funder_dashboard_settings}
+          key={2}
+        />,
         <PrivateRoute
           exact
           path="/dashboard/project/:id/:view"
@@ -45,89 +76,82 @@ const FilterDashboard = (type, isAuthenticated = false) => {
           key={3}
         />
       ];
-
-    case "contractor":
-      return [
-        <PrivateRoute
-          key={1}
-          exact
-          path="/dashboard"
-          isAuthenticated={isAuthenticated}
-          component={r.funder_dashboard_home}
-        />,
-
-        <PrivateRoute
-          key={2}
-          exact
-          path="/dashboard/project/:id"
-          isAuthenticated={isAuthenticated}
-          component={r.funder_dashboard_view_project}
-        />
-      ];
   }
 };
 
-const App = ({ isAuthenticated, actionType, dashboardType }) => {
+const App = ({ isAuthenticated, actionType, dashboardType, modalToShow }) => {
   return (
     <Router>
-      {actionType === authActions.TOKEN_VERIFICATION_IN_PROGRESS ? (
-        <Switch>
-          <Route exact path="/" component={r.home} />
+      <React.Fragment>
+        <Modals name={modalToShow} />
 
-          <Route exact path="/team" component={r.home} />
-          <Route exact path="/projects/:id" component={r.public_view_project} />
-          <Route
-            exact
-            path="/projects/:id/:show"
-            component={r.public_view_project}
-          />
+        {actionType === authActions.TOKEN_VERIFICATION_IN_PROGRESS ? (
+          <Switch>
+            <Route exact path="/" component={r.home} />
 
-          <Route exact path="/blog" component={r.home} />
-          <Route exact path="/crowdfund" component={r.home} />
+            <Route exact path="/team" component={r.home} />
+            <Route
+              exact
+              path="/projects/:id"
+              component={r.public_view_project}
+            />
+            <Route
+              exact
+              path="/projects/:id/:show"
+              component={r.public_view_project}
+            />
 
-          <LoadingRoute text={"Please Wait... Authenticating"} />
-        </Switch>
-      ) : (
-        <Switch>
-          <Route exact path="/" component={r.home} />
-          <Route exact path="/team" component={r.home} />
-          <Route exact path="/projects/:id" component={r.public_view_project} />
-          <Route
-            exact
-            path="/projects/:id/:show"
-            component={r.public_view_project}
-          />
+            <Route exact path="/blog" component={r.home} />
+            <Route exact path="/crowdfund" component={r.home} />
 
-          <Route exact path="/blog" component={r.home} />
-          <Route exact path="/crowdfund" component={r.home} />
+            <LoadingRoute text={"Please Wait... Authenticating"} />
+          </Switch>
+        ) : (
+          <Switch>
+            <Route exact path="/" component={r.home} />
+            <Route exact path="/team" component={r.home} />
+            <Route
+              exact
+              path="/projects/:id"
+              component={r.public_view_project}
+            />
+            <Route
+              exact
+              path="/projects/:id/:show"
+              component={r.public_view_project}
+            />
 
-          <PrivateRoute
-            exact
-            path="/signin"
-            type="auth"
-            isAuthenticated={isAuthenticated}
-            component={r.auth}
-          />
+            <Route exact path="/blog" component={r.home} />
+            <Route exact path="/crowdfund" component={r.home} />
 
-          <PrivateRoute
-            exact
-            path="/signup"
-            type="auth"
-            isAuthenticated={isAuthenticated}
-            component={r.auth}
-          />
-          <PrivateRoute
-            exact
-            path="/forgot/password"
-            type="auth"
-            isAuthenticated={isAuthenticated}
-            component={r.auth}
-          />
+            <PrivateRoute
+              exact
+              path="/signin"
+              type="auth"
+              isAuthenticated={isAuthenticated}
+              component={r.auth}
+            />
 
-          {FilterDashboard(dashboardType, isAuthenticated)}
-          <Route component={r.errors} />
-        </Switch>
-      )}
+            <PrivateRoute
+              exact
+              path="/signup"
+              type="auth"
+              isAuthenticated={isAuthenticated}
+              component={r.auth}
+            />
+            <PrivateRoute
+              exact
+              path="/forgot/password"
+              type="auth"
+              isAuthenticated={isAuthenticated}
+              component={r.auth}
+            />
+
+            {FilterDashboard(dashboardType, isAuthenticated)}
+            <Route component={r.errors} />
+          </Switch>
+        )}
+      </React.Fragment>
     </Router>
   );
 };
@@ -137,7 +161,8 @@ const mapStateToProps = state => {
   return {
     isAuthenticated,
     actionType: action.type,
-    dashboardType: credentials.signUpType
+    dashboardType: credentials.signUpType,
+    modalToShow: state.dashboard.modalToShow
   };
 };
 

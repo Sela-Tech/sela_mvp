@@ -1,9 +1,18 @@
 import dA from "../../actions/project-funder/dashboard";
 import modals from "../../actions/project-funder/modals";
+
 export const showModal = (name, id) => {
   return {
     type: dA.SHOW_MODAL_FORM,
     name,
+    id
+  };
+};
+
+export const showStakeHolderModal = id => {
+  return {
+    type: dA.SHOW_STAKEHOLDER_MODAL,
+    name: modals.view_stakeholder,
     id
   };
 };
@@ -23,18 +32,26 @@ export const closeModal = name => {
   };
 };
 
-export const showImageInModal = (name, image) => {
+export const showImageInModal = image => {
   return {
     type: dA.SHOW_IMAGE_IN_MODAL_FORM,
-    name,
+    name: modals.view_image,
     image
   };
 };
 
-export const showTaskModal = (name, data) => {
+export const showTaskModal = data => {
   return {
     type: dA.SHOW_TASK_MODAL,
-    name,
+    name: modals.view_task,
     data
+  };
+};
+
+export const showAddStakeholderModal = id => {
+  return {
+    type: dA.SHOW_ADD_STAKEHOLDER_MODAL,
+    name: modals.add_stakeholder,
+    id
   };
 };

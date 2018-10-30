@@ -11,6 +11,39 @@ export const toggleFullScreen = {
   type: hA.TOGGLE_FULLSCREEN
 };
 
+export const ignoreProjectId = id => {
+  return {
+    type: hA.IGNORE_PROJECT_ID,
+    id
+  };
+};
+export const fetchStakeholderInfo = id => {
+  return dispatch => {
+    dispatch({
+      type: hA.FETCHING_CITIZEN_INFO_IN_PROGRESS
+    });
+
+    ax({
+      url: e.fetch_stakeholder_info,
+      method: "POST",
+      data: {
+        id
+      }
+    })
+      .then(({ data }) => {
+        dispatch({
+          type: hA.FETCHING_CITIZEN_INFO_SUCCESSFUL,
+          citizenData: data
+        });
+      })
+      .catch(res => {
+        dispatch({
+          type: hA.FETCHING_CITIZEN_INFO_FAILED,
+          message: extractMessage(res)
+        });
+      });
+  };
+};
 export const fetchProjects = (query = "") => {
   let url = `${e.fetch_projects}${
     query !== "" ? "limit=12&" + query : "limit=12"

@@ -7,6 +7,8 @@ const init = {
   project: {},
   locations: [],
   centerize: false,
+  citizenData: {},
+  ignoreProjectWithID: "",
   map: {
     show: false,
     fullscreen: false
@@ -31,6 +33,12 @@ export default (state = init, payload) => {
           ...state.map,
           fullscreen: !state.map.fullscreen
         }
+      };
+
+    case homepageActions.IGNORE_PROJECT_ID:
+      return {
+        ...state,
+        ignoreProjectWithID: payload.id
       };
 
     case homepageActions.FETCHING_HOMEPAGE_PROJECTS_IN_PROGRESS:
@@ -79,6 +87,28 @@ export default (state = init, payload) => {
         ...state,
         action: homepageActions.FETCHING_HOMEPAGE_PROJECT_SUCCESSFUL,
         project: payload.info
+      };
+
+    case homepageActions.FETCHING_CITIZEN_INFO_IN_PROGRESS:
+      return {
+        ...state,
+        action: homepageActions.FETCHING_CITIZEN_INFO_IN_PROGRESS,
+        citizenData: {}
+      };
+
+    case homepageActions.FETCHING_CITIZEN_INFO_FAILED:
+      return {
+        ...state,
+        action: homepageActions.FETCHING_CITIZEN_INFO_FAILED,
+        message: payload.message,
+        citizenData: {}
+      };
+
+    case homepageActions.FETCHING_CITIZEN_INFO_SUCCESSFUL:
+      return {
+        ...state,
+        action: homepageActions.FETCHING_CITIZEN_INFO_SUCCESSFUL,
+        citizenData: payload.citizenData
       };
 
     default:

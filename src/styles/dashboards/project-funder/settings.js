@@ -95,4 +95,46 @@ export default styled.div`
       }
     }
   }
+
+  .profile-photo {
+    height: 200px;
+    width: 200px;
+    background: #e0e0e0;
+    border-radius: 200px;
+    cursor: pointer;
+    display: block;
+    margin: auto;
+    position: relative;
+
+    @media (max-width: 767px) {
+      margin: 1.5em auto 0;
+    }
+    span {
+      display: block;
+      color: #bbbaba;
+      font-size: 2.3em;
+      font-weight: 600;
+    }
+    input {
+      height: 0;
+      width: 0;
+      overflow: hidden;
+      border: 0;
+      padding: 0;
+    }
+  }
+
+  form {
+    #profilePhoto {
+      height: 100%;
+      display: block;
+      border-radius: 100%;
+      width: 100%;
+      background: transparent;
+      position: absolute;
+      top: 0;
+      object-fit: cover;
+      object-position: center;
+    }
+  }
 `;

@@ -117,31 +117,34 @@ const WebDashboardSidebar = ({ dispatch, user }) => {
           </p>
         </div>
 
-        <h4>MANAGE</h4>
-        <ul>
+        <h4 className="xs-12">MANAGE</h4>
+        <ul className="xs-12">
           <li>
-            <NavLink to="/dashboard" activeClassName="active">
+            <NavLink exact to="/dashboard" activeClassName="active">
               <img src={folder} alt="folder" />
               <span>Projects</span>
             </NavLink>
           </li>
 
           <li>
-            <NavLink to="/teams" activeClassName="active">
+            <NavLink exact to="/dashboard/team" activeClassName="active">
               <img src={team} alt="teams" />
               <span>Teams</span>
             </NavLink>
           </li>
 
           <li>
-            <NavLink to="/settings" activeClassName="active">
+            <NavLink exact to="/dashboard/settings" activeClassName="active">
               <img src={settings} alt="settings" />
               <span>Settings</span>
             </NavLink>
           </li>
         </ul>
-        <span id="line-break" />
-        <ul>
+        <div className="xs-12">
+          <span id="line-break" />
+        </div>
+
+        <ul className="xs-12">
           <li>
             <NavLink
               to="#"

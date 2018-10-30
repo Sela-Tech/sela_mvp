@@ -9,7 +9,6 @@ import { LoadingRoute } from "../../../helpers/routes";
 import dashboard from "../../../store/actions/project-funder/dashboard";
 import EmptyHomeView from "./components/empty";
 import NotEmptyHomeView from "./components/not-empty";
-import FirstTime from "./components/firstTime";
 
 const mapStateToProps = (state, props) => {
   return {
@@ -43,7 +42,6 @@ export default connect(
           case dashboard.FETCHING_PROJECTS_SUCCESSFUL:
             return (
               <React.Fragment>
-                <FirstTime />
                 {projects.length > 0 ? (
                   <NotEmptyHomeView projects={projects} />
                 ) : (

@@ -157,71 +157,39 @@ export const send_recovery_mail = obj => {
   };
 };
 
-export const change_phone = obj => {
+export const update = obj => {
   return dispatch => {
-    dispatch({ type: authActions.CHANGE_PHONE_NUMBER_IN_PROGRESS });
+    dispatch({ type: authActions.CHANGE_USER_DETAILS_IN_PROGRESS });
     ax({
       method: "POST",
       data: obj,
-      url: e.change_phone,
+      url: e.update,
       headers: {
         "x-access-token": retrieveToken()
       }
     })
       .then(({ data }) => {
-        dispatch({ type: authActions.CHANGE_PHONE_NUMBER_SUCCESSFUL, data });
-      })
-      .catch(({ response }) => {
-        let message;
-        if (response) {
-          message = response.message || response.data.message;
+        if (localStorage.getItem("x-access-token") !== null) {
+          setToken("ls", data.token);
         } else {
-          message = "connection error";
+          setToken("ss", data.token);
         }
-        dispatch({ type: authActions.CHANGE_PHONE_NUMBER_FAILED, message });
-      });
-  };
-};
+        switch (true) {
+          case data.isEvaluator:
+            data.signUpType = "evaluation-agent";
+            break;
+          case data.isContractor:
+            data.signUpType = "contractor";
+            break;
 
-export const change_pass = obj => {
-  return dispatch => {
-    dispatch({ type: authActions.CHANGE_PASSWORD_IN_PROGRESS });
-    ax({
-      method: "POST",
-      data: obj,
-      url: e.change_pass,
-      headers: {
-        "x-access-token": retrieveToken()
-      }
-    })
-      .then(({ data }) => {
-        dispatch({ type: authActions.CHANGE_PASSWORD_SUCCESSFUL, data });
-      })
-      .catch(({ response }) => {
-        let message;
-        if (response) {
-          message = response.message || response.data.message;
-        } else {
-          message = "connection error";
+          case data.isFunder:
+            data.signUpType = "project-funder";
+            break;
+          default:
+            data.signUpType = undefined;
         }
-        dispatch({ type: authActions.CHANGE_PASSWORD_FAILED, message });
-      });
-  };
-};
 
-export const change_email = obj => {
-  return dispatch => {
-    dispatch({ type: authActions.CHANGE_EMAIL_IN_PROGRESS });
-    ax({
-      method: "POST",
-      data: obj,
-      url: e.change_email,
-      headers: {
-        "x-access-token": retrieveToken()
-      }
-    })
-      .then(({ data }) => {
-        dispatch({ type: authActions.CHANGE_EMAIL_SUCCESSFUL, data });
+        dispatch({ type: authActions.CHANGE_USER_DETAILS_SUCCESSFUL, data });
       })
       .catch(({ response }) => {
         let message;
@@ -230,7 +198,7 @@ export const change_email = obj => {
         } else {
           message = "connection error";
         }
-        dispatch({ type: authActions.CHANGE_EMAIL_FAILED, message });
+        dispatch({ type: authActions.CHANGE_USER_DETAILS_FAILED, message });
       });
   };
 };

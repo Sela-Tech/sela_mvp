@@ -1,7 +1,7 @@
 import React from "react";
 import { connect } from "react-redux";
-import AccountDetails from "../../../shared-components/dashboards/project-funder/settings/account_details";
-import ChangePassword from "../../../shared-components/dashboards/project-funder/settings/change_password";
+import AccountDetails from "./components/settings/account_details";
+import ChangePassword from "./components/settings/change_password";
 import DashboardWrapper from "../../../shared-components/dashboards/project-funder/wrapper";
 import SettingsStyleWrapper from "../../../styles/dashboards/project-funder/settings";
 // import { bindActionCreators } from "redux";
@@ -10,10 +10,18 @@ class Settings extends React.Component {
   constructor(props) {
     super(props);
     this.state = {
-      viewing: "AccountDetails"
+      viewing: "AccountDetails",
+      userType: this.props.userType
     };
   }
 
+  componentWillReceiveProps(nextProps) {
+    if (this.props !== nextProps) {
+      this.setState({
+        userType: nextProps.userType
+      });
+    }
+  }
   selectView = e => {
     this.setState({
       viewing: e.target.name
@@ -21,13 +29,15 @@ class Settings extends React.Component {
   };
 
   render() {
+    const { userType } = this.state;
+
     return (
       <React.Fragment>
         <DashboardWrapper viewName="settings">
           <SettingsStyleWrapper className="xs-12">
             <h3>Settings</h3>
             <h5>
-              Registered as: <strong>Project Funder</strong>
+              Registered as: <strong>{userType}</strong>
             </h5>
 
             <div id="options">
@@ -49,9 +59,9 @@ class Settings extends React.Component {
             </div>
 
             {this.state.viewing === "AccountDetails" ? (
-              <AccountDetails />
+              <AccountDetails viewing={this.state.viewing} />
             ) : (
-              <ChangePassword />
+              <ChangePassword viewing={this.state.viewing} />
             )}
             <div className="xs-12">
               <button id="de-activate"> De-activate your account </button>
@@ -63,7 +73,14 @@ class Settings extends React.Component {
   }
 }
 const mapStateToProps = (state, props) => {
-  return {};
+  let { isFunder, isContractor, isEvaluator } = state.auth.credentials;
+
+  return {
+    userType:
+      (isFunder === true && "Project Funder") ||
+      (isContractor === true && "Project Contractor") ||
+      (isEvaluator === true && "Project Evaluator")
+  };
 };
 
 const mapDispatchToProps = dispatch => {

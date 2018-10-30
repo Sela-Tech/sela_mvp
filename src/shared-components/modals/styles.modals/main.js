@@ -33,8 +33,9 @@ export const ModalWrapperStyler = styled.div`
     text-align: left;
     font-weight: 300;
   }
+
   position: fixed;
-  z-index: 2;
+  z-index: 5;
   top: 0;
   left: 0;
   right: 0;
@@ -65,7 +66,7 @@ export const ModalWrapperStyler = styled.div`
 
 export const ViewTaskMotherWrapper = styled.div`
   position: fixed;
-  z-index: 2;
+  z-index: 3;
   top: 0;
   left: 0;
   right: 0;

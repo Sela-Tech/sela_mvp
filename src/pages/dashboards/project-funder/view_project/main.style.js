@@ -105,4 +105,34 @@ export const ProjectWrapper = styled.div`
   #view{
    padding: ${padding};
   }
+
+.blue-btn{
+  height: 45px;
+  width: 175px;
+background: linear-gradient(0deg, #156EDC 2.22%, #1F6FE5 98.44%);
+border: 1px solid #1461D2;
+box-sizing: border-box;
+box-shadow: 0px 1px 1px rgba(22, 29, 37, 0.1), inset 0px 2px 0px rgba(255, 255, 255, 0.06);
+border-radius: 4px;
+font-family: ProximaNova;
+line-height: 20px;
+font-size: 14px;
+text-align: center;
+color: #FFFFFF;
+
+
+
+}
+  .date{
+    height: 45px;
+    width: 175px;
+    text-indent: 1em;
+    font-size: 15px;
+    margin-right: 1em;
+    font-weight: 300;
+    border: 0;
+    box-shadow: 0px 0px 5px 0px #ccc;
+    background: white;
+    border-radius: 5px;
+  }
 `;

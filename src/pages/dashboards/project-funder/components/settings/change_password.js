@@ -1,8 +1,8 @@
 import React, { Component } from "react";
 import { connect } from "react-redux";
-import { change_pass } from "../../../../store/action-creators/auth";
-import auth from "../../../../store/actions/auth";
 import Icon from "react-fa";
+import { update } from "../../../../../store/action-creators/auth";
+import auth from "../../../../../store/actions/auth";
 
 const mapStateToProps = state => {
   return {
@@ -15,9 +15,17 @@ export default connect(mapStateToProps)(
       current_pass: "",
       new_pass: "",
       verify_pass: "",
-      verified: false
+      verified: false,
+      actionType: ""
     };
 
+    componentWillReceiveProps(nextProps) {
+      if (this.props !== nextProps) {
+        this.setState({
+          actionType: nextProps.actionType
+        });
+      }
+    }
     handleChange = e => {
       this.setState(
         {
@@ -41,23 +49,25 @@ export default connect(mapStateToProps)(
 
       if (this.state.new_pass === this.state.verify_pass) {
         return this.props.dispatch(
-          change_pass({
+          update({
             oldPassword: this.state.current_pass,
-            newPassword: this.state.verify_pass
+            verifyPassword: this.state.verify_pass,
+            newPassword: this.state.new_pass
           })
         );
       }
     };
 
     render() {
-      const { actionType } = this.props,
+      let { actionType } = this.state,
         message = () => {
-          if (actionType === auth.CHANGE_PASSWORD_SUCCESSFUL) {
+          if (actionType === auth.CHANGE_USER_DETAILS_SUCCESSFUL) {
             return "Changed password successfully";
-          } else if (actionType === auth.CHANGE_PASSWORD_FAILED) {
+          } else if (actionType === auth.CHANGE_USER_DETAILS_FAILED) {
             return "Could not change your password";
           }
         };
+
       return (
         <form className="xs-12 sm-4" onSubmit={this.handleSubmit}>
           <div className="form-group">
@@ -103,7 +113,7 @@ export default connect(mapStateToProps)(
 
           <div className="form-group">
             <button id="save" type="submit" disabled={!this.state.verified}>
-              {actionType === auth.CHANGE_PASSWORD_IN_PROGRESS ? (
+              {actionType === auth.CHANGE_USER_DETAILS_IN_PROGRESS ? (
                 <span>
                   Attempting to save <Icon name="spinner" spin />
                 </span>

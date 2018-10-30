@@ -7,11 +7,10 @@ if (process.env.NODE_ENV === "development") {
 }
 export default {
   b,
+  fetch_stakeholder_info: b + "users/i",
   signin: b + "login",
   signup: b + "register",
-  change_phone: b + "changePhone",
-  change_pass: b + "changePassword",
-  change_email: b + "changeEmail",
+  update: b + "update",
   send_recovery_mail: "",
   verify_user_token: b + "verifyToken",
   fetch_projects: b + "projects?",
@@ -22,5 +21,6 @@ export default {
   get_tasks: b + "tasks",
   fetch_users: b + "users",
   fetch_locations: b + "locations",
+  add_stakeholder: b + "project/stakeholder",
   fetch_tasks: b + "projects" //:id/tasks
 };

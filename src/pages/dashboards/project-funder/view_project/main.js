@@ -3,27 +3,35 @@ import { ProjectWrapper } from "./main.style";
 // import moment from "moment";
 import { NavLink, withRouter } from "react-router-dom";
 import Analytics from "./subs/analytics";
+import Transactions from "./subs/transactions";
+import Tasks from "./subs/tasks";
+import Documents from "./subs/documents";
+import { showAddStakeholderModal } from "../../../../store/action-creators/project-funder/modal";
+
+import { connect } from "react-redux";
 
 const View = ({ id, view }) => {
   switch (view) {
     case "documents":
-      return null;
+      return <Documents id={id} />;
 
     case "transactions":
-      return null;
+      return <Transactions id={id} />;
 
-    case "analytics":
+    case "overview":
       return <Analytics id={id} />;
 
     case "tasks":
-      return null;
+      return <Tasks id={id} />;
 
     default:
       return null;
   }
 };
 
-const ProjectComponent = ({ info, match }) => {
+const ProjectComponent = ({ info, match, dispatch }) => {
+  let showId = () => dispatch(showAddStakeholderModal(id));
+
   let members = stakeholders => {
     return [
       ...stakeholders.map((p, i) => {
@@ -53,7 +61,9 @@ const ProjectComponent = ({ info, match }) => {
           <div className="xs-12 sm-4" id="members">
             <h4>Members</h4>
             {members(info.stakeholders)}
-            <button className="member">+</button>
+            <button className="member" onClick={showId}>
+              +
+            </button>
           </div>
           <div className="xs-12">
             <nav className="xs-12 sm-10">
@@ -65,6 +75,7 @@ const ProjectComponent = ({ info, match }) => {
               >
                 Overview
               </NavLink>
+
               <NavLink
                 className="xs-6 sm-2"
                 activeClassName="active"
@@ -73,14 +84,7 @@ const ProjectComponent = ({ info, match }) => {
               >
                 Tasks
               </NavLink>
-              <NavLink
-                className="xs-6 sm-2"
-                activeClassName="active"
-                exact
-                to={`/dashboard/project/${id}/analytics`}
-              >
-                Analytics
-              </NavLink>
+
               <NavLink
                 className="xs-6 sm-3"
                 activeClassName="active"
@@ -109,4 +113,4 @@ const ProjectComponent = ({ info, match }) => {
   );
 };
 
-export default withRouter(ProjectComponent);
+export default withRouter(connect()(ProjectComponent));

@@ -1,5 +1,7 @@
 import React from "react";
 import styled from "styled-components";
+import { showStakeHolderModal } from "../../../../../../store/action-creators/project-funder/modal";
+import { connect } from "react-redux";
 
 const StakeholderWrapper = styled.div`
   section {
@@ -14,7 +16,7 @@ const StakeholderWrapper = styled.div`
     }
   }
 `;
-export default ({ project }) => {
+export default connect()(({ project, dispatch }) => {
   const { owner, stakeholders } = project,
     contractors = stakeholders.filter(s => {
       return s.user.information.isContractor === true;
@@ -34,7 +36,10 @@ export default ({ project }) => {
 
           <section className="xs-12">
             <h4>INITIATED BY</h4>
-            <div className="xs-12 sm-4">
+            <div
+              className="xs-12 sm-4"
+              onClick={() => dispatch(showStakeHolderModal(owner._id))}
+            >
               <div className="card xs-12">
                 <div className="xs-3">
                   <img src={owner.profilePhoto} alt="" />
@@ -54,8 +59,13 @@ export default ({ project }) => {
             <section className="xs-12">
               <h4>CONTRACTOR(S)</h4>
               {contractors.map((u, i) => {
+                let id = u.user.information._id;
                 return (
-                  <div className="xs-12 sm-4" key={i}>
+                  <div
+                    className="xs-12 sm-4"
+                    key={i}
+                    onClick={() => dispatch(showStakeHolderModal(id))}
+                  >
                     <div className="card xs-12">
                       <div className="xs-3">
                         <img src={u.user.information.profilePhoto} alt="" />
@@ -81,8 +91,14 @@ export default ({ project }) => {
             <section className="xs-12">
               <h4>EVALUATION AGENT(S)</h4>
               {evaluators.map((u, i) => {
+                let id = u.user.information._id;
+
                 return (
-                  <div className="xs-12 sm-4" key={i}>
+                  <div
+                    className="xs-12 sm-4"
+                    key={i}
+                    onClick={() => dispatch(showStakeHolderModal(id))}
+                  >
                     <div className="card xs-12">
                       <div className="xs-3">
                         <img src={u.user.information.profilePhoto} alt="" />
@@ -108,8 +124,14 @@ export default ({ project }) => {
             <section className="xs-12">
               <h4>INVESTOR(S)</h4>
               {funders.map((u, i) => {
+                let id = u.user.information._id;
+
                 return (
-                  <div className="xs-12 sm-4" key={i}>
+                  <div
+                    className="xs-12 sm-4"
+                    key={i}
+                    onClick={() => dispatch(showStakeHolderModal(id))}
+                  >
                     <div className="card xs-12">
                       <div className="xs-3">
                         <img src={u.user.information.profilePhoto} alt="" />
@@ -134,4 +156,4 @@ export default ({ project }) => {
       </div>
     </StakeholderWrapper>
   );
-};
+});

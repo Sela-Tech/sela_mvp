@@ -2,7 +2,6 @@ import React from "react";
 import Helmet from "react-helmet";
 import { StyledWrapperElem } from "../../../styles/dashboards/project-funder/wrapper";
 import DashboardSidebar from "./sidebar";
-import Modal from "../../modals";
 import { connect } from "react-redux";
 
 const MetaData = ({ viewName, projectName }) => {
@@ -48,7 +47,7 @@ const MetaData = ({ viewName, projectName }) => {
   }
 };
 
-const Wrapper = ({ viewName, children, modalToShow, projectName }) => {
+const Wrapper = ({ viewName, children, projectName }) => {
   return (
     <StyledWrapperElem className="xs-12">
       <div className="xs-12 md-2" id="sdbar-wrpr">
@@ -56,7 +55,6 @@ const Wrapper = ({ viewName, children, modalToShow, projectName }) => {
       </div>
       <div className="xs-12 md-10 md-off-2" id="main-wrpr">
         <MetaData viewName={viewName} projectName={projectName} />
-        <Modal name={modalToShow} />
         {children}
       </div>
     </StyledWrapperElem>

@@ -12,6 +12,9 @@ export default {
       LoadingComponent: Blank
     }
   ),
+  funder_dashboard_team: loadable(() =>
+    import("./pages/dashboards/project-funder/view_team")
+  ),
   funder_dashboard_view_project: loadable(
     () => import("./pages/dashboards/project-funder/view_project"),
     {

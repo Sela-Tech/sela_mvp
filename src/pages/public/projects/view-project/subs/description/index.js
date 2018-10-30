@@ -55,6 +55,8 @@ const DescriptionWrapper = styled.div`
         border-radius: 60px;
         display: block;
         background: silver;
+        object-fit: cover;
+        object-position: center;
       }
       h4,
       p,

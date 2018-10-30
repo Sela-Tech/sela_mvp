@@ -176,7 +176,6 @@ export default connect(mapStateToProps)(
           }
         },
         () => {
-          console.log(this.state.form);
           this.props.dispatch(addProject(this.state.form));
         }
       );
