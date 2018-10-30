@@ -74,6 +74,7 @@ var projectStructure = {
         information: {
           type: ObjectId,
           ref: "User",
+          required: true,
           autopopulate: {
             select:
               "isFunder isContractor isEvaluator reputationScore firstName lastName email _id organization profilePhoto "

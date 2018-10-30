@@ -6,6 +6,8 @@ let project = require("../app/controllers/project");
 module.exports = function(app) {
   //real routes
   app.route("/project").post(verifyToken, project.new);
+  app.route("/project/stakeholder").post(verifyToken, project.add_stakeholder);
+
   app.route("/projects?").get(verifyToken, project.find);
 
   //real routes

@@ -7,8 +7,8 @@ var Organization = mongoose.model("Organization");
 var Project = mongoose.model("Project");
 var Transaction = mongoose.model("Transaction");
 var Uploads = mongoose.model("Upload");
-
 var tokenValidityPeriod = 86400; // in seconds; 86400 seconds = 24 hours
+var bcrypt = require("bcrypt");
 
 exports.find_stakeholder_info = async (req, res) => {
   let userInfo = await User.findOne({ _id: req.body.id });
@@ -107,6 +107,8 @@ exports.register = async (req, res) => {
         isEvaluator,
         isContractor,
         firstName: newUser.firstName,
+        phone: user.phone,
+        email: user.email,
         organization: {
           name: newUser.organization.name,
           id: newUser.organization._id
@@ -169,6 +171,8 @@ exports.login = (req, res) => {
           isEvaluator,
           isContractor,
           firstName: user.firstName,
+          phone: user.phone,
+          email: user.email,
           organization: {
             name: user.organization.name,
             id: user.organization._id
@@ -192,107 +196,99 @@ exports.login = (req, res) => {
   });
 };
 
-exports.get_phone = (req, res) => {
+exports.update = async (req, res) => {
   var successRes = { success: true };
   var failRes = { success: false };
-  var userId = req.userId;
-  User.findById(userId, (userFindErr, user) => {
-    if (!user) {
-      failRes.message = "Sela does not have a user with ID: " + userId;
-      return res.status(401).json(failRes);
-    }
-    successRes.phone = user.phone;
-    return res.status(200).json(successRes);
-  });
-};
 
-exports.get_email = (req, res) => {
-  var successRes = { success: true };
-  var failRes = { success: false };
-  var userId = req.userId;
-  User.findById(userId, (userFindErr, user) => {
-    if (!user) {
-      failRes.message = "Sela does not have a user with ID: " + userId;
-      return res.status(401).json(failRes);
-    }
-    successRes.email = user.email;
-    return res.status(200).json(successRes);
-  });
-};
+  try {
+    let oldPassword = req.body.oldPassword;
+    let user = await User.findById(req.userId).exec();
 
-exports.change_phone = (req, res) => {
-  var successRes = { success: true };
-  var failRes = { success: false };
-  var userId = req.userId;
-  var newPhone = req.body.newPhone;
-  User.findById(userId, (userFindErr, user) => {
-    if (!user) {
-      failRes.message = "Sela does not have a user with ID: " + userId;
-      return res.status(401).json(failRes);
-    }
-    user.phone = req.body.newPhone;
-    user.save(userErr => {
-      if (userErr) {
-        failRes.message = userErr.name + ": " + userErr.message;
-        return res.status(500).json(failRes);
-      }
-      return res.status(200).json(successRes);
-    });
-  });
-};
+    let finalUserObj = {};
 
-exports.change_email = (req, res) => {
-  var successRes = { success: true };
-  var failRes = { success: false };
-  var userId = req.userId;
-  var newEmail = req.body.newEmail;
-  User.findById(userId, (userFindErr, user) => {
-    if (!user) {
-      failRes.message = "Sela does not have a user with ID: " + userId;
-      return res.status(401).json(failRes);
-    }
-    user.email = req.body.newEmail;
-    user.save(userErr => {
-      if (userErr) {
-        failRes.message = userErr.name + ": " + userErr.message;
-        return res.status(500).json(failRes);
-      }
-      return res.status(200).json(successRes);
-    });
-  });
-};
-
-exports.change_password = (req, res) => {
-  var successRes = { success: true };
-  var failRes = { success: false };
-  var userId = req.userId;
-  var oldPassword = req.body.oldPassword;
-  var newPassword = req.body.newPassword;
-  User.findById(userId, (userFindErr, user) => {
-    if (!user) {
-      failRes.message = "Sela does not have a user with ID: " + userId;
-      return res.status(401).json(failRes);
-    }
-    user.comparePassword(oldPassword, (passErr, isMatch) => {
+    user.comparePassword(oldPassword, async (passErr, isMatch) => {
       if (passErr) {
         failRes.message = passErr.name + ": " + passErr.message;
         return res.status(500).json(failRes);
       }
+
       if (!isMatch) {
         failRes.message =
           "That is the wrong password for this account. Please try again";
         return res.status(401).json(failRes);
       }
-      user.password = req.body.newPassword;
-      user.save(userErr => {
-        if (userErr) {
-          failRes.message = userErr.name + ": " + userErr.message;
-          return res.status(500).json(failRes);
+
+      let objSearch = {};
+
+      if (
+        req.body.newPassword &&
+        req.body.verifyPassword &&
+        req.body.oldPassword
+      ) {
+        if (req.body.newPassword === req.body.verifyPassword) {
+          let password = req.body.newPassword;
+          let hash = bcrypt.hashSync(password, bcrypt.genSaltSync());
+          objSearch = { password: hash };
+
+          finalUserObj = await User.findOneAndUpdate(
+            { _id: req.userId },
+            { $set: objSearch },
+            { new: true }
+          );
+        } else {
+          res.status(401).json({
+            message: "Passwords don't match"
+          });
         }
-        return res.status(200).json(successRes);
+      } else {
+        objSearch = req.body;
+        delete objSearch.newPassword;
+        delete objSearch.verifyPassword;
+        delete objSearch.oldPassword;
+        delete objSearch.password;
+      }
+
+      finalUserObj = await User.findOneAndUpdate(
+        { _id: req.userId },
+        { $set: objSearch },
+        { new: true }
+      );
+
+      const { isFunder, isEvaluator, isContractor } = finalUserObj,
+        signThis = {
+          profilePhoto: finalUserObj.profilePhoto,
+          id: finalUserObj._id,
+          isFunder,
+          isEvaluator,
+          email: finalUserObj.email,
+          isContractor,
+          phone: finalUserObj.phone,
+          firstName: finalUserObj.firstName,
+          organization: {
+            name: finalUserObj.organization.name,
+            id: finalUserObj.organization._id
+          },
+          lastName: finalUserObj.lastName
+        };
+
+      var token = jwt.sign(signThis, process.env.SECRET, {
+        expiresIn: tokenValidityPeriod
+      });
+
+      return res.status(200).json({
+        ...successRes,
+        ...signThis,
+        firstName: finalUserObj.firstName,
+        lastName: finalUserObj.lastName,
+        organization: finalUserObj.organization,
+        token
       });
     });
-  });
+  } catch (error) {
+    res.status(401).json({
+      message: error.message
+    });
+  }
 };
 
 exports.find = async (req, res) => {

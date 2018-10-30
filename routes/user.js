@@ -8,17 +8,8 @@ module.exports = function(app) {
   app.route("/register").post(user_controller.register);
   app.route("/login").post(user_controller.login);
 
-  app
-    .route("/phone")
-    .get(verifyToken, user_controller.get_phone)
-    .post(verifyToken, user_controller.change_phone);
+  app.route("/update").post(verifyToken, user_controller.update);
 
-  app
-    .route("/email")
-    .get(verifyToken, user_controller.get_email)
-    .post(verifyToken, user_controller.change_email);
-
-  app.route("/password").post(verifyToken, user_controller.change_password);
   app.route("/users").get(verifyToken, user_controller.find);
 
   app.route("/users/i").post(user_controller.find_stakeholder_info);

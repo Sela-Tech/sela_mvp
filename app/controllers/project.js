@@ -195,3 +195,35 @@ exports.find_one = async (req, res) => {
     });
   }
 };
+
+exports.add_stakeholder = async (req, res) => {
+  try {
+    let project = await Project.findOne({ _id: req.body.id });
+
+    const stakeholders = project.stakeholders.map(s => ({
+      user: { information: `${s.user.information._id}` }
+    }));
+
+    if (req.body.stakeholders.length > 0) {
+      let new_stakeholders = [...stakeholders, ...req.body.stakeholders];
+      let saveResponse = await Project.updateOne(
+        { _id: req.body.id },
+        { $set: { stakeholders: new_stakeholders } }
+      );
+
+      if (saveResponse.n === 1) {
+        res.status(200).json({
+          message: "Stakeholder Added Sucessfully"
+        });
+      }
+    } else {
+      res.status(200).json({
+        message: "No Stakeholder Information Provided"
+      });
+    }
+  } catch (error) {
+    res.status(401).json({
+      message: "Stakeholder could not be added"
+    });
+  }
+};
