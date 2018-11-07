@@ -53,6 +53,12 @@ export default connect(mapStateToProps)(
       };
     }
 
+    componentWillMount() {
+      this.props.dispatch({
+        type: "CLEAR_ADD"
+      });
+    }
+
     handleSubmit = e => {
       e.preventDefault();
       let selected = this.props.selected;
@@ -289,6 +295,17 @@ export default connect(mapStateToProps)(
                 />
               </div>
 
+              <div className="xs-12 form-control">
+                <label>Associated Tags: Seperate tags with a comma.</label>
+                <div className="xs-12">
+                  <textarea
+                    name="tags"
+                    placeholder="e.g. Sustainable Eities, Education ..."
+                    onChange={this.handleChange}
+                  />
+                </div>
+              </div>
+
               <ContractorLoader onchange={this.handleChange} />
 
               <div className="form-control xs-12" id="date-part">
@@ -367,12 +384,13 @@ export default connect(mapStateToProps)(
                 )}
               </div>
             </div>
-
-            <MessageToShow
-              type={type}
-              message={message}
-              match={dA.ADD_PROJECT_SUCCESSFUL}
-            />
+            {type === dA.ADD_PROJECT_SUCCESSFUL && (
+              <MessageToShow
+                type={type}
+                message={message}
+                match={dA.ADD_PROJECT_SUCCESSFUL}
+              />
+            )}
           </Form>
         </React.Fragment>
       );

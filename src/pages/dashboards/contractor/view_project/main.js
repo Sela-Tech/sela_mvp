@@ -60,9 +60,9 @@ const ProjectComponent = ({ info, match, dispatch }) => {
               <h1>{info.name}</h1>
               <button id="can-see-status">
                 {info.activated ? "Visible To Public" : "Not Visible To Public"}
-              </button>
+              </button>{" "}
               <p>{info.description}</p>
-              <button>{info.status}</button>
+              <button id="completion-status">{info.status}</button>
             </div>
           </div>
 
@@ -74,9 +74,9 @@ const ProjectComponent = ({ info, match, dispatch }) => {
             </button>
           </div>
           <div className="xs-12">
-            <nav className="xs-12 ">
+            <nav className="xs-12 sm-10">
               <NavLink
-                className="xs-6 sm-1"
+                className="xs-6 sm-2"
                 activeClassName="active"
                 exact
                 to={`/dashboard/project/${id}/overview`}
@@ -85,7 +85,7 @@ const ProjectComponent = ({ info, match, dispatch }) => {
               </NavLink>
 
               <NavLink
-                className="xs-6 sm-1"
+                className="xs-6 sm-2"
                 activeClassName="active"
                 exact
                 to={`/dashboard/project/${id}/tasks`}
@@ -94,7 +94,7 @@ const ProjectComponent = ({ info, match, dispatch }) => {
               </NavLink>
 
               <NavLink
-                className="xs-6 sm-2"
+                className="xs-6 sm-3"
                 activeClassName="active"
                 exact
                 to={`/dashboard/project/${id}/transactions`}
@@ -102,20 +102,12 @@ const ProjectComponent = ({ info, match, dispatch }) => {
                 Transaction History
               </NavLink>
               <NavLink
-                className="xs-6 sm-2"
+                className="xs-6 sm-3"
                 activeClassName="active"
                 exact
                 to={`/dashboard/project/${id}/documents`}
               >
                 Related Documents
-              </NavLink>
-              <NavLink
-                className="xs-6 sm-2"
-                activeClassName="active"
-                exact
-                to={`/dashboard/project/${id}/stakeholders`}
-              >
-                Stakeholders
               </NavLink>
             </nav>
           </div>

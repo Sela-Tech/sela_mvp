@@ -7,6 +7,8 @@ import { Link } from "react-router-dom";
 import { connect } from "react-redux";
 import { bindActionCreators } from "redux";
 import { signin } from "../../../store/action-creators/auth";
+import * as adminACreators from "../../../store/action-creators/admin";
+
 import AsycnButton from "../../../shared-components/unique/async-button";
 import auth from "../../../store/actions/auth";
 import MessageToShow from "../../../shared-components/errors/messageToShow";
@@ -37,11 +39,16 @@ class Login extends React.Component {
     const key = Object.keys(this.state.username)[0],
       { password, rememberMe } = this.state;
 
-    this.props.signin({
-      [key]: this.state.username[key],
-      password,
-      rememberMe
-    });
+    this.props.admin === true
+      ? this.props.adminACreators.signin({
+          [key]: this.state.username[key],
+          password
+        })
+      : this.props.signin({
+          [key]: this.state.username[key],
+          password,
+          rememberMe
+        });
   };
 
   onPasswordChange = e => {
@@ -140,11 +147,15 @@ class Login extends React.Component {
         password,
         rememberMe
       } = this.state,
-      disabled = this.confirmFields(),
       sEUsername = this.state.specialError.username,
       minName = this.state.minLengths.username,
       minPass = this.state.minLengths.password;
 
+    let disabled = false;
+
+    if (this.props.admin !== true) {
+      disabled = this.confirmFields();
+    }
     return (
       <Wrapper viewName="signin">
         <div className="container">
@@ -154,9 +165,17 @@ class Login extends React.Component {
             </Link>
           </div>
           <div className="xs-12">
-            <h2> Sign in to Sela </h2>
-            <p>test@gmail.com</p>
-            <p>password</p>
+            {this.props.admin ? (
+              <React.Fragment>
+                <h2> Admin Portal </h2>
+              </React.Fragment>
+            ) : (
+              <React.Fragment>
+                <h2> Sign in to Sela </h2>
+                <p>test@gmail.com</p>
+                <p>password</p>
+              </React.Fragment>
+            )}
           </div>
 
           <div className="xs-12">
@@ -192,23 +211,25 @@ class Login extends React.Component {
                   required
                 />
 
-                <div className="extremes xs-12">
-                  <div className="xs-6">
-                    <input
-                      type="checkbox"
-                      name="rememberMe"
-                      value={rememberMe}
-                      onChange={this.onCheck}
-                    />
-                    <label> Keep me signed in</label>
-                  </div>
+                {this.props.admin !== true && (
+                  <div className="extremes xs-12">
+                    <div className="xs-6">
+                      <input
+                        type="checkbox"
+                        name="rememberMe"
+                        value={rememberMe}
+                        onChange={this.onCheck}
+                      />
+                      <label> Keep me signed in</label>
+                    </div>
 
-                  <div className="xs-6">
-                    <Link to="/forgot/password" className="link">
-                      Forgot password?
-                    </Link>
+                    <div className="xs-6">
+                      <Link to="/forgot/password" className="link">
+                        Forgot password?
+                      </Link>
+                    </div>
                   </div>
-                </div>
+                )}
               </div>
 
               <div className="form-group xs-12">
@@ -229,10 +250,15 @@ class Login extends React.Component {
                     match={auth.SIGNIN_FAILED}
                   />
                 </div>
-
-                <Link to="/signup" className="link" style={{ fontSize: "1em" }}>
-                  Don’t have an account? Sign up.
-                </Link>
+                {this.props.admin !== true && (
+                  <Link
+                    to="/signup"
+                    className="link"
+                    style={{ fontSize: "1em" }}
+                  >
+                    Don’t have an account? Sign up.
+                  </Link>
+                )}
               </div>
             </form>
           </div>
@@ -253,7 +279,8 @@ const mapStateToProps = state => {
 };
 const mapDispatchToProps = dispatch => {
   return {
-    signin: bindActionCreators(signin, dispatch)
+    signin: bindActionCreators(signin, dispatch),
+    adminACreators: bindActionCreators(adminACreators, dispatch)
   };
 };
 export default connect(

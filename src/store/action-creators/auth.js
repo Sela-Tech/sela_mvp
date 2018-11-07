@@ -22,6 +22,7 @@ export const signin = obj => {
           } else {
             setToken("ss", data.token);
           }
+          
           switch (true) {
             case data.isEvaluator:
               data.signUpType = "evaluation-agent";

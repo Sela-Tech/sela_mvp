@@ -7,14 +7,20 @@ if (process.env.NODE_ENV === "development") {
 }
 export default {
   b,
+  approve: b + "a/approve",
+  revoke: b + "a/revoke",
+
   fetch_stakeholder_info: b + "users/i",
   signin: b + "login",
+  a_signin: b + "a/login",
+  a_users: b + "a/users",
   signup: b + "register",
   update: b + "update",
   send_recovery_mail: "",
   verify_user_token: b + "verifyToken",
   fetch_projects: b + "projects?",
   fetch_project: b + "project/",
+
   fetch_organizations: b + "organizations",
   add_project: b + "project",
   add_task: b + "task",

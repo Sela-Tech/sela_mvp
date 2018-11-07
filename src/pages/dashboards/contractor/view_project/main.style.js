@@ -50,6 +50,7 @@ export const ProjectWrapper = styled.div`
       color: #4f4f4f;
       font-weight: 400;
       display:inline-block;
+      margin-right: 5px;
     }
 
     p {
@@ -60,7 +61,9 @@ export const ProjectWrapper = styled.div`
       font-weight: 300;
     }
 
-    button {
+
+
+    button#completion-status {
       background: #eff5fb;
       border-radius: 5px;
       border: 0;

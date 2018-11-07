@@ -1,10 +1,5 @@
 import React from "react";
-import {
-  Switch,
-  Route,
-  BrowserRouter as Router,
-  Redirect
-} from "react-router-dom";
+import { Switch, Route, BrowserRouter as Router } from "react-router-dom";
 import r from "./routes";
 
 import { connect } from "react-redux";
@@ -13,73 +8,7 @@ import { LoadingRoute, PrivateRoute } from "./helpers/routes";
 import Errors from "./pages/errors";
 import Modals from "./shared-components/modals";
 
-const FilterDashboard = (type, isAuthenticated = false) => {
-  switch (type) {
-    default:
-      if (isAuthenticated === true) {
-        return <Errors errorName="under-construction" />;
-      } else {
-        return <Redirect to="/signin" />;
-      }
-    case "project-funder":
-      return [
-        <PrivateRoute
-          exact
-          path="/dashboard"
-          isAuthenticated={isAuthenticated}
-          component={r.funder_dashboard_home}
-          key={1}
-        />,
-        <PrivateRoute
-          exact
-          path="/dashboard/settings"
-          isAuthenticated={isAuthenticated}
-          component={r.funder_dashboard_settings}
-          key={2}
-        />,
-        <PrivateRoute
-          exact
-          path="/dashboard/project/:id/:view"
-          isAuthenticated={isAuthenticated}
-          component={r.funder_dashboard_view_project}
-          key={3}
-        />,
-        <PrivateRoute
-          exactpath="/dashboard/team"
-          isAuthenticated={isAuthenticated}
-          component={r.funder_dashboard_team}
-          key={4}
-        />
-      ];
-
-    case "contractor":
-      return [
-        <PrivateRoute
-          exact
-          path="/dashboard"
-          isAuthenticated={isAuthenticated}
-          component={r.funder_dashboard_home}
-          key={1}
-        />,
-        <PrivateRoute
-          exact
-          path="/dashboard/settings"
-          isAuthenticated={isAuthenticated}
-          component={r.funder_dashboard_settings}
-          key={2}
-        />,
-        <PrivateRoute
-          exact
-          path="/dashboard/project/:id/:view"
-          isAuthenticated={isAuthenticated}
-          component={r.funder_dashboard_view_project}
-          key={3}
-        />
-      ];
-  }
-};
-
-const App = ({ isAuthenticated, actionType, dashboardType, modalToShow }) => {
+const App = ({ isAuthenticated, actionType, modalToShow }) => {
   return (
     <Router>
       <React.Fragment>
@@ -88,8 +17,9 @@ const App = ({ isAuthenticated, actionType, dashboardType, modalToShow }) => {
         {actionType === authActions.TOKEN_VERIFICATION_IN_PROGRESS ? (
           <Switch>
             <Route exact path="/" component={r.home} />
+            <Route exact path="/admin" component={r.admin} />
+            <Route exact path="/admin/users/:route" component={r.admin} />
 
-            <Route exact path="/team" component={r.home} />
             <Route
               exact
               path="/projects/:id"
@@ -100,16 +30,15 @@ const App = ({ isAuthenticated, actionType, dashboardType, modalToShow }) => {
               path="/projects/:id/:show"
               component={r.public_view_project}
             />
-
-            <Route exact path="/blog" component={r.home} />
-            <Route exact path="/crowdfund" component={r.home} />
 
             <LoadingRoute text={"Please Wait... Authenticating"} />
           </Switch>
         ) : (
           <Switch>
             <Route exact path="/" component={r.home} />
-            <Route exact path="/team" component={r.home} />
+            <Route exact path="/admin" component={r.admin} />
+            <Route exact path="/admin/users/:route" component={r.admin} />
+
             <Route
               exact
               path="/projects/:id"
@@ -120,10 +49,6 @@ const App = ({ isAuthenticated, actionType, dashboardType, modalToShow }) => {
               path="/projects/:id/:show"
               component={r.public_view_project}
             />
-
-            <Route exact path="/blog" component={r.home} />
-            <Route exact path="/crowdfund" component={r.home} />
-
             <PrivateRoute
               exact
               path="/signin"
@@ -131,7 +56,6 @@ const App = ({ isAuthenticated, actionType, dashboardType, modalToShow }) => {
               isAuthenticated={isAuthenticated}
               component={r.auth}
             />
-
             <PrivateRoute
               exact
               path="/signup"
@@ -146,9 +70,25 @@ const App = ({ isAuthenticated, actionType, dashboardType, modalToShow }) => {
               isAuthenticated={isAuthenticated}
               component={r.auth}
             />
-
-            {FilterDashboard(dashboardType, isAuthenticated)}
-            <Route component={r.errors} />
+            <PrivateRoute
+              exact
+              path="/dashboard"
+              isAuthenticated={isAuthenticated}
+              component={r.dashboardDecider}
+            />
+            <PrivateRoute
+              exact
+              path="/dashboard/settings"
+              isAuthenticated={isAuthenticated}
+              component={r.dashboardDecider}
+            />
+            <PrivateRoute
+              exact
+              path="/dashboard/project/:id/:view"
+              isAuthenticated={isAuthenticated}
+              component={r.dashboardDecider}
+            />
+            <Route component={Errors} />
           </Switch>
         )}
       </React.Fragment>

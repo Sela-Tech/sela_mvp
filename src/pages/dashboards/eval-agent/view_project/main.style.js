@@ -9,12 +9,6 @@ export const ProjectWrapper = styled.div`
   height: 100%;
 
   #header {
-
-    #can-see-status{
-      display:inline-block;
-      background: white;
-      color: skyblue;
-    }
     nav {
      padding-top; 1em;
      display: block;
@@ -49,7 +43,6 @@ export const ProjectWrapper = styled.div`
       font-size: 24px;
       color: #4f4f4f;
       font-weight: 400;
-      display:inline-block;
     }
 
     p {

@@ -67,13 +67,19 @@ export default connect(state => {
                       </NavLink>
                     </React.Fragment>
                   ) : (
-                    <NavLink
-                      id="get-started"
-                      to="#"
-                      onClick={() => dispatch(signout())}
-                    >
-                      Logout
-                    </NavLink>
+                    <React.Fragment>
+                      <NavLink activeClassName="blue" to="/dashboard">
+                        Dashboard
+                      </NavLink>
+
+                      <NavLink
+                        id="get-started"
+                        to="#"
+                        onClick={() => dispatch(signout())}
+                      >
+                        Logout
+                      </NavLink>
+                    </React.Fragment>
                   )}
                 </nav>
               </div>

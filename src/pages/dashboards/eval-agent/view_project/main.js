@@ -1,12 +1,10 @@
 import React from "react";
 import { ProjectWrapper } from "./main.style";
 import { NavLink, withRouter } from "react-router-dom";
-import Analytics from "../../shared/sub-components/analytics";
-import Transactions from "../../shared/sub-components/transactions";
-import Tasks from "../../shared/sub-components/tasks";
-import Documents from "../../shared/sub-components/documents";
-import Stakeholders from "../../shared/sub-components/stakeholders";
-
+import Analytics from "./subs/analytics";
+import Transactions from "./subs/transactions";
+import Tasks from "./subs/tasks";
+import Documents from "./subs/documents";
 import { showAddStakeholderModal } from "../../../../store/action-creators/project-funder/modal";
 
 import { connect } from "react-redux";
@@ -24,9 +22,6 @@ const View = ({ id, view }) => {
 
     case "tasks":
       return <Tasks id={id} />;
-
-    case "stakeholders":
-      return <Stakeholders id={id} />;
 
     default:
       return null;
@@ -58,9 +53,6 @@ const ProjectComponent = ({ info, match, dispatch }) => {
           <div className="xs-12 sm-8">
             <div className="xs-12 sm-11">
               <h1>{info.name}</h1>
-              <button id="can-see-status">
-                {info.activated ? "Visible To Public" : "Not Visible To Public"}
-              </button>
               <p>{info.description}</p>
               <button>{info.status}</button>
             </div>
@@ -74,9 +66,9 @@ const ProjectComponent = ({ info, match, dispatch }) => {
             </button>
           </div>
           <div className="xs-12">
-            <nav className="xs-12 ">
+            <nav className="xs-12 sm-10">
               <NavLink
-                className="xs-6 sm-1"
+                className="xs-6 sm-2"
                 activeClassName="active"
                 exact
                 to={`/dashboard/project/${id}/overview`}
@@ -85,7 +77,7 @@ const ProjectComponent = ({ info, match, dispatch }) => {
               </NavLink>
 
               <NavLink
-                className="xs-6 sm-1"
+                className="xs-6 sm-2"
                 activeClassName="active"
                 exact
                 to={`/dashboard/project/${id}/tasks`}
@@ -94,7 +86,7 @@ const ProjectComponent = ({ info, match, dispatch }) => {
               </NavLink>
 
               <NavLink
-                className="xs-6 sm-2"
+                className="xs-6 sm-3"
                 activeClassName="active"
                 exact
                 to={`/dashboard/project/${id}/transactions`}
@@ -102,20 +94,12 @@ const ProjectComponent = ({ info, match, dispatch }) => {
                 Transaction History
               </NavLink>
               <NavLink
-                className="xs-6 sm-2"
+                className="xs-6 sm-3"
                 activeClassName="active"
                 exact
                 to={`/dashboard/project/${id}/documents`}
               >
                 Related Documents
-              </NavLink>
-              <NavLink
-                className="xs-6 sm-2"
-                activeClassName="active"
-                exact
-                to={`/dashboard/project/${id}/stakeholders`}
-              >
-                Stakeholders
               </NavLink>
             </nav>
           </div>

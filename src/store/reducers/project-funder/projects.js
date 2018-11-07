@@ -45,6 +45,11 @@ const initstate = {
 
 export default (state = initstate, payload) => {
   switch (payload.type) {
+    case dA.CLEAR_ADD:
+      return {
+        ...state,
+        add: initstate.add
+      };
     case dA.ADD_STAKEHOLDER_FAILED:
       return {
         ...state,
