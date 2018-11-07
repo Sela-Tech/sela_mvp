@@ -92,6 +92,12 @@ exports.find = async (req, res) => {
           return p.location.name === locationName.replace(/%20/g, " ");
         });
       } else {
+        if (Boolean(checkQuery.owner)) {
+          projects = projects.map(p => {
+            p.isOwner = true;
+            return p;
+          });
+        }
         successRes.projects = projects;
       }
 
@@ -182,7 +188,11 @@ exports.delete = async (req, res) => {
 exports.find_one = async (req, res) => {
   try {
     let project = await Project.findOne({ _id: req.params.id });
-    if (project.activated) {
+
+    if (project.activated === true || project.owner._id == req.userId) {
+      project = project.toJSON();
+
+      project.isOwner = project.owner._id == req.userId;
       res.status(200).json(project);
     } else {
       res.status(400).json({

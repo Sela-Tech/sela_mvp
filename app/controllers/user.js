@@ -20,7 +20,7 @@ exports.find_stakeholder_info = async (req, res) => {
 
   delete userInfo.password;
   delete userInfo.updateOn;
-  delete userInfo.activated;
+  delete userInfo.activation;
   delete userInfo.username;
   delete userInfo.email;
 
@@ -107,8 +107,8 @@ exports.register = async (req, res) => {
         isEvaluator,
         isContractor,
         firstName: newUser.firstName,
-        phone: user.phone,
-        email: user.email,
+        phone: newUser.phone,
+        email: newUser.email,
         organization: {
           name: newUser.organization.name,
           id: newUser.organization._id
@@ -163,35 +163,41 @@ exports.login = (req, res) => {
           "That is the wrong password for this account. Please try again";
         return res.status(401).json(failRes);
       }
-      const { isFunder, isEvaluator, isContractor } = user,
-        signThis = {
-          profilePhoto: user.profilePhoto,
-          id: user._id,
-          isFunder,
-          isEvaluator,
-          isContractor,
+
+      if (user.activation === "approved") {
+        const { isFunder, isEvaluator, isContractor } = user,
+          signThis = {
+            profilePhoto: user.profilePhoto,
+            id: user._id,
+            isFunder,
+            isEvaluator,
+            isContractor,
+            firstName: user.firstName,
+            phone: user.phone,
+            email: user.email,
+            organization: {
+              name: user.organization.name,
+              id: user.organization._id
+            },
+            lastName: user.lastName
+          };
+
+        var token = jwt.sign(signThis, process.env.SECRET, {
+          expiresIn: tokenValidityPeriod
+        });
+
+        return res.status(200).json({
+          ...successRes,
+          ...signThis,
           firstName: user.firstName,
-          phone: user.phone,
-          email: user.email,
-          organization: {
-            name: user.organization.name,
-            id: user.organization._id
-          },
-          lastName: user.lastName
-        };
-
-      var token = jwt.sign(signThis, process.env.SECRET, {
-        expiresIn: tokenValidityPeriod
-      });
-
-      return res.status(200).json({
-        ...successRes,
-        ...signThis,
-        firstName: user.firstName,
-        lastName: user.lastName,
-        organization: user.organization,
-        token
-      });
+          lastName: user.lastName,
+          organization: user.organization,
+          token
+        });
+      } else {
+        failRes.message = "Your account has not been activated.";
+        return res.status(401).json(failRes);
+      }
     });
   });
 };
@@ -295,7 +301,10 @@ exports.find = async (req, res) => {
   let users = await User.find({});
 
   users = users.filter(u => {
-    return u._id != req.userId;
+    u = u.toJSON();
+    return (
+      u._id != req.userId && (u.isAdmin == false || u.isAdmin == undefined)
+    );
   });
   users = users.map(u => {
     let temp = {

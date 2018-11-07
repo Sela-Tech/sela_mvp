@@ -66,6 +66,18 @@ var userStructure = {
     required: true,
     default: false
   },
+  activation: {
+    type: String,
+    default: "pending"
+  },
+  createdOn: {
+    type: Date,
+    default: Date.now()
+  },
+  updatedOn: {
+    type: Date,
+    default: Date.now()
+  },
   password: {
     type: String,
     min: [8, "Password must me longer than 8 characters"],
@@ -81,18 +93,6 @@ var userStructure = {
       },
       "Password is incorrect"
     ]
-  },
-  activated: {
-    type: Boolean,
-    default: false
-  },
-  createdOn: {
-    type: Date,
-    default: Date.now()
-  },
-  updatedOn: {
-    type: Date,
-    default: Date.now()
   }
 };
 
