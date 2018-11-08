@@ -4,7 +4,7 @@ import ContractorLoader from "./sub-components/contractor-loader";
 import { Form } from "./styles.modals/add.stakeholder";
 import MessageToShow from "../errors/messageToShow";
 import dA from "../../store/actions/project-funder/dashboard";
-import { addStakeholder } from "../../store/action-creators/project-funder/project";
+import { addStakeholder } from "../../store/action-creators/project-funder/stakeholder";
 import dashboard from "../../store/actions/project-funder/dashboard";
 import AsyncButton from "../unique/async-button";
 

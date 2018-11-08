@@ -1,9 +1,8 @@
 import React from "react";
 import { connect } from "react-redux";
-import {
-  fetchPossibleStakeholders,
-  selectFunders
-} from "../../../store/action-creators/project-funder/project";
+import { selectFunders } from "../../../store/action-creators/project-funder/project";
+import { fetchPossibleStakeholders } from "../../../store/action-creators/project-funder/stakeholder";
+
 import Select from "react-select";
 
 const mapStateToProps = state => {
