@@ -7,8 +7,8 @@ import LeftPane from "./left-pane";
 import RightPane from "./right-pane";
 import { connect } from "react-redux";
 
-class HomePageContainer extends React.Component {
-  render() {
+const  HomePageContainer = ({show,fullscreen})=>{
+
     return (
       <React.Fragment>
         <Helmet>
@@ -16,12 +16,12 @@ class HomePageContainer extends React.Component {
         </Helmet>
         <Navbar />
         <HomeStyle className="xs-12">
-          {this.props.fullscreen === false && (
-            <LeftPane className={this.props.showMap ? "xs-12 sm-6" : "xs-12"} />
+          {fullscreen === false && (
+            <LeftPane className={show ? "xs-12 sm-6" : "xs-12"} />
           )}
-          {this.props.showMap && (
+          {show && (
             <RightPane
-              className={this.props.fullscreen ? "xs-12" : "xs-12 sm-6"}
+              className={fullscreen ? "xs-12" : "xs-12 sm-6"}
             />
           )}
         </HomeStyle>
@@ -29,13 +29,15 @@ class HomePageContainer extends React.Component {
         <Footer />
       </React.Fragment>
     );
-  }
+  
 }
 
 const mapStateToProps = state => {
+  const  {show,fullscreen} = state.home.map;
+
   return {
-    showMap: state.home.map.show,
-    fullscreen: state.home.map.fullscreen
+    show,
+    fullscreen
   };
 };
 
