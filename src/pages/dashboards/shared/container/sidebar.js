@@ -15,7 +15,89 @@ import HamWrapper from "../../../../styles/external/hamburger";
 
 import { WebSidebar, MobileSidebar } from "./sidebar.style";
 
-const MobileDashboardSidebar = ({ dispatch, isOpened, toggleMenu, user }) => {
+const Decider = userType => {
+  switch (userType) {
+    case "Contractor":
+      return (
+        <ul>
+          <li>
+            <NavLink exact to="/dashboard" activeClassName="active">
+              <img src={folder} alt="folder" />
+              <span>Accepted Projects</span>
+            </NavLink>
+          </li>
+
+          <li>
+            <NavLink exact to="/dashboard/#" activeClassName="active">
+              <img src={folder} alt="folder" />
+              <span>Project Requests</span>
+            </NavLink>
+          </li>
+
+          <li>
+            <NavLink exact to="/dashboard/#" activeClassName="active">
+              <img src={folder} alt="folder" />
+              <span>My Project</span>
+            </NavLink>
+          </li>
+
+          <li>
+            <NavLink exact to="/dashboard/#" activeClassName="active">
+              <img src={folder} alt="folder" />
+              <span>Marketplace</span>
+            </NavLink>
+          </li>
+
+          <li>
+            <NavLink exact to="/dashboard/settings" activeClassName="active">
+              <img src={settings} alt="settings" />
+              <span>Settings</span>
+            </NavLink>
+          </li>
+        </ul>
+      );
+
+    default:
+      return (
+        <ul>
+          <li>
+            <NavLink exact to="/dashboard" activeClassName="active">
+              <img src={folder} alt="folder" />
+              <span>Projects</span>
+            </NavLink>
+          </li>
+
+          <li>
+            <NavLink exact to="/dashboard/#" activeClassName="active">
+              <img src={folder} alt="folder" />
+              <span>Requests</span>
+            </NavLink>
+          </li>
+
+          <li>
+            <NavLink exact to="/dashboard/#" activeClassName="active">
+              <img src={folder} alt="folder" />
+              <span>Marketplace</span>
+            </NavLink>
+          </li>
+
+          <li>
+            <NavLink exact to="/dashboard/settings" activeClassName="active">
+              <img src={settings} alt="settings" />
+              <span>Settings</span>
+            </NavLink>
+          </li>
+        </ul>
+      );
+  }
+};
+
+const MobileDashboardSidebar = ({
+  dispatch,
+  isOpened,
+  toggleMenu,
+  userType
+}) => {
   const buttonClassName = isOpened ? "is-active" : "",
     bottomClassName = isOpened ? "opened" : "";
 
@@ -51,36 +133,7 @@ const MobileDashboardSidebar = ({ dispatch, isOpened, toggleMenu, user }) => {
 
         <span id="line-break" />
         <h4>MANAGE</h4>
-        <ul>
-          <li>
-            <NavLink exact to="/dashboard" activeClassName="active">
-              <img src={folder} alt="folder" />
-              <span>Projects</span>
-            </NavLink>
-          </li>
-
-          <li>
-            <NavLink exact to="/dashboard/requests" activeClassName="active">
-              <img src={folder} alt="folder" />
-              <span>Requests</span>
-            </NavLink>
-          </li>
-
-          <li>
-            <NavLink exact to="/dashboard/marketplace" activeClassName="active">
-              <img src={folder} alt="folder" />
-              <span>Marketplace</span>
-            </NavLink>
-          </li>
-
-          <li>
-            <NavLink exact to="/dashboard/settings" activeClassName="active">
-              <img src={settings} alt="settings" />
-              <span>Settings</span>
-            </NavLink>
-          </li>
-        </ul>
-
+        <Decider userType={userType} />
         <div id="fixed-bottom">
           <div id="logout">
             <ul>
@@ -127,13 +180,6 @@ const WebDashboardSidebar = ({ dispatch, user }) => {
             </NavLink>
           </li>
 
-          {/* <li>
-            <NavLink exact to="/dashboard/team" activeClassName="active">
-              <img src={team} alt="teams" />
-              <span>Teams</span>
-            </NavLink>
-          </li> */}
-
           <li>
             <NavLink exact to="/dashboard/settings" activeClassName="active">
               <img src={settings} alt="settings" />
@@ -170,8 +216,15 @@ const WebDashboardSidebar = ({ dispatch, user }) => {
 };
 
 const mapStateToProps = state => {
+  const { isFunder, isEvaluator, isContractor } = state.auth.credentials;
+
   return {
-    user: state.auth.credentials
+    user: state.auth.credentials,
+
+    userType:
+      (isFunder === true && "Funder") ||
+      (isEvaluator === true && "Evaluator") ||
+      (isContractor === true && "Contractor")
   };
 };
 
