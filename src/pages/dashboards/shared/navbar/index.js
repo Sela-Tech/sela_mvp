@@ -37,21 +37,27 @@ const NavStyle = styled.nav`
 const Decider = ({ type }) => {
   switch (type) {
     case "Evaluator":
-      return <div className="xs-12 sm-6" />;
+      return <div className="xs-12 sm-8" />;
     case "Contractor":
       return (
-        <div className="xs-12 sm-6">
+        <div className="xs-12 sm-8">
+          <NavLink className="xs-12 sm-3" to="#">
+            Accepted
+          </NavLink>
+
+          <NavLink className="xs-12 sm-3" to="#">
+            Requests
+          </NavLink>
+
           <NavLink
-            className="xs-12 sm-4"
+            className="xs-12 sm-3"
             to="/dashboard"
             activeClassName="active"
           >
-            Projects
+            My Projects
           </NavLink>
-          <NavLink className="xs-12 sm-4" to="/#">
-            Requests
-          </NavLink>
-          <NavLink className="xs-12 sm-4" to="/#">
+
+          <NavLink className="xs-12 sm-3" to="#">
             Marketplace
           </NavLink>
         </div>
@@ -59,18 +65,18 @@ const Decider = ({ type }) => {
 
     default:
       return (
-        <div className="xs-12 sm-6">
+        <div className="xs-12 sm-8">
           <NavLink
-            className="xs-12 sm-4"
+            className="xs-12 sm-3"
             to="/dashboard"
             activeClassName="active"
           >
-            Projects
+            My Projects
           </NavLink>
-          <NavLink className="xs-12 sm-4" to="#">
+          <NavLink className="xs-12 sm-3" to="#">
             Funded
           </NavLink>
-          <NavLink className="xs-12 sm-4" to="#">
+          <NavLink className="xs-12 sm-3" to="#">
             Marketplace
           </NavLink>
         </div>
@@ -111,9 +117,9 @@ class Navbar extends React.Component {
         return (
           <NavStyle className="xs-12">
             <Decider type={userType} />
-            <div className="xs-12 sm-6 ">
+            <div className="xs-12 sm-4 ">
               <NavLink
-                className="xs-12 sm-6 md-4 f-r"
+                className="xs-12 sm-6 f-r"
                 to="#"
                 id="add"
                 onClick={() => dispatch(showModal(modals.add_project))}
