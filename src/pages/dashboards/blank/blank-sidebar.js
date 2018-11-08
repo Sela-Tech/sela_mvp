@@ -106,41 +106,49 @@ background: #242A32;
     }
   }
 `;
-const WebDashboardSidebar = () => {
+const WebDashboardSidebar = ({ show }) => {
   const Blank = () => {
-    return setTimeout(() => {
-      return (
-        <React.Fragment>
-          <div id="top">
-            <img src={fullogo} alt="logo" />
-          </div>
-          <div id="bottom">
-            <span id="line-break" />
-            <h4>MANAGE</h4>
+    return (
+      <React.Fragment>
+        <div id="top">
+          <img src={fullogo} alt="logo" />
+        </div>
+        <div id="bottom">
+          <span id="line-break" />
+          <h4>MANAGE</h4>
 
-            <span className="sm" />
-            <span className="md" />
-            <span className="lg" />
-            <span className="lg" />
-            <span className="md" />
-          </div>
-        </React.Fragment>
-      );
-    }, 2000);
+          <span className="sm" />
+          <span className="md" />
+          <span className="lg" />
+          <span className="lg" />
+          <span className="md" />
+        </div>
+      </React.Fragment>
+    );
   };
 
-  return (
-    <WebSidebar>
-      <Blank />
-    </WebSidebar>
-  );
+  return <WebSidebar>{show && <Blank />}</WebSidebar>;
 };
 
 export default (class DashboardSidebar extends React.Component {
-  state = {
-    isMobile: window.innerWidth < 1024,
-    isOpened: false
-  };
+  constructor(props) {
+    super(props);
+    this.state = {
+      isMobile: window.innerWidth < 1024,
+      isOpened: false,
+      show: false
+    };
+  }
+
+  componentWillMount() {
+    this.timeoutID = setTimeout(() => {
+      this.setState({ show: true });
+    }, 1500);
+  }
+
+  componentWillUnmount() {
+    clearTimeout(this.timeoutID);
+  }
 
   toggleMenu = () =>
     this.setState(p => {
@@ -148,8 +156,8 @@ export default (class DashboardSidebar extends React.Component {
     });
 
   render() {
-    return (
-      this.state.isMobile === false && <WebDashboardSidebar {...this.props} />
-    );
+    const { show } = this.state;
+
+    return this.state.isMobile === false && <WebDashboardSidebar show={show} />;
   }
 });
