@@ -227,22 +227,22 @@ export default (state = initstate, payload) => {
         }
       };
 
-    case dA.FETCHING_FUNDERS_IN_PROGRESS:
+    case dA.FETCHING_P_STAKEHOLDERS_IN_PROGRESS:
       return {
         ...state,
         funders: {
           action: {
-            type: dA.FETCHING_FUNDERS_IN_PROGRESS
+            type: dA.FETCHING_P_STAKEHOLDERS_IN_PROGRESS
           }
         }
       };
 
-    case dA.FETCHING_FUNDERS_SUCCESSFUL:
+    case dA.FETCHING_P_STAKEHOLDERS_SUCCESSFUL:
       return {
         ...state,
         funders: {
           action: {
-            type: dA.FETCHING_FUNDERS_SUCCESSFUL,
+            type: dA.FETCHING_P_STAKEHOLDERS_SUCCESSFUL,
             message: payload.message || "Funders Fetched Successfully"
           },
           options: payload.funders.map(f => {
@@ -259,12 +259,12 @@ export default (state = initstate, payload) => {
         }
       };
 
-    case dA.FETCHING_FUNDERS_FAILED:
+    case dA.FETCHING_P_STAKEHOLDERS_FAILED:
       return {
         ...state,
         funders: {
           action: {
-            type: dA.FETCHING_FUNDERS_FAILED,
+            type: dA.FETCHING_P_STAKEHOLDERS_FAILED,
             message: payload.message || "Could Not Fetch Possible Funders."
           }
         }
