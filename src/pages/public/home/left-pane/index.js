@@ -117,7 +117,7 @@ class LeftPane extends React.Component {
     if (this.props.showMap === true) {
       document.getElementById("root").style.overflow = "hidden";
     } else {
-      document.getElementById("root").style.overflow = "auto";  
+      document.getElementById("root").style.overflow = "auto";
     }
   };
 
@@ -178,34 +178,32 @@ class LeftPane extends React.Component {
               </select>
             </div>
 
-            {this.props.showMap &&
-              this.state.isBigScreen && (
-                <div className="sm-2 t-c">
-                  <button
-                    id="show-map"
-                    name="show-map"
-                    onClick={this.props.toggleMap}
-                  >
-                    <img src={map} alt="" />
-                  </button>
-                </div>
-              )}
-          </div>
-
-          {!this.props.showMap &&
-            this.state.isBigScreen && (
-              <div className="xs-4">
-                <div className="xs-off-8 xs-4 t-c">
-                  <button
-                    id="show-map"
-                    name="show-map"
-                    onClick={this.props.toggleMap}
-                  >
-                    <img src={map} alt="" />
-                  </button>
-                </div>
+            {this.props.showMap && this.state.isBigScreen && (
+              <div className="sm-2 t-c">
+                <button
+                  id="show-map"
+                  name="show-map"
+                  onClick={this.props.toggleMap}
+                >
+                  <img src={map} alt="" />
+                </button>
               </div>
             )}
+          </div>
+
+          {!this.props.showMap && this.state.isBigScreen && (
+            <div className="xs-4">
+              <div className="xs-off-8 xs-4 t-c">
+                <button
+                  id="show-map"
+                  name="show-map"
+                  onClick={this.props.toggleMap}
+                >
+                  <img src={map} alt="" />
+                </button>
+              </div>
+            </div>
+          )}
         </div>
 
         <CardHolder projects={this.state.projects} action={this.state.action} />
@@ -215,10 +213,12 @@ class LeftPane extends React.Component {
 }
 
 const mapStateToProps = state => {
+  const { projects, locations, action } = state.home;
+
   return {
-    projects: state.home.projects,
-    locations: state.home.locations,
-    action: state.home.action,
+    projects,
+    locations,
+    action,
     showMap: state.home.map.show
   };
 };

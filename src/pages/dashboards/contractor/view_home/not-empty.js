@@ -107,6 +107,7 @@ const NotEmptyHomeView = ({ dispatch, projects, history }) => {
 
   return (
     <NotEmptyWrapper className="xs-12">
+      {/*     
       <div id="top" className="xs-12">
         <div className="xs-12 sm-6 f-l">
           <label>Showing </label>
@@ -121,7 +122,8 @@ const NotEmptyHomeView = ({ dispatch, projects, history }) => {
             </select>
           </div>
         </div>
-      </div>
+      </div> */}
+
       <div id="bottom" className="xs-12">
         {projects.map((p, i) => {
           return (
