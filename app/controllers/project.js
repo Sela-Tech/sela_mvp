@@ -2,6 +2,7 @@
 require("dotenv").config();
 const mongoose = require("mongoose"),
   Project = mongoose.model("Project"),
+  User = mongoose.model("User"),
   Location = mongoose.model("Location");
 
 exports.new = async (req, res) => {
@@ -210,12 +211,40 @@ exports.add_stakeholder = async (req, res) => {
   try {
     let project = await Project.findOne({ _id: req.body.id });
 
-    const stakeholders = project.stakeholders.map(s => ({
-      user: { information: `${s.user.information._id}` }
+    const old_stakeholders = project.stakeholders.map(s => ({
+      user: {
+        information: `${s.user.information._id}`,
+        name: `${s.user.information.lastName} ${s.user.information.firstName}`
+      }
     }));
 
+    let breakCode = false;
+    let count = 0;
+    let STinfoID;
+    let foundMatch = false;
+    let foundPerson = {};
+
     if (req.body.stakeholders.length > 0) {
-      let new_stakeholders = [...stakeholders, ...req.body.stakeholders];
+      while (breakCode === false) {
+        foundMatch = old_stakeholders.some(e => {
+          STinfoID = req.body.stakeholders[count].user.information;
+          foundPerson = e.user.name;
+          return e.user.information === STinfoID;
+        });
+
+        if (foundMatch === true) breakCode = true;
+        count = count + 1;
+
+        if (count === req.body.stakeholders.length) breakCode = true;
+      }
+
+      if (breakCode === true && foundMatch === true) {
+        return res.status(401).json({
+          message: `Cannot add stakeholdrs because: "This project has a connection with ${foundPerson}" `
+        });
+      }
+
+      let new_stakeholders = [...old_stakeholders, ...req.body.stakeholders];
       let saveResponse = await Project.updateOne(
         { _id: req.body.id },
         { $set: { stakeholders: new_stakeholders } }
@@ -232,6 +261,7 @@ exports.add_stakeholder = async (req, res) => {
       });
     }
   } catch (error) {
+    console.log(error);
     res.status(401).json({
       message: "Stakeholder could not be added"
     });
