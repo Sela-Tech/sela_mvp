@@ -1,4 +1,3 @@
-
 "use strict";
 
 var { verifyToken } = require("../in-use/utils");
@@ -9,7 +8,9 @@ module.exports = function(app) {
   app
     .route("/tasks")
     .post(verifyToken, task.new)
-    .get(verifyToken, task.find);
+    .get(verifyToken, task.findAll);
+
+  app.route("/tasks/:id").get(verifyToken, task.find);
 
   //test routes
   app

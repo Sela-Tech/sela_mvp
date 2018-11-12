@@ -11,6 +11,7 @@ module.exports = function(connection) {
   require("./verification.js")(connection);
   require("./in-use/transaction.js")(connection);
   require("./in-use/upload.js")(connection);
+  require("./in-use/document.js")(connection);
 
   // require("./in-use/stakeholder.js")(connection);
 };

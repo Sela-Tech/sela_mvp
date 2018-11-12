@@ -320,3 +320,48 @@ exports.find = async (req, res) => {
   });
   return res.status(200).json(users);
 };
+
+exports.findPStakeholders = async (req, res) => {
+  try {
+    let project = await Project.findOne({ _id: req.body.projectId });
+
+    let stakeholdersForProject = project.stakeholders;
+
+    let users = await User.find({});
+
+    users = users.filter(u => {
+      u = u.toJSON();
+      return (
+        u._id != req.userId && (u.isAdmin == false || u.isAdmin == undefined)
+      );
+    });
+
+    users = users.map(u => {
+      let temp = {
+        firstName: u.firstName,
+        lastName: u.lastName,
+        isFunder: u.isFunder,
+        isContractor: u.isContractor,
+        isEvaluator: u.isEvaluator,
+        organization: u.organization,
+        _id: u._id
+      };
+      return temp;
+    });
+
+    let final = users.map(u => {
+      let innerCount = 0;
+      stakeholdersForProject.map(s => {
+        if (s._id !== u._id) {
+          innerCount = innerCount + 1;
+        }
+      });
+
+      return innerCount === users.length;
+    });
+
+    return res.status(200).json(final);
+  } catch (error) {
+    return res.status(400).json({ message: error.message });
+  }
+};

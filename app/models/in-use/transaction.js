@@ -4,30 +4,36 @@ var Schema = mongoose.Schema;
 var ObjectId = Schema.Types.ObjectId;
 
 var transactionStructure = {
-  id: {
+  hash: {
     type: String,
     required: true,
-    max: 100
+    max: 1000
   },
   project: {
     type: ObjectId,
     ref: "Project",
     required: true
   },
+  currency: {
+    type: String,
+    required: true
+  },
   sender: {
-    type: ObjectId,
-    ref: "User",
+    type: String,
     required: true
   },
   receiver: {
-    type: ObjectId,
-    ref: "User",
+    type: String,
     required: true
   },
   value: {
     type: Number,
     required: true
   },
+  memo: {
+    type: String
+  },
+
   status: {
     type: String,
     enum: ["PENDING", "CONFIRMED"],

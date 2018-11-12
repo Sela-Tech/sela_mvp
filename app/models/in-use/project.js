@@ -71,6 +71,7 @@ var projectStructure = {
     default: 0
   },
   tasks: [{ type: ObjectId, ref: "Task", autopopulate: true }],
+  documents: [{ type: ObjectId, ref: "Document", autopopulate: true }],
   transactions: [{ type: ObjectId, ref: "Transaction", autopopulate: true }],
   stakeholders: [
     {
@@ -86,7 +87,7 @@ var projectStructure = {
         },
         agreed: {
           type: Boolean,
-          default: true
+          default: false
         }
       }
     }

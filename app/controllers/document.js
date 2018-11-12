@@ -1,66 +1,70 @@
 "use strict";
 require("dotenv").config();
 const mongoose = require("mongoose"),
-  Task = mongoose.model("Task"),
+  Document = mongoose.model("Document"),
   Project = mongoose.model("Project");
 
 exports.new = async (req, res) => {
   try {
-    let taskObj = {
+    let docObj = {
       name: req.body.name,
-      description: req.body.description,
-      dueDate: req.body.dueDate,
+      filetype: req.body.filetype,
+      doc: req.body.doc,
       project: req.body.projectId
     };
 
-    let saveTask = await new Task(taskObj).save();
+    let saveDocument = await new Document(docObj).save();
 
-    if (Boolean(saveTask)) {
-      console.log("saved tasks");
+    if (Boolean(saveDocument)) {
+      console.log("saved documents");
 
       let project = await Project.findOne({
         _id: req.body.projectId,
         owner: req.userId
       });
 
-      console.log("fetched project we want task to belong to");
+      console.log(project);
+
+      console.log("fetched project we want document to belong to");
 
       project = project.toJSON();
-      let collectionOfTaskIds = project.tasks;
+      let collectionOfDocIds = project.documents;
 
-      if (collectionOfTaskIds.length > 0) {
-        collectionOfTaskIds = collectionOfTaskIds.map(t => {
+      if (collectionOfDocIds.length > 0) {
+        collectionOfDocIds = collectionOfDocIds.map(t => {
           return t._id;
         });
       }
 
-      console.log(" task belonging to project", collectionOfTaskIds);
+      console.log(" document belonging to project", collectionOfDocIds);
 
-      let check = collectionOfTaskIds.find(elem => {
-        return elem == saveTask._id;
+      let check = collectionOfDocIds.find(elem => {
+        return elem == saveDocument._id;
       });
 
-      console.log("check if task id exists already", { check });
+      console.log("check if document id exists already", { check });
 
       if (Boolean(check) === false) {
         let updateRequest = await Project.update(
           { _id: req.body.projectId, owner: req.userId },
           {
             $set: {
-              tasks: [...collectionOfTaskIds, saveTask._id]
+              documents: [...collectionOfDocIds, saveDocument._id]
             }
           }
         );
 
         console.log("what i expect to update", {
-          tasks: [...collectionOfTaskIds, saveTask._id]
+          documents: [...collectionOfDocIds, saveDocument._id]
         });
 
         if (Boolean(updateRequest.n)) {
-          return res.status(200).json({ message: "Task Saved Successfully" });
+          return res
+            .status(200)
+            .json({ message: "Document Saved Successfully" });
         } else {
           return res.status(401).json({
-            message: "Could Not Add New Task"
+            message: "Could Not Add New Document"
           });
         }
       }
@@ -79,10 +83,10 @@ exports.new = async (req, res) => {
 exports.findAll = async (req, res) => {
   let projectId = req.body.projectId;
   try {
-    let tasks = await Task.find({ project: projectId });
+    let documents = await Document.find({ project: projectId });
 
-    if (Boolean(tasks) && Boolean(tasks.length)) {
-      return res.status(200).json(tasks);
+    if (Boolean(documents) && Boolean(documents.length)) {
+      return res.status(200).json(documents);
     } else {
       return res.status(200).json({
         message: "No Tasks Found"
@@ -97,7 +101,7 @@ exports.findAll = async (req, res) => {
 
 exports.find = async (req, res) => {
   try {
-    let findReq = await Task.findOne({ _id: req.params.id });
+    let findReq = await Document.findOne({ _id: req.params.id });
     findReq = findReq.toJSON();
 
     if (Boolean(findReq)) {
@@ -107,7 +111,7 @@ exports.find = async (req, res) => {
       });
     } else {
       return res.status(200).json({
-        message: "No Task Found",
+        message: "No Document Found",
         success: false
       });
     }
