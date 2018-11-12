@@ -15,6 +15,8 @@ const web3 = new Web3();
 web3.setProvider(new web3.providers.HttpProvider(mainnet));
 
 exports.confirmTransaction = async (req, res) => {
+  res.header("Access-Control-Allow-Origin", "*");
+
   try {
     let transaction = await web3.eth.getTransaction(req.body.hash);
     // Get current block number
@@ -41,6 +43,7 @@ exports.confirmTransaction = async (req, res) => {
             });
 
             if (Boolean(check) === false) {
+              console.log("made it here");
               let saveRequest = await new Transaction(objToSave).save();
 
               let project = await Project.findOne({
@@ -65,6 +68,10 @@ exports.confirmTransaction = async (req, res) => {
                   }
                 }
               );
+
+              console.log({
+                transactions: [...projectTransactions, saveRequest._id]
+              });
 
               if (Boolean(saveToProjectRequest.n)) {
                 return res.json({

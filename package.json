@@ -69,7 +69,7 @@
     "request": "^2.81.0",
     "tape": "^4.7.0",
     "truffle": "^4.0.5",
-    "web3": "^0.20.4"
+    "web3": "^0.20.6"
   },
   "repository": {
     "type": "git",
