@@ -87,7 +87,8 @@ export default (state = initstate, payload) => {
         single: {
           action: {
             type: dA.FETCHING_PROJECT_IN_PROGRESS
-          }
+          },
+          info: []
         }
       };
 
