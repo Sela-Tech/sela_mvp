@@ -7,7 +7,7 @@ import Tasks from "../../shared/sub-components/tasks";
 import Documents from "../../shared/sub-components/documents";
 import Stakeholders from "../../shared/sub-components/stakeholders";
 
-import { showAddStakeholderModal } from "../../../../store/action-creators/project-funder/modal";
+// import { showAddStakeholderModal } from "../../../../store/action-creators/project-funder/modal";
 
 import { connect } from "react-redux";
 
@@ -34,21 +34,21 @@ const View = ({ id, view }) => {
 };
 
 const ProjectComponent = ({ info, match, dispatch }) => {
-  let showId = () => dispatch(showAddStakeholderModal(id));
+  // let showId = () => dispatch(showAddStakeholderModal(id));
 
-  let members = stakeholders => {
-    return [
-      ...stakeholders.map((p, i) => {
-        console.log(p);
-        return (
-          <button className="member" key={i}>
-            {p.user.information.lastName[0]}
-            {p.user.information.firstName[0]}
-          </button>
-        );
-      })
-    ];
-  };
+  // let members = stakeholders => {
+  //   return [
+  //     ...stakeholders.map((p, i) => {
+  //       return (
+  //         <button className="member" key={i}>
+  //           {p.user.information.lastName[0]}
+  //           {p.user.information.firstName[0]}
+  //         </button>
+  //       );
+  //     })
+  //   ];
+  // };
+
   const { id, view } = match.params;
 
   return (
@@ -67,11 +67,18 @@ const ProjectComponent = ({ info, match, dispatch }) => {
           </div>
 
           <div className="xs-12 sm-4" id="members">
-            <h4>Members</h4>
-            {members(info.stakeholders)}
+            <h4>Tags</h4>
+            <p>
+              {info.tags
+                .split(",")
+                .join(", #")
+                .trim()}
+            </p>
+            {/* {members(info.stakeholders)}
             <button className="member" onClick={showId}>
               +
             </button>
+             */}
           </div>
           <div className="xs-12">
             <nav className="xs-12 ">

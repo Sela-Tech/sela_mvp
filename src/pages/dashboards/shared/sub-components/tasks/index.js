@@ -2,14 +2,37 @@ import React from "react";
 import { connect } from "react-redux";
 import TaskStyle from "./tasks.style";
 import moment from "moment";
+import {
+  showAddTaskModal,
+  showTaskModal
+} from "../../../../../store/action-creators/project-funder/modal";
+import { fetchProject } from "../../../../../store/action-creators/project-funder/project";
 
 class Tasks extends React.Component {
   state = {
-    date: ""
+    date: "",
+    tasks: this.props.tasks
   };
 
+  showAddTask = () =>
+    this.props.dispatch(showAddTaskModal(this.props.projectId));
+
+  showTask = id => this.props.dispatch(showTaskModal(id));
+
+  componentWillReceiveProps(nextProps) {
+    if (this.props !== nextProps) {
+      if (nextProps.type === "ADD_TASK_SUCCESSFUL") {
+        this.props.dispatch(fetchProject(this.props.projectId));
+      }
+
+      this.setState({
+        tasks: nextProps.tasks
+      });
+    }
+  }
+
   render() {
-    // const { date } = this.state;
+    const { tasks } = this.state;
 
     return (
       <TaskStyle className="xs-12">
@@ -19,7 +42,9 @@ class Tasks extends React.Component {
           </div>
 
           <div className="f-r c-sm-screen">
-            <button className="blue-btn"> Add Task</button>
+            <button className="blue-btn" onClick={this.showAddTask}>
+              Add Task
+            </button>
           </div>
         </div>
 
@@ -28,59 +53,62 @@ class Tasks extends React.Component {
             <div className="xs-12 sm-2">
               <h4> Status</h4>
             </div>
-            <div className="xs-12 sm-7">
+            <div className="xs-12 sm-6">
               <h4> Task Details</h4>
             </div>
 
-            <div className="xs-12 sm-3">
+            <div className="xs-12 sm-2">
               <h4> Deadline </h4>
             </div>
-          </div>
 
-          <div className="xs-12 row b">
             <div className="xs-12 sm-2">
-              <button className="completed">Completed</button>
-            </div>
-            <div className="xs-12 sm-7">
-              <h3>Transaction Memo Listed Here</h3>
-              <p>Task description</p>
-            </div>
-
-            <div className="xs-12 sm-3">
-              <h3>{moment().format("HH:mm DD MMM YYYY")} </h3>
+              <h4> </h4>
             </div>
           </div>
+          {Boolean(tasks.length <= 0) ? (
+            <div className="xs-12 ">
+              <p>No Tasks Found</p>
+            </div>
+          ) : (
+            tasks.map((t, i) => {
+              return (
+                <div className="xs-12 row b" key={i}>
+                  <div className="xs-12 sm-2">
+                    <button className={t.status}>{t.status}</button>
+                  </div>
+                  <div className="xs-12 sm-6">
+                    <h3>{t.name}</h3>
+                    <p>{t.description}</p>
+                  </div>
 
-          <div className="xs-12 row b">
-            <div className="xs-12 sm-2">
-              <button className="ongoing">On-going</button>
-            </div>
-            <div className="xs-12 sm-7">
-              <h3>Transaction Memo Listed Here</h3>
-              <p>Task description</p>
-            </div>
+                  <div className="xs-12 sm-2">
+                    <h3> {moment(t.dueDate).format("DD MMM YYYY")} </h3>
+                  </div>
 
-            <div className="xs-12 sm-3">
-              <h3>{moment().format("HH:mm DD MMM YYYY")} </h3>
-            </div>
-          </div>
-          <div className="xs-12 row b">
-            <div className="xs-12 sm-2">
-              <button className="not-started">Not Started</button>
-            </div>
-            <div className="xs-12 sm-7">
-              <h3>Transaction Memo Listed Here</h3>
-              <p>Task description</p>
-            </div>
-
-            <div className="xs-12 sm-3">
-              <h3>{moment().format("HH:mm DD MMM YYYY")} </h3>
-            </div>
-          </div>
+                  <div className="xs-12 sm-2">
+                    <button
+                      className="more"
+                      onClick={() => this.showTask(t._id)}
+                    >
+                      More
+                    </button>
+                  </div>
+                </div>
+              );
+            })
+          )}
         </div>
       </TaskStyle>
     );
   }
 }
 
-export default connect()(Tasks);
+const mapStateToProps = state => {
+  return {
+    projectId: state.projects.single.info._id,
+    tasks: state.projects.single.info.tasks,
+    type: state.tasks.add.action.type
+  };
+};
+
+export default connect(mapStateToProps)(Tasks);

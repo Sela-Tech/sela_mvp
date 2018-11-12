@@ -1,10 +1,13 @@
 import React from "react";
 import AddProjectModal from "./add.project";
 import AddTaskModal from "./add.task";
+import AddTransactionModal from "./add.transaction";
+
 import ViewTaskModal from "./view.task";
 import ViewImageModal from "./view.image";
 import DeleteProjectModal from "./delete.project";
 import ViewStakeholderModal from "./view.stakeholder";
+import AddDocumentModal from "./add.document";
 
 import { connect } from "react-redux";
 import { closeModal } from "../../store/action-creators/project-funder/modal";
@@ -20,8 +23,14 @@ import AddStakeholderModal from "./add.stakeholder";
 
 const ModalSelector = ({ name }) => {
   switch (name) {
+    case modalActions.add_document:
+      return <AddDocumentModal />;
+
     case modalActions.add_task:
       return <AddTaskModal />;
+
+    case modalActions.add_transaction:
+      return <AddTransactionModal />;
 
     case modalActions.add_project:
       return <AddProjectModal />;

@@ -40,11 +40,19 @@ export const showImageInModal = image => {
   };
 };
 
-export const showTaskModal = data => {
+export const showTaskModal = id => {
   return {
     type: dA.SHOW_TASK_MODAL,
     name: modals.view_task,
-    data
+    id
+  };
+};
+
+export const showAddTaskModal = id => {
+  return {
+    type: dA.SHOW_ADD_TASK_MODAL,
+    name: modals.add_task,
+    id
   };
 };
 
@@ -52,6 +60,22 @@ export const showAddStakeholderModal = id => {
   return {
     type: dA.SHOW_ADD_STAKEHOLDER_MODAL,
     name: modals.add_stakeholder,
+    id
+  };
+};
+
+export const showAddTransactionModal = id => {
+  return {
+    type: dA.SHOW_ADD_TRANSACTION_MODAL,
+    name: modals.add_transaction,
+    id
+  };
+};
+
+export const showAddDocumentModal = id => {
+  return {
+    type: dA.SHOW_ADD_DOCUMENT_MODAL,
+    name: modals.add_document,
     id
   };
 };

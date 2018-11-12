@@ -86,13 +86,22 @@ export default styled.div`
         display: inline-block;
       }
 
-      button {
+      button,
+      a {
         font-size: 12px;
         height: 45px;
         font-weight: 300;
         padding: 0 15px;
         border-radius: 5px;
         border: 0;
+        display: inline-block;
+        line-height: 45px;
+        margin-left: 1em;
+        color: #999;
+
+        &.more {
+          border: 1px solid #ccc;
+        }
       }
       .completed {
         background: #7b96f7;

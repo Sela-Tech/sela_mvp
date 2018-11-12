@@ -6,6 +6,8 @@ import tasks from "./project-funder/tasks";
 import home from "./homepage";
 import organizations from "./organizations";
 import admin from "./admin";
+import transactions from "./project-funder/transactions";
+import document from "./project-funder/document";
 
 export default combineReducers({
   auth,
@@ -13,6 +15,8 @@ export default combineReducers({
   projects,
   dashboard,
   tasks,
+  transactions,
   home,
-  organizations
+  organizations,
+  document
 });

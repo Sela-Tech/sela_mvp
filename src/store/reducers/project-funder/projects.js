@@ -87,8 +87,7 @@ export default (state = initstate, payload) => {
         single: {
           action: {
             type: dA.FETCHING_PROJECT_IN_PROGRESS
-          },
-          info: []
+          }
         }
       };
 
@@ -245,7 +244,7 @@ export default (state = initstate, payload) => {
             type: dA.FETCHING_P_STAKEHOLDERS_SUCCESSFUL,
             message: payload.message || "Funders Fetched Successfully"
           },
-          options: payload.funders.map(f => {
+          options: payload.pstakeholders.map(f => {
             return {
               value: f._id,
               label: `${f.lastName} ${f.firstName}, Org: ${

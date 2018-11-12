@@ -1,16 +1,15 @@
 import ax from "axios";
 import dA from "../../actions/project-funder/dashboard";
 import e from "../../../endpoints";
-import Qs from "querystring";
 import { retrieveToken } from "../../../helpers/TokenManager";
 
 export const addTask = obj => {
   return dispatch => {
     dispatch({ type: dA.ADD_TASK_IN_PROGRESS });
     ax({
-      url: e.add_task,
+      url: e.tasks,
       method: "POST",
-      data: Qs.stringify(obj),
+      data: obj,
       headers: {
         "x-access-token": retrieveToken()
       }
@@ -32,11 +31,11 @@ export const addTask = obj => {
   };
 };
 
-export const fetchTasks = () => {
+export const fetchTasks = projectId => {
   return dispatch => {
     dispatch({ type: dA.FETCH_TASKS_IN_PROGRESS });
     ax({
-      url: e.get_tasks,
+      url: e.tasks + "/" + projectId,
       method: "GET",
       headers: {
         "x-access-token": retrieveToken()
@@ -56,6 +55,34 @@ export const fetchTasks = () => {
           message = "connection error";
         }
         dispatch({ type: dA.FETCH_TASKS_FAILED, message });
+      });
+  };
+};
+
+export const fetchTaskInfo = taskId => {
+  return dispatch => {
+    dispatch({ type: dA.FETCH_TASK_IN_PROGRESS });
+    ax({
+      url: e.tasks + "/" + taskId,
+      method: "GET",
+      headers: {
+        "x-access-token": retrieveToken()
+      }
+    })
+      .then(({ data }) => {
+        dispatch({
+          type: dA.FETCH_TASK_SUCCESSFUL,
+          info: data.info
+        });
+      })
+      .catch(({ response }) => {
+        let message;
+        if (response) {
+          message = response.message || response.data.message;
+        } else {
+          message = "connection error";
+        }
+        dispatch({ type: dA.FETCH_TASK_FAILED, message });
       });
   };
 };

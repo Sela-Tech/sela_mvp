@@ -49,19 +49,29 @@ export default styled.div`
         padding: 0 15px;
         border-radius: 5px;
         border: 0;
+
+        &.more {
+          border: 1px solid #ccc;
+        }
       }
-      .completed {
+      .COMPLETED {
         background: #7b96f7;
         color: white;
       }
 
-      .ongoing {
+      .STARTED,
+      .ASSIGNED {
         background: #effbf2;
         color: #219653;
       }
 
-      .not-started {
+      .UNASSIGNED {
         background: pink;
+        color: #eb5757;
+      }
+
+      .TERMINATED {
+        background: red;
         color: #eb5757;
       }
 

@@ -210,8 +210,8 @@ export default styled.div`
             &#blue {
               background: #1665d8;
             }
-            &#red {
-              background: #e6492d;
+            &#green {
+              background: lightgreen;
             }
           }
         }

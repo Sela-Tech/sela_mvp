@@ -18,7 +18,7 @@ export const ViewTaskWrapper = styled.div`
   }
   .left,
   .right {
-    padding: 3em;
+    padding: 3em 1.5em;
   }
 
   h2,
@@ -61,17 +61,17 @@ export const ViewTaskWrapper = styled.div`
   }
 
   .grey-border {
-    padding: 1em;
+    padding: 0.5em;
     background: #ffffff;
     border: 3px solid #f1f3f5;
     border-radius: 17px;
 
     button {
       font-weight: 300;
-      font-size: 1em;
+      font-size: 14px;
       border: 0;
       line-height: normal;
-      padding: 0.75em;
+      padding: 0.25em 0;
       color: #adb5bd;
       background: transparent;
       &.active {
@@ -85,11 +85,19 @@ export const ViewTaskWrapper = styled.div`
   .grey {
     background: #eff5fb;
     height: 100%;
-    margin: 4em 0;
   }
 
   #eval-subs {
     overflow: auto;
     max-height: 11em;
+  }
+
+  .desc {
+    margin-bottom: 1.5em;
+    color: #888;
+  }
+
+  #stat {
+    margin: 0.5em 0;
   }
 `;

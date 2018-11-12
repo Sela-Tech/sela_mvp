@@ -4,7 +4,9 @@ const init = {
   action: "",
   message: "",
   projects: [],
-  project: {},
+  project: {
+    transactions: []
+  },
   locations: [],
   centerize: false,
   citizenData: {},

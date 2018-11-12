@@ -26,6 +26,9 @@ export default styled.div`
     }
   }
 
+  .link {
+    color: cornflowerblue;
+  }
   .container {
     height: 500px;
     overflow: auto;
@@ -50,6 +53,7 @@ export default styled.div`
       h3,
       p {
         margin: 0;
+        overflow-wrap: break-word;
       }
       h3 {
         font-family: ProximaNova;
@@ -72,6 +76,12 @@ export default styled.div`
         margin-top: 5px;
         font-weight: 300;
       }
+    }
+  }
+
+  .det {
+    span {
+      display: block;
     }
   }
 `;

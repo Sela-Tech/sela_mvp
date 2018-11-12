@@ -49,6 +49,10 @@ export default styled.div`
         padding: 0 15px;
         border-radius: 5px;
         border: 0;
+
+        &.more {
+          border: 1px solid #ccc;
+        }
       }
       .completed {
         background: #7b96f7;

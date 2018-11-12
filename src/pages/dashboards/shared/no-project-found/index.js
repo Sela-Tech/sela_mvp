@@ -30,9 +30,6 @@ const Information = ({ type }) => {
 const EmptyHomeView = ({ dispatch, userType }) => {
   return (
     <EmptyWrapper>
-      <div id="top">
-        <h3>Projects</h3>
-      </div>
       <div id="bottom">
         <div className="center-wrapper">
           <div className="center">

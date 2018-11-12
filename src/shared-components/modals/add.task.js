@@ -14,28 +14,29 @@ const mapStateToProps = state => {
   const { type, message } = state.tasks.add.action;
   return {
     add_task_in_progress: type === dA.ADD_TASK_IN_PROGRESS,
+    projectId: state.dashboard.projectId,
     message,
     type
   };
 };
-
-const placeholderDate = new Date().getFullYear() + "-01-01";
 
 export default connect(mapStateToProps)(
   class AddPTaskModal extends React.Component {
     constructor(props) {
       super(props);
       this.state = {
-        "deadline-unformatted": moment(placeholderDate),
+        dueDate: moment(),
         form: {
-          deadline: moment(placeholderDate).format("MM-DD-YYYY")
+          dueDate: moment()
         }
       };
     }
 
     handleSubmit = e => {
       e.preventDefault();
-      this.props.dispatch(addTask(this.state.form));
+      const data = this.state.form;
+      data.projectId = this.props.projectId;
+      this.props.dispatch(addTask(data));
     };
 
     forceFocus = name => {
@@ -58,10 +59,10 @@ export default connect(mapStateToProps)(
     handleDeadlineDatePick = date => {
       this.setState({
         message: undefined,
-        "deadline-unformatted": date,
         form: {
           ...this.state.form,
-          deadline: moment(date).format("MM-DD-YYYY")
+
+          dueDate: date
         }
       });
     };
@@ -87,9 +88,9 @@ export default connect(mapStateToProps)(
           <div className="form-control">
             <input
               type="text"
-              name="task-name"
+              name="name"
               placeholder="Task Name"
-              value={fd["task-name"] || ""}
+              value={fd["name"] || ""}
               onChange={this.handleChange}
               required
             />
@@ -97,9 +98,9 @@ export default connect(mapStateToProps)(
           <div className="form-control">
             <textarea
               type="text"
-              name="task-description"
+              name="description"
               placeholder="Task Description"
-              value={fd["task-description"] || ""}
+              value={fd["description"] || ""}
               onChange={this.handleChange}
               required
             />
@@ -116,10 +117,11 @@ export default connect(mapStateToProps)(
               <div className="xs-10 adjusted">
                 <DatePicker
                   type="date"
-                  name="deadline"
+                  name="dueDate"
                   id="deadline"
-                  ref="deadline"
-                  selected={this.state["deadline-unformatted"]}
+                  ref="dueDate"
+                  minDate={moment()}
+                  selected={fd.dueDate}
                   onChange={this.handleDeadlineDatePick}
                 />
               </div>

@@ -7,13 +7,15 @@ import PieChartComp from "./pie";
 
 import { Line } from "rc-progress";
 import { BarChart, Bar } from "recharts";
+import { connect } from "react-redux";
 
-export default class Analytics extends React.Component {
+class Analytics extends React.Component {
   constructor(props) {
     super(props);
     this.state = {
       rating: 0,
       date: "",
+      taskData: [],
       data: [
         { name: "Page A", uv: 4000, pv: 2400, amt: 2400 },
         { name: "Page B", uv: 3000, pv: 1398, amt: 2210 },
@@ -24,19 +26,49 @@ export default class Analytics extends React.Component {
         { name: "Page G", uv: 3490, pv: 4300, amt: 2100 }
       ],
       pie: [
-        { name: "Group A", value: 400 },
-        { name: "Group B", value: 300 },
-        { name: "Group C", value: 300 },
-        { name: "Group D", value: 200 }
+        { name: "Group A", value: 1 },
+        { name: "Group B", value: 1 },
+        // { name: "Group C", value: 1 },
+        { name: "Group D", value: 1 }
       ],
       inDate: moment()
     };
   }
 
+  componentWillMount() {
+    if (this.props.tasks) {
+      this.setState({
+        taskData: this.props.tasks.map(t => {
+          return {
+            name: t.name,
+            uv: 0,
+            pv: 0,
+            amt: 0
+          };
+        })
+      });
+    }
+  }
+
+  componentWillReceiveProps(nextProps) {
+    if (this.props !== nextProps) {
+      this.setState({
+        taskData: nextProps.tasks.map(t => {
+          return {
+            name: t.name,
+            uv: 0,
+            pv: 0,
+            amt: 0
+          };
+        })
+      });
+    }
+  }
+
   handleDateUpdate = e => this.setState({ date: e.target.value });
 
   render() {
-    const { date, data, pie } = this.state;
+    const { date, taskData, pie } = this.state;
 
     return (
       <AStyle className="xs-12">
@@ -73,15 +105,15 @@ export default class Analytics extends React.Component {
                 </div>
                 <div className="xs-12 space">
                   <div className="f-l">
-                    <h2>97%</h2>
+                    <h2>0%</h2>
                   </div>
                   <div className="f-r">
-                    <span>+6.9%</span>
+                    <span>+0%</span>
                   </div>
                 </div>
                 <div className="progress xs-12">
                   <Line
-                    percent={80}
+                    percent={1}
                     strokeWidth="2"
                     trailWidth="2"
                     strokeColor="#0A2C56"
@@ -101,14 +133,14 @@ export default class Analytics extends React.Component {
                 </div>
                 <div className="xs-12 space">
                   <div className="f-l">
-                    <h2>13</h2>
+                    <h2>{this.props.tasks ? this.props.tasks.length : 0}</h2>
                   </div>
                   <div className="f-r">
-                    <span>+12.4%</span>
+                    <span>+0%</span>
                   </div>
                 </div>
                 <div className="progress xs-12">
-                  <BarChart width={150} height={40} data={data}>
+                  <BarChart width={150} height={40} data={taskData}>
                     <Bar dataKey="uv" fill="#0A2C56" />
                   </BarChart>
                 </div>
@@ -124,15 +156,15 @@ export default class Analytics extends React.Component {
                 </div>
                 <div className="xs-12 space">
                   <div className="f-l">
-                    <h2>65%</h2>
+                    <h2>0%</h2>
                   </div>
                   <div className="f-r">
-                    <span>+3.2%</span>
+                    <span>+0%</span>
                   </div>
                 </div>
                 <div className="progress xs-12">
                   <Line
-                    percent={80}
+                    percent={1}
                     strokeWidth="2"
                     trailWidth="2"
                     strokeColor="#0A2C56"
@@ -152,14 +184,14 @@ export default class Analytics extends React.Component {
                 </div>
                 <div className="xs-12 space">
                   <div className="f-l">
-                    <h2>$1,595</h2>
+                    <h2>$0</h2>
                   </div>
                   <div className="f-r">
-                    <span>+11.3%</span>
+                    <span>+0%</span>
                   </div>
                 </div>
                 <div className="progress xs-12">
-                  <BarChart width={150} height={40} data={data}>
+                  <BarChart width={150} height={40} data={taskData}>
                     <Bar dataKey="uv" fill="#8884d8" />
                   </BarChart>
                 </div>
@@ -185,7 +217,7 @@ export default class Analytics extends React.Component {
                 <div className="xs-12" id="chart-info">
                   <div className="xs-12 sm-6">
                     <div className="xs-12 has-bar">
-                      <h1>$1,595</h1>
+                      <h1>$0</h1>
                       <p>paid out this month</p>
                     </div>
 
@@ -197,13 +229,13 @@ export default class Analytics extends React.Component {
                         <span id="blue" /> <p>CONTRACTOR PAYOUT</p>
                       </div>
                       <div className="xs-12">
-                        <span id="red" /> <p>SUPPLIES</p>
+                        <span id="green" /> <p>SUPPLIES</p>
                       </div>
                     </div>
                   </div>
 
                   <div className="xs-12 sm-6 corner">
-                    <PieChartComp pie={pie} data={data} />
+                    <PieChartComp pie={pie} data={taskData} />
                   </div>
                 </div>
               </div>
@@ -221,7 +253,7 @@ export default class Analytics extends React.Component {
                 </div>
               </div>
 
-              <BarChartComp data={data} />
+              <BarChartComp data={taskData} />
             </div>
           </div>
         </div>
@@ -229,3 +261,11 @@ export default class Analytics extends React.Component {
     );
   }
 }
+
+const mapStateToProps = state => {
+  return {
+    tasks: state.projects.single.info.tasks
+  };
+};
+
+export default connect(mapStateToProps)(Analytics);

@@ -13,9 +13,13 @@ import {
   ignoreProjectId
 } from "../../../../store/action-creators/homepage";
 import { closeModal } from "../../../../store/action-creators/project-funder/modal";
+import Transactions from "./subs/transaction";
 
 const DetermineWhatToShow = ({ show, id, project }) => {
   switch (show) {
+    case "transactions":
+      return <Transactions id={id} />;
+
     case "updates":
       return <Updates project={project} />;
     case "stakeholders":

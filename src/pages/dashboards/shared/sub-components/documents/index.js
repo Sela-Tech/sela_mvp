@@ -3,10 +3,34 @@ import { connect } from "react-redux";
 import DocStyle from "./doc.style";
 import moment from "moment";
 import search from "./search.svg";
-import up from "./up.svg";
+// import up from "./up.svg";
+import { showAddDocumentModal } from "../../../../../store/action-creators/project-funder/modal";
+import { fetchProject } from "../../../../../store/action-creators/project-funder/project";
 
 class Documents extends React.Component {
+  state = {
+    date: "",
+    documents: this.props.documents
+  };
+
+  showAddDocument = () =>
+    this.props.dispatch(showAddDocumentModal(this.props.projectId));
+
+  componentWillReceiveProps(nextProps) {
+    if (this.props !== nextProps) {
+      if (nextProps.type === "ADD_DOCUMENT_SUCCESSFUL") {
+        this.props.dispatch(fetchProject(this.props.projectId));
+      }
+
+      this.setState({
+        docuemnts: nextProps.docuemnts
+      });
+    }
+  }
+
   render() {
+    const { documents } = this.state;
+
     return (
       <DocStyle className="xs-12">
         <div className="xs-12 sp">
@@ -28,7 +52,9 @@ class Documents extends React.Component {
           </div>
 
           <div className="f-r c-sm-screen">
-            <button className="blue-btn">Upload</button>
+            <button className="blue-btn" onClick={this.showAddDocument}>
+              Upload
+            </button>
           </div>
         </div>
 
@@ -45,43 +71,67 @@ class Documents extends React.Component {
               <h4> </h4>
             </div>
           </div>
+          {Boolean(documents.length) ? (
+            documents.map((d, i) => {
+              return (
+                <div className="xs-12 row b">
+                  <div className="xs-12 sm-4">
+                    <div className="xs-12 sm-4">
+                      <img src={d.doc} alt="100" />
+                    </div>
+                    <div className="xs-12 sm-8">
+                      <p>{d.name}</p>
+                    </div>
+                  </div>
+                  <div className="xs-12 sm-5">
+                    <p>{moment(d.createdAt).format("DD MMM YYYY")} </p>
+                  </div>
 
-          <div className="xs-12 row b">
-            <div className="xs-12 sm-4">
-              <div className="xs-12 sm-4">
-                <img src={"http://placehold.it/100"} alt="100" />
-              </div>
-              <div className="xs-12 sm-8">
-                <p>SpillData.jpg</p>
-              </div>
-            </div>
-            <div className="xs-12 sm-5">
-              <p>{moment().format("DD MMM YYYY")} </p>
-            </div>
+                  <div className="xs-12 sm-3">
+                    <button className="more">Delete</button>
+                    <a target="_blank" href={d.doc} className="more">
+                      View
+                    </a>
 
-            <div className="xs-12 sm-3">
-              <select
-                className="xs-9"
-                name="date"
-                onChange={this.handleDateUpdate}
-              >
-                <option value="" hidden>
-                  Actions
-                </option>
-                <option value="delete">Delete</option>
-                <option value="view">View</option>
-              </select>
-              <div className="xs-2">
-                <button id="download">
-                  <img src={up} alt="" />
-                </button>
-              </div>
+                    {/* <select
+      className="xs-9"
+      name="date"
+      onChange={this.handleDateUpdate}
+    >
+      <option value="" hidden>
+        Actions
+      </option>
+      <option value="delete">Delete</option>
+      <option value="view">View</option>
+    </select>
+     */}
+                    {/* <div className="xs-2">
+      <button id="download">
+        <img src={up} alt="" />
+      </button>
+    </div>
+     */}
+                  </div>
+                </div>
+              );
+            })
+          ) : (
+            <div className="">
+              <p> No documents found. </p>
             </div>
-          </div>
+          )}
         </div>
       </DocStyle>
     );
   }
 }
 
-export default connect()(Documents);
+const mapStateToProps = state => {
+  return {
+    projectId: state.projects.single.info._id,
+    documents: state.projects.single.info.documents,
+    type: state.document.type
+  };
+};
+
+export default connect(mapStateToProps)(Documents);

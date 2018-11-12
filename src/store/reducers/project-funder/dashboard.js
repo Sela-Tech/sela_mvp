@@ -1,8 +1,11 @@
 import dA from "../../actions/project-funder/dashboard";
+
 const initstate = {
   modalToShow: "",
   image_to_show: "",
-  stakeholder: ""
+  stakeholder: "",
+  projectId: "",
+  taskId: ""
 };
 
 export default (state = initstate, payload) => {
@@ -29,12 +32,6 @@ export default (state = initstate, payload) => {
         image_to_show: payload.image
       };
 
-    case dA.SHOW_TASK_MODAL:
-      return {
-        ...state,
-        modalToShow: payload.name
-      };
-
     case dA.SHOW_STAKEHOLDER_MODAL:
       return {
         ...state,
@@ -46,6 +43,34 @@ export default (state = initstate, payload) => {
       return {
         ...state,
         modalToShow: payload.name,
+        projectId: payload.id
+      };
+
+    case dA.SHOW_ADD_TASK_MODAL:
+      return {
+        ...state,
+        modalToShow: "Add Task",
+        projectId: payload.id
+      };
+
+    case dA.SHOW_ADD_DOCUMENT_MODAL:
+      return {
+        ...state,
+        modalToShow: "Add Document",
+        projectId: payload.id
+      };
+
+    case dA.SHOW_TASK_MODAL:
+      return {
+        ...state,
+        modalToShow: "View Task",
+        taskId: payload.id
+      };
+
+    case dA.SHOW_ADD_TRANSACTION_MODAL:
+      return {
+        ...state,
+        modalToShow: "Add Transaction",
         projectId: payload.id
       };
 

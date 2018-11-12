@@ -23,8 +23,11 @@ export default {
 
   fetch_organizations: b + "organizations",
   add_project: b + "project",
-  add_task: b + "task",
-  get_tasks: b + "tasks",
+  add_document: b + "documents",
+
+  tasks: b + "tasks",
+  trn: b + "trn",
+
   fetch_users: b + "users",
   fetch_locations: b + "locations",
   add_stakeholder: b + "project/stakeholder",

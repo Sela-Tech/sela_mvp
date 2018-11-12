@@ -7,13 +7,14 @@ import Select from "react-select";
 
 const mapStateToProps = state => {
   return {
-    funders: state.projects.funders.options
+    funders: state.projects.funders.options,
+    projectId: state.dashboard.projectId
   };
 };
 
 const mapDispatchToProps = dispatch => {
   return {
-    fetchPossibleStakeholders: () => dispatch(fetchPossibleStakeholders()),
+    fetchPossibleStakeholders: id => dispatch(fetchPossibleStakeholders(id)),
     selectFunders: selected => dispatch(selectFunders(selected))
   };
 };
@@ -26,7 +27,7 @@ export default connect(
     constructor(props) {
       super(props);
       this.state = {};
-      this.props.fetchPossibleStakeholders();
+      this.props.fetchPossibleStakeholders(this.props.projectId);
     }
 
     handleChange = selectedOption => {

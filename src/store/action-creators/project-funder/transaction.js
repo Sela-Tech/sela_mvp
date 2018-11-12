@@ -3,24 +3,25 @@ import dA from "../../actions/project-funder/dashboard";
 import e from "../../../endpoints";
 import { retrieveToken } from "../../../helpers/TokenManager";
 
-export const addStakeholder = obj => {
+export const addTransaction = obj => {
   return dispatch => {
-    dispatch({ type: dA.ADD_STAKEHOLDER_IN_PROGRESS });
-
+    dispatch({ type: dA.ADD_TRANSACTION_IN_PROGRESS });
     ax({
-      url: e.add_stakeholder,
+      url: e.trn,
       method: "POST",
       data: obj,
       headers: {
-        "x-access-token": retrieveToken(),
-        contentType: "application/json; charset=UTF-8"
+        "x-access-token": retrieveToken()
       }
     })
       .then(({ data }) => {
-        dispatch({
-          type: dA.ADD_STAKEHOLDER_SUCCESSFUL,
-          message: data.message
-        });
+        if (data.success === true) {
+          dispatch({
+            type: dA.ADD_TRANSACTION_SUCCESSFUL
+          });
+        } else {
+          dispatch({ type: dA.ADD_TRANSACTION_FAILED, message: data.message });
+        }
       })
       .catch(({ response }) => {
         let message;
@@ -29,28 +30,25 @@ export const addStakeholder = obj => {
         } else {
           message = "connection error";
         }
-        dispatch({ type: dA.ADD_STAKEHOLDER_FAILED, message });
+        dispatch({ type: dA.ADD_TRANSACTION_FAILED, message });
       });
   };
 };
 
-export const fetchPossibleStakeholders = id => {
+export const fetchTransaction = projectId => {
   return dispatch => {
-    dispatch({ type: dA.FETCHING_P_STAKEHOLDERS_IN_PROGRESS });
+    dispatch({ type: dA.FETCH_TRANSACTIONS_IN_PROGRESS });
     ax({
-      url: e.fetch_users,
+      url: e.trn + "/" + projectId,
       method: "GET",
-      data: {
-        // projectId: id
-      },
       headers: {
         "x-access-token": retrieveToken()
       }
     })
       .then(({ data }) => {
         dispatch({
-          type: dA.FETCHING_P_STAKEHOLDERS_SUCCESSFUL,
-          pstakeholders: data
+          type: dA.FETCH_TRANSACTIONS_SUCCESSFUL,
+          tasks: data
         });
       })
       .catch(({ response }) => {
@@ -60,7 +58,7 @@ export const fetchPossibleStakeholders = id => {
         } else {
           message = "connection error";
         }
-        dispatch({ type: dA.FETCHING_P_STAKEHOLDERS_FAILED, message });
+        dispatch({ type: dA.FETCH_TRANSACTIONS_FAILED, message });
       });
   };
 };

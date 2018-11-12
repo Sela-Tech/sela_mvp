@@ -28,6 +28,42 @@ const initstate = {
 
 export default (state = initstate, payload) => {
   switch (payload.type) {
+    case dA.FETCH_TASK_IN_PROGRESS:
+      return {
+        ...state,
+        single: {
+          ...state.single,
+          action: {
+            type: dA.FETCH_TASK_IN_PROGRESS
+          }
+        }
+      };
+
+    case dA.FETCH_TASK_SUCCESSFUL:
+      return {
+        ...state,
+        single: {
+          ...state.single,
+          action: {
+            type: dA.FETCH_TASK_SUCCESSFUL,
+            message: payload.message || "Task Fetched Successfully"
+          },
+          info: payload.info
+        }
+      };
+
+    case dA.FETCH_TASK_FAILED:
+      return {
+        ...state,
+        single: {
+          ...state.single,
+          action: {
+            type: dA.FETCH_TASK_FAILED,
+            message: payload.message || "Could Not Fetch Task Info."
+          }
+        }
+      };
+
     case dA.FETCH_TASKS_IN_PROGRESS:
       return {
         ...state,
@@ -111,14 +147,6 @@ export default (state = initstate, payload) => {
         single: {
           ...state.single,
           video_to_watch: {}
-        }
-      };
-    case dA.SHOW_TASK_MODAL:
-      return {
-        ...state,
-        single: {
-          ...state.single,
-          info: payload.data
         }
       };
 
