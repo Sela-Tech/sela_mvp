@@ -34,7 +34,8 @@ export default (state = initstate, payload) => {
         single: {
           ...state.single,
           action: {
-            type: dA.FETCH_TASK_IN_PROGRESS
+            type: dA.FETCH_TASK_IN_PROGRESS,
+            message: ""
           }
         }
       };
@@ -69,7 +70,8 @@ export default (state = initstate, payload) => {
         ...state,
         all: {
           action: {
-            type: dA.FETCH_TASKS_IN_PROGRESS
+            type: dA.FETCH_TASKS_IN_PROGRESS,
+            message: ""
           }
         }
       };
@@ -102,7 +104,8 @@ export default (state = initstate, payload) => {
         ...state,
         add: {
           action: {
-            type: dA.ADD_TASK_IN_PROGRESS
+            type: dA.ADD_TASK_IN_PROGRESS,
+            message: ""
           }
         }
       };

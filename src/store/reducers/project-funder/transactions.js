@@ -44,7 +44,8 @@ export default (state = initstate, payload) => {
     case dA.ADD_TRANSACTION_IN_PROGRESS:
       return {
         ...state,
-        type: dA.ADD_TRANSACTION_IN_PROGRESS
+        type: dA.ADD_TRANSACTION_IN_PROGRESS,
+        message: ""
       };
 
     case dA.ADD_TRANSACTION_SUCCESSFUL:

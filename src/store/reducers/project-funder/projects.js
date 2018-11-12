@@ -66,7 +66,8 @@ export default (state = initstate, payload) => {
         ...state,
         stakeholder: {
           action: {
-            type: dA.ADD_STAKEHOLDER_IN_PROGRESS
+            type: dA.ADD_STAKEHOLDER_IN_PROGRESS,
+            message: ""
           }
         }
       };
@@ -86,7 +87,8 @@ export default (state = initstate, payload) => {
         ...state,
         single: {
           action: {
-            type: dA.FETCHING_PROJECT_IN_PROGRESS
+            type: dA.FETCHING_PROJECT_IN_PROGRESS,
+            message: ""
           },
           info: []
         }
@@ -121,7 +123,8 @@ export default (state = initstate, payload) => {
         ...state,
         all: {
           action: {
-            type: dA.FETCHING_PROJECTS_IN_PROGRESS
+            type: dA.FETCHING_PROJECTS_IN_PROGRESS,
+            message: ""
           },
           collection: []
         }
@@ -156,7 +159,8 @@ export default (state = initstate, payload) => {
         ...state,
         delete: {
           action: {
-            type: dA.DELETE_PROJECT_IN_PROGRESS
+            type: dA.DELETE_PROJECT_IN_PROGRESS,
+            message: ""
           }
         }
       };
@@ -188,7 +192,8 @@ export default (state = initstate, payload) => {
         ...state,
         add: {
           action: {
-            type: dA.ADD_PROJECT_IN_PROGRESS
+            type: dA.ADD_PROJECT_IN_PROGRESS,
+            message: ""
           }
         }
       };
@@ -232,7 +237,8 @@ export default (state = initstate, payload) => {
         ...state,
         funders: {
           action: {
-            type: dA.FETCHING_P_STAKEHOLDERS_IN_PROGRESS
+            type: dA.FETCHING_P_STAKEHOLDERS_IN_PROGRESS,
+            message: ""
           }
         }
       };

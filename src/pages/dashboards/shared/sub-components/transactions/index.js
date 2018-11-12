@@ -8,9 +8,10 @@ import { fetchProject } from "../../../../../store/action-creators/project-funde
 class Transactions extends React.Component {
   state = {
     date: "",
-    transactions: this.props.homePage
-      ? this.props.transactions
-      : this.props.transactionsForHomePage
+    transactions:
+      this.props.homePageDeep === true
+        ? this.props.transactionsForHomePage
+        : this.props.transactions
   };
 
   showAddTransactionModal = () =>
@@ -22,6 +23,7 @@ class Transactions extends React.Component {
         this.props.dispatch(fetchProject(this.props.projectId));
       }
 
+      console.log(nextProps.homePageDeep);
       this.setState({
         transactions:
           nextProps.homePageDeep === true
@@ -36,7 +38,7 @@ class Transactions extends React.Component {
   render() {
     const { date, transactions } = this.state;
 
-    console.log(this.props);
+    console.log(transactions);
     return (
       <TWrap className="xs-12">
         <div className="xs-12 sp">
@@ -87,7 +89,7 @@ class Transactions extends React.Component {
             </div>
           </div>
 
-          {Boolean(transactions.length > 0) ? (
+          {Boolean(transactions.length) ? (
             transactions.map((t, i) => {
               return (
                 <div className="xs-12 row b" key={i}>
@@ -96,13 +98,7 @@ class Transactions extends React.Component {
                       {t.value} {t.currency}
                     </h3>
                   </div>
-                  {/*                   
-                  
-                  <div className="xs-12 sm-3">
-                    <h3>{t.memo}</h3>
-                    <p>{t.receiver}</p>
-                  </div>
-                   */}
+
                   <div className="xs-12 sm-4 ">
                     <h3>
                       <a

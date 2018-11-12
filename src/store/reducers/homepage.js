@@ -5,7 +5,10 @@ const init = {
   message: "",
   projects: [],
   project: {
-    transactions: []
+    transactions: [],
+    onwer: {
+      organization: {}
+    }
   },
   locations: [],
   centerize: false,
@@ -73,7 +76,7 @@ export default (state = init, payload) => {
 
     case homepageActions.FETCHING_HOMEPAGE_PROJECT_IN_PROGRESS:
       return {
-        ...init,
+        ...state,
         action: homepageActions.FETCHING_HOMEPAGE_PROJECT_IN_PROGRESS
       };
 

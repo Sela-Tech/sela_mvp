@@ -82,7 +82,6 @@ export default connect(mapStateToProps)(
               </AsyncButton>
             </div>
           </React.Fragment>
-
           <MessageToShow
             type={type}
             message={message}
