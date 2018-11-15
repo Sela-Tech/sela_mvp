@@ -146,6 +146,7 @@ export default styled.div`
       img {
         height: 10em;
         width: 100%;
+        display: block;
         object-fit: cover;
         background: #eff5fb;
       }

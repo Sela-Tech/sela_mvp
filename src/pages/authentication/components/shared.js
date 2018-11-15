@@ -21,7 +21,7 @@ export default styled.div`
     border-radius: 4px;
     line-height: normal;
     font-size: 1em;
-    color: rgba(35, 33, 42, 0.4878);
+    color: #666;
     border: 0;
     padding: 1em;
     width: 100%;

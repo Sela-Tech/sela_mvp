@@ -107,22 +107,6 @@ const NotEmptyHomeView = ({ dispatch, projects, history }) => {
 
   return (
     <NotEmptyWrapper className="xs-12">
-      {/* <div id="top" className="xs-12">
-        <div className="xs-12 sm-6 f-l">
-          <label>Showing </label>
-          <p>All Projects</p>
-        </div>
-
-        <div className="xs-12 sm-6">
-          <div className=" xs-12 sm-6 f-r" id="select-showing">
-            <select>
-              <option value="all">All Projects</option>
-              <option value="associated-with"> Projects Associated With</option>
-            </select>
-          </div>
-        </div>
-      </div>
-       */}
       <div id="bottom" className="xs-12">
         {projects.map((p, i) => {
           return (

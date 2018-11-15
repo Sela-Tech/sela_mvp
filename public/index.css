@@ -97,6 +97,15 @@ a {
   outline: none;
 }
 
+*::-webkit-input-placeholder,
+::-moz-placeholder,
+:-ms-input-placeholder,
+:-moz-placeholder,
+::placeholder {
+  /* Chrome/Opera/Safari */
+  color: rgba(35, 33, 42, 0.4878);
+}
+
 a {
   text-decoration: none;
 }

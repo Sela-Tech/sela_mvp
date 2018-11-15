@@ -53,7 +53,7 @@ export const Form = styled.form`
     font-size: 1em;
     padding: 0.85em;
     line-height: normal;
-    color: #bdbdbd;
+    color: #666;
     transition: 150ms;
     font-weight: 100;
     &:focus,

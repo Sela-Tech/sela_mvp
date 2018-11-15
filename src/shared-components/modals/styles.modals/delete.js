@@ -23,7 +23,7 @@ export const Form = styled.form`
     font-size: 1em;
     padding: 1em;
     line-height: normal;
-    color: #bdbdbd;
+    color: #666;
     transition: 150ms;
     font-weight: 300;
     &:focus,
@@ -97,6 +97,7 @@ export const Form = styled.form`
 
   textarea {
     min-height: 6em;
+    color: #666;
   }
 
   .form-control {
