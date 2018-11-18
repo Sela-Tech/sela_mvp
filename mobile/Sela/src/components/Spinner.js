@@ -16,8 +16,8 @@ const Spinner = ({ size, color }) => (
     </View>
 );
 
-Spinner.propProps = {
-    placeholder: PropTypes.string,
+Spinner.propTypes = {
+    size: PropTypes.string,
 };
 
 
