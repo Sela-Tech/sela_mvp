@@ -7,56 +7,64 @@ import {
 } from 'react-native';
 
 import IntroComp from '../components/Intro/Intro';
-import Swiper from 'react-native-swiper';
+import AppIntroSlider from 'react-native-app-intro-slider';
+import Home from './Home';
 
 const styles = StyleSheet.create({
-    wrapper: {
+    image: {
+        height: '70%',
     },
-    slide1: {
+    mainContent: {
         flex: 1,
-        justifyContent: 'center',
         alignItems: 'center',
-        backgroundColor: '#9DD6EB',
+        justifyContent: 'space-around',
     },
-    slide2: {
-        flex: 1,
-        justifyContent: 'center',
-        alignItems: 'center',
-        backgroundColor: '#97CAE5',
-    },
-    slide3: {
-        flex: 1,
-        justifyContent: 'center',
-        alignItems: 'center',
-        backgroundColor: '#92BBD9',
-    },
-    text: {
-        color: '#fff',
-        fontSize: 30,
-        fontWeight: 'bold',
-    }
 });
 
-export default () => (
-    <Swiper style={styles.wrapper} showsButtons={true} >
+const slides = [
+    {
+        key: 'somethun',
+        image: require('../../assets/img/building.png'),
+    },
+    {
+        key: 'somethun-dos',
+        image: require('../../assets/img/man.png'),
+        imageStyle: styles.image,
 
+    },
+    {
+        key: 'somethun1',
+        image: require('../../assets/img/woman.png'),
+    }
+];
+
+export default class Intro extends React.Component {
+    state = {
+        showRealApp: false
+    }
+    onDone = () => {
+        // User finished the introduction. Show real app through
+        // navigation or simply by controlling state
+        this.setState({ showRealApp: true });
+    }
+    renderItem = props => (
+        console.log('props', props),
         <IntroComp
-            image={require('../../assets/img/building.png')}
+            image={props.image}
             shortText="Fund"
             longText="Find, fund and track development"
         />
+    );
 
-        <IntroComp
-            image={require('../../assets/img/man.png')}
-            shortText="Execute"
-            longText="propose and execute development"
-        />
-
-
-        <IntroComp
-            image={require('../../assets/img/woman.png')}
-            shortText="Evaluate"
-            longText="Provide progress updates on"
-        />
-    </Swiper>
-)
+    render() {
+        if (this.state.showRealApp) {
+            return <Home />;
+        } else {
+            return <AppIntroSlider style={{ flex: 1 }}
+                showSkipButton={true}
+                slides={slides}
+                renderItem={this.renderItem}
+                onDone={this.onDone} />
+        }
+    }
+};
