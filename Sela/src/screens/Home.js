@@ -1,9 +1,10 @@
 import React, { Component } from 'react';
 import { Platform, StyleSheet, Text, View, Image } from 'react-native';
+import { navigation } from 'react-navigation';
 import { DEFAULT_COLOUR } from '../utils/constants';
 import B from '../components/BoldText';
 import Button from '../components/Button';
-
+import IntroHeader from '../components/IntroHeader';
 
 const styles = StyleSheet.create({
     container: {
@@ -25,12 +26,7 @@ export default class Home extends Component {
     render() {
         return (
             <View style={styles.container}>
-                <View style={{ marginTop: '10%' }}>
-                    <Image
-                        style={{ width: 50, height: 50 }}
-                        source={require('../../assets/img/logo.png')}
-                    />
-                </View>
+                <IntroHeader />
                 <View style={{ alignItems: 'center', marginTop: '10%' }}>
                     <Text style={styles.boldText}> How would you like to</Text>
                     <Text style={styles.boldText} > Proceed </Text>
@@ -52,6 +48,7 @@ export default class Home extends Component {
                         <Button
                             text='Log In'
                             color='#FFFFFF'
+                            fn={() => this.props.navigation.navigate('Login')}
                         />
                     </View>
                 </View>

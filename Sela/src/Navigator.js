@@ -6,18 +6,18 @@ import IntroScreen from './screens/Intro';
 
 
 export const RootNavigator = createStackNavigator({
-  // Intro: {
-  //   screen: IntroScreen,
-  //   navigationOptions: {
-  //     header: null,
-  //   },
-  // },
-  // Home: {
-  //   screen: Home,
-  //   navigationOptions: {
-  //     header: null,
-  //   },
-  // },
+  Intro: {
+    screen: IntroScreen,
+    navigationOptions: {
+      header: null,
+    },
+  },
+  Home: {
+    screen: Home,
+    navigationOptions: {
+      header: null,
+    },
+  },
   Login: {
     screen: Login,
     navigationOptions: {

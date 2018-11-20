@@ -13,14 +13,17 @@ const styles = {
     },
 };
 
-const Button = ({ text, color, textColor }) => (
-    <TouchableOpacity style={[styles.ButtonStyle, { backgroundColor: color }]} >
+const Button = ({ text, color, textColor, fn }) => (
+    <TouchableOpacity
+        onPress={fn}
+        style={[styles.ButtonStyle, { backgroundColor: color }]} >
         <Text style={{ color: textColor }}> {text} </Text>
-    </TouchableOpacity >
+    </TouchableOpacity>
 );
 
 Button.propTypes = {
-    text: PropTypes.string,
+    text: PropTypes.string.isRequired,
+    fn: PropTypes.func
 };
 
 

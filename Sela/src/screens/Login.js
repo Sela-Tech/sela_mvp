@@ -4,6 +4,7 @@ import DismissKeyboard from '../components/DismissKeyboard';
 import Input from '../components/Input';
 import Button from '../components/Button';
 import B from '../components/BoldText';
+import IntroHeader from '../components/IntroHeader';
 import { DEFAULT_COLOUR } from '../utils/constants';
 
 
@@ -31,12 +32,7 @@ export default class Login extends Component {
         return (
             <DismissKeyboard>
                 <View style={styles.container}>
-                    <View style={{ marginTop: '20%' }}>
-                        <Image
-                            style={{ width: 50, height: 50 }}
-                            source={require('../../assets/img/logo.png')}
-                        />
-                    </View>
+                    <IntroHeader />
                     <View style={{ alignItems: 'center', marginTop: '15%' }}>
                         <Text style={styles.boldText}> Log In</Text>
                     </View>
