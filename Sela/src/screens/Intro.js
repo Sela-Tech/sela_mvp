@@ -58,7 +58,9 @@ export default class Intro extends React.Component {
 
     render() {
         if (this.state.showRealApp) {
-            return <Home />;
+            return <Home
+                props={this.props}
+            />;
         } else {
             return <AppIntroSlider style={{ flex: 1 }}
                 showSkipButton={true}

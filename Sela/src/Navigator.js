@@ -3,23 +3,37 @@ import SplashScreen from './screens/SplashScreen';
 import Login from './screens/Login';
 import Home from './screens/Home';
 import IntroScreen from './screens/Intro';
+import ForgotPassword from './screens/ForgotPassword';
+import ResetPssword from './screens/ResetPassword';
 
 
 export const RootNavigator = createStackNavigator({
-  Intro: {
-    screen: IntroScreen,
-    navigationOptions: {
-      header: null,
-    },
-  },
-  Home: {
-    screen: Home,
-    navigationOptions: {
-      header: null,
-    },
-  },
-  Login: {
-    screen: Login,
+  // Intro: {
+  //   screen: IntroScreen,
+  //   navigationOptions: {
+  //     header: null,
+  //   },
+  // },
+  // Home: {
+  //   screen: Home,
+  //   navigationOptions: {
+  //     header: null,
+  //   },
+  // },
+  // Login: {
+  //   screen: Login,
+  //   navigationOptions: {
+  //     header: null,
+  //   },
+  // },
+  // ResetPassword: {
+  //   screen: ResetPssword,
+  //   navigationOptions: {
+  //     header: null,
+  //   },
+  // },
+  ForgotPassword: {
+    screen: ForgotPassword,
     navigationOptions: {
       header: null,
     },

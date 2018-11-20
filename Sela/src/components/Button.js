@@ -13,11 +13,11 @@ const styles = {
     },
 };
 
-const Button = ({ text, color, textColor, fn }) => (
+const Button = ({ text, color, textColor, fn, textSize }) => (
     <TouchableOpacity
         onPress={fn}
         style={[styles.ButtonStyle, { backgroundColor: color }]} >
-        <Text style={{ color: textColor }}> {text} </Text>
+        <Text style={{ color: textColor, fontSize: textSize }}> {text} </Text>
     </TouchableOpacity>
 );
 

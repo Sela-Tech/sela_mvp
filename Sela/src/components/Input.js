@@ -5,7 +5,8 @@ import PropTypes from 'prop-types';
 const { height, width } = Dimensions.get('window');
 const styles = {
     container: {
-        height: 60,
+        height: height / 14,
+        width: width / 1.3,
         alignItems: 'center',
         borderRadius: 5,
         borderColor: '#F5F5F8',

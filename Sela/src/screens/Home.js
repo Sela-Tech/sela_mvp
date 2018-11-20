@@ -1,6 +1,5 @@
 import React, { Component } from 'react';
 import { Platform, StyleSheet, Text, View, Image } from 'react-native';
-import { navigation } from 'react-navigation';
 import { DEFAULT_COLOUR } from '../utils/constants';
 import B from '../components/BoldText';
 import Button from '../components/Button';
