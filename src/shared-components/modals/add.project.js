@@ -20,6 +20,7 @@ import LocationLoader from "./sub-components/location-loader";
 import GeoSuggest from "react-geosuggest";
 import ReactS3Uploader from "react-s3-uploader";
 import endpoints from "../../endpoints";
+import SdgPicker from "./sub-components/sdg-picker";
 
 const mapStateToProps = state => {
   const { type, message } = state.projects.add.action;
@@ -98,6 +99,16 @@ export default connect(mapStateToProps)(
           [name]: value
         }
       });
+    };
+
+    handleSDG = value => {
+      console.log(value);
+      // this.setState({
+      //   form: {
+      //     ...this.state.form,
+      //     tags: value
+      //   }
+      // });
     };
 
     onSuggestSelect = suggest => {
@@ -273,7 +284,6 @@ export default connect(mapStateToProps)(
             <div className="xs-12 sm-6">
               <div className="form-control">
                 <label> Set the location </label>
-
                 <LocationLoader>
                   <GeoSuggest
                     ref={el => (this.geoSuggest = el)}
@@ -296,13 +306,8 @@ export default connect(mapStateToProps)(
               </div>
 
               <div className="xs-12 form-control">
-                <label>Associated Tags: Seperate tags with a comma.</label>
                 <div className="xs-12">
-                  <textarea
-                    name="tags"
-                    placeholder="e.g. Sustainable Eities, Education ..."
-                    onChange={this.handleChange}
-                  />
+                  <SdgPicker onChange={this.handleSDG} />
                 </div>
               </div>
 

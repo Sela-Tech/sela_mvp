@@ -8,6 +8,7 @@ import organizations from "./organizations";
 import admin from "./admin";
 import transactions from "./project-funder/transactions";
 import document from "./project-funder/document";
+import app from "./app";
 
 export default combineReducers({
   auth,
@@ -18,5 +19,6 @@ export default combineReducers({
   transactions,
   home,
   organizations,
-  document
+  document,
+  app
 });

@@ -2,6 +2,7 @@ import React from "react";
 import loadable from "loadable-components";
 import Blank from "./blank";
 import { connect } from "react-redux";
+import { fetchSGDs } from "../../store/action-creators/app";
 
 const ProjectFunderDashboard = loadable(
   () => import("./project-funder/index.js"),
@@ -18,7 +19,8 @@ const EvalDashboard = loadable(() => import("./eval-agent/index.js"), {
   LoadingComponent: Blank
 });
 
-const DashboardDecider = ({ userType }) => {
+const DashboardDecider = ({ userType, fetchSGDs }) => {
+  fetchSGDs();
   switch (userType) {
     case "Contractor":
       return <ContractorDashboard />;
@@ -41,4 +43,14 @@ const mapStateToProps = state => {
       (isContractor === true && "Contractor")
   };
 };
-export default connect(mapStateToProps)(DashboardDecider);
+
+const mapDispatchToProps = dispatch => {
+  return {
+    fetchSGDs: () => dispatch(fetchSGDs())
+  };
+};
+
+export default connect(
+  mapStateToProps,
+  mapDispatchToProps
+)(DashboardDecider);
