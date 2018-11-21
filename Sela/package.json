@@ -9,11 +9,13 @@
     "eject": "expo eject"
   },
   "dependencies": {
-    "prop-types": "^15.6.2",
     "expo": "^31.0.2",
+    "native-base": "^2.6.0",
+    "prop-types": "^15.6.2",
     "react": "16.5.0",
     "react-native": "https://github.com/expo/react-native/archive/sdk-31.0.0.tar.gz",
     "react-native-app-intro-slider": "^1.0.1",
+    "react-native-step-indicator": "0.0.9",
     "react-navigation": "^2.18.2"
   },
   "devDependencies": {

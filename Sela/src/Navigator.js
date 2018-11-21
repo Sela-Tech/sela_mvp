@@ -4,7 +4,8 @@ import Login from './screens/Login';
 import Home from './screens/Home';
 import IntroScreen from './screens/Intro';
 import ForgotPassword from './screens/ForgotPassword';
-import ResetPssword from './screens/ResetPassword';
+import ResetPassword from './screens/ResetPassword';
+import OnBoarding from './screens/OnBoarding';
 
 
 export const RootNavigator = createStackNavigator({
@@ -14,28 +15,35 @@ export const RootNavigator = createStackNavigator({
   //     header: null,
   //   },
   // },
-  // Home: {
-  //   screen: Home,
-  //   navigationOptions: {
-  //     header: null,
-  //   },
-  // },
+  // // Home: {
+  // //   screen: Home,
+  // //   navigationOptions: {
+  // //     header: null,
+  // //   },
+  // // },
   // Login: {
   //   screen: Login,
   //   navigationOptions: {
   //     header: null,
   //   },
   // },
-  // ResetPassword: {
-  //   screen: ResetPssword,
+  // ForgotPassword: {
+  //   screen: ForgotPassword,
   //   navigationOptions: {
   //     header: null,
   //   },
   // },
-  ForgotPassword: {
-    screen: ForgotPassword,
+  // ResetPassword: {
+  //   screen: ResetPassword,
+  //   navigationOptions: {
+  //     header: null,
+  //   },
+  // },
+  OnBoarding: {
+    screen: OnBoarding,
     navigationOptions: {
-      header: null,
-    },
-  },
+      header: null
+    }
+  }
+
 });
