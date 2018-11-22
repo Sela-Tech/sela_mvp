@@ -3,21 +3,20 @@ import { View, ActivityIndicator } from 'react-native';
 import PropTypes from 'prop-types';
 
 const styles = {
-    spinnerStyle: {
-        flex: 1,
-        justifyContent: 'center',
-        alignItems: 'center',
-    },
+  spinnerStyle: {
+    justifyContent: 'center',
+    alignItems: 'center',
+  },
 };
 
-const Spinner = ({ size, color }) => (
-    <View style={styles.spinnerStyle}>
-        <ActivityIndicator size={size || 'large'} color={color || '#FFFFFF'} />
-    </View>
+const Spinner = ({ size, color,occupy }) => (
+  <View style={styles.spinnerStyle,occupy ? { flex: 1} : null}>
+    <ActivityIndicator size={size || 'large'} color={color || '#FFFFFF'} />
+  </View>
 );
 
 Spinner.propTypes = {
-    size: PropTypes.string,
+  size: PropTypes.string,
 };
 
 

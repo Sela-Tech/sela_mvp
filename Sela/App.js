@@ -1,6 +1,7 @@
 import React, { Component } from 'react';
-import { Platform, StyleSheet, Text, View } from 'react-native';
+import { StyleSheet, View } from 'react-native';
 import { RootNavigator } from './src/Navigator';
+import NavigationService from './src/services/NavigationService';
 
 const styles = StyleSheet.create({
   container: {
@@ -8,12 +9,12 @@ const styles = StyleSheet.create({
   },
 });
 
-export default class App extends Component {
-  render() {
-    return (
-      <View style={styles.container}>
-        <RootNavigator />
-      </View>
-    );
-  }
-}
+export default () => (
+  <View style={styles.container}>
+    <RootNavigator
+      ref={navigatorRef => {
+        NavigationService.setTopLevelNavigator(navigatorRef);
+      }}
+    />
+  </View>
+);

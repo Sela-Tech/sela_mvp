@@ -1,26 +1,28 @@
 import React from 'react';
-import { View, Image, TouchableOpacity, Dimensions } from 'react-native';
+import {
+    View, Image, TouchableOpacity, Dimensions,
+} from 'react-native';
 import PropTypes from 'prop-types';
 import ExtStyle from '../utils/styles';
 
-const { height, width } = Dimensions.get('window');
 const styles = {
     container: {
-        marginTop: '20%',
         flexDirection: 'row',
-        justifyContent: 'center'
+        justifyContent: 'center',
     },
 };
 
-const IntroHeader = ({ back }) => (
-    <View style={styles.container}>
+const IntroHeader = ({ back, keyboard, fn }) => (
+    <View style={[styles.container, { marginTop: keyboard === true ? null : '20%' }]}>
         <View style={{ marginLeft: !back ? null : '13%', flex: 1 }}>
             {back ? (
                 <View>
-                    <Image
-                        style={{ width: 20, height: 20 }}
-                        source={require('../../assets/img/back.png')}
-                    />
+                    <TouchableOpacity onPress={fn}>
+                        <Image
+                            style={{ width: 20, height: 20 }}
+                            source={require('../../assets/img/back.png')}
+                        />
+                    </TouchableOpacity>
                 </View>
             ) : null
             }

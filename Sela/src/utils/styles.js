@@ -1,6 +1,5 @@
-import { StyleSheet, Dimensions, Platform } from 'react-native';
+import { StyleSheet } from 'react-native';
 
-const { height, width } = Dimensions.get('window');
 const styles = StyleSheet.create({
   flex1: {
     flex: 1,

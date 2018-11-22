@@ -1,13 +1,15 @@
 import React, { Component } from 'react';
-import { AppRegistry, StyleSheet, View, Text } from 'react-native';
+import { AppRegistry, StyleSheet, View, Text, KeyboardAvoidingView, ScrollView, Keyboard } from 'react-native';
 // import { ViewPager } from 'rn-viewpager';
+import DismissKeyboard from '../components/DismissKeyboard';
 import IntroHeader from '../components/IntroHeader';
 import OnBoardView from '../components/OnBoarding/OnBoardView';
 
 import StepIndicator from 'react-native-step-indicator';
 
-
+import ExtStyle from '../utils/styles';
 import { DEFAULT_COLOUR, YELLOW, WHITE } from '../utils/constants';
+
 
 const styles = StyleSheet.create({
     container: {
@@ -27,6 +29,7 @@ const styles = StyleSheet.create({
 });
 
 const PAGES = ['Page 1', 'Page 2', 'Page 3', 'Page 4', 'Page 5'];
+
 
 const firstIndicatorStyles = {
     stepIndicatorSize: 30,
@@ -82,13 +85,32 @@ const getStepIndicatorIconConfig = ({ position, stepStatus }) => {
     return iconConfig;
 };
 
+
 export default class OnBoarding extends Component {
 
     constructor() {
         super();
         this.state = {
-            currentPage: 0
+            currentPage: 0,
+            keyboard: false,
         }
+    }
+    componentWillMount() {
+        this.keyboardDidShowListener = Keyboard.addListener('keyboardDidShow', e => this.keyboardDidShow(e));
+        this.keyboardDidHideListener = Keyboard.addListener('keyboardDidHide', e => this.keyboardDidHide(e));
+    }
+
+    componentWillUnmount() {
+        this.keyboardDidShowListener.remove();
+        this.keyboardDidHideListener.remove();
+    }
+
+    keyboardDidShow() {
+        this.setState({ keyboard: true })
+    }
+
+    keyboardDidHide() {
+        this.setState({ keyboard: false })
     }
 
     componentWillReceiveProps(nextProps, nextState) {
@@ -100,17 +122,40 @@ export default class OnBoarding extends Component {
     }
 
     render() {
+        const { goBack } = this.props.navigation;
         return (
-            <View style={styles.container}>
-                <View style={{ flex: 1 }}>
-                    <IntroHeader
-                        back />
-                    <View style={styles.stepIndicator}>
-                        <StepIndicator stepCount={3} customStyles={firstIndicatorStyles} currentPosition={this.state.currentPage} />
-                    </View>
-                </View>
-                <OnBoardView />
-            </View>
+            <ScrollView
+                contentContainerStyle={{ flexGrow: 1 }}
+                scrollEnabled
+                keyboardShouldPersistTaps="always"
+            >
+                <DismissKeyboard>
+                    <KeyboardAvoidingView
+                        style={ExtStyle.flex1}
+                        behavior="padding"
+
+                    >
+                        <View style={styles.container}>
+                            <View style={{
+                                flex: 1
+                            }}
+                            >
+                                <IntroHeader
+                                    fn={() => goBack()}
+                                    back
+                                    keyboard={this.state.keyboard}
+                                />
+                                <View style={styles.stepIndicator}>
+                                    <StepIndicator stepCount={3} customStyles={firstIndicatorStyles} currentPosition={this.state.currentPage} />
+                                </View>
+                            </View>
+                            {/* <OnBoardView /> */}
+                            <OnBoardView second={true} />
+                        </View>
+                    </KeyboardAvoidingView>
+                </DismissKeyboard>
+            </ScrollView>
+
         );
     }
 
@@ -123,5 +168,6 @@ export default class OnBoarding extends Component {
     renderStepIndicator = params => (
         <View {...getStepIndicatorIconConfig(params)} />
     );
+
 }
 

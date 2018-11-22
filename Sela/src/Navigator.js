@@ -1,4 +1,6 @@
 import { createStackNavigator } from 'react-navigation';
+
+import Loading from './components/Loading';
 import SplashScreen from './screens/SplashScreen';
 import Login from './screens/Login';
 import Home from './screens/Home';
@@ -15,35 +17,41 @@ export const RootNavigator = createStackNavigator({
   //     header: null,
   //   },
   // },
-  // // Home: {
-  // //   screen: Home,
-  // //   navigationOptions: {
-  // //     header: null,
-  // //   },
-  // // },
+  // Home: {
+  //   screen: Home,
+  //   navigationOptions: {
+  //     header: null,
+  //   },
+  // },
   // Login: {
   //   screen: Login,
   //   navigationOptions: {
   //     header: null,
   //   },
   // },
-  // ForgotPassword: {
-  //   screen: ForgotPassword,
-  //   navigationOptions: {
-  //     header: null,
-  //   },
-  // },
-  // ResetPassword: {
-  //   screen: ResetPassword,
-  //   navigationOptions: {
-  //     header: null,
-  //   },
-  // },
+  Loading: {
+    screen: Loading,
+    navigationOptions: {
+      header: null,
+    },
+  },
   OnBoarding: {
     screen: OnBoarding,
     navigationOptions: {
       header: null
     }
-  }
+  },
+  ForgotPassword: {
+    screen: ForgotPassword,
+    navigationOptions: {
+      header: null,
+    },
+  },
+  ResetPassword: {
+    screen: ResetPassword,
+    navigationOptions: {
+      header: null,
+    },
+  },
 
 });

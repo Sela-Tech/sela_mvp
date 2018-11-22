@@ -1,8 +1,5 @@
-import React, { Component } from 'react';
-import {
- Platform, StyleSheet, Text, View 
-} from 'react-native';
-import Spinner from '../components/Spinner';
+import React from 'react';
+import { StyleSheet, View, Image } from 'react-native';
 
 
 const styles = StyleSheet.create({
@@ -14,15 +11,10 @@ const styles = StyleSheet.create({
   },
 });
 
-
-export default class SplashScreen extends Component {
-  render() {
-    return (
-          <View style={styles.container}>
-              <Image
-                  style={require('../../assets/img/logo.png')}
-                />
-            </View>
-    );
-  }
-}
+export default () => (
+  <View style={styles.container}>
+      <Image
+          style={require('../../assets/img/logo.png')}
+        />
+    </View>
+);

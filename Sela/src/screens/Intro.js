@@ -13,6 +13,7 @@ import Home from './Home';
 const styles = StyleSheet.create({
     image: {
         height: '70%',
+        width: '100%',
     },
     mainContent: {
         flex: 1,
@@ -48,7 +49,7 @@ export default class Intro extends React.Component {
         this.setState({ showRealApp: true });
     }
     renderItem = props => (
-        console.log('props', props),
+        // console.log('props', props),
         <IntroComp
             image={props.image}
             shortText="Fund"
