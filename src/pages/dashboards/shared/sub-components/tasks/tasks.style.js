@@ -7,9 +7,61 @@ export default styled.div`
   box-shadow: 0px 1px 3px rgba(0, 0, 0, 0.04);
   border-radius: 4px;
   position: relative;
+
+  select {
+    height: 40px;
+    margin: 7px auto;
+    text-indent: 1em;
+    background: #ffffff;
+    border: 1px solid #e2e5ed;
+    box-sizing: border-box;
+    border-radius: 4px;
+    font-size: 14px;
+    color: #777;
+    font-weight: 300;
+  }
+
+  #search {
+    height: 40px;
+    margin: 7px 0;
+    padding: 0 1em;
+    background: #ffffff;
+    border: 1px solid #e2e5ed;
+    box-sizing: border-box;
+    border-radius: 4px;
+
+    input {
+      width: 85%;
+      height: 100%;
+      border: 0;
+      font-size: 14px;
+      font-weight: 300;
+      display: block;
+      float: left;
+    }
+    button {
+      height: 100%;
+      width: 15%;
+      background: transparent;
+      border: 0;
+      img {
+        height: 100%;
+        width: 100%;
+        object-fit: contain;
+        object-position: center;
+        height: 20px;
+      }
+    }
+  }
   .sp {
     padding: 2% 3% 15px;
     border-bottom: 1px solid #eaedf3;
+
+    label {
+      font-size: 12px;
+      color: #929292;
+      font-weight: 300;
+    }
 
     h3 {
       margin: 10px 0;

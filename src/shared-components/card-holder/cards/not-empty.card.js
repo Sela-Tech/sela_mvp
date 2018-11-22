@@ -9,17 +9,32 @@ import { withRouter } from "react-router";
 import { connect } from "react-redux";
 
 const NotEmptyCard = ({ p, history, showMap }) => {
+  const hasImage = p["project-avatar"];
+
   return (
     <NotEmptyCardStyling2
       className={showMap === true ? "xs-12 sm-6 " : "xs-12 sm-6 md-4"}
     >
       <div className="container xs-12">
         <div className="box xs-12 md-11 sm-11">
-          <img
-            src={p["project-avatar"]}
-            alt={""}
-            onClick={() => history.push(`/projects/${p._id}/description`)}
-          />
+          {Boolean(hasImage) ? (
+            <img
+              src={p["project-avatar"]}
+              alt={""}
+              onClick={() => history.push(`/projects/${p._id}/description`)}
+            />
+          ) : (
+            <div
+              className="no-image"
+              onClick={() => history.push(`/projects/${p._id}/description`)}
+            >
+              <div className="c-w i-h">
+                <div className="c i-h">
+                  <h1>{p.name}</h1>
+                </div>
+              </div>
+            </div>
+          )}
           <div className="inner">
             <div className="text">
               <h3>{p.name}</h3>

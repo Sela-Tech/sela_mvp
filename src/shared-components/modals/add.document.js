@@ -100,6 +100,8 @@ export default connect(mapStateToProps)(
     render() {
       let { type, message, name } = this.state;
 
+      let isDocumentPresent = Boolean(this.state.doc.preview);
+
       return (
         <Form onSubmit={this.handleSubmit} className="xs-12">
           <div className="form-control">
@@ -161,13 +163,19 @@ export default connect(mapStateToProps)(
           </div>
 
           <div className="form-control xs-12">
-            <AsyncButton
-              attempt={this.state.add_doc_in_progress}
-              type="submit"
-              id="create-project-btn"
-            >
-              Upload
-            </AsyncButton>
+            {isDocumentPresent ? (
+              <AsyncButton
+                attempt={this.state.add_doc_in_progress}
+                type="submit"
+                id="create-project-btn"
+              >
+                Upload
+              </AsyncButton>
+            ) : (
+              <button disabled={true} type="button" id="create-project-btn">
+                Upload
+              </button>
+            )}
 
             {Boolean(this.state.uploading) && (
               <label

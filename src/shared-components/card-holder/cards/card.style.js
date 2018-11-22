@@ -8,6 +8,19 @@ export const NotEmptyCardStyling = styled.div`
     display: block;
   }
 
+  .no-image {
+    background: rgba(242, 153, 74, 0.97);
+    height: 10em;
+
+    h1 {
+      margin: 0;
+      font-weight: 300;
+      color: #444;
+      text-align: center;
+      font-size: 17px;
+    }
+  }
+
   .project-funder {
     height: 5em;
     width: 5em;
@@ -126,6 +139,18 @@ export const NotEmptyCardStyling2 = styled.div`
   .container {
     margin-bottom: 1.5em;
     position: relative;
+  }
+  .no-image {
+    background: rgba(242, 153, 74, 0.97);
+    height: 10em;
+
+    h1 {
+      margin: 0;
+      font-weight: 300;
+      color: #444;
+      text-align: center;
+      font-size: 17px;
+    }
   }
 
   .options {

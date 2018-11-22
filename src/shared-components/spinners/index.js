@@ -63,19 +63,42 @@ const DivTwo = styled.div`
   .lds-ring {
     display: inline-block;
     position: relative;
+
     width: 0.85em;
     height: 0.85em;
+
+    ${props =>
+      props.color
+        ? `
+      width: 2.85em;
+      height: 2.85em;
+     `
+        : `width: 0.85em;
+    height: 0.85em;
+    `};
   }
   .lds-ring div {
     box-sizing: border-box;
     display: block;
     position: absolute;
-    width: 1em;
-    height: 1em;
-    border: 3px solid #fff;
     border-radius: 50%;
     animation: lds-ring 1.2s cubic-bezier(0.5, 0, 0.5, 1) infinite;
-    border-color: #fff transparent transparent transparent;
+    ${props =>
+      props.color
+        ? `
+      width: 3em;
+      height: 3em;
+     
+      border: 3px solid rgba(242,153,74,0.97);
+      border-color: #FF5722 transparent rgb(49, 132, 204) transparent;
+      `
+        : `
+      width: 1em;
+      height: 1em;
+     
+      border: 3px solid #fff;
+      border-color: #fff transparent transparent transparent;
+      `}
   }
   .lds-ring div:nth-child(1) {
     animation-delay: -0.45s;
@@ -95,8 +118,9 @@ const DivTwo = styled.div`
     }
   }
 `;
-const Two = () => (
-  <DivTwo>
+
+const Two = ({ color }) => (
+  <DivTwo color={color}>
     <div className="lds-ring">
       <div />
       <div />
@@ -117,13 +141,13 @@ const One = () => (
   </DivOne>
 );
 
-export default ({ type }) => {
+export default ({ type, color }) => {
   switch (type) {
     case "one":
       return <One />;
 
     case "two":
-      return <Two />;
+      return <Two color={color} />;
 
     default:
       return null;

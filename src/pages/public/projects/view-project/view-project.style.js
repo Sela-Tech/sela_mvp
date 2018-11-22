@@ -1,9 +1,23 @@
 import styled from "styled-components";
 
 export default styled.div`
+  .long-loader,
+  .short-loader {
+    text-align: center;
+    margin: auto;
+    display: block;
+    height: 9px;
+    background: #ccc;
+  }
+  .long-loader {
+    width: 100px;
+  }
+  .short-loader {
+    width: 60px;
+  }
   #header {
     padding: 2em 0 3em;
-    background: rgba(229, 229, 229, 0.05);
+    background: #fbfbfb;
 
     h1 {
       font-family: Cabin;

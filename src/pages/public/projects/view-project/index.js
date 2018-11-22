@@ -87,14 +87,24 @@ class ViewProject extends React.Component {
               </div>
 
               <div className="xs-12 sm-8 sm-off-2 t-c">
-                <h1>{project.name}</h1>
-                <p>{project.owner.organization.name}</p>
+                <h1>
+                  {project.name ? project.name : <p className="short-loader" />}
+                </h1>
+                <p>
+                  {project.owner.organization.name ? (
+                    project.owner.organization.name
+                  ) : (
+                    <p className="long-loader" />
+                  )}
+                </p>
 
                 <div className="xs-12">
                   {project["project-video"] ? (
                     <video src={project["project-video"]} alt="" />
-                  ) : (
+                  ) : Boolean(project["project-avatar"]) ? (
                     <img src={project["project-avatar"]} alt="" />
+                  ) : (
+                    <div className="no-image" />
                   )}
                 </div>
 

@@ -332,7 +332,7 @@ export default styled.div`
   }
 
   #open-chat {
-    background: #1ecd97;
+    background: #f2994a;
     border-radius: 4px;
     color: white;
     display: inline-block;

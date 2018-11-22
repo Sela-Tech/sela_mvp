@@ -41,9 +41,8 @@ export default connect(mapStateToProps)(
     render() {
       const { selectedOption, sdgs } = this.state;
 
-      console.log(sdgs);
       return (
-        <div className="form-control">
+        <div className="form-control" style={{ overflow: "unset" }}>
           <label>Associated Tags: Seperate tags with a comma.</label>
 
           <Select

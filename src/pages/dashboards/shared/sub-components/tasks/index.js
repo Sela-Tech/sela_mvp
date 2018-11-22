@@ -7,6 +7,7 @@ import {
   showTaskModal
 } from "../../../../../store/action-creators/project-funder/modal";
 import { fetchProject } from "../../../../../store/action-creators/project-funder/project";
+import search from "../documents/search.svg";
 
 class Tasks extends React.Component {
   state = {
@@ -45,6 +46,36 @@ class Tasks extends React.Component {
             <button className="blue-btn" onClick={this.showAddTask}>
               Add Task
             </button>
+          </div>
+        </div>
+
+        <div className="xs-12 sp">
+          <div className="f-l xs-12 ">
+            <div className="xs-12 md-6">
+              <div className="xs-12 sm-11">
+                <label>Search For Task</label>
+
+                <form>
+                  <div className="xs-12" id="search">
+                    <input name="search" placeholder="Search For Tasks" />
+                    <button>
+                      <img src={search} alt="" />
+                    </button>
+                  </div>
+                </form>
+              </div>
+            </div>
+
+            <div className="xs-12 sm-6">
+              <div className="xs-12 sm-11">
+                <label>Filter By</label>
+
+                <select className="xs-12">
+                  <option value="">No Filter</option>
+                  <option>Funder</option>
+                </select>
+              </div>
+            </div>
           </div>
         </div>
 

@@ -10,6 +10,19 @@ export default styled.div`
     height: auto;
   }
 
+  .no-image {
+    background: rgba(242, 153, 74, 0.97);
+    height: 10em;
+
+    h1 {
+      margin: 0;
+      font-weight: 300;
+      color: #444;
+      text-align: center;
+      font-size: 17px;
+    }
+  }
+
   #top {
     padding: 2em;
     text-align: left;

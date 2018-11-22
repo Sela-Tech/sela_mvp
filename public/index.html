@@ -1,34 +1,50 @@
 <!DOCTYPE html>
 <html lang="en">
+  <head>
+    <meta charset="utf-8" />
+    <meta
+      name="viewport"
+      content="width=device-width, initial-scale=1, shrink-to-fit=no"
+    />
+    <meta name="theme-color" content="#000000" />
+    <link rel="manifest" href="%PUBLIC_URL%/manifest.json" />
+    <link rel="shortcut icon" href="%PUBLIC_URL%/favicon.ico" />
+    <link rel="stylesheet" href="%PUBLIC_URL%/myGrid.css" />
+    <link rel="stylesheet" href="%PUBLIC_URL%/index.css" />
+    <link
+      href="https://fonts.googleapis.com/css?family=Open+Sans:300,300i,400,400i,600,600i,700,700i,800,800i"
+      rel="stylesheet"
+    />
+    <link
+      rel="stylesheet"
+      href="https://cdnjs.cloudflare.com/ajax/libs/Swiper/4.4.1/css/swiper.min.css"
+    />
 
-<head>
-  <meta charset="utf-8">
-  <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
-  <meta name="theme-color" content="#000000">
-  <link rel="manifest" href="%PUBLIC_URL%/manifest.json">
-  <link rel="shortcut icon" href="%PUBLIC_URL%/favicon.ico">
-  <link rel="stylesheet" href="%PUBLIC_URL%/myGrid.css">
-  <link rel="stylesheet" href="%PUBLIC_URL%/index.css">
-  <link href="https://fonts.googleapis.com/css?family=Open+Sans:300,300i,400,400i,600,600i,700,700i,800,800i" rel="stylesheet">
-  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/Swiper/4.4.1/css/swiper.min.css">
+    <link
+      href="https://fonts.googleapis.com/css?family=Cabin:100,200,300,400"
+      rel="stylesheet"
+    />
+    <script src="https://maps.googleapis.com/maps/api/js?key=AIzaSyDRMWoNjCQp00UvNO7xWxK4DWy_H34Ov8I&libraries=places"></script>
 
-  <link href="https://fonts.googleapis.com/css?family=Cabin:100,200,300,400" rel="stylesheet">
-  <script src="https://maps.googleapis.com/maps/api/js?key=AIzaSyDRMWoNjCQp00UvNO7xWxK4DWy_H34Ov8I&libraries=places"></script>
+    <title>Sela - Alpha</title>
+    <style>
+      #loading {
+        height: 120px;
+        object-fit: contain;
+      }
+    </style>
+  </head>
 
-  <title>Sela - Alpha</title>
-</head>
-
-<body>
-  <div id="root">
-    <div class="center-wrapper xs-12">
-      <div class="center init-load">
-        <div class="xs-10 xs-off-1 sm-8 sm-off-2 md-4 md-off-4">
-          <img src="%PUBLIC_URL%/full-logo.svg" />
-          <h1>Getting things in order...</h1>
+  <body>
+    <div id="root">
+      <div class="center-wrapper xs-12">
+        <div class="center init-load">
+          <div class="xs-10 xs-off-1 sm-8 sm-off-2 md-4 md-off-4">
+            <img src="%PUBLIC_URL%/full-logo.svg" id="loading" />
+            <h1>Getting things in order...</h1>
+          </div>
         </div>
       </div>
     </div>
-  </div>
-</body>
-
+  </body>
 </html>

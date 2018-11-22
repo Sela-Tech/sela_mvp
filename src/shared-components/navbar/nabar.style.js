@@ -61,11 +61,10 @@ export default styled.div`
     }
 
     #get-started {
-      border: 1px solid #f1c157;
+      border: 1px solid rgba(242, 153, 74, 0.97);
       border-radius: 4px;
-      background: #f1c157;
-
-      color: black;
+      background: rgba(242, 153, 74, 0.97);
+      color: white;
     }
 
     a {

@@ -34,10 +34,23 @@ class ProjectTemplate extends React.Component {
       } = this.props,
       { hidden } = this.state;
 
+    const hasImage = p;
+
     return (
       <div className="container xs-12 sm-6 md-4">
         <div className="box xs-12 md-11 sm-11">
-          <img src={p} alt={""} onClick={go} />
+          {/* <img src={p} alt={""} onClick={go} /> */}
+          {Boolean(hasImage) ? (
+            <img src={p} onClick={go} alt="" />
+          ) : (
+            <div className="no-image" onClick={go}>
+              <div className="c-w i-h">
+                <div className="c i-h">
+                  <h1>{t}</h1>
+                </div>
+              </div>
+            </div>
+          )}
           <div className="inner">
             <div className="text">
               <h3>{t}</h3>
@@ -102,6 +115,7 @@ class ProjectTemplate extends React.Component {
     );
   }
 }
+
 const NotEmptyHomeView = ({ dispatch, projects, history }) => {
   const go = id => history.push("/dashboard/project/" + id + "/overview");
 

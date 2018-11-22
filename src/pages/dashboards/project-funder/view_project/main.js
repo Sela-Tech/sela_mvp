@@ -33,22 +33,7 @@ const View = ({ id, view }) => {
   }
 };
 
-const ProjectComponent = ({ info, match, dispatch }) => {
-  // let showId = () => dispatch(showAddStakeholderModal(id));
-
-  // let members = stakeholders => {
-  //   return [
-  //     ...stakeholders.map((p, i) => {
-  //       return (
-  //         <button className="member" key={i}>
-  //           {p.user.information.lastName[0]}
-  //           {p.user.information.firstName[0]}
-  //         </button>
-  //       );
-  //     })
-  //   ];
-  // };
-
+const ProjectComponent = ({ info, match }) => {
   const { id, view } = match.params;
 
   return (
@@ -74,11 +59,6 @@ const ProjectComponent = ({ info, match, dispatch }) => {
                 .join(", #")
                 .trim()}
             </p>
-            {/* {members(info.stakeholders)}
-            <button className="member" onClick={showId}>
-              +
-            </button>
-             */}
           </div>
           <div className="xs-12">
             <nav className="xs-12 ">

@@ -15,7 +15,7 @@ export default styled.div`
   #show-map {
     height: 50px;
     width: 50px;
-    background: transparent;
+    background: white;
     border-radius: 50px;
     border: 1px solid rgba(135, 149, 161, 0.25);
     margin: 30px 0 0;

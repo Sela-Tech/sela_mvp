@@ -15,20 +15,32 @@ export const Marker = styled.div`
   .hovered {
     background: white;
     position: absolute;
-    top: -260px;
+    ${props =>
+      Boolean(props.project["project-avatar"])
+        ? `
+      top: -260px;
+    `
+        : `
+      top: -110px;
+    `}
     left: 19px;
-
+    z-index: 1000000000000000000000;
     width: 200px;
 
     .inner {
       padding: 0 15px 20px;
     }
+    ${props =>
+      Boolean(props.project["project-avatar"])
+        ? `
     img {
       width: 100%;
       height: 150px;
       object-fit: cover;
       object-position: center;
     }
+    `
+        : ``};
     h1 {
       font-size: 13px;
       text-align: left;

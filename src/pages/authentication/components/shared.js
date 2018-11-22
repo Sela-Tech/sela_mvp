@@ -93,7 +93,7 @@ export default styled.div`
     }
 
     #submit-btn {
-      background: #1ecd97;
+      background: #f2994a;
       border-radius: 4px;
       padding: 1.5em 0;
       max-width: 15em;

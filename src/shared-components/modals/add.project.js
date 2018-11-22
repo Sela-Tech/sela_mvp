@@ -305,11 +305,7 @@ export default connect(mapStateToProps)(
                 />
               </div>
 
-              <div className="xs-12 form-control">
-                <div className="xs-12">
-                  <SdgPicker onChange={this.handleSDG} />
-                </div>
-              </div>
+              <SdgPicker onChange={this.handleSDG} />
 
               <ContractorLoader onchange={this.handleChange} />
 

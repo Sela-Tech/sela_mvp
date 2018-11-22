@@ -50,8 +50,8 @@ export const Form = styled.form`
     border: 1.5px solid #f1f3f5;
     border-radius: 5px;
     width: 100%;
-    font-size: 1em;
-    padding: 0.85em;
+    font-size: 14.5px;
+    padding: 0.75em;
     line-height: normal;
     color: #666;
     transition: 150ms;

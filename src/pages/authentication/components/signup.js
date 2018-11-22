@@ -222,7 +222,6 @@ class Signup extends React.Component {
       organizations
     } = this.state;
 
-    console.log(selectedOption);
     const { formData } = this.state,
       checkFormCompletion =
         Object.keys(formData).filter(key => {
@@ -231,144 +230,54 @@ class Signup extends React.Component {
 
     switch (type) {
       case auth.SIGNUP_SUCCESSFUL:
-        switch (this.state.formData["signUpType"].value) {
-          case "project-funder":
-            window.scrollTo(0, 0);
-            return (
-              <Wrapper viewName="signup">
-                <SignUpWrapper className="container">
-                  <div className="xs-12">
-                    <div id="phone-wrapper">
-                      <div id="phone">
-                        <img src={phone} alt="phone" />
-                      </div>
-                    </div>
+        window.scrollTo(0, 0);
+        return (
+          <Wrapper viewName="signup">
+            <SignUpWrapper className="container">
+              <div className="xs-12">
+                <div id="phone-wrapper">
+                  <div id="phone">
+                    <img src={phone} alt="phone" />
                   </div>
-                  <div className="xs-12">
-                    <h2>
-                      <img src={success} alt="success" id="success-icon" />
-                      You're signed up!
-                    </h2>
-                    <p
-                      className="xs-10 xs-off-1 sm-6 sm-off-3"
-                      id="signup-info-text"
-                    >
-                      <span>
-                        We’re currently reviewing your submission. We’ll send
-                        you an email when your account is approved and
-                        activated!
-                      </span>
-                    </p>
-                  </div>
+                </div>
+              </div>
+              <div className="xs-12">
+                <h2>
+                  <img src={success} alt="success" id="success-icon" />
+                  You're signed up!
+                </h2>
+                <p
+                  className="xs-10 xs-off-1 sm-6 sm-off-3"
+                  id="signup-info-text"
+                >
+                  <span>
+                    We’re currently reviewing your submission. We’ll send you an
+                    email when your account is approved and activated!
+                  </span>
+                </p>
+              </div>
 
-                  <div className="xs-12 video-section">
-                    <p className="xs-10 xs-off-1 sm-8 sm-off-2">
-                      <span>
-                        In the meantime, here’s a walkthrough to help you get
-                        familiar with the platform:
-                      </span>
-                    </p>
+              <div className="xs-12 video-section">
+                <p className="xs-10 xs-off-1 sm-8 sm-off-2">
+                  <span>
+                    In the meantime, here’s a walkthrough to help you get
+                    familiar with the platform:
+                  </span>
+                </p>
 
-                    <div className="xs-12 sm-8 sm-off-2" id="video-wrapper">
-                      <video
-                        poster="http://placehold.it/400"
-                        controls
-                        src="http://techslides.com/demos/sample-videos/small.mp4"
-                        height="400px"
-                        width="100%"
-                      />
-                    </div>
-                  </div>
-                </SignUpWrapper>
-              </Wrapper>
-            );
-          default:
-            window.scrollTo(0, 0);
-            return (
-              <Wrapper viewName="signup">
-                <SignUpWrapper className="container">
-                  <div className="xs-12">
-                    <div id="phone-wrapper">
-                      <div id="phone">
-                        <img src={phone} alt="phone" />
-                      </div>
-                    </div>
-                  </div>
-
-                  <div className="xs-12">
-                    <h2>
-                      <img src={success} alt="success" id="success-icon" />
-                      <span>You're signed up!</span>
-                    </h2>
-                    <p className="xs-10 xs-off-1" id="signup-info-text">
-                      <span> Let’s get you chatting with our Selabot </span>
-                    </p>
-                  </div>
-
-                  <div className="xs-10 xs-off-1 sm-8 sm-off-2">
-                    <ul id="list">
-                      <li>
-                        <div className="xs-2 sm-1">
-                          <p className="round">
-                            <span>1</span>
-                          </p>
-                        </div>
-                        <div className="xs-10 sm-11 sp-text-styles">
-                          <p className="type-1">
-                            <strong>Download Telegram</strong> (if you already
-                            have this installed, move on to step two)
-                          </p>
-                          <p className="type-2">
-                            Telegram is a messaging application that you’ll use
-                            to submit updates with Sela. You can find it on
-                            Google Play Store or Apple App Store using the links
-                            below
-                          </p>
-
-                          <div className="space">
-                            <Link to="#" className="link">
-                              Download Telegram for Android
-                            </Link>
-                            <Link to="#" className="link">
-                              Download Telegram for iPhone
-                            </Link>
-                          </div>
-                        </div>
-                      </li>
-
-                      <li>
-                        <div className="xs-2 sm-1">
-                          <p className="round">
-                            <span>2</span>
-                          </p>
-                        </div>
-                        <div className="xs-10 sm-11 sp-text-styles">
-                          <p className="type-1">
-                            <strong>Meet Sela</strong>
-                          </p>
-                          <p className="type-2">
-                            You’ll be communicating with our bot named
-                            “Selabot”. Once you have Telegram installed, click
-                            the button below to start your chat.
-                          </p>
-
-                          <div className="button-container">
-                            <Link
-                              id="open-chat"
-                              to="/open-chat"
-                              name="open-chat"
-                            >
-                              Open Chat
-                            </Link>
-                          </div>
-                        </div>
-                      </li>
-                    </ul>
-                  </div>
-                </SignUpWrapper>
-              </Wrapper>
-            );
-        }
+                <div className="xs-12 sm-8 sm-off-2" id="video-wrapper">
+                  <video
+                    poster="http://placehold.it/400"
+                    controls
+                    src="http://techslides.com/demos/sample-videos/small.mp4"
+                    height="400px"
+                    width="100%"
+                  />
+                </div>
+              </div>
+            </SignUpWrapper>
+          </Wrapper>
+        );
 
       default:
         return (
