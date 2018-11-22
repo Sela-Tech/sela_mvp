@@ -9,8 +9,8 @@ const styles = {
   },
 };
 
-const Spinner = ({ size, color,occupy }) => (
-  <View style={styles.spinnerStyle,occupy ? { flex: 1} : null}>
+const Spinner = ({ size, color, occupy }) => (
+  <View style={styles.spinnerStyle, occupy ? { flex: 1 } : null}>
     <ActivityIndicator size={size || 'large'} color={color || '#FFFFFF'} />
   </View>
 );

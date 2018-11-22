@@ -4,33 +4,32 @@ import PropTypes from 'prop-types';
 
 const { height, width } = Dimensions.get('window');
 const styles = {
-  ButtonStyle: {
-    justifyContent: 'center',
-    // height: height / 14,
-    width: width / 1.3,
-    borderRadius: 5,
-    alignItems: 'center',
-  },
+    ButtonStyle: {
+        justifyContent: 'center',
+        width: width / 1.3,
+        borderRadius: 5,
+        alignItems: 'center',
+    },
 };
 
 const Button = ({
-  text, color, textColor, fn, textSize, medium,
+    text, color, textColor, fn, textSize, medium,
 }) => (
-  <TouchableOpacity
-    onPress={fn}
-    style={[styles.ButtonStyle, { height: medium ? height / 12 : height / 14, backgroundColor: color }]}
-  >
-    <Text style={{ color: textColor, fontSize: textSize }}>
-      {' '}
-      {text}
-      {' '}
-    </Text>
-  </TouchableOpacity>
-);
+        <TouchableOpacity
+            onPress={fn}
+            style={[styles.ButtonStyle, { height: medium ? height / 12 : height / 14, backgroundColor: color }]}
+        >
+            <Text style={{ color: textColor, fontSize: textSize }}>
+                {' '}
+                {text}
+                {' '}
+            </Text>
+        </TouchableOpacity>
+    );
 
 Button.propTypes = {
-  text: PropTypes.string.isRequired,
-  fn: PropTypes.func,
+    text: PropTypes.string.isRequired,
+    fn: PropTypes.func,
 };
 
 

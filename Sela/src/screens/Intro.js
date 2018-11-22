@@ -9,6 +9,20 @@ import {
 import IntroComp from '../components/Intro/Intro';
 import AppIntroSlider from 'react-native-app-intro-slider';
 import Home from './Home';
+import { YELLOW } from '../utils/constants';
+
+const first = `Find,fund and track  development
+               projects in the emerging world
+               contributing to the attainment of the
+               Sustainable Development Goals(SDGS)`;
+const second = `Propose and execute development
+                projects in a trasnsparent manner with
+                impact-driven measurement and 
+                advanced analytics`;
+const third = `Provide progress updates on
+                project within your community.
+                Become an active citizen and lead
+                change through accountability`;
 
 const styles = StyleSheet.create({
     image: {
@@ -24,17 +38,17 @@ const styles = StyleSheet.create({
 
 const slides = [
     {
-        key: 'somethun',
+        key: 'first',
         image: require('../../assets/img/building.png'),
     },
     {
-        key: 'somethun-dos',
+        key: 'second',
         image: require('../../assets/img/man.png'),
         imageStyle: styles.image,
 
     },
     {
-        key: 'somethun1',
+        key: 'third',
         image: require('../../assets/img/woman.png'),
     }
 ];
@@ -49,11 +63,15 @@ export default class Intro extends React.Component {
         this.setState({ showRealApp: true });
     }
     renderItem = props => (
-        // console.log('props', props),
+
         <IntroComp
             image={props.image}
-            shortText="Fund"
-            longText="Find, fund and track development"
+            shortText={props.key === 'first' ? 'Fund' : props.key === 'second' ? 'Execute' : 'Evaluate'}
+            longText={
+                props.key === 'first' ? first
+                    : props.key === 'second' ?
+                        second : third
+            }
         />
     );
 
@@ -64,6 +82,15 @@ export default class Intro extends React.Component {
             />;
         } else {
             return <AppIntroSlider style={{ flex: 1 }}
+                buttonTextStyle={
+                    {
+                        color: 'red'
+                    }
+                }
+                activeDotStyle={{
+                    backgroundColor: YELLOW
+                }}
+                buttonTextStyle='red'
                 showSkipButton={true}
                 slides={slides}
                 renderItem={this.renderItem}

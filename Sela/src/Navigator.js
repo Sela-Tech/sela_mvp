@@ -11,24 +11,24 @@ import OnBoarding from './screens/OnBoarding';
 
 
 export const RootNavigator = createStackNavigator({
-  // Intro: {
-  //   screen: IntroScreen,
-  //   navigationOptions: {
-  //     header: null,
-  //   },
-  // },
-  // Home: {
-  //   screen: Home,
-  //   navigationOptions: {
-  //     header: null,
-  //   },
-  // },
-  // Login: {
-  //   screen: Login,
-  //   navigationOptions: {
-  //     header: null,
-  //   },
-  // },
+  Intro: {
+    screen: IntroScreen,
+    navigationOptions: {
+      header: null,
+    },
+  },
+  Home: {
+    screen: Home,
+    navigationOptions: {
+      header: null,
+    },
+  },
+  Login: {
+    screen: Login,
+    navigationOptions: {
+      header: null,
+    },
+  },
   Loading: {
     screen: Loading,
     navigationOptions: {
