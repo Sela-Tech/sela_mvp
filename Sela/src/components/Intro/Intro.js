@@ -9,7 +9,7 @@ const { height, width } = Dimensions.get('window');
 const styles = StyleSheet.create({
   container: {
     flex: 1,
-    // backgroundColor: '#FFFFFF',
+    backgroundColor: '#FFFFFF',
   },
   innerContainer: {
     flex: 1,
@@ -17,7 +17,7 @@ const styles = StyleSheet.create({
   },
   longText: {
     color: '#696F74',
-    fontSize: 15,
+    fontSize: 17,
     textAlign: 'center',
     textAlignVertical: 'center',
 
@@ -37,20 +37,20 @@ const Intro = ({ image, shortText, longText }) => {
       </View>
       <View style={styles.innerContainer}>
         <View style={{ marginTop: 25 }}>
-          <Text style={{ fontWeight: '500', fontSize: 25 }}>
+          <Text style={{ fontWeight: '400', fontSize: 25, color: '#222829' }}>
             {' '}
             {shortText}
             {' '}
           </Text>
         </View>
         <View style={{
-          marginTop: 15, justifyContent: 'center',
+          marginTop: 15, justifyContent: 'center', alignItems: 'center',
         }}
         >
-          <Text style={styles.longText}>{display[0]}</Text>
-          <Text style={styles.longText}>{display[1]}</Text>
-          <Text style={styles.longText}>{display[2]}</Text>
-          <Text style={styles.longText}>{display[3]}</Text>
+          <Text style={styles.longText}>{display[0].trim('')}</Text>
+          <Text style={styles.longText}>{display[1].trim('')}</Text>
+          <Text style={styles.longText}>{display[2].trim('')}</Text>
+          <Text style={styles.longText}>{display[3].trim('')}</Text>
         </View>
       </View>
     </View>

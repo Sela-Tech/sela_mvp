@@ -2,6 +2,7 @@ import React from 'react';
 import { TouchableOpacity, Text, Dimensions } from 'react-native';
 import PropTypes from 'prop-types';
 
+
 const { height, width } = Dimensions.get('window');
 const styles = {
     ButtonStyle: {
@@ -9,6 +10,7 @@ const styles = {
         width: width / 1.3,
         borderRadius: 5,
         alignItems: 'center',
+
     },
 };
 
@@ -17,7 +19,7 @@ const Button = ({
 }) => (
         <TouchableOpacity
             onPress={fn}
-            style={[styles.ButtonStyle, { height: medium ? height / 12 : height / 14, backgroundColor: color }]}
+            style={[styles.ButtonStyle, { height: medium ? height / 11 : height / 14, backgroundColor: color }]}
         >
             <Text style={{ color: textColor, fontSize: textSize }}>
                 {' '}

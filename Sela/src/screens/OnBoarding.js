@@ -1,6 +1,5 @@
 import React, { Component } from 'react';
 import { AppRegistry, StyleSheet, View, Text, KeyboardAvoidingView, ScrollView, Keyboard } from 'react-native';
-// import { ViewPager } from 'rn-viewpager';
 import DismissKeyboard from '../components/DismissKeyboard';
 import IntroHeader from '../components/IntroHeader';
 import OnBoardView from '../components/OnBoarding/OnBoardView';
@@ -28,19 +27,16 @@ const styles = StyleSheet.create({
 
 });
 
-const PAGES = ['Page 1', 'Page 2', 'Page 3', 'Page 4', 'Page 5'];
-
 
 const firstIndicatorStyles = {
-    stepIndicatorSize: 30,
     currentStepIndicatorSize: 40,
-    separatorStrokeWidth: 3,
+    separatorStrokeWidth: 10,
     currentStepStrokeWidth: 5,
-    separatorFinishedColor: '#F2994A',
-    separatorUnFinishedColor: '#40F2994A',
-    stepIndicatorFinishedColor: '#F2994A',
-    stepIndicatorUnFinishedColor: '#F2994A',
-    stepIndicatorCurrentColor: '#F2994A',
+    // separatorFinishedColor: '#F2994A',
+    // // separatorUnFinishedColor: '#40F2994A',
+    // stepIndicatorFinishedColor: '#F2994A',
+    // stepIndicatorUnFinishedColor: '#F2994A',
+    // stepIndicatorCurrentColor: '#F2994A',
     stepIndicatorLabelFontSize: 15,
     currentStepIndicatorLabelFontSize: 15,
     // stepIndicatorLabelCurrentColor: '#000000',
@@ -51,48 +47,16 @@ const firstIndicatorStyles = {
     currentStepLabelColor: '#F2994A'
 }
 
-const getStepIndicatorIconConfig = ({ position, stepStatus }) => {
-    const iconConfig = {
-        name: 'feed',
-        color: stepStatus === 'finished' ? '#ffffff' : '#fe7013',
-        size: 15,
-    };
-    switch (position) {
-        case 0: {
-            iconConfig.name = 'shopping-cart';
-            break;
-        }
-        case 1: {
-            iconConfig.name = 'location-on';
-            break;
-        }
-        case 2: {
-            iconConfig.name = 'assessment';
-            break;
-        }
-        case 3: {
-            iconConfig.name = 'payment';
-            break;
-        }
-        case 4: {
-            iconConfig.name = 'track-changes';
-            break;
-        }
-        default: {
-            break;
-        }
-    }
-    return iconConfig;
-};
-
-
 export default class OnBoarding extends Component {
-
     constructor() {
         super();
         this.state = {
             currentPage: 0,
             keyboard: false,
+            name: '',
+            emailOrPhone: '',
+            password: '',
+            role: 'funder'
         }
     }
     componentWillMount() {
@@ -106,12 +70,15 @@ export default class OnBoarding extends Component {
     }
 
     keyboardDidShow() {
-        this.setState({ keyboard: true })
+        return this.setState({ keyboard: true })
     }
 
     keyboardDidHide() {
-        this.setState({ keyboard: false })
+        return this.setState({ keyboard: false })
     }
+    changePage = () => {
+        return this.setState((prevState) => ({ currentPage: prevState.currentPage === 0 ? ++prevState.currentPage : --prevState.currentPage }))
+    };
 
     componentWillReceiveProps(nextProps, nextState) {
         if (nextState.currentPage != this.state.currentPage) {
@@ -123,6 +90,7 @@ export default class OnBoarding extends Component {
 
     render() {
         const { goBack } = this.props.navigation;
+        const { currentPage } = this.state;
         return (
             <ScrollView
                 contentContainerStyle={{ flexGrow: 1 }}
@@ -141,7 +109,7 @@ export default class OnBoarding extends Component {
                             }}
                             >
                                 <IntroHeader
-                                    fn={() => goBack()}
+                                    fn={() => currentPage === 1 ? this.changePage() : goBack()}
                                     back
                                     keyboard={this.state.keyboard}
                                 />
@@ -149,13 +117,17 @@ export default class OnBoarding extends Component {
                                     <StepIndicator stepCount={3} customStyles={firstIndicatorStyles} currentPosition={this.state.currentPage} />
                                 </View>
                             </View>
-                            {/* <OnBoardView /> */}
-                            <OnBoardView second={true} />
+                            {
+                                this.state.currentPage === 0 ?
+                                    <OnBoardView
+                                        currentPage={this.state.currentPage}
+                                        changePage={this.changePage}
+                                    /> : <OnBoardView second={true} currentPage={this.state.currentPage} changePage={this.changePage} />
+                            }
                         </View>
                     </KeyboardAvoidingView>
                 </DismissKeyboard>
             </ScrollView>
-
         );
     }
 
@@ -165,9 +137,7 @@ export default class OnBoarding extends Component {
         </View>)
     }
 
-    renderStepIndicator = params => (
-        <View {...getStepIndicatorIconConfig(params)} />
-    );
+
 
 }
 

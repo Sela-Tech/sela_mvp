@@ -13,6 +13,9 @@ const styles = StyleSheet.create({
   row: {
     flexDirection: 'row',
   },
+  boldText: {
+    fontWeight: '500',
+  },
 
 });
 

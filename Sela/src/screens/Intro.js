@@ -82,15 +82,9 @@ export default class Intro extends React.Component {
             />;
         } else {
             return <AppIntroSlider style={{ flex: 1 }}
-                buttonTextStyle={
-                    {
-                        color: 'red'
-                    }
-                }
                 activeDotStyle={{
                     backgroundColor: YELLOW
                 }}
-                buttonTextStyle='red'
                 showSkipButton={true}
                 slides={slides}
                 renderItem={this.renderItem}

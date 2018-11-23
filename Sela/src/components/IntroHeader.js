@@ -13,7 +13,7 @@ const styles = {
 };
 
 const IntroHeader = ({ back, keyboard, fn }) => (
-    <View style={[styles.container, { marginTop: keyboard === true ? null : '20%' }]}>
+    <View style={[styles.container, { marginTop: keyboard === true ? null : '17%' }]}>
         <View style={{ marginLeft: !back ? null : '13%', flex: 1 }}>
             {back ? (
                 <View>

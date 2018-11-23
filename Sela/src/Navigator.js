@@ -38,8 +38,8 @@ export const RootNavigator = createStackNavigator({
   OnBoarding: {
     screen: OnBoarding,
     navigationOptions: {
-      header: null
-    }
+      header: null,
+    },
   },
   ForgotPassword: {
     screen: ForgotPassword,

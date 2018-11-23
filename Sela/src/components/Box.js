@@ -28,30 +28,26 @@ const Box = ({
   checked,
 }) => (
   <View style={[styles.BoxStyle, {
-    backgroundColor: color, borderColor: WHITE, borderWidth: below ? 1 : null, marginTop: below ? '2%' : null,
-  }]}
-  >
-    <TouchableOpacity
-      onPress={fn}
-      style={{ flexDirection: 'row', alignItems: 'center' }}
+      backgroundColor: color, borderColor: WHITE, borderWidth: below ? 1 : null, marginTop: below ? '2%' : null,
+    }]}
     >
-      <View>
-        <CheckBox
-          color="#FFFFFF"
-          checkboxTickColor="#F4F689"
-          checked={checked}
-        />
-      </View>
-      <View style={{ paddingLeft: '10%' }}>
-        <B color={textColor}>
-          {upText}
-        </B>
-        <Text style={{ color: textColor, fontSize: textSize }}>
-          {downText}
-        </Text>
-      </View>
-    </TouchableOpacity>
-  </View>
+      <TouchableOpacity
+        onPress={fn}
+        style={{ flex: 1, flexDirection: 'row', alignItems: 'center' }}
+      >
+        <View>
+          <CheckBox
+            color="#FFFFFF"
+            checkboxTickColor="#F4F689"
+            checked={checked}
+          />
+        </View>
+        <View style={{ paddingLeft: '10%' }}>
+          <B color={textColor}>{upText}</B>
+          <Text style={{ color: textColor, fontSize: textSize }}>{downText}</Text>
+        </View>
+      </TouchableOpacity>
+    </View>
 );
 
 Box.propTypes = {
