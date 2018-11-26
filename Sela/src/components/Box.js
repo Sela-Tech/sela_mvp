@@ -1,9 +1,8 @@
 import React from 'react';
-import {
-  View, TouchableOpacity, Text, Dimensions,
-} from 'react-native';
+import { View, TouchableOpacity, Dimensions } from 'react-native';
 import { CheckBox } from 'native-base';
 import PropTypes from 'prop-types';
+import Text from './Text';
 import B from './BoldText';
 import { WHITE } from '../utils/constants';
 
@@ -28,20 +27,20 @@ const Box = ({
   checked,
 }) => (
   <View style={[styles.BoxStyle, {
-      backgroundColor: color, borderColor: WHITE, borderWidth: below ? 1 : null, marginTop: below ? '2%' : null,
+      backgroundColor: color, borderColor: WHITE, borderWidth: below ? 1 : null, marginTop: below ? '3%' : null,
     }]}
     >
       <TouchableOpacity
         onPress={fn}
         style={{ flex: 1, flexDirection: 'row', alignItems: 'center' }}
       >
-        <View>
+        {/* <View>
           <CheckBox
             color="#FFFFFF"
             checkboxTickColor="#F4F689"
             checked={checked}
           />
-        </View>
+        </View> */}
         <View style={{ paddingLeft: '10%' }}>
           <B color={textColor}>{upText}</B>
           <Text style={{ color: textColor, fontSize: textSize }}>{downText}</Text>

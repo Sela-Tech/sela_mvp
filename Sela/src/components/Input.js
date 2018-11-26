@@ -31,7 +31,7 @@ const styles = {
 };
 
 const Input = ({
-    text, color, secure, onTheChange, medium,
+    text, secure, onTheChange, showPassword, medium, showPass,
 }) => (
         <View style={[styles.container, { height: medium ? height / 11 : height / 11 }]}>
             <TextInput
@@ -41,21 +41,33 @@ const Input = ({
                 secureTextEntry={secure}
                 style={styles.text}
             />
-            {secure ? (
+            {showPass ? (
                 <View style={styles.viewInImage}>
-                    <TouchableOpacity style={styles.touchableButton}>
+                    <TouchableOpacity style={styles.touchableButton} onPress={showPassword}>
                         <Image
                             source={require('../../assets/img/eye.png')}
                         />
                     </TouchableOpacity>
                 </View>
-            ) : null
-            }
+            ) : null}
         </View>
     );
 
+Input.defaultProps = {
+    secure: null,
+    showPass: null,
+    showPassword: null,
+    medium: null,
+    onTheChange: null,
+};
+
 Input.propTypes = {
-    text: PropTypes.string,
+    text: PropTypes.string.isRequired,
+    secure: PropTypes.bool,
+    showPass: PropTypes.bool,
+    medium: PropTypes.bool,
+    showPassword: PropTypes.func,
+    onTheChange: PropTypes.func,
 };
 
 

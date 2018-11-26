@@ -1,7 +1,8 @@
-import React, { Component } from 'react';
+import React, { Component, Fragment } from 'react';
 import {
-    StyleSheet, Text, View, KeyboardAvoidingView,
+  StyleSheet, View, KeyboardAvoidingView, ScrollView, Keyboard,
 } from 'react-native';
+import Text from '../components/Text';
 import DismissKeyboard from '../components/DismissKeyboard';
 import Input from '../components/Input';
 import Button from '../components/Button';
@@ -13,95 +14,138 @@ import ExtStyle from '../utils/styles';
 
 
 const styles = StyleSheet.create({
-    container: {
-        flex: 1,
-        alignItems: 'center',
-        backgroundColor: DEFAULT_COLOUR,
-    },
-    boldText: {
-        color: YELLOW,
-        fontSize: 24,
-        fontWeight: '500',
-    },
-    buttomText: {
-        color: WHITE,
-        fontSize: 15,
-    },
+  container: {
+    flex: 1,
+    alignItems: 'center',
+    backgroundColor: DEFAULT_COLOUR,
+  },
+  boldText: {
+    color: YELLOW,
+    fontSize: 30,
+    fontWeight: '500',
+  },
+  buttomText: {
+    color: WHITE,
+    fontSize: 20,
+  },
 });
 
 
 export default class Login extends Component {
     state = {
-        emailOrPhone: '',
-        password: ''
+      emailOrPhone: '',
+      password: '',
+      secure: true,
+      keyboard: false,
     }
+
+
+    componentWillMount() {
+      this.keyboardDidShowListener = Keyboard.addListener('keyboardDidShow', e => this.keyboardDidShow(e));
+      this.keyboardDidHideListener = Keyboard.addListener('keyboardDidHide', e => this.keyboardDidHide(e));
+    }
+
+    componentWillUnmount() {
+      this.keyboardDidShowListener.remove();
+      this.keyboardDidHideListener.remove();
+    }
+
+    keyboardDidShow() {
+      return this.setState({ keyboard: true });
+    }
+
+    keyboardDidHide() {
+      return this.setState({ keyboard: false });
+    }
+
+    showPassword = () => {
+      this.setState(prevState => ({
+        secure: !prevState.secure,
+      }));
+    }
+
+
     render() {
-        return (
-            <DismissKeyboard>
-                <KeyboardAvoidingView
-                    style={ExtStyle.flex1}
-                    behavior="padding"
+      const { secure } = this.state;
+      const { goBack } = this.props.navigation;
+      return (
+          <DismissKeyboard>
+              <KeyboardAvoidingView
+                  style={ExtStyle.flex1}
+                  behavior="padding"
                 >
-                    <View style={styles.container}>
-                        <IntroHeader />
-                        <View style={{ alignItems: 'center', marginTop: '15%' }}>
-                            <Text style={styles.boldText}> Log In</Text>
+                  <ScrollView
+                      contentContainerStyle={styles.container}
+                      keyboardShouldPersistTaps="always"
+                    >
+                      <Fragment>
+                          <IntroHeader
+                              fn={() => goBack()}
+                              back
+                              keyboard={this.state.keyboard}
+                            />
+                        </Fragment>
+                      <View style={{ alignItems: 'center', marginTop: '15%' }}>
+                          <Text style={styles.boldText}> Log In</Text>
                         </View>
-                        <View style={{ alignItems: 'center', marginTop: '3%' }}>
-                            <Text style={styles.buttomText}>Welcome back ! Enter your details </Text>
-                            <Text style={styles.buttomText}>below to log into your account </Text>
+                      <View style={{ alignItems: 'center', marginTop: '3%' }}>
+                          <Text style={styles.buttomText}>Welcome back ! Enter your details </Text>
+                          <Text style={styles.buttomText}>below to log into your account </Text>
                         </View>
-                        <View style={{ marginTop: '15%' }}>
-                            <Input
-                                text="Email Address or Phone Number"
+                      <View style={{ marginTop: '15%' }}>
+                          <Input
+                              text="Email Address or Phone Number"
                             // medium={true}
                             />
-                            <View style={{ marginTop: 10 }}>
-                                <Input
-                                    text="Password"
-                                    secure
+                          <View style={{ marginTop: '5%' }}>
+                              <Input
+                                  text="Password"
+                                  showPass
+                                  secure={secure}
+                                  showPassword={this.showPassword}
                                 />
                             </View>
-                            <View style={{
-                                marginTop: '5%',
-                                alignSelf: 'flex-end',
+                          <View style={{
+                              marginTop: '5%',
+                              alignSelf: 'flex-end',
                             }}
                             >
-                                <Text onPress={() => NavigationService.navigate('ForgotPassword')} style={styles.buttomText}>  Forgot password?</Text>
+                              <Text onPress={() => NavigationService.navigate('ForgotPassword')} style={styles.buttomText}>  Forgot password?</Text>
                             </View>
-                            <View style={{ marginTop: '5%' }}>
-                                <Button
-                                    medium={true}
-                                    text="Log In"
-                                    color={YELLOW}
-                                    textColor={WHITE}
+                          <View style={{ marginTop: '5%' }}>
+                              <Button
+                                  medium
+                                  text="Log In"
+                                  color={YELLOW}
+                                  textColor={WHITE}
                                 />
                             </View>
                         </View>
-                        <View style={{
-                            position: 'absolute',
-                            bottom: 40,
+                      <View style={{
+                          position: 'absolute',
+                          bottom: 40,
                         }}
                         >
-                            <View style={{ flexDirection: 'row', alignItems: 'center' }}>
-                                <View>
-                                    <Text style={styles.buttomText}>
-                                        {' '}
+                          <View style={{ flexDirection: 'row', alignItems: 'center' }}>
+                              <View>
+                                  <Text style={styles.buttomText}>
+                                      {' '}
                                         Don't have an account?
-                                <B
-                                            fn={() => NavigationService.navigate('OnBoarding')} >
+                                      {' '}
+                                      <B
+                                          fn={() => NavigationService.navigate('OnBoarding')}
+                                        >
                                             Get Started
-                                </B>
-                                        {' '}
+                                        </B>
+                                      {' '}
 
                                     </Text>
                                 </View>
                             </View>
                         </View>
-
-                    </View>
+                    </ScrollView>
                 </KeyboardAvoidingView>
             </DismissKeyboard>
-        )
+      );
     }
 }

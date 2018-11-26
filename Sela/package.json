@@ -6,7 +6,12 @@
     "start": "expo start",
     "android": "expo start --android",
     "ios": "expo start --ios",
-    "eject": "expo eject"
+    "eject": "expo eject",
+    "flow": "flow",
+    "lint": "npm run lint:js",
+    "lint:eslint": "eslint --ignore-path .gitignore",
+    "eslint:fix": "eslint -- . --ignore-path .gitignore --fix",
+    "lint:js": "npm run lint:eslint -- . "
   },
   "dependencies": {
     "expo": "^31.0.2",
@@ -19,6 +24,7 @@
     "react-navigation": "^2.18.2"
   },
   "devDependencies": {
+    "babel-eslint": "^10.0.1",
     "babel-preset-expo": "^5.0.0",
     "eslint": "^5.9.0",
     "eslint-config-airbnb": "^17.1.0",

@@ -13,8 +13,8 @@ const styles = StyleSheet.create({
 
 export default () => (
   <View style={styles.container}>
-      <Image
-          style={require('../../assets/img/logo.png')}
-        />
-    </View>
+    <Image
+      source={require('../../assets/img/logo.png')}
+    />
+  </View>
 );

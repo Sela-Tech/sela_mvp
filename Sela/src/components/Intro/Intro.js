@@ -1,15 +1,16 @@
 import React from 'react';
 import {
-  View, Image, Text, StyleSheet, Dimensions,
+  View, Image, StyleSheet, Dimensions,
 } from 'react-native';
 import PropTypes from 'prop-types';
+import Text from '../../components/Text';
 import { WHITE } from '../../utils/constants';
 
 const { height, width } = Dimensions.get('window');
 const styles = StyleSheet.create({
   container: {
     flex: 1,
-    backgroundColor: '#FFFFFF',
+    backgroundColor: WHITE,
   },
   innerContainer: {
     flex: 1,

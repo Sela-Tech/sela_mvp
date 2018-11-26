@@ -1,7 +1,5 @@
 import { createStackNavigator } from 'react-navigation';
-
 import Loading from './components/Loading';
-import SplashScreen from './screens/SplashScreen';
 import Login from './screens/Login';
 import Home from './screens/Home';
 import IntroScreen from './screens/Intro';
