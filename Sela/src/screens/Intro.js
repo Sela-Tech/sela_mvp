@@ -75,7 +75,8 @@ export default class Intro extends React.Component {
   );
 
   render() {
-    if (this.state.showRealApp) {
+    const { showRealApp } = this.state;
+    if (showRealApp) {
       return <Home props={this.props} />;
     }
     return (

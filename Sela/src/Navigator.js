@@ -6,8 +6,15 @@ import IntroScreen from './screens/Intro';
 import ForgotPassword from './screens/ForgotPassword';
 import ResetPassword from './screens/ResetPassword';
 import OnBoarding from './screens/OnBoarding';
+import SubmitPicture from './screens/SubmitPicture';
 
 export const RootNavigator = createStackNavigator({
+  SubmitPicture: {
+    screen: SubmitPicture,
+    // navigationOptions: {
+    //   header: null,
+    // },
+  },
   Intro: {
     screen: IntroScreen,
     navigationOptions: {
