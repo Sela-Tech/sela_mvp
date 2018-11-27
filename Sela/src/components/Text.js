@@ -7,12 +7,9 @@ const styles = StyleSheet.create({
   },
 });
 
-const TextN = props => (
-  <Text
-      onPress={props.onPress}
-      style={[styles.text, props.style]}
-    >
-      {props.children}
-    </Text>
+const TextN = ({ onPress, style, children }) => (
+  <Text onPress={onPress} style={[styles.text, style]}>
+    {children}
+  </Text>
 );
 export default TextN;

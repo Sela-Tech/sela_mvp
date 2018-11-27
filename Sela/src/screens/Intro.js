@@ -1,12 +1,8 @@
-import React, { Component } from 'react';
-import {
-    AppRegistry,
-    StyleSheet,
-    View
-} from 'react-native';
+import React from 'react';
+import { StyleSheet } from 'react-native';
 
-import IntroComp from '../components/Intro/Intro';
 import AppIntroSlider from 'react-native-app-intro-slider';
+import IntroComp from '../components/Intro/Intro';
 import Home from './Home';
 import { YELLOW } from '../utils/constants';
 
@@ -24,70 +20,75 @@ const third = `Provide progress updates on
                 change through accountability`;
 
 const styles = StyleSheet.create({
-    image: {
-        height: '70%',
-        width: '100%',
-    },
-    mainContent: {
-        flex: 1,
-        alignItems: 'center',
-        justifyContent: 'space-around',
-    },
+  image: {
+    height: '70%',
+    width: '100%',
+  },
+  mainContent: {
+    flex: 1,
+    alignItems: 'center',
+    justifyContent: 'space-around',
+  },
 });
 
 const slides = [
-    {
-        key: 'first',
-        image: require('../../assets/img/building.png'),
-    },
-    {
-        key: 'second',
-        image: require('../../assets/img/man.png'),
-        imageStyle: styles.image,
-
-    },
-    {
-        key: 'third',
-        image: require('../../assets/img/woman.png'),
-    }
+  {
+    key: 'first',
+    image: require('../../assets/img/building.png'),
+  },
+  {
+    key: 'second',
+    image: require('../../assets/img/man.png'),
+    imageStyle: styles.image,
+  },
+  {
+    key: 'third',
+    image: require('../../assets/img/woman.png'),
+  },
 ];
 
 export default class Intro extends React.Component {
-    state = {
-        showRealApp: false
-    }
-    onDone = () => {
-        // User finished the introduction. Show real app through
-        // navigation or simply by controlling state
-        this.setState({ showRealApp: true });
-    }
-    renderItem = props => (
+  state = {
+    showRealApp: false,
+  };
 
-        <IntroComp
-            image={props.image}
-            shortText={props.key === 'first' ? 'Fund' : props.key === 'second' ? 'Execute' : 'Evaluate'}
-            longText={
-                props.key === 'first' ? first
-                    : props.key === 'second' ?
-                        second : third
-            }
-        />
+  onDone = () => {
+    // User finished the introduction. Show real app through
+    // navigation or simply by controlling state
+    this.setState({ showRealApp: true });
+  };
+
+  renderItem = props => (
+    <IntroComp
+      image={props.image}
+      shortText={
+        props.key === 'first'
+          ? 'Fund'
+          : props.key === 'second'
+          ? 'Execute'
+          : 'Evaluate'
+      }
+      longText={
+        props.key === 'first' ? first : props.key === 'second' ? second : third
+      }
+    />
+  );
+
+  render() {
+    if (this.state.showRealApp) {
+      return <Home props={this.props} />;
+    }
+    return (
+      <AppIntroSlider
+        style={{ flex: 1 }}
+        activeDotStyle={{
+          backgroundColor: YELLOW,
+        }}
+        showSkipButton
+        slides={slides}
+        renderItem={this.renderItem}
+        onDone={this.onDone}
+      />
     );
-
-    render() {
-        if (this.state.showRealApp) {
-            return <Home
-                props={this.props}
-            />;
-        } else {
-            return <AppIntroSlider style={{ flex: 1 }}
-                activeDotStyle={{
-                    backgroundColor: YELLOW
-                }}
-                showSkipButton={true}
-                slides={slides}
-                renderItem={this.renderItem}
-                onDone={this.onDone} />
-        }
-    }
-};
+  }
+}

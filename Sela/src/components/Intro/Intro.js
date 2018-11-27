@@ -1,9 +1,7 @@
 import React from 'react';
-import {
-  View, Image, StyleSheet, Dimensions,
-} from 'react-native';
+import { View, Image, StyleSheet, Dimensions } from 'react-native';
 import PropTypes from 'prop-types';
-import Text from '../../components/Text';
+import Text from '../Text';
 import { WHITE } from '../../utils/constants';
 
 const { height, width } = Dimensions.get('window');
@@ -21,7 +19,6 @@ const styles = StyleSheet.create({
     fontSize: 17,
     textAlign: 'center',
     textAlignVertical: 'center',
-
   },
 });
 
@@ -41,12 +38,15 @@ const Intro = ({ image, shortText, longText }) => {
           <Text style={{ fontWeight: '400', fontSize: 25, color: '#222829' }}>
             {' '}
             {shortText}
-            {' '}
+{' '}
           </Text>
         </View>
-        <View style={{
-          marginTop: 15, justifyContent: 'center', alignItems: 'center',
-        }}
+        <View
+          style={{
+            marginTop: 15,
+            justifyContent: 'center',
+            alignItems: 'center',
+          }}
         >
           <Text style={styles.longText}>{display[0].trim('')}</Text>
           <Text style={styles.longText}>{display[1].trim('')}</Text>
@@ -63,6 +63,5 @@ Intro.propTypes = {
   longText: PropTypes.string,
   image: PropTypes.number,
 };
-
 
 export default Intro;

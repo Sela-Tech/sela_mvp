@@ -16,7 +16,9 @@ export default class ErrorHandler extends Component {
   }
 
   render() {
-    if (this.state.hasError) {
+    const { hasError } = this.state;
+    const { children } = this.props;
+    if (hasError) {
       return (
         <ImageBackground
           source={require('../../assets/splash.png')}
@@ -24,6 +26,6 @@ export default class ErrorHandler extends Component {
         />
       );
     }
-    return this.props.children;
+    return children;
   }
 }

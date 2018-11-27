@@ -21,19 +21,21 @@ const styles = StyleSheet.create({
 
 export default () => (
   <View style={styles.container}>
-      <Spinner
-          occupy={false}
-        />
-      <View style={{ justifyContent: 'center', alignItems: 'center', marginTop: '10%' }}>
-          <Text style={styles.textStyle}> "Each of us can make a </Text>
-          <Text style={styles.textStyle}> difference; together we make change" </Text>
-          <B
-              color={YELLOW}
-            >
-              {' '}
-                Barbara Milkuski
-              {' '}
-            </B>
-        </View>
+    <Spinner occupy={false} />
+    <View
+      style={{
+        justifyContent: 'center',
+        alignItems: 'center',
+        marginTop: '10%',
+      }}
+    >
+      <Text style={styles.textStyle}> "Each of us can make a </Text>
+      <Text style={styles.textStyle}>
+        {' '}
+        difference; together we make change"
+{' '}
+      </Text>
+      <B color={YELLOW}> Barbara Milkuski </B>
     </View>
+  </View>
 );

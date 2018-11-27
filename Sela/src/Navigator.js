@@ -7,7 +7,6 @@ import ForgotPassword from './screens/ForgotPassword';
 import ResetPassword from './screens/ResetPassword';
 import OnBoarding from './screens/OnBoarding';
 
-
 export const RootNavigator = createStackNavigator({
   Intro: {
     screen: IntroScreen,
@@ -51,5 +50,4 @@ export const RootNavigator = createStackNavigator({
       header: null,
     },
   },
-
 });

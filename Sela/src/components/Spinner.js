@@ -10,14 +10,15 @@ const styles = {
 };
 
 const Spinner = ({ size, color, occupy }) => (
-  <View style={styles.spinnerStyle, occupy ? { flex: 1 } : null}>
+  <View style={(styles.spinnerStyle, occupy ? { flex: 1 } : null)}>
     <ActivityIndicator size={size || 'large'} color={color || '#FFFFFF'} />
   </View>
 );
 
 Spinner.propTypes = {
   size: PropTypes.string,
+  color: PropTypes.string,
+  occupy: PropTypes.bool,
 };
-
 
 export default Spinner;

@@ -1,16 +1,19 @@
 import React, { Component } from 'react';
 import {
-  AppRegistry, StyleSheet, View, Text, KeyboardAvoidingView, ScrollView, Keyboard,
+  StyleSheet,
+  View,
+  KeyboardAvoidingView,
+  ScrollView,
+  Keyboard,
 } from 'react-native';
+import PropTypes from 'prop-types';
 import StepIndicator from 'react-native-step-indicator';
 import DismissKeyboard from '../components/DismissKeyboard';
 import IntroHeader from '../components/IntroHeader';
 import OnBoardView from '../components/OnBoarding/OnBoardView';
 
-
 import ExtStyle from '../utils/styles';
-import { DEFAULT_COLOUR, YELLOW, WHITE } from '../utils/constants';
-
+import { DEFAULT_COLOUR, YELLOW } from '../utils/constants';
 
 const styles = StyleSheet.create({
   container: {
@@ -25,10 +28,7 @@ const styles = StyleSheet.create({
     justifyContent: 'center',
     alignItems: 'center',
   },
-
-
 });
-
 
 const firstIndicatorStyles = {
   currentStepIndicatorSize: 40,
@@ -43,6 +43,12 @@ const firstIndicatorStyles = {
 };
 
 export default class OnBoarding extends Component {
+  static propTypes = {
+    navigation: PropTypes.shape({
+      navigate: PropTypes.func.isRequired,
+    }).isRequired,
+  };
+
   constructor() {
     super();
     this.state = {
@@ -52,13 +58,26 @@ export default class OnBoarding extends Component {
       emailOrPhone: '',
       password: '',
       role: 'funder',
-      secure: false,
+      secure: true,
     };
   }
 
   componentWillMount() {
-    this.keyboardDidShowListener = Keyboard.addListener('keyboardDidShow', e => this.keyboardDidShow(e));
-    this.keyboardDidHideListener = Keyboard.addListener('keyboardDidHide', e => this.keyboardDidHide(e));
+    this.keyboardDidShowListener = Keyboard.addListener('keyboardDidShow', e =>
+      this.keyboardDidShow(e),
+    );
+    this.keyboardDidHideListener = Keyboard.addListener('keyboardDidHide', e =>
+      this.keyboardDidHide(e),
+    );
+  }
+
+  componentWillReceiveProps(nextProps, nextState) {
+    const { currentPage } = this.state;
+    if (nextState.currentPage != currentPage) {
+      if (this.viewPager) {
+        this.viewPager.setPage(nextState.currentPage);
+      }
+    }
   }
 
   componentWillUnmount() {
@@ -66,91 +85,85 @@ export default class OnBoarding extends Component {
     this.keyboardDidHideListener.remove();
   }
 
+  showPassword = () =>
+    this.setState(prevState => ({ secure: !prevState.secure }));
+
+  changePage = () =>
+    this.setState(prevState => ({
+      currentPage:
+        prevState.currentPage === 0
+          ? prevState.currentPage + 1
+          : prevState.currentPage - 1,
+    }));
+
+  changeRole = role =>
+    this.setState({
+      role,
+    });
+
   keyboardDidShow() {
     return this.setState({ keyboard: true });
   }
 
-    showPassword = () => this.setState(prevState => ({ secure: !prevState.secure }));
+  keyboardDidHide() {
+    return this.setState({ keyboard: false });
+  }
 
-    keyboardDidHide() {
-      return this.setState({ keyboard: false });
-    }
+  render() {
+    const { goBack, navigate } = this.props.navigation;
+    const { currentPage, keyboard, secure } = this.state;
 
-
-    changePage = () => this.setState(prevState => ({ currentPage: prevState.currentPage === 0 ? prevState.currentPage + 1 : prevState.currentPage - 1 }));
-
-    changeRole = role => this.setState({
-      role,
-    })
-
-    componentWillReceiveProps(nextProps, nextState) {
-      if (nextState.currentPage != this.state.currentPage) {
-        if (this.viewPager) {
-          this.viewPager.setPage(nextState.currentPage);
-        }
-      }
-    }
-
-    render() {
-      const { goBack } = this.props.navigation;
-      const { currentPage } = this.state;
-
-      renderViewPagerPage = data => (
-          <View style={styles.page}>
-              <Text>{data}</Text>
+    return (
+      <ScrollView
+        contentContainerStyle={{ flexGrow: 1 }}
+        scrollEnabled
+        keyboardShouldPersistTaps="always"
+      >
+        <DismissKeyboard>
+          <KeyboardAvoidingView style={ExtStyle.flex1} behavior="padding">
+            <View style={styles.container}>
+              <View
+                style={{
+                  flex: 1,
+                }}
+              >
+                <IntroHeader
+                  fn={() => (currentPage === 1 ? this.changePage() : goBack())}
+                  back
+                  keyboard={keyboard}
+                />
+                <View style={styles.stepIndicator}>
+                  <StepIndicator
+                    stepCount={3}
+                    customStyles={firstIndicatorStyles}
+                    currentPosition={currentPage}
+                  />
+                </View>
+              </View>
+              {currentPage === 0 ? (
+                <OnBoardView
+                  currentPage={currentPage}
+                  changePage={this.changePage}
+                  state={this.state}
+                  secure={secure}
+                  changeRole={this.changeRole}
+                  navigate={navigate}
+                />
+              ) : (
+                <OnBoardView
+                  second
+                  currentPage={currentPage}
+                  changePage={this.changePage}
+                  secure={secure}
+                  state={this.state}
+                  changeRole={this.changeRole}
+                  navigate={navigate}
+                />
+              )}
             </View>
-      );
-      return (
-          <ScrollView
-              contentContainerStyle={{ flexGrow: 1 }}
-              scrollEnabled
-              keyboardShouldPersistTaps="always"
-            >
-              <DismissKeyboard>
-                  <KeyboardAvoidingView
-                      style={ExtStyle.flex1}
-                      behavior="padding"
-
-                    >
-                      <View style={styles.container}>
-                          <View style={{
-                              flex: 1,
-                            }}
-                            >
-                              <IntroHeader
-                                  fn={() => (currentPage === 1 ? this.changePage() : goBack())}
-                                  back
-                                  keyboard={this.state.keyboard}
-                                />
-                              <View style={styles.stepIndicator}>
-                                  <StepIndicator stepCount={3} customStyles={firstIndicatorStyles} currentPosition={this.state.currentPage} />
-                                </View>
-                            </View>
-                          {
-                                this.state.currentPage === 0
-                                  ? (
-                                      <OnBoardView
-                                          currentPage={this.state.currentPage}
-                                          changePage={this.changePage}
-                                          state={this.state}
-                                          secure={this.state.secure}
-                                          changeRole={this.changeRole}
-                                        />
-                                  ) : (
-                                      <OnBoardView
-                                          second
-                                          currentPage={this.state.currentPage}
-                                          changePage={this.changePage}
-                                          secure={this.state.secure}
-                                          state={this.state}
-                                          changeRole={this.changeRole}
-                                        />
-                                  )
-                            }
-                        </View>
-                    </KeyboardAvoidingView>
-                </DismissKeyboard>
-            </ScrollView>
-      );
-    }
+          </KeyboardAvoidingView>
+        </DismissKeyboard>
+      </ScrollView>
+    );
+  }
 }

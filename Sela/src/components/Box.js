@@ -26,27 +26,34 @@ const Box = ({
   below,
   checked,
 }) => (
-  <View style={[styles.BoxStyle, {
-      backgroundColor: color, borderColor: WHITE, borderWidth: below ? 1 : null, marginTop: below ? '3%' : null,
-    }]}
+  <View
+    style={[
+      styles.BoxStyle,
+      {
+        backgroundColor: color,
+        borderColor: WHITE,
+        borderWidth: below ? 1 : null,
+        marginTop: below ? '3%' : null,
+      },
+    ]}
+  >
+    <TouchableOpacity
+      onPress={fn}
+      style={{ flex: 1, flexDirection: 'row', alignItems: 'center' }}
     >
-      <TouchableOpacity
-        onPress={fn}
-        style={{ flex: 1, flexDirection: 'row', alignItems: 'center' }}
-      >
-        {/* <View>
+      {/* <View>
           <CheckBox
             color="#FFFFFF"
             checkboxTickColor="#F4F689"
             checked={checked}
           />
         </View> */}
-        <View style={{ paddingLeft: '10%' }}>
-          <B color={textColor}>{upText}</B>
-          <Text style={{ color: textColor, fontSize: textSize }}>{downText}</Text>
-        </View>
-      </TouchableOpacity>
-    </View>
+      <View style={{ paddingLeft: '10%' }}>
+        <B color={textColor}>{upText}</B>
+        <Text style={{ color: textColor, fontSize: textSize }}>{downText}</Text>
+      </View>
+    </TouchableOpacity>
+  </View>
 );
 
 Box.propTypes = {
@@ -54,6 +61,5 @@ Box.propTypes = {
   upText: PropTypes.string.isRequired,
   downText: PropTypes.string.isRequired,
 };
-
 
 export default Box;

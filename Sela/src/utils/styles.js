@@ -16,7 +16,6 @@ const styles = StyleSheet.create({
   boldText: {
     fontWeight: '500',
   },
-
 });
 
 export default styles;

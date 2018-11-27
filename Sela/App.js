@@ -12,7 +12,6 @@ const styles = StyleSheet.create({
   },
 });
 
-
 export default class App extends React.Component {
   constructor() {
     super();
@@ -39,7 +38,7 @@ export default class App extends React.Component {
       <ErrorHandler>
         <View style={styles.container}>
           <RootNavigator
-            ref={(navigatorRef) => {
+            ref={navigatorRef => {
               NavigationService.setTopLevelNavigator(navigatorRef);
             }}
           />
