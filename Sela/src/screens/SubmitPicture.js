@@ -49,10 +49,10 @@ const wbIcons = {
 const { width } = Dimensions.get('window');
 
 const initialText =
-  'Upload evidence of completion \
-        non-completion of this task.This can \
-        be a photo or video.Ensure you are at \
-        the project site before proceeding';
+  'Upload evidence of completion non-completion of this task.This can be a photo or video.Ensure you are at the project site before proceeding';
+
+const response =
+  ' Select  1 to add more evidence continue or  2 for terminate ';
 
 const styles = StyleSheet.create({
   container: {
@@ -82,8 +82,7 @@ const styles = StyleSheet.create({
     height: 60,
     width: 60,
     borderRadius: 30,
-    bottom: 50,
-    right: 10,
+    bottom: 5,
     flex: 1,
     justifyContent: 'center',
     alignItems: 'center',
@@ -123,61 +122,76 @@ const styles = StyleSheet.create({
     justifyContent: 'center',
     alignItems: 'center',
   },
+  topBottom: {
+    height: '100%',
+    width: '100%',
+    justifyContent: 'center',
+    alignItems: 'center',
+    flexDirection: 'row',
+  },
+  innerTopBottom: {
+    width: '50%',
+    height: '100%',
+  },
+  innerTopButtonBottom: {
+    height: '100%',
+    width: '100%',
+    backgroundColor: YELLOW,
+    justifyContent: 'center',
+    alignItems: 'center',
+  },
 });
 
 export default class Chat extends React.Component {
   static navigationOptions = () => ({
-    header: null,
-    //  (
-    //   <View style={styles.header}>
-    //     <View
-    //       style={{
-    //         justifyContent: 'center',
-    //         paddingLeft: '5%',
-    //       }}
-    //     >
-    //       <TouchableOpacity
-    //         style={{
-    //           justifyContent: 'center',
-    //           alignItems: 'center',
-    //         }}
-    //       >
-    //         <Image source={require('../../assets/img/blackback.png')} />
-    //       </TouchableOpacity>
-    //     </View>
-
-    //     <View
-    //       style={{
-    //         left: 40,
-    //         justifyContent: 'center',
-    //         alignItems: 'center',
-    //       }}
-    //     >
-    //       <Text style={{ fontSize: 20 }}>Submit Update</Text>
-    //     </View>
-    //   </View>
-    // ),
+    header: (
+      <View style={styles.header}>
+        <View
+          style={{
+            justifyContent: 'center',
+            paddingLeft: '5%',
+          }}
+        >
+          <TouchableOpacity
+            style={{
+              justifyContent: 'center',
+              alignItems: 'center',
+            }}
+          >
+            <Image source={require('../../assets/img/blackback.png')} />
+          </TouchableOpacity>
+        </View>
+        <View
+          style={{
+            left: 40,
+            justifyContent: 'center',
+            alignItems: 'center',
+          }}
+        >
+          <Text style={{ fontSize: 20 }}>Submit Update</Text>
+        </View>
+      </View>
+    ),
   });
 
-  // 3.
   state = {
+    hideHeader: false,
     openCamera: false,
+    videoStarted: false,
     flash: 'off',
     zoom: 0,
     autoFocus: 'on',
     messages: [
       {
-        _id: Math.round(Math.random() * 1000000), // .toString(),
+        _id: Math.round(Math.random() * 1000000).toString(),
         text: '',
         createdAt: new Date(),
         user: {
-          _id: 2, // '.toString(),
-          name: 'React Native',
+          _id: '2',
+          name: 'Admin',
           avatar: require('../../assets/goldlogo.png'),
         },
         text: initialText.trim(' '),
-        // image:
-        //   'http://www.pokerpost.fr/wp-content/uploads/2017/12/iStock-604371970-1.jpg',
         sent: true,
         received: true,
       },
@@ -193,7 +207,6 @@ export default class Chat extends React.Component {
   onSend = (messages = []) => {
     let { step } = this.state;
     step += 1;
-    console.log('message', messages);
     this.setState(previousState => ({
       messages: GiftedChat.append(previousState.messages, [
         { ...messages[0], sent: true, received: true },
@@ -203,43 +216,124 @@ export default class Chat extends React.Component {
   };
 
   snap = async () => {
-    const { openCamera } = this.state;
     this.setState(prevstate => ({ openCamera: !prevstate.openCamera }));
   };
 
   updateFeedback = async () => {
+    this.setState(prevstate => ({
+      hideHeader: !prevstate.hideHeader,
+      videoStarted: !prevstate.videoStarted,
+      showBottomButton: true,
+    }));
     await this.takePicture();
+    // await this.takeVideo();
     const messages = [
       {
         _id: Math.round(Math.random() * 1000000), // .toString(),
         createdAt: new Date(),
         user: {
-          _id: 2, // '.toString(),
+          _id: '2'.toString(),
           name: 'React Native',
           avatar: require('../../assets/goldlogo.png'),
         },
-        text: 'Was this task successfully completed ?',
-        // image:
-        //   'http://www.pokerpost.fr/wp-content/uploads/2017/12/iStock-604371970-1.jpg',
+        text: response.trim(''),
         sent: true,
         received: true,
       },
     ];
     let { step } = this.state;
     step += 1;
-    console.log('message', messages);
     this.setState(previousState => ({
       messages: GiftedChat.append(previousState.messages, [
         { ...messages[0], sent: true, received: true },
       ]),
       step,
+      videoStarted: false,
+      hideHeader: false,
     }));
+  };
+
+  takeVideo = async () => {
+    const { videoStarted } = this.state;
+    if (videoStarted) {
+      if (!this.camera) return;
+      this.setState({ videoStarted: false });
+      await this.camera.stopRecording();
+    }
+
+    let { step } = this.state;
+    step += 1;
+    if (this.camera) {
+      try {
+        console.log('testing taking video');
+        // this.setState({ videoStarted: false });
+        const video = await this.camera.recordAsync();
+        console.log('video', video);
+        const messages = [
+          {
+            _id: Math.round(Math.random() * 1000000).toString(), // .toString(),
+            text: '',
+            user: {
+              //   _id: '1',
+              //   name: 'User',
+            },
+            createdAt: new Date(),
+            image: video.uri,
+            sent: true,
+            received: true,
+          },
+        ];
+        this.setState(previousState => ({
+          messages: GiftedChat.append(previousState.messages, [
+            { ...messages[0], ...messages[1], sent: true, received: true },
+          ]),
+          step,
+          openCamera: false,
+          videoStarted: false,
+        }));
+      } catch (error) {
+        console.log('error', error.message);
+        this.setState({ error: error.message, videoStarted: false });
+      }
+    } else {
+      console.log('not working');
+      this.setState({
+        error: 'Request failed',
+      });
+    }
+  };
+
+  sendReponse = async text => {
+    let { step } = this.state;
+    step += 1;
+    const messages = [
+      {
+        _id: Math.round(Math.random() * 1000000), // .toString(),
+        text,
+        createdAt: new Date(),
+        sent: true,
+        received: true,
+      },
+    ];
+    this.setState(previousState => ({
+      messages: GiftedChat.append(previousState.messages, [
+        { ...messages[0], ...messages[1], sent: true, received: true },
+      ]),
+      step,
+    }));
+    if (text === 1) {
+      this.setState({ openCamera: true });
+      await this.updateFeedback();
+    } else {
+      this.setState({ openCamera: false });
+      alert('ended');
+    }
   };
 
   takePicture = async () => {
     let { step } = this.state;
     step += 1;
-    const { openCamera } = this.state;
+    // const { openCamera } = this.state;
 
     if (this.camera) {
       try {
@@ -248,14 +342,9 @@ export default class Chat extends React.Component {
         });
         const messages = [
           {
-            _id: Math.round(Math.random() * 1000000), // .toString(),
+            _id: Math.round(Math.random() * 1000000),
             text: '',
             createdAt: new Date(),
-            // user: {
-            //   _id: 3, // .toString(),
-            //   name: 'React Native',
-            //   avatar: require('../../assets/img/man.png'),
-            // },
             image: photo.uri,
             sent: true,
             received: true,
@@ -269,7 +358,7 @@ export default class Chat extends React.Component {
           openCamera: false,
         }));
       } catch (error) {
-        this.setState({ error });
+        this.setState({ error: error.message });
       }
     } else {
       this.setState({
@@ -280,62 +369,136 @@ export default class Chat extends React.Component {
 
   renderTopBar = () => <View style={styles.topBar} />;
 
-  renderBottomBar = () => (
-    <View style={styles.bottomBar}>
-      <View style={{ flex: 0.4 }}>
-        <TouchableOpacity
-          onPress={this.updateFeedback}
-          style={{ alignSelf: 'center' }}
-        >
-          <Ionicons name="ios-radio-button-on" size={70} color="white" />
-        </TouchableOpacity>
-      </View>
-    </View>
-  );
-
-  render() {
-    const { messages, openCamera, type, flash, autoFocus } = this.state;
+  renderBottomBar = () => {
+    const { videoStarted, video } = this.state;
     return (
-      <View style={styles.container}>
-        <Header
-          androidStatusBarColor="#311075"
-          style={{
-            backgroundColor: '#311b92',
-            display: 'flex',
-            justifyContent: 'flex-start',
-            flexDirection: 'row',
-            margin: 0,
-            padding: 0,
-          }}
-        >
-          <View style={styles.header}>
-            <View
-              style={{
-                justifyContent: 'center',
-                paddingLeft: '5%',
-              }}
-            >
+      <View style={styles.bottomBar}>
+        <View style={{ flex: 0.4 }}>
+          <TouchableOpacity
+            onPress={this.updateFeedback}
+            style={{ alignSelf: 'center' }}
+          >
+            <Fragment>
+              <Text>{!videoStarted ? 'video' : 'picture'}</Text>
+              <Ionicons
+                name="ios-radio-button-on"
+                size={70}
+                color={!videoStarted ? 'white' : 'red'}
+              />
+            </Fragment>
+            {/* <Text> Picture </Text>
+                    <Ionicons name="ios-radio-button-on" size={70} color="white" />
+                    <View /> */}
+            {/* </Ionicons> */}
+          </TouchableOpacity>
+        </View>
+      </View>
+    );
+  };
+
+  renderLeftIcon = () => {
+    const { showBottomButton } = this.state;
+    return (
+      <Fragment>
+        {showBottomButton ? (
+          <View style={styles.topBottom}>
+            <View style={styles.innerTopBottom}>
               <TouchableOpacity
+                style={[
+                  styles.innerTopButtonBottom,
+                  { backgroundColor: YELLOW },
+                ]}
+                onPress={() => this.sendReponse(1)}
+              >
+                <Text>1</Text>
+              </TouchableOpacity>
+            </View>
+            <View style={styles.innerTopBottom}>
+              <TouchableOpacity
+                style={[
+                  styles.innerTopButtonBottom,
+                  { backgroundColor: 'blue' },
+                ]}
+                onPress={() => this.sendReponse(2)}
+              >
+                <Text>2</Text>
+              </TouchableOpacity>
+            </View>
+          </View>
+        ) : (
+          <View style={styles.topBottom}>
+            <View style={styles.floatingButton}>
+              <TouchableOpacity
+                onPress={() => this.snap()}
                 style={{
+                  flex: 1,
                   justifyContent: 'center',
                   alignItems: 'center',
                 }}
               >
-                <Image source={require('../../assets/img/blackback.png')} />
+                <Image source={require('../../assets/img/camera.png')} />
               </TouchableOpacity>
             </View>
+          </View>
+        )}
+      </Fragment>
+    );
+  };
 
-            <View
+  render() {
+    const {
+      messages,
+      openCamera,
+      type,
+      flash,
+      autoFocus,
+      hideHeader,
+    } = this.state;
+    return (
+      <View style={styles.container}>
+        <Fragment>
+          {!hideHeader ? (
+            <Header
+              androidStatusBarColor="#311075"
               style={{
-                left: 40,
-                justifyContent: 'center',
-                alignItems: 'center',
+                backgroundColor: '#311b92',
+                display: 'flex',
+                justifyContent: 'flex-start',
+                flexDirection: 'row',
+                margin: 0,
+                padding: 0,
               }}
             >
-              <Text style={{ fontSize: 20 }}>Submit Update</Text>
-            </View>
-          </View>
-        </Header>
+              <View style={styles.header}>
+                <View
+                  style={{
+                    justifyContent: 'center',
+                    paddingLeft: '5%',
+                  }}
+                >
+                  <TouchableOpacity
+                    style={{
+                      justifyContent: 'center',
+                      alignItems: 'center',
+                    }}
+                  >
+                    <Image source={require('../../assets/img/blackback.png')} />
+                  </TouchableOpacity>
+                </View>
+
+                <View
+                  style={{
+                    left: 40,
+                    justifyContent: 'center',
+                    alignItems: 'center',
+                  }}
+                >
+                  <Text style={{ fontSize: 20 }}>Submit Update</Text>
+                </View>
+              </View>
+            </Header>
+          ) : null}
+        </Fragment>
 
         <Fragment>
           {openCamera ? (
@@ -356,26 +519,16 @@ export default class Chat extends React.Component {
               <GiftedChat
                 messages={messages}
                 onSend={this.onSend}
-                isAnimated
-                listViewProps={{
-                  contentContainerStyle: {
-                    flex: 1,
-                    justifyContent: 'flex-start',
-                  },
-                }}
+                renderActions={this.renderLeftIcon}
+                // renderSend={this.renderLeftIcon}
+                // isAnimated
+                // listViewProps={{
+                //   contentContainerStyle: {
+                //     flex: 1,
+                //     justifyContent: 'flex-start',
+                //   },
+                // }}
               />
-              <View style={styles.floatingButton}>
-                <TouchableOpacity
-                  onPress={() => this.snap()}
-                  style={{
-                    flex: 1,
-                    justifyContent: 'center',
-                    alignItems: 'center',
-                  }}
-                >
-                  <Image source={require('../../assets/img/camera.png')} />
-                </TouchableOpacity>
-              </View>
             </Fragment>
           )}
         </Fragment>
