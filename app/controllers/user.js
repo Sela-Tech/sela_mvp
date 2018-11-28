@@ -314,6 +314,7 @@ exports.find = async (req, res) => {
       isContractor: u.isContractor,
       isEvaluator: u.isEvaluator,
       organization: u.organization,
+      profilePhoto: u.profilePhoto,
       _id: u._id
     };
     return temp;
