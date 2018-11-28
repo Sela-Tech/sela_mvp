@@ -16,8 +16,10 @@ import gridfs
 
 # Accessing variables.
 dotenv_path = join(dirname(__file__), '.env')
+print(dotenv_path)
 load_dotenv(dotenv_path)
 telegram_token = os.getenv('SELA_BOT_API')
+print(telegram_token)
 mongo_uri = os.getenv('MONGOLAB_URI')
 client = pymongo.MongoClient(mongo_uri)
 db = client.get_default_database()
