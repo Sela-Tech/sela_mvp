@@ -7,7 +7,7 @@ exports.verifyToken = (req, res, next) => {
   const whitelisted = ["/projects", "/projects/:id"];
 
   const token = req.headers[tokenHeaderField],
-    public = req.headers[visibilityHeaderField];
+  public = req.headers[visibilityHeaderField];
 
   if (typeof token === "undefined" && public) {
     // check if the route is whitelisted

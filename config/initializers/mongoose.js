@@ -1,5 +1,7 @@
 var mongoose = require("mongoose");
+let dotenv= require('dotenv');
 
+dotenv.config();
 //Uncomment to turn on debugging
 //mongoose.set('debug', true)
 
@@ -30,15 +32,28 @@ module.exports = function(done) {
   //   done();
   // });
 
+  
   var connectWithRetry = function() {
-    mongoose.connect(
-      process.env.MONGO_URI,
-      {
-        useMongoClient: true,
-        reconnectTries: 9999999999,
-        connectTimeoutMS: 2000
-      }
-    );
+    if(process.env.NODE_ENV==='test'){
+      mongoose.connect(
+        process.env.MONGO_URI_UNIT_TEST,
+        {
+          useMongoClient: true,
+          reconnectTries: 9999999999,
+          connectTimeoutMS: 2000
+        }
+      );
+
+    }else{
+      mongoose.connect(
+        process.env.MONGO_URI,
+        {
+          useMongoClient: true,
+          reconnectTries: 9999999999,
+          connectTimeoutMS: 2000
+        }
+      );
+    }
   };
 
   mongoose.connection.on("error", function(err) {

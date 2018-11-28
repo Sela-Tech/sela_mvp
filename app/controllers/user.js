@@ -55,14 +55,15 @@ exports.register = async (req, res) => {
           "Sela already has an account for a user with phone number: " +
           req.body.phone +
           ". Please try another phone number";
+        return res.status(401).json(failRes);
       }
       if (user.email == req.body.email) {
         failRes.message =
           "Sela already has an account for a user with e-mail address: " +
           req.body.email +
           ". Please try another e-mail address";
+          return res.status(401).json(failRes);
       }
-      return res.status(401).json(failRes);
     }
   } catch (error) {
     return res.status(401).json({
