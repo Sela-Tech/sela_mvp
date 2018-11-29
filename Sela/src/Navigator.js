@@ -6,39 +6,43 @@ import IntroScreen from './screens/Intro';
 import ForgotPassword from './screens/ForgotPassword';
 import ResetPassword from './screens/ResetPassword';
 import OnBoarding from './screens/OnBoarding';
-import SubmitPicture from './screens/SubmitPicture';
+import SubmitFeedback from './screens/SubmitFeedback';
+import Project from './screens/Project';
 
 export const RootNavigator = createStackNavigator({
-  SubmitPicture: {
-    screen: SubmitPicture,
-    // navigationOptions: {
-    //   header: null,
-    // },
+  Project: {
+    screen: Project,
   },
-  Intro: {
-    screen: IntroScreen,
-    navigationOptions: {
-      header: null,
-    },
-  },
-  Home: {
-    screen: Home,
-    navigationOptions: {
-      header: null,
-    },
-  },
+  // SubmitFeedback: {
+  //   screen: SubmitFeedback,
+  //   // navigationOptions: {
+  //   //   header: null,
+  //   // },
+  // },
+  // Intro: {
+  //   screen: IntroScreen,
+  //   navigationOptions: {
+  //     header: null,
+  //   },
+  // },
+  // Home: {
+  //   screen: Home,
+  //   navigationOptions: {
+  //     header: null,
+  //   },
+  // },
   Login: {
     screen: Login,
     navigationOptions: {
       header: null,
     },
   },
-  Loading: {
-    screen: Loading,
-    navigationOptions: {
-      header: null,
-    },
-  },
+  // Loading: {
+  //   screen: Loading,
+  //   navigationOptions: {
+  //     header: null,
+  //   },
+  // },
   OnBoarding: {
     screen: OnBoarding,
     navigationOptions: {

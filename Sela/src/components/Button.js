@@ -13,17 +13,20 @@ const styles = {
   },
 };
 
-const Button = ({ text, color, textColor, fn, textSize, medium }) => (
+const Button = ({ text, color, textColor, fn, textSize, medium, style }) => (
   <TouchableOpacity
     onPress={fn}
     style={[
       styles.ButtonStyle,
       { height: medium ? height / 11 : height / 14, backgroundColor: color },
+      style,
     ]}
   >
     <Text style={{ color: textColor, fontSize: textSize }}>{text}</Text>
   </TouchableOpacity>
 );
+
+Button.defaultProps = {};
 
 Button.propTypes = {
   text: PropTypes.string.isRequired,

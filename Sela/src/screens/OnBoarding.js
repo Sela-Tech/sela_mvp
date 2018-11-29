@@ -133,11 +133,11 @@ export default class OnBoarding extends Component {
                   keyboard={keyboard}
                 />
                 <View style={styles.stepIndicator}>
-                  <StepIndicator
+                  {/* <StepIndicator
                     stepCount={3}
                     customStyles={firstIndicatorStyles}
                     currentPosition={currentPage}
-                  />
+                  /> */}
                 </View>
               </View>
               {currentPage === 0 ? (

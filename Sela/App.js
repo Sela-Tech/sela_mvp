@@ -5,10 +5,12 @@ import SplashScreen from './src/screens/SplashScreen';
 import { RootNavigator } from './src/Navigator';
 import ErrorHandler from './src/components/ErrorHandler';
 import NavigationService from './src/services/NavigationService';
+import { WHITE } from './src/utils/constants';
 
 const styles = StyleSheet.create({
   container: {
     flex: 1,
+    backgroundColor: WHITE,
   },
 });
 

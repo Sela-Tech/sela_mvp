@@ -74,7 +74,7 @@ export default class Login extends Component {
     const { goBack } = this.props.navigation;
     return (
       <DismissKeyboard>
-        <KeyboardAvoidingView style={ExtStyle.flex1} behavior="padding">
+        <KeyboardAvoidingView style={ExtStyle.flex1} behavior="behaviour">
           <ScrollView
             contentContainerStyle={styles.container}
             keyboardShouldPersistTaps="always"

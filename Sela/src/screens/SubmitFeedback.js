@@ -1,13 +1,12 @@
-import React, { Fragment } from 'react';
+import React, { Fragment, Component } from 'react';
 import {
   View,
   StyleSheet,
   TouchableOpacity,
   Image,
   Dimensions,
-  ScrollView,
 } from 'react-native';
-import { Header, Title, Icon, Thumbnail } from 'native-base';
+import { Header } from 'native-base';
 import { Camera, Permissions, Constants } from 'expo';
 import { GiftedChat } from 'react-native-gifted-chat';
 import {
@@ -20,31 +19,6 @@ import {
 import Text from '../components/Text';
 import { isAndroid } from '../utils/helpers';
 import { YELLOW } from '../utils/constants';
-
-const flashIcons = {
-  off: 'flash-off',
-  on: 'flash-on',
-  auto: 'flash-auto',
-  torch: 'highlight',
-};
-
-const wbOrder = {
-  auto: 'sunny',
-  sunny: 'cloudy',
-  cloudy: 'shadow',
-  shadow: 'fluorescent',
-  fluorescent: 'incandescent',
-  incandescent: 'auto',
-};
-
-const wbIcons = {
-  auto: 'wb-auto',
-  sunny: 'wb-sunny',
-  cloudy: 'wb-cloudy',
-  shadow: 'beach-access',
-  fluorescent: 'wb-iridescent',
-  incandescent: 'wb-incandescent',
-};
 
 const { width } = Dimensions.get('window');
 
@@ -142,7 +116,7 @@ const styles = StyleSheet.create({
   },
 });
 
-export default class Chat extends React.Component {
+export default class SubmitFeedback extends Component {
   static navigationOptions = () => ({
     header: (
       <View style={styles.header}>
@@ -292,7 +266,6 @@ export default class Chat extends React.Component {
           videoStarted: false,
         }));
       } catch (error) {
-        console.log('error', error.message);
         this.setState({ error: error.message, videoStarted: false });
       }
     } else {
@@ -386,10 +359,6 @@ export default class Chat extends React.Component {
                 color={!videoStarted ? 'white' : 'red'}
               />
             </Fragment>
-            {/* <Text> Picture </Text>
-                    <Ionicons name="ios-radio-button-on" size={70} color="white" />
-                    <View /> */}
-            {/* </Ionicons> */}
           </TouchableOpacity>
         </View>
       </View>
@@ -520,14 +489,6 @@ export default class Chat extends React.Component {
                 messages={messages}
                 onSend={this.onSend}
                 renderActions={this.renderLeftIcon}
-                // renderSend={this.renderLeftIcon}
-                // isAnimated
-                // listViewProps={{
-                //   contentContainerStyle: {
-                //     flex: 1,
-                //     justifyContent: 'flex-start',
-                //   },
-                // }}
               />
             </Fragment>
           )}

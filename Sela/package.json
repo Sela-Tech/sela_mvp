@@ -19,9 +19,11 @@
     "react": "16.5.0",
     "react-native": "https://github.com/expo/react-native/archive/sdk-31.0.0.tar.gz",
     "react-native-app-intro-slider": "^1.0.1",
+    "react-native-calendars": "^1.21.0",
     "react-native-gifted-chat": "^0.5.0",
     "react-native-step-indicator": "0.0.9",
-    "react-navigation": "^2.18.2"
+    "react-navigation": "^2.18.2",
+    "udacifitness-calendar": "^11.0.0"
   },
   "devDependencies": {
     "babel-eslint": "^10.0.1",

@@ -19,7 +19,7 @@ const styles = {
     flexDirection: 'row',
   },
   text: {
-    color: '#FFFFFF',
+    // color: '#FFFFFF',
     flex: 1,
     paddingLeft: 14,
     fontSize: 15,
@@ -41,16 +41,30 @@ const Input = ({
   showPassword,
   medium,
   showPass,
+  style,
+  textStyle,
+  placeHolderColor,
+  multiline,
 }) => (
   <View
-    style={[styles.container, { height: medium ? height / 11 : height / 11 }]}
+    style={[
+      styles.container,
+      { height: medium ? height / 11 : height / 11 },
+      style,
+    ]}
   >
     <TextInput
       placeholder={text}
-      placeholderTextColor="#F5F5F8"
+      placeholderTextColor={placeHolderColor || '#F5F5F8'}
       onChange={onTheChange}
       secureTextEntry={secure}
-      style={styles.text}
+      multiline={multiline}
+      underlineColorAndroid="rgba(0,0,0,0)"
+      spellCheck={false}
+      autoCorrect={false}
+      blurOnSubmit={false}
+      numberOfLines={multiline ? 5 : 1}
+      style={textStyle || styles.text}
     />
     {showPass ? (
       <View style={styles.viewInImage}>
@@ -68,13 +82,21 @@ Input.defaultProps = {
   showPassword: null,
   medium: null,
   onTheChange: null,
+  style: {},
+  multiline: false,
+  textStyle: '',
+  placeHolderColor: '',
 };
 
 Input.propTypes = {
   text: PropTypes.string.isRequired,
+  placeHolderColor: PropTypes.string,
   secure: PropTypes.bool,
   showPass: PropTypes.bool,
   medium: PropTypes.bool,
+  multiline: PropTypes.bool,
+  // style: PropTypes.object,
+  // textStyle: PropTypes.string,
   showPassword: PropTypes.func,
   onTheChange: PropTypes.func,
 };
