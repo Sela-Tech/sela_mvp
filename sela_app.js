@@ -3,7 +3,7 @@ FRONTEND = __dirname + "/public";
 
 var express = require("express");
 var app = express();
-var port = process.env.PORT || 3001;
+var port = process.env.PORT || 3000;
 var cors = require("cors");
 var bodyParser = require("body-parser");
 var logger = require("morgan");

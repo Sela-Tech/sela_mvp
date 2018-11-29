@@ -14,7 +14,7 @@ module.exports = function(app) {
 
   app.route("/users/i").post(user_controller.find_stakeholder_info);
 
-  app.route("/users/s").post(user_controller.findPStakeholders);
+  // app.route("/users/s").post(user_controller.findPStakeholders);
 
   app.route("/verifyToken").post(verifyToken, user_controller.verify);
 };

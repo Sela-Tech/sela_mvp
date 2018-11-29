@@ -2,13 +2,13 @@ const chai = require('chai');
 const chaiHttp = require('chai-http');
 const  supertest = require('supertest');
 const  app =require('../sela_app');
-const { insertUserSeed,userWithPendingAccount,
+const { insertUserSeed,
         userWithExistingEmail,
-        validUser,
-        userWithWrongEmail,
-        userWithWrongPhone,
+        validUser,validUserUpdateInfo,
+        userWithWrongEmail,invalidUserUpdateInfo,
+        userWithWrongPhone,invalidUserUpdateInfo2,
         userWithWrongPassword,
-        validUser2
+        validUser2, generateToken
         } = require('./helpers/mockData')
 var mongoose = require("mongoose");
 var User = mongoose.model("User");
@@ -16,18 +16,18 @@ var User = mongoose.model("User");
 
 const expect = chai.expect;
 const request = supertest(app);
-
+let token='';
+let user =''
 chai.use(chaiHttp);
 
 describe('user Controller', () => {
-  before((done) => {
-     insertUserSeed();
-    done();
+before(async() => {
+   user =  await insertUserSeed();
+    token= generateToken(user);
 
 });
 
-after(async function(){
-  
+after(async ()=>{
   await User.remove({});
 })
 
@@ -155,5 +155,78 @@ after(async function(){
         });
     });
   });
+
+  describe('GET USERS GET:/users', ()=>{
+    it('should be able to list all users excluding the authenticated user', (done)=>{
+      request
+      .get('/users')
+      .set({authorization:token})
+      .expect(200)
+      .end((err, res) => {
+        if (err) return done(err);
+        expect(res.body.length).to.equal(2);
+        done();
+      });
+    });
+
+  });
+
+  describe('UPDATE USER INFO:/update', ()=>{
+    it('should update the information of the authenticated user', (done)=>{
+      request
+      .post('/update')
+      .set({authorization:token})
+      .send(validUserUpdateInfo)
+      .expect(200)
+      .end((err, res) => {
+        if (err) return done(err);
+        expect(res.body.firstName).to.equal(validUserUpdateInfo.firstName);
+        done();
+      });
+    });
+
+    it('should fail with status code 401 if current password is incorrect', (done)=>{
+      request
+      .post('/update')
+      .set({authorization:token})
+      .send(invalidUserUpdateInfo)
+      .expect(401)
+      .end((err, res) => {
+        if (err) return done(err);
+        expect(res.body.message).to.equal("That is the wrong password for this account. Please try again");
+        done();
+      });
+    });
+
+    it('should fail with status code 401 with invalid change password details', (done)=>{
+      request
+      .post('/update')
+      .set({authorization:token})
+      .send(invalidUserUpdateInfo2)
+      .expect(401)
+      .end((err, res) => {
+        if (err) return done(err);
+        expect(res.body.message).to.equal("Passwords don't match");
+        done();
+      });
+    });
+
+  });
+
+  // describe('GET STAKEHOLDER INFO:/users/i', ()=>{
+  //   it('should retrieve the information of the stakeholder', (done)=>{
+  //     request
+  //     .get('/users/i')
+  //     .set({authorization:token})
+  //     .send({id:user._id})
+  //     .expect(200)
+  //     .end((err, res) => {
+  //       if (err) return done(err);
+  //       // expect(res.body.length).to.equal(2);
+  //       done();
+  //     });
+  //   });
+
+  // });
 
 });

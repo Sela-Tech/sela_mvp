@@ -9,7 +9,6 @@ var tokenValidityPeriod = 86400; // in seconds; 86400 seconds = 24 hours
 var bcrypt = require("bcrypt");
 
 const users = [
-
 	{
 		email: "somethree@mail.com",
 		phone: "894738903584",
@@ -19,10 +18,11 @@ const users = [
 		isEvaluator: false,
 		isContractor: false,
 		isFunder: true,
-		password: "mypassword"
+		password: "mypassword",
+		activation: "approved",
+		
 	}
 ];
-
 
 
 
@@ -32,13 +32,23 @@ const users = [
  * @returns {void} Nothing
  */
 const insertUserSeed = async () => {
-	await User.insertMany(users);
-
+	let organization_id = await insertOrganisation();
+	users[0].organization=organization_id
+	let newUser = new User(users[0]);
+	let user = await newUser.save();
+	return user;
 };
 
-// const insertOrganisation = async ()=>{
-// 	let org= await Organization.create()
-// }
+const insertOrganisation = async () => {
+	const organization = {
+		name:"my very own"
+	}
+	let org = new Organization(organization);
+	let obj = await org.save();
+	let org_id =  obj._id;
+	return org_id;
+}
+
 
 
 
@@ -51,17 +61,34 @@ const insertUserSeed = async () => {
  * @returns {string} token - Generated token
  */
 
-// const generateToken = (id, email) => {
-//  const {JWT_SECRET_KEY, JWT_EXPIRATION } = process.env;
-//   const token = jsonwebtoken.sign({
-//     sub: id,
-//     email: email,
-// }, JWT_SECRET_KEY,{expiresIn:Number(JWT_EXPIRATION)});
-//   return token;
-// };
+const generateToken = (user) => {
 
-// export const user1token = generateToken(1, 'convicmusic@gmail.com');
-// export const user2token = generateToken(3,'convictmusic@gmail.com');
+	const { isFunder, isEvaluator, isContractor } = user,
+		signThis = {
+			profilePhoto: user.profilePhoto,
+			id: user._id,
+			isFunder,
+			isEvaluator,
+			isContractor,
+			firstName: user.firstName,
+			phone: user.phone,
+			email: user.email,
+			organization: {
+				name: user.organization.name,
+				id: user.organization._id
+			},
+			lastName: user.lastName
+		};
+
+	const tokenValidityPeriod = 86400
+	const { SECRET } = process.env;
+
+	const token = jsonwebtoken.sign(signThis, SECRET, {
+		expiresIn: tokenValidityPeriod
+	});
+	return token;
+};
+
 
 const validUser = {
 	email: "usertwo@mail.com",
@@ -90,6 +117,29 @@ const validUser2 = {
 	password: "mypassword",
 };
 
+const validUserUpdateInfo = {
+		firstName: "newname",
+		lastName: "mylastname",
+		username: "userthree",
+		password:'mypassword',
+		oldPassword:"mypassword",
+};
+
+
+const invalidUserUpdateInfo = {
+	firstName: "newname",
+	lastName: "mylastname",
+	username: "userthree",
+	password:'mypassword',//same as the current password
+	oldPassword:"mypasswor", //same as the current password
+};
+
+const invalidUserUpdateInfo2 = {
+	newPassword:'mypasswording',
+	verifyPassword:'weirdo',
+	oldPassword:"mypassword", //same as the current password
+};
+
 const userWithExistingEmail = {
 	email: "usertwo@mail.com",
 	phone: "890384",
@@ -114,18 +164,20 @@ const userWithWrongPhone = {
 };
 
 
-const userWithWrongPassword={
+const userWithWrongPassword = {
 	email: "usertwo@mail.com",
 	password: "mypasword"
 }
 
-const userWithPendingAccount={
+const userWithPendingAccount = {
 	email: "user10@mail.com",
 	password: "mypassword"
 }
 
+
 module.exports = {
 	insertUserSeed, validUser, userWithExistingEmail,
-	userWithWrongEmail, userWithWrongPhone,userWithWrongPassword,
-	validUser2,userWithPendingAccount
+	userWithWrongEmail, userWithWrongPhone, userWithWrongPassword,
+	validUser2, userWithPendingAccount,generateToken,validUserUpdateInfo,invalidUserUpdateInfo,
+	invalidUserUpdateInfo2
 }

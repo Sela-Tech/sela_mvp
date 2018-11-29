@@ -240,7 +240,7 @@ exports.add_stakeholder = async (req, res) => {
 
       if (breakCode === true && foundMatch === true) {
         return res.status(401).json({
-          message: `Cannot add stakeholdrs because: "This project has a connection with ${foundPerson}" `
+          message: `Cannot add stakeholders because: "This project has a connection with ${foundPerson}" `
         });
       }
 

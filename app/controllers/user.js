@@ -243,7 +243,7 @@ exports.update = async (req, res) => {
             { new: true }
           );
         } else {
-          res.status(401).json({
+         return res.status(401).json({
             message: "Passwords don't match"
           });
         }
