@@ -148,6 +148,7 @@ export default class OnBoarding extends Component {
                   secure={secure}
                   changeRole={this.changeRole}
                   navigate={navigate}
+                  showPassword={this.showPassword}
                 />
               ) : (
                 <OnBoardView
@@ -158,6 +159,7 @@ export default class OnBoarding extends Component {
                   state={this.state}
                   changeRole={this.changeRole}
                   navigate={navigate}
+                  showPassword={this.showPassword}
                 />
               )}
             </View>
