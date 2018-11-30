@@ -14,10 +14,10 @@
   },
   "dependencies": {
     "expo": "^31.0.2",
-    "native-base": "^2.6.0",
-    "prop-types": "^15.6.2",
     "react": "16.5.0",
     "react-native": "https://github.com/expo/react-native/archive/sdk-31.0.0.tar.gz",
+    "native-base": "^2.6.0",
+    "prop-types": "^15.6.2",
     "react-native-app-intro-slider": "^1.0.1",
     "react-native-calendars": "^1.21.0",
     "react-native-gifted-chat": "^0.5.0",
@@ -26,15 +26,6 @@
     "react-navigation": "^2.18.2"
   },
   "devDependencies": {
-    "babel-eslint": "^10.0.1",
-    "babel-preset-expo": "^5.0.0",
-    "eslint": "^5.9.0",
-    "eslint-config-airbnb": "^17.1.0",
-    "eslint-config-prettier": "^3.3.0",
-    "eslint-plugin-import": "^2.14.0",
-    "eslint-plugin-jsx-a11y": "^6.1.2",
-    "eslint-plugin-prettier": "^3.0.0",
-    "eslint-plugin-react": "^7.11.1",
-    "prettier": "^1.15.2"
+    "babel-preset-expo": "^5.0.0"
   }
 }
