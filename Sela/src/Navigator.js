@@ -10,39 +10,39 @@ import SubmitFeedback from './screens/SubmitFeedback';
 import Project from './screens/Project';
 
 export const RootNavigator = createStackNavigator({
-  Project: {
-    screen: Project,
-  },
+  // Project: {
+  //   screen: Project,
+  // },
   // SubmitFeedback: {
   //   screen: SubmitFeedback,
   //   // navigationOptions: {
   //   //   header: null,
   //   // },
   // },
-  // Intro: {
-  //   screen: IntroScreen,
-  //   navigationOptions: {
-  //     header: null,
-  //   },
-  // },
-  // Home: {
-  //   screen: Home,
-  //   navigationOptions: {
-  //     header: null,
-  //   },
-  // },
+  Intro: {
+    screen: IntroScreen,
+    navigationOptions: {
+      header: null,
+    },
+  },
+  Home: {
+    screen: Home,
+    navigationOptions: {
+      header: null,
+    },
+  },
   Login: {
     screen: Login,
     navigationOptions: {
       header: null,
     },
   },
-  // Loading: {
-  //   screen: Loading,
-  //   navigationOptions: {
-  //     header: null,
-  //   },
-  // },
+  Loading: {
+    screen: Loading,
+    navigationOptions: {
+      header: null,
+    },
+  },
   OnBoarding: {
     screen: OnBoarding,
     navigationOptions: {
