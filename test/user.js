@@ -10,8 +10,9 @@ const { insertUserSeed,
         userWithWrongPassword,
         validUser2, generateToken
         } = require('./helpers/mockData')
-var mongoose = require("mongoose");
-var User = mongoose.model("User");
+const mongoose = require("mongoose");
+const User = mongoose.model("User");
+const Organization = mongoose.model('Organization')
 
 
 const expect = chai.expect;
@@ -29,6 +30,7 @@ before(async() => {
 
 after(async ()=>{
   await User.remove({});
+  await Organization.remove({});
 })
 
   describe('Create User POST: /register', () => {

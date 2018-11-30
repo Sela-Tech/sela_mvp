@@ -20,7 +20,23 @@ const users = [
 		isFunder: true,
 		password: "mypassword",
 		activation: "approved",
-		
+
+	}
+];
+
+
+const projects = [
+	{
+		name: "test project 1",
+		description: "this is a simple test project 1",
+		startDate: "2018-11-29",
+		location: "5bffe86b0dccba6f553d7257"
+	},
+	{
+		name: "test project 2",
+		description: "this is a simple test project 2",
+		startDate: "2018-11-29",
+		location: "5bffe86b0dccba6f553d7257"
 	}
 ];
 
@@ -29,23 +45,41 @@ const users = [
 /**
  * @description Insert seed data in user model
  *
- * @returns {void} Nothing
+ * @returns {object} Nothing
  */
 const insertUserSeed = async () => {
 	let organization_id = await insertOrganisation();
-	users[0].organization=organization_id
+	users[0].organization = organization_id
 	let newUser = new User(users[0]);
 	let user = await newUser.save();
 	return user;
 };
 
+
+
+/**
+ * @description Insert seed data in project model
+ *
+ * @returns {object} Nothing
+ */
+const insertProjectSeed=async()=>{
+	let newProjects = Project.insertMany(projects);
+	return newProjects;
+}
+
+
+/**
+ * @description Insert seed data in organization model
+ *
+ * @returns {object}
+ */
 const insertOrganisation = async () => {
 	const organization = {
-		name:"my very own"
+		name: "my very own"
 	}
 	let org = new Organization(organization);
 	let obj = await org.save();
-	let org_id =  obj._id;
+	let org_id = obj._id;
 	return org_id;
 }
 
@@ -118,11 +152,11 @@ const validUser2 = {
 };
 
 const validUserUpdateInfo = {
-		firstName: "newname",
-		lastName: "mylastname",
-		username: "userthree",
-		password:'mypassword',
-		oldPassword:"mypassword",
+	firstName: "newname",
+	lastName: "mylastname",
+	username: "userthree",
+	password: 'mypassword',
+	oldPassword: "mypassword",
 };
 
 
@@ -130,14 +164,14 @@ const invalidUserUpdateInfo = {
 	firstName: "newname",
 	lastName: "mylastname",
 	username: "userthree",
-	password:'mypassword',//same as the current password
-	oldPassword:"mypasswor", //same as the current password
+	password: 'mypassword',//same as the current password
+	oldPassword: "mypasswor", //same as the current password
 };
 
 const invalidUserUpdateInfo2 = {
-	newPassword:'mypasswording',
-	verifyPassword:'weirdo',
-	oldPassword:"mypassword", //same as the current password
+	newPassword: 'mypasswording',
+	verifyPassword: 'weirdo',
+	oldPassword: "mypassword", //same as the current password
 };
 
 const userWithExistingEmail = {
@@ -174,10 +208,45 @@ const userWithPendingAccount = {
 	password: "mypassword"
 }
 
+const validProject = {
+	name: "test project 1",
+	description: "this is a simple test project 1",
+	startDate: "2018-11-29",
+	location: {
+		name: "south-west",
+		lat: 945054,
+		lng: 744738
+	}
+}
+
+const validStakeholders={
+	
+		id:"5bffe8da0dccba6f553d725a",//placeholder project_id
+		stakeholders:[{
+			user:{
+				information:"5bfea5d6f85a44271f4c3416" //placeholder information
+			}
+		},
+		// {
+		// 	user:{
+		// 		"information":"5bfe9fd29c376c229c1acb81"
+		// 	}
+		// }
+	]
+	
+}
+
+const invalidStakeholders={
+	
+	id:"5bffe8da0dccba6f553d725a", //placeholder project_id
+	stakeholders:[]
+
+}
+
 
 module.exports = {
 	insertUserSeed, validUser, userWithExistingEmail,
 	userWithWrongEmail, userWithWrongPhone, userWithWrongPassword,
-	validUser2, userWithPendingAccount,generateToken,validUserUpdateInfo,invalidUserUpdateInfo,
-	invalidUserUpdateInfo2
+	validUser2, userWithPendingAccount, generateToken, validUserUpdateInfo, invalidUserUpdateInfo,
+	invalidUserUpdateInfo2, validProject,insertProjectSeed,validStakeholders,invalidStakeholders
 }

@@ -137,21 +137,21 @@ exports.delete = async (req, res) => {
           let response = await Project.deleteOne({ _id: req.params.id });
 
           if (response.result.n === 1) {
-            res.status(200).json({
+            return res.status(200).json({
               success: true
             });
           } else {
-            res.status(400).json({
+            return res.status(400).json({
               success: false
             });
           }
         } else {
-          res.status(400).json({
+        return res.status(400).json({
             success: false
           });
         }
       } catch (error) {
-        res.status(400).json({
+      return res.status(400).json({
           message: error.message
         });
       }
@@ -163,23 +163,23 @@ exports.delete = async (req, res) => {
           { activated: !findProjectResponse.activated }
         );
         if (project.n === 1) {
-          res.status(200).json({
+          return res.status(200).json({
             success: true
           });
         } else {
-          res.status(400).json({
+          return res.status(400).json({
             success: false
           });
         }
       } catch (error) {
-        res.status(400).json({
+       return res.status(400).json({
           message: error.message,
           success: false
         });
       }
     }
   } else {
-    res.status(400).json({
+    return res.status(400).json({
       success: false,
       message: "You don't have the rights"
     });
