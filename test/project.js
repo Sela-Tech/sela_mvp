@@ -105,7 +105,7 @@ after(async ()=>{
     });
   });
 
-  describe('GET PROJECT(S)', ()=>{
+  describe('Get Project(s) GET: /projects ', ()=>{
     it('should get all projects', (done)=>{
       request
       .get('/projects')
@@ -127,6 +127,33 @@ after(async ()=>{
       .end((err, res) => {
         if (err) return done(err);
         expect(res.body._id).to.equal(userProjectId);
+        done();
+      });
+    });
+  });
+
+
+  describe('Delete project DELETE: /project/:id', ()=>{
+    it('it should toggle project activated if req.header["permanent-delete"] !== true', (done)=>{
+      request
+      .delete(`/project/${userProjectId}`)
+      .set({authorization:token})
+      .expect(200)
+      .end((err, res) => {
+        if (err) return done(err);
+        expect(res.body.success).to.equal(true);
+        done();
+      });
+    });
+
+    it('it should delete project if req.header["permanent-delete"] === true', (done)=>{
+      request
+      .delete(`/project/${userProjectId}`)
+      .set({authorization:token, 'permanent-delete':'true'})
+      .expect(200)
+      .end((err, res) => {
+        if (err) return done(err);
+        expect(res.body.success).to.equal(true);
         done();
       });
     });
