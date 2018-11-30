@@ -12,7 +12,7 @@ exports.new = async (req, res) => {
   projectObj.owner = req.userId;
  
   var newLocation = new Location(req.body.location);
-
+if(projectObj.stakeholders){
   projectObj.stakeholders = projectObj.stakeholders.map(s=>{
     return {
       user: {
@@ -20,8 +20,20 @@ exports.new = async (req, res) => {
       }
     }
   });
+}else{
+  projectObj.stakeholders = [];
+}
+
+
 
   const saveProject = projectObj => {
+    
+    if(typeof(projectObj.tags) === "string" || typeof(projectObj.tags ) === "String"){
+      projectObj.tags = [projectObj.tags]
+    }else if(Boolean(projectObj.tags) === false){
+      projectObj.tags = []
+    }
+
     var newProject = new Project(projectObj);
     newProject.save(projErr => {
       if (projErr) {
@@ -218,7 +230,6 @@ exports.find_one = async (req, res) => {
 exports.add_stakeholder = async (req, res) => {
   try {
 
-
   let stakeholders = req.body.stakeholders.map(s=>{
     return {
       user: {
@@ -280,7 +291,6 @@ exports.add_stakeholder = async (req, res) => {
       });
     }
   } catch (error) {
-    console.log(error);
     res.status(401).json({
       message: "Stakeholder could not be added"
     });
