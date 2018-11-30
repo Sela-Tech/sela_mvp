@@ -97,6 +97,9 @@ export const verify_user_token = () => {
 };
 
 export const signup = obj => {
+  
+  const signUpType = obj.signUpType;
+ 
   switch (obj.signUpType) {
     case "evaluation-agent":
       obj.isEvaluator = true;
@@ -121,7 +124,7 @@ export const signup = obj => {
       data: obj
     })
       .then(({ data }) => {
-        dispatch({ type: authActions.SIGNUP_SUCCESSFUL, data });
+        dispatch({ type: authActions.SIGNUP_SUCCESSFUL, data, signUpType });
       })
       .catch(({ response }) => {
         let message;

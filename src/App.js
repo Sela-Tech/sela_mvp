@@ -78,6 +78,21 @@ const App = ({ isAuthenticated, actionType, modalToShow }) => {
             />
             <PrivateRoute
               exact
+              path="/dashboard/inbox"
+              isAuthenticated={isAuthenticated}
+              component={r.dashboardDecider}
+            />
+            
+            <PrivateRoute
+              exact
+              path="/dashboard/help"
+              isAuthenticated={isAuthenticated}
+              component={r.dashboardDecider}
+            />
+            
+            
+            <PrivateRoute
+              exact
               path="/dashboard/settings"
               isAuthenticated={isAuthenticated}
               component={r.dashboardDecider}

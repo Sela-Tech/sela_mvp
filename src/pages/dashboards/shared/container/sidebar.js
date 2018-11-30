@@ -6,6 +6,7 @@ import settings from "../../../../assets/icons/settings.svg";
 import folder from "../../../../assets/icons/folder.svg";
 import help from "../../../../assets/icons/question.svg";
 import logout from "../../../../assets/icons/power.svg";
+import inbox from "../../../../assets/icons/inbox.svg";
 
 import { connect } from "react-redux";
 import { showModal } from "../../../../store/action-creators/project-funder/modal";
@@ -180,12 +181,21 @@ const WebDashboardSidebar = ({ dispatch, user }) => {
             </NavLink>
           </li>
 
+<li>
+            <NavLink exact to="/dashboard/inbox" activeClassName="active">
+              <img src={inbox} alt="inbox" />
+              <span>Inbox</span>
+            </NavLink>
+          </li>
+          
+
           <li>
             <NavLink exact to="/dashboard/settings" activeClassName="active">
               <img src={settings} alt="settings" />
               <span>Settings</span>
             </NavLink>
           </li>
+
         </ul>
         <div className="xs-12">
           <span id="line-break" />

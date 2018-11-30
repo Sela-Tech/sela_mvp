@@ -4,34 +4,6 @@ import e from "../../../endpoints";
 import { retrieveToken } from "../../../helpers/TokenManager";
 import { extractMessage } from "../../../helpers/utils";
 
-// export const fetchPossibleStakeholders = () => {
-//   return dispatch => {
-//     dispatch({ type: dA.FETCHING_FUNDERS_IN_PROGRESS });
-//     ax({
-//       url: e.fetch_users,
-//       method: "GET",
-//       headers: {
-//         "x-access-token": retrieveToken()
-//       }
-//     })
-//       .then(({ data }) => {
-//         dispatch({
-//           type: dA.FETCHING_FUNDERS_SUCCESSFUL,
-//           funders: data
-//         });
-//       })
-//       .catch(({ response }) => {
-//         let message;
-//         if (response) {
-//           message = response.message || response.data.message;
-//         } else {
-//           message = "connection error";
-//         }
-//         dispatch({ type: dA.FETCHING_FUNDERS_FAILED, message });
-//       });
-//   };
-// };
-
 export const selectFunders = selected => {
   return {
     type: dA.SELECT_FUNDERS,
@@ -133,7 +105,7 @@ export const deleteProject = (id, type) => {
       method: "DELETE",
       headers: {
         "x-access-token": retrieveToken(),
-        authorization: type === "delete"
+        "permanent-delete": type === "delete"
       }
     })
       .then(({ data }) => {

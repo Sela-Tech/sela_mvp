@@ -11,7 +11,7 @@ export default styled.div`
       font-size: 15px;
 
       &.active {
-        color: #f2994a;
+        color: rgba(242, 153, 74, 0.97);;
       }
     }
 

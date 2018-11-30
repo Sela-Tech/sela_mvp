@@ -7,6 +7,7 @@ const initstate = {
     message: ""
   },
   isAuthenticated: false,
+  signUpType: "",
   credentials: {
     type: ""
   }
@@ -114,6 +115,7 @@ export default (state = initstate, payload) => {
           type: authActions.SIGNUP_SUCCESSFUL,
           message: payload.message || "Logged in successfully"
         },
+        signUpType: payload.signUpType,
         credentials: {
           ...state.credentials,
           ...payload.credentials

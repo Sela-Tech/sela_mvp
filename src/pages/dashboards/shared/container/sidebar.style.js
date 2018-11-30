@@ -40,7 +40,7 @@ export const WebSidebar = styled.div`
   padding: 3em 0 0;
   position: relative;
   height: 100%;
-  background: #242A32;
+  background: #201D41;
 
 
   button#top,
@@ -137,7 +137,7 @@ export const WebSidebar = styled.div`
       padding: 0.5em 0;
       border-top: 1px solid #37485E;
       display: block;
-      width: 60%;
+      width: 100%;
       margin 1em 0;
     }
 
@@ -214,7 +214,7 @@ export const MobileSidebar = styled.div`
   #line-break {
     padding: 0.5em 0;
     display: block;
-    width: 60%;
+    width: 100%;
     margin: 1em auto 0;
   }
 
@@ -251,7 +251,7 @@ export const MobileSidebar = styled.div`
       left: 0px;
       height: calc(100vh - 60px);
       padding: 3em 1.25em;
-      background:#242A32;
+      background:#201D41;
       box-shadow: none !important
     }
 

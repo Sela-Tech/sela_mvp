@@ -2,8 +2,12 @@ import React from "react";
 // icons
 
 import Logo from "../../../assets/icons/sela-circle-blue.svg";
-import phone from "../../../assets/icons/phone.svg";
+import up from "../../../assets/icons/up.svg";
 import success from "../../../assets/icons/success.svg";
+import phone from "../../../assets/icons/phone.svg";
+
+import apple from "../../../assets/apple.svg";
+import google from "../../../assets/google.svg";
 
 // others
 import { Link } from "react-router-dom";
@@ -229,15 +233,60 @@ class Signup extends React.Component {
         }).length !== 7;
 
     switch (type) {
+      
       case auth.SIGNUP_SUCCESSFUL:
         window.scrollTo(0, 0);
-        return (
+
+       return this.props.signUpType === "evaluation-agent"?
+       (
+        <Wrapper viewName="signup">
+          <SignUpWrapper className="container">
+            <div className="xs-12">
+              <div id="phone-wrapper">
+                <div id="phone">
+                  <img src={phone} alt="phone" />
+                </div>
+              </div>
+            </div>
+            <div className="xs-12">
+              <h2>
+                <img src={success} alt="success" id="success-icon" />
+                You're signed up!
+              </h2>
+              <p
+                className="xs-10 xs-off-1 sm-6 sm-off-3"
+                id="signup-info-text"
+              >
+                <span>
+                Download the Sela app to continue. With the Sela app, you will be able to upload evaluation submissions for projects around you </span>
+              </p>
+            </div>
+
+            <div className="xs-12 video-section">
+              <div className="xs-10 xs-off-1 sm-6 sm-off-3">
+
+                <div className="xs-12 sm-6 t-c">
+                  <img src={apple} alt="apple" id="apple"/>
+                </div>  
+
+                <div className="xs-12 sm-6 t-c">
+                  <img src={google} alt="google" id="google"/>
+                </div>  
+                
+                
+              </div>
+            </div>
+          </SignUpWrapper>
+        </Wrapper>
+      )
+       :
+         (
           <Wrapper viewName="signup">
             <SignUpWrapper className="container">
               <div className="xs-12">
                 <div id="phone-wrapper">
                   <div id="phone">
-                    <img src={phone} alt="phone" />
+                    <img src={up} alt="up" />
                   </div>
                 </div>
               </div>
@@ -395,6 +444,7 @@ class Signup extends React.Component {
                   </div>
 
                   <div className="form-group xs-12">
+                    <label id="olabel">Type in or find your organization</label>
                     <Select
                       name="organization"
                       className="form-control"
@@ -489,7 +539,8 @@ const mapStateToProps = state => {
     type: type,
     inprogress: type === auth.SIGNUP_IN_PROGRESS,
     message,
-    organizations: state.organizations.list
+    organizations: state.organizations.list,
+    signUpType: state.auth.signUpType
   };
 };
 const mapDispatchToProps = dispatch => {

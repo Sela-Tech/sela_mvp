@@ -1,6 +1,36 @@
 import styled from "styled-components";
 
 export default styled.div`
+
+#olabel{
+  display: block;
+    text-align: left;
+    padding: .5em 0;
+    color: #F44336;
+}
+
+
+@media(min-width:768px){
+  #apple{
+    margin-right: 10px;
+    float: right;
+  } 
+ #google{
+    margin-left: 10px;
+    float:left;
+  }
+
+
+}
+ #apple,#google{
+    object-fit: cover;
+    height: 50px;
+    width: 160px;
+  }
+
+  
+  
+
   .profile-photo {
     height: 200px;
     width: 200px;
@@ -85,7 +115,7 @@ export default styled.div`
 
       overflow: auto;
       &.active {
-        background: #156edc;
+        background: linear-gradient(119.81deg, #C13C1E 0%, #F2994A 100%);
         h3,
         p {
           color: white !important;
@@ -332,7 +362,7 @@ export default styled.div`
   }
 
   #open-chat {
-    background: #f2994a;
+    background: rgba(242, 153, 74, 0.97);;
     border-radius: 4px;
     color: white;
     display: inline-block;

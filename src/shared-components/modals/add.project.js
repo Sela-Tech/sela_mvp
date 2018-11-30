@@ -13,14 +13,15 @@ import dA from "../../store/actions/project-funder/dashboard";
 import MessageToShow from "../errors/messageToShow";
 import { Form } from "./styles.modals/add";
 
-import ContractorLoader from "./sub-components/contractor-loader";
+// import ContractorLoader from "./sub-components/contractor-loader";
 import AsyncButton from "../unique/async-button";
 
 import LocationLoader from "./sub-components/location-loader";
 import GeoSuggest from "react-geosuggest";
 import ReactS3Uploader from "react-s3-uploader";
 import endpoints from "../../endpoints";
-import SdgPicker from "./sub-components/sdg-picker";
+ import SdgPicker from "./sub-components/sdg-picker";
+import GenericLoader from "./sub-components/generic-loader";
 
 const mapStateToProps = state => {
   const { type, message } = state.projects.add.action;
@@ -103,12 +104,12 @@ export default connect(mapStateToProps)(
 
     handleSDG = value => {
       console.log(value);
-      // this.setState({
-      //   form: {
-      //     ...this.state.form,
-      //     tags: value
-      //   }
-      // });
+      this.setState({
+        form: {
+          ...this.state.form,
+          tags: value
+        }
+      });
     };
 
     onSuggestSelect = suggest => {
@@ -306,8 +307,10 @@ export default connect(mapStateToProps)(
               </div>
 
               <SdgPicker onChange={this.handleSDG} />
-
-              <ContractorLoader onchange={this.handleChange} />
+              
+              <GenericLoader onChange= {this.handleChange}/>
+              
+              {/* <ContractorLoader onchange={this.handleChange} /> */}
 
               <div className="form-control xs-12" id="date-part">
                 <div className={"xs-12 sm-5 date-wrpr show"}>

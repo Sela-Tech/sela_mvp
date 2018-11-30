@@ -48,7 +48,7 @@ export default connect(
 
     render() {
       const { selectedOption, funders } = this.state;
-      console.log(funders);
+    
       return (
         <div
           className="form-control"

@@ -32,7 +32,7 @@ export default (state = init, payload) => {
         ...state,
         action: {
           type: organizations.FETCH_ORGANIZATIONS_FAILED,
-          message: payload.data.message
+          message: payload.message
         }
       };
 

@@ -1,15 +1,16 @@
 import React from "react";
-import { ProjectWrapper } from "./main.style";
+import { ProjectWrapper,TagW,colors } from "./main.style";
 import { NavLink, withRouter } from "react-router-dom";
 import Analytics from "../../shared/sub-components/analytics";
 import Transactions from "../../shared/sub-components/transactions";
 import Tasks from "../../shared/sub-components/tasks";
 import Documents from "../../shared/sub-components/documents";
 import Stakeholders from "../../shared/sub-components/stakeholders";
-
-// import { showAddStakeholderModal } from "../../../../store/action-creators/project-funder/modal";
-
 import { connect } from "react-redux";
+
+const Tag = ({text,color})=>{
+  return <TagW color={color}>{text}</TagW>
+}
 
 const View = ({ id, view }) => {
   switch (view) {
@@ -55,9 +56,10 @@ const ProjectComponent = ({ info, match }) => {
             <h4>Tags</h4>
             <p>
               {info.tags
-                .split(",")
-                .join(", #")
-                .trim()}
+                .split(",").map((t,i)=>{
+                  return <Tag key={i} text={t} color={colors[i]}/>
+                })
+                }
             </p>
           </div>
           <div className="xs-12">

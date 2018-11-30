@@ -253,13 +253,13 @@ export default (state = initstate, payload) => {
           },
           options: payload.pstakeholders.map(f => {
             return {
-              value: f._id,
-              label: `${f.lastName} ${f.firstName}, Org: ${
-                f.organization.name
-              }, ${(f.isFunder === true && "Funds Projects") ||
+              name: `${f.lastName} ${f.firstName}`,
+              type: `${(f.isFunder === true && "Project Funder") ||
                 (f.isContractor === true && "Contractor") ||
                 (f.isEvaluator === true && "Evaluation Agent")}`,
-              organization: f.organization.name
+              img: f.profilePhoto,
+              id: f._id,
+              company: f.organization.name
             };
           })
         }

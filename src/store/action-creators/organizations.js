@@ -1,6 +1,7 @@
 import organizations from "../actions/organizations";
 import Axios from "axios";
 import endpoints from "../../endpoints";
+import { extractMessage } from "../../helpers/utils";
 
 export const fetchOrganizations = () => {
   return async dispatch => {
@@ -18,7 +19,7 @@ export const fetchOrganizations = () => {
     } catch (e) {
       dispatch({
         type: organizations.FETCH_ORGANIZATIONS_FAILED,
-        message: e.message
+        message: extractMessage( e.message )
       });
     }
   };

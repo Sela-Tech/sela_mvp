@@ -4,85 +4,55 @@ import { NavLink } from "react-router-dom";
 import { connect } from "react-redux";
 import modals from "../../../../store/actions/project-funder/modals";
 import { showModal } from "../../../../store/action-creators/project-funder/modal";
+import Icon from 'react-fa';
 
 const NavStyle = styled.nav`
   background: white;
   border-bottom: 1px solid #eee;
-  a {
-    padding: 1.25em;
-    font-size: 15px;
-    color: #888;
-    text-align: center;
-    font-weight: 300;
-    border-left: 1px solid #eee;
+  padding: 10px 3.5%;
 
-    &:hover,
-    &.active,
-    &:active {
-      color: #006fdf;
+  #well{
+    background: #F5F5F8;
+    border-radius: 5px;
+    height: 45px;
+    line-height: 50px;
+    width: 100%;
+    border: 0;
+   
+    > *{
+      font-size: 15px;
+      font-weight: 300;
+   
     }
+    input {
+      background: transparent;
+      color: #444;
+      border: 0;
+      height: 100%;
+    }
+  }
+  
+  a {
 
     &#add {
-      background: #006fdf;
+      text-align: center;
+      height: 45px;
+      line-height: 45px;
       color: white;
+      font-weight: 300;
+      font-size: 14px;
+      background: linear-gradient(151.17deg, #C13C1E 0%, #F2994A 100%);
+      border-radius: 5px;
 
       &:hover {
-        color: white;
-        background: #006ada;
+        border: 1px solid #F2994A; 
+        color: orange;
+        background: white;
       }
     }
   }
 `;
 
-const Decider = ({ type }) => {
-  switch (type) {
-    case "Evaluator":
-      return <div className="xs-12 sm-8" />;
-    case "Contractor":
-      return (
-        <div className="xs-12 sm-8">
-          <NavLink className="xs-12 sm-3" to="#">
-            Accepted
-          </NavLink>
-
-          <NavLink className="xs-12 sm-3" to="#">
-            Requests
-          </NavLink>
-
-          <NavLink
-            className="xs-12 sm-3"
-            to="/dashboard"
-            activeClassName="active"
-          >
-            My Projects
-          </NavLink>
-
-          <NavLink className="xs-12 sm-3" to="#">
-            Marketplace
-          </NavLink>
-        </div>
-      );
-
-    default:
-      return (
-        <div className="xs-12 sm-8">
-          <NavLink
-            className="xs-12 sm-3"
-            to="/dashboard"
-            activeClassName="active"
-          >
-            My Projects
-          </NavLink>
-          <NavLink className="xs-12 sm-3" to="#">
-            Funded
-          </NavLink>
-          <NavLink className="xs-12 sm-3" to="#">
-            Marketplace
-          </NavLink>
-        </div>
-      );
-  }
-};
 class Navbar extends React.Component {
   constructor(props) {
     super(props);
@@ -92,21 +62,19 @@ class Navbar extends React.Component {
     };
   }
 
-  resizer = () => {
-    this.setState({
+  resizer = () =>  this.setState({
       isBigScreen: window.innerWidth > 1023
     });
-  };
+  
 
-  componentWillMount() {
-    window.addEventListener("resize", this.resizer);
-  }
+  componentWillMount =() =>  window.addEventListener("resize", this.resizer);
+  
 
-  componentWillUnmount() {
+  componentWillUnmount=()=>
     window.removeEventListener("resize", this.resizer);
-  }
+  
   render() {
-    let { dispatch, userType } = this.props,
+    let { dispatch } = this.props,
       { isBigScreen } = this.state;
 
     switch (isBigScreen) {
@@ -116,7 +84,14 @@ class Navbar extends React.Component {
       default:
         return (
           <NavStyle className="xs-12">
-            <Decider type={userType} />
+            <div className="xs-12 sm-8">
+                <div className="xs-12 sm-8">
+                  <div className="xs-12" id="well">
+                  <div className="xs-2 t-c"><Icon name="search"/></div>
+                    <input name='search' placeholder="Search For Projects" id="search" className="xs-10"/>
+                  </div>
+                </div>
+            </div>
             <div className="xs-12 sm-4 ">
               <NavLink
                 className="xs-12 sm-6 f-r"
@@ -124,7 +99,7 @@ class Navbar extends React.Component {
                 id="add"
                 onClick={() => dispatch(showModal(modals.add_project))}
               >
-                Add Project
+                + New Project
               </NavLink>
             </div>
           </NavStyle>

@@ -1,6 +1,29 @@
 import styled from "styled-components";
 
 export default styled.div`
+
+.test-cred{
+  text-align:center;
+ p{
+  color: #fff;
+  font-weight: 300;
+  font-size: 14px;
+  padding: 8px 15px;
+  border-radius: 10em;
+  margin: 5px;
+  width: auto;
+  display:inline-block;
+
+  &:nth-child(1){
+    background: #F7AF7B;
+  }
+
+  &:nth-child(2){
+    background: #7B96F7;
+  }
+  
+ } 
+}
   height: 100%;
   width: 100%;
   display: table;
@@ -93,7 +116,7 @@ export default styled.div`
     }
 
     #submit-btn {
-      background: #f2994a;
+      background: linear-gradient(119.81deg, #C13C1E 0%, #F2994A 100%);
       border-radius: 4px;
       padding: 1.5em 0;
       max-width: 15em;

@@ -2,9 +2,18 @@ import styled from "styled-components";
 
 const padding = "5%";
 
-const colors = ["#F7AF7B", "#F77B8A", "#7B96F7", "#EFF5FB"];
+export const  colors = ["#F7AF7B", "#F77B8A", "#7B96F7", "#a8b0b9","#e04f96","#4fe0c2","#e04f4f","#e04fc4","#834fe0"];
 const blue = "#156edc";
 
+export const TagW = styled.div`
+color: #fff;
+font-weight: bold;
+float: left;
+padding: 5px 10px;
+border-radius: 10em;
+margin: 5px;
+background: ${props => props.color};
+`;
 export const ProjectWrapper = styled.div`
   height: 100%;
 

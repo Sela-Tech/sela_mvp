@@ -172,8 +172,10 @@ class Login extends React.Component {
             ) : (
               <React.Fragment>
                 <h2> Sign in to Sela </h2>
-                <p>test@gmail.com</p>
-                <p>password</p>
+                <div className="test-cred xs-12">
+                  <p>Test Username: test@gmail.com</p>
+                  <p>Test Password: password</p>
+                </div>
               </React.Fragment>
             )}
           </div>
