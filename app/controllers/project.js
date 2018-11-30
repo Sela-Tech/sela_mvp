@@ -10,15 +10,23 @@ exports.new = async (req, res) => {
   var failRes = { success: false };
   var projectObj = req.body;
   projectObj.owner = req.userId;
-
+ 
   var newLocation = new Location(req.body.location);
+
+  projectObj.stakeholders = projectObj.stakeholders.map(s=>{
+    return {
+      user: {
+        information: s
+      }
+    }
+  });
 
   const saveProject = projectObj => {
     var newProject = new Project(projectObj);
     newProject.save(projErr => {
       if (projErr) {
         failRes.message = projErr.name + ": " + projErr.message;
-        return res.status(500).json(failRes);
+        return res.status(400).json(failRes);
       }
       return res.status(200).json(successRes);
     });
@@ -209,6 +217,15 @@ exports.find_one = async (req, res) => {
 
 exports.add_stakeholder = async (req, res) => {
   try {
+
+
+  let stakeholders = req.body.stakeholders.map(s=>{
+    return {
+      user: {
+        information: s
+      }
+    }
+  });
     let project = await Project.findOne({ _id: req.body.id });
 
     const old_stakeholders = project.stakeholders.map(s => ({
@@ -226,8 +243,9 @@ exports.add_stakeholder = async (req, res) => {
 
     if (req.body.stakeholders.length > 0) {
       while (breakCode === false) {
+
         foundMatch = old_stakeholders.some(e => {
-          STinfoID = req.body.stakeholders[count].user.information;
+          STinfoID = stakeholders[count].user.information;
           foundPerson = e.user.name;
           return e.user.information === STinfoID;
         });
@@ -244,7 +262,8 @@ exports.add_stakeholder = async (req, res) => {
         });
       }
 
-      let new_stakeholders = [...old_stakeholders, ...req.body.stakeholders];
+      let new_stakeholders = [...old_stakeholders, ...stakeholders];
+      
       let saveResponse = await Project.updateOne(
         { _id: req.body.id },
         { $set: { stakeholders: new_stakeholders } }
