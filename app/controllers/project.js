@@ -114,7 +114,7 @@ exports.delete = async (req, res) => {
   if (req.userId == findProjectResponse.owner._id) {
     // if the authorization to delete is provided i.e. true delete the project
     // in the future, it may become send delete request to admin or something
-    if (req.headers.authorization === "true") {
+    if (req.headers["permanent-delete"] === "true") {
       try {
         let project = await Project.findOne({ _id: req.params.id });
 
