@@ -2,11 +2,13 @@ import React from "react";
 import { connect } from "react-redux";
 import ContractorLoader from "./sub-components/contractor-loader";
 import { Form } from "./styles.modals/add.stakeholder";
-import MessageToShow from "../errors/messageToShow";
 import dA from "../../store/actions/project-funder/dashboard";
 import { addStakeholder } from "../../store/action-creators/project-funder/stakeholder";
 import dashboard from "../../store/actions/project-funder/dashboard";
 import AsyncButton from "../unique/async-button";
+
+import { notify } from "../../store/action-creators/app";
+import { closeModal } from "../../store/action-creators/project-funder/modal";
 
 const mapStateToProps = state => {
   return {
@@ -37,6 +39,18 @@ export default connect(mapStateToProps)(
 
     componentWillReceiveProps(nextProps) {
       if (this.props !== nextProps) {
+
+
+        if (nextProps.type === dA.ADD_STAKEHOLDER_SUCCESSFUL) {
+          notify(<p style={{color: 'white'}}>Stakeholder(s) Added Successfully</p>,"success")
+          nextProps.dispatch(closeModal());
+        }else if(nextProps.type === dA.ADD_STAKEHOLDER_FAILED){
+          notify(<p style={{color: 'white'}}>
+          Could Not Add Stakeholder(s).
+          <span style={{fontSize:"12px", display:"block", color:"#fdfdfd"}}> {nextProps.message} </span>
+          </p>,"error")
+        }
+
         this.setState({
           type: nextProps.type,
           message: nextProps.message
@@ -46,29 +60,28 @@ export default connect(mapStateToProps)(
 
     handleSubmit = e => {
       e.preventDefault();
-      let selected = this.props.selected;
-      let stakeholders = [];
+      // let selected = this.props.selected;
+      // let stakeholders = [];
 
-      if (selected && selected.length > 0) {
-        stakeholders = selected.map(s => {
-          return { user: { information: s } };
-        });
-      }
+      // if (selected && selected.length > 0) {
+      //   stakeholders = selected.map(s => {
+      //     return { user: { information: s } };
+      //   });
+      // }
 
-      let obj = { id: this.props.projectId, stakeholders };
+      let obj = { id: this.props.projectId, stakeholders: this.state.values };
 
       this.props.dispatch(addStakeholder(obj));
     };
 
     render() {
       const { in_progress } = this.props;
-      const { type, message } = this.state;
 
       return (
         <Form onSubmit={this.handleSubmit} className="xs-12">
           <React.Fragment>
             <div className="form-control xs-12">
-              <ContractorLoader obtainValues={this.obtainValues} />
+              <ContractorLoader addStakeholders={this.obtainValues} />
             </div>
 
             <div className="form-control xs-12">
@@ -82,11 +95,7 @@ export default connect(mapStateToProps)(
               </AsyncButton>
             </div>
           </React.Fragment>
-          <MessageToShow
-            type={type}
-            message={message}
-            match={dA.ADD_STAKEHOLDER_SUCCESSFUL}
-          />
+       
         </Form>
       );
     }

@@ -32,19 +32,69 @@
         height: 120px;
         object-fit: contain;
       }
+
+      .wrp{
+        height: 100%;
+        width: 100%;
+        background: #fbfbfb;
+      }
+
+ .lds-ring {
+    display: inline-block;
+    position: relative;
+    width: 2.85em;
+    height: 2.85em;
+  }
+
+
+  .lds-ring div {
+    box-sizing: border-box;
+    display: block;
+    position: absolute;
+    border-radius: 50%;
+    animation: lds-ring 1.2s cubic-bezier(0.5, 0, 0.5, 1) infinite;
+      width: 3em;
+      height: 3em;    
+      border: 3px solid rgba(242,153,74,0.97);
+      border-color: #FF5722 transparent rgb(49, 132, 204) transparent;
+     }
+  
+  .lds-ring div:nth-child(1) {
+    animation-delay: -0.45s;
+  }
+  .lds-ring div:nth-child(2) {
+    animation-delay: -0.3s;
+  }
+  .lds-ring div:nth-child(3) {
+    animation-delay: -0.15s;
+  }
+  @keyframes lds-ring {
+    0% {
+      transform: rotate(0deg);
+    }
+    100% {
+      transform: rotate(360deg);
+    }
+  }
     </style>
   </head>
 
   <body>
     <div id="root">
-      <div class="center-wrapper xs-12">
-        <div class="center init-load">
-          <div class="xs-10 xs-off-1 sm-8 sm-off-2 md-4 md-off-4">
-            <img src="%PUBLIC_URL%/full-logo.svg" id="loading" />
-            <h1>Getting things in order...</h1>
+        <div class="wrp xs-12">
+            <div class="c-w i-h">
+              <div class="c i-h t-c">            
+                <div class="spinner">
+                    <div class="lds-ring">
+                        <div></div>
+                        <div></div>
+                        <div></div>
+                        <div></div>
+                      </div>    
+                </div> 
+              </div>
+            </div>
           </div>
-        </div>
-      </div>
     </div>
   </body>
 </html>

@@ -6,14 +6,15 @@ export const  colors = ["#F7AF7B", "#F77B8A", "#7B96F7", "#a8b0b9","#e04f96","#4
 const blue = "#156edc";
 
 export const TagW = styled.div`
+background: ${props => props.color};
 color: #fff;
-font-weight: bold;
 float: left;
 padding: 5px 10px;
-border-radius: 10em;
 margin: 5px;
-background: ${props => props.color};
+font-weight: 300;
+font-size: 13px;
 `;
+
 export const ProjectWrapper = styled.div`
   height: 100%;
 

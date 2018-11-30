@@ -10,10 +10,10 @@ import {
 } from "../../store/action-creators/project-funder/project";
 
 import dA from "../../store/actions/project-funder/dashboard";
-import MessageToShow from "../errors/messageToShow";
 import { Form } from "./styles.modals/add";
 
-// import ContractorLoader from "./sub-components/contractor-loader";
+import { closeModal } from "../../store/action-creators/project-funder/modal";
+
 import AsyncButton from "../unique/async-button";
 
 import LocationLoader from "./sub-components/location-loader";
@@ -21,7 +21,9 @@ import GeoSuggest from "react-geosuggest";
 import ReactS3Uploader from "react-s3-uploader";
 import endpoints from "../../endpoints";
  import SdgPicker from "./sub-components/sdg-picker";
-import GenericLoader from "./sub-components/generic-loader";
+import GenericLoader from "./sub-components/contractor-loader";
+
+import { notify } from "../../store/action-creators/app";
 
 const mapStateToProps = state => {
   const { type, message } = state.projects.add.action;
@@ -91,6 +93,15 @@ export default connect(mapStateToProps)(
       });
     };
 
+    addStakeholders = values => {
+      this.setState({
+        form: {
+          ...this.state.form,
+          stakeholders: values
+        }
+      })
+    }
+
     handleChange = e => {
       const { value, name } = e.target;
       this.setState({
@@ -103,11 +114,12 @@ export default connect(mapStateToProps)(
     };
 
     handleSDG = value => {
-      console.log(value);
       this.setState({
         form: {
           ...this.state.form,
-          tags: value
+          tags: value.map(v=>{
+            return v.label
+          })
         }
       });
     };
@@ -173,9 +185,15 @@ export default connect(mapStateToProps)(
     componentWillReceiveProps(nextProps) {
       if (this.props !== nextProps) {
         // pull fresh projects after adding
+        
         if (nextProps.type === dA.ADD_PROJECT_SUCCESSFUL) {
           nextProps.dispatch(fetchProjects());
+            notify(<p style={{color: 'white'}}>Project Added Successfully</p>,"success")
+          nextProps.dispatch(closeModal());
+        }else if(nextProps.type === dA.ADD_PROJECT_FAILED){
+          notify(<p style={{color: 'white'}}>Could Not Add Project.</p>,"error")
         }
+
         this.setState({
           type: nextProps.type,
           message: nextProps.message,
@@ -207,7 +225,6 @@ export default connect(mapStateToProps)(
 
     render() {
       let fd = this.state.form,
-        { type, message } = this.state,
         endDate = this.state["end-date-unformatted"],
         startDate = this.state["start-date-unformatted"],
         disabled = endDate < startDate;
@@ -246,7 +263,6 @@ export default connect(mapStateToProps)(
                       onProgress={this.onUploadProgress}
                       onError={this.onUploadError}
                       onFinish={this.onUploadFinish}
-                      // signingUrlWithCredentials={true} // in case when need to pass authentication credentials via CORS
                       uploadRequestHeaders={{ "x-amz-acl": "public-read" }} // this is the default
                       contentDisposition="auto"
                       scrubFilename={filename =>
@@ -308,10 +324,8 @@ export default connect(mapStateToProps)(
 
               <SdgPicker onChange={this.handleSDG} />
               
-              <GenericLoader onChange= {this.handleChange}/>
+              <GenericLoader addStakeholders= {this.addStakeholders}/>
               
-              {/* <ContractorLoader onchange={this.handleChange} /> */}
-
               <div className="form-control xs-12" id="date-part">
                 <div className={"xs-12 sm-5 date-wrpr show"}>
                   <label
@@ -388,13 +402,8 @@ export default connect(mapStateToProps)(
                 )}
               </div>
             </div>
-            {type === dA.ADD_PROJECT_SUCCESSFUL && (
-              <MessageToShow
-                type={type}
-                message={message}
-                match={dA.ADD_PROJECT_SUCCESSFUL}
-              />
-            )}
+            
+         
           </Form>
         </React.Fragment>
       );

@@ -7,8 +7,10 @@ import { connect } from "react-redux";
 import { addTask } from "../../store/action-creators/project-funder/task";
 import AsyncButton from "../unique/async-button";
 import dA from "../../store/actions/project-funder/dashboard";
-import MessageToShow from "../errors/messageToShow";
 import { Form } from "./styles.modals/task";
+
+import { notify } from "../../store/action-creators/app";
+import { closeModal } from "../../store/action-creators/project-funder/modal";
 
 const mapStateToProps = state => {
   const { type, message } = state.tasks.add.action;
@@ -69,6 +71,14 @@ export default connect(mapStateToProps)(
 
     componentWillReceiveProps(nextProps) {
       if (this.props !== nextProps) {
+
+        if (nextProps.type === dA.ADD_TASK_SUCCESSFUL) {
+          notify(<p style={{color: 'white'}}>Task Added Successfully</p>,"success")
+          nextProps.dispatch(closeModal());
+        }else if(nextProps.type === dA.ADD_TASK_FAILED){
+          notify(<p style={{color: 'white'}}>Could Not Add Task.</p>,"error")
+        }
+      
         this.setState({
           type: nextProps.type,
           message: nextProps.message
@@ -77,8 +87,8 @@ export default connect(mapStateToProps)(
     }
 
     render() {
-      let fd = this.state.form,
-        { type, message } = this.state;
+      let fd = this.state.form;
+      
       return (
         <Form onSubmit={this.handleSubmit} className="xs-12">
           <p id="info">
@@ -140,11 +150,7 @@ export default connect(mapStateToProps)(
               Add Task To Project
             </AsyncButton>
           </div>
-          <MessageToShow
-            type={type}
-            message={message}
-            match={dA.ADD_TASK_SUCCESSFUL}
-          />
+        
         </Form>
       );
     }

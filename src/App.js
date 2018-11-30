@@ -8,11 +8,15 @@ import { LoadingRoute, PrivateRoute } from "./helpers/routes";
 import Errors from "./pages/errors";
 import Modals from "./shared-components/modals";
 
+import { ToastContainer } from 'react-toastify';
+import 'react-toastify/dist/ReactToastify.css';
+
 const App = ({ isAuthenticated, actionType, modalToShow }) => {
   return (
     <Router>
       <React.Fragment>
         <Modals name={modalToShow} />
+        <ToastContainer />
 
         {actionType === authActions.TOKEN_VERIFICATION_IN_PROGRESS ? (
           <Switch>
@@ -31,10 +35,11 @@ const App = ({ isAuthenticated, actionType, modalToShow }) => {
               component={r.public_view_project}
             />
 
-            <LoadingRoute text={"Please Wait... Authenticating"} />
+            <LoadingRoute />
           </Switch>
         ) : (
           <Switch>
+       
             <Route exact path="/" component={r.home} />
             <Route exact path="/admin" component={r.admin} />
             <Route exact path="/admin/users/:route" component={r.admin} />
@@ -111,13 +116,15 @@ const App = ({ isAuthenticated, actionType, modalToShow }) => {
   );
 };
 
-const mapStateToProps = state => {
+
+
+const mapStateToProps = state => { 
   const { isAuthenticated, action, credentials } = state.auth;
   return {
     isAuthenticated,
     actionType: action.type,
     dashboardType: credentials.signUpType,
-    modalToShow: state.dashboard.modalToShow
+    modalToShow: state.dashboard.modalToShow,
   };
 };
 

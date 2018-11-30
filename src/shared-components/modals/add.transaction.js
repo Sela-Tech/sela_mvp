@@ -2,9 +2,11 @@ import React from "react";
 import { connect } from "react-redux";
 import AsyncButton from "../unique/async-button";
 import dA from "../../store/actions/project-funder/dashboard";
-import MessageToShow from "../errors/messageToShow";
 import { Form } from "./styles.modals/task";
 import { addTransaction } from "../../store/action-creators/project-funder/transaction";
+
+import { notify } from "../../store/action-creators/app";
+import { closeModal } from "../../store/action-creators/project-funder/modal";
 
 const mapStateToProps = state => {
   const { type, message } = state.transactions;
@@ -45,6 +47,14 @@ export default connect(mapStateToProps)(
 
     componentWillReceiveProps(nextProps) {
       if (this.props !== nextProps) {
+
+        if (nextProps.type === dA.ADD_TRANSACTION_SUCCESSFUL) {
+          notify(<p style={{color: 'white'}}>Transaction Added Successfully</p>,"success")
+          nextProps.dispatch(closeModal());
+        }else if(nextProps.type === dA.ADD_TRANSACTION_FAILED){
+          notify(<p style={{color: 'white'}}>Could Not Add Transaction.</p>,"error")
+        }
+      
         this.setState({
           type: nextProps.type,
           message: nextProps.message
@@ -53,7 +63,7 @@ export default connect(mapStateToProps)(
     }
 
     render() {
-      let { type, message, networkName, hash } = this.state;
+      let {  networkName, hash } = this.state;
       return (
         <Form onSubmit={this.handleSubmit} className="xs-12">
           <p>Only Ethereum is currently supported. </p>
@@ -90,11 +100,7 @@ export default connect(mapStateToProps)(
               Confirm Transaction
             </AsyncButton>
           </div>
-          <MessageToShow
-            type={type}
-            message={message}
-            match={dA.ADD_TRANSACTION_SUCCESSFUL}
-          />
+        
         </Form>
       );
     }

@@ -7,8 +7,9 @@ import {
 import { closeModal } from "../../store/action-creators/project-funder/modal";
 import AsyncButton from "../unique/async-button";
 import dA from "../../store/actions/project-funder/dashboard";
-import MessageToShow from "../errors/messageToShow";
 import { Form } from "./styles.modals/delete";
+
+import { notify } from "../../store/action-creators/app";
 
 const mapStateToProps = state => {
   const { type, message } = state.projects.delete.action;
@@ -43,9 +44,16 @@ export default connect(mapStateToProps)(
     componentWillReceiveProps(nextProps) {
       if (this.props !== nextProps) {
         // pull fresh projects after adding
+
         if (nextProps.type === dA.DELETE_PROJECT_SUCCESSFUL) {
+          notify(<p style={{color: 'white'}}>Project Deleted Successfully</p>,"success")
+          nextProps.dispatch(closeModal());
           nextProps.dispatch(fetchProjects());
+       
+        }else if(nextProps.type === dA.DELETE_PROJECT_FAILED){
+          notify(<p style={{color: 'white'}}>Could Not Delete Project.</p>,"error")
         }
+      
         this.setState({
           type: nextProps.type,
           message: nextProps.message,
@@ -55,7 +63,7 @@ export default connect(mapStateToProps)(
     }
 
     render() {
-      const { type, message } = this.state;
+      const { type } = this.state;
       const { activated } = this.props;
 
       return (
@@ -94,11 +102,7 @@ export default connect(mapStateToProps)(
               </div>
             </React.Fragment>
           )}
-          <MessageToShow
-            type={type}
-            message={message}
-            match={dA.DELETE_PROJECT_SUCCESSFUL}
-          />
+        
         </Form>
       );
     }

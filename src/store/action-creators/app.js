@@ -1,5 +1,6 @@
 import ax from "axios";
 import { extractMessage } from "../../helpers/utils";
+import {toast} from 'react-toastify';
 
 export const fetchSGDs = () => {
   return dispatch => {
@@ -25,3 +26,6 @@ export const fetchSGDs = () => {
       });
   };
 };
+
+
+export const notify = (message,type) => toast[type](message);

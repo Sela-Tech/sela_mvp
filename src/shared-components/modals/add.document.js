@@ -2,12 +2,14 @@ import React from "react";
 import { connect } from "react-redux";
 import AsyncButton from "../unique/async-button";
 import dA from "../../store/actions/project-funder/dashboard";
-import MessageToShow from "../errors/messageToShow";
 import { Form } from "./styles.modals/add";
 
 import ReactS3Uploader from "react-s3-uploader";
 import endpoints from "../../endpoints";
 import { addDoc } from "../../store/action-creators/project-funder/documents";
+
+import { notify } from "../../store/action-creators/app";
+import { closeModal } from "../../store/action-creators/project-funder/modal";
 
 const mapStateToProps = state => {
   const { type, message } = state.document;
@@ -89,6 +91,14 @@ export default connect(mapStateToProps)(
 
     componentWillReceiveProps(nextProps) {
       if (this.props !== nextProps) {
+
+        if (nextProps.type === dA.ADD_DOCUMENT_SUCCESSFUL) {
+          notify(<p style={{color: 'white'}}>Project Added Successfully</p>,"success")
+          nextProps.dispatch(closeModal());
+        }else if(nextProps.type === dA.ADD_DOCUMENT_FAILED){
+          notify(<p style={{color: 'white'}}>Could Not Add Project.</p>,"error")
+        }
+
         this.setState({
           add_doc_in_progress: nextProps.add_doc_in_progress,
           type: nextProps.type,
@@ -98,7 +108,7 @@ export default connect(mapStateToProps)(
     }
 
     render() {
-      let { type, message, name } = this.state;
+      let {  name } = this.state;
 
       let isDocumentPresent = Boolean(this.state.doc.preview);
 
@@ -188,11 +198,7 @@ export default connect(mapStateToProps)(
               </label>
             )}
           </div>
-          <MessageToShow
-            type={type}
-            message={message}
-            match={dA.ADD_DOCUMENT_SUCCESSFUL}
-          />
+       
         </Form>
       );
     }

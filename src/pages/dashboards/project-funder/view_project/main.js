@@ -36,8 +36,7 @@ const View = ({ id, view }) => {
 
 const ProjectComponent = ({ info, match }) => {
   const { id, view } = match.params;
-
-  return (
+ return (
     <ProjectWrapper className="xs-12">
       <div className="xs-12" id="header">
         <div className="xs-12">
@@ -54,13 +53,15 @@ const ProjectComponent = ({ info, match }) => {
 
           <div className="xs-12 sm-4" id="members">
             <h4>Tags</h4>
-            <p>
-              {info.tags
-                .split(",").map((t,i)=>{
+            <div>
+              { Boolean(info.tags.length) ?  
+                info.tags.map((t,i)=>{
                   return <Tag key={i} text={t} color={colors[i]}/>
                 })
+                :
+                <span> No Tags Provided. </span>
                 }
-            </p>
+            </div>
           </div>
           <div className="xs-12">
             <nav className="xs-12 ">
