@@ -55,6 +55,12 @@ export default class Login extends Component {
     this.keyboardDidHideListener.remove();
   }
 
+  showPassword = () => {
+    this.setState(prevState => ({
+      secure: !prevState.secure,
+    }));
+  };
+
   keyboardDidShow() {
     return this.setState({ keyboard: true });
   }
@@ -62,12 +68,6 @@ export default class Login extends Component {
   keyboardDidHide() {
     return this.setState({ keyboard: false });
   }
-
-  showPassword = () => {
-    this.setState(prevState => ({
-      secure: !prevState.secure,
-    }));
-  };
 
   render() {
     const { secure, keyboard } = this.state;

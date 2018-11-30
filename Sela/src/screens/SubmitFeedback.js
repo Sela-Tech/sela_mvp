@@ -193,14 +193,17 @@ export default class SubmitFeedback extends Component {
     this.setState(prevstate => ({ openCamera: !prevstate.openCamera }));
   };
 
-  updateFeedback = async () => {
+  updateFeedback = async val => {
     this.setState(prevstate => ({
       hideHeader: !prevstate.hideHeader,
       videoStarted: !prevstate.videoStarted,
       showBottomButton: true,
     }));
-    await this.takePicture();
-    // await this.takeVideo();
+    if (val === 1) {
+      await this.takePicture();
+    } else {
+      await this.takeVideo();
+    }
     const messages = [
       {
         _id: Math.round(Math.random() * 1000000), // .toString(),
@@ -348,7 +351,8 @@ export default class SubmitFeedback extends Component {
       <View style={styles.bottomBar}>
         <View style={{ flex: 0.4 }}>
           <TouchableOpacity
-            onPress={this.updateFeedback}
+            onPress={this.updateFeedback(1)}
+            onLongPress={this.updateFeedback(2)}
             style={{ alignSelf: 'center' }}
           >
             <Fragment>
@@ -427,17 +431,7 @@ export default class SubmitFeedback extends Component {
       <View style={styles.container}>
         <Fragment>
           {!hideHeader ? (
-            <Header
-              androidStatusBarColor="#311075"
-              style={{
-                backgroundColor: '#311b92',
-                display: 'flex',
-                justifyContent: 'flex-start',
-                flexDirection: 'row',
-                margin: 0,
-                padding: 0,
-              }}
-            >
+            <Header>
               <View style={styles.header}>
                 <View
                   style={{
