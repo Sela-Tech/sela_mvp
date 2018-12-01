@@ -4,6 +4,7 @@ const mongoose = require("mongoose"),
   Document = mongoose.model("Document"),
   Project = mongoose.model("Project");
 
+
 exports.new = async (req, res) => {
   try {
     let docObj = {
@@ -23,54 +24,59 @@ exports.new = async (req, res) => {
         owner: req.userId
       });
 
-      console.log(project);
+      if(project !== null){
 
-      console.log("fetched project we want document to belong to");
+        console.log(project);
 
-      project = project.toJSON();
-      let collectionOfDocIds = project.documents;
-
-      if (collectionOfDocIds.length > 0) {
-        collectionOfDocIds = collectionOfDocIds.map(t => {
-          return t._id;
-        });
-      }
-
-      console.log(" document belonging to project", collectionOfDocIds);
-
-      let check = collectionOfDocIds.find(elem => {
-        return elem == saveDocument._id;
-      });
-
-      console.log("check if document id exists already", { check });
-
-      if (Boolean(check) === false) {
-        let updateRequest = await Project.update(
-          { _id: req.body.projectId, owner: req.userId },
-          {
-            $set: {
-              documents: [...collectionOfDocIds, saveDocument._id]
-            }
-          }
-        );
-
-        console.log("what i expect to update", {
-          documents: [...collectionOfDocIds, saveDocument._id]
-        });
-
-        if (Boolean(updateRequest.n)) {
-          return res
-            .status(200)
-            .json({ message: "Document Saved Successfully" });
-        } else {
-          return res.status(401).json({
-            message: "Could Not Add New Document"
+        console.log("fetched project we want document to belong to");
+  
+        project = project.toJSON();
+        let collectionOfDocIds = project.documents;
+  
+        if (collectionOfDocIds.length > 0) {
+          collectionOfDocIds = collectionOfDocIds.map(t => {
+            return t._id;
           });
         }
+  
+        // console.log(" document belonging to project", collectionOfDocIds);
+  
+        // let check = collectionOfDocIds.find(elem => {
+        //   return elem == saveDocument._id;
+        // });
+  
+        // console.log("check if document id exists already", { check });
+  
+        // if (Boolean(check) === false) {
+          let updateRequest = await Project.update(
+            { _id: req.body.projectId, owner: req.userId },
+            {
+              $set: {
+                documents: [...collectionOfDocIds, saveDocument._id]
+              }
+            }
+          );
+  
+          console.log("what i expect to update", {
+            documents: [...collectionOfDocIds, saveDocument._id]
+          });
+  
+          if (Boolean(updateRequest.n)) {
+            return res
+              .status(200)
+              .json({ message: "Document Saved Successfully" });
+          } else {
+            return res.status(401).json({
+              message: "Could Not Add New Document"
+            });
+          }
+        // }
+      }else{
+        return res.status(401).json({message:"This Project doesn't exist"})
       }
     } else {
       return res.status(200).json({
-        message: "No Tasks Found"
+        message: "Failed to save Document"
       });
     }
   } catch (error) {
@@ -82,14 +88,17 @@ exports.new = async (req, res) => {
 
 exports.findAll = async (req, res) => {
   let projectId = req.body.projectId;
+
+
   try {
     let documents = await Document.find({ project: projectId });
 
-    if (Boolean(documents) && Boolean(documents.length)) {
+
+    if (Boolean(documents) && Boolean(documents.length>0)) {
       return res.status(200).json(documents);
     } else {
-      return res.status(200).json({
-        message: "No Tasks Found"
+      return res.status(404).json({
+        message: "No Documents Found"
       });
     }
   } catch (error) {
@@ -110,7 +119,7 @@ exports.find = async (req, res) => {
         info: findReq
       });
     } else {
-      return res.status(200).json({
+      return res.status(404).json({
         message: "No Document Found",
         success: false
       });

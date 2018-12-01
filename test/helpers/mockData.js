@@ -1,3 +1,4 @@
+const faker = require('faker');
 const jsonwebtoken = require('jsonwebtoken');
 var mongoose = require("mongoose");
 var User = mongoose.model("User");
@@ -5,6 +6,7 @@ var Organization = mongoose.model("Organization");
 var Project = mongoose.model("Project");
 var Transaction = mongoose.model("Transaction");
 var Uploads = mongoose.model("Upload");
+var Document = mongoose.model("Document");
 var tokenValidityPeriod = 86400; // in seconds; 86400 seconds = 24 hours
 var bcrypt = require("bcrypt");
 
@@ -50,7 +52,7 @@ const projects = [
 const insertUserSeed = async () => {
 	let organization_id = await insertOrganisation();
 	users[0].organization = organization_id
-	let newUser = new User(users[0]);
+	let newUser = new User(users[0])
 	let user = await newUser.save();
 	return user;
 };
@@ -68,6 +70,19 @@ const insertProjectSeed=async()=>{
 }
 
 
+const insertProject =async(userId)=>{
+
+	const project ={
+		name: faker.name.jobType(),
+		description: faker.random.words(),
+		startDate: "2018-11-29",
+		location: "5bffe86b0dccba6f553d7257",
+		owner:userId
+	}
+	let newProject = await new Project(project).save();
+	return newProject;
+}
+
 /**
  * @description Insert seed data in organization model
  *
@@ -82,8 +97,6 @@ const insertOrganisation = async () => {
 	let org_id = obj._id;
 	return org_id;
 }
-
-
 
 
 
@@ -243,10 +256,18 @@ const invalidStakeholders={
 
 }
 
+const validDocument={
+	projectId:"5bffe8da0dccba6f553d725a", //placeholder id
+	  name:faker.random.word(),
+      filetype:".doc",
+      doc:faker.internet.url(),
+}
+
 
 module.exports = {
 	insertUserSeed, validUser, userWithExistingEmail,
 	userWithWrongEmail, userWithWrongPhone, userWithWrongPassword,
 	validUser2, userWithPendingAccount, generateToken, validUserUpdateInfo, invalidUserUpdateInfo,
-	invalidUserUpdateInfo2, validProject,insertProjectSeed,validStakeholders,invalidStakeholders
+	invalidUserUpdateInfo2, validProject,insertProjectSeed,validStakeholders,invalidStakeholders,
+	validDocument,insertProject
 }

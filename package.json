@@ -75,6 +75,7 @@
   },
   "devDependencies": {
     "concurrently": "^3.5.1",
+    "faker": "^4.1.0",
     "request": "^2.81.0",
     "tape": "^4.7.0",
     "truffle": "^4.0.5",
