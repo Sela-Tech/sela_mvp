@@ -21,10 +21,10 @@ if(projectObj.stakeholders){
     }
   });
 }else{
+
   projectObj.stakeholders = [];
+
 }
-
-
 
   const saveProject = projectObj => {
     

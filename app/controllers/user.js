@@ -200,6 +200,7 @@ exports.login = (req, res) => {
       }
     });
   });
+
 };
 
 exports.update = async (req, res) => {
@@ -247,6 +248,7 @@ exports.update = async (req, res) => {
           });
         }
       } else {
+
         objSearch = req.body;
         delete objSearch.newPassword;
         delete objSearch.verifyPassword;
@@ -254,11 +256,20 @@ exports.update = async (req, res) => {
         delete objSearch.password;
       }
 
+     let check =  await User.findOne({
+        email: objSearch.email
+      });
+
+      check = check.toJSON();
+      console.log(check , req.userId)
+      if( Boolean(check) === true && check._id.toString() === req.userId.toString() ){ 
+
       finalUserObj = await User.findOneAndUpdate(
         { _id: req.userId },
         { $set: objSearch },
         { new: true }
       );
+
 
       const { isFunder, isEvaluator, isContractor } = finalUserObj,
         signThis = {
@@ -289,6 +300,11 @@ exports.update = async (req, res) => {
         organization: finalUserObj.organization,
         token
       });
+    }else{
+      return res.status(400).json({
+        message: "Email is in use."
+      })
+    }
     });
   } catch (error) {
     res.status(401).json({
