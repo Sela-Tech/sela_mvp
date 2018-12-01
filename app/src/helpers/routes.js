@@ -5,7 +5,6 @@ export const LoadingRoute = ({ children, text, ...rest }) => (
   <Route
     {...rest}
     render={props => (
-
       <div className="wrp xs-12">
       <div className="c-w i-h">
         <div className="c i-h t-c">            
@@ -20,13 +19,6 @@ export const LoadingRoute = ({ children, text, ...rest }) => (
         </div>
       </div>
     </div>
-
-      // <div className="center-wrapper">
-      //   <div className="center">
-      //     {children ? children : <img src={company_logo} alt="company-logo" />}
-      //     <p style={style}>{text}</p>
-      //   </div>
-      // </div>
     )}
   />
 );

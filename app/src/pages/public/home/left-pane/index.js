@@ -66,43 +66,45 @@ class LeftPane extends React.Component {
     });
 
     this.timeout = setTimeout(() => {
-      const { location, status } = this.state;
+      const { location, status } = this.state,
+      {history,fetchProjects} = this.props;
+
       if (
         location &&
         location !== "Unspecified" &&
         status &&
         status !== "Unspecified"
       ) {
-        this.props.history.push(`/?location=${location}&status=${status}`);
+        history.push(`/?location=${location}&status=${status}`);
       } else if (location) {
         if (
           location === status ||
           (location === "Unspecified" && status === "Unspecified")
         ) {
-          this.props.history.push("/");
+          history.push("/");
         } else if (location === "Unspecified" && status !== "Unspecified") {
-          this.props.history.push(`/?status=${status}`);
+          history.push(`/?status=${status}`);
         } else {
-          this.props.history.push(`/?location=${location}`);
+          history.push(`/?location=${location}`);
         }
       } else if (status) {
         if (
           location === status ||
           (status === "Unspecified" && location === undefined)
         ) {
-          this.props.history.push("/");
+          history.push("/");
         } else if (
           status === "Unspecified" &&
           location !== undefined &&
           location !== "Unspecified"
         ) {
-          this.props.history.push(`/?location=${location}`);
+          history.push(`/?location=${location}`);
         } else {
-          this.props.history.push(`/?status=${status}`);
+          history.push(`/?status=${status}`);
         }
       }
 
-      this.props.fetchProjects(getQueryString(window.location.href));
+      fetchProjects(getQueryString(window.location.href));
     }, 300);
   };
 
@@ -126,7 +128,8 @@ class LeftPane extends React.Component {
   };
 
   render() {
-    const { locations, location, status } = this.state;
+    const { locations, location, status,isBigScreen, projects,action } = this.state,
+    { showMap,toggleMap,} = this.props;
 
     return (
       <LeftPaneStyle
@@ -138,7 +141,7 @@ class LeftPane extends React.Component {
       >
         <div className="xs-10 xs-off-1">
           <h2 id="projects-h2">Projects</h2>
-          <div className={this.props.showMap ? "xs-12" : "xs-12 sm-8"}>
+          <div className={showMap ? "xs-12" : "xs-12 sm-8"}>
             <div className="xs-12 sm-5 md-5">
               <label>Select Location</label>
               <select
@@ -178,12 +181,12 @@ class LeftPane extends React.Component {
               </select>
             </div>
 
-            {this.props.showMap && this.state.isBigScreen && (
+            { showMap && isBigScreen && (
               <div className="sm-2 t-c">
                 <button
                   id="show-map"
                   name="show-map"
-                  onClick={this.props.toggleMap}
+                  onClick={toggleMap}
                 >
                   <img src={map} alt="" />
                 </button>
@@ -191,13 +194,13 @@ class LeftPane extends React.Component {
             )}
           </div>
 
-          {!this.props.showMap && this.state.isBigScreen && (
+          {!showMap && isBigScreen && (
             <div className="xs-4">
               <div className="xs-off-8 xs-4 t-c">
                 <button
                   id="show-map"
                   name="show-map"
-                  onClick={this.props.toggleMap}
+                  onClick={toggleMap}
                 >
                   <img src={map} alt="" />
                 </button>
@@ -206,7 +209,7 @@ class LeftPane extends React.Component {
           )}
         </div>
 
-        <CardHolder projects={this.state.projects} action={this.state.action} />
+        <CardHolder projects={projects} action={action} />
       </LeftPaneStyle>
     );
   }

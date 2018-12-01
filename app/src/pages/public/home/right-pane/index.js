@@ -16,10 +16,11 @@ class RightPane extends React.Component {
 }
 
 const mapStateToProps = state => {
+  const { projects,centerize,map} = state.home;
   return {
-    projects: state.home.projects,
-    centerize: state.home.centerize,
-    fullscreen: state.home.map.fullscreen
+    projects,
+    centerize,
+    fullscreen: map.fullscreen
   };
 };
 

@@ -62,7 +62,8 @@ class AccountDetails extends Component {
   componentWillReceiveProps(nextProps) {
     if (this.props !== nextProps) {
       this.setState({
-        actionType: nextProps.actionType
+        actionType: nextProps.actionType,
+        message: nextProps.message
       });
       if (nextProps.actionType !== auth.CHANGE_USER_DETAILS_IN_PROGRESS) {
         this.setState({
@@ -91,6 +92,7 @@ class AccountDetails extends Component {
   handleSubmit = e => {
     e.preventDefault();
     const obj = this.state.credentials;
+
     delete obj.exp;
     delete obj.iat;
     delete obj.isFunder;
@@ -108,12 +110,12 @@ class AccountDetails extends Component {
   };
 
   render() {
-    let { credentials, actionType, uploading } = this.state,
-      message = () => {
+    let { credentials, actionType, uploading,message} = this.state,
+      msg = () => {
         if (actionType === auth.CHANGE_USER_DETAILS_SUCCESSFUL) {
           return "Information updated successfully";
         } else if (actionType === auth.CHANGE_USER_DETAILS_FAILED) {
-          return "Could not change update your information";
+          return message || "Could not change your information";
         }
       };
 
@@ -122,7 +124,7 @@ class AccountDetails extends Component {
         <div className="xs-12 sm-4">
           <div className="form-group ">
             <label htmlFor="photo" className="profile-photo">
-              {credentials.profilePhoto.preview && (
+              { Boolean(credentials.profilePhoto) && credentials.profilePhoto.preview && (
                 <img
                   src={credentials.profilePhoto.preview}
                   alt="profilePhoto"
@@ -245,10 +247,10 @@ class AccountDetails extends Component {
               margin: "15px 0 5px",
               fontWeight: 300,
               fontSize: "13px",
-              color: "seagreen"
+              color: actionType === auth.CHANGE_USER_DETAILS_SUCCESSFUL?  "seagreen": "tomato"
             }}
           >
-            {message()}
+            {msg()}
           </p>
         </div>
       </form>
@@ -258,7 +260,8 @@ class AccountDetails extends Component {
 const mapStateToProps = state => {
   return {
     credentials: state.auth.credentials,
-    actionType: state.auth.action.type
+    actionType: state.auth.action.type,
+    message: state.auth.action.message
   };
 };
 

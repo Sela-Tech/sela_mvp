@@ -20,21 +20,6 @@ const App = ({ isAuthenticated, actionType, modalToShow }) => {
 
         {actionType === authActions.TOKEN_VERIFICATION_IN_PROGRESS ? (
           <Switch>
-            <Route exact path="/" component={r.home} />
-            <Route exact path="/admin" component={r.admin} />
-            <Route exact path="/admin/users/:route" component={r.admin} />
-
-            <Route
-              exact
-              path="/projects/:id"
-              component={r.public_view_project}
-            />
-            <Route
-              exact
-              path="/projects/:id/:show"
-              component={r.public_view_project}
-            />
-
             <LoadingRoute />
           </Switch>
         ) : (

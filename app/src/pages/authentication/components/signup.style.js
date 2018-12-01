@@ -1,6 +1,16 @@
 import styled from "styled-components";
 
 export default styled.div`
+#sign-in{
+  background: linear-gradient(119.81deg, #C13C1E 0%, #F2994A 100%);
+  color: white;
+  height: 50px;
+  display: block;
+  line-height: 50px;
+  width: 175px;
+  margin: auto;
+  border-radius: 6px;
+}
 
 #olabel{
   display: block;

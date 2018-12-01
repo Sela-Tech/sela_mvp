@@ -123,7 +123,6 @@ class SimpleMap extends Component {
             options={createMapOptions}
             yesIWantToUseGoogleMapApiInternals
             onGoogleApiLoaded={({ map, maps }) => this.apiIsLoaded(map, maps)}
-            // hoveringDistance={"auto"}
           >
             {markers}
           </GoogleMapReact>

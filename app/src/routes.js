@@ -7,7 +7,7 @@ import NotLoggedIn_GenericLoading from "./pages/public/loading/generic";
 
 export default {
   home,
-  admin: loadable(() => import("./pages/admin")),
+  // admin: loadable(() => import("./pages/admin")),
   dashboardDecider: loadable(() => import("./pages/dashboards/"), {
     LoadingComponent: Blank
   }),

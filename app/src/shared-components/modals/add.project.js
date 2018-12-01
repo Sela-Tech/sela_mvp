@@ -113,6 +113,19 @@ export default connect(mapStateToProps)(
       });
     };
 
+    handleNumberChange = e => {
+      e.persist();
+      let value = e.target.value;
+      
+      this.setState({
+        message: undefined,
+        form: {
+          ...this.state.form,
+          goal: value.indexOf(0) === 0 ? 1: value
+        }
+      });
+    };
+
     handleSDG = value => {
       this.setState({
         form: {
@@ -217,6 +230,8 @@ export default connect(mapStateToProps)(
       );
     };
 
+    
+
     onUploadProgress = count => {
       this.setState({
         uploading: count
@@ -291,7 +306,7 @@ export default connect(mapStateToProps)(
                     name="goal"
                     placeholder="Amount you expect to raise"
                     value={fd["goal"] || ""}
-                    onChange={this.handleChange}
+                    onChange={this.handleNumberChange}
                     required
                   />
                 </div>
