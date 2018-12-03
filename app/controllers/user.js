@@ -262,7 +262,7 @@ exports.update = async (req, res) => {
       });
 
       check = check.toJSON();
-      console.log(check , req.userId)
+      // console.log(check , req.userId)
       if( Boolean(check) === true && check._id.toString() === req.userId.toString() ){ 
 
       finalUserObj = await User.findOneAndUpdate(

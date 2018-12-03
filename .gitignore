@@ -8,6 +8,9 @@ pids
 *.pid
 *.seed
 
+.env
+env
+./env
 
 #Build
 old/public/build

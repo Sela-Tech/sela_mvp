@@ -24,7 +24,9 @@ chai.use(chaiHttp);
 describe('user Controller', () => {
 before(async() => {
    user =  await insertUserSeed();
+   validUserUpdateInfo.email= user.email;
     token= generateToken(user);
+
 
 });
 
