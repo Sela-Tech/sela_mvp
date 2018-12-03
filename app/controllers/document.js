@@ -17,7 +17,6 @@ exports.new = async (req, res) => {
     let saveDocument = await new Document(docObj).save();
 
     if (Boolean(saveDocument)) {
-      console.log("saved documents");
 
       let project = await Project.findOne({
         _id: req.body.projectId,

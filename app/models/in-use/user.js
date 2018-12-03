@@ -68,7 +68,7 @@ var userStructure = {
   },
   activation: {
     type: String,
-    default: "pending"
+    default: "approved"
   },
   createdOn: {
     type: Date,
