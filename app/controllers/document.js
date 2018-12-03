@@ -16,35 +16,33 @@ exports.new = async (req, res) => {
     let saveDocument = await new Document(docObj).save();
 
     if (Boolean(saveDocument)) {
-      console.log("saved documents");
 
       let project = await Project.findOne({
         _id: req.body.projectId,
         owner: req.userId
       });
 
-      console.log(project);
-
       console.log("fetched project we want document to belong to");
 
-      project = project.toJSON();
-      let collectionOfDocIds = project.documents;
+       project = project.toJSON();
+    
+       let collectionOfDocIds = [];
 
       if (collectionOfDocIds.length > 0) {
-        collectionOfDocIds = collectionOfDocIds.map(t => {
+        collectionOfDocIds = project.documents.map(t => {
           return t._id;
         });
       }
 
-      console.log(" document belonging to project", collectionOfDocIds);
+      // console.log("document belonging to project", collectionOfDocIds);
 
-      let check = collectionOfDocIds.find(elem => {
-        return elem == saveDocument._id;
-      });
+      // let check = collectionOfDocIds.find(elem => {
+      //   return elem == saveDocument._id;
+      // });
 
-      console.log("check if document id exists already", { check });
+      // console.log("check if document id exists already", { check });
 
-      if (Boolean(check) === false) {
+      // if (Boolean(check) === false) {
         let updateRequest = await Project.update(
           { _id: req.body.projectId, owner: req.userId },
           {
@@ -67,10 +65,10 @@ exports.new = async (req, res) => {
             message: "Could Not Add New Document"
           });
         }
-      }
+      // }
     } else {
       return res.status(200).json({
-        message: "No Tasks Found"
+        message: "Some issue saving document."
       });
     }
   } catch (error) {

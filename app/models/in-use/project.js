@@ -38,8 +38,8 @@ var projectStructure = {
     default: true
   },
   tags: {
-    type: String,
-    default: ""
+    type: Array,
+    default: []
   },
   description: {
     type: String,
