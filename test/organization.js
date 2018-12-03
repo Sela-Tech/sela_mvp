@@ -47,6 +47,18 @@ after(async ()=>{
           done();
         });
     });
+    it('should not add a new organization if the user is not authenticated', (done) => {
+        request
+          .post('/organizations')
+          .set({authorization:""})
+          .send(valideOrganization)
+          .expect(400)
+          .end((err, res) => {
+            if (err) return done(err);
+            expect(res.body.message).to.equal("jwt must be provided");
+            done();
+          });
+      });
   });
 
 
