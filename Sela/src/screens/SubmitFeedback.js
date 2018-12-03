@@ -9,13 +9,7 @@ import {
 import { Header } from 'native-base';
 import { Camera, Permissions, Constants } from 'expo';
 import { GiftedChat } from 'react-native-gifted-chat';
-import {
-  Ionicons,
-  MaterialIcons,
-  Foundation,
-  MaterialCommunityIcons,
-  Octicons,
-} from '@expo/vector-icons';
+import { Ionicons } from '@expo/vector-icons';
 import Text from '../components/Text';
 import { isAndroid } from '../utils/helpers';
 import { YELLOW } from '../utils/constants';
@@ -117,7 +111,7 @@ const styles = StyleSheet.create({
 });
 
 export default class SubmitFeedback extends Component {
-  static navigationOptions = () => ({
+  static navigationOptions = ({ navigation }) => ({
     header: (
       <View style={styles.header}>
         <View
@@ -127,6 +121,7 @@ export default class SubmitFeedback extends Component {
           }}
         >
           <TouchableOpacity
+          onPress={()=> navigation.goBack()}
             style={{
               justifyContent: 'center',
               alignItems: 'center',
@@ -242,10 +237,8 @@ export default class SubmitFeedback extends Component {
     step += 1;
     if (this.camera) {
       try {
-        console.log('testing taking video');
         // this.setState({ videoStarted: false });
         const video = await this.camera.recordAsync();
-        console.log('video', video);
         const messages = [
           {
             _id: Math.round(Math.random() * 1000000).toString(), // .toString(),
@@ -272,7 +265,6 @@ export default class SubmitFeedback extends Component {
         this.setState({ error: error.message, videoStarted: false });
       }
     } else {
-      console.log('not working');
       this.setState({
         error: 'Request failed',
       });
@@ -351,12 +343,13 @@ export default class SubmitFeedback extends Component {
       <View style={styles.bottomBar}>
         <View style={{ flex: 0.4 }}>
           <TouchableOpacity
-            onPress={this.updateFeedback(1)}
-            onLongPress={this.updateFeedback(2)}
+            onPress={() => this.updateFeedback(1) }
+            onLongPress={() => this.updateFeedback(2)}
             style={{ alignSelf: 'center' }}
           >
             <Fragment>
-              <Text>{!videoStarted ? 'video' : 'picture'}</Text>
+              {/* <Text>{!videoStarted ? 'video' : 'picture'}</Text> */}
+
               <Ionicons
                 name="ios-radio-button-on"
                 size={70}

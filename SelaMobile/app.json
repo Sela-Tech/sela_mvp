@@ -1,7 +1,7 @@
 {
   "expo": {
     "name": "SelaMobile",
-    "description": "This project is really great.",
+    "description": "Sela",
     "slug": "SelaMobile",
     "privacy": "public",
     "sdkVersion": "31.0.0",
@@ -10,16 +10,14 @@
     "orientation": "portrait",
     "icon": "./assets/icon.png",
     "splash": {
-      "image": "./assets/splash.png",
+      "image": "./assets/newsplash.png",
       "resizeMode": "contain",
-      "backgroundColor": "#ffffff"
+      "backgroundColor": "#F2994A"
     },
     "updates": {
       "fallbackToCacheTimeout": 0
     },
-    "assetBundlePatterns": [
-      "**/*"
-    ],
+    "assetBundlePatterns": ["**/*"],
     "ios": {
       "supportsTablet": true
     }

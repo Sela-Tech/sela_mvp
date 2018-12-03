@@ -1,16 +1,14 @@
 import React, { Component, Fragment } from 'react';
 import {
-  ScrollView,
   View,
   StyleSheet,
-  KeyboardAvoidingView,
   Dimensions,
   Image,
   TouchableOpacity,
 } from 'react-native';
 import { ImagePicker, Permissions } from 'expo';
 import { KeyboardAwareScrollView } from 'react-native-keyboard-aware-scroll-view';
-import CalendarBox from '../components/Project/CalendarBox';
+import CalendarBox from '../components/CreateProject/CalendarBox';
 import Input from '../components/Input';
 import Text from '../components/Text';
 import Button from '../components/Button';
@@ -35,7 +33,7 @@ const styles = StyleSheet.create({
   },
 });
 
-export default class Project extends Component {
+export default class CreateProject extends Component {
   static navigationOptions = {
     title: 'Create project',
   };
@@ -281,6 +279,7 @@ export default class Project extends Component {
             medium
             textColor={WHITE}
             style={styles.inputStyle}
+            fn={() => this.props.navigation.navigate('SubmitFeedback')}
           />
         </View>
       </KeyboardAwareScrollView>

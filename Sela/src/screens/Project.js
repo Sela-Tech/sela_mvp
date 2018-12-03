@@ -1,9 +1,7 @@
 import React, { Component, Fragment } from 'react';
 import {
-  ScrollView,
   View,
   StyleSheet,
-  KeyboardAvoidingView,
   Dimensions,
   Image,
   TouchableOpacity,
@@ -281,6 +279,7 @@ export default class Project extends Component {
             medium
             textColor={WHITE}
             style={styles.inputStyle}
+            fn={() => this.props.navigation.navigate('SubmitFeedback')}
           />
         </View>
       </KeyboardAwareScrollView>

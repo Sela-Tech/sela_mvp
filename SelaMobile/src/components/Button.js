@@ -5,7 +5,7 @@ import Text from './Text';
 
 const { height, width } = Dimensions.get('window');
 const styles = {
-  ButtonStyle: {
+  buttonStyle: {
     justifyContent: 'center',
     width: width / 1.3,
     borderRadius: 5,
@@ -17,7 +17,7 @@ const Button = ({ text, color, textColor, fn, textSize, medium, style }) => (
   <TouchableOpacity
     onPress={fn}
     style={[
-      styles.ButtonStyle,
+      styles.buttonStyle,
       { height: medium ? height / 11 : height / 14, backgroundColor: color },
       style,
     ]}
