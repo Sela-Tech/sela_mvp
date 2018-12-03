@@ -8,8 +8,8 @@ module.exports = function(app) {
   //real routes
   app
     .route("/organizations")
-    .get(organization_controller.find)
-    .post(verifyToken, organization_controller.new);
+    .post(verifyToken, organization_controller.new)
+    .get(organization_controller.find);
 
   // test routes
   app.route("/test/oranization").post(organization_controller.new);

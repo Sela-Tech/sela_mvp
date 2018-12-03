@@ -255,11 +255,15 @@ const validDocument={
       doc:faker.internet.url(),
 }
 
+valideOrganization={
+	name:faker.random.word()
+}
+
 
 module.exports = {
 	insertUserSeed, validUser, userWithExistingEmail,
 	userWithWrongEmail, userWithWrongPhone, userWithWrongPassword,
 	validUser2, userWithPendingAccount, generateToken, validUserUpdateInfo, invalidUserUpdateInfo,
 	invalidUserUpdateInfo2, validProject,insertProjectSeed,validStakeholders,invalidStakeholders,
-	validDocument,insertProject
+	validDocument,insertProject,valideOrganization
 }

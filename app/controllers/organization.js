@@ -4,8 +4,9 @@ const mongoose = require("mongoose"),
   Organization = mongoose.model("Organization");
 
 exports.new = async (req, res) => {
+
   try {
-    new Organization(req.body).save();
+   await new Organization(req.body).save();
     return res.json({ message: "Organization Created Successfully" });
   } catch (e) {
     return res.status(402).json({
