@@ -44,6 +44,7 @@ bower_components
 
 # Environment variables
 .env
+.ignore
 
 # DS_Store
 *.DS_Store
