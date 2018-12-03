@@ -37,7 +37,7 @@ before(async() => {
 
    stakeholder = validStakeholders;
    stakeholder.id=projects[0]._id;
-   stakeholder.stakeholders[0].user.information = user._id;
+   stakeholder.stakeholders[0] = user._id;
 
 
 });

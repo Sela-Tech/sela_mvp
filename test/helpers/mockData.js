@@ -235,16 +235,8 @@ const validProject = {
 const validStakeholders={
 	
 		id:"5bffe8da0dccba6f553d725a",//placeholder project_id
-		stakeholders:[{
-			user:{
-				information:"5bfea5d6f85a44271f4c3416" //placeholder information
-			}
-		},
-		// {
-		// 	user:{
-		// 		"information":"5bfe9fd29c376c229c1acb81"
-		// 	}
-		// }
+		stakeholders:[
+			"5bfea5d6f85a44271f4c3416"
 	]
 	
 }
