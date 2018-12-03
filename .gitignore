@@ -43,8 +43,10 @@ bower_components
 .node_repl_history
 
 # Environment variables
-.env
+
 .ignore
+
+.env
 
 # DS_Store
 *.DS_Store
