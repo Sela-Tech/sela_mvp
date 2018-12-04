@@ -10,6 +10,7 @@ const User = mongoose.model("User");
 const Organization = mongoose.model('Organization');
 var Project = mongoose.model("Project");
 var Doc = mongoose.model("Document");
+var Loc = mongoose.model("Location");
 
 
 
@@ -52,6 +53,7 @@ after(async ()=>{
   await Organization.remove({});
   await Project.remove({});
   await Doc.remove({});
+  await Loc.remove({});
 })
 
   describe('Add Document: /documents', () => {

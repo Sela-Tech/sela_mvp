@@ -19,6 +19,7 @@ exports.confirmTransaction = async (req, res) => {
 
   try {
     let transaction = await web3.eth.getTransaction(req.body.hash);
+    console.log(transaction);
     // Get current block number
     web3.eth.getBlockNumber(async (err, num) => {
       try {
