@@ -255,6 +255,14 @@ const validTask={
 	  dueDate: "2019-11-29",
 }
 
+const invalidTask={
+	projectId:"5bffe8da0dcjfirj725a", //placeholder id
+	  name:faker.random.word(),
+	  description:faker.random.word(),
+	  dueDate: "2019-11-29",
+}
+
+
 const validDocument={
 	projectId:"5bffe8da0dccba6f553d725a", //placeholder id
 	  name:faker.random.word(),
@@ -264,13 +272,26 @@ const validDocument={
 
 valideOrganization={
 	name:faker.random.word()
-}
+},
+ validTrnInfo={
+	 projectId:"84y389hfni43u858guhfn3",// placeholder projectId. will be replaced by an actual projectId
+	 hash:"0xae86805b18560084383a69ebfad7ac740c7b57907e079117fd09ad60a5d862b7" // hash from etherscan.io 
+	 																			// with reasonable confirmations
+ }
 
+ invalidTrnInfo={
+	 projectId:"gfb3h98y347gfc 20394",
+	 hash:"0x28524eac7b663f0db3e614749058c13eb9eb1fde2fe476aafe733802ee9d466f"//get a fresh block hash
+																			 // with less 30 confirmation 
+																			 //from etherscan.io
+																			 //before running the test
+ }
+ 
 
 module.exports = {
 	insertUserSeed, validUser, userWithExistingEmail,
 	userWithWrongEmail, userWithWrongPhone, userWithWrongPassword,
 	validUser2, userWithPendingAccount, generateToken, validUserUpdateInfo, invalidUserUpdateInfo,
 	invalidUserUpdateInfo2, validProject,insertProjectSeed,validStakeholders,invalidStakeholders,
-	validDocument,insertProject,valideOrganization, validTask
+	validDocument,insertProject,valideOrganization,validTrnInfo,invalidTrnInfo, validTask, invalidTask
 }

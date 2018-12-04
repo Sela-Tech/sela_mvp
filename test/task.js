@@ -3,7 +3,7 @@ const chaiHttp = require('chai-http');
 const  supertest = require('supertest');
 const  app =require('../sela_app');
 const { insertUserSeed,validProject,validTask,insertProject,
-         generateToken, insertProjectSeed,
+         generateToken, invalidTask, insertProjectSeed, 
         } = require('./helpers/mockData')
 const mongoose = require("mongoose");
 const User = mongoose.model("User");
@@ -40,7 +40,7 @@ before(async() => {
    project= await insertProject(user._id);
 
 //    set the  projectId for the document to be inserted to the current inserted project._id
-   validTask.project=project._id;
+   validTask.projectId=project._id;
 
 
 
@@ -54,8 +54,8 @@ after(async ()=>{
   await Task.remove({});
 })
 
-  describe('Add Task: /task', () => {
-    it('should successfully add a new document to a project by the authenticated user', (done) => {
+  describe('Add valid Task: /task', () => {
+    it('should successfully add a new task to a project by the authenticated user', (done) => {
       request
         .post('/tasks')
         .set({authorization:token})
@@ -70,28 +70,31 @@ after(async ()=>{
 
   });
 
+  describe('Add invalid Task: /task', () => {
+    it('should not be able to add a new task to a project by the authenticated user', (done) => {
+      request
+        .post('/tasks')
+        .set({authorization:token})
+        .send(invalidTask)
+        .expect(401)
+        .end((err, res) => {
+          if (err) return done(err);
+          done();
+        });
+    });
+
+
+  });
+
   describe('Get Tasks GET: /tasks ', ()=>{
     it('should get all tasks', (done)=>{
       request
       .get('/tasks')
       .set({authorization:token})
+      .send({projectId:project._id})
       .expect(200)
       .end((err, res) => {
         if (err) return done(err);
-        taskId=res.body.tasks[0]._id
-        expect(res.body.projects.length).to.equal(1);
-        done();
-      });
-    });
-
-    it('should get a single task', (done)=>{
-      request
-      .get(`/tasks/${taskId}`)
-      .set({authorization:token})
-      .expect(200)
-      .end((err, res) => {
-        if (err) return done(err);
-        expect(res.body._id).to.equal(taskId);
         done();
       });
     });
