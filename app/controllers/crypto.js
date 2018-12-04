@@ -19,7 +19,6 @@ exports.confirmTransaction = async (req, res) => {
 
   try {
     let transaction = await web3.eth.getTransaction(req.body.hash);
-    console.log(transaction);
     // Get current block number
     web3.eth.getBlockNumber(async (err, num) => {
       try {
@@ -70,30 +69,30 @@ exports.confirmTransaction = async (req, res) => {
                 }
               );
 
-              console.log({
-                transactions: [...projectTransactions, saveRequest._id]
-              });
+              // console.log({
+              //   transactions: [...projectTransactions, saveRequest._id]
+              // });
 
               if (Boolean(saveToProjectRequest.n)) {
-                return res.json({
+                return res.status(200).json({
                   success: true,
                   message: "This Transaction Has Been Confirmed"
                 });
               } else {
-                return res.json({
+                return res.status(424).json({
                   success: false,
                   message: "This Transaction Has Not Been Confirmed"
                 });
               }
             } else {
-              return res.json({
+              return res.status(409).json({
                 success: false,
                 message: "This Transaction Has Already Been Recorded"
               });
             }
           }
         } else {
-          return res.json({
+          return res.status(403).json({
             success: false,
             message:
               "This Transaction Has Not Obtained Adequate Block Confirmations."
