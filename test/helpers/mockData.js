@@ -248,6 +248,13 @@ const invalidStakeholders={
 
 }
 
+const validTask={
+	projectId:"5bffe8da0dccba6f553d725a", //placeholder id
+	  name:faker.random.word(),
+	  description:faker.random.word(),
+	  dueDate: "2019-11-29",
+}
+
 const validDocument={
 	projectId:"5bffe8da0dccba6f553d725a", //placeholder id
 	  name:faker.random.word(),
@@ -265,5 +272,5 @@ module.exports = {
 	userWithWrongEmail, userWithWrongPhone, userWithWrongPassword,
 	validUser2, userWithPendingAccount, generateToken, validUserUpdateInfo, invalidUserUpdateInfo,
 	invalidUserUpdateInfo2, validProject,insertProjectSeed,validStakeholders,invalidStakeholders,
-	validDocument,insertProject,valideOrganization
+	validDocument,insertProject,valideOrganization, validTask
 }
