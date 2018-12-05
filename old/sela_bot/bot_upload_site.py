@@ -77,17 +77,17 @@ post = {
 def start(bot, update):
     user = update.message.from_user
     first_name = user.first_name
-    Location_message = 'Hello ' + str(first_name) + ' Would you please like to send me a picture'
+    post['author'] = str(user.first_name)
+    post['datetime'] = str(datetime.datetime.utcnow())
+    Location_message = 'Hello ' + str(first_name) + ' Would you please like to send me a picture or enter /skip if you do not want to'
     update.message.reply_text(Location_message)
     return PHOTO
 
 def photo(bot, update):
     user = update.message.from_user
     photo_file = bot.get_file(update.message.photo[-1].file_id)
-    evidence_name = user.first_name + '_' + user.last_name + '_' + str(datetime.datetime.utcnow()) + '.jpg'
-    post['evidence_name'] = evidence_name
-    post['author'] = str(user.first_name)
-    post['datetime'] = str(datetime.datetime.utcnow())
+    evidence_name = str(user.first_name) + '_' + str(user.last_name) + '_' + str(datetime.datetime.utcnow()) + '.jpg'
+    post['evidence_name'] = str(evidence_name)
     photo_file.download(evidence_name)
     aws_access = os.getenv('AWSaccessKeyId')
     aws_secret = os.getenv('AWSsecretAccessKey')
@@ -132,6 +132,7 @@ def location(bot, update):
 
 def skip_photo(bot, update):
     user = update.message.from_user
+    post['evidence_name'] = str(None) 
     logger.info("User %s did not send a photo.", user.first_name)
     update.message.reply_text('I bet you look great! Now, send me your location please, '
                               'or send /skip.')
@@ -141,9 +142,18 @@ def skip_photo(bot, update):
 
 def site_reg(bot, update):
     user = update.message.from_user
+    site_name = update.message.text
+    print(post)
+    post2 = {}
+    post2['latitude'] = post['latitude']
+    post2['longitude'] = post['longitude']
+    post2['evidence_name'] = post['evidence_name']
+    post2['author'] = post['author']
+    post2['site_name'] = site_name
+    print(post2)
     logger.info("Site of %s: %s", user.first_name, update.message.text)
     update.message.reply_text('Thank you! I hope we can talk again some day.')
-    lat_long.insert_one(post)
+    lat_long.insert_one(post2)
 
     return ConversationHandler.END
 
