@@ -93,10 +93,10 @@ export default connect(mapStateToProps)(
       if (this.props !== nextProps) {
 
         if (nextProps.type === dA.ADD_DOCUMENT_SUCCESSFUL) {
-          notify(<p style={{color: 'white'}}>Project Added Successfully</p>,"success")
+          notify(<p style={{color: 'white'}}>Document Added Successfully</p>,"success")
           nextProps.dispatch(closeModal());
         }else if(nextProps.type === dA.ADD_DOCUMENT_FAILED){
-          notify(<p style={{color: 'white'}}>Could Not Add Project.</p>,"error")
+          notify(<p style={{color: 'white'}}>Could Not Add Document.</p>,"error")
         }
 
         this.setState({

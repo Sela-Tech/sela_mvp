@@ -1,12 +1,8 @@
-import React from "react";
+import React from 'react';
 
-import { connect } from "react-redux";
 import { Line } from "rc-progress";
-import { withRouter } from "react-router-dom";
-import NotEmptyWrapper from "./not-empty.style";
-import { showDeleteModal } from "../../../../store/action-creators/project-funder/modal";
 
-class ProjectTemplate extends React.Component {
+export default class ProjectTemplate extends React.Component {
   state = {
     hidden: true
   };
@@ -39,7 +35,6 @@ class ProjectTemplate extends React.Component {
     return (
       <div className="container xs-12 sm-6 md-4">
         <div className="box xs-12 md-11 sm-11">
-          {/* <img src={p} alt={""} onClick={go} /> */}
           {Boolean(hasImage) ? (
             <img src={p} onClick={go} alt="" />
           ) : (
@@ -53,7 +48,7 @@ class ProjectTemplate extends React.Component {
           )}
           <div className="inner">
             <div className="text">
-              <h3>{t}</h3>
+              <h3 onClick={go}>{t}</h3>
               <p> {o} </p>
             </div>
 
@@ -85,7 +80,8 @@ class ProjectTemplate extends React.Component {
         </div>
 
         {!hidden && (
-          <div className="options xs-6">
+          <div className="options xs-6"  onMouseLeave ={()=>this.setState({hidden: true})}
+          >
             <ul>
               <li onClick={go}> View</li>
 
@@ -115,38 +111,3 @@ class ProjectTemplate extends React.Component {
     );
   }
 }
-
-const NotEmptyHomeView = ({ dispatch, projects, history }) => {
-  const go = id => history.push("/dashboard/project/" + id + "/overview");
-
-  return (
-    <NotEmptyWrapper className="xs-12">
-      <div id="bottom" className="xs-12">
-        {projects.map((p, i) => {
-          return (
-            <ProjectTemplate
-              history={history}
-              key={i}
-              c={p.tasks}
-              t={p.name}
-              p={p["project-avatar"]}
-              o={p.owner.organization.name}
-              id={p._id}
-              goal={p.goal}
-              tasks={p.tasks}
-              raised={p.raised}
-              go={() => go(p._id)}
-              activated={p.activated}
-              triggerDeleteModal={() => dispatch(showDeleteModal(p._id))}
-              triggerToggleModal={() =>
-                dispatch(showDeleteModal(p._id, p.activated))
-              }
-            />
-          );
-        })}
-      </div>
-    </NotEmptyWrapper>
-  );
-};
-
-export default connect()(withRouter(NotEmptyHomeView));

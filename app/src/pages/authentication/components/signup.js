@@ -4,32 +4,38 @@ import React from "react";
 import Logo from "../../../assets/icons/sela-circle-blue.svg";
 import up from "../../../assets/icons/up.svg";
 import success from "../../../assets/icons/success.svg";
-import phone from "../../../assets/icons/phone.svg";
 
+
+import phone from "../../../assets/icons/phone.svg";
 import apple from "../../../assets/apple.svg";
 import google from "../../../assets/google.svg";
 
+
 // others
-import { Link, NavLink } from "react-router-dom";
+import { Link, NavLink, withRouter } from "react-router-dom";
 import { validator } from "../../../helpers/utils";
 
 // store related
 import { connect } from "react-redux";
 import { bindActionCreators } from "redux";
-import { signup } from "../../../store/action-creators/auth";
+import { signup, signout } from "../../../store/action-creators/auth";
 
 // components
 import Wrapper from "./wrapper";
-import SignUpWrapper from "./signup.style";
+import SignUpWrapper from "../styles/signup.style";
+
 import AsycnButton from "../../../shared-components/unique/async-button";
 import auth from "../../../store/actions/auth";
-import MessageToShow from "../../../shared-components/errors/messageToShow";
+// import MessageToShow from "../../../shared-components/errors/messageToShow";
 
 import { Creatable as Select } from "react-select";
 import { fetchOrganizations } from "../../../store/action-creators/organizations";
 
-import ReactS3Uploader from "react-s3-uploader";
-import endpoints from "../../../endpoints";
+// import ReactS3Uploader from "react-s3-uploader";
+// import endpoints from "../../../endpoints";
+
+import {Buttn} from "./sub/evaluator.after-signup";
+import { notify } from "../../../store/action-creators/app";
 
 const Button = ({ active, title, description, name, Ftn }) => {
   let onClick = () => Ftn(name);
@@ -108,6 +114,21 @@ class Signup extends React.Component {
 
   onSelect = name => {
     this.setState(p => {
+
+      if(name === "evaluation-agent"){
+        return {
+          selectedOption: undefined,
+          formData:{
+            ...p.formData,
+            organization: { name: "", id: "", valid: false },
+            signUpType: {
+              value: name,
+              valid: true
+            }
+         
+          }
+        }
+      }else{
       return {
         formData: {
           ...p.formData,
@@ -117,6 +138,7 @@ class Signup extends React.Component {
           }
         }
       };
+    }
     });
   };
 
@@ -158,9 +180,16 @@ class Signup extends React.Component {
     });
   };
 
-  componentWillReceiveProps(nextProps) {
-    if (this.props !== nextProps) {
+
+  componentWillReceiveProps(nextProps){
+    if(this.props !== nextProps){
+      
       const { type, message, inprogress, organizations } = nextProps;
+
+      if(type === auth.SIGNOUT){
+        nextProps.history.push("/")
+      }
+    
       this.setState({
         type,
         message,
@@ -174,7 +203,16 @@ class Signup extends React.Component {
         })
       });
     }
-  }
+   
+      if(nextProps.type === auth.SIGNUP_SUCCESSFUL){
+          notify(<p style={{color: 'white'}}>{nextProps.message}</p>,"success");
+      }
+      if(nextProps.type === auth.SIGNUP_FAILED){
+        notify(<p style={{color: 'white'}}>{nextProps.message}</p>,"error")
+      } 
+    }
+  
+
 
   handleImageChange = (file, next) => {
     this.setState({
@@ -217,20 +255,31 @@ class Signup extends React.Component {
     });
   };
 
+
   render() {
+
     let {
       inprogress,
       type,
-      message,
+      // message,
       selectedOption,
       organizations
     } = this.state;
 
-    const { formData } = this.state,
-      checkFormCompletion =
-        Object.keys(formData).filter(key => {
+    const { formData } = this.state;
+
+    const count = formData.signUpType.value ==="evaluation-agent" ? 6:7;
+
+    const length = Object.keys(formData).filter(key => {     
+      if(count === 6){
+        if(formData[key].value !== "evaluation-agent"){
           return formData[key].valid === true;
-        }).length !== 7;
+        }
+      }
+      return formData[key].valid === true;
+    }).length;
+
+    const checkFormCompletion = length !== count;
 
     switch (type) {
       
@@ -238,47 +287,54 @@ class Signup extends React.Component {
         window.scrollTo(0, 0);
 
        return this.props.signUpType === "evaluation-agent"?
-       (
         <Wrapper viewName="signup">
-          <SignUpWrapper className="container">
-            <div className="xs-12">
-              <div id="phone-wrapper">
-                <div id="phone">
-                  <img src={phone} alt="phone" />
-                </div>
+         <SignUpWrapper className="container">
+          <div className="xs-12">
+            <div id="phone-wrapper">
+              <div id="phone">
+                <img src={phone} alt="phone" />
               </div>
             </div>
-            <div className="xs-12">
-              <h2>
-                <img src={success} alt="success" id="success-icon" />
-                You're signed up!
-              </h2>
-              <p
-                className="xs-10 xs-off-1 sm-6 sm-off-3"
-                id="signup-info-text"
-              >
-                <span>
-                Download the Sela app to continue. With the Sela app, you will be able to upload evaluation submissions for projects around you </span>
-              </p>
+          </div>
+          <div className="xs-12">
+            <h2>
+              <img src={success} alt="success" id="success-icon" />
+              You're signed up!
+            </h2>
+            <p
+              className="xs-10 xs-off-1 sm-6 sm-off-3"
+              id="signup-info-text"
+            >
+              <span>
+              Download the Sela app to continue. With the Sela app, you will be able to upload evaluation submissions for projects around you </span>
+            </p>
+          </div>
+
+          <div className="xs-12 video-section">
+            <div className="xs-10 xs-off-1 sm-6 sm-off-3">
+
+              <div className="xs-12 sm-6 t-c">
+                <img src={apple} alt="apple" id="apple"/>
+              </div>  
+
+              <div className="xs-12 sm-6 t-c">
+                <img src={google} alt="google" id="google"/>
+              </div>  
+              
+              
             </div>
+          </div>
 
-            <div className="xs-12 video-section">
-              <div className="xs-10 xs-off-1 sm-6 sm-off-3">
+          <div className='xs-12'> 
+            <Buttn onClick={this.props.logout}>
+                <div className="close-button"></div> 
+            </Buttn>
+          </div>
 
-                <div className="xs-12 sm-6 t-c">
-                  <img src={apple} alt="apple" id="apple"/>
-                </div>  
-
-                <div className="xs-12 sm-6 t-c">
-                  <img src={google} alt="google" id="google"/>
-                </div>  
-                
-                
-              </div>
-            </div>
-          </SignUpWrapper>
-        </Wrapper>
-      )
+        </SignUpWrapper>
+    
+      </Wrapper>
+  
        :
        (
         <Wrapper viewName="signup">
@@ -392,25 +448,25 @@ class Signup extends React.Component {
                       name="project-funder"
                       description="I want to use Sela to manage projects I fund."
                       Ftn={this.onSelect}
-                      active={this.state.formData["signUpType"].value}
+                      active={formData["signUpType"].value}
                     />
                     <Button
                       title="Contractor"
                       name="contractor"
                       description="I want to track my project inprogress with Sela."
                       Ftn={this.onSelect}
-                      active={this.state.formData["signUpType"].value}
+                      active={formData["signUpType"].value}
                     />
                     <Button
                       title="Evaluation Agent"
                       name="evaluation-agent"
                       description="I want to help validate projects in my community."
                       Ftn={this.onSelect}
-                      active={this.state.formData["signUpType"].value}
+                      active={formData["signUpType"].value}
                     />
                   </div>
 
-                  <div className="form-group xs-12 md-6">
+                  {/* <div className="form-group xs-12 md-6">
                     <label htmlFor="photo" className="profile-photo">
                       {formData.profilePhoto.preview && (
                         <img
@@ -446,10 +502,10 @@ class Signup extends React.Component {
                         autoUpload={true}
                       />
                     </label>
-                  </div>
+                  </div> */}
 
-                  <div className="form-group xs-12 md-6">
-                    <div className="form-group xs-12">
+                  <div className="form-group xs-12 md-12">
+                    <div className="form-group xs-12 md-6">
                       <input
                         name="firstName"
                         type="text"
@@ -462,7 +518,7 @@ class Signup extends React.Component {
                       />
                     </div>
 
-                    <div className="form-group xs-12">
+                    <div className="form-group xs-12 md-6">
                       <input
                         name="lastName"
                         type="text"
@@ -474,7 +530,8 @@ class Signup extends React.Component {
                       />
                     </div>
                   </div>
-
+              {
+                this.state.formData["signUpType"].value !== "evaluation-agent" &&
                   <div className="form-group xs-12">
                     <label id="olabel">Type in or find your organization</label>
                     <Select
@@ -489,6 +546,7 @@ class Signup extends React.Component {
                       placeholder="Organization"
                     />
                   </div>
+              }
 
                   <div className="form-group xs-12">
                     <input
@@ -546,15 +604,8 @@ class Signup extends React.Component {
                       </p>
                     </div>
 
-                    <div className="xs-12">
-                      <div className="error">
-                        <MessageToShow
-                          type={type}
-                          message={message}
-                          match={auth.SIGNUP_FAILED}
-                        />
-                      </div>
-                    </div>
+                
+
                   </div>
                 </form>
               </div>
@@ -579,10 +630,11 @@ const mapDispatchToProps = dispatch => {
   return {
     signup: bindActionCreators(signup, dispatch),
     fetchOrganizations: () => dispatch(fetchOrganizations()),
-    clear: () => dispatch({ type: auth.CLEAR })
+    clear: () => dispatch({ type: auth.CLEAR }),
+    logout: () => dispatch(signout())
   };
 };
-export default connect(
+export default withRouter( connect(
   mapStateToProps,
   mapDispatchToProps
-)(Signup);
+)(Signup));

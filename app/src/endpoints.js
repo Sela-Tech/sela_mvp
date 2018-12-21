@@ -1,22 +1,23 @@
 let b = "";
 
-if (process.env.NODE_ENV === "development") {
-  b = "http://localhost:3000/";
-} else {
-  b = "https://sela-labs.herokuapp.com/";
-}
+// if (process.env.NODE_ENV === "development") {
+  // b = "http://localhost:3009/";
+// } else {
+  b = "https://selabeta.herokuapp.com/";
+// }
+
 export default {
   b,
   approve: b + "a/approve",
   revoke: b + "a/revoke",
-
+  update_password: b + "password/reset?token=", // ?token=
   fetch_stakeholder_info: b + "users/i",
   signin: b + "login",
   a_signin: b + "a/login",
   a_users: b + "a/users",
   signup: b + "register",
   update: b + "update",
-  send_recovery_mail: "",
+  send_recovery_mail: b+ "forgot-password",
   verify_user_token: b + "verifyToken",
   fetch_projects: b + "projects?",
   fetch_project: b + "project/",

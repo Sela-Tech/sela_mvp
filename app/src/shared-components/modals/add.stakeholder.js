@@ -1,6 +1,6 @@
 import React from "react";
 import { connect } from "react-redux";
-import ContractorLoader from "./sub-components/contractor-loader";
+import ContractorLoader from "./sub-components/user-loader";
 import { Form } from "./styles.modals/add.stakeholder";
 import dA from "../../store/actions/project-funder/dashboard";
 import { addStakeholder } from "../../store/action-creators/project-funder/stakeholder";

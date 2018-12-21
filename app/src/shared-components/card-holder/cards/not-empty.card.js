@@ -37,7 +37,7 @@ const NotEmptyCard = ({ p, history, showMap }) => {
           )}
           <div className="inner">
             <div className="text">
-              <h3>{p.name}</h3>
+              <h3     onClick={() => history.push(`/projects/${p._id}/description`)}>{p.name}</h3>
               <p> {p.owner.organization.name} </p>
             </div>
 

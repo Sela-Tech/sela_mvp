@@ -8,7 +8,8 @@ import Spinner from "../../../../shared-components/spinners";
 import { LoadingRoute } from "../../../../helpers/routes";
 import dashboard from "../../../../store/actions/project-funder/dashboard";
 import EmptyHomeView from "../../shared/no-project-found";
-import NotEmptyHomeView from "./not-empty";
+import NotEmptyHomeView from "./not.empty";
+
 import Navbar from "../../shared/navbar";
 
 const mapStateToProps = state => {
@@ -31,12 +32,23 @@ export default connect(
   class DashboardHomeContainer extends React.Component {
     constructor(props) {
       super(props);
-      this.state = {};
+      this.state = {
+        projects: this.props.projects
+      };
       this.props.actions.fetchProjects();
     }
 
+    componentWillReceiveProps(nextProps){
+      if(this.props !== nextProps){
+        this.setState({
+          projects: nextProps.projects
+        })
+      }
+    }
+
     render() {
-      const { projects, type } = this.props;
+      const { type } = this.props,
+      {projects} = this.state;
 
       const Comp = () => {
         switch (type) {
@@ -44,7 +56,7 @@ export default connect(
             return (
               <React.Fragment>
                 <Navbar />
-                {projects.length > 0 ? (
+                { Boolean(projects.length) === true && projects.length > 0 ? (
                   <NotEmptyHomeView projects={projects} />
                 ) : (
                   <EmptyHomeView />
@@ -53,13 +65,22 @@ export default connect(
             );
 
           default:
-            return (
-              <div style={{ width: "100%", height: "100vh" }}>
-                <LoadingRoute>
-                  <Spinner type="one" />
-                </LoadingRoute>
-              </div>
-            );
+            return Boolean(projects.length) === true && projects.length > 0 ? 
+            <React.Fragment>
+              <Navbar />
+              {projects.length > 0 ? (
+                <NotEmptyHomeView projects={projects} />
+              ) : (
+                <EmptyHomeView />
+              )}
+            </React.Fragment>
+            :
+            <div style={{ width: "100%", height: "100vh" }}>
+              <LoadingRoute>
+                <Spinner type="one" />
+              </LoadingRoute>
+            </div>
+            
         }
       };
 

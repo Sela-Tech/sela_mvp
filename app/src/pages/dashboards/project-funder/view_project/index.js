@@ -60,8 +60,8 @@ class Project extends React.Component {
     }
   }
 }
+
 const mapStateToProps = state => {
-  
   return {
     type: state.projects.single.action.type,
     info: state.projects.single.info

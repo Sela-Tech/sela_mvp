@@ -11,6 +11,7 @@ export default connect(state => {
     isAuthenticated: state.auth.isAuthenticated
   };
 })(
+  
   class TopWrapper extends React.Component {
     state = {
       navOpened: "no"
@@ -23,6 +24,7 @@ export default connect(state => {
         };
       });
     };
+
     render() {
       const { isAuthenticated, dispatch } = this.props;
       return (
@@ -45,7 +47,8 @@ export default connect(state => {
 
               <div className="xs-12 sm-10 ">
                 <nav>
-                  <React.Fragment>
+
+                  {/* <React.Fragment>
                     <NavLink activeClassName="blue" to="/about">
                       About
                     </NavLink>
@@ -55,7 +58,8 @@ export default connect(state => {
                     <NavLink activeClassName="blue" to="/contact">
                       Contact
                     </NavLink>
-                  </React.Fragment>
+                  </React.Fragment> */}
+
                   {!isAuthenticated ? (
                     <React.Fragment>
                       <NavLink activeClassName="blue" to="/signin">

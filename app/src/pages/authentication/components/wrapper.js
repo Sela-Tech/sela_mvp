@@ -1,6 +1,6 @@
 import React from "react";
 import Helmet from "react-helmet";
-import SharedAuthWrapper from "./shared.style";
+import SharedAuthWrapper from "../styles/shared.style";
 
 const MetaData = ({ viewName }) => {
   switch (viewName) {

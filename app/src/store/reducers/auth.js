@@ -13,6 +13,7 @@ const initstate = {
   }
 };
 
+
 export default (state = initstate, payload) => {
   switch (payload.type) {
     case authActions.CHANGE_USER_DETAILS_FAILED:
@@ -158,6 +159,40 @@ export default (state = initstate, payload) => {
         }
       };
 
+
+
+
+      case authActions.UPDATE_PASSWORD_IN_PROGRESS:
+      return {
+        ...state,
+        action: {
+          type: authActions.UPDATE_PASSWORD_IN_PROGRESS
+        }
+      };
+
+    case authActions.UPDATE_PASSWORD_SUCCESSFUL:
+      return {
+        ...state,
+        action: {
+          type: authActions.UPDATE_PASSWORD_SUCCESSFUL,
+          message:
+            payload.message || "Password updated successfully"
+        }
+      };
+
+    case authActions.UPDATE_PASSWORD_FAILED:
+      return {
+        ...state,
+        action: {
+          type: authActions.UPDATE_PASSWORD_FAILED,
+          message:
+            payload.message || "Failed to update password."
+        }
+      };
+
+
+
+
     case authActions.SEND_RECOVERY_MAIL_IN_PROGRESS:
       return {
         ...state,
@@ -173,8 +208,7 @@ export default (state = initstate, payload) => {
           type: authActions.SEND_RECOVERY_MAIL_SUCCESSFUL,
           message:
             payload.message || "Sent email for account recovery successfully"
-        },
-        credentials: payload.credentials
+        }
       };
 
     case authActions.SEND_RECOVERY_MAIL_FAILED:
@@ -194,7 +228,10 @@ export default (state = initstate, payload) => {
       clearToken();
       return {
         ...state,
-        isAuthenticated: false
+        isAuthenticated: false,
+        action:{
+          type: authActions.SIGNOUT
+        }
       };
 
     default:

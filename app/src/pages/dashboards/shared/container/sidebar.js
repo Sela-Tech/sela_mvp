@@ -6,7 +6,7 @@ import settings from "../../../../assets/icons/settings.svg";
 import folder from "../../../../assets/icons/folder.svg";
 import help from "../../../../assets/icons/question.svg";
 import logout from "../../../../assets/icons/power.svg";
-import inbox from "../../../../assets/icons/inbox.svg";
+// import inbox from "../../../../assets/icons/inbox.svg";
 
 import { connect } from "react-redux";
 import { showModal } from "../../../../store/action-creators/project-funder/modal";
@@ -17,49 +17,7 @@ import HamWrapper from "../../../../styles/external/hamburger";
 import { WebSidebar, MobileSidebar } from "./sidebar.style";
 
 const Decider = userType => {
-  switch (userType) {
-    case "Contractor":
-      return (
-        <ul>
-          <li>
-            <NavLink exact to="/dashboard" activeClassName="active">
-              <img src={folder} alt="folder" />
-              <span>Accepted Projects</span>
-            </NavLink>
-          </li>
-
-          <li>
-            <NavLink exact to="/dashboard/#" activeClassName="active">
-              <img src={folder} alt="folder" />
-              <span>Project Requests</span>
-            </NavLink>
-          </li>
-
-          <li>
-            <NavLink exact to="/dashboard/#" activeClassName="active">
-              <img src={folder} alt="folder" />
-              <span>My Project</span>
-            </NavLink>
-          </li>
-
-          <li>
-            <NavLink exact to="/dashboard/#" activeClassName="active">
-              <img src={folder} alt="folder" />
-              <span>Marketplace</span>
-            </NavLink>
-          </li>
-
-          <li>
-            <NavLink exact to="/dashboard/settings" activeClassName="active">
-              <img src={settings} alt="settings" />
-              <span>Settings</span>
-            </NavLink>
-          </li>
-        </ul>
-      );
-
-    default:
-      return (
+    return (
         <ul>
           <li>
             <NavLink exact to="/dashboard" activeClassName="active">
@@ -69,20 +27,6 @@ const Decider = userType => {
           </li>
 
           <li>
-            <NavLink exact to="/dashboard/#" activeClassName="active">
-              <img src={folder} alt="folder" />
-              <span>Requests</span>
-            </NavLink>
-          </li>
-
-          <li>
-            <NavLink exact to="/dashboard/#" activeClassName="active">
-              <img src={folder} alt="folder" />
-              <span>Marketplace</span>
-            </NavLink>
-          </li>
-
-          <li>
             <NavLink exact to="/dashboard/settings" activeClassName="active">
               <img src={settings} alt="settings" />
               <span>Settings</span>
@@ -90,7 +34,6 @@ const Decider = userType => {
           </li>
         </ul>
       );
-  }
 };
 
 const MobileDashboardSidebar = ({
@@ -181,12 +124,12 @@ const WebDashboardSidebar = ({ dispatch, user }) => {
             </NavLink>
           </li>
 
-<li>
+          {/* <li>
             <NavLink exact to="/dashboard/inbox" activeClassName="active">
               <img src={inbox} alt="inbox" />
               <span>Inbox</span>
             </NavLink>
-          </li>
+          </li> */}
           
 
           <li>

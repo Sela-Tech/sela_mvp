@@ -2,18 +2,8 @@ import styled from "styled-components";
 
 const padding = "5%";
 
-export const  colors = ["#F7AF7B", "#F77B8A", "#7B96F7", "#a8b0b9","#e04f96","#4fe0c2","#e04f4f","#e04fc4","#834fe0"];
+const colors = ["#F7AF7B", "#F77B8A", "#7B96F7", "#EFF5FB"];
 const blue = "#156edc";
-
-export const TagW = styled.div`
-background: ${props => props.color};
-color: #fff;
-float: left;
-padding: 5px 10px;
-margin: 5px;
-font-weight: 300;
-font-size: 13px;
-`;
 
 export const ProjectWrapper = styled.div`
   height: 100%;
@@ -60,6 +50,7 @@ export const ProjectWrapper = styled.div`
       color: #4f4f4f;
       font-weight: 400;
       display:inline-block;
+      margin-right: 5px;
     }
 
     p {
@@ -70,7 +61,9 @@ export const ProjectWrapper = styled.div`
       font-weight: 300;
     }
 
-    button {
+
+
+    button#completion-status {
       background: #eff5fb;
       border-radius: 5px;
       border: 0;

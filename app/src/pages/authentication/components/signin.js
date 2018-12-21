@@ -11,8 +11,9 @@ import * as adminACreators from "../../../store/action-creators/admin";
 
 import AsycnButton from "../../../shared-components/unique/async-button";
 import auth from "../../../store/actions/auth";
-import MessageToShow from "../../../shared-components/errors/messageToShow";
+// import MessageToShow from "../../../shared-components/errors/messageToShow";
 import { validator } from "../../../helpers/utils";
+import { notify } from "../../../store/action-creators/app";
 
 class Login extends React.Component {
   constructor(props) {
@@ -116,16 +117,28 @@ class Login extends React.Component {
     });
   };
 
-  componentWillReceiveProps(nextProps) {
-    if (this.props !== nextProps) {
+
+
+  componentWillReceiveProps(nextProps){
+    if(this.props !== nextProps){
+      
       const { type, message, inprogress } = nextProps;
       this.setState({
         type,
         message,
         inprogress
       });
+   
+      if(nextProps.type === auth.SIGNIN_SUCCESSFUL){
+          notify(<p style={{color: 'white'}}>{nextProps.message}</p>,"success");
+      }
+      if(nextProps.type === auth.SIGNIN_FAILED){
+        notify(<p style={{color: 'white'}}>{nextProps.message}</p>,"error")
+      } 
     }
   }
+
+
   confirmFields = () => {
     if (this.state.password.length > this.state.minLengths.password) {
       if (Object.keys(this.state.username).length < 2) {
@@ -141,8 +154,8 @@ class Login extends React.Component {
   render() {
     const {
         inprogress,
-        message,
-        type,
+        // message,
+        // type,
         username,
         password,
         rememberMe
@@ -245,13 +258,6 @@ class Login extends React.Component {
               </div>
 
               <div className="form-group xs-12">
-                <div className="error">
-                  <MessageToShow
-                    type={type}
-                    message={message}
-                    match={auth.SIGNIN_FAILED}
-                  />
-                </div>
                 {this.props.admin !== true && (
                   <Link
                     to="/signup"
@@ -262,6 +268,7 @@ class Login extends React.Component {
                   </Link>
                 )}
               </div>
+              
             </form>
           </div>
         </div>

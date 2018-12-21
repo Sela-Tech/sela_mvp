@@ -1,16 +1,15 @@
 import React from "react";
-import { ProjectWrapper,TagW,colors } from "./main.style";
+import { ProjectWrapper } from "./main.style";
 import { NavLink, withRouter } from "react-router-dom";
 import Analytics from "../../shared/sub-components/analytics";
 import Transactions from "../../shared/sub-components/transactions";
 import Tasks from "../../shared/sub-components/tasks";
 import Documents from "../../shared/sub-components/documents";
 import Stakeholders from "../../shared/sub-components/stakeholders";
-import { connect } from "react-redux";
 
-const Tag = ({text,color})=>{
-  return <TagW color={color}>{text}</TagW>
-}
+import { showAddStakeholderModal } from "../../../../store/action-creators/project-funder/modal";
+
+import { connect } from "react-redux";
 
 const View = ({ id, view }) => {
   switch (view) {
@@ -34,9 +33,25 @@ const View = ({ id, view }) => {
   }
 };
 
-const ProjectComponent = ({ info, match }) => {
+const ProjectComponent = ({ info, match, dispatch }) => {
+  let showId = () => dispatch(showAddStakeholderModal(id));
+
+  let members = stakeholders => {
+    return [
+      ...stakeholders.map((p, i) => {
+        console.log(p);
+        return (
+          <button className="member" key={i}>
+            {p.user.information.lastName[0]}
+            {p.user.information.firstName[0]}
+          </button>
+        );
+      })
+    ];
+  };
   const { id, view } = match.params;
- return (
+
+  return (
     <ProjectWrapper className="xs-12">
       <div className="xs-12" id="header">
         <div className="xs-12">
@@ -45,28 +60,23 @@ const ProjectComponent = ({ info, match }) => {
               <h1>{info.name}</h1>
               <button id="can-see-status">
                 {info.activated ? "Visible To Public" : "Not Visible To Public"}
-              </button>
+              </button>{" "}
               <p>{info.description}</p>
-              <button>{info.status}</button>
+              <button id="completion-status">{info.status}</button>
             </div>
           </div>
 
           <div className="xs-12 sm-4" id="members">
-            <h4>Tags</h4>
-            <div>
-              { Boolean(info.tags.length) ?  
-                info.tags.map((t,i)=>{
-                  return <Tag key={i} text={t} color={colors[i]}/>
-                })
-                :
-                <span> No Tags Provided. </span>
-                }
-            </div>
+            <h4>Members</h4>
+            {members(info.stakeholders)}
+            <button className="member" onClick={showId}>
+              +
+            </button>
           </div>
           <div className="xs-12">
-            <nav className="xs-12 ">
+            <nav className="xs-12 sm-10">
               <NavLink
-                className="xs-6 sm-1"
+                className="xs-6 sm-2"
                 activeClassName="active"
                 exact
                 to={`/dashboard/project/${id}/overview`}
@@ -75,7 +85,7 @@ const ProjectComponent = ({ info, match }) => {
               </NavLink>
 
               <NavLink
-                className="xs-6 sm-1"
+                className="xs-6 sm-2"
                 activeClassName="active"
                 exact
                 to={`/dashboard/project/${id}/tasks`}
@@ -84,7 +94,7 @@ const ProjectComponent = ({ info, match }) => {
               </NavLink>
 
               <NavLink
-                className="xs-6 sm-2"
+                className="xs-6 sm-3"
                 activeClassName="active"
                 exact
                 to={`/dashboard/project/${id}/transactions`}
@@ -92,20 +102,12 @@ const ProjectComponent = ({ info, match }) => {
                 Transaction History
               </NavLink>
               <NavLink
-                className="xs-6 sm-2"
+                className="xs-6 sm-3"
                 activeClassName="active"
                 exact
                 to={`/dashboard/project/${id}/documents`}
               >
                 Related Documents
-              </NavLink>
-              <NavLink
-                className="xs-6 sm-2"
-                activeClassName="active"
-                exact
-                to={`/dashboard/project/${id}/stakeholders`}
-              >
-                Stakeholders
               </NavLink>
             </nav>
           </div>

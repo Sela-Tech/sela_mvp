@@ -30,6 +30,7 @@ export const PrivateRoute = ({
   ...rest
 }) => {
   switch (type) {
+    
     case "auth":
       return (
         <Route

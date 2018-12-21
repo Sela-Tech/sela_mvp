@@ -21,7 +21,7 @@ import GeoSuggest from "react-geosuggest";
 import ReactS3Uploader from "react-s3-uploader";
 import endpoints from "../../endpoints";
  import SdgPicker from "./sub-components/sdg-picker";
-import GenericLoader from "./sub-components/contractor-loader";
+import GenericLoader from "./sub-components/user-loader";
 
 import { notify } from "../../store/action-creators/app";
 

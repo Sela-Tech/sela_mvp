@@ -147,6 +147,7 @@ export default styled.div`
         height: 50px;
         width: 50px;
         border-radius: 50px;
+        background: silver;
       }
       h4,
       p,

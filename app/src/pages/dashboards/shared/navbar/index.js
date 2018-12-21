@@ -1,10 +1,11 @@
 import React from "react";
 import styled from "styled-components";
-import { NavLink } from "react-router-dom";
+import { NavLink, Link } from "react-router-dom";
 import { connect } from "react-redux";
 import modals from "../../../../store/actions/project-funder/modals";
 import { showModal } from "../../../../store/action-creators/project-funder/modal";
 import Icon from 'react-fa';
+import notification from "../../../../assets/icons/notifications.svg";
 
 const NavStyle = styled.nav`
   background: white;
@@ -51,6 +52,13 @@ const NavStyle = styled.nav`
       }
     }
   }
+
+  #notifications{
+    background: transparent;
+    border: 0;
+    padding-top: 7px;
+    display: block;
+  }
 `;
 
 class Navbar extends React.Component {
@@ -92,8 +100,10 @@ class Navbar extends React.Component {
                   </div>
                 </div>
             </div>
-            <div className="xs-12 sm-4 ">
-              <NavLink
+            
+            
+            <div className="xs-12 sm-4">
+            <NavLink
                 className="xs-12 sm-6 f-r"
                 to="#"
                 id="add"
@@ -101,6 +111,12 @@ class Navbar extends React.Component {
               >
                 + New Project
               </NavLink>
+              
+            <div className="xs-12 sm-3 f-r">
+              <Link id='notifications' to="/dashboard/notifications"><img src={notification} alt=""/></Link>
+            </div>
+           
+              
             </div>
           </NavStyle>
         );

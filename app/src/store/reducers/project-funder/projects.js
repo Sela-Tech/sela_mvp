@@ -126,7 +126,7 @@ export default (state = initstate, payload) => {
             type: dA.FETCHING_PROJECTS_IN_PROGRESS,
             message: ""
           },
-          collection: []
+          collection: state.all.collection
         }
       };
 
@@ -244,6 +244,8 @@ export default (state = initstate, payload) => {
       };
 
     case dA.FETCHING_P_STAKEHOLDERS_SUCCESSFUL:
+
+    // console.log(payload.pstakeholders)
       return {
         ...state,
         funders: {
@@ -257,10 +259,11 @@ export default (state = initstate, payload) => {
               type: `${(f.isFunder === true && "Project Funder") ||
                 (f.isContractor === true && "Contractor") ||
                 (f.isEvaluator === true && "Evaluation Agent")}`,
-              img: f.profilePhoto,
+              img: Boolean(f.profilePhoto) ? f.profilePhoto: "",
               id: f._id,
-              company: f.organization.name
+              company: Boolean(f.organization) ? f.organization.name: ""
             };
+          
           })
         }
       };

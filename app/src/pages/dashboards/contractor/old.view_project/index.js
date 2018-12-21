@@ -13,12 +13,12 @@ class Project extends React.Component {
   constructor(props) {
     super(props);
     this.state = {};
-    props.actions.fetchProject(props.match.params.id);
+    this.props.actions.fetchProject(this.props.match.params.id);
   }
 
   render() {
-    const { info, type } = this.props;
-    switch (type) {
+    const { project_info, project_action_type } = this.props;
+    switch (project_action_type) {
       case dashboard.FETCHING_PROJECT_IN_PROGRESS:
         return (
           <DashboardWrapper viewName="project" projectName={"Loading"}>
@@ -38,7 +38,7 @@ class Project extends React.Component {
         );
 
       case dashboard.FETCHING_PROJECT_SUCCESSFUL:
-        if (Object.keys(info).length === 0) {
+        if (Object.keys(project_info).length === 0) {
           return (
             <DashboardWrapper viewName="project" projectName={"No Project"}>
               <NoProject />
@@ -49,9 +49,9 @@ class Project extends React.Component {
         return (
           <DashboardWrapper
             viewName="project"
-            projectName={info.name || "Project Name"}
+            projectName={project_info.name || "Project Name"}
           >
-            <ProjectComponent info={info} />
+            <ProjectComponent info={project_info} />
           </DashboardWrapper>
         );
 
@@ -60,11 +60,10 @@ class Project extends React.Component {
     }
   }
 }
-
 const mapStateToProps = state => {
   return {
-    type: state.projects.single.action.type,
-    info: state.projects.single.info
+    project_action_type: state.projects.single.action.type,
+    project_info: state.projects.single.info
   };
 };
 

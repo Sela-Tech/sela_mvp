@@ -2,6 +2,14 @@ import styled from "styled-components";
 
 export default styled.div`
 
+input.match{
+  border:1px solid teal !important;
+}
+input.dont-match{
+  border: 2px solid pink !important;
+}
+
+
 .test-cred{
   text-align:center;
  p{

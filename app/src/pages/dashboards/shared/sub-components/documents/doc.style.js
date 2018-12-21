@@ -121,6 +121,7 @@ export default styled.div`
         height: 80px;
         width: 80px;
         margin-right: 15px;
+        object-fit: cover;
       }
 
       p {

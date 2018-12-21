@@ -240,13 +240,16 @@ export default connect(
     filter = e => {
 
         const {value} = e.target;
+        const f = this.props.funders;
 
         const search = () => {
-            let SearchByName = this.props.funders.filter(o=>{
+            if( Boolean(f)){
+                if(Boolean(f.length)){
+            let SearchByName = f.filter(o=>{
                 return o.name.toLowerCase().indexOf(value.toLowerCase()) !== -1
             })
        
-            let SearchByOrg = this.props.funders.filter(o=>{
+            let SearchByOrg = f.filter(o=>{
                 return o.company.toLowerCase().indexOf(value.toLowerCase()) !== -1
             })
 
@@ -255,15 +258,18 @@ export default connect(
             return [
                 ...SearchByName,...SearchByOrg
             ]
+        }
+    }
 
         }
         
         this.setState(p=>{
             return {
-                options:  value !== "" ? search(): this.props.funders
+                options:  value !== "" ? search(): this.props.funders || []
             }
         })
     }
+
     render(){
         const { valuesSelected, options, open } = this.state;
 
@@ -304,8 +310,8 @@ export default connect(
                     </div>
                 </div>
 
-            { 
-                options && options.map((o,i)=>{
+                <div className='xs-12'>
+            { options && options.map((o,i)=>{
                     return <div className="xs-12 sin" onClick={()=> this.addToSelected(o)} key={i}>
                         <div className="xs-3">
                             <img src={ o.img} alt=""/>
@@ -318,7 +324,7 @@ export default connect(
                     </div>
                 })
             }
-            
+            </div>  
             </div>
         </div>
     

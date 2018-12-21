@@ -7,6 +7,33 @@ export const signout = () => {
   return { type: authActions.SIGNOUT };
 };
 
+export const update_password = (obj,token)=>{
+  return dispatch=>{
+    dispatch({ type: authActions.UPDATE_PASSWORD_IN_PROGRESS });
+    ax({
+      url: e.update_password + token,
+      method: "PUT",
+      data: obj,
+      headers:{
+        'Content-Type': 'application/json'
+      }
+    })
+    .then(res=>{
+      
+      dispatch({ type: authActions.UPDATE_PASSWORD_SUCCESSFUL, data: res.data });
+    })
+    .catch(({ response }) => {
+      let message;
+      if (response) {
+        message = response.message || response.data.message;
+      } else {
+        message = "Connection Error";
+      }
+       dispatch({ type: authActions.UPDATE_PASSWORD_FAILED, message });
+    });
+  }
+}
+
 export const signin = obj => {
   return dispatch => {
     dispatch({ type: authActions.SIGNIN_IN_PROGRESS });
@@ -143,7 +170,7 @@ export const send_recovery_mail = obj => {
     dispatch({ type: authActions.SEND_RECOVERY_MAIL_IN_PROGRESS });
     ax({
       url: e.send_recovery_mail,
-      method: "POST",
+      method: "PUT",
       data: obj
     })
       .then(({ data }) => {
