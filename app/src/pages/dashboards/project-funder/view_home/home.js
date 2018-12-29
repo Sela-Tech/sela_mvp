@@ -13,10 +13,12 @@ import NotEmptyHomeView from "./not.empty";
 import Navbar from "../../shared/navbar";
 
 const mapStateToProps = state => {
+  let projects = state.projects.all.collection.projects;
+
   return {
     type: state.projects.all.action.type,
-    projects: state.projects.all.collection.projects || []
-  };
+    projects: projects || []
+  }
 };
 
 const mapDispatchToProps = dispatch => {
@@ -33,7 +35,7 @@ export default connect(
     constructor(props) {
       super(props);
       this.state = {
-        projects: this.props.projects
+        projects: props.projects
       };
       this.props.actions.fetchProjects();
     }

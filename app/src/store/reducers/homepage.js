@@ -61,6 +61,11 @@ export default (state = init, payload) => {
       };
 
     case homepageActions.FETCHING_HOMEPAGE_PROJECTS_SUCCESSFUL:
+    
+      if(payload.projects.length >0){
+        payload.projects = payload.projects.reverse();
+      }
+      
       return {
         ...state,
         action: homepageActions.FETCHING_HOMEPAGE_PROJECTS_SUCCESSFUL,

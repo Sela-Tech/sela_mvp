@@ -131,6 +131,11 @@ export default (state = initstate, payload) => {
       };
 
     case dA.FETCHING_PROJECTS_SUCCESSFUL:
+
+      if(payload.projects.projects.length >0){
+        payload.projects.projects = payload.projects.projects.reverse();
+      }
+
       return {
         ...state,
         all: {
