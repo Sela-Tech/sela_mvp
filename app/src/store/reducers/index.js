@@ -9,6 +9,7 @@ import admin from "./admin";
 import transactions from "./project-funder/transactions";
 import document from "./project-funder/document";
 import app from "./app";
+import notification_state from "./notifications";
 
 export default combineReducers({
   auth,
@@ -20,5 +21,6 @@ export default combineReducers({
   home,
   organizations,
   document,
-  app
+  app,
+  notification_state
 });

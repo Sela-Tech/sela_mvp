@@ -12,6 +12,7 @@ export default {
   revoke: b + "a/revoke",
   update_password: b + "password/reset?token=", // ?token=
   fetch_stakeholder_info: b + "users/i",
+  fetch_notifications: b + "notifications",
   signin: b + "login",
   a_signin: b + "a/login",
   a_users: b + "a/users",
