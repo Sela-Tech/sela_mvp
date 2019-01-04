@@ -28,6 +28,7 @@ const params = {
   slidesPerView: 2,
   spaceBetween: 5
 };
+
 export default connect(mapStateToProps)(
   class ViewStakeHolder extends React.Component {
     constructor(props) {

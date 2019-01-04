@@ -91,6 +91,7 @@ export default connect()(({ project, dispatch }) => {
             <section className="xs-12">
               <h4>EVALUATION AGENT(S)</h4>
               {evaluators.map((u, i) => {
+              
                 let id = u.user.information._id;
 
                 return (
@@ -111,7 +112,7 @@ export default connect()(({ project, dispatch }) => {
                         <p>
                           Reputation Score: {u.user.information.reputationScore}
                         </p>
-                        <span>{u.user.information.organization.name}</span>
+                        <span>{ u.user.information.organization &&  u.user.information.organization.name}</span>
                       </div>
                     </div>
                   </div>

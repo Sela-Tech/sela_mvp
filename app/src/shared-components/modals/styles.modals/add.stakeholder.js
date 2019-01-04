@@ -3,7 +3,8 @@ import styled from "styled-components";
 export const Form = styled.form`
   background: white;
   padding: 1.5em;
-
+  max-height: 500px;
+  
   button {
     width: 100%;
     color: white;

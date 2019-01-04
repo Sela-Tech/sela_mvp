@@ -34,6 +34,10 @@ export const ModalWrapperStyler = styled.div`
     font-weight: 300;
   }
 
+  .center{
+    max-width: 100vw;
+  }
+
   position: fixed;
   z-index: 5;
   top: 0;
@@ -43,6 +47,7 @@ export const ModalWrapperStyler = styled.div`
   background: rgba(251, 251, 251, 0.66);
   backdrop-filter: blur(4px);
   overflow: auto;
+  width: 100vw;
 
   #form-container {
     background: #ffffff;

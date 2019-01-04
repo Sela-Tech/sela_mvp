@@ -12,7 +12,8 @@ const L = styled.div`
     border-radius: 4px;
     min-height: 40px;
     padding: 2px 0;
-    overflow: hidden;
+    max-height: 400px;
+    overflow: auto;
 
     &:focus, &:active {
         // border-color: #156EDC;
