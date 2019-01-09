@@ -1,6 +1,12 @@
 import styled from 'styled-components';
 
 export default styled.div`
+
+.notif{
+    max-height: 500px;
+    overflow: auto;
+}
+
 .white{
     background: white;
     margin-top: 6%;

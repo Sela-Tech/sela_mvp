@@ -5,7 +5,7 @@ import Navbar from "../navbar";
 import { Link } from 'react-router-dom';
 import {connect} from "react-redux";
 import notifications from '../../../../store/actions/notifications';
-import { get_notifications } from '../../../../store/action-creators/notifications';
+import {  mark_viewed, get_notifications } from '../../../../store/action-creators/notifications';
 import { notify } from '../../../../store/action-creators/app';
 
 
@@ -50,11 +50,14 @@ const ByType = ({type, info})=>{
         //plain
         return <div className='xs-12 row'>
         <div className="xs-4 sm-3  md-1 t-c">
-            <img src="http://placehold.it/200" alt=""/>
+            <img src= { info.stakeholder.profilephoto ? 
+                info.stakeholder.profilephoto 
+                : "http://placehold.it/200"
+                } alt=""/>
         </div>
 
         <div className="xs-8 sm-9 md-11">
-            <p> <strong>Dotun Longe</strong> has accepted your invite to join the <strong>Owerri, Nigeria 250 Housing Units</strong> project </p>
+            <p>{info.message}</p>
             <span> 11 hrs </span>
         </div>    
     </div>
@@ -65,12 +68,14 @@ const ByType = ({type, info})=>{
 class Notifications extends React.Component{
     constructor(props){
         super(props);
-        // fetch the notifications 
         props.get();
-
         this.state = {
-            notifications: [],
-            performed_initial_fetch: false 
+            notifications: props.notifications || [],
+            performed_initial_fetch: Boolean(props.notifications.length) 
+        }
+
+        if(props.unreadNIds.length > 0){
+            props.mark_viewed(props.unreadNIds)
         }
     }
     
@@ -81,8 +86,13 @@ class Notifications extends React.Component{
                 this.setState({
                     notifications: nextProps.notifications,
                     performed_initial_fetch: true
+                },()=>{
+                    if(nextProps.unreadNIds.length > 0){
+                        nextProps.mark_viewed(nextProps.unreadNIds)
+                    }
                 })
             }
+
             if(nextProps.type === notifications.GET_INIT_NOTIFICATIONS_FAILED){
                 notify(<p style={{ color: "white" }}>{nextProps.message}</p>, "error");
                 this.setState({
@@ -114,16 +124,11 @@ class Notifications extends React.Component{
                 
                     }
                     
-                    { performed_initial_fetch === true && notifications.map((d,i)=>{
-                        return <ByType type="default" info= {{}} key={i}/>
-                    })}
-                    
-                    {
-                        /* <ByType type="default" info= {{}}/>
-                        <ByType type="near-you" info= {{}}/>
-                        <ByType type="updates" info= {{}}/>
-                        */
-                    }
+                    <div className='xs-12 notif'>
+                        { performed_initial_fetch === true && notifications.map((d,i)=>{
+                            return <ByType type="default" info= {d} key={i}/>
+                        })}
+                    </div>
                     
                 </div>
             </div>
@@ -134,19 +139,19 @@ class Notifications extends React.Component{
 }
 
 const mapStateToProps = state => {
-    const {type,notifications,message} = state.notification_state;
-
+    const {type,notifications,message,unreadNIds} = state.notification_state;
     return {
         type,
         notifications,
-        message
+        message,
+        unreadNIds
     }
-
 }
 
 const mapDispatchToProps = dispatch => {
     return {
-        get: ()=> dispatch( get_notifications())
+        get: ()=> dispatch(get_notifications()),
+        mark_viewed: (unreadNIds)=> dispatch(mark_viewed(unreadNIds))
     }
 }
 
