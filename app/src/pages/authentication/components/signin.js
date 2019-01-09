@@ -117,8 +117,6 @@ class Login extends React.Component {
     });
   };
 
-
-
   componentWillReceiveProps(nextProps){
     if(this.props !== nextProps){
       
@@ -131,10 +129,33 @@ class Login extends React.Component {
    
       if(nextProps.type === auth.SIGNIN_SUCCESSFUL){
           notify(<p style={{color: 'white'}}>{nextProps.message}</p>,"success");
-      }
+        }
+
       if(nextProps.type === auth.SIGNIN_FAILED){
-        notify(<p style={{color: 'white'}}>{nextProps.message}</p>,"error")
-      } 
+
+        if(typeof nextProps.message !== "string"){
+          nextProps.message.map(m=>{
+            if(m.indexOf("verified") !== -1){
+              return notify(<p style={{color: 'white'}}>{m}</p>,"error",{
+                autoClose: false
+              });
+            }else{
+              return notify(<p style={{color: 'white'}}>{m}</p>,"error");
+            }
+          })
+        } else {
+          let m = nextProps.message;
+          if(m.indexOf("verified") !== -1){
+            return notify(
+              <p style={{color: 'white'}}>{m}</p>,"error",{
+              autoClose: false
+            });
+          }else{
+            return notify(<p style={{color: 'white'}}>{m}</p>,"error");
+          }
+        }
+
+    } 
     }
   }
 

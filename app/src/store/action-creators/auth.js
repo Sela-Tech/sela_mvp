@@ -65,7 +65,7 @@ export const signin = obj => {
               data.signUpType = undefined;
           }
 
-          dispatch({ type: authActions.SIGNIN_SUCCESSFUL, data });
+          dispatch({ type: authActions.SIGNIN_SUCCESSFUL, data, message: data.message });
         } else {
           let message = data.message;
           dispatch({ type: authActions.SIGNIN_FAILED, message });
@@ -151,7 +151,7 @@ export const signup = obj => {
       data: obj
     })
       .then(({ data }) => {
-        dispatch({ type: authActions.SIGNUP_SUCCESSFUL, data, signUpType });
+        dispatch({ type: authActions.SIGNUP_SUCCESSFUL, data, signUpType,  message: data.message });
       })
       .catch(({ response }) => {
         let message;

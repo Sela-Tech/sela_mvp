@@ -351,15 +351,29 @@ class Signup extends React.Component {
                 <img src={success} alt="success" id="success-icon" />
                 You're signed up!
               </h2>
+
+            <div  className="xs-10 xs-off-1 sm-6 sm-off-3">
+            
               <p
-                className="xs-10 xs-off-1 sm-6 sm-off-3"
-                id="signup-info-text"
-              >
+              className='xs-12'
+              id="signup-info-text">
+
+                <span>
+                  Thank you for signing up!.
+                </span>
+            
+                <span>
+                  Please check your <strong>inbox</strong> and following the instructions provided to verify your email address.
+                </span>
+                
+              </p>
+
+            </div>
 
                 <div className="xs-12">
                   <NavLink exact to="/signin" id='sign-in'>Proceed To Sigin</NavLink>
                 </div>
-              </p>
+            
             </div>
 
           

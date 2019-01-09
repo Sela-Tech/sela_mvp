@@ -47,19 +47,6 @@ export default connect(state => {
 
               <div className="xs-12 sm-10 ">
                 <nav>
-
-                  {/* <React.Fragment>
-                    <NavLink activeClassName="blue" to="/about">
-                      About
-                    </NavLink>
-                    <NavLink activeClassName="blue" to="/blog">
-                      Blog
-                    </NavLink>
-                    <NavLink activeClassName="blue" to="/contact">
-                      Contact
-                    </NavLink>
-                  </React.Fragment> */}
-
                   {!isAuthenticated ? (
                     <React.Fragment>
                       <NavLink activeClassName="blue" to="/signin">

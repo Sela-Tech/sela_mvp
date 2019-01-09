@@ -114,7 +114,7 @@ export default (state = initstate, payload) => {
         ...state,
         action: {
           type: authActions.SIGNUP_SUCCESSFUL,
-          message: payload.message || "Logged in successfully"
+          message: payload.message || "Signed up successfully"
         },
         signUpType: payload.signUpType,
         credentials: {

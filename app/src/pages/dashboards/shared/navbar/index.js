@@ -58,13 +58,28 @@ const NavStyle = styled.nav`
     border: 0;
     padding-top: 7px;
     display: block;
+    position: relative;
+    #count{
+      position: absolute;
+      top: 0;
+      lef: 0;
+      text-align: center;
+      display: block;
+      line-height: 15px;
+      border-radius: 15px;
+      background: #e7823b;
+      color: white;
+      font-size: 10px;
+      font-weight: 300;
+      height: 15px;
+      width: 15px;
+    }
   }
 `;
 
 class Navbar extends React.Component {
   constructor(props) {
     super(props);
-
     this.state = {
       isBigScreen: window.innerWidth > 1023
     };
@@ -82,7 +97,7 @@ class Navbar extends React.Component {
     window.removeEventListener("resize", this.resizer);
   
   render() {
-    let { dispatch } = this.props,
+    let {  unreadNIds } = this.props,
       { isBigScreen } = this.state;
 
     switch (isBigScreen) {
@@ -107,16 +122,18 @@ class Navbar extends React.Component {
                 className="xs-12 sm-6 f-r"
                 to="#"
                 id="add"
-                onClick={() => dispatch(showModal(modals.add_project))}
+                onClick={ this.props.showModal }
               >
                 + New Project
               </NavLink>
               
             <div className="xs-12 sm-3 f-r">
-              <Link id='notifications' to="/dashboard/notifications"><img src={notification} alt=""/></Link>
+              <Link id='notifications' to="/dashboard/notifications">
+                { unreadNIds.length > 0 && <span id='count'/> }
+                <img src={notification} alt=""/>
+              </Link>
             </div>
            
-              
             </div>
           </NavStyle>
         );
@@ -126,12 +143,20 @@ class Navbar extends React.Component {
 
 const mapStateToProps = state => {
   const { isFunder, isEvaluator, isContractor } = state.auth.credentials;
+  const { unreadNIds } = state.notification_state;
 
   return {
+    unreadNIds,
     userType:
       (isFunder === true && "Funder") ||
       (isEvaluator === true && "Evaluator") ||
       (isContractor === true && "Contractor")
   };
 };
-export default connect(mapStateToProps)(Navbar);
+
+const mapDispatchToProps = dispatch => {
+  return {
+    showModal: ()=>dispatch(showModal(modals.add_project))
+  }
+}
+export default connect(mapStateToProps, mapDispatchToProps)(Navbar);
