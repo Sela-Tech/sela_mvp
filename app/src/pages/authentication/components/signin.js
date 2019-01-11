@@ -201,8 +201,6 @@ class Login extends React.Component {
     
     let disabled = !form_is_complete;
 
-
-    console.log(disabled)
     return (
       <Wrapper viewName="signin">
         <div className="container">

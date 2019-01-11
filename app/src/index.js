@@ -12,68 +12,67 @@ import io from 'socket.io-client';
 import ends from "./endpoints";
 import notifications_actions from "./store/actions/notifications";
 
-const socket = io(ends.b);
 
 if (retrieveToken()) {
-
   store.dispatch(verify_user_token());
+}
 
-  store.dispatch(get_notifications());
-
+  const socket = io(ends.b);
+  let loop_stop = false;
+ 
   socket.on("connected",function(data){
     console.log("socket connected");
-    store.dispatch(store_socket_data(data));
-  });
 
-  socket.on("disconnect",function(){
-    console.log("socket disconnected");
- });
+    store.subscribe(()=>{
 
-  let emitted = false;
-
-  let loaded_store_state = 0;
-  store.subscribe(()=>{
-
-    if(loaded_store_state === 2){
-     
-      let obj = {
-        "userId": store.getState().auth.credentials.id,// the authenticated userId
-        "socketId": store.getState().notification_state.socket.user  // the socketId received   
-      }
-  
-      if( Boolean(obj.userId) && Boolean(obj.socketId) && emitted === false ){
-        emitted = true;
-
-        socket.emit("user",obj);
-        // console.log({obj})
-      };
-  
-      socket.on("notifications", function(data){
+      let retrieved_token = Boolean(retrieveToken());
+    
+      if ( retrieved_token === true && loop_stop === false ){  
+        loop_stop = true;
         
-        // console.log({
-        //   data
-        // })
+        store.dispatch(get_notifications());
 
-        let { notifications, unreadNIds }  = data.notifications;
-       
-        if( typeof(notifications) === "object"){
-          store.dispatch({
-            type: notifications_actions.UPDATE_NOTIFICATIONS_SUCCESSFUL,
-            notifications,
-            unreadNIds
-          })
+        let obj = {
+          "userId": store.getState().auth.credentials.id,// the authenticated userId
+          "socketId": data.user  // the socketId received   
         }
 
-      });
+        if( Boolean(obj.userId) && Boolean(obj.socketId)){      
+            socket.emit("user",obj);
+            console.log({obj})
+        };
 
+        store.dispatch(store_socket_data(data));
+        
+      }
+
+      let isAuthenticated = store.getState().auth.isAuthenticated;
+    
+      if(isAuthenticated === false){
+        loop_stop = false;
+      }
+    });
+
+});
+
+  socket.on("disconnect",function(){
+        console.log("socket disconnected");
+    });  
+
+  socket.on("notifications", function(data){
+
+    let { notifications, unreadNIds }  = data.notifications;
+   
+    if( typeof(notifications) === "object"){
+      store.dispatch({
+        type: notifications_actions.UPDATE_NOTIFICATIONS_SUCCESSFUL,
+        notifications,
+        unreadNIds
+      })
     }
 
-    loaded_store_state = loaded_store_state  + 1;
+  });
 
-  })
-
-
-}
 
  store.dispatch(fetchSGDs());
 
