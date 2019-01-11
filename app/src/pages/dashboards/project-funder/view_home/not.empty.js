@@ -130,12 +130,11 @@ if(mode === "dara"){
       <label>Projects you created</label>
       
       <Slider 
-       ref={slider => (this.one_slider = slider)}
        {...settings}
        containerClass="xs-12"
        className="xs-12 slider">
 
-       {projects.map((p,i)=>{
+       {projects.filter((p,i)=>(i < 2 )).map((p,i)=>{
          return <div className="xs-12 sm-3" key={i}>
          <Link className="xs-12 inner"
           onMouseDown={e => this.handleOnMouseDown(e)}
@@ -155,19 +154,56 @@ if(mode === "dara"){
 
      <section className='xs-12'>
       <label>Projects you funded</label>
-      <p>None Found.</p>
+      <Slider 
+       {...settings}
+       containerClass="xs-12"
+       className="xs-12 slider">
+
+       {projects.filter((p,i)=>(i === 2 )).map((p,i)=>{
+         return <div className="xs-12 sm-3" key={i}>
+         <Link className="xs-12 inner"
+          onMouseDown={e => this.handleOnMouseDown(e)}
+          onClick={e => this.handleOnClick(e)}
+
+         to={`/dashboard/project/${p._id}/overview`}>
+           <p> {p.name} </p>
+           <img src={p["project-avatar"]} alt=""/>
+         </Link>
+       </div>
+       
+       })}
+        
+      </Slider>
+
      </section>
 
      <section className='xs-12'>
       <label>Projects in your areas of interest</label>
-      <p>None Found.</p>
+      <Slider 
+       {...settings}
+       containerClass="xs-12"
+       className="xs-12 slider">
 
+       {projects.filter((p,i)=>(i >= 3  )).map((p,i)=>{
+         return <div className="xs-12 sm-3" key={i}>
+         <Link className="xs-12 inner"
+          onMouseDown={e => this.handleOnMouseDown(e)}
+          onClick={e => this.handleOnClick(e)}
+
+         to={`/dashboard/project/${p._id}/overview`}>
+           <p> {p.name} </p>
+           <img src={p["project-avatar"]} alt=""/>
+         </Link>
+       </div>
+       
+       })}
+        
+      </Slider>
      </section>
 
      <section className='xs-12'>
       <label>Saved projects</label>
-      <p>None Found.</p>
-
+       <p>No Saved Projects</p> 
      </section>
      
      

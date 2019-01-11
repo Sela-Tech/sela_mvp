@@ -32,7 +32,6 @@ export default connect(mapStateToProps)(
       e.preventDefault();
       const data = this.state;
       data.projectId = this.props.projectId;
-      console.log(data, this.props.projectId);
 
       this.props.dispatch(addTransaction(data));
     };

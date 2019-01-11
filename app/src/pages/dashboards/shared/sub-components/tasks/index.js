@@ -81,18 +81,20 @@ class Tasks extends React.Component {
 
         <div className="xs-12 container">
           <div className="xs-12 row hide-sm-laptop">
-            <div className="xs-12 sm-2">
+           
+            {/* <div className="xs-12 sm-2">
               <h4> Status</h4>
-            </div>
+            </div> */}
+           
             <div className="xs-12 sm-6">
               <h4> Task Details</h4>
             </div>
 
-            <div className="xs-12 sm-2">
+            <div className="xs-12 sm-3">
               <h4> Deadline </h4>
             </div>
 
-            <div className="xs-12 sm-2">
+            <div className="xs-12 sm-3">
               <h4> </h4>
             </div>
           </div>
@@ -104,19 +106,21 @@ class Tasks extends React.Component {
             tasks.map((t, i) => {
               return (
                 <div className="xs-12 row b" key={i}>
-                  <div className="xs-12 sm-2">
+                 
+                  {/* <div className="xs-12 sm-2">
                     <button className={t.status}>{t.status}</button>
-                  </div>
+                  </div> */}
+
                   <div className="xs-12 sm-6">
                     <h3>{t.name}</h3>
-                    <p>{t.description}</p>
+                    <p className='xs-12 sm-11'>{t.description}</p>
                   </div>
 
-                  <div className="xs-12 sm-2">
+                  <div className="xs-12 sm-3">
                     <h3> {moment(t.dueDate).format("DD MMM YYYY")} </h3>
                   </div>
 
-                  <div className="xs-12 sm-2">
+                  <div className="xs-12 sm-3">
                     <button
                       className="more"
                       onClick={() => this.showTask(t._id)}

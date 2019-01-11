@@ -4,6 +4,7 @@
   "private": true,
   "dependencies": {
     "axios": "^0.18.0",
+    "chance": "^1.0.18",
     "global": "^4.3.2",
     "google-map-react": "^1.0.8",
     "loadable-components": "^2.2.2",

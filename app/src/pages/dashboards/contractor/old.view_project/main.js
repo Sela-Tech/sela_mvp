@@ -39,7 +39,6 @@ const ProjectComponent = ({ info, match, dispatch }) => {
   let members = stakeholders => {
     return [
       ...stakeholders.map((p, i) => {
-        console.log(p);
         return (
           <button className="member" key={i}>
             {p.user.information.lastName[0]}

@@ -45,18 +45,20 @@ if (retrieveToken()) {
         emitted = true;
 
         socket.emit("user",obj);
-        console.log({obj})
+        // console.log({obj})
       };
   
       socket.on("notifications", function(data){
-        console.log({
-          data
-        })
+        
+        // console.log({
+        //   data
+        // })
+
         let { notifications, unreadNIds }  = data.notifications;
        
-        if( typeof(arry) === "object"){
+        if( typeof(notifications) === "object"){
           store.dispatch({
-            type: notifications_actions.GET_INIT_NOTIFICATIONS_SUCCESSFUL,
+            type: notifications_actions.UPDATE_NOTIFICATIONS_SUCCESSFUL,
             notifications,
             unreadNIds
           })

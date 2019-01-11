@@ -4,14 +4,30 @@ import TWrap from "./transactions.style";
 import moment from "moment";
 import { showAddTransactionModal } from "../../../../../store/action-creators/project-funder/modal";
 import { fetchProject } from "../../../../../store/action-creators/project-funder/project";
+import Chance from "chance";
+
+let chance = new Chance();
+const types_of_currencies = ["USD", "Ether", "Bitcoin"];
+const type_of_proofs = [];
+
+type_of_proofs.USD='https://cdn.vertex42.com/ExcelTemplates/Images/simple-receipt-template.png';
+type_of_proofs.Ether=`https://etherscan.io/tx/0xfab0705d0e141e82cd3dc9bdf8f505cd5de6f2d13cf5c821c85aae10c209f6e1`;
+type_of_proofs.Bitcoin = 'https://www.blockchain.com/btc/tx/5136bf70efa3e63ebc97481f3e01a4030ccc99a4110d30e99ca3da26b92e3e2b';
 
 class Transactions extends React.Component {
   state = {
     date: "",
-    transactions:
-      this.props.homePageDeep === true
-        ? this.props.transactionsForHomePage
-        : this.props.transactions
+    transactions: Array.from({length: chance.integer({min: 10, max: 200 })}).map(i=>{
+      return  {
+        receiver: chance.name(),
+        value: chance.integer({min: 5000, max: 90000}),
+        currency: types_of_currencies[chance.integer({ min: 0, max: 2 })],
+        createdOn: chance.date()
+      }
+    }) 
+      // this.props.homePageDeep === true
+        // ? this.props.transactionsForHomePage
+        // : this.props.transactions
   };
 
   showAddTransactionModal = () =>
@@ -23,12 +39,11 @@ class Transactions extends React.Component {
         this.props.dispatch(fetchProject(this.props.projectId));
       }
 
-      console.log(nextProps.homePageDeep);
       this.setState({
-        transactions:
-          nextProps.homePageDeep === true
-            ? nextProps.transactionsForHomePage
-            : nextProps.transactions
+        // transactions:
+        //   nextProps.homePageDeep === true
+        //     ? nextProps.transactionsForHomePage
+        //     : nextProps.transactions
       });
     }
   }
@@ -37,8 +52,7 @@ class Transactions extends React.Component {
 
   render() {
     const { date, transactions } = this.state;
-
-    console.log(transactions);
+  
     return (
       <TWrap className="xs-12">
         <div className="xs-12 sp">
@@ -72,59 +86,43 @@ class Transactions extends React.Component {
           )}
         </div>
         <div className="xs-12 container">
-          <div className="xs-12 row hide-sm-laptop">
-            <div className="xs-12 sm-4">
-              <h4>AMOUNT</h4>
-            </div>
-
-            {/*}            <div className="xs-12 sm-3">
-              <h4>TRANSACTION</h4>
-    </div> */}
-
-            <div className="xs-12 sm-4">
-              <h4>Date</h4>
-            </div>
-            <div className="xs-12 sm-4">
-              <h4>DETAILS</h4>
-            </div>
-          </div>
-
           {Boolean(transactions.length) ? (
             transactions.map((t, i) => {
               return (
                 <div className="xs-12 row b" key={i}>
-                  <div className="xs-12 sm-4">
-                    <h3 id="cash">
-                      {t.value} {t.currency}
-                    </h3>
-                  </div>
-
-                  <div className="xs-12 sm-4 ">
-                    <h3>
-                      <a
-                        target="_blank"
-                        className="link"
-                        href={`https://etherscan.io/tx/${t.hash}`}
-                      >
-                        See On Etherscan
-                      </a>
-                    </h3>
-                  </div>
-                  <div className="xs-12 sm-4 det">
-                    <p>
-                      Sender: <span>{t.sender}</span>
-                    </p>
-
-                    <p>
+                   <div className="xs-12 det">
+                    <p className='xs-12 sm-6 md-2'>
                       Receiver: <span>{t.receiver}</span>
                     </p>
-                    <p>
-                      Sent:
-                      <span>
-                        {moment(t.createdOn).format("HH:mm DD MMM YYYY")}
+                    
+                    <div className='xs-12 sm-5 md-4'>
+                      <p className='xs-12 sm-6'>
+                        Amount: <span>{t.value}</span>
+                      </p>
+                      <p className='xs-12 sm-6'>
+                        Currency: <span>{t.currency}</span>
+                      </p>
+                    </div>
+                    
+                    <p className='xs-12 sm-6 md-2'>
+                      Date Sent: <span>{moment(t.createdOn).format("HH:mm DD MMM YYYY")}</span>
+                    </p>
+                    <p className='xs-12 sm-6 md-3'>
+                      Proof: <span> 
+                        <a
+                        target="_blank"
+                        className="link"
+                        href={ type_of_proofs[t.currency] }
+                      >
+                        View Proof
+                      </a>
+                      
+                     
                       </span>
                     </p>
+
                   </div>
+                
                 </div>
               );
             })

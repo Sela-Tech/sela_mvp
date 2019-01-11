@@ -15,7 +15,6 @@ const Timediff = (startDate) => {
     var days = duration.asDays();
     var minutes = duration.asMinutes();
 
-    console.log({hours,days,minutes})
     if(Boolean(Math.floor(days))){
         return Math.floor(days) + " day(s) ago";
     }
@@ -44,7 +43,7 @@ export default connect()(({data, dispatch})=>{
     let project_link = `/projects/${data.project.id}/description`;
 
     let date = data.updatedOn;
-    
+
     switch(type){
         case "YOU_SENT_INVITATION_TO_JOIN":
 

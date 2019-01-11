@@ -71,9 +71,9 @@ export default styled.div`
       p {
         font-family: ProximaNova;
         line-height: normal;
-        font-size: 12px;
+        font-size: 13.5px;
         color: #a5a5a5;
-        margin-top: 5px;
+        margin-top: 6px;
         font-weight: 300;
       }
     }
