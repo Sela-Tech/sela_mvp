@@ -30,9 +30,9 @@ const MetaData = ({ viewName }) => {
   }
 };
 
-export default ({ children, viewName }) => {
+export default ({ children, viewName, id }) => {
   return (
-    <SharedAuthWrapper>
+    <SharedAuthWrapper id={id? id: ""}>
       <MetaData viewName={viewName} />
       {children}
     </SharedAuthWrapper>

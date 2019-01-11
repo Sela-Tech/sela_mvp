@@ -1,69 +1,11 @@
 import React from 'react';
 import NotificationsStyle from './notifications.style';
 import Navbar from "../navbar";
-// import moment from "moment";
-import { Link } from 'react-router-dom';
 import {connect} from "react-redux";
 import notifications from '../../../../store/actions/notifications';
 import {  mark_viewed, get_notifications } from '../../../../store/action-creators/notifications';
 import { notify } from '../../../../store/action-creators/app';
-
-
-const ByType = ({type, info})=>{
-    switch(type){
-
-        case "near-you":
-        return <div className='xs-12 row'>
-            <div className="xs-4 sm-3  md-1 t-c">
-                <img src="http://placehold.it/200" alt=""/>
-            </div>
-
-            <div className="xs-8 sm-9 md-11">
-                <p> 
-                A new project <strong>“K-Dere Oil Spill Cleanup”</strong> has been proposed by <strong>Elekanah Mary</strong> in your area of interest - environmental sustainability. <Link to="/">View Project</Link>
-                    </p>
-                <span> 11 hrs </span>
-            </div>
-        </div>
-
-
-        case "updates":
-        return <div className='xs-12 row'>
-
-        <div className="xs-4 sm-3  md-1 t-c">
-            <img src="http://placehold.it/200" alt=""/>
-        </div>
-
-        <div className="xs-8 sm-9 md-11">
-
-            <p> 
-            <strong>Nneka Nwobi</strong> submitted updates on the <strong>Onitsha Modern Market Square Building</strong> project.
-            <Link to="/"><br/>View Update</Link>
-           
-            </p>
-            <span> 11 hrs </span>
-        </div>
-
-        </div>
-
-        default:
-        //plain
-        return <div className='xs-12 row'>
-        <div className="xs-4 sm-3  md-1 t-c">
-            <img src= { info.stakeholder.profilephoto ? 
-                info.stakeholder.profilephoto 
-                : "http://placehold.it/200"
-                } alt=""/>
-        </div>
-
-        <div className="xs-8 sm-9 md-11">
-            <p>{info.message}</p>
-            <span> 11 hrs </span>
-        </div>    
-    </div>
-    
-    }
-}
+import Messagemaker from './message_maker';
 
 class Notifications extends React.Component{
     constructor(props){
@@ -126,7 +68,7 @@ class Notifications extends React.Component{
                     
                     <div className='xs-12 notif'>
                         { performed_initial_fetch === true && notifications.map((d,i)=>{
-                            return <ByType type="default" info= {d} key={i}/>
+                            return <Messagemaker data={d} key={i}/>
                         })}
                     </div>
                     

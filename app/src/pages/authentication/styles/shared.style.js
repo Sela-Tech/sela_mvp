@@ -2,6 +2,33 @@ import styled from "styled-components";
 
 export default styled.div`
 
+.ReactPasswordStrength-strength-desc{
+  font-size: 14px;
+  padding-top: 22px;
+  font-style: normal;
+  font-weight: 300;
+  display: inline-block;
+  right: 20px;
+  top: 0;
+}
+
+&#change-password {
+  .ReactPasswordStrength-strength-desc{
+    padding: 0;
+    padding-top: 14px;
+    min-width: 60px;
+  }
+
+  .ReactPasswordStrength-input{
+    height: 40px;
+    background: white;
+  }
+
+  #submit-btn{
+    padding: 1em 0;
+  }
+}
+
 input.match{
   border:1px solid teal !important;
 }

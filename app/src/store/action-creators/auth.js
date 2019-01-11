@@ -2,6 +2,7 @@ import ax from "axios";
 import authActions from "../actions/auth";
 import e from "../../endpoints";
 import { retrieveToken, setToken } from "../../helpers/TokenManager";
+import { extractMessage } from "../../helpers/utils";
 
 export const signout = () => {
   return { type: authActions.SIGNOUT };
@@ -19,7 +20,6 @@ export const update_password = (obj,token)=>{
       }
     })
     .then(res=>{
-      
       dispatch({ type: authActions.UPDATE_PASSWORD_SUCCESSFUL, data: res.data });
     })
     .catch(({ response }) => {
@@ -31,6 +31,36 @@ export const update_password = (obj,token)=>{
       }
        dispatch({ type: authActions.UPDATE_PASSWORD_FAILED, message });
     });
+  }
+}
+
+export const email_verify = (token)=>{
+  return dispatch => {
+    dispatch({ type: authActions.EMAIL_VERIFICATION_IN_PROGRESS });
+    ax({
+      url: e.email_verification + token,
+      method: "PUT",
+      data: { token }
+    }).then(res=>{
+      dispatch({ type: authActions.EMAIL_VERIFICATION_SUCCESSFUL, message: "Email Verified Successfully" });
+    }).catch(res=>{
+      dispatch({ type: authActions.EMAIL_VERIFICATION_FAILED, message: extractMessage(res) });
+    })
+  }  
+}
+
+export const resend_verification_mail = field => {
+  return dispatch => {
+    dispatch({ type: authActions.RESEND_VERIFICATION_IN_PROGRESS });
+    ax({
+      url: e.resend_verification,
+      method: "PUT",
+      data: { field }
+    }).then(res=>{
+      dispatch({ type: authActions.RESEND_VERIFICATION_SUCCESSFUL, message: extractMessage(res) });
+    }).catch(res=>{
+      dispatch({ type: authActions.RESEND_VERIFICATION_FAILED, message: extractMessage(res) });
+    })
   }
 }
 

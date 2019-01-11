@@ -6,14 +6,14 @@ import Logo from "../../../assets/icons/sela-circle-blue.svg";
 import { Link } from "react-router-dom";
 import { connect } from "react-redux";
 import { bindActionCreators } from "redux";
-import { signin } from "../../../store/action-creators/auth";
+import { signin, resend_verification_mail } from "../../../store/action-creators/auth";
 import * as adminACreators from "../../../store/action-creators/admin";
 
 import AsycnButton from "../../../shared-components/unique/async-button";
 import auth from "../../../store/actions/auth";
-// import MessageToShow from "../../../shared-components/errors/messageToShow";
 import { validator } from "../../../helpers/utils";
 import { notify } from "../../../store/action-creators/app";
+import config from "./config";
 
 class Login extends React.Component {
   constructor(props) {
@@ -59,6 +59,12 @@ class Login extends React.Component {
       password: v
     });
   };
+
+  handleReset = ()=> {
+    const key = Object.keys(this.state.username)[0];
+    const value = this.state.username[key];
+    this.props.send_verification_mail(value)
+  }
 
   onUsernameChange = e => {
     let v = e.target.value;
@@ -131,6 +137,15 @@ class Login extends React.Component {
           notify(<p style={{color: 'white'}}>{nextProps.message}</p>,"success");
         }
 
+        if(nextProps.type === auth.RESEND_VERIFICATION_SUCCESSFUL){
+          notify(<p style={{color: 'white'}}>{nextProps.message}</p>,"success");
+        }
+
+        if(nextProps.type === auth.RESEND_VERIFICATION_FAILED){
+          notify(<p style={{color: 'white'}}>{nextProps.message}</p>,"error");
+        
+        }
+        
       if(nextProps.type === auth.SIGNIN_FAILED){
 
         if(typeof nextProps.message !== "string"){
@@ -147,7 +162,19 @@ class Login extends React.Component {
           let m = nextProps.message;
           if(m.indexOf("verified") !== -1){
             return notify(
-              <p style={{color: 'white'}}>{m}</p>,"error",{
+              <div className=''>
+                <p style={{color: 'white'}}>{m}</p>
+                <button style={{
+                      padding: '.5em 1em',
+                      marginBottom: ".5em",
+                      fontSize: '15px',
+                      background: '#982d4f',
+                      color: 'white',
+                      fontWeight: '300',
+                      border: "0px solid white",
+                      borderRadius: '5px'
+                }} onClick={()=>this.handleReset()}> Resend Verification Mail </button>
+              </div>,"error",{
               autoClose: false
             });
           }else{
@@ -159,37 +186,23 @@ class Login extends React.Component {
     }
   }
 
-
-  confirmFields = () => {
-    if (this.state.password.length > this.state.minLengths.password) {
-      if (Object.keys(this.state.username).length < 2) {
-        return true;
-      } else {
-        return false;
-      }
-    } else {
-      return true;
-    }
-  };
-
   render() {
     const {
         inprogress,
-        // message,
-        // type,
         username,
         password,
         rememberMe
       } = this.state,
       sEUsername = this.state.specialError.username,
-      minName = this.state.minLengths.username,
-      minPass = this.state.minLengths.password;
+      minName = this.state.minLengths.username;
 
-    let disabled = false;
+    let form_is_complete = this.state.password.length >= config.min_password_length 
+    && Object.keys(this.state.username).length  === 2
+    
+    let disabled = !form_is_complete;
 
-    if (this.props.admin !== true) {
-      disabled = this.confirmFields();
-    }
+
+    console.log(disabled)
     return (
       <Wrapper viewName="signin">
         <div className="container">
@@ -243,7 +256,7 @@ class Login extends React.Component {
                   placeholder="Password"
                   value={password}
                   onChange={this.onPasswordChange}
-                  minLength={minPass}
+                  minLength={config.min_password_length}
                   required
                 />
 
@@ -310,6 +323,7 @@ const mapStateToProps = state => {
 const mapDispatchToProps = dispatch => {
   return {
     signin: bindActionCreators(signin, dispatch),
+    send_verification_mail: field => dispatch(resend_verification_mail(field)),
     adminACreators: bindActionCreators(adminACreators, dispatch)
   };
 };
