@@ -1,5 +1,4 @@
 import React from "react";
-import Wrapper from "./wrapper";
 import Logo from "../../../assets/icons/sela-circle-blue.svg";
 import { Link, withRouter } from "react-router-dom";
 import AsycnButton from "../../../shared-components/unique/async-button";
@@ -8,23 +7,57 @@ import {update_password} from "../../../store/action-creators/auth";
 import { notify } from "../../../store/action-creators/app";
 import auth from "../../../store/actions/auth";
 import { getQueryString } from "../../../helpers/utils";
+import ReactPasswordStrength from 'react-password-strength';
+import config from "./config";
+import Helmet from "react-helmet";
+import Wrapper from "./wrapper";
 
 class ChangePassword extends React.Component {
   constructor(props) {
     super(props);
+    let token = null;
+    if(window.location.search){
+      token = getQueryString(window.location.search).replace("token=","")
+    }
     this.state = {
-      verifyPassword: "",
-      newPassword: ""
+      token,
+      verifyPassword: {
+        value: "",
+        valid: false
+      },
+      newPassword: {
+        value: "",
+        valid: false
+      }
     };
   }
+
+  onNewPassChange = obj => {
+    this.setState({
+        newPassword: {
+          value: obj.password,
+          valid: obj.isValid
+        }
+    });  
+  }
+
+  onVerifyPassChange = obj => {
+    this.setState({
+        verifyPassword: {
+          value: obj.password,
+          valid: obj.isValid
+        }
+    });  
+  }
+  
 
   onSubmit = e => {
     e.preventDefault();
     let obj =  {
-      newPassword: this.state.newPassword,
-      confirmPassword: this.state.verifyPassword
+      newPassword: this.state.newPassword.value,
+      confirmPassword: this.state.verifyPassword.value
     };
-    this.props.dispatch(update_password( obj, getQueryString(window.location.search).replace("token=","")));
+    this.props.dispatch(update_password( obj, this.state.token))
   };
 
   onChange = e => {
@@ -53,11 +86,18 @@ class ChangePassword extends React.Component {
 
     const {inprogress } = this.props;
     
-    const validate = this.state.newPassword === this.state.verifyPassword 
-    && this.state.newPassword !== "" && this.state.verifyPassword !== "";
+    const values_match = this.state.newPassword.value === this.state.verifyPassword.value;
+    const both_valid =  this.state.newPassword.valid === true && this.state.verifyPassword.valid === true;
+    
+    const validate = values_match && both_valid;
 
     return (
-      <Wrapper viewName="forgot-password">
+      <Wrapper className='xs-12' id='change-password'>
+         <Helmet>
+          <meta charSet="utf-8" />
+          <title> Sela - Change Password </title>
+        </Helmet>
+     
         <div className="container">
           <div className="xs-12">
             <Link to="/">
@@ -74,34 +114,42 @@ class ChangePassword extends React.Component {
               onSubmit={this.onSubmit}
             >
               <div className="form-group xs-12">
-                <input
-                  name="newPassword"
-                  type="password"
-                  className= {`form-control ${validate ? `match`:`dont-match`}`}
-                  placeholder="Enter New Password"
-                  value={this.state.newPassword}
-                  onChange={this.onChange}
-                  required
-                />
-              </div>
+                    <ReactPasswordStrength
+                     className= {`form-control ${validate ? `match`:`dont-match`}`}
+                 
+                      minLength={config.min_password_length}
+                      minScore={4}
+                      value={this.state.verifyPassword.value}
+                      scoreWords={['weak', 'okay', 'good', 'strong', 'solid']}
+                      changeCallback={this.onNewPassChange}
+                      inputProps={{ name: "newPassword", autoComplete: "off",
+                       className: "form-control", placeholder:'Enter new password ' }}
+                      required
+                    />
+                </div>
 
               <div className="form-group xs-12">
-                <input
-                  name="verifyPassword"
-                  type="password"
-                  className= {`form-control ${validate ? `match`:`dont-match`}`}
-                  placeholder="Verify New Password"
-                  value={this.state.verifyPassword}
-                  onChange={this.onChange}
-                  required
-                />
-              </div>
-
+                    <ReactPasswordStrength
+                     className= {`form-control ${validate ? `match`:`dont-match`}`}
+                 
+                      minLength={config.min_password_length}
+                      minScore={4}
+                      value={this.state.verifyPassword.value}
+                      scoreWords={['weak', 'okay', 'good', 'strong', 'solid']}
+                      changeCallback={this.onVerifyPassChange}
+                      inputProps={{ name: "verifyPassword", autoComplete: "off",
+                       className: "form-control", placeholder:"Re-enter new password" }}
+                      required
+                    />
+                  </div>
+              {values_match === false && <p style={{color: 'pink'}}> Passwords Don't Match. </p> }    
+              {this.state.token && 
               <div className="form-group xs-12">
                 <AsycnButton id="submit-btn" attempt={inprogress} disabled={!validate}>
                   Update Password
                 </AsycnButton>
               </div>
+              }
 
               <div className="form-group xs-12">
                 {this.props.admin !== true && (

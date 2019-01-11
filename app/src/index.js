@@ -1,6 +1,6 @@
 import React from "react";
 import ReactDOM from "react-dom";
-import App from "./App";
+ import App from "./App";
 // import registerServiceWorker from './registerServiceWorker';
 import store from "./store";
 import { Provider } from "react-redux";
@@ -10,43 +10,71 @@ import { get_notifications, store_socket_data } from "./store/action-creators/no
 import { fetchSGDs } from "./store/action-creators/app";
 import io from 'socket.io-client';
 import ends from "./endpoints";
-import notifications from "./store/actions/notifications";
-
-const socket = io(ends.b);
-
+import notifications_actions from "./store/actions/notifications";
 
 
 if (retrieveToken()) {
   store.dispatch(verify_user_token());
-  store.dispatch(get_notifications());
-
-  socket.on("connected",function(data){
-    store.dispatch(store_socket_data(data))
-  });
-
-  socket.emit("user",{
-    "userId": store.getState().auth.credentials.id,// the authenticated userId
-    "socketId": store.getState().notification_state.socket.user  // the socketId received   
-  });
-
-  socket.on("notifications",function(data){
-    console.log(data)
-    let { arry } = data.notifications;
-
-    if( typeof(arry) === "object"){
-      store.dispatch({
-        type: notifications.GET_INIT_NOTIFICATIONS_SUCCESSFUL,
-        notifications: arry,
-        unreadNIds: arry.map(n=>{
-          return n._id
-        })
-      })
-    }
-  })
 }
 
-store.dispatch(fetchSGDs());
+  const socket = io(ends.b);
+  let loop_stop = false;
+ 
+  socket.on("connected",function(data){
+    console.log("socket connected");
 
+    store.subscribe(()=>{
+
+      let retrieved_token = Boolean(retrieveToken());
+    
+      if ( retrieved_token === true && loop_stop === false ){  
+        loop_stop = true;
+        
+        store.dispatch(get_notifications());
+
+        let obj = {
+          "userId": store.getState().auth.credentials.id,// the authenticated userId
+          "socketId": data.user  // the socketId received   
+        }
+
+        if( Boolean(obj.userId) && Boolean(obj.socketId)){      
+            socket.emit("user",obj);
+            console.log({obj})
+        };
+
+        store.dispatch(store_socket_data(data));
+        
+      }
+
+      let isAuthenticated = store.getState().auth.isAuthenticated;
+    
+      if(isAuthenticated === false){
+        loop_stop = false;
+      }
+    });
+
+});
+
+  socket.on("disconnect",function(){
+        console.log("socket disconnected");
+    });  
+
+  socket.on("notifications", function(data){
+
+    let { notifications, unreadNIds }  = data.notifications;
+   
+    if( typeof(notifications) === "object"){
+      store.dispatch({
+        type: notifications_actions.UPDATE_NOTIFICATIONS_SUCCESSFUL,
+        notifications,
+        unreadNIds
+      })
+    }
+
+  });
+
+
+ store.dispatch(fetchSGDs());
 
 ReactDOM.render(
   <Provider store={store}>

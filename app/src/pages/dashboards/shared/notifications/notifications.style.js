@@ -36,9 +36,17 @@ export default styled.div`
             height: 50px;
             width: 50px;
             border-radius: 50px;
+            object-fit: cover;
+            background: silver;
+        }
+
+        strong{
+            text-transform: capitalize;
+            &:hover{
+                color: slateblue;
+            }
         }
         
-
         p,a{
             font-family: ProximaNova;
             line-height: 20px;

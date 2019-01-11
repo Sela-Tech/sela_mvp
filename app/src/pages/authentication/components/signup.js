@@ -2,17 +2,9 @@ import React from "react";
 // icons
 
 import Logo from "../../../assets/icons/sela-circle-blue.svg";
-import up from "../../../assets/icons/up.svg";
-import success from "../../../assets/icons/success.svg";
-
-
-import phone from "../../../assets/icons/phone.svg";
-import apple from "../../../assets/apple.svg";
-import google from "../../../assets/google.svg";
-
 
 // others
-import { Link, NavLink, withRouter } from "react-router-dom";
+import { Link, withRouter } from "react-router-dom";
 import { validator } from "../../../helpers/utils";
 
 // store related
@@ -26,16 +18,16 @@ import SignUpWrapper from "../styles/signup.style";
 
 import AsycnButton from "../../../shared-components/unique/async-button";
 import auth from "../../../store/actions/auth";
-// import MessageToShow from "../../../shared-components/errors/messageToShow";
 
 import { Creatable as Select } from "react-select";
 import { fetchOrganizations } from "../../../store/action-creators/organizations";
 
-// import ReactS3Uploader from "react-s3-uploader";
-// import endpoints from "../../../endpoints";
-
-import {Buttn} from "./sub/evaluator.after-signup";
 import { notify } from "../../../store/action-creators/app";
+import CheckInboxAfterSignUp from "./sub/check_inbox.after-signup";
+import DownloadAppAfterSignup from "./sub/download_app.after-signup";
+
+import ReactPasswordStrength from 'react-password-strength';
+import config from "./config";
 
 const Button = ({ active, title, description, name, Ftn }) => {
   let onClick = () => Ftn(name);
@@ -68,11 +60,7 @@ class Signup extends React.Component {
       formData: {
         firstName: { value: "", valid: false },
         lastName: { value: "", valid: false },
-        signUpType: {
-          value: "",
-          valid: false
-        },
-        profilePhoto: { preview: "", file: "" },
+        signUpType: {  value: "", valid: false },
         organization: { name: "", id: "", valid: false },
         email: { value: "", valid: false },
         password: { value: "", valid: false },
@@ -105,11 +93,8 @@ class Signup extends React.Component {
       }
     };
 
-    if (this.state.formData.profilePhoto.file) {
-      this.next(this.state.formData.profilePhoto.file);
-    } else {
-      this.props.signup(objToSubmit);
-    }
+     this.props.signup(objToSubmit);
+    
   };
 
   onSelect = name => {
@@ -180,7 +165,6 @@ class Signup extends React.Component {
     });
   };
 
-
   componentWillReceiveProps(nextProps){
     if(this.props !== nextProps){
       
@@ -210,226 +194,60 @@ class Signup extends React.Component {
       if(nextProps.type === auth.SIGNUP_FAILED){
         notify(<p style={{color: 'white'}}>{nextProps.message}</p>,"error")
       } 
-    }
+  }
   
-
-
-  handleImageChange = (file, next) => {
+  onPassChange = obj => {
     this.setState({
       formData: {
         ...this.state.formData,
-        profilePhoto: {
-          preview: URL.createObjectURL(file),
-          file
+        password: {
+          value: obj.password,
+          valid: obj.isValid
         }
       }
-    });
-    this.next = next;
-  };
-
-  onUploadFinish = upload => {
-    let { formData } = this.state,
-      objToSubmit = {};
-
-    Object.keys(formData).map(key => {
-      objToSubmit = { ...objToSubmit, [key]: formData[key].value };
-      return null;
-    });
-
-    objToSubmit = {
-      ...objToSubmit,
-      profilePhoto:
-        "https://s3.us-east-2.amazonaws.com/selamvp/" + upload.filename,
-      organization: {
-        name: formData.organization.name,
-        id: formData.organization.id
-      }
-    };
-
-    this.props.signup(objToSubmit);
-  };
-
-  onUploadProgress = count => {
-    this.setState({
-      uploading: count
-    });
-  };
-
+    });  
+  }
 
   render() {
 
     let {
       inprogress,
       type,
-      // message,
       selectedOption,
       organizations
     } = this.state;
 
     const { formData } = this.state;
 
-    const count = formData.signUpType.value ==="evaluation-agent" ? 6:7;
+    let disable_form  = true, form_is_complete = false;
 
-    const length = Object.keys(formData).filter(key => {     
-      if(count === 6){
-        if(formData[key].value !== "evaluation-agent"){
-          return formData[key].valid === true;
-        }
-      }
+     const valid_fields = Object.keys(formData).filter(key => {     
       return formData[key].valid === true;
-    }).length;
+    })
 
-    const checkFormCompletion = length !== count;
-
+    if( formData.signUpType.value === "evaluation-agent" ){
+      form_is_complete = valid_fields.length >= config.min_valid_field_count_for_evaluators;
+    }else if(formData.signUpType.value === "project-funder") {
+      form_is_complete = valid_fields.length >= config.min_valid_field_count_for_project_funders;
+    }else if(formData.signUpType.value === "contractor"){
+      form_is_complete = valid_fields.length >= config.min_valid_field_count_for_contractors;
+    }
+    
+    // because if the form is complete, without the exclamation mark,it would still disable so i reversed it.
+    
+    disable_form = !form_is_complete;
+   
     switch (type) {
       
       case auth.SIGNUP_SUCCESSFUL:
         window.scrollTo(0, 0);
 
-       return this.props.signUpType === "evaluation-agent"?
-        <Wrapper viewName="signup">
-         <SignUpWrapper className="container">
-          <div className="xs-12">
-            <div id="phone-wrapper">
-              <div id="phone">
-                <img src={phone} alt="phone" />
-              </div>
-            </div>
-          </div>
-          <div className="xs-12">
-            <h2>
-              <img src={success} alt="success" id="success-icon" />
-              You're signed up!
-            </h2>
-            <p
-              className="xs-10 xs-off-1 sm-6 sm-off-3"
-              id="signup-info-text"
-            >
-              <span>
-              Download the Sela app to continue. With the Sela app, you will be able to upload evaluation submissions for projects around you </span>
-            </p>
-          </div>
-
-          <div className="xs-12 video-section">
-            <div className="xs-10 xs-off-1 sm-6 sm-off-3">
-
-              <div className="xs-12 sm-6 t-c">
-                <img src={apple} alt="apple" id="apple"/>
-              </div>  
-
-              <div className="xs-12 sm-6 t-c">
-                <img src={google} alt="google" id="google"/>
-              </div>  
-              
-              
-            </div>
-          </div>
-
-          <div className='xs-12'> 
-            <Buttn onClick={this.props.logout}>
-                <div className="close-button"></div> 
-            </Buttn>
-          </div>
-
-        </SignUpWrapper>
-    
-      </Wrapper>
-  
-       :
-       (
-        <Wrapper viewName="signup">
-          <SignUpWrapper className="container">
-            <div className="xs-12">
-              <div id="phone-wrapper">
-                <div id="phone">
-                  <img src={up} alt="up" />
-                </div>
-              </div>
-            </div>
-            <div className="xs-12">
-              <h2>
-                <img src={success} alt="success" id="success-icon" />
-                You're signed up!
-              </h2>
-
-            <div  className="xs-10 xs-off-1 sm-6 sm-off-3">
-            
-              <p
-              className='xs-12'
-              id="signup-info-text">
-
-                <span>
-                  Thank you for signing up!.
-                </span>
-            
-                <span>
-                  Please check your <strong>inbox</strong> and following the instructions provided to verify your email address.
-                </span>
-                
-              </p>
-
-            </div>
-
-                <div className="xs-12">
-                  <NavLink exact to="/signin" id='sign-in'>Proceed To Sigin</NavLink>
-                </div>
-            
-            </div>
-
-          
-          </SignUpWrapper>
-        </Wrapper>
-      );
-
-
-        // (
-        //   <Wrapper viewName="signup">
-        //     <SignUpWrapper className="container">
-        //       <div className="xs-12">
-        //         <div id="phone-wrapper">
-        //           <div id="phone">
-        //             <img src={up} alt="up" />
-        //           </div>
-        //         </div>
-        //       </div>
-        //       <div className="xs-12">
-        //         <h2>
-        //           <img src={success} alt="success" id="success-icon" />
-        //           You're signed up!
-        //         </h2>
-        //         <p
-        //           className="xs-10 xs-off-1 sm-6 sm-off-3"
-        //           id="signup-info-text"
-        //         >
-        //           <span>
-        //             We’re currently reviewing your submission. We’ll send you an
-        //             email when your account is approved and activated!
-        //           </span>
-        //         </p>
-        //       </div>
-
-        //       <div className="xs-12 video-section">
-        //         <p className="xs-10 xs-off-1 sm-8 sm-off-2">
-        //           <span>
-        //             In the meantime, here’s a walkthrough to help you get
-        //             familiar with the platform:
-        //           </span>
-        //         </p>
-
-        //         <div className="xs-12 sm-8 sm-off-2" id="video-wrapper">
-        //           <video
-        //             poster="http://placehold.it/400"
-        //             controls
-        //             src="http://techslides.com/demos/sample-videos/small.mp4"
-        //             height="400px"
-        //             width="100%"
-        //           />
-        //         </div>
-        //       </div>
-        //     </SignUpWrapper>
-        //   </Wrapper>
-        // );
-
+       return this.props.signUpType === "evaluation-agent" 
+        ?
+        <DownloadAppAfterSignup logout={this.props.logout}/>
+        :
+        <CheckInboxAfterSignUp/>
+      
       default:
         return (
           <Wrapper viewName="signup">
@@ -479,44 +297,6 @@ class Signup extends React.Component {
                       active={formData["signUpType"].value}
                     />
                   </div>
-
-                  {/* <div className="form-group xs-12 md-6">
-                    <label htmlFor="photo" className="profile-photo">
-                      {formData.profilePhoto.preview && (
-                        <img
-                          src={formData.profilePhoto.preview}
-                          alt="profilePhoto"
-                          id="profilePhoto"
-                        />
-                      )}
-                      <div className="c-w">
-                        <div className="c t-c">
-                          <span>+</span>
-                        </div>
-                      </div>
-
-                      <ReactS3Uploader
-                        id="photo"
-                        name="profile-photo"
-                        server={endpoints.b}
-                        signingUrl="s3/sign"
-                        signingUrlMethod="GET"
-                        accept="image/*"
-                        s3path="user-avatars/"
-                        preprocess={this.handleImageChange}
-                        onSignedUrl={this.onSignedUrl}
-                        onProgress={this.onUploadProgress}
-                        onError={this.onUploadError}
-                        onFinish={this.onUploadFinish}
-                        uploadRequestHeaders={{ "x-amz-acl": "public-read" }} // this is the default
-                        contentDisposition="auto"
-                        scrubFilename={filename =>
-                          filename.replace(/[^\w\d_\-.]+/gi, "")
-                        }
-                        autoUpload={true}
-                      />
-                    </label>
-                  </div> */}
 
                   <div className="form-group xs-12 md-12">
                     <div className="form-group xs-12 md-6">
@@ -570,7 +350,6 @@ class Signup extends React.Component {
                       placeholder="Email"
                       value={this.state.formData.email.value}
                       onChange={this.onChange}
-                      required
                     />
                   </div>
 
@@ -582,18 +361,17 @@ class Signup extends React.Component {
                       className="form-control"
                       placeholder="Phone Number"
                       onChange={this.onChange}
-                      required
                     />
                   </div>
 
                   <div className="form-group xs-12">
-                    <input
-                      name="password"
-                      type="password"
-                      className="form-control"
-                      placeholder="Password"
+                    <ReactPasswordStrength
+                      minLength={config.min_password_length}
+                      minScore={4}
                       value={this.state.formData.password.value}
-                      onChange={this.onChange}
+                      scoreWords={['weak', 'okay', 'good', 'strong', 'solid']}
+                      changeCallback={this.onPassChange}
+                      inputProps={{ name: "password", autoComplete: "off", className: "form-control" }}
                       required
                     />
                   </div>
@@ -603,7 +381,7 @@ class Signup extends React.Component {
                       <AsycnButton
                         id="submit-btn"
                         attempt={inprogress}
-                        disabled={checkFormCompletion}
+                        disabled={disable_form}
                       >
                         Get Started
                       </AsycnButton>

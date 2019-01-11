@@ -64,7 +64,7 @@ export default connect(mapStateToProps)(
         });
       }
 
-      const assignedTo = Boolean(info.assignedTo) ? info.assignedTo : "-------";
+      // const assignedTo = Boolean(info.assignedTo) ? info.assignedTo : "-------";
 
       return (
         <ViewTaskWrapper className="xs-12">
@@ -79,15 +79,19 @@ export default connect(mapStateToProps)(
               <h4>Deadline</h4>
               <p>{moment(info.dueDate).format("MMM D, YYYY")}</p>
             </div>
+{/*            
             <div className="xs-12 sm-4">
               <h4>Contractor Assigned</h4>
               <p>{assignedTo}</p>
-            </div>
+           
+            </div> */}
 
             <div className="xs-12 status">
-              <h4 id="stat">
+          
+              {/* <h4 id="stat">
                 Status: <span>{info.status} </span>
-              </h4>
+              </h4> */}
+          
               <div className="grey-border xs-12">
                 <button className={this.state["not-started"] + " xs-12 sm-3"}>
                   Not Started

@@ -53,8 +53,8 @@ export default styled.div`
 
     h2 {
       font-family: ProximaNova;
-      line-height: 44px;
-      font-size: 30px;
+      line-height: 35px;
+      font-size: 24px;
       color: #3e3f42;
       font-weight: 300;
     }
@@ -76,6 +76,8 @@ export default styled.div`
 
     .corner {
       box-sizing: border-box;
+      font-size: 13px;
+      font-weight: 300;
     }
 
     #bar-chart {
@@ -162,8 +164,8 @@ export default styled.div`
 
         h1 {
           font-family: ProximaNova;
-          line-height: 60px;
-          font-size: 48px;
+          line-height: 40px;
+          font-size: 30px;
           text-align: left;
           color: #3e3f42;
           font-weight: 300;
@@ -192,7 +194,7 @@ export default styled.div`
           p {
             font-family: ProximaNova;
             line-height: 18px;
-            font-size: 13px;
+            font-size: 12px;
             text-transform: uppercase;
             color: #3e3f42;
             font-weight: 400;

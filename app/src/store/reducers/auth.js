@@ -159,9 +159,6 @@ export default (state = initstate, payload) => {
         }
       };
 
-
-
-
       case authActions.UPDATE_PASSWORD_IN_PROGRESS:
       return {
         ...state,
@@ -186,12 +183,67 @@ export default (state = initstate, payload) => {
         action: {
           type: authActions.UPDATE_PASSWORD_FAILED,
           message:
-            payload.message || "Failed to update password."
+            payload.message.msg || "Failed to update password."
         }
       };
 
+      case authActions.EMAIL_VERIFICATION_IN_PROGRESS:
+      return {
+        ...state,
+        action: {
+          type: authActions.EMAIL_VERIFICATION_IN_PROGRESS,
+          message: payload.message
+     
+        }
+      }
 
+      case authActions.EMAIL_VERIFICATION_SUCCESSFUL:
+      return {
+        ...state,
+        action: {
+          type: authActions.EMAIL_VERIFICATION_SUCCESSFUL,
+          message: payload.message
+     
+        }
+      }
 
+      case authActions.EMAIL_VERIFICATION_FAILED:
+      return {
+        ...state,
+        action: {
+          type: authActions.EMAIL_VERIFICATION_FAILED,
+          message: payload.message
+     
+        }
+      }
+      
+
+    case authActions.RESEND_VERIFICATION_IN_PROGRESS:
+    return {
+      ...state,
+      action: {
+        type: authActions.RESEND_VERIFICATION_IN_PROGRESS,
+        message: payload.message
+     
+      }
+    }
+    case authActions.RESEND_VERIFICATION_SUCCESSFUL:
+    return {
+      ...state,
+      action: {
+        type: authActions.RESEND_VERIFICATION_SUCCESSFUL,
+        message: payload.message
+      }
+    }
+    case authActions.RESEND_VERIFICATION_FAILED:
+    return {
+      ...state,
+      action: {
+        type: authActions.RESEND_VERIFICATION_FAILED,
+        message: payload.message
+     
+      }
+    }
 
     case authActions.SEND_RECOVERY_MAIL_IN_PROGRESS:
       return {

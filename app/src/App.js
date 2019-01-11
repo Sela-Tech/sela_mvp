@@ -1,16 +1,33 @@
-import React from "react";
+import React, { Suspense, lazy } from 'react';
 import { Switch, Route, BrowserRouter as Router } from "react-router-dom";
-import r from "./routes";
-
 import { connect } from "react-redux";
+
 import authActions from "./store/actions/auth";
 import { LoadingRoute, PrivateRoute } from "./helpers/routes";
-import Errors from "./pages/errors";
+
+import Error404 from "./pages/error404";
 import Modals from "./shared-components/modals";
-import ALlEvaluatorsSee from "./pages/authentication/components/sub/evaluator.after-signup";
 
 import { ToastContainer } from 'react-toastify';
 import 'react-toastify/dist/ReactToastify.css';
+import loadable from "loadable-components";
+
+import Blank from "./pages/dashboards/blank/";
+
+import NotLoggedIn from "./pages/public/loading/generic";
+import signin from "./pages/authentication/components/signin";
+import forgot_password from "./pages/authentication/components/forgot-password";
+import email_verification from "./pages/authentication/components/email-verification";
+
+import home from './pages/public/home';
+
+const change_password = lazy(()=> import("./pages/authentication/components/change-password"));
+const signup = lazy(()=> import("./pages/authentication/components/signup"));
+const public_view_project = lazy(() => import('./pages/public/projects/view-project'));
+const dashboard_decider = loadable(() => import("./pages/dashboards/"), {
+    LoadingComponent: Blank
+  });
+const evaluator_default_page = lazy(()=> import("./pages/authentication/components/sub/evaluator.after-signup"));
 
 const App = ({ isAuthenticated, actionType, modalToShow, isEvaluator }) => {
 
@@ -18,7 +35,7 @@ const App = ({ isAuthenticated, actionType, modalToShow, isEvaluator }) => {
     case true:
    return <Router>
       <Switch>
-        <Route component={ALlEvaluatorsSee}/>
+        <Route component={evaluator_default_page}/>
       </Switch>
     </Router>    
       
@@ -27,6 +44,7 @@ const App = ({ isAuthenticated, actionType, modalToShow, isEvaluator }) => {
       <Router>
         <React.Fragment>
           <Modals name={modalToShow} />
+          <Suspense fallback={<NotLoggedIn/>}>
           <ToastContainer />
   
           {actionType === authActions.TOKEN_VERIFICATION_IN_PROGRESS ? (
@@ -36,40 +54,48 @@ const App = ({ isAuthenticated, actionType, modalToShow, isEvaluator }) => {
           ) : (
             <Switch>
          
-              <Route exact path="/" component={r.home} />
-              <Route exact path="/admin" component={r.admin} />
-              <Route exact path="/admin/users/:route" component={r.admin} />
-  
+              <Route exact path="/" component={home} />
+              
+              <Route
+                exact
+                path="/email/verify"
+                component={email_verification}
+              />
+              
               <Route
                 exact
                 path="/projects/:id"
-                component={r.public_view_project}
+                component={public_view_project}
               />
+
               <Route
                 exact
                 path="/projects/:id/:show"
-                component={r.public_view_project}
+                component={public_view_project}
               />
+
               <PrivateRoute
                 exact
                 path="/signin"
                 type="auth"
                 isAuthenticated={isAuthenticated}
-                component={r.signin}
+                component={signin}
               />
+
               <PrivateRoute
                 exact
                 path="/signup"
                 type="auth"
                 isAuthenticated={isAuthenticated}
-                component={r.signup}
+                component={signup}
               />
+
               <PrivateRoute
                 exact
                 path="/forgot/password"
                 type="auth"
                 isAuthenticated={isAuthenticated}
-                component={r.forgot_password}
+                component={forgot_password}
               />
               
               <PrivateRoute
@@ -77,52 +103,55 @@ const App = ({ isAuthenticated, actionType, modalToShow, isEvaluator }) => {
                 path="/password/reset"
                 type="auth"
                 isAuthenticated={isAuthenticated}
-                component={r.change_password}
+                component={change_password}
               />
               
               <PrivateRoute
                 exact
                 path="/dashboard"
                 isAuthenticated={isAuthenticated}
-                component={r.dashboardDecider}
+                component={dashboard_decider}
               />
+
               <PrivateRoute
                 exact
                 path="/dashboard/inbox"
                 isAuthenticated={isAuthenticated}
-                component={r.dashboardDecider}
+                component={dashboard_decider}
               />
               <PrivateRoute
                 exact
                 path="/dashboard/notifications"
                 isAuthenticated={isAuthenticated}
-                component={r.dashboardDecider}
+                component={dashboard_decider}
               />
-              
               
               <PrivateRoute
                 exact
                 path="/dashboard/help"
                 isAuthenticated={isAuthenticated}
-                component={r.dashboardDecider}
+                component={dashboard_decider}
               />
-              
               
               <PrivateRoute
                 exact
                 path="/dashboard/settings"
                 isAuthenticated={isAuthenticated}
-                component={r.dashboardDecider}
+                component={dashboard_decider}
               />
+
               <PrivateRoute
                 exact
                 path="/dashboard/project/:id/:view"
                 isAuthenticated={isAuthenticated}
-                component={r.dashboardDecider}
+                component={dashboard_decider}
               />
-              <Route component={Errors} />
+
+              <Route component={Error404} />
             </Switch>
           )}
+          </Suspense>
+
         </React.Fragment>
       </Router>
     );

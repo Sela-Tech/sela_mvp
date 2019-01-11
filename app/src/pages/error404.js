@@ -1,5 +1,7 @@
 import React from "react";
-import map from "../../assets/map.png";
+
+import Navbar from "../shared-components/navbar";
+import map from "../assets/map.png";
 import styled from 'styled-components';
 
 const Wrap = styled.div`
@@ -51,6 +53,8 @@ const Wrap = styled.div`
 `; 
   const Error404 = ()=> {
       return  <React.Fragment>
+         <Navbar/>
+     
                 <Wrap className="xs-12">
                   <div className="c-w t-c i-h">
                     <div className="c t-c i-h">

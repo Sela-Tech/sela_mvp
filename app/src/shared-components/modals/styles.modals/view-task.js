@@ -19,6 +19,7 @@ export const ViewTaskWrapper = styled.div`
   .left,
   .right {
     padding: 3em 1.5em;
+    min-height: 450px;
   }
 
   h2,

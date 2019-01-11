@@ -80,10 +80,10 @@ class Documents extends React.Component {
 
         <div className="xs-12 uploaded-by">
           <div className="xs-12 sm-6">
-            <button className="active">Uploaded By Stakeholder</button>
+            <button className="active">Uploaded By Contractors</button>
           </div>
           <div className="xs-12 sm-6">
-            <button>Uploaded By Others</button>
+            <button>Uploaded By Evaluators</button>
           </div>
         </div>
 

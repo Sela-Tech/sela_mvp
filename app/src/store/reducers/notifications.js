@@ -31,7 +31,15 @@ export default (state=init, payload)=>{
             ...state,
             type: actions.GET_INIT_NOTIFICATIONS_REQUEST,
         };
-        
+      
+        case actions.UPDATE_NOTIFICATIONS_SUCCESSFUL:            
+        return {
+            ...state, 
+            type: actions.UPDATE_NOTIFICATIONS_SUCCESSFUL,
+            notifications: payload.notifications,
+            unreadNIds: payload.unreadNIds
+        };
+
         case actions.GET_INIT_NOTIFICATIONS_SUCCESSFUL:            
         return {
             ...state,

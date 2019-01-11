@@ -312,19 +312,19 @@ export default connect(
                 </div>
 
                 <div className='xs-12'>
-            { options && options.map((o,i)=>{
-                    return <div className="xs-12 sin" onClick={()=> this.addToSelected(o)} key={i}>
-                        <div className="xs-3">
-                            <img src={ o.img} alt=""/>
-                        </div>
-                        <div className="xs-9 t">
-                            <h4>{o.name} </h4>
-                            <p><strong>{o.type}</strong> | {o.company}</p>
-                        </div>
-                        
-                    </div>
-                })
-            }
+                    { options && options.map((o,i)=>{
+                            return <div className="xs-12 sin" onClick={()=> this.addToSelected(o)} key={i}>
+                                <div className="xs-3">
+                                    <img src={ o.img} alt=""/>
+                                </div>
+                                <div className="xs-9 t">
+                                    <h4>{o.name} </h4>
+                                    <p><strong>{o.type}</strong> | {o.company}</p>
+                                </div>
+                                
+                            </div>
+                        })
+                    }
             </div>  
             </div>
         </div>

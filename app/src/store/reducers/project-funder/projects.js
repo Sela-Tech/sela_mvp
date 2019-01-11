@@ -249,9 +249,7 @@ export default (state = initstate, payload) => {
       };
 
     case dA.FETCHING_P_STAKEHOLDERS_SUCCESSFUL:
-
-    // console.log(payload.pstakeholders)
-      return {
+  return {
         ...state,
         funders: {
           action: {

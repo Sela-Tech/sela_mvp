@@ -9,6 +9,10 @@ import { Line } from "rc-progress";
 import { BarChart, Bar } from "recharts";
 import { connect } from "react-redux";
 
+import Chance from 'chance';
+
+var chance = new Chance();
+
 class Analytics extends React.Component {
   constructor(props) {
     super(props);
@@ -16,20 +20,10 @@ class Analytics extends React.Component {
       rating: 0,
       date: "",
       taskData: [],
-      data: [
-        { name: "Page A", uv: 4000, pv: 2400, amt: 2400 },
-        { name: "Page B", uv: 3000, pv: 1398, amt: 2210 },
-        { name: "Page C", uv: 2000, pv: 9800, amt: 2290 },
-        { name: "Page D", uv: 2780, pv: 3908, amt: 2000 },
-        { name: "Page E", uv: 1890, pv: 4800, amt: 2181 },
-        { name: "Page F", uv: 2390, pv: 3800, amt: 2500 },
-        { name: "Page G", uv: 3490, pv: 4300, amt: 2100 }
-      ],
       pie: [
-        { name: "Group A", value: 1 },
-        { name: "Group B", value: 1 },
-        // { name: "Group C", value: 1 },
-        { name: "Group D", value: 1 }
+        { name: "Group A", value: chance.integer({ min: 0, max: 500 }) },
+        { name: "Group B", value: chance.integer({ min: 0, max: 500 }) },
+        { name: "Group D", value: chance.integer({ min: 0, max: 500 }) },
       ],
       inDate: moment()
     };
@@ -68,7 +62,52 @@ class Analytics extends React.Component {
   handleDateUpdate = e => this.setState({ date: e.target.value });
 
   render() {
-    const { date, taskData, pie } = this.state;
+    const { date, pie } = this.state;
+
+    let temp = {
+      project_completion: chance.integer({ min: 0, max: 100 }),
+      project_increase_rate: chance.integer({ min: 0, max: 50 }),
+      tasks_completed: chance.integer({min:20, max: 60 }),
+      total_tasks: chance.integer({min:60, max: 300 }),
+      tasks_completion_rate:  chance.integer({ min: 0, max: 50 }),
+      budget_exhausted: chance.integer({min: 10,max: 85}),
+      budget_exhaustion_rate: chance.integer({min: 5, max: 60}),
+      spent: chance.dollar({min: 90000, max: 900000}),
+      paid: chance.dollar({min: 30000, max: 90000}),
+      
+      spending_rate: chance.integer({min: 0, max: 60}),
+      
+    }
+
+    temp.percentage_task_completed=  Math.floor((temp.tasks_completed * 100)/temp.total_tasks)
+      
+    temp.taskData = Array.from({ length: temp.tasks_completed }).map((x,i)=>{
+      return {
+          name: "Task" + i,
+          uv: chance.integer({ min: 0, max: 50 }),
+          pv: chance.integer({ min: 0, max: 50 }),
+          amt: chance.integer({ min: 0, max: 50 }),
+        };
+    })
+    
+    temp.spendData =  Array.from({ length: temp.tasks_completed }).map((x,i)=>{
+      return {
+          name: "Task" + i,
+          uv: chance.integer({ min: 0, max: 50 }),
+          pv: chance.integer({ min: 0, max: 50 }),
+          amt: chance.integer({ min: 0, max: 50 }),
+        };
+    })
+
+    const months = ['Jan','Feb','Mar','Apr',"May",'Jun',"Jul","aug","Sep","Oct",'Nov','Dec']
+    temp.spentVsRaised = Array.from({ length: 9 }).map((x,i)=>{
+      let formatted = parseFloat(temp.paid.replace("$",""))
+      return {
+          name: months[i],
+          spent: i === 8 ? formatted :chance.integer({ min: 0, max: formatted }),
+          raised: i % chance.integer({min:2,max: 8}) === 0 ? 0 : chance.integer({ min: (formatted - formatted / 3) , max: formatted }),
+        };
+    })
 
     return (
       <AStyle className="xs-12">
@@ -105,15 +144,15 @@ class Analytics extends React.Component {
                 </div>
                 <div className="xs-12 space">
                   <div className="f-l">
-                    <h2>0%</h2>
+                    <h2>{temp.project_completion}%</h2>
                   </div>
                   <div className="f-r">
-                    <span>+0%</span>
+                    <span>+{temp.project_increase_rate}%</span>
                   </div>
                 </div>
                 <div className="progress xs-12">
                   <Line
-                    percent={1}
+                    percent={temp.project_completion}
                     strokeWidth="2"
                     trailWidth="2"
                     strokeColor="#0A2C56"
@@ -133,16 +172,23 @@ class Analytics extends React.Component {
                 </div>
                 <div className="xs-12 space">
                   <div className="f-l">
-                    <h2>{this.props.tasks ? this.props.tasks.length : 0}</h2>
+                    <h2>{ temp.tasks_completed} / {temp.total_tasks}</h2>
                   </div>
                   <div className="f-r">
-                    <span>+0%</span>
+                    <span>+{temp.tasks_completion_rate}%</span>
                   </div>
                 </div>
                 <div className="progress xs-12">
-                  <BarChart width={150} height={40} data={taskData}>
-                    <Bar dataKey="uv" fill="#0A2C56" />
-                  </BarChart>
+                  <Line
+                    percent={temp.percentage_task_completed}
+                    strokeWidth="2"
+                    trailWidth="2"
+                    strokeColor="#0A2C56"
+                    trailColor="#EAECEE"
+                  />
+
+                  <p>Task Completion</p>
+
                 </div>
               </div>
             </div>
@@ -156,15 +202,15 @@ class Analytics extends React.Component {
                 </div>
                 <div className="xs-12 space">
                   <div className="f-l">
-                    <h2>0%</h2>
+                    <h2>{temp.budget_exhausted}%</h2>
                   </div>
                   <div className="f-r">
-                    <span>+0%</span>
+                    <span>+{temp.budget_exhaustion_rate}%</span>
                   </div>
                 </div>
                 <div className="progress xs-12">
                   <Line
-                    percent={1}
+                    percent={temp.budget_exhausted}
                     strokeWidth="2"
                     trailWidth="2"
                     strokeColor="#0A2C56"
@@ -180,18 +226,18 @@ class Analytics extends React.Component {
             <div className="xs-12 sm-11">
               <div className="xs-12 a-info-card">
                 <div className="xs-12">
-                  <h3>Spend</h3>
+                  <h3>Spending Total</h3>
                 </div>
                 <div className="xs-12 space">
                   <div className="f-l">
-                    <h2>$0</h2>
+                    <h2>{temp.spent}</h2>
                   </div>
                   <div className="f-r">
-                    <span>+0%</span>
+                    <span>+{temp.spending_rate}%</span>
                   </div>
                 </div>
                 <div className="progress xs-12">
-                  <BarChart width={150} height={40} data={taskData}>
+                  <BarChart width={150} height={40} data={temp.spendData}>
                     <Bar dataKey="uv" fill="#8884d8" />
                   </BarChart>
                 </div>
@@ -217,7 +263,7 @@ class Analytics extends React.Component {
                 <div className="xs-12" id="chart-info">
                   <div className="xs-12 sm-6">
                     <div className="xs-12 has-bar">
-                      <h1>$0</h1>
+                      <h1>{temp.paid}</h1>
                       <p>paid out this month</p>
                     </div>
 
@@ -235,7 +281,7 @@ class Analytics extends React.Component {
                   </div>
 
                   <div className="xs-12 sm-6 corner">
-                    <PieChartComp pie={pie} data={taskData} />
+                    <PieChartComp pie={pie} />
                   </div>
                 </div>
               </div>
@@ -245,15 +291,16 @@ class Analytics extends React.Component {
             <div className="xs-12 white" id="bar-chart">
               <div className="xs-12">
                 <div className="f-l">
-                  <span id="blue" />
+                <h5>Financial Analysis For <strong>{moment().format("YYYY")}</strong> </h5>
+                  {/* <span id="blue" />
                   <h5>Spend</h5>
                   <span>vs.</span>
                   <span id="grey" />
-                  <h5>Raised</h5>
+                  <h5>Raised</h5> */}
                 </div>
               </div>
 
-              <BarChartComp data={taskData} />
+              <BarChartComp data={temp.spentVsRaised} />
             </div>
           </div>
         </div>
