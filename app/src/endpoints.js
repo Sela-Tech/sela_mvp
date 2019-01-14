@@ -8,7 +8,7 @@ let b = "";
 
 export default {
   b,
-  email_verification: b + "email/verify?token=",
+  email_verification: b + "account/verify?token=",
   resend_verification: b + "verify/account/resend",
   approve: b + "a/approve",
   revoke: b + "a/revoke",
