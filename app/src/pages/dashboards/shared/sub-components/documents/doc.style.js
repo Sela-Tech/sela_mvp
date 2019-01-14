@@ -8,8 +8,8 @@ export default styled.div`
       border: 0;
       height: 70px;
       width: 100%;
-      font-size: 15px;
-
+      font-size: 14px;
+      font-weight: 300;
       &.active {
         color: rgba(242, 153, 74, 0.97);;
       }

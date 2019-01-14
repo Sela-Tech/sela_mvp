@@ -14,6 +14,7 @@ export default styled.div`
     h3 {
       margin: 10px 0;
       font-family: ProximaNova;
+      text-transform: capitalize;
       line-height: 28px;
       font-weight: 400;
       font-size: 18px;
@@ -84,7 +85,8 @@ export default styled.div`
         font-size: 14px;
         color: #3e3f42;
         font-weight: 300;
-
+        text-transform: capitalize;
+    
         &#cash {
           font-weight: 400;
           color: #6fcf97;

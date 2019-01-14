@@ -6,8 +6,8 @@ const mapStateToProps = state => {
   let temp = state.app.sdgs || [],
     sdgs = temp.map(s => {
       return {
-        label: s.title,
-        value: s.title
+        label: s,
+        value: s
       };
     });
   return {

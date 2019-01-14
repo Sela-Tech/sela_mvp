@@ -16,7 +16,15 @@ export default (state = init, payload) => {
       return {
         ...state,
         type: app.FOUND_SGDS,
-        sdgs: payload.list
+        sdgs: [
+          "No Poverty", "Zero Hunger",
+          "Health & Well-being", "Education",
+          "Gender Equality","Water & Sanitation",
+          "Clean Energy","Economic Growth",
+          "Infrastructure", "Reduced Inequality",
+          "Sustainable Cities", "Climate Action", "Life Below Water",
+          "Life on Land", "Responsible Consumption & Production"
+        ]
       };
 
     case app.FINDING_SDGS:
