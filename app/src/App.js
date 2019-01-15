@@ -8,7 +8,7 @@ import { LoadingRoute, PrivateRoute } from "./helpers/routes";
 import Error404 from "./pages/error404";
 import Modals from "./shared-components/modals";
 
-import { ToastContainer } from 'react-toastify';
+import ToastContainer from 'react-toastify/lib/components/ToastContainer';
 import 'react-toastify/dist/ReactToastify.css';
 import loadable from "loadable-components";
 

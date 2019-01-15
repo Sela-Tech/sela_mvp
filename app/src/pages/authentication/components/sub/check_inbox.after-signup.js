@@ -2,7 +2,7 @@ import React from "react";
 //icons
 import up from "../../../../assets/icons/up.svg";
 import success from "../../../../assets/icons/success.svg";
-import {NavLink} from "react-router-dom";
+import NavLink from "react-router-dom/NavLink";
 
 // components
 import Wrapper from "../wrapper";

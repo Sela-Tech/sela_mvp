@@ -1,7 +1,9 @@
 import React from "react";
 import styled from "styled-components";
-import { NavLink, Link } from "react-router-dom";
-import { connect } from "react-redux";
+import NavLink from "react-router-dom/NavLink";
+import Link from "react-router-dom/Link";
+import  connect  from "react-redux/lib/connect/connect";
+
 import modals from "../../../../store/actions/project-funder/modals";
 import { showModal } from "../../../../store/action-creators/project-funder/modal";
 import Icon from 'react-fa';

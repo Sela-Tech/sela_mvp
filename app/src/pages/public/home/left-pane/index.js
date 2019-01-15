@@ -7,7 +7,7 @@ import {
   showMap
 } from "../../../../store/action-creators/homepage";
 import CardHolder from "../../../../shared-components/card-holder";
-import { withRouter } from "react-router";
+import  withRouter from "react-router/withRouter";
 import { getQueryString } from "../../../../helpers/utils";
 
 import map from "./map.png";

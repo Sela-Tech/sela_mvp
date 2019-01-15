@@ -3,7 +3,7 @@ import ReactDOM from "react-dom";
  import App from "./App";
 // import registerServiceWorker from './registerServiceWorker';
 import store from "./store";
-import { Provider } from "react-redux";
+import Provider from "react-redux/lib/components/Provider";
 import { verify_user_token } from "./store/action-creators/auth";
 import { retrieveToken } from "./helpers/TokenManager";
 import { get_notifications, store_socket_data } from "./store/action-creators/notifications";
@@ -11,7 +11,6 @@ import { fetchSGDs } from "./store/action-creators/app";
 import io from 'socket.io-client';
 import ends from "./endpoints";
 import notifications_actions from "./store/actions/notifications";
-
 
 if (retrieveToken()) {
   store.dispatch(verify_user_token());

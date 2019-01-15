@@ -1,10 +1,4 @@
-let b = "";
-
-// if (process.env.NODE_ENV === "development") {
-  // b = "http://localhost:3009/";
-// } else {
-  b = "https://sela-develop.herokuapp.com/";
-// }
+let b = "https://sela-develop.herokuapp.com/";
 
 export default {
   b,

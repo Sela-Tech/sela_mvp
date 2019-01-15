@@ -1,5 +1,5 @@
 import React from "react";
-import { connect } from "react-redux";
+import  connect  from "react-redux/lib/connect/connect";
 import AccountDetails from "../../shared/settings/account_details";
 import ChangePassword from "../../shared/settings/change_password";
 import DashboardWrapper from "../../shared/container/wrapper";

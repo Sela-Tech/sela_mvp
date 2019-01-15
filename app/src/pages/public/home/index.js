@@ -5,7 +5,7 @@ import Footer from "../../../shared-components/footer";
 import Navbar from "../../../shared-components/navbar";
 import LeftPane from "./left-pane";
 import RightPane from "./right-pane";
-import { connect } from "react-redux";
+import connect from "react-redux/lib/connect/connect";
 
 const  HomePageContainer = ({show,fullscreen})=>{
 

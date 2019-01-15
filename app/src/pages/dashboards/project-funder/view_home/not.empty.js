@@ -1,7 +1,9 @@
 import React from "react";
 
-import { connect } from "react-redux";
-import { withRouter, Link } from "react-router-dom";
+import connect  from "react-redux/lib/connect/connect";
+import withRouter from "react-router-dom/withRouter";
+import Link from "react-router-dom/Link";
+
 import { showDeleteModal } from "../../../../store/action-creators/project-funder/modal";
 
 import ProjectTemplate from './dara.design/card';

@@ -1,6 +1,6 @@
 import React from "react";
-import { connect } from "react-redux";
-import { bindActionCreators } from "redux";
+import  connect  from "react-redux/lib/connect/connect";
+import  {bindActionCreators}  from "redux";
 import DashboardWrapper from "../../shared/container/wrapper";
 import dashboard from "../../../../store/actions/project-funder/dashboard";
 import { LoadingRoute } from "../../../../helpers/routes";

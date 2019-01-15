@@ -1,7 +1,7 @@
 import React from "react";
 
 import { showModal } from "../../../../store/action-creators/project-funder/modal";
-import { connect } from "react-redux";
+import connect  from "react-redux/lib/connect/connect";
 import modals from "../../../../store/actions/project-funder/modals";
 import EmptyWrapper from "./empty.style";
 

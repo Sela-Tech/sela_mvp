@@ -4,7 +4,9 @@ import React from "react";
 import Logo from "../../../assets/icons/sela-circle-blue.svg";
 
 // others
-import { Link, withRouter } from "react-router-dom";
+import withRouter from "react-router-dom/withRouter";
+import Link from "react-router-dom/Link";
+
 import { validator } from "../../../helpers/utils";
 
 // store related
@@ -19,7 +21,7 @@ import SignUpWrapper from "../styles/signup.style";
 import AsycnButton from "../../../shared-components/unique/async-button";
 import auth from "../../../store/actions/auth";
 
-import { Creatable as Select } from "react-select";
+import Select from "react-select/lib/Creatable";
 import { fetchOrganizations } from "../../../store/action-creators/organizations";
 
 import { notify } from "../../../store/action-creators/app";

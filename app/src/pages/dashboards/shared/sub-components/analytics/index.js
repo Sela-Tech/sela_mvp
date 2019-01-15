@@ -1,13 +1,15 @@
 import React from "react";
 import AStyle from "./a.styles";
 import moment from "moment";
-import { Link } from "react-router-dom";
+import Link from "react-router-dom/Link";
 import BarChartComp from "./bar";
 import PieChartComp from "./pie";
 
-import { Line } from "rc-progress";
-import { BarChart, Bar } from "recharts";
-import { connect } from "react-redux";
+import Line from "rc-progress/lib/Line";
+import  BarChart from "recharts/lib/chart/BarChart";
+import Bar from "recharts/lib/cartesian/Bar";
+
+import connect from "react-redux/lib/connect/connect";
 
 import Chance from 'chance';
 

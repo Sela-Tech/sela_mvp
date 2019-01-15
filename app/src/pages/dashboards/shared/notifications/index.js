@@ -1,7 +1,7 @@
 import React from 'react';
 import NotificationsStyle from './notifications.style';
 import Navbar from "../navbar";
-import {connect} from "react-redux";
+import connect from "react-redux/lib/connect/connect";
 import notifications from '../../../../store/actions/notifications';
 import {  mark_viewed, get_notifications } from '../../../../store/action-creators/notifications';
 import { notify } from '../../../../store/action-creators/app';

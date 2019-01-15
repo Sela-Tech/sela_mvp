@@ -1,12 +1,15 @@
 import React from "react";
 import { ProjectWrapper,TagW,colors } from "./main.style";
-import { NavLink, withRouter } from "react-router-dom";
+
+import NavLink from "react-router-dom/NavLink";
+import withRouter from "react-router-dom/withRouter";
+
 import Analytics from "../../shared/sub-components/analytics";
 import Transactions from "../../shared/sub-components/transactions";
 import Tasks from "../../shared/sub-components/tasks";
 import Documents from "../../shared/sub-components/documents";
 import Stakeholders from "../../shared/sub-components/stakeholders";
-import { connect } from "react-redux";
+import  connect  from "react-redux/lib/connect/connect";
 
 const Tag = ({text,color})=>{
   return <TagW color={color}>{text}</TagW>

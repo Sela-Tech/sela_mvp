@@ -1,5 +1,5 @@
 import React from "react";
-import { connect } from "react-redux";
+import connect from "react-redux/lib/connect/connect";
 import DocStyle from "./doc.style";
 import moment from "moment";
 import search from "./search.svg";

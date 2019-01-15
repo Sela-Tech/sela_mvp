@@ -1,7 +1,7 @@
 import React from "react";
 import styled from "styled-components";
 import { showStakeHolderModal } from "../../../../../../store/action-creators/project-funder/modal";
-import { connect } from "react-redux";
+import  connect from "react-redux/lib/connect/connect";
 
 const StakeholderWrapper = styled.div`
   section {

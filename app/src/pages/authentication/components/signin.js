@@ -3,9 +3,11 @@ import Wrapper from "./wrapper";
 
 import Logo from "../../../assets/icons/sela-circle-blue.svg";
 
-import { Link } from "react-router-dom";
 import { connect } from "react-redux";
 import { bindActionCreators } from "redux";
+import Link from "react-router-dom/Link";
+
+
 import { signin, resend_verification_mail } from "../../../store/action-creators/auth";
 import * as adminACreators from "../../../store/action-creators/admin";
 

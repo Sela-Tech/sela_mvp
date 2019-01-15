@@ -1,6 +1,8 @@
 import React from "react";
 import Logo from "../../../assets/icons/sela-circle-blue.svg";
-import { Link, withRouter } from "react-router-dom";
+import Link from "react-router-dom/Link";
+import withRouter from "react-router-dom/withRouter";
+
 import AsycnButton from "../../../shared-components/unique/async-button";
 import {connect} from "react-redux";
 import {update_password} from "../../../store/action-creators/auth";

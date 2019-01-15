@@ -1,5 +1,5 @@
 import React, { Component } from "react";
-import { connect } from "react-redux";
+import  connect  from "react-redux/lib/connect/connect";
 import Icon from "react-fa";
 import { update } from "../../../../store/action-creators/auth";
 import auth from "../../../../store/actions/auth";

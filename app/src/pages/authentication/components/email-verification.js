@@ -1,8 +1,9 @@
 import React from "react";
 import Wrapper from "./wrapper";
 // import Logo from "../../../assets/icons/sela-circle-blue.svg";
-import {  withRouter } from "react-router-dom";
 import {connect} from "react-redux";
+import withRouter from "react-router-dom/withRouter";
+
 import { email_verify} from "../../../store/action-creators/auth";
 import { notify } from "../../../store/action-creators/app";
 import auth from "../../../store/actions/auth";

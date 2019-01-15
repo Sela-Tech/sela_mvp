@@ -1,10 +1,10 @@
 import React from "react";
 import ViewProjectStyle from "./view-project.style";
-import { connect } from "react-redux";
-import { NavLink, Link } from "react-router-dom";
+import connect  from "react-redux/lib/connect/connect";
+import NavLink from "react-router-dom/NavLink";
+import  Link from "react-router-dom/Link";
 import Navbar from "../../../../shared-components/navbar";
-
-import { Line } from "rc-progress";
+import Line from "rc-progress/lib/Line";
 import Description from "./subs/description";
 import Stakeholders from "./subs/stakeholders";
 import Updates from "./subs/updates";

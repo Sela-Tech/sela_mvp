@@ -1,5 +1,5 @@
 import React from "react";
-import { connect } from "react-redux";
+import connect from "react-redux/lib/connect/connect";
 import StakeholderStyle from "./stakeholder.style";
 import { fetchProject } from "../../../../../store/action-creators/project-funder/project";
 import {

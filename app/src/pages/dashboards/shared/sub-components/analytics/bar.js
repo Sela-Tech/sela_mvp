@@ -1,14 +1,12 @@
 import React from "react";
-import {
-  BarChart,
-  Bar,
-  XAxis,
-  YAxis,
-  CartesianGrid,
-  Tooltip,
-  Legend
-} from "recharts";
 
+import BarChart from "recharts/lib/chart/BarChart";
+import Bar from "recharts/lib/cartesian/Bar";
+import XAxis from "recharts/lib/cartesian/XAxis";
+import YAxis from "recharts/lib/cartesian/YAxis";
+import CartesianGrid from "recharts/lib/cartesian/CartesianGrid";
+import Tooltip from "recharts/lib/component/Tooltip";
+import Legend from "recharts/lib/component/Legend";
 
 export default ({ data }) => {
   return (

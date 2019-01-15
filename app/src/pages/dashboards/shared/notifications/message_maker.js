@@ -1,7 +1,7 @@
 import React from 'react';
 import moment from 'moment';
-import { Link } from 'react-router-dom';
-import {connect} from 'react-redux';
+import  Link  from 'react-router-dom/Link';
+import connect from 'react-redux/lib/connect/connect';
 import { showStakeHolderModal } from '../../../../store/action-creators/project-funder/modal';
 
 const Timediff = (startDate) => {

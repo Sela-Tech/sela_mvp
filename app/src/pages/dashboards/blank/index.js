@@ -3,9 +3,7 @@ import Helmet from "react-helmet";
 import { StyledWrapperElem } from "../shared/container/wrapper.style";
 import DashboardSidebar from "./blank-sidebar";
 import Spinner from "../../../shared-components/spinners";
-
 import { LoadingRoute } from "../../../helpers/routes";
-
 import DashboardWrapper from "../shared/container/wrapper";
 import Navbar from "../shared/navbar";
 

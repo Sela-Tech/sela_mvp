@@ -1,7 +1,7 @@
 import React from "react";
 import styled from "styled-components";
 import arrow from "./arrow.svg";
-import { Link } from "react-router-dom";
+import Link from "react-router-dom/Link";
 
 const DescriptionWrapper = styled.div`
   p {

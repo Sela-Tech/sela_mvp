@@ -1,5 +1,5 @@
 import React from "react";
-import { withRouter } from "react-router";
+import withRouter from "react-router-dom/withRouter";
 import Home from "./view_home/home.js";
 import Settings from "./view_settings/settings.js";
 import Project from "./view_project/index.js";

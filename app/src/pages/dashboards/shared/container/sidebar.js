@@ -1,5 +1,5 @@
 import React from "react";
-import { NavLink } from "react-router-dom";
+import NavLink  from "react-router-dom/NavLink";
 
 import fullogo from "../../../../assets/icons/sela-circle-white.svg";
 import settings from "../../../../assets/icons/settings.svg";
@@ -8,7 +8,7 @@ import help from "../../../../assets/icons/question.svg";
 import logout from "../../../../assets/icons/power.svg";
 // import inbox from "../../../../assets/icons/inbox.svg";
 
-import { connect } from "react-redux";
+import  connect from "react-redux/lib/connect/connect";
 import { showModal } from "../../../../store/action-creators/project-funder/modal";
 import { signout } from "../../../../store/action-creators/auth";
 import modals from "../../../../store/actions/project-funder/modals";
@@ -55,6 +55,7 @@ const MobileDashboardSidebar = ({
         <div className="xs-2">
           <HamWrapper>
             <button
+            name="menu-button"
               className={"hamburger hamburger--slider " + buttonClassName}
               type="button"
               onClick={toggleMenu}
