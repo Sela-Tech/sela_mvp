@@ -73,12 +73,12 @@ class ChangePassword extends React.Component {
   componentWillReceiveProps(nextProps){
     if(this.props !== nextProps){
 
-      if(nextProps.type === auth.UPDATE_PASSWORD_SUCCESSFUL){
+      if(nextProps.type === auth.UPDATE_PASSWORD_S){
           notify(<p style={{color: 'white'}}>{nextProps.message}</p>,"success");
           nextProps.history.push("/signin")
       }
 
-      if(nextProps.type === auth.UPDATE_PASSWORD_FAILED){
+      if(nextProps.type === auth.UPDATE_PASSWORD_F){
         notify(<p style={{color: 'white'}}>{nextProps.message}</p>,"error")
       } 
     }
@@ -186,7 +186,7 @@ const mapStateToProps = state=>{
   return {
     message: state.auth.action.message,
     type : state.auth.action.type,
-    inprogress: state.auth.action.type === auth.UPDATE_PASSWORD_IN_PROGRESS
+    inprogress: state.auth.action.type === auth.UPDATE_PASSWORD_R
   }
 }
 export default withRouter( connect(mapStateToProps)(ChangePassword));

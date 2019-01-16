@@ -12,6 +12,11 @@ export default {
     get: b + "notifications",
     marked_viewed: b + "notifications/mark-as-read"
   },
+  contractor: {
+    fetch_projects_you_joined: b + "stakeholder/projects",
+    fetch_projects_you_proposed: b + "projects/",
+    join_or_reject_project: b + "project/" //5c0f90284e5aae025ca8d233/accept
+  },
   signin: b + "login",
   a_signin: b + "a/login",
   a_users: b + "a/users",

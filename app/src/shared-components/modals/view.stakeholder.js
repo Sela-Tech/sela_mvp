@@ -58,7 +58,7 @@ export default connect(mapStateToProps)(
       const { citizenData, action, ignoreProjectWithID } = this.state;
 
       switch (action) {
-        case home.FETCHING_CITIZEN_INFO_SUCCESSFUL:
+        case home.GET_CITIZEN_INFO_S:
           let projects = citizenData.projects.filter(p => {
             return p._id !== ignoreProjectWithID;
           });

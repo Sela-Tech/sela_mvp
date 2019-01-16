@@ -3,6 +3,7 @@ import moment from 'moment';
 import  Link  from 'react-router-dom/Link';
 import connect from 'react-redux/lib/connect/connect';
 import { showStakeHolderModal } from '../../../../store/action-creators/project-funder/modal';
+import { join_or_reject_project } from '../../../../store/action-creators/contractor/project';
 
 const Timediff = (startDate) => {
 
@@ -37,6 +38,7 @@ export default connect()(({data, dispatch})=>{
     let image = data.stakeholder.profilePhoto;
     let name = data.stakeholder.lastName + " " + data.stakeholder.firstName;
     let project_name = data.project.name;
+    let project_id = data.project._id;
 
     let user_link = () => dispatch(showStakeHolderModal(data.stakeholder._id));
     
@@ -62,6 +64,8 @@ export default connect()(({data, dispatch})=>{
     </div>
 
         default:
+        let join = ()=> dispatch(join_or_reject_project( true, project_id ));
+        let reject = ()=> dispatch(join_or_reject_project( false, project_id ));
         
         return <div className='xs-12 row'>
         <div className="xs-4 sm-3  md-1 t-c">
@@ -72,8 +76,9 @@ export default connect()(({data, dispatch})=>{
         </div>
 
         <div className="xs-8 sm-9 md-11">
-            <p> <Link to="#" onClick={user_link}><strong>{name}</strong></Link> added you to the project <a target="_blank" href={project_link}><strong>{project_name}</strong></a></p>
+            <p> <Link to="#" onClick={user_link}><strong>{name}</strong></Link> requested you join the <a target="_blank" href={project_link}><strong>{project_name}</strong></a> project.</p>
             <span> {Timediff(date)} </span>
+            <button className='accept' onClick={join}>Accept</button><button className='reject' onClick={reject}>Reject</button>
         </div>    
     </div>
 }

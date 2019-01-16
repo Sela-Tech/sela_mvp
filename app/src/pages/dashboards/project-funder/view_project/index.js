@@ -19,7 +19,7 @@ class Project extends React.Component {
   render() {
     const { info, type } = this.props;
     switch (type) {
-      case dashboard.FETCHING_PROJECT_IN_PROGRESS:
+      case dashboard.GET_PROJ_R:
         return (
           <DashboardWrapper viewName="project" projectName={"Loading"}>
             <div style={{ width: "100%", height: "100vh" }}>
@@ -30,14 +30,14 @@ class Project extends React.Component {
           </DashboardWrapper>
         );
 
-      case dashboard.FETCHING_PROJECT_FAILED:
+      case dashboard.GET_PROJ_F:
         return (
           <DashboardWrapper viewName="project" projectName={"No Project"}>
             <NoProject />
           </DashboardWrapper>
         );
 
-      case dashboard.FETCHING_PROJECT_SUCCESSFUL:
+      case dashboard.GET_PROJ_S:
         if (Object.keys(info).length === 0) {
           return (
             <DashboardWrapper viewName="project" projectName={"No Project"}>

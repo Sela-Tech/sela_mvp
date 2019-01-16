@@ -1,6 +1,28 @@
 import styled from 'styled-components';
 
 export default styled.div`
+.accept{
+    height: 30px;
+    margin: 1em 0.5em;
+    width: 100px;
+    font-size: 13px;
+    font-weight: 300;
+    background: #1f1e42;
+    border: 0px solid #bbb;
+    border-radius: 4px;
+    color: white;
+}
+.reject{
+    height: 30px;
+    margin: 1em 0.5em;
+    width: 100px;
+    font-size: 13px;
+    font-weight: 300;
+    background: #f44336;
+    border: 0px solid #bbb;
+    border-radius: 4px;
+    color: white;
+}
 
 .notif{
     max-height: 500px;

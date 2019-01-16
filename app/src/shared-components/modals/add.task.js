@@ -15,7 +15,7 @@ import { closeModal } from "../../store/action-creators/project-funder/modal";
 const mapStateToProps = state => {
   const { type, message } = state.tasks.add.action;
   return {
-    add_task_in_progress: type === dA.ADD_TASK_IN_PROGRESS,
+    add_task_in_progress: type === dA.ADD_TASK_R,
     projectId: state.dashboard.projectId,
     message,
     type
@@ -72,10 +72,10 @@ export default connect(mapStateToProps)(
     componentWillReceiveProps(nextProps) {
       if (this.props !== nextProps) {
 
-        if (nextProps.type === dA.ADD_TASK_SUCCESSFUL) {
+        if (nextProps.type === dA.ADD_TASK_S) {
           notify(<p style={{color: 'white'}}>Task Added Successfully</p>,"success")
           nextProps.dispatch(closeModal());
-        }else if(nextProps.type === dA.ADD_TASK_FAILED){
+        }else if(nextProps.type === dA.ADD_TASK_F){
           notify(<p style={{color: 'white'}}>Could Not Add Task.</p>,"error")
         }
       

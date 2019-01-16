@@ -58,7 +58,8 @@ if(mode === "dara"){
     constructor(props){
       super(props);
       this.state={
-        projects: this.props.projects || [],
+        projects_you_joined: this.props.projects_you_joined,
+        projects_you_proposed: this.props.projects_you_proposed,
         settings:{
           infinite: false,
           slidesToShow: 4,
@@ -95,10 +96,12 @@ if(mode === "dara"){
       window.removeEventListener("resize", this.resizer);
     }
 
+
     componentWillReceiveProps(nextProps){
       if(this.props !== nextProps){
+        const { projects_you_joined,projects_you_proposed} = nextProps
         this.setState({
-          projects: nextProps.projects || []
+          projects_you_joined, projects_you_proposed
         })
       }
     }
@@ -125,7 +128,7 @@ if(mode === "dara"){
 
     render(){
 
-      const {settings, projects }= this.state;
+      const {settings,  projects_you_joined,projects_you_proposed }= this.state;
       
      return <BomaWrapper className="xs-12">
      <section className='xs-12'>
@@ -137,7 +140,9 @@ if(mode === "dara"){
        containerClass="xs-12"
        className="xs-12 slider">
 
-       {projects.map((p,i)=>{
+       {
+         Boolean(projects_you_proposed.length) ?
+         projects_you_proposed.map((p,i)=>{
          return <div className="xs-12 sm-3" key={i}>
          <Link className="xs-12 inner"
           onMouseDown={e => this.handleOnMouseDown(e)}
@@ -149,7 +154,10 @@ if(mode === "dara"){
          </Link>
        </div>
        
-       })}
+       })
+      :
+      <p>None Found.</p>
+      }
         
       </Slider>
 
@@ -157,7 +165,32 @@ if(mode === "dara"){
 
      <section className='xs-12'>
       <label>Projects you joined</label>
+      <Slider 
+       ref={slider => (this.one_slider = slider)}
+       {...settings}
+       containerClass="xs-12"
+       className="xs-12 slider">
+
+      {
+         Boolean(projects_you_joined.length) ?
+         projects_you_joined.map((p,i)=>{
+         return <div className="xs-12 sm-3" key={i}>
+         <Link className="xs-12 inner"
+          onMouseDown={e => this.handleOnMouseDown(e)}
+          onClick={e => this.handleOnClick(e)}
+
+         to={`/dashboard/project/${p._id}/overview`}>
+           <p> {p.name} </p>
+           <img src={p["project-avatar"]} alt=""/>
+         </Link>
+       </div>
+       
+       })
+      :
       <p>None Found.</p>
+      }
+      </Slider>
+        
      </section>
 
      <section className='xs-12'>

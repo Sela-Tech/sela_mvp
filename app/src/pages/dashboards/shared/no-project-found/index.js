@@ -36,7 +36,7 @@ const EmptyHomeView = ({ dispatch, userType }) => {
             <div className="xs-10 xs-off-1 sm-8 sm-off-2 md-6 md-off-3">
               <Information type={userType} />
               <button onClick={() => dispatch(showModal(modals.add_project))}>
-                + New Project
+                + Propose Project
               </button>
             </div>
           </div>

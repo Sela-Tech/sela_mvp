@@ -14,7 +14,7 @@ class Project extends React.Component {
   render() {
     const { team_info, team_action_type } = this.props;
     switch (team_action_type) {
-      case dashboard.FETCHING_TEAM_IN_PROGRESS:
+      case dashboard.GET_TEAM_R:
         return (
           <DashboardWrapper viewName="team" projectName={"Loading"}>
             <div style={{ width: "100%", height: "100vh" }}>
@@ -25,14 +25,14 @@ class Project extends React.Component {
           </DashboardWrapper>
         );
 
-      case dashboard.FETCHING_TEAM_FAILED:
+      case dashboard.GET_TEAM_F:
         return (
           <DashboardWrapper viewName="team" projectName={"No Team"}>
             {/* <NoProject /> */}
           </DashboardWrapper>
         );
 
-      case dashboard.FETCHING_TEAM_SUCCESSFUL:
+      case dashboard.GET_TEAM_S:
         if (Object.keys(team_info).length === 0) {
           return (
             <DashboardWrapper viewName="team" projectName={"No Team"}>

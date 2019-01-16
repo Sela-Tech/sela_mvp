@@ -20,40 +20,40 @@ export default (state=init, payload)=>{
             }
         }
 
-        case actions.MARK_NOTIFICATIONS_SUCCESSFUL:
+        case actions.MARK_NOTIFICATIONS_S:
         return {
             ...state,
             unreadNIds: []
         }
 
-        case actions.GET_INIT_NOTIFICATIONS_REQUEST:            
+        case actions.GET_INIT_NOTIFICATIONS_R:            
         return {
             ...state,
-            type: actions.GET_INIT_NOTIFICATIONS_REQUEST,
+            type: actions.GET_INIT_NOTIFICATIONS_R,
         };
       
-        case actions.UPDATE_NOTIFICATIONS_SUCCESSFUL:            
+        case actions.UPDATE_NOTIFICATIONS_S:            
         return {
             ...state, 
-            type: actions.UPDATE_NOTIFICATIONS_SUCCESSFUL,
+            type: actions.UPDATE_NOTIFICATIONS_S,
             notifications: payload.notifications,
             unreadNIds: payload.unreadNIds
         };
 
-        case actions.GET_INIT_NOTIFICATIONS_SUCCESSFUL:            
+        case actions.GET_INIT_NOTIFICATIONS_S:            
         return {
             ...state,
           
-            type: actions.GET_INIT_NOTIFICATIONS_SUCCESSFUL,
+            type: actions.GET_INIT_NOTIFICATIONS_S,
             notifications: payload.notifications,
             unreadNIds: payload.unreadNIds
         };
 
-        case actions.GET_INIT_NOTIFICATIONS_FAILED:            
+        case actions.GET_INIT_NOTIFICATIONS_F:            
         return {
             ...state,
           
-            type: actions.GET_INIT_NOTIFICATIONS_FAILED,
+            type: actions.GET_INIT_NOTIFICATIONS_F,
             message: payload.message
         };
     

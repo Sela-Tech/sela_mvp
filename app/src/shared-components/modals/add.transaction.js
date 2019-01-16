@@ -11,7 +11,7 @@ import { closeModal } from "../../store/action-creators/project-funder/modal";
 const mapStateToProps = state => {
   const { type, message } = state.transactions;
   return {
-    add_tran_in_progress: type === dA.ADD_TRANSACTION_IN_PROGRESS,
+    add_tran_in_progress: type === dA.ADD_TRANSACTION_R,
     projectId: state.dashboard.projectId,
     message,
     type
@@ -47,10 +47,10 @@ export default connect(mapStateToProps)(
     componentWillReceiveProps(nextProps) {
       if (this.props !== nextProps) {
 
-        if (nextProps.type === dA.ADD_TRANSACTION_SUCCESSFUL) {
+        if (nextProps.type === dA.ADD_TRANSACTION_S) {
           notify(<p style={{color: 'white'}}>Transaction Added Successfully</p>,"success")
           nextProps.dispatch(closeModal());
-        }else if(nextProps.type === dA.ADD_TRANSACTION_FAILED){
+        }else if(nextProps.type === dA.ADD_TRANSACTION_F){
           notify(<p style={{color: 'white'}}>Could Not Add Transaction.</p>,"error")
         }
       

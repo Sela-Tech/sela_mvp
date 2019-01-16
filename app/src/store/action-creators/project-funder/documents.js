@@ -5,7 +5,7 @@ import { retrieveToken } from "../../../helpers/TokenManager";
 
 export const addDoc = obj => {
   return dispatch => {
-    dispatch({ type: dA.ADD_DOCUMENT_IN_PROGRESS });
+    dispatch({ type: dA.ADD_DOCUMENT_R });
     ax({
       url: e.add_document,
       method: "POST",
@@ -16,7 +16,7 @@ export const addDoc = obj => {
     })
       .then(({ data }) => {
         dispatch({
-          type: dA.ADD_DOCUMENT_SUCCESSFUL
+          type: dA.ADD_DOCUMENT_S
         });
       })
       .catch(({ response }) => {
@@ -26,7 +26,7 @@ export const addDoc = obj => {
         } else {
           message = "connection error";
         }
-        dispatch({ type: dA.ADD_DOCUMENT_FAILED, message });
+        dispatch({ type: dA.ADD_DOCUMENT_F, message });
       });
   };
 };

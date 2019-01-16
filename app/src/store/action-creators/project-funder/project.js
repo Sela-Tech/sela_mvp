@@ -13,7 +13,7 @@ export const selectFunders = selected => {
 
 export const fetchProjects = () => {
   return dispatch => {
-    dispatch({ type: dA.FETCHING_PROJECTS_IN_PROGRESS });
+    dispatch({ type: dA.GET_PROJS_R });
     ax({
       url: e.fetch_projects,
       method: "GET",
@@ -23,7 +23,7 @@ export const fetchProjects = () => {
     })
       .then(({ data }) => {
         dispatch({
-          type: dA.FETCHING_PROJECTS_SUCCESSFUL,
+          type: dA.GET_PROJS_S,
           projects: data
         });
       })
@@ -34,14 +34,14 @@ export const fetchProjects = () => {
         } else {
           message = "connection error";
         }
-        dispatch({ type: dA.FETCHING_PROJECTS_FAILED, message });
+        dispatch({ type: dA.GET_PROJS_F, message });
       });
   };
 };
 
 export const addProject = obj => {
   return dispatch => {
-    dispatch({ type: dA.ADD_PROJECT_IN_PROGRESS });
+    dispatch({ type: dA.ADD_PROJ_R });
     ax({
       url: e.add_project,
       method: "POST",
@@ -53,7 +53,7 @@ export const addProject = obj => {
     })
       .then(({ data }) => {
         dispatch({
-          type: dA.ADD_PROJECT_SUCCESSFUL
+          type: dA.ADD_PROJ_S
         });
       })
       .catch(({ response }) => {
@@ -63,14 +63,14 @@ export const addProject = obj => {
         } else {
           message = "connection error";
         }
-        dispatch({ type: dA.ADD_PROJECT_FAILED, message });
+        dispatch({ type: dA.ADD_PROJ_F, message });
       });
   };
 };
 
 export const fetchProject = id => {
   return dispatch => {
-    dispatch({ type: dA.FETCHING_PROJECT_IN_PROGRESS });
+    dispatch({ type: dA.GET_PROJ_R });
     ax({
       url: e.fetch_project + id,
       method: "GET",
@@ -80,7 +80,7 @@ export const fetchProject = id => {
     })
       .then(({ data }) => {
         dispatch({
-          type: dA.FETCHING_PROJECT_SUCCESSFUL,
+          type: dA.GET_PROJ_S,
           info: data
         });
       })
@@ -91,14 +91,14 @@ export const fetchProject = id => {
         } else {
           message = "connection error";
         }
-        dispatch({ type: dA.FETCHING_PROJECT_FAILED, message });
+        dispatch({ type: dA.GET_PROJ_F, message });
       });
   };
 };
 
 export const deleteProject = (id, type) => {
   return dispatch => {
-    dispatch({ type: dA.DELETE_PROJECT_IN_PROGRESS });
+    dispatch({ type: dA.DELETE_PROJ_R });
 
     ax({
       url: e.fetch_project + id,
@@ -110,13 +110,13 @@ export const deleteProject = (id, type) => {
     })
       .then(({ data }) => {
         dispatch({
-          type: dA.DELETE_PROJECT_SUCCESSFUL,
+          type: dA.DELETE_PROJ_S,
           info: data
         });
       })
       .catch(res => {
         dispatch({
-          type: dA.DELETE_PROJECT_FAILED,
+          type: dA.DELETE_PROJ_F,
           message: extractMessage(res)
         });
       });
@@ -125,7 +125,7 @@ export const deleteProject = (id, type) => {
 
 // export const addStakeholder = obj => {
 //   return dispatch => {
-//     dispatch({ type: dA.ADD_STAKEHOLDER_IN_PROGRESS });
+//     dispatch({ type: dA.ADD_STAKEHOLDER_R });
 
 //     ax({
 //       url: e.add_stakeholder,
@@ -138,7 +138,7 @@ export const deleteProject = (id, type) => {
 //     })
 //       .then(({ data }) => {
 //         dispatch({
-//           type: dA.ADD_STAKEHOLDER_SUCCESSFUL,
+//           type: dA.ADD_STAKEHOLDER_S,
 //           message: data.message
 //         });
 //       })
@@ -149,7 +149,7 @@ export const deleteProject = (id, type) => {
 //         } else {
 //           message = "connection error";
 //         }
-//         dispatch({ type: dA.ADD_STAKEHOLDER_FAILED, message });
+//         dispatch({ type: dA.ADD_STAKEHOLDER_F, message });
 //       });
 //   };
 // };

@@ -14,7 +14,7 @@ import { closeModal } from "../../store/action-creators/project-funder/modal";
 const mapStateToProps = state => {
   const { type, message } = state.document;
   return {
-    add_doc_in_progress: type === dA.ADD_DOC_IN_PROGRESS,
+    add_doc_in_progress: type === dA.ADD_DOC_R,
     projectId: state.dashboard.projectId,
     message,
     type
@@ -92,10 +92,10 @@ export default connect(mapStateToProps)(
     componentWillReceiveProps(nextProps) {
       if (this.props !== nextProps) {
 
-        if (nextProps.type === dA.ADD_DOCUMENT_SUCCESSFUL) {
+        if (nextProps.type === dA.ADD_DOCUMENT_S) {
           notify(<p style={{color: 'white'}}>Document Added Successfully</p>,"success")
           nextProps.dispatch(closeModal());
-        }else if(nextProps.type === dA.ADD_DOCUMENT_FAILED){
+        }else if(nextProps.type === dA.ADD_DOCUMENT_F){
           notify(<p style={{color: 'white'}}>Could Not Add Document.</p>,"error")
         }
 

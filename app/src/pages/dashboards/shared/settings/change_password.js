@@ -61,9 +61,9 @@ export default connect(mapStateToProps)(
     render() {
       let { actionType } = this.state,
         message = () => {
-          if (actionType === auth.CHANGE_USER_DETAILS_SUCCESSFUL) {
+          if (actionType === auth.CHANGE_USER_DETAILS_S) {
             return "Changed password successfully";
-          } else if (actionType === auth.CHANGE_USER_DETAILS_FAILED) {
+          } else if (actionType === auth.CHANGE_USER_DETAILS_F) {
             return "Could not change your password";
           }
         };
@@ -113,7 +113,7 @@ export default connect(mapStateToProps)(
 
           <div className="form-group">
             <button id="save" type="submit" disabled={!this.state.verified}>
-              {actionType === auth.CHANGE_USER_DETAILS_IN_PROGRESS ? (
+              {actionType === auth.CHANGE_USER_DETAILS_R ? (
                 <span>
                   Attempting to save <Icon name="spinner" spin />
                 </span>

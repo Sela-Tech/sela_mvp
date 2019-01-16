@@ -190,10 +190,10 @@ class Signup extends React.Component {
       });
     }
    
-      if(nextProps.type === auth.SIGNUP_SUCCESSFUL){
+      if(nextProps.type === auth.SIGNUP_S){
           notify(<p style={{color: 'white'}}>{nextProps.message}</p>,"success");
       }
-      if(nextProps.type === auth.SIGNUP_FAILED){
+      if(nextProps.type === auth.SIGNUP_F){
         notify(<p style={{color: 'white'}}>{nextProps.message}</p>,"error")
       } 
   }
@@ -241,7 +241,7 @@ class Signup extends React.Component {
    
     switch (type) {
       
-      case auth.SIGNUP_SUCCESSFUL:
+      case auth.SIGNUP_S:
         window.scrollTo(0, 0);
 
        return this.props.signUpType === "evaluation-agent" 
@@ -414,7 +414,7 @@ const mapStateToProps = state => {
   const { type, message } = state.auth.action;
   return {
     type: type,
-    inprogress: type === auth.SIGNUP_IN_PROGRESS,
+    inprogress: type === auth.SIGNUP_R,
     message,
     organizations: state.organizations.list,
     signUpType: state.auth.signUpType

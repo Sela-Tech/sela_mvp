@@ -16,7 +16,7 @@ const mapStateToProps = state => {
   const { id, activated } = state.dashboard;
 
   return {
-    delete_project_in_progress: type === dA.DELETE_PROJECT_IN_PROGRESS,
+    delete_project_in_progress: type === dA.DELETE_PROJ_R,
     message,
     type,
     id,
@@ -45,12 +45,12 @@ export default connect(mapStateToProps)(
       if (this.props !== nextProps) {
         // pull fresh projects after adding
 
-        if (nextProps.type === dA.DELETE_PROJECT_SUCCESSFUL) {
+        if (nextProps.type === dA.DELETE_PROJ_S) {
           notify(<p style={{color: 'white'}}>Project Deleted Successfully</p>,"success")
           nextProps.dispatch(closeModal());
           nextProps.dispatch(fetchProjects());
        
-        }else if(nextProps.type === dA.DELETE_PROJECT_FAILED){
+        }else if(nextProps.type === dA.DELETE_PROJ_F){
           notify(<p style={{color: 'white'}}>Could Not Delete Project.</p>,"error")
         }
       
@@ -68,7 +68,7 @@ export default connect(mapStateToProps)(
 
       return (
         <Form onSubmit={this.handleSubmit} className="xs-12">
-          {type !== dA.DELETE_PROJECT_SUCCESSFUL && (
+          {type !== dA.DELETE_PROJ_S && (
             <React.Fragment>
               <p id="info">
                 {activated !== undefined

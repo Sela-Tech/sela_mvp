@@ -135,20 +135,20 @@ class Login extends React.Component {
         inprogress
       });
    
-      if(nextProps.type === auth.SIGNIN_SUCCESSFUL){
+      if(nextProps.type === auth.SIGNIN_S){
           notify(<p style={{color: 'white'}}>{nextProps.message}</p>,"success");
         }
 
-        if(nextProps.type === auth.RESEND_VERIFICATION_SUCCESSFUL){
+        if(nextProps.type === auth.RESEND_VERIFICATION_S){
           notify(<p style={{color: 'white'}}>{nextProps.message}</p>,"success");
         }
 
-        if(nextProps.type === auth.RESEND_VERIFICATION_FAILED){
+        if(nextProps.type === auth.RESEND_VERIFICATION_F){
           notify(<p style={{color: 'white'}}>{nextProps.message}</p>,"error");
         
         }
         
-      if(nextProps.type === auth.SIGNIN_FAILED){
+      if(nextProps.type === auth.SIGNIN_F){
 
         if(typeof nextProps.message !== "string"){
           nextProps.message.map(m=>{
@@ -316,7 +316,7 @@ const mapStateToProps = state => {
 
   return {
     type,
-    inprogress: type === auth.SIGNIN_IN_PROGRESS,
+    inprogress: type === auth.SIGNIN_R,
     message
   };
 };

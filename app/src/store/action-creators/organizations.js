@@ -5,7 +5,7 @@ import { extractMessage } from "../../helpers/utils";
 
 export const fetchOrganizations = () => {
   return async dispatch => {
-    dispatch({ type: organizations.FETCH_ORGANIZATION_IN_PROGESS });
+    dispatch({ type: organizations.GET_ORGANIZATION_IN_PROGESS });
     try {
       let res = await Axios({
         url: endpoints.fetch_organizations,
@@ -13,12 +13,12 @@ export const fetchOrganizations = () => {
       });
 
       dispatch({
-        type: organizations.FETCH_ORGANIZATIONS_SUCCESSFUL,
+        type: organizations.GET_ORGANIZATIONS_S,
         data: res.data
       });
     } catch (e) {
       dispatch({
-        type: organizations.FETCH_ORGANIZATIONS_FAILED,
+        type: organizations.GET_ORGANIZATIONS_F,
         message: extractMessage( e.message )
       });
     }

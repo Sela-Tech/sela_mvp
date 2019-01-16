@@ -2,19 +2,21 @@ import React from "react";
 import { connect } from "react-redux";
 import { bindActionCreators } from "redux";
 import DashboardWrapper from "../../shared/container/wrapper";
-import * as actions from "../../../../store/action-creators/project-funder/project";
+import * as actions from "../../../../store/action-creators/contractor/project";
 
 import Spinner from "../../../../shared-components/spinners";
 import { LoadingRoute } from "../../../../helpers/routes";
-import dashboard from "../../../../store/actions/project-funder/dashboard";
+import contractor_dashboard_actions from "../../../../store/actions/contractor/dashboard";
+
 import EmptyHomeView from "../../shared/no-project-found";
 import NotEmptyHomeView from "./not-empty";
 import Navbar from "../../shared/navbar";
 
 const mapStateToProps = state => {
   return {
-    type: state.projects.all.action.type,
-    projects: state.projects.all.collection.projects || []
+    type: state.contractor.type,
+    projects_you_joined: state.contractor.projects_you_joined,
+    projects_you_proposed: state.contractor.projects_you_proposed,
   };
 };
 
@@ -32,20 +34,25 @@ export default connect(
     constructor(props) {
       super(props);
       this.state = {};
-      this.props.actions.fetchProjects();
+      props.actions.fetch_projects_for_contractor();
     }
 
     render() {
-      const { projects, type } = this.props;
+      const { projects_you_joined,projects_you_proposed,type } = this.props;
+
+      const are_both_empty = Boolean(projects_you_proposed.length) === false 
+      && Boolean(projects_you_joined.length) === false;
 
       const Comp = () => {
         switch (type) {
-          case dashboard.FETCHING_PROJECTS_SUCCESSFUL:
+          case contractor_dashboard_actions.GET_PROJS_AS_CONTRACTOR_S:
             return (
               <React.Fragment>
                 <Navbar />
-                {projects.length > 0 ? (
-                  <NotEmptyHomeView projects={projects} />
+                 { are_both_empty === false ? (
+                  <NotEmptyHomeView 
+                  projects_you_joined = { projects_you_joined } 
+                  projects_you_proposed = { projects_you_proposed } />
                 ) : (
                   <EmptyHomeView />
                 )}

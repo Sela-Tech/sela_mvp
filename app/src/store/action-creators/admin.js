@@ -6,7 +6,7 @@ import { extractMessage } from "../../helpers/utils";
 
 export const signin = obj => {
   return dispatch => {
-    dispatch({ type: adminActions.SIGNIN_IN_PROGRESS });
+    dispatch({ type: adminActions.SIGNIN_R });
     ax({
       url: e.a_signin,
       method: "POST",
@@ -15,11 +15,11 @@ export const signin = obj => {
       .then(({ data }) => {
         setToken("ss", data.token);
 
-        dispatch({ type: adminActions.SIGNIN_SUCCESSFUL, data });
+        dispatch({ type: adminActions.SIGNIN_S, data });
       })
       .catch(res => {
         dispatch({
-          type: adminActions.SIGNIN_FAILED,
+          type: adminActions.SIGNIN_F,
           message: extractMessage(res)
         });
       });
@@ -28,7 +28,7 @@ export const signin = obj => {
 
 export const fetchUsers = () => {
   return dispatch => {
-    dispatch({ type: adminActions.FETCH_USERS_IN_PROGRESS });
+    dispatch({ type: adminActions.GET_USERS_R });
     ax({
       url: e.a_users,
       method: "GET",
@@ -37,7 +37,7 @@ export const fetchUsers = () => {
       }
     })
       .then(({ data }) => {
-        dispatch({ type: adminActions.FETCH_USERS_SUCCESSFUL, users: data });
+        dispatch({ type: adminActions.GET_USERS_S, users: data });
       })
       .catch(({ response }) => {
         let message;
@@ -46,14 +46,14 @@ export const fetchUsers = () => {
         } else {
           message = "Connection Error";
         }
-        dispatch({ type: adminActions.FETCH_USERS_FAILED, message });
+        dispatch({ type: adminActions.GET_USERS_F, message });
       });
   };
 };
 
 export const revoke = id => {
   return dispatch => {
-    dispatch({ type: adminActions.REVOKE_IN_PROGRESS, userId: id });
+    dispatch({ type: adminActions.REVOKE_R, userId: id });
     ax({
       url: e.revoke,
       method: "POST",
@@ -66,13 +66,13 @@ export const revoke = id => {
     })
       .then(({ data }) => {
         dispatch({
-          type: adminActions.REVOKE_SUCCESSFUL,
+          type: adminActions.REVOKE_S,
           activationResponse: data.activation
         });
       })
       .catch(res => {
         dispatch({
-          type: adminActions.REVOKE_FAILED,
+          type: adminActions.REVOKE_F,
           message: extractMessage(res)
         });
       });
@@ -81,7 +81,7 @@ export const revoke = id => {
 
 export const approve = id => {
   return dispatch => {
-    dispatch({ type: adminActions.APPROVE_IN_PROGRESS, userId: id });
+    dispatch({ type: adminActions.APPROVE_R, userId: id });
     ax({
       url: e.approve,
       method: "POST",
@@ -94,13 +94,13 @@ export const approve = id => {
     })
       .then(({ data }) => {
         dispatch({
-          type: adminActions.APPROVE_SUCCESSFUL,
+          type: adminActions.APPROVE_S,
           activationResponse: data.activation
         });
       })
       .catch(res => {
         dispatch({
-          type: adminActions.APPROVE_FAILED,
+          type: adminActions.APPROVE_F,
           message: extractMessage(res)
         });
       });

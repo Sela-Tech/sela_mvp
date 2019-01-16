@@ -5,7 +5,7 @@ import { retrieveToken } from "../../../helpers/TokenManager";
 
 export const addStakeholder = obj => {
   return dispatch => {
-    dispatch({ type: dA.ADD_STAKEHOLDER_IN_PROGRESS });
+    dispatch({ type: dA.ADD_STAKEHOLDER_R });
 
     ax({
       url: e.add_stakeholder,
@@ -18,7 +18,7 @@ export const addStakeholder = obj => {
     })
       .then(({ data }) => {
         dispatch({
-          type: dA.ADD_STAKEHOLDER_SUCCESSFUL,
+          type: dA.ADD_STAKEHOLDER_S,
           message: data.message
         });
       })
@@ -29,14 +29,14 @@ export const addStakeholder = obj => {
         } else {
           message = "connection error";
         }
-        dispatch({ type: dA.ADD_STAKEHOLDER_FAILED, message });
+        dispatch({ type: dA.ADD_STAKEHOLDER_F, message });
       });
   };
 };
 
 export const fetchPossibleStakeholders = id => {
   return dispatch => {
-    dispatch({ type: dA.FETCHING_P_STAKEHOLDERS_IN_PROGRESS });
+    dispatch({ type: dA.GET_P_STAKEHOLDERS_R });
     ax({
       url: e.fetch_users,
       method: "GET",
@@ -49,7 +49,7 @@ export const fetchPossibleStakeholders = id => {
     })
       .then(({ data }) => {
         dispatch({
-          type: dA.FETCHING_P_STAKEHOLDERS_SUCCESSFUL,
+          type: dA.GET_P_STAKEHOLDERS_S,
           pstakeholders: data
         });
       })
@@ -60,7 +60,7 @@ export const fetchPossibleStakeholders = id => {
         } else {
           message = "connection error";
         }
-        dispatch({ type: dA.FETCHING_P_STAKEHOLDERS_FAILED, message });
+        dispatch({ type: dA.GET_P_STAKEHOLDERS_F, message });
       });
   };
 };

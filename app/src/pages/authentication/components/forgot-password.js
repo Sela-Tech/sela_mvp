@@ -49,11 +49,11 @@ class ForgotPassword extends React.Component {
   componentWillReceiveProps(nextProps){
     if(this.props !== nextProps){
 
-      if(nextProps.type === auth.SEND_RECOVERY_MAIL_SUCCESSFUL){
+      if(nextProps.type === auth.SEND_RECOVERY_MAIL_S){
           notify(<p style={{color: 'white'}}>Please Check Your Mail ! :)</p>,"success")
       }
 
-      if(nextProps.type === auth.SEND_RECOVERY_MAIL_FAILED){
+      if(nextProps.type === auth.SEND_RECOVERY_MAIL_F){
         if(nextProps.message.length > 0){
          notify(<p style={{color: 'white'}}>{nextProps.message[0].msg || nextProps.message}</p>,"error")
         }
@@ -122,7 +122,7 @@ const mapStateToProps = state=>{
   return {
     message: state.auth.action.message,
     type : state.auth.action.type,
-    inprogress: state.auth.action.type === auth.SEND_RECOVERY_MAIL_IN_PROGRESS,
+    inprogress: state.auth.action.type === auth.SEND_RECOVERY_MAIL_R,
 
   }
 }

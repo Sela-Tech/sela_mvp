@@ -40,27 +40,27 @@ export default (state = init, payload) => {
         }
       };
 
-    case homepageActions.IGNORE_PROJECT_ID:
+    case homepageActions.IGNORE_PROJ_ID:
       return {
         ...state,
         ignoreProjectWithID: payload.id
       };
 
-    case homepageActions.FETCHING_HOMEPAGE_PROJECTS_IN_PROGRESS:
+    case homepageActions.GET_HOMEPAGE_PROJS_R:
       return {
         ...state,
         projects: [],
-        action: homepageActions.FETCHING_HOMEPAGE_PROJECTS_IN_PROGRESS
+        action: homepageActions.GET_HOMEPAGE_PROJS_R
       };
 
-    case homepageActions.FETCHING_HOMEPAGE_PROJECTS_FAILED:
+    case homepageActions.GET_HOMEPAGE_PROJS_F:
       return {
         ...state,
-        action: homepageActions.FETCHING_HOMEPAGE_PROJECTS_FAILED,
+        action: homepageActions.GET_HOMEPAGE_PROJS_F,
         message: payload.message
       };
 
-    case homepageActions.FETCHING_HOMEPAGE_PROJECTS_SUCCESSFUL:
+    case homepageActions.GET_HOMEPAGE_PROJS_S:
     
       if(payload.projects.length >0){
         payload.projects = payload.projects.reverse();
@@ -68,56 +68,56 @@ export default (state = init, payload) => {
       
       return {
         ...state,
-        action: homepageActions.FETCHING_HOMEPAGE_PROJECTS_SUCCESSFUL,
+        action: homepageActions.GET_HOMEPAGE_PROJS_S,
         projects: payload.projects,
         centerize: payload.centerize
       };
 
-    case homepageActions.FETCHING_LOCATIONS_SUCCESSFUL:
+    case homepageActions.GET_LOCATIONS_S:
       return {
         ...state,
         locations: payload.locations
       };
 
-    case homepageActions.FETCHING_HOMEPAGE_PROJECT_IN_PROGRESS:
+    case homepageActions.GET_HOMEPAGE_PROJ_R:
       return {
         ...state,
-        action: homepageActions.FETCHING_HOMEPAGE_PROJECT_IN_PROGRESS
+        action: homepageActions.GET_HOMEPAGE_PROJ_R
       };
 
-    case homepageActions.FETCHING_HOMEPAGE_PROJECT_FAILED:
+    case homepageActions.GET_HOMEPAGE_PROJ_F:
       return {
         ...state,
-        action: homepageActions.FETCHING_HOMEPAGE_PROJECT_FAILED,
+        action: homepageActions.GET_HOMEPAGE_PROJ_F,
         message: payload.message
       };
 
-    case homepageActions.FETCHING_HOMEPAGE_PROJECT_SUCCESSFUL:
+    case homepageActions.GET_HOMEPAGE_PROJ_S:
       return {
         ...state,
-        action: homepageActions.FETCHING_HOMEPAGE_PROJECT_SUCCESSFUL,
+        action: homepageActions.GET_HOMEPAGE_PROJ_S,
         project: payload.info
       };
 
-    case homepageActions.FETCHING_CITIZEN_INFO_IN_PROGRESS:
+    case homepageActions.GET_CITIZEN_INFO_R:
       return {
         ...state,
-        action: homepageActions.FETCHING_CITIZEN_INFO_IN_PROGRESS,
+        action: homepageActions.GET_CITIZEN_INFO_R,
         citizenData: {}
       };
 
-    case homepageActions.FETCHING_CITIZEN_INFO_FAILED:
+    case homepageActions.GET_CITIZEN_INFO_F:
       return {
         ...state,
-        action: homepageActions.FETCHING_CITIZEN_INFO_FAILED,
+        action: homepageActions.GET_CITIZEN_INFO_F,
         message: payload.message,
         citizenData: {}
       };
 
-    case homepageActions.FETCHING_CITIZEN_INFO_SUCCESSFUL:
+    case homepageActions.GET_CITIZEN_INFO_S:
       return {
         ...state,
-        action: homepageActions.FETCHING_CITIZEN_INFO_SUCCESSFUL,
+        action: homepageActions.GET_CITIZEN_INFO_S,
         citizenData: payload.citizenData
       };
 

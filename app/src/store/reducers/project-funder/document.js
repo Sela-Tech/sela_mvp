@@ -8,57 +8,57 @@ const initstate = {
 
 export default (state = initstate, payload) => {
   switch (payload.type) {
-    // case dA.FETCH_TASKS_IN_PROGRESS:
+    // case dA.GET_TASKS_R:
     //   return {
     //     ...state,
     //     all: {
     //       action: {
-    //         type: dA.FETCH_TASKS_IN_PROGRESS
+    //         type: dA.GET_TASKS_R
     //       }
     //     }
     //   };
 
-    // case dA.FETCH_TASKS_SUCCESSFUL:
+    // case dA.GET_TASKS_S:
     //   return {
     //     ...state,
     //     all: {
     //       action: {
-    //         type: dA.FETCH_TASKS_SUCCESSFUL,
+    //         type: dA.GET_TASKS_S,
     //         message: payload.message || "Tasks Fetched Successfully"
     //       },
     //       collection: []
     //     }
     //   };
 
-    // case dA.FETCH_TASKS_FAILED:
+    // case dA.GET_TASKS_F:
     //   return {
     //     ...state,
     //     all: {
     //       action: {
-    //         type: dA.FETCH_TASKS_FAILED,
+    //         type: dA.GET_TASKS_F,
     //         message: payload.message || "Could Not Fetch Tasks."
     //       }
     //     }
     //   };
 
-    case dA.ADD_DOCUMENT_IN_PROGRESS:
+    case dA.ADD_DOCUMENT_R:
       return {
         ...state,
-        type: dA.ADD_DOCUMENT_IN_PROGRESS,
+        type: dA.ADD_DOCUMENT_R,
         message: ""
       };
 
-    case dA.ADD_DOCUMENT_SUCCESSFUL:
+    case dA.ADD_DOCUMENT_S:
       return {
         ...state,
-        type: dA.ADD_DOCUMENT_SUCCESSFUL,
+        type: dA.ADD_DOCUMENT_S,
         message: payload.message || "Document Added Successfully"
       };
 
-    case dA.ADD_DOCUMENT_FAILED:
+    case dA.ADD_DOCUMENT_F:
       return {
         ...state,
-        type: dA.ADD_DOCUMENT_FAILED,
+        type: dA.ADD_DOCUMENT_F,
         message: payload.message || "Could Not Add Document."
       };
 

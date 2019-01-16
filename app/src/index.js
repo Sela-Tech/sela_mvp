@@ -1,7 +1,7 @@
 import React from "react";
 import ReactDOM from "react-dom";
  import App from "./App";
-// import registerServiceWorker from './registerServiceWorker';
+ import registerServiceWorker from './registerServiceWorker';
 import store from "./store";
 import Provider from "react-redux/lib/components/Provider";
 import { verify_user_token } from "./store/action-creators/auth";
@@ -64,7 +64,7 @@ if (retrieveToken()) {
    
     if( typeof(notifications) === "object"){
       store.dispatch({
-        type: notifications_actions.UPDATE_NOTIFICATIONS_SUCCESSFUL,
+        type: notifications_actions.UPDATE_NOTIFICATIONS_S,
         notifications,
         unreadNIds
       })
@@ -82,4 +82,4 @@ ReactDOM.render(
   document.getElementById("root")
 );
 
-// registerServiceWorker();
+ registerServiceWorker();

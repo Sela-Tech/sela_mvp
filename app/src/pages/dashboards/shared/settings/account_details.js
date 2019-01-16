@@ -55,7 +55,7 @@ class AccountDetails extends Component {
   onUploadProgress = count => {
     this.setState({
       uploading: count,
-      authType: auth.CHANGE_USER_DETAILS_IN_PROGRESS
+      authType: auth.CHANGE_USER_DETAILS_R
     });
   };
 
@@ -65,7 +65,7 @@ class AccountDetails extends Component {
         actionType: nextProps.actionType,
         message: nextProps.message
       });
-      if (nextProps.actionType !== auth.CHANGE_USER_DETAILS_IN_PROGRESS) {
+      if (nextProps.actionType !== auth.CHANGE_USER_DETAILS_R) {
         this.setState({
           credentials: {
             ...nextProps.credentials,
@@ -112,9 +112,9 @@ class AccountDetails extends Component {
   render() {
     let { credentials, actionType, uploading,message} = this.state,
       msg = () => {
-        if (actionType === auth.CHANGE_USER_DETAILS_SUCCESSFUL) {
+        if (actionType === auth.CHANGE_USER_DETAILS_S) {
           return "Information updated successfully";
-        } else if (actionType === auth.CHANGE_USER_DETAILS_FAILED) {
+        } else if (actionType === auth.CHANGE_USER_DETAILS_F) {
           return message || "Could not change your information";
         }
       };
@@ -223,7 +223,7 @@ class AccountDetails extends Component {
 
         <div className="form-group xs-12">
           <button id="save" type="submit">
-            {actionType === auth.CHANGE_USER_DETAILS_IN_PROGRESS ? (
+            {actionType === auth.CHANGE_USER_DETAILS_R ? (
               <span>
                 Attempting to save <Icon name="spinner" spin />
               </span>
@@ -247,7 +247,7 @@ class AccountDetails extends Component {
               margin: "15px 0 5px",
               fontWeight: 300,
               fontSize: "13px",
-              color: actionType === auth.CHANGE_USER_DETAILS_SUCCESSFUL?  "seagreen": "tomato"
+              color: actionType === auth.CHANGE_USER_DETAILS_S?  "seagreen": "tomato"
             }}
           >
             {msg()}

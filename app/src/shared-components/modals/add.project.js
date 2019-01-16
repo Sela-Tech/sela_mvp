@@ -8,34 +8,45 @@ import {
   addProject,
   fetchProjects
 } from "../../store/action-creators/project-funder/project";
-
 import dA from "../../store/actions/project-funder/dashboard";
 import { Form } from "./styles.modals/add";
-
-import { closeModal } from "../../store/action-creators/project-funder/modal";
-
+import { closeModal, clearAddModal } from "../../store/action-creators/project-funder/modal";
 import AsyncButton from "../unique/async-button";
-
 import LocationLoader from "./sub-components/location-loader";
 import GeoSuggest from "react-geosuggest";
 import ReactS3Uploader from "react-s3-uploader";
 import endpoints from "../../endpoints";
- import SdgPicker from "./sub-components/sdg-picker";
+import SdgPicker from "./sub-components/sdg-picker";
 import GenericLoader from "./sub-components/user-loader";
-
 import { notify } from "../../store/action-creators/app";
+import { fetch_projects_for_contractor } from "../../store/action-creators/contractor/project";
 
 const mapStateToProps = state => {
   const { type, message } = state.projects.add.action;
   return {
-    add_project_in_progress: type === dA.ADD_PROJECT_IN_PROGRESS,
+    
+    isContractor: state.auth.credentials.isContractor,
+    isFunder: state.auth.credentials.isFunder,
+    isEvaluator: state.auth.credentials.isEvaluator,
+
+    add_project_in_progress: type === dA.ADD_PROJ_R,
     message,
     type,
     selected: state.projects.funders.selected
   };
 };
 
-export default connect(mapStateToProps)(
+const mapDispatchToProps = dispatch => {
+  return {
+    fetch_projects_as_funder: () => dispatch(fetchProjects()),
+    fetch_projects_as_contractors: () => dispatch(fetch_projects_for_contractor()),
+    close_modal: () => dispatch(closeModal()),
+    clear_add_form: () => dispatch(clearAddModal()),
+    add_project: obj => dispatch(addProject(obj))
+  }
+}
+
+export default connect(mapStateToProps, mapDispatchToProps)(
   class AddProjectModal extends React.Component {
     constructor(props) {
       super(props);
@@ -58,9 +69,7 @@ export default connect(mapStateToProps)(
     }
 
     componentWillMount() {
-      this.props.dispatch({
-        type: "CLEAR_ADD"
-      });
+      this.props.clear_add_form();
     }
 
     handleSubmit = e => {
@@ -83,7 +92,7 @@ export default connect(mapStateToProps)(
       if (this.state["project-avatar"].file) {
         this.next(this.state["project-avatar"].file);
       } else {
-        this.props.dispatch(addProject(formData));
+        this.props.add_project(formData);
       }
     };
 
@@ -199,12 +208,21 @@ export default connect(mapStateToProps)(
       if (this.props !== nextProps) {
         // pull fresh projects after adding
         
-        if (nextProps.type === dA.ADD_PROJECT_SUCCESSFUL) {
-          nextProps.dispatch(fetchProjects());
+        if (nextProps.type === dA.ADD_PROJ_S) {
+
+            if(nextProps.isFunder === true){
+              nextProps.fetch_projects_as_funder();
+            }
+
+            if(nextProps.isContractor === true){
+              nextProps.fetch_projects_as_contractors();
+            }
+            
             notify(<p style={{color: 'white'}}>Project Added Successfully</p>,"success")
-          nextProps.dispatch(closeModal());
-        }else if(nextProps.type === dA.ADD_PROJECT_FAILED){
-          notify(<p style={{color: 'white'}}>Could Not Add Project.</p>,"error")
+            nextProps.close_modal();
+
+        }else if(nextProps.type === dA.ADD_PROJ_F){
+            notify(<p style={{color: 'white'}}>Could Not Add Project.</p>,"error")
         }
 
         this.setState({
@@ -225,12 +243,10 @@ export default connect(mapStateToProps)(
           }
         },
         () => {
-          this.props.dispatch(addProject(this.state.form));
+          this.props.add_project(this.state.form);
         }
       );
     };
-
-    
 
     onUploadProgress = count => {
       this.setState({
@@ -247,10 +263,10 @@ export default connect(mapStateToProps)(
       return (
         <React.Fragment>
           <div className="xs-12">
-            <p className="below-text">
+            {/* <p className="below-text">
               Add your funded development project and relevant contractors and
               collaborators.
-            </p>
+            </p> */}
           </div>
           <Form onSubmit={this.handleSubmit} className="xs-12">
             <div className="xs-12 sm-6">

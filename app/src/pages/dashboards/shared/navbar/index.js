@@ -126,7 +126,7 @@ class Navbar extends React.Component {
                 id="add"
                 onClick={ this.props.showModal }
               >
-                + New Project
+                + Propose Project
               </NavLink>
               
             <div className="xs-12 sm-3 f-r">

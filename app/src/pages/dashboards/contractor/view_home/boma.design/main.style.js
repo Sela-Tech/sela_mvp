@@ -24,9 +24,8 @@ label{
         border-radius: 5px;
         height: 200px;
 
-        @media(min-width: 425px){
             width: 95% !important;
-        }
+        
 
         position: relative;
 

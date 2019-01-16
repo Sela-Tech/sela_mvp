@@ -5,7 +5,7 @@ import { retrieveToken } from "../../../helpers/TokenManager";
 
 export const addTask = obj => {
   return dispatch => {
-    dispatch({ type: dA.ADD_TASK_IN_PROGRESS });
+    dispatch({ type: dA.ADD_TASK_R });
     ax({
       url: e.tasks,
       method: "POST",
@@ -16,7 +16,7 @@ export const addTask = obj => {
     })
       .then(({ data }) => {
         dispatch({
-          type: dA.ADD_TASK_SUCCESSFUL
+          type: dA.ADD_TASK_S
         });
       })
       .catch(({ response }) => {
@@ -26,14 +26,14 @@ export const addTask = obj => {
         } else {
           message = "connection error";
         }
-        dispatch({ type: dA.ADD_TASK_FAILED, message });
+        dispatch({ type: dA.ADD_TASK_F, message });
       });
   };
 };
 
 export const fetchTasks = projectId => {
   return dispatch => {
-    dispatch({ type: dA.FETCH_TASKS_IN_PROGRESS });
+    dispatch({ type: dA.GET_TASKS_R });
     ax({
       url: e.tasks + "/" + projectId,
       method: "GET",
@@ -43,7 +43,7 @@ export const fetchTasks = projectId => {
     })
       .then(({ data }) => {
         dispatch({
-          type: dA.FETCH_TASKS_SUCCESSFUL,
+          type: dA.GET_TASKS_S,
           tasks: data
         });
       })
@@ -54,14 +54,14 @@ export const fetchTasks = projectId => {
         } else {
           message = "connection error";
         }
-        dispatch({ type: dA.FETCH_TASKS_FAILED, message });
+        dispatch({ type: dA.GET_TASKS_F, message });
       });
   };
 };
 
 export const fetchTaskInfo = taskId => {
   return dispatch => {
-    dispatch({ type: dA.FETCH_TASK_IN_PROGRESS });
+    dispatch({ type: dA.GET_TASK_R });
     ax({
       url: e.tasks + "/" + taskId,
       method: "GET",
@@ -71,7 +71,7 @@ export const fetchTaskInfo = taskId => {
     })
       .then(({ data }) => {
         dispatch({
-          type: dA.FETCH_TASK_SUCCESSFUL,
+          type: dA.GET_TASK_S,
           info: data.info
         });
       })
@@ -82,7 +82,7 @@ export const fetchTaskInfo = taskId => {
         } else {
           message = "connection error";
         }
-        dispatch({ type: dA.FETCH_TASK_FAILED, message });
+        dispatch({ type: dA.GET_TASK_F, message });
       });
   };
 };

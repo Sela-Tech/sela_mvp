@@ -19,7 +19,7 @@ class Documents extends React.Component {
 
   componentWillReceiveProps(nextProps) {
     if (this.props !== nextProps) {
-      if (nextProps.type === "ADD_DOCUMENT_SUCCESSFUL") {
+      if (nextProps.type === "ADD_DOCUMENT_S") {
         this.props.dispatch(fetchProject(this.props.projectId));
       }
 

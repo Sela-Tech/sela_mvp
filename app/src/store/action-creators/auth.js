@@ -10,7 +10,7 @@ export const signout = () => {
 
 export const update_password = (obj,token)=>{
   return dispatch=>{
-    dispatch({ type: authActions.UPDATE_PASSWORD_IN_PROGRESS });
+    dispatch({ type: authActions.UPDATE_PASSWORD_R });
     ax({
       url: e.update_password + token,
       method: "PUT",
@@ -20,7 +20,7 @@ export const update_password = (obj,token)=>{
       }
     })
     .then(res=>{
-      dispatch({ type: authActions.UPDATE_PASSWORD_SUCCESSFUL, data: res.data });
+      dispatch({ type: authActions.UPDATE_PASSWORD_S, data: res.data });
     })
     .catch(({ response }) => {
       let message;
@@ -29,44 +29,44 @@ export const update_password = (obj,token)=>{
       } else {
         message = "Connection Error";
       }
-       dispatch({ type: authActions.UPDATE_PASSWORD_FAILED, message });
+       dispatch({ type: authActions.UPDATE_PASSWORD_F, message });
     });
   }
 }
 
 export const email_verify = (token)=>{
   return dispatch => {
-    dispatch({ type: authActions.EMAIL_VERIFICATION_IN_PROGRESS });
+    dispatch({ type: authActions.EMAIL_VERIFICATION_R });
     ax({
       url: e.email_verification + token,
       method: "PUT",
       data: { token }
     }).then(res=>{
-      dispatch({ type: authActions.EMAIL_VERIFICATION_SUCCESSFUL, message: "Email Verified Successfully" });
+      dispatch({ type: authActions.EMAIL_VERIFICATION_S, message: "Email Verified Successfully" });
     }).catch(res=>{
-      dispatch({ type: authActions.EMAIL_VERIFICATION_FAILED, message: extractMessage(res) });
+      dispatch({ type: authActions.EMAIL_VERIFICATION_F, message: extractMessage(res) });
     })
   }  
 }
 
 export const resend_verification_mail = field => {
   return dispatch => {
-    dispatch({ type: authActions.RESEND_VERIFICATION_IN_PROGRESS });
+    dispatch({ type: authActions.RESEND_VERIFICATION_R });
     ax({
       url: e.resend_verification,
       method: "PUT",
       data: { field }
     }).then(res=>{
-      dispatch({ type: authActions.RESEND_VERIFICATION_SUCCESSFUL, message: extractMessage(res) });
+      dispatch({ type: authActions.RESEND_VERIFICATION_S, message: extractMessage(res) });
     }).catch(res=>{
-      dispatch({ type: authActions.RESEND_VERIFICATION_FAILED, message: extractMessage(res) });
+      dispatch({ type: authActions.RESEND_VERIFICATION_F, message: extractMessage(res) });
     })
   }
 }
 
 export const signin = obj => {
   return dispatch => {
-    dispatch({ type: authActions.SIGNIN_IN_PROGRESS });
+    dispatch({ type: authActions.SIGNIN_R });
     ax({
       url: e.signin,
       method: "POST",
@@ -95,10 +95,10 @@ export const signin = obj => {
               data.signUpType = undefined;
           }
 
-          dispatch({ type: authActions.SIGNIN_SUCCESSFUL, data, message: data.message });
+          dispatch({ type: authActions.SIGNIN_S, data, message: data.message });
         } else {
           let message = data.message;
-          dispatch({ type: authActions.SIGNIN_FAILED, message });
+          dispatch({ type: authActions.SIGNIN_F, message });
         }
       })
       .catch(({ response }) => {
@@ -108,14 +108,14 @@ export const signin = obj => {
         } else {
           message = "Connection Error";
         }
-        dispatch({ type: authActions.SIGNIN_FAILED, message });
+        dispatch({ type: authActions.SIGNIN_F, message });
       });
   };
 };
 
 export const verify_user_token = () => {
   return dispatch => {
-    dispatch({ type: authActions.TOKEN_VERIFICATION_IN_PROGRESS });
+    dispatch({ type: authActions.TOKEN_VERIFICATION_R });
     ax({
       url: e.verify_user_token,
       method: "POST",
@@ -139,7 +139,7 @@ export const verify_user_token = () => {
             data.signUpType = undefined;
         }
 
-        dispatch({ type: authActions.TOKEN_VERIFICATION_SUCCESSFUL, data });
+        dispatch({ type: authActions.TOKEN_VERIFICATION_S, data });
       })
       .catch(({ response }) => {
         let message;
@@ -148,7 +148,7 @@ export const verify_user_token = () => {
         } else {
           message = "Connection Error";
         }
-        dispatch({ type: authActions.TOKEN_VERIFICATION_FAILED, message });
+        dispatch({ type: authActions.TOKEN_VERIFICATION_F, message });
       });
   };
 };
@@ -172,7 +172,7 @@ export const signup = obj => {
 
   return dispatch => {
     dispatch({
-      type: authActions.SIGNUP_IN_PROGRESS,
+      type: authActions.SIGNUP_R,
       dashboardType: obj["signUpType"]
     });
     ax({
@@ -181,7 +181,7 @@ export const signup = obj => {
       data: obj
     })
       .then(({ data }) => {
-        dispatch({ type: authActions.SIGNUP_SUCCESSFUL, data, signUpType,  message: data.message });
+        dispatch({ type: authActions.SIGNUP_S, data, signUpType,  message: data.message });
       })
       .catch(({ response }) => {
         let message;
@@ -190,21 +190,21 @@ export const signup = obj => {
         } else {
           message = "connection error";
         }
-        dispatch({ type: authActions.SIGNUP_FAILED, message });
+        dispatch({ type: authActions.SIGNUP_F, message });
       });
   };
 };
 
 export const send_recovery_mail = obj => {
   return dispatch => {
-    dispatch({ type: authActions.SEND_RECOVERY_MAIL_IN_PROGRESS });
+    dispatch({ type: authActions.SEND_RECOVERY_MAIL_R });
     ax({
       url: e.send_recovery_mail,
       method: "PUT",
       data: obj
     })
       .then(({ data }) => {
-        dispatch({ type: authActions.SEND_RECOVERY_MAIL_SUCCESSFUL, data });
+        dispatch({ type: authActions.SEND_RECOVERY_MAIL_S, data });
       })
       .catch(({ response }) => {
         let message;
@@ -213,14 +213,14 @@ export const send_recovery_mail = obj => {
         } else {
           message = "connection error";
         }
-        dispatch({ type: authActions.SEND_RECOVERY_MAIL_FAILED, message });
+        dispatch({ type: authActions.SEND_RECOVERY_MAIL_F, message });
       });
   };
 };
 
 export const update = obj => {
   return dispatch => {
-    dispatch({ type: authActions.CHANGE_USER_DETAILS_IN_PROGRESS });
+    dispatch({ type: authActions.CHANGE_USER_DETAILS_R });
     ax({
       method: "POST",
       data: obj,
@@ -250,7 +250,7 @@ export const update = obj => {
             data.signUpType = undefined;
         }
 
-        dispatch({ type: authActions.CHANGE_USER_DETAILS_SUCCESSFUL, data });
+        dispatch({ type: authActions.CHANGE_USER_DETAILS_S, data });
       })
       .catch(({ response }) => {
         let message;
@@ -259,7 +259,7 @@ export const update = obj => {
         } else {
           message = "connection error";
         }
-        dispatch({ type: authActions.CHANGE_USER_DETAILS_FAILED, message });
+        dispatch({ type: authActions.CHANGE_USER_DETAILS_F, message });
       });
   };
 };

@@ -14,7 +14,7 @@ export const store_socket_data = data => {
 
 export const mark_viewed = unreadNIds =>{
     return dispatch=> {
-        dispatch({type: not_actions.MARK_NOTIFICATIONS_REQUEST})
+        dispatch({type: not_actions.MARK_NOTIFICATIONS_R})
         ax({
             url: e.notifications.marked_viewed,
             method: "POST",
@@ -24,11 +24,11 @@ export const mark_viewed = unreadNIds =>{
             }
         }).then(res=>{
             dispatch({
-                type: not_actions.MARK_NOTIFICATIONS_SUCCESSFUL
+                type: not_actions.MARK_NOTIFICATIONS_S
             })
         }).catch(res=>{
             dispatch({
-                type: not_actions.MARK_NOTIFICATIONS_FAILED,
+                type: not_actions.MARK_NOTIFICATIONS_F,
                 message: extractMessage(res)
             });
 
@@ -38,7 +38,7 @@ export const mark_viewed = unreadNIds =>{
 
 export const get_notifications = () => {
     return dispatch=>{
-        dispatch({type: not_actions.GET_INIT_NOTIFICATIONS_REQUEST})
+        dispatch({type: not_actions.GET_INIT_NOTIFICATIONS_R})
             ax({
                 url: e.notifications.get,
                 headers:{
@@ -46,14 +46,14 @@ export const get_notifications = () => {
                 }
             }).then(res=>{
                 dispatch({
-                    type: not_actions.GET_INIT_NOTIFICATIONS_SUCCESSFUL,
+                    type: not_actions.GET_INIT_NOTIFICATIONS_S,
                     notifications: res.data.notifications,
                     unreadNIds: res.data.unreadNIds
                 })
             }).catch(res=>{
                 
                 dispatch({
-                    type: not_actions.GET_INIT_NOTIFICATIONS_FAILED,
+                    type: not_actions.GET_INIT_NOTIFICATIONS_F,
                     message: extractMessage(res)
                 });
 

@@ -1,6 +1,13 @@
 import dA from "../../actions/project-funder/dashboard";
 import modals from "../../actions/project-funder/modals";
 
+
+export const clearAddModal = ()=>{
+  return {
+    type: dA.CLEAR_ADD
+  }
+}
+
 export const showModal = (name, id) => {
   return {
     type: dA.SHOW_MODAL_FORM,

@@ -7,7 +7,7 @@ import NotEmptyCard from "./cards/not-empty.card";
 
 const CardHolder = ({ projects, heading, type, action }) => {
   switch (action) {
-    case home.FETCHING_HOMEPAGE_PROJECTS_SUCCESSFUL:
+    case home.GET_HOMEPAGE_PROJS_S:
       return (
         <CardHolderStyle className="xs-10 xs-off-1">
           {projects.length > 0 ? (

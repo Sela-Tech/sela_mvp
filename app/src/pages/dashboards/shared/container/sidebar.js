@@ -73,7 +73,7 @@ const MobileDashboardSidebar = ({
           id="create"
           onClick={() => dispatch(showModal(modals.add_project))}
         >
-          + New Project
+          + Propose Project
         </button>
 
         <span id="line-break" />
@@ -124,15 +124,6 @@ const WebDashboardSidebar = ({ dispatch, user }) => {
               <span>Projects</span>
             </NavLink>
           </li>
-
-          {/* <li>
-            <NavLink exact to="/dashboard/inbox" activeClassName="active">
-              <img src={inbox} alt="inbox" />
-              <span>Inbox</span>
-            </NavLink>
-          </li> */}
-          
-
           <li>
             <NavLink exact to="/dashboard/settings" activeClassName="active">
               <img src={settings} alt="settings" />

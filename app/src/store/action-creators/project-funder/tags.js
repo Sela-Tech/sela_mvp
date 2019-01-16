@@ -5,7 +5,7 @@
 
 // export const addTags = obj => {
 //   return dispatch => {
-//     dispatch({ type: dA.ADD_TAGS_IN_PROGRESS });
+//     dispatch({ type: dA.ADD_TAGS_R });
 
 //     ax({
 //       url: e.add_tag,
@@ -18,7 +18,7 @@
 //     })
 //       .then(({ data }) => {
 //         dispatch({
-//           type: dA.ADD_TAGS_SUCCESSFUL,
+//           type: dA.ADD_TAGS_S,
 //           message: data.message
 //         });
 //       })
@@ -29,14 +29,14 @@
 //         } else {
 //           message = "connection error";
 //         }
-//         dispatch({ type: dA.ADD_STAKEHOLDER_FAILED, message });
+//         dispatch({ type: dA.ADD_STAKEHOLDER_F, message });
 //       });
 //   };
 // };
 
 // export const fetchTags = () => {
 //   return dispatch => {
-//     dispatch({ type: dA.FETCHING_TAGS_IN_PROGRESS });
+//     dispatch({ type: dA.GET_TAGS_R });
 //     ax({
 //       url: e.fetch_users,
 //       method: "GET",
@@ -46,7 +46,7 @@
 //     })
 //       .then(({ data }) => {
 //         dispatch({
-//           type: dA.FETCHING_TAGS_SUCCESSFUL,
+//           type: dA.GET_TAGS_S,
 //           funders: data
 //         });
 //       })
@@ -57,7 +57,7 @@
 //         } else {
 //           message = "connection error";
 //         }
-//         dispatch({ type: dA.FETCHING_TAGS_FAILED, message });
+//         dispatch({ type: dA.GET_TAGS_F, message });
 //       });
 //   };
 // };

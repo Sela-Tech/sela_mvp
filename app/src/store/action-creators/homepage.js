@@ -13,14 +13,14 @@ export const toggleFullScreen = {
 
 export const ignoreProjectId = id => {
   return {
-    type: hA.IGNORE_PROJECT_ID,
+    type: hA.IGNORE_PROJ_ID,
     id
   };
 };
 export const fetchStakeholderInfo = id => {
   return dispatch => {
     dispatch({
-      type: hA.FETCHING_CITIZEN_INFO_IN_PROGRESS
+      type: hA.GET_CITIZEN_INFO_R
     });
 
     ax({
@@ -32,13 +32,13 @@ export const fetchStakeholderInfo = id => {
     })
       .then(({ data }) => {
         dispatch({
-          type: hA.FETCHING_CITIZEN_INFO_SUCCESSFUL,
+          type: hA.GET_CITIZEN_INFO_S,
           citizenData: data
         });
       })
       .catch(res => {
         dispatch({
-          type: hA.FETCHING_CITIZEN_INFO_FAILED,
+          type: hA.GET_CITIZEN_INFO_F,
           message: extractMessage(res)
         });
       });
@@ -50,11 +50,11 @@ export const fetchProjects = (query = "") => {
   }`;
 
   return dispatch => {
-    dispatch({ type: hA.FETCHING_HOMEPAGE_PROJECTS_IN_PROGRESS });
+    dispatch({ type: hA.GET_HOMEPAGE_PROJS_R });
 
     ax.get(url, { headers: { public: true } }).then(projects_response => {
       dispatch({
-        type: hA.FETCHING_HOMEPAGE_PROJECTS_SUCCESSFUL,
+        type: hA.GET_HOMEPAGE_PROJS_S,
         projects: projects_response.data.projects,
         centerize: query !== ""
       });
@@ -66,7 +66,7 @@ export const fetchLocations = () => {
   return dispatch => {
     ax.get(e.fetch_locations).then(locations_response => {
       dispatch({
-        type: hA.FETCHING_LOCATIONS_SUCCESSFUL,
+        type: hA.GET_LOCATIONS_S,
         locations: locations_response.data
       });
     });
@@ -75,7 +75,7 @@ export const fetchLocations = () => {
 
 export const fetchProject = id => {
   return dispatch => {
-    dispatch({ type: hA.FETCHING_HOMEPAGE_PROJECT_IN_PROGRESS });
+    dispatch({ type: hA.GET_HOMEPAGE_PROJ_R });
     ax({
       url: e.fetch_project + id,
       method: "GET",
@@ -85,13 +85,13 @@ export const fetchProject = id => {
     })
       .then(({ data }) => {
         dispatch({
-          type: hA.FETCHING_HOMEPAGE_PROJECT_SUCCESSFUL,
+          type: hA.GET_HOMEPAGE_PROJ_S,
           info: data
         });
       })
       .catch(({ response }) => {
         dispatch({
-          type: hA.FETCHING_HOMEPAGE_PROJECT_FAILED,
+          type: hA.GET_HOMEPAGE_PROJ_F,
           message: extractMessage(response)
         });
       });

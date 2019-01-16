@@ -10,6 +10,7 @@ import transactions from "./project-funder/transactions";
 import document from "./project-funder/document";
 import app from "./app";
 import notification_state from "./notifications";
+import contractor from "./contractor/project";
 
 export default combineReducers({
   auth,
@@ -22,5 +23,6 @@ export default combineReducers({
   organizations,
   document,
   app,
+  contractor,
   notification_state
 });

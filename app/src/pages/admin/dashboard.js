@@ -240,7 +240,7 @@ const ControlButton = ({ type, userId, id, value, revoke, approve }) => {
   let handleRevoke = () => revoke(id),
     handleApprove = () => approve(id);
 
-  if (type === admin.APPROVE_IN_PROGRESS || type === admin.REVOKE_IN_PROGRESS) {
+  if (type === admin.APPROVE_R || type === admin.REVOKE_R) {
     if (userId === id) {
       return (
         <button className="loading" disabled>

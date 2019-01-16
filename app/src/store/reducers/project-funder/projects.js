@@ -50,87 +50,87 @@ export default (state = initstate, payload) => {
         ...state,
         add: initstate.add
       };
-    case dA.ADD_STAKEHOLDER_FAILED:
+    case dA.ADD_STAKEHOLDER_F:
       return {
         ...state,
         stakeholder: {
           action: {
-            type: dA.ADD_STAKEHOLDER_FAILED,
+            type: dA.ADD_STAKEHOLDER_F,
             message: payload.message
           }
         }
       };
 
-    case dA.ADD_STAKEHOLDER_IN_PROGRESS:
+    case dA.ADD_STAKEHOLDER_R:
       return {
         ...state,
         stakeholder: {
           action: {
-            type: dA.ADD_STAKEHOLDER_IN_PROGRESS,
+            type: dA.ADD_STAKEHOLDER_R,
             message: ""
           }
         }
       };
 
-    case dA.ADD_STAKEHOLDER_SUCCESSFUL:
+    case dA.ADD_STAKEHOLDER_S:
       return {
         ...state,
         stakeholder: {
           action: {
-            type: dA.ADD_STAKEHOLDER_SUCCESSFUL,
+            type: dA.ADD_STAKEHOLDER_S,
             message: payload.message
           }
         }
       };
-    case dA.FETCHING_PROJECT_IN_PROGRESS:
+    case dA.GET_PROJ_R:
       return {
         ...state,
         single: {
           action: {
-            type: dA.FETCHING_PROJECT_IN_PROGRESS,
+            type: dA.GET_PROJ_R,
             message: ""
           },
           info: []
         }
       };
 
-    case dA.FETCHING_PROJECT_SUCCESSFUL:
+    case dA.GET_PROJ_S:
       return {
         ...state,
         single: {
           action: {
-            type: dA.FETCHING_PROJECT_SUCCESSFUL,
+            type: dA.GET_PROJ_S,
             message: payload.message
           },
           info: payload.info
         }
       };
 
-    case dA.FETCHING_PROJECT_FAILED:
+    case dA.GET_PROJ_F:
       return {
         ...state,
         single: {
           action: {
-            type: dA.FETCHING_PROJECT_FAILED,
+            type: dA.GET_PROJ_F,
             message: payload.message || "Could Not Fetch Projects"
           },
           info: []
         }
       };
 
-    case dA.FETCHING_PROJECTS_IN_PROGRESS:
+    case dA.GET_PROJS_R:
       return {
         ...state,
         all: {
           action: {
-            type: dA.FETCHING_PROJECTS_IN_PROGRESS,
+            type: dA.GET_PROJS_R,
             message: ""
           },
           collection: state.all.collection
         }
       };
 
-    case dA.FETCHING_PROJECTS_SUCCESSFUL:
+    case dA.GET_PROJS_S:
 
       if(payload.projects.projects.length >0){
         payload.projects.projects = payload.projects.projects.reverse();
@@ -140,86 +140,86 @@ export default (state = initstate, payload) => {
         ...state,
         all: {
           action: {
-            type: dA.FETCHING_PROJECTS_SUCCESSFUL,
+            type: dA.GET_PROJS_S,
             message: payload.message
           },
           collection: payload.projects
         }
       };
 
-    case dA.FETCHING_PROJECTS_FAILED:
+    case dA.GET_PROJS_F:
       return {
         ...state,
         all: {
           action: {
-            type: dA.FETCHING_PROJECTS_FAILED,
+            type: dA.GET_PROJS_F,
             message: payload.message || "Could Not Fetch Projects"
           },
           collection: []
         }
       };
 
-    case dA.DELETE_PROJECT_IN_PROGRESS:
+    case dA.DELETE_PROJ_R:
       return {
         ...state,
         delete: {
           action: {
-            type: dA.DELETE_PROJECT_IN_PROGRESS,
+            type: dA.DELETE_PROJ_R,
             message: ""
           }
         }
       };
 
-    case dA.DELETE_PROJECT_SUCCESSFUL:
+    case dA.DELETE_PROJ_S:
       return {
         ...state,
         delete: {
           action: {
-            type: dA.DELETE_PROJECT_SUCCESSFUL,
+            type: dA.DELETE_PROJ_S,
             message: payload.message || "Action Carried Out Successfully"
           }
         }
       };
 
-    case dA.DELETE_PROJECT_FAILED:
+    case dA.DELETE_PROJ_F:
       return {
         ...state,
         delete: {
           action: {
-            type: dA.DELETE_PROJECT_FAILED,
+            type: dA.DELETE_PROJ_F,
             message: payload.message || "Could Not Carry Out Action"
           }
         }
       };
 
-    case dA.ADD_PROJECT_IN_PROGRESS:
+    case dA.ADD_PROJ_R:
       return {
         ...state,
         add: {
           action: {
-            type: dA.ADD_PROJECT_IN_PROGRESS,
+            type: dA.ADD_PROJ_R,
             message: ""
           }
         }
       };
 
-    case dA.ADD_PROJECT_SUCCESSFUL:
+    case dA.ADD_PROJ_S:
       return {
         ...state,
         add: {
           action: {
-            type: dA.ADD_PROJECT_SUCCESSFUL,
+            type: dA.ADD_PROJ_S,
             message: payload.message || "Project Added Successfully"
           }
         }
       };
 
-    case dA.ADD_PROJECT_FAILED:
+    case dA.ADD_PROJ_F:
       return {
         ...state,
         add: {
           action: {
-            type: dA.ADD_PROJECT_FAILED,
+            type: dA.ADD_PROJ_F,
             message: payload.message || "Could Not Add A Project."
           }
         }
@@ -237,23 +237,23 @@ export default (state = initstate, payload) => {
         }
       };
 
-    case dA.FETCHING_P_STAKEHOLDERS_IN_PROGRESS:
+    case dA.GET_P_STAKEHOLDERS_R:
       return {
         ...state,
         funders: {
           action: {
-            type: dA.FETCHING_P_STAKEHOLDERS_IN_PROGRESS,
+            type: dA.GET_P_STAKEHOLDERS_R,
             message: ""
           }
         }
       };
 
-    case dA.FETCHING_P_STAKEHOLDERS_SUCCESSFUL:
+    case dA.GET_P_STAKEHOLDERS_S:
   return {
         ...state,
         funders: {
           action: {
-            type: dA.FETCHING_P_STAKEHOLDERS_SUCCESSFUL,
+            type: dA.GET_P_STAKEHOLDERS_S,
             message: payload.message || "Funders Fetched Successfully"
           },
           options: payload.pstakeholders.map(f => {
@@ -271,12 +271,12 @@ export default (state = initstate, payload) => {
         }
       };
 
-    case dA.FETCHING_P_STAKEHOLDERS_FAILED:
+    case dA.GET_P_STAKEHOLDERS_F:
       return {
         ...state,
         funders: {
           action: {
-            type: dA.FETCHING_P_STAKEHOLDERS_FAILED,
+            type: dA.GET_P_STAKEHOLDERS_F,
             message: payload.message || "Could Not Fetch Possible Funders."
           }
         }

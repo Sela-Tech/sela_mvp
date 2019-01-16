@@ -16,104 +16,104 @@ const initstate = {
 
 export default (state = initstate, payload) => {
   switch (payload.type) {
-    case authActions.CHANGE_USER_DETAILS_FAILED:
+    case authActions.CHANGE_USER_DETAILS_F:
       return {
         ...state,
         action: {
-          type: authActions.CHANGE_USER_DETAILS_FAILED,
+          type: authActions.CHANGE_USER_DETAILS_F,
           message: payload.message
         }
       };
 
-    case authActions.CHANGE_USER_DETAILS_IN_PROGRESS:
+    case authActions.CHANGE_USER_DETAILS_R:
       return {
         ...state,
         action: {
-          type: authActions.CHANGE_USER_DETAILS_IN_PROGRESS
+          type: authActions.CHANGE_USER_DETAILS_R
         }
       };
 
-    case authActions.CHANGE_USER_DETAILS_SUCCESSFUL:
+    case authActions.CHANGE_USER_DETAILS_S:
       return {
         ...state,
         action: {
-          type: authActions.CHANGE_USER_DETAILS_SUCCESSFUL
+          type: authActions.CHANGE_USER_DETAILS_S
         },
         credentials: payload.data
       };
 
-    case authActions.TOKEN_VERIFICATION_IN_PROGRESS:
+    case authActions.TOKEN_VERIFICATION_R:
       return {
         ...state,
         action: {
-          type: authActions.TOKEN_VERIFICATION_IN_PROGRESS
+          type: authActions.TOKEN_VERIFICATION_R
         }
       };
 
-    case authActions.TOKEN_VERIFICATION_SUCCESSFUL:
+    case authActions.TOKEN_VERIFICATION_S:
       return {
         ...state,
         action: {
-          type: authActions.TOKEN_VERIFICATION_SUCCESSFUL,
+          type: authActions.TOKEN_VERIFICATION_S,
           message: payload.message || "Logged In Successfully"
         },
         isAuthenticated: true,
         credentials: payload.data
       };
 
-    case authActions.TOKEN_VERIFICATION_FAILED:
+    case authActions.TOKEN_VERIFICATION_F:
       return {
         ...state,
         action: {
-          type: authActions.TOKEN_VERIFICATION_FAILED,
+          type: authActions.TOKEN_VERIFICATION_F,
           message: payload.message || "Log in Failed"
         }
       };
 
-    case authActions.SIGNIN_IN_PROGRESS:
+    case authActions.SIGNIN_R:
       return {
         ...state,
         action: {
-          type: authActions.SIGNIN_IN_PROGRESS
+          type: authActions.SIGNIN_R
         }
       };
 
-    case authActions.SIGNIN_SUCCESSFUL:
+    case authActions.SIGNIN_S:
       return {
         ...state,
         action: {
-          type: authActions.SIGNIN_SUCCESSFUL,
+          type: authActions.SIGNIN_S,
           message: payload.message || "Logged In Successfully"
         },
         isAuthenticated: true,
         credentials: payload.data
       };
 
-    case authActions.SIGNIN_FAILED:
+    case authActions.SIGNIN_F:
       return {
         ...state,
         action: {
-          type: authActions.SIGNIN_FAILED,
+          type: authActions.SIGNIN_F,
           message: payload.message || "Log in Failed"
         }
       };
 
-    case authActions.SIGNUP_IN_PROGRESS:
+    case authActions.SIGNUP_R:
       return {
         ...state,
         action: {
-          type: authActions.SIGNUP_IN_PROGRESS
+          type: authActions.SIGNUP_R
         },
         credentials: {
           dashboardType: payload.dashboardType
         }
       };
 
-    case authActions.SIGNUP_SUCCESSFUL:
+    case authActions.SIGNUP_S:
       return {
         ...state,
         action: {
-          type: authActions.SIGNUP_SUCCESSFUL,
+          type: authActions.SIGNUP_S,
           message: payload.message || "Signed up successfully"
         },
         signUpType: payload.signUpType,
@@ -123,151 +123,151 @@ export default (state = initstate, payload) => {
         }
       };
 
-    case authActions.SIGNUP_FAILED:
+    case authActions.SIGNUP_F:
       return {
         ...state,
         action: {
-          type: authActions.SIGNUP_FAILED,
+          type: authActions.SIGNUP_F,
           message: payload.message || "Sign up failed"
         }
       };
 
-    case authActions.INIT_ACCOUNT_RECOVERY_IN_PROGRESS:
+    case authActions.INIT_ACCOUNT_RECOVERY_R:
       return {
         ...state,
         action: {
-          type: authActions.INIT_ACCOUNT_RECOVERY_IN_PROGRESS
+          type: authActions.INIT_ACCOUNT_RECOVERY_R
         }
       };
 
-    case authActions.INIT_ACCOUNT_RECOVERY_SUCCESSFUL:
+    case authActions.INIT_ACCOUNT_RECOVERY_S:
       return {
         ...state,
         action: {
-          type: authActions.INIT_ACCOUNT_RECOVERY_SUCCESSFUL,
+          type: authActions.INIT_ACCOUNT_RECOVERY_S,
           message: payload.message || "Initiated account recovery successfully"
         },
         credentials: payload.credentials
       };
 
-    case authActions.INIT_ACCOUNT_RECOVERY_FAILED:
+    case authActions.INIT_ACCOUNT_RECOVERY_F:
       return {
         ...state,
         action: {
-          type: authActions.INIT_ACCOUNT_RECOVERY_FAILED,
+          type: authActions.INIT_ACCOUNT_RECOVERY_F,
           message: payload.message || "Initiate account recovery failed"
         }
       };
 
-      case authActions.UPDATE_PASSWORD_IN_PROGRESS:
+      case authActions.UPDATE_PASSWORD_R:
       return {
         ...state,
         action: {
-          type: authActions.UPDATE_PASSWORD_IN_PROGRESS
+          type: authActions.UPDATE_PASSWORD_R
         }
       };
 
-    case authActions.UPDATE_PASSWORD_SUCCESSFUL:
+    case authActions.UPDATE_PASSWORD_S:
       return {
         ...state,
         action: {
-          type: authActions.UPDATE_PASSWORD_SUCCESSFUL,
+          type: authActions.UPDATE_PASSWORD_S,
           message:
             payload.message || "Password updated successfully"
         }
       };
 
-    case authActions.UPDATE_PASSWORD_FAILED:
+    case authActions.UPDATE_PASSWORD_F:
       return {
         ...state,
         action: {
-          type: authActions.UPDATE_PASSWORD_FAILED,
+          type: authActions.UPDATE_PASSWORD_F,
           message:
             payload.message.msg || "Failed to update password."
         }
       };
 
-      case authActions.EMAIL_VERIFICATION_IN_PROGRESS:
+      case authActions.EMAIL_VERIFICATION_R:
       return {
         ...state,
         action: {
-          type: authActions.EMAIL_VERIFICATION_IN_PROGRESS,
+          type: authActions.EMAIL_VERIFICATION_R,
           message: payload.message
      
         }
       }
 
-      case authActions.EMAIL_VERIFICATION_SUCCESSFUL:
+      case authActions.EMAIL_VERIFICATION_S:
       return {
         ...state,
         action: {
-          type: authActions.EMAIL_VERIFICATION_SUCCESSFUL,
+          type: authActions.EMAIL_VERIFICATION_S,
           message: payload.message
      
         }
       }
 
-      case authActions.EMAIL_VERIFICATION_FAILED:
+      case authActions.EMAIL_VERIFICATION_F:
       return {
         ...state,
         action: {
-          type: authActions.EMAIL_VERIFICATION_FAILED,
+          type: authActions.EMAIL_VERIFICATION_F,
           message: payload.message
      
         }
       }
       
 
-    case authActions.RESEND_VERIFICATION_IN_PROGRESS:
+    case authActions.RESEND_VERIFICATION_R:
     return {
       ...state,
       action: {
-        type: authActions.RESEND_VERIFICATION_IN_PROGRESS,
+        type: authActions.RESEND_VERIFICATION_R,
         message: payload.message
      
       }
     }
-    case authActions.RESEND_VERIFICATION_SUCCESSFUL:
+    case authActions.RESEND_VERIFICATION_S:
     return {
       ...state,
       action: {
-        type: authActions.RESEND_VERIFICATION_SUCCESSFUL,
+        type: authActions.RESEND_VERIFICATION_S,
         message: payload.message
       }
     }
-    case authActions.RESEND_VERIFICATION_FAILED:
+    case authActions.RESEND_VERIFICATION_F:
     return {
       ...state,
       action: {
-        type: authActions.RESEND_VERIFICATION_FAILED,
+        type: authActions.RESEND_VERIFICATION_F,
         message: payload.message
      
       }
     }
 
-    case authActions.SEND_RECOVERY_MAIL_IN_PROGRESS:
+    case authActions.SEND_RECOVERY_MAIL_R:
       return {
         ...state,
         action: {
-          type: authActions.SEND_RECOVERY_MAIL_IN_PROGRESS
+          type: authActions.SEND_RECOVERY_MAIL_R
         }
       };
 
-    case authActions.SEND_RECOVERY_MAIL_SUCCESSFUL:
+    case authActions.SEND_RECOVERY_MAIL_S:
       return {
         ...state,
         action: {
-          type: authActions.SEND_RECOVERY_MAIL_SUCCESSFUL,
+          type: authActions.SEND_RECOVERY_MAIL_S,
           message:
             payload.message || "Sent email for account recovery successfully"
         }
       };
 
-    case authActions.SEND_RECOVERY_MAIL_FAILED:
+    case authActions.SEND_RECOVERY_MAIL_F:
       return {
         ...state,
         action: {
-          type: authActions.SEND_RECOVERY_MAIL_FAILED,
+          type: authActions.SEND_RECOVERY_MAIL_F,
           message:
             payload.message || "Failed to send email for account recovery email"
         }

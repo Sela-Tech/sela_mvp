@@ -24,7 +24,7 @@ class Notifications extends React.Component{
     componentWillReceiveProps(nextProps){
         if(this.props !== nextProps){
 
-            if(nextProps.type === notifications.GET_INIT_NOTIFICATIONS_SUCCESSFUL){
+            if(nextProps.type === notifications.GET_INIT_NOTIFICATIONS_S){
                 this.setState({
                     notifications: nextProps.notifications,
                     performed_initial_fetch: true
@@ -35,7 +35,7 @@ class Notifications extends React.Component{
                 })
             }
 
-            if(nextProps.type === notifications.GET_INIT_NOTIFICATIONS_FAILED){
+            if(nextProps.type === notifications.GET_INIT_NOTIFICATIONS_F){
                 notify(<p style={{ color: "white" }}>{nextProps.message}</p>, "error");
                 this.setState({
                     performed_initial_fetch: true 
@@ -50,6 +50,13 @@ class Notifications extends React.Component{
         return <NotificationsStyle className="xs-12">
         <Navbar/>
             <div className="xs-10 xs-off-1">
+                    {/* <div className='xs-12'>
+                        <div className='xs-12 sm-off-9 sm-3'>
+                            <label>Filter By</label>
+                            <select><option>Invitations</option></select>
+                        </div>
+                    </div> */}
+                    
                 <div className="xs-12 white">
                     <h3>Notifications</h3>
                     

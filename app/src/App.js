@@ -7,13 +7,10 @@ import { LoadingRoute, PrivateRoute } from "./helpers/routes";
 
 import Error404 from "./pages/error404";
 import Modals from "./shared-components/modals";
-
 import ToastContainer from 'react-toastify/lib/components/ToastContainer';
 import 'react-toastify/dist/ReactToastify.css';
 import loadable from "loadable-components";
-
 import Blank from "./pages/dashboards/blank/";
-
 import NotLoggedIn from "./pages/public/loading/generic";
 import signin from "./pages/authentication/components/signin";
 import forgot_password from "./pages/authentication/components/forgot-password";
@@ -47,7 +44,7 @@ const App = ({ isAuthenticated, actionType, modalToShow, isEvaluator }) => {
           <Suspense fallback={<NotLoggedIn/>}>
           <ToastContainer />
   
-          {actionType === authActions.TOKEN_VERIFICATION_IN_PROGRESS ? (
+          {actionType === authActions.TOKEN_VERIFICATION_R ? (
             <Switch>
               <LoadingRoute />
             </Switch>

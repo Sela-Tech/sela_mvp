@@ -5,7 +5,7 @@ import { retrieveToken } from "../../../helpers/TokenManager";
 
 export const addTransaction = obj => {
   return dispatch => {
-    dispatch({ type: dA.ADD_TRANSACTION_IN_PROGRESS });
+    dispatch({ type: dA.ADD_TRANSACTION_R });
     ax({
       url: e.trn,
       method: "POST",
@@ -17,10 +17,10 @@ export const addTransaction = obj => {
       .then(({ data }) => {
         if (data.success === true) {
           dispatch({
-            type: dA.ADD_TRANSACTION_SUCCESSFUL
+            type: dA.ADD_TRANSACTION_S
           });
         } else {
-          dispatch({ type: dA.ADD_TRANSACTION_FAILED, message: data.message });
+          dispatch({ type: dA.ADD_TRANSACTION_F, message: data.message });
         }
       })
       .catch(({ response }) => {
@@ -30,14 +30,14 @@ export const addTransaction = obj => {
         } else {
           message = "connection error";
         }
-        dispatch({ type: dA.ADD_TRANSACTION_FAILED, message });
+        dispatch({ type: dA.ADD_TRANSACTION_F, message });
       });
   };
 };
 
 export const fetchTransaction = projectId => {
   return dispatch => {
-    dispatch({ type: dA.FETCH_TRANSACTIONS_IN_PROGRESS });
+    dispatch({ type: dA.GET_TRANSACTIONS_R });
     ax({
       url: e.trn + "/" + projectId,
       method: "GET",
@@ -47,7 +47,7 @@ export const fetchTransaction = projectId => {
     })
       .then(({ data }) => {
         dispatch({
-          type: dA.FETCH_TRANSACTIONS_SUCCESSFUL,
+          type: dA.GET_TRANSACTIONS_S,
           tasks: data
         });
       })
@@ -58,7 +58,7 @@ export const fetchTransaction = projectId => {
         } else {
           message = "connection error";
         }
-        dispatch({ type: dA.FETCH_TRANSACTIONS_FAILED, message });
+        dispatch({ type: dA.GET_TRANSACTIONS_F, message });
       });
   };
 };

@@ -19,7 +19,7 @@ const mapStateToProps = state => {
     selected: state.projects.funders.selected,
     in_progress:
       state.projects.stakeholder.action.type ===
-      dashboard.ADD_STAKEHOLDER_IN_PROGRESS
+      dashboard.ADD_STAKEHOLDER_R
   };
 };
 
@@ -41,10 +41,10 @@ export default connect(mapStateToProps)(
       if (this.props !== nextProps) {
 
 
-        if (nextProps.type === dA.ADD_STAKEHOLDER_SUCCESSFUL) {
+        if (nextProps.type === dA.ADD_STAKEHOLDER_S) {
           notify(<p style={{color: 'white'}}>Stakeholder(s) Added Successfully</p>,"success")
           nextProps.dispatch(closeModal());
-        }else if(nextProps.type === dA.ADD_STAKEHOLDER_FAILED){
+        }else if(nextProps.type === dA.ADD_STAKEHOLDER_F){
           notify(<p style={{color: 'white'}}>
           Could Not Add Stakeholder(s).
           <span style={{fontSize:"12px", display:"block", color:"#fdfdfd"}}> {nextProps.message} </span>

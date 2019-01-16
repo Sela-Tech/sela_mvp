@@ -40,7 +40,7 @@ export default connect(
 
       const Comp = () => {
         switch (type) {
-          case dashboard.FETCHING_PROJECTS_SUCCESSFUL:
+          case dashboard.GET_PROJS_S:
             return (
               <React.Fragment>
                 {/* <Navbar /> */}

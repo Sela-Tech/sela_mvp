@@ -4,7 +4,6 @@ import Wrapper from "./wrapper";
 import {connect} from "react-redux";
 import withRouter from "react-router-dom/withRouter";
 
-import { email_verify} from "../../../store/action-creators/auth";
 import { notify } from "../../../store/action-creators/app";
 import auth from "../../../store/actions/auth";
 import Navbar from "../../../shared-components/navbar";
@@ -12,7 +11,7 @@ import Navbar from "../../../shared-components/navbar";
 import styled from 'styled-components';
 import Spinners from "../../../shared-components/spinners";
 
-const EVerify = styled.div`
+const JW = styled.div`
     height: calc(100vh - 156px);
 
     p.text{
@@ -53,43 +52,38 @@ const EVerify = styled.div`
     }
 `;
 
-class EmailVerification extends React.Component {
+class JoinProject extends React.Component {
+
   constructor(props) {
     super(props);
     
-    let token =  null;
-
-    if(window.location.search){
-        token = window.location.search.split("=")[1]
-    }
-
     this.state = {
-        inprogress: true,
-        token
+        inprogress: true
     };
 
-    this.props.verify(token);
+    this.props.join_project({
+
+    });
 
   }
 
   componentWillReceiveProps(nextProps){
     if(this.props !== nextProps){
 
-      if(nextProps.type === auth.EMAIL_VERIFICATION_S){
-
-          notify(<p style={{color: 'white'}}>{nextProps.message}</p>,"success");
-          nextProps.history.push("/signin");
-          this.setState({
+      if( nextProps.type === projects.JOIN_PROJ_S ){
+            notify(<p style={{color: 'white'}}>{nextProps.message}</p>,"success");
+            nextProps.history.push("/signin");
+            this.setState({
                 inprogress: false
-          })
+            })
       }
 
-      if(nextProps.type === auth.EMAIL_VERIFICATION_F){
-        notify(<p style={{color: 'white'}}>{nextProps.message}</p>,"error");
-        this.setState({
-            inprogress: false
-        })
-      } 
+      if( nextProps.type === auth.JOIN_PROJ_F ){
+            notify(<p style={{color: 'white'}}>{nextProps.message}</p>,"error");
+            this.setState({
+                inprogress: false
+            })
+      }
     }
   }
 
@@ -99,43 +93,42 @@ class EmailVerification extends React.Component {
       <Wrapper viewName="email-verification">
         <Navbar/>
             {this.state.inprogress ?
-               <EVerify className="xs-12">
+               <JW className="xs-12">
                <div className="c-w t-c i-h">
                    <div className="c t-c i-h">
                         <Spinners type="one"/>
                    </div>
                </div>
-           </EVerify>
+           </JW>
             :
-            <EVerify className="xs-12">
+            <JW className="xs-12">
             <div className="c-w t-c i-h">
                 <div className="c t-c i-h">
-
-                    <h2>Oops! We couldn’t verify your email.</h2>
+                    <h2>Oops! We couldn’t join you to this project.</h2>
                     <p  className='text'>{this.props.message}</p>
-                    <a  className="colored" rel="noopener noreferrer"  href="https://sela-labs.co" >Home</a>
+                    <a  className="colored" rel="noopener noreferrer" href="https://sela-labs.co" >Home</a>
                     <a className='plain'  rel="noopener noreferrer" href='/' >Explore Projects </a>
 
                 </div>
             </div>
-        </EVerify>
+        </JW>
             }
-         
       </Wrapper>
     );
   }
 }
 
 const mapStateToProps = state=>{
-  return {
-    message: state.auth.action.message,
-    type : state.auth.action.type
- }
+    return {
+        message: state.project.action.message,
+        type : state.project.action.type
+    }
 }
 
 const mapDispatchToProps = dispatch => {
     return {
-        verify: (token)=> dispatch( email_verify(token) )
+        join_project: (obj)=> dispatch( join_project(obj) )
     }
 }
-export default withRouter(connect(mapStateToProps, mapDispatchToProps)(EmailVerification));
+
+export default withRouter(connect(mapStateToProps, mapDispatchToProps)(JoinProject));

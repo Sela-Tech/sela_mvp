@@ -12,112 +12,112 @@ const init = {
 
 export default (state = init, payload) => {
   switch (payload.type) {
-    case admin.APPROVE_IN_PROGRESS:
+    case admin.APPROVE_R:
       return {
         ...state,
-        type: admin.APPROVE_IN_PROGRESS,
+        type: admin.APPROVE_R,
         user: {
           id: payload.userId,
           userActivationResponse: ""
         }
       };
 
-    case admin.APPROVE_SUCCESSFUL:
+    case admin.APPROVE_S:
       return {
         ...state,
-        type: admin.APPROVE_SUCCESSFUL,
+        type: admin.APPROVE_S,
         user: {
           ...state.user,
           userActivationResponse: payload.activationResponse
         }
       };
 
-    case admin.APPROVE_FAILED:
+    case admin.APPROVE_F:
       return {
         ...state,
-        type: admin.APPROVE_FAILED
+        type: admin.APPROVE_F
       };
 
-    case admin.REVOKE_IN_PROGRESS:
+    case admin.REVOKE_R:
       return {
         ...state,
-        type: admin.REVOKE_IN_PROGRESS,
+        type: admin.REVOKE_R,
         user: {
           id: payload.userId,
           userActivationResponse: ""
         }
       };
 
-    case admin.REVOKE_SUCCESSFUL:
+    case admin.REVOKE_S:
       return {
         ...state,
-        type: admin.REVOKE_SUCCESSFUL,
+        type: admin.REVOKE_S,
         user: {
           ...state.user,
           userActivationResponse: payload.activationResponse
         }
       };
 
-    case admin.REVOKE_FAILED:
+    case admin.REVOKE_F:
       return {
         ...state,
-        type: admin.REVOKE_FAILED
+        type: admin.REVOKE_F
       };
 
-    case admin.SIGNIN_IN_PROGRESS:
+    case admin.SIGNIN_R:
       return {
         ...state,
-        type: admin.SIGNIN_IN_PROGRESS
+        type: admin.SIGNIN_R
       };
 
-    case admin.SIGNIN_SUCCESSFUL:
+    case admin.SIGNIN_S:
       return {
         ...state,
-        type: admin.SIGNIN_SUCCESSFUL,
+        type: admin.SIGNIN_S,
         isAdminLoggedIn: true
       };
 
-    case admin.SIGNIN_FAILED:
+    case admin.SIGNIN_F:
       return {
         ...state,
-        type: admin.SIGNIN_FAILED
+        type: admin.SIGNIN_F
       };
 
-    case admin.APPROVE_USER_IN_PROGRESS:
+    case admin.APPROVE_USER_R:
       return {
         ...state,
-        type: admin.APPROVE_USER_IN_PROGRESS
+        type: admin.APPROVE_USER_R
       };
 
-    case admin.APPROVE_USER_SUCCESSFUL:
+    case admin.APPROVE_USER_S:
       return {
         ...state,
-        type: admin.APPROVE_USER_SUCCESSFUL
+        type: admin.APPROVE_USER_S
       };
 
-    case admin.APPROVE_USER_FAILED:
+    case admin.APPROVE_USER_F:
       return {
         ...state,
-        type: admin.APPROVE_USER_FAILED
+        type: admin.APPROVE_USER_F
       };
 
-    case admin.FETCH_USERS_IN_PROGRESS:
+    case admin.GET_USERS_R:
       return {
         ...state,
-        type: admin.FETCH_USERS_IN_PROGRESS
+        type: admin.GET_USERS_R
       };
 
-    case admin.FETCH_USERS_SUCCESSFUL:
+    case admin.GET_USERS_S:
       return {
         ...state,
-        type: admin.FETCH_USERS_SUCCESSFUL,
+        type: admin.GET_USERS_S,
         users: payload.users
       };
 
-    case admin.FETCH_USERS_FAILED:
+    case admin.GET_USERS_F:
       return {
         ...state,
-        type: admin.FETCH_USERS_FAILED
+        type: admin.GET_USERS_F
       };
 
     default:

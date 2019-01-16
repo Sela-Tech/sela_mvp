@@ -10,28 +10,28 @@ let init = {
 
 export default (state = init, payload) => {
   switch (payload.type) {
-    case organizations.FETCH_ORGANIZATIONS_SUCCESSFUL:
+    case organizations.GET_ORGANIZATIONS_S:
       return {
         ...state,
         action: {
-          type: organizations.FETCH_ORGANIZATIONS_SUCCESSFUL
+          type: organizations.GET_ORGANIZATIONS_S
         },
         list: payload.data
       };
 
-    case organizations.FETCH_ORGANIZATION_IN_PROGESS:
+    case organizations.GET_ORGANIZATION_IN_PROGESS:
       return {
         ...state,
         action: {
-          type: organizations.FETCH_ORGANIZATION_IN_PROGESS
+          type: organizations.GET_ORGANIZATION_IN_PROGESS
         }
       };
 
-    case organizations.FETCH_ORGANIZATIONS_FAILED:
+    case organizations.GET_ORGANIZATIONS_F:
       return {
         ...state,
         action: {
-          type: organizations.FETCH_ORGANIZATIONS_FAILED,
+          type: organizations.GET_ORGANIZATIONS_F,
           message: payload.message
         }
       };
