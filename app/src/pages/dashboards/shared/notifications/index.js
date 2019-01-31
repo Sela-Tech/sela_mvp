@@ -4,7 +4,7 @@ import Navbar from "../navbar";
 import connect from "react-redux/lib/connect/connect";
 import notifications from '../../../../store/actions/notifications';
 import {  mark_viewed, get_notifications } from '../../../../store/action-creators/notifications';
-import { notify } from '../../../../store/action-creators/app';
+// import { notify } from '../../../../store/action-creators/app';
 import Messagemaker from './message_maker';
 
 class Notifications extends React.Component{
@@ -36,7 +36,7 @@ class Notifications extends React.Component{
             }
 
             if(nextProps.type === notifications.GET_INIT_NOTIFICATIONS_F){
-                notify(<p style={{ color: "white" }}>{nextProps.message}</p>, "error");
+                // notify(<p style={{ color: "white" }}>{nextProps.message}</p>, "error");
                 this.setState({
                     performed_initial_fetch: true 
                 })
@@ -50,12 +50,6 @@ class Notifications extends React.Component{
         return <NotificationsStyle className="xs-12">
         <Navbar/>
             <div className="xs-10 xs-off-1">
-                    {/* <div className='xs-12'>
-                        <div className='xs-12 sm-off-9 sm-3'>
-                            <label>Filter By</label>
-                            <select><option>Invitations</option></select>
-                        </div>
-                    </div> */}
                     
                 <div className="xs-12 white">
                     <h3>Notifications</h3>

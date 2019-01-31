@@ -1,13 +1,14 @@
 import React from "react";
 import styled from "styled-components";
 import NavLink from "react-router-dom/NavLink";
-import Link from "react-router-dom/Link";
 import  connect  from "react-redux/lib/connect/connect";
 
-import modals from "../../../../store/actions/project-funder/modals";
-import { showModal } from "../../../../store/action-creators/project-funder/modal";
+import modals from "../../../../store/actions/modals";
+import { showModal } from "../../../../store/action-creators/modal";
 import Icon from 'react-fa';
-import notification from "../../../../assets/icons/notifications.svg";
+import MenuNotifier from "../notify";
+import { withRouter } from "react-router";
+import lar from "../../../../assets/left-arrow.svg";
 
 const NavStyle = styled.nav`
   background: white;
@@ -15,18 +16,24 @@ const NavStyle = styled.nav`
   padding: 10px 3.5%;
 
   #well{
-    background: #F5F5F8;
+    background: white;
     border-radius: 5px;
     height: 45px;
     line-height: 50px;
     width: 100%;
-    border: 0;
+    border: 0.5px solid #b1bad28f;
    
     > *{
-      font-size: 15px;
-      font-weight: 300;
-   
+      font-size: 14px;
+      font-weight: 200;
     }
+
+    .fa{
+      line-height: 45px;
+      height: 45px;
+      display: block;
+    }
+
     input {
       background: transparent;
       color: #444;
@@ -55,29 +62,39 @@ const NavStyle = styled.nav`
     }
   }
 
-  #notifications{
-    background: transparent;
-    border: 0;
-    padding-top: 7px;
-    display: block;
-    position: relative;
-    #count{
-      position: absolute;
-      top: 0;
-      lef: 0;
-      text-align: center;
+
+  #navigator{
+    h4, button {
+      border: 0;
       display: block;
-      line-height: 15px;
-      border-radius: 15px;
-      background: #e7823b;
-      color: white;
-      font-size: 10px;
-      font-weight: 300;
-      height: 15px;
-      width: 15px;
+      margin: 0;
+      font-weight: 400;
+      line-height: 46px;
+      font-size: 16.5px;
+      color: #201D41;
+    }
+
+    button {
+      img{
+        position: relative;
+        top: 0px;
+        margin-right: 7px;
+        height: 12px;
+      }
     }
   }
 `;
+
+
+const Navigator = withRouter(({...props})=>{
+  // throw new Error('I crashed!');
+  const pathname = props.location.pathname;
+  return <div className='xs-12' id='navigator'>
+   {pathname === "/dashboard" 
+   ? <h4>Projects</h4>
+   : <button onClick={props.history.goBack}><img src={lar} alt=""/>Back</button> }
+  </div>
+});
 
 class Navbar extends React.Component {
   constructor(props) {
@@ -99,17 +116,37 @@ class Navbar extends React.Component {
     window.removeEventListener("resize", this.resizer);
   
   render() {
-    let {  unreadNIds } = this.props,
-      { isBigScreen } = this.state;
+   let { isBigScreen } = this.state;
 
     switch (isBigScreen) {
       case false:
-        return null;
+      return (
+        <NavStyle className="xs-12">
+          <div className='xs-4'>
+            <Navigator/>
+          </div>
+          <div className="xs-8">
+              <div className="xs-12 sm-8">
+                <div className="xs-12" id="well">
+                <div className="xs-2 t-c"><Icon name="search"/></div>
+                  <input name='search' placeholder="Search For Projects" id="search" className="xs-10"/>
+                </div>
+              </div>
+          </div>
+          
+        </NavStyle>
+      );
 
+      
       default:
         return (
           <NavStyle className="xs-12">
-            <div className="xs-12 sm-8">
+
+            <div className='xs-4 sm-3 md-2'>
+              <Navigator/>
+            </div>
+
+            <div className="xs-8 sm-5 md-6">
                 <div className="xs-12 sm-8">
                   <div className="xs-12" id="well">
                   <div className="xs-2 t-c"><Icon name="search"/></div>
@@ -124,18 +161,12 @@ class Navbar extends React.Component {
                 className="xs-12 sm-6 f-r"
                 to="#"
                 id="add"
-                onClick={ this.props.showModal }
-              >
+                onClick={ this.props.showModal }>
                 + Propose Project
               </NavLink>
               
-            <div className="xs-12 sm-3 f-r">
-              <Link id='notifications' to="/dashboard/notifications">
-                { unreadNIds.length > 0 && <span id='count'/> }
-                <img src={notification} alt=""/>
-              </Link>
-            </div>
-           
+              <MenuNotifier className={"xs-12 sm-3 f-r"}/>
+        
             </div>
           </NavStyle>
         );
@@ -145,10 +176,7 @@ class Navbar extends React.Component {
 
 const mapStateToProps = state => {
   const { isFunder, isEvaluator, isContractor } = state.auth.credentials;
-  const { unreadNIds } = state.notification_state;
-
   return {
-    unreadNIds,
     userType:
       (isFunder === true && "Funder") ||
       (isEvaluator === true && "Evaluator") ||
