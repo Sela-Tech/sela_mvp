@@ -263,3 +263,5 @@ export const update = obj => {
       });
   };
 };
+
+export const update_interests = obj =>{}
