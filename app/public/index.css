@@ -1,56 +1,28 @@
 @font-face {
   font-family: "ProximaNova";
-  src: url("https://d1b6bucc9jhzue.cloudfront.net/at/fonts/ProximaNova/webfonts/ProximaNovaRegular.eot?cloudFrontFixScheme=http&cloudFrontFixHost=www2.vauto.com");
-  src: url("https://d1b6bucc9jhzue.cloudfront.net/at/fonts/ProximaNova/webfonts/ProximaNovaRegular.eot?cloudFrontFixScheme=http&cloudFrontFixHost=www2.vauto.com#iefix")
-      format("embedded-opentype"),
-    url("https://d1b6bucc9jhzue.cloudfront.net/at/fonts/ProximaNova/webfonts/ProximaNovaRegular.woff?cloudFrontFixScheme=http&cloudFrontFixHost=www2.vauto.com")
-      format("woff"),
-    url("https://d1b6bucc9jhzue.cloudfront.net/at/fonts/ProximaNova/webfonts/ProximaNovaRegular.ttf?cloudFrontFixScheme=http&cloudFrontFixHost=www2.vauto.com")
-      format("truetype"),
-    url("https://d1b6bucc9jhzue.cloudfront.net/at/fonts/ProximaNova/webfonts/ProximaNovaRegular.svg?cloudFrontFixScheme=http&cloudFrontFixHost=www2.vauto.com#ProximaNovaRegular")
-      format("svg");
+  src: url("./fonts/ProximaNovaRegular.woff")
+      format("woff");
   font-weight: 300;
   font-style: normal;
 }
 @font-face {
   font-family: "ProximaNova";
-  src: url("https://d1b6bucc9jhzue.cloudfront.net/at/fonts/ProximaNova/webfonts/ProximaNovaBold.eot?cloudFrontFixScheme=http&cloudFrontFixHost=www2.vauto.com");
-  src: url("https://d1b6bucc9jhzue.cloudfront.net/at/fonts/ProximaNova/webfonts/ProximaNovaBold.eot?cloudFrontFixScheme=http&cloudFrontFixHost=www2.vauto.com#iefix")
-      format("embedded-opentype"),
-    url("https://d1b6bucc9jhzue.cloudfront.net/at/fonts/ProximaNova/webfonts/ProximaNovaBold.woff?cloudFrontFixScheme=http&cloudFrontFixHost=www2.vauto.com")
-      format("woff"),
-    url("https://d1b6bucc9jhzue.cloudfront.net/at/fonts/ProximaNova/webfonts/ProximaNovaBold.ttf?cloudFrontFixScheme=http&cloudFrontFixHost=www2.vauto.com")
-      format("truetype"),
-    url("https://d1b6bucc9jhzue.cloudfront.net/at/fonts/ProximaNova/webfonts/ProximaNovaBold.svg?cloudFrontFixScheme=http&cloudFrontFixHost=www2.vauto.com#ProximaNovaBold")
-      format("svg");
+  src: url("./fonts/ProximaNovaBold.woff")
+      format("woff");
   font-weight: 700;
   font-style: normal;
 }
 @font-face {
   font-family: "ProximaNova";
-  src: url("https://d1b6bucc9jhzue.cloudfront.net/at/fonts/ProximaNova/webfonts/ProximaNovaLight.eot?cloudFrontFixScheme=http&cloudFrontFixHost=www2.vauto.com");
-  src: url("https://d1b6bucc9jhzue.cloudfront.net/at/fonts/ProximaNova/webfonts/ProximaNovaLight.eot?cloudFrontFixScheme=http&cloudFrontFixHost=www2.vauto.com#iefix")
-      format("embedded-opentype"),
-    url("https://d1b6bucc9jhzue.cloudfront.net/at/fonts/ProximaNova/webfonts/ProximaNovaLight.woff?cloudFrontFixScheme=http&cloudFrontFixHost=www2.vauto.com")
-      format("woff"),
-    url("https://d1b6bucc9jhzue.cloudfront.net/at/fonts/ProximaNova/webfonts/ProximaNovaLight.ttf?cloudFrontFixScheme=http&cloudFrontFixHost=www2.vauto.com")
-      format("truetype"),
-    url("https://d1b6bucc9jhzue.cloudfront.net/at/fonts/ProximaNova/webfonts/ProximaNovaLight.svg?cloudFrontFixScheme=http&cloudFrontFixHost=www2.vauto.com#ProximaNovaLight")
-      format("svg");
+  src: url("./fonts/ProximaNovaLight.woff")
+      format("woff");
   font-weight: 100;
   font-style: normal;
 }
 @font-face {
   font-family: "ProximaNova";
-  src: url("https://d1b6bucc9jhzue.cloudfront.net/at/fonts/ProximaNova/webfonts/ProximaNovaSemiBold.eot?cloudFrontFixScheme=http&cloudFrontFixHost=www2.vauto.com");
-  src: url("https://d1b6bucc9jhzue.cloudfront.net/at/fonts/ProximaNova/webfonts/ProximaNovaSemiBold.eot?cloudFrontFixScheme=http&cloudFrontFixHost=www2.vauto.com#iefix")
-      format("embedded-opentype"),
-    url("https://d1b6bucc9jhzue.cloudfront.net/at/fonts/ProximaNova/webfonts/ProximaNovaSemiBold.woff?cloudFrontFixScheme=http&cloudFrontFixHost=www2.vauto.com")
-      format("woff"),
-    url("https://d1b6bucc9jhzue.cloudfront.net/at/fonts/ProximaNova/webfonts/ProximaNovaSemiBold.ttf?cloudFrontFixScheme=http&cloudFrontFixHost=www2.vauto.com")
-      format("truetype"),
-    url("https://d1b6bucc9jhzue.cloudfront.net/at/fonts/ProximaNova/webfonts/ProximaNovaSemiBold.svg?cloudFrontFixScheme=http&cloudFrontFixHost=www2.vauto.com#ProximaNovaSemiBold")
-      format("svg");
+  src: url("./fonts/ProximaNovaSemiBold.woff")
+      format("woff");
   font-weight: 500;
   font-style: normal;
 }
