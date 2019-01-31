@@ -120,7 +120,7 @@ class ChangePassword extends React.Component {
                      className= {`form-control ${validate ? `match`:`dont-match`}`}
                  
                       minLength={config.min_password_length}
-                      minScore={4}
+                      minScore={1}
                       value={this.state.verifyPassword.value}
                       scoreWords={['weak', 'okay', 'good', 'strong', 'solid']}
                       changeCallback={this.onNewPassChange}
@@ -131,26 +131,27 @@ class ChangePassword extends React.Component {
                 </div>
 
               <div className="form-group xs-12">
-                    <ReactPasswordStrength
-                     className= {`form-control ${validate ? `match`:`dont-match`}`}
-                 
-                      minLength={config.min_password_length}
-                      minScore={4}
-                      value={this.state.verifyPassword.value}
-                      scoreWords={['weak', 'okay', 'good', 'strong', 'solid']}
-                      changeCallback={this.onVerifyPassChange}
-                      inputProps={{ name: "verifyPassword", autoComplete: "off",
-                       className: "form-control", placeholder:"Re-enter new password" }}
-                      required
-                    />
-                  </div>
-              {values_match === false && <p style={{color: 'pink'}}> Passwords Don't Match. </p> }    
-              {this.state.token && 
-              <div className="form-group xs-12">
-                <AsycnButton id="submit-btn" attempt={inprogress} disabled={!validate}>
-                  Update Password
-                </AsycnButton>
-              </div>
+                  <ReactPasswordStrength
+                    className= {`form-control ${validate ? `match`:`dont-match`}`}
+                    minLength={config.min_password_length}
+                    minScore={1}
+                    value={this.state.verifyPassword.value}
+                    scoreWords={['weak', 'okay', 'good', 'strong', 'solid']}
+                    changeCallback={this.onVerifyPassChange}
+                    inputProps={{ name: "verifyPassword", autoComplete: "off",
+                    className: "form-control", placeholder:"Re-enter new password" }}
+                    required
+                  />
+                </div>
+            
+              { values_match === false && <p style={{color: 'pink'}}> Passwords Don't Match. </p> }    
+              
+              { this.state.token && 
+                <div className="form-group xs-12">
+                  <AsycnButton id="submit-btn" attempt={inprogress} disabled={!validate}>
+                    Update Password
+                  </AsycnButton>
+                </div>
               }
 
               <div className="form-group xs-12">

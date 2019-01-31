@@ -227,6 +227,7 @@ class Signup extends React.Component {
       return formData[key].valid === true;
     })
 
+    console.log({valid_fields})
     if( formData.signUpType.value === "evaluation-agent" ){
       form_is_complete = valid_fields.length >= config.min_valid_field_count_for_evaluators;
     }else if(formData.signUpType.value === "project-funder") {
@@ -369,7 +370,7 @@ class Signup extends React.Component {
                   <div className="form-group xs-12">
                     <ReactPasswordStrength
                       minLength={config.min_password_length}
-                      minScore={4}
+                      minScore={1}
                       value={this.state.formData.password.value}
                       scoreWords={['weak', 'okay', 'good', 'strong', 'solid']}
                       changeCallback={this.onPassChange}
@@ -397,8 +398,6 @@ class Signup extends React.Component {
                         </Link>
                       </p>
                     </div>
-
-                
 
                   </div>
                 </form>
