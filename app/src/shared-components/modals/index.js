@@ -8,231 +8,157 @@ import ViewImageModal from "./view.image";
 import DeleteProjectModal from "./delete.project";
 import ViewStakeholderModal from "./view.stakeholder";
 import AddDocumentModal from "./add.document";
+import SetInterestModal from "./set.interests";
 
 import { connect } from "react-redux";
-import { closeModal } from "../../store/action-creators/project-funder/modal";
-import modalActions from "../../store/actions/project-funder/modals";
-import modals from "../../store/actions/project-funder/modals";
+import { closeModal } from "../../store/action-creators/modal";
+import modals from "../../store/actions/modals";
 
 import {
   SharedCloseButton,
-  ModalWrapperStyler,
-  ViewTaskMotherWrapper
+  GenericModalWrapperStyler
 } from "./styles.modals/main";
 import AddStakeholderModal from "./add.stakeholder";
 
-const ModalSelector = ({ name }) => {
+
+const SimiliarModalSelector = ({ name }) => {
   switch (name) {
-    case modalActions.add_document:
+    case modals.add_document:
       return <AddDocumentModal />;
 
-    case modalActions.add_task:
+    case modals.add_task:
       return <AddTaskModal />;
 
-    case modalActions.add_transaction:
+    case modals.add_transaction:
       return <AddTransactionModal />;
 
-    case modalActions.add_project:
-      return <AddProjectModal />;
-
-    case modalActions.view_task:
-      return <ViewTaskModal />;
-
-    case modalActions.view_image:
-      return <ViewImageModal />;
-
-    case modalActions.delete_project:
-      return <DeleteProjectModal />;
-
-    case modalActions.view_stakeholder:
+    case modals.view_stakeholder:
       return <ViewStakeholderModal />;
-
-    case modalActions.add_stakeholder:
-      return <AddStakeholderModal />;
 
     default:
       return null;
-  }
-};
+   }
+ };
 
-class ModalWrapper extends React.Component {
-  constructor(props) {
-    super(props);
-    this.state = {};
-  }
+const GenericModalWrapper = ({ specific_type,close, name, stop, has_heading, className,close_button_styling = {}, children,show_close_button = true })=>{
+  
+  return  name ? <GenericModalWrapperStyler className={specific_type}>
+  <div className="center-wrapper">
+    <div className="center" onClick={close}>
+        
+      <div id="form-container"
+        className={className}
+        onClick={stop ? stop: ()=>{}}>
+        <div className='xs-12 top-header'>
+          { has_heading &&
+            <div className="xs-11">
+              <h1 id="form-heading">{name}</h1>
+            </div>
+          }
+          { show_close_button && 
+            <div className={"xs-1"}>
+              <SharedCloseButton id="close-button" onClick={close} style={close_button_styling}>
+              &times;
+              </SharedCloseButton>
+            </div>
+          }
+        </div>
+        <div className='padded xs-12'>
+          {children}
+        </div>
+      </div>
+      </div>
+    </div>
+  </GenericModalWrapperStyler>: null
 
-  stop = e => {
-    e.stopPropagation();
-  };
+}
 
-  close = e => this.props.dispatch(closeModal());
+const  ModalWrapper = (props)=>{
+  const stop = e => e.stopPropagation(),
+  close = e => props.dispatch(closeModal()),
+   { name } = props;
 
-  render() {
-    const { name } = this.props;
-
-    if (name !== "") {
-      switch (name) {
+   switch (name) {
         case modals.view_task:
           return (
-            <ViewTaskMotherWrapper>
-              <div className="center-wrapper">
-                <div className="center" onClick={this.close}>
-                  <div
-                    id="form-container"
-                    className={"xs-12 sm-10 sm-off-1"}
-                    onClick={this.stop}
-                  >
-                    <div className={"fix"}>
-                      <SharedCloseButton id="close-button" onClick={this.close}>
-                        x
-                      </SharedCloseButton>
-                    </div>
-                    <ModalSelector name={name} />
-                  </div>
-                </div>
-              </div>
-            </ViewTaskMotherWrapper>
+            <GenericModalWrapper 
+            specific_type={'task'}
+            name={name} stop={stop} 
+            className={'xs-12 sm-10 sm-off-1'} 
+            close={close}>
+            <ViewTaskModal />
+            </GenericModalWrapper>
           );
 
         case modals.view_image:
           return (
-            <ViewTaskMotherWrapper>
-              <div className="center-wrapper">
-                <div className="center" onClick={this.close}>
-                  <div
-                    id="form-container"
-                    className={"xs-12 sm-10 sm-off-1"}
-                    onClick={this.stop}
-                  >
-                    <div className={"fix"}>
-                      <SharedCloseButton
-                        id="close-button"
-                        style={{
-                          background: "#2283d0",
-                          fontSize: "1.5em"
-                        }}
-                        onClick={this.close}
-                      >
-                        x
-                      </SharedCloseButton>
-                    </div>
-                    <ModalSelector name={name} />
-                  </div>
-                </div>
-              </div>
-            </ViewTaskMotherWrapper>
+            <GenericModalWrapper 
+            specific_type={'view-image'}
+            name={name} stop={stop} 
+            className={'xs-12 sm-10 sm-off-1'} 
+            close={close} 
+            close_button_styling={{
+              background: "#2283d0",
+              fontSize: "1.5em"
+            }}>
+            <ViewImageModal/>
+            </GenericModalWrapper>
           );
 
         case modals.add_project:
           return (
-            <ModalWrapperStyler>
-              <div className="center-wrapper">
-                <div className="center" onClick={this.close}>
-                  <div
-                    id="form-container"
-                    className={"xs-12 sm-8 sm-off-2"}
-                    onClick={this.stop}
-                  >
-                    <div className="xs-11">
-                      <h1 id="form-heading">{name}</h1>
-                    </div>
-
-                    <div className={"xs-1"}>
-                      <SharedCloseButton id="close-button" onClick={this.close}>
-                        x
-                      </SharedCloseButton>
-                    </div>
-                    <ModalSelector name={name} />
-                  </div>
-                </div>
-              </div>
-            </ModalWrapperStyler>
+            <GenericModalWrapper 
+            close={close} stop={stop} className={"xs-12 sm-8 sm-off-2"}
+            has_heading={true} name={name} >
+              <AddProjectModal/>
+            </GenericModalWrapper>
           );
 
         case modals.delete_project:
           return (
-            <ModalWrapperStyler>
-              <div className="center-wrapper">
-                <div className="center" onClick={this.close}>
-                  <div
-                    id="form-container"
-                    className={"xs-12 sm-6 sm-off-3 md-4 md-off-4"}
-                    onClick={this.stop}
-                  >
-                    <div className={"xs-1"}>
-                      <SharedCloseButton id="close-button" onClick={this.close}>
-                        x
-                      </SharedCloseButton>
-                    </div>
-                    <ModalSelector name={name} />
-                  </div>
-                </div>
-              </div>
-            </ModalWrapperStyler>
+            <GenericModalWrapper name={name} className={"xs-12 sm-6 sm-off-3 md-4 md-off-4"}
+            close={close} stop={stop} >
+              <DeleteProjectModal/>
+            </GenericModalWrapper>
           );
 
         case modals.add_stakeholder:
-          return (
-            <ModalWrapperStyler>
-              <div className="center-wrapper">
-                <div className="center" onClick={this.close}>
-                  <div
-                    className={"xs-12 sm-6 sm-off-3 md-4 md-off-4"}
-                    onClick={this.stop}
-                  >
-                    <ModalSelector name={name} />
-                  </div>
-                </div>
-              </div>
-            </ModalWrapperStyler>
-          );
-
+          return <GenericModalWrapper name={name} className={"xs-12 sm-6 sm-off-3 md-4 md-off-4"}
+          close={close} stop={stop} has_heading={true} >
+            <AddStakeholderModal/>
+          </GenericModalWrapper>
+       
         case modals.view_stakeholder:
-          return (
-            <ModalWrapperStyler>
-              <div className="center-wrapper">
-                <div className="center" onClick={this.close}>
-                  <div
-                    className={"xs-12 sm-6 sm-off-3 md-4 md-off-4"}
-                    onClick={this.stop}
-                  >
-                    <ModalSelector name={name} />
-                  </div>
-                </div>
-              </div>
-            </ModalWrapperStyler>
-          );
-
+          return <GenericModalWrapper name={name}  
+          className={"xs-12 sm-6 sm-off-3 md-4 md-off-4 no-padding"}            
+          close={close} stop={stop} >
+            <ViewStakeholderModal/>
+          </GenericModalWrapper>
+    
+    case modals.set_interests:
+        return <GenericModalWrapper 
+        name={name}  
+        specific_type={'interests'}
+        className={"xs-12 sm-6 sm-off-3 no-padding"}            
+        close={close} stop={stop} 
+        has_heading={false} show_close_button={true} >
+          <SetInterestModal/>
+        </GenericModalWrapper>
+        
         default:
-          return (
-            <ModalWrapperStyler>
-              <div className="center-wrapper">
-                <div className="center" onClick={this.close}>
-                  <div
-                    id="form-container"
-                    className={"xs-12 sm-6 sm-off-3 md-4 md-off-4"}
-                    onClick={this.stop}
-                  >
-                    <div className="xs-11">
-                      <h1 id="form-heading">{name}</h1>
-                    </div>
+          return <GenericModalWrapper name={name}  
+          className={"xs-12 sm-6 sm-off-3 md-4 md-off-4"} 
+          has_heading={true} 
+          close={close} stop={stop} >
+            <SimiliarModalSelector name={name}/>
+          </GenericModalWrapper>
 
-                    <div className={"xs-1"}>
-                      <SharedCloseButton id="close-button" onClick={this.close}>
-                        x
-                      </SharedCloseButton>
-                    </div>
-                    <ModalSelector name={name} />
-                  </div>
-                </div>
-              </div>
-            </ModalWrapperStyler>
-          );
       }
-    }
-
-    return null;
   }
-}
 
-export default connect()(ModalWrapper);
+  const mapStateToProps = state => {
+    return {
+      name: state.dashboard.modalToShow
+    }
+  }
+export default connect(mapStateToProps)(ModalWrapper);

@@ -1,7 +1,7 @@
 import React from "react";
 import Top from "./nabar.style";
 import { Link, NavLink } from "react-router-dom";
-import LogoBlue from "../../assets/icons/sela-full-logo-blue.svg";
+import LogoOrange from "../../assets/icons/full-logo.png";
 import Hamburger from "../unique/harmburger";
 import { signout } from "../../store/action-creators/auth";
 import { connect } from "react-redux";
@@ -35,7 +35,7 @@ export default connect(state => {
                 <div className="xs-9">
                   <Link to="/" id="needs-line-height">
                     <span id="logo">
-                      <img src={LogoBlue} alt="logo-blue" />
+                      <img src={LogoOrange} alt="logo-blue" />
                     </span>
                   </Link>
                 </div>

@@ -1,22 +1,22 @@
 import React from "react";
 import NavLink  from "react-router-dom/NavLink";
 
-import fullogo from "../../../../assets/icons/sela-circle-white.svg";
+import fullogo from "../../../../assets/icons/full-logo.png";
 import settings from "../../../../assets/icons/settings.svg";
 import folder from "../../../../assets/icons/folder.svg";
 import help from "../../../../assets/icons/question.svg";
 import logout from "../../../../assets/icons/power.svg";
-// import inbox from "../../../../assets/icons/inbox.svg";
 
 import  connect from "react-redux/lib/connect/connect";
-import { showModal } from "../../../../store/action-creators/project-funder/modal";
+import { showModal } from "../../../../store/action-creators/modal";
 import { signout } from "../../../../store/action-creators/auth";
-import modals from "../../../../store/actions/project-funder/modals";
+import modals from "../../../../store/actions/modals";
 import HamWrapper from "../../../../styles/external/hamburger";
 
 import { WebSidebar, MobileSidebar } from "./sidebar.style";
+import MenuNotifier from "../notify";
 
-const Decider = userType => {
+const Decider = () => {
     return (
         <ul>
           <li>
@@ -40,55 +40,76 @@ const MobileDashboardSidebar = ({
   dispatch,
   isOpened,
   toggleMenu,
-  userType
+  userType,
+  user
 }) => {
+
   const buttonClassName = isOpened ? "is-active" : "",
     bottomClassName = isOpened ? "opened" : "";
 
   return (
     <MobileSidebar>
       <div id="top" className="xs-12">
-        <div className="xs-10">
-          <img src={fullogo} alt="logo" />
+        <div className="xs-8 sm-10">
+          <img src={fullogo} alt="logo" id='logo' />
         </div>
-
-        <div className="xs-2">
-          <HamWrapper>
-            <button
-            name="menu-button"
-              className={"hamburger hamburger--slider " + buttonClassName}
-              type="button"
-              onClick={toggleMenu}
-            >
-              <span className="hamburger-box">
-                <span className="hamburger-inner" />
-              </span>
-            </button>
-          </HamWrapper>
+     
+        <div className='xs-4 sm-2'>
+          <MenuNotifier className={"xs-6 sm-3 sm-off-3"}/>
+            
+          <div className="xs-6">
+            <HamWrapper>
+              <button
+              name="menu-button"
+                className={"hamburger hamburger--slider " + buttonClassName}
+                type="button"
+                onClick={toggleMenu}
+              >
+                <span className="hamburger-box">
+                  <span className="hamburger-inner" />
+                </span>
+              </button>
+            </HamWrapper>
+          </div>
         </div>
       </div>
 
       <div id="bottom" className={"xs-8 sm-4 " + bottomClassName}>
-        <button
-          id="create"
-          onClick={() => dispatch(showModal(modals.add_project))}
-        >
-          + Propose Project
-        </button>
+        <div className='padded xs-12'>
+          <button
+            id="create"
+            onClick={() => dispatch(showModal(modals.add_project))}
+          >
+            + Propose Project
+          </button>
+        </div>
 
-        <span id="line-break" />
-        <h4>MANAGE</h4>
-        <Decider userType={userType} />
+        <div className="xs-12" id="user">
+          <div className='f-l'>
+            <img src={user.profilePhoto} alt="" />
+          </div>
+          <div className='f-l'>
+            <h3>
+              {user.lastName} {user.firstName}
+            </h3>
+            <p>
+              {(user.isFunder && "Project Funder") ||
+                (user.isEvaluator && "Project Evaluator") ||
+                (user.isContractor && "Project Contractor")}
+            </p>
+          </div>
+        </div>
+
+        <div className='xs-12'>
+          <Decider userType={userType} />
+        </div>
         <div id="fixed-bottom">
-          <div id="logout">
-            <ul>
-              <li>
-                <button id="logout-btn" onClick={() => dispatch(signout())}>
+          <div className="padded">
+               <button id="logout-btn" onClick={() => dispatch(signout())}>
                   <img src={logout} alt="folder" />
                   <span>Log Out</span>
                 </button>
-              </li>
-            </ul>
+              
           </div>
         </div>
       </div>

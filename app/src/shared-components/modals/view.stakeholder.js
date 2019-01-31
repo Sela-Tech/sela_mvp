@@ -45,12 +45,14 @@ export default connect(mapStateToProps)(
 
     componentWillReceiveProps(nextProps) {
       if (this.props !== nextProps) {
-        this.setState({
-          citizenData: nextProps.citizenData,
-          action: nextProps.action,
-          message: nextProps.message,
-          ignoreProjectWithID: nextProps.ignoreId
-        });
+        if(nextProps.action.indexOf("GET_CITIZEN_INFO") !== -1){
+          this.setState({
+            citizenData: nextProps.citizenData,
+            action: nextProps.action,
+            message: nextProps.message,
+            ignoreProjectWithID: nextProps.ignoreId
+          });
+        }
       }
     }
 
