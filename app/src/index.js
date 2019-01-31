@@ -1,16 +1,18 @@
 import React from "react";
 import ReactDOM from "react-dom";
  import App from "./App";
- import registerServiceWorker from './registerServiceWorker';
+//  import registerServiceWorker from './registerServiceWorker';
+ import {unregister} from './registerServiceWorker';
+ 
 import store from "./store";
 import Provider from "react-redux/lib/components/Provider";
 import { verify_user_token } from "./store/action-creators/auth";
 import { retrieveToken } from "./helpers/TokenManager";
 import { get_notifications, store_socket_data } from "./store/action-creators/notifications";
-import { fetchSGDs } from "./store/action-creators/app";
 import io from 'socket.io-client';
 import ends from "./endpoints";
 import notifications_actions from "./store/actions/notifications";
+import ToastContainer from 'react-toastify/lib/components/ToastContainer';
 
 if (retrieveToken()) {
   store.dispatch(verify_user_token());
@@ -23,6 +25,13 @@ if (retrieveToken()) {
     console.log("socket connected");
 
     store.subscribe(()=>{
+
+      // reload web pages if error boundary is reset
+      if(store.getState().app.errorBoundaryKey > 0){
+        setTimeout(()=>{
+          window.location.reload();
+        },500)
+      }
 
       let retrieved_token = Boolean(retrieveToken());
     
@@ -42,7 +51,6 @@ if (retrieveToken()) {
         };
 
         store.dispatch(store_socket_data(data));
-        
       }
 
       let isAuthenticated = store.getState().auth.isAuthenticated;
@@ -72,14 +80,15 @@ if (retrieveToken()) {
 
   });
 
-
- store.dispatch(fetchSGDs());
-
 ReactDOM.render(
-  <Provider store={store}>
-    <App />
-  </Provider>,
+   <React.Fragment>
+      <ToastContainer/>
+      <Provider store={store}>
+          <App />
+      </Provider>
+    </React.Fragment>,
   document.getElementById("root")
 );
 
- registerServiceWorker();
+//  registerServiceWorker();
+unregister();
