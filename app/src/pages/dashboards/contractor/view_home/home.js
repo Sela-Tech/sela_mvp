@@ -33,11 +33,14 @@ export default connect(
   class DashboardHomeContainer extends React.Component {
     constructor(props) {
       super(props);
-      this.state = {};
+      this.state = {
+        request_sent: false,
+      };
       props.actions.fetch_projects_for_contractor();
     }
-
+    
     render() {
+      
       const { projects_you_joined,projects_you_proposed,type } = this.props;
 
       const are_both_empty = Boolean(projects_you_proposed.length) === false 

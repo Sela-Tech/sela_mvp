@@ -10,7 +10,7 @@ import dA from "../../store/actions/project-funder/dashboard";
 import { Form } from "./styles.modals/task";
 
 import { notify } from "../../store/action-creators/app";
-import { closeModal } from "../../store/action-creators/project-funder/modal";
+import { closeModal } from "../../store/action-creators/modal";
 
 const mapStateToProps = state => {
   const { type, message } = state.tasks.add.action;

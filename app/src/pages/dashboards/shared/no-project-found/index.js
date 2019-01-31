@@ -1,8 +1,8 @@
 import React from "react";
 
-import { showModal } from "../../../../store/action-creators/project-funder/modal";
+import { showModal } from "../../../../store/action-creators/modal";
 import connect  from "react-redux/lib/connect/connect";
-import modals from "../../../../store/actions/project-funder/modals";
+import modals from "../../../../store/actions/modals";
 import EmptyWrapper from "./empty.style";
 
 const Information = ({ type }) => {

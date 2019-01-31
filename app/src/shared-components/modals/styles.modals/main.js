@@ -12,9 +12,10 @@ export const SharedCloseButton = styled.button`
   padding: 0;
   line-height: 0;
   float: right;
+  padding-top: 4px;
 `;
 
-export const ModalWrapperStyler = styled.div`
+export const GenericModalWrapperStyler = styled.div`
   .below-text {
     margin-bottom: 0;
     line-height: normal;
@@ -38,22 +39,40 @@ export const ModalWrapperStyler = styled.div`
     max-width: 100vw;
   }
 
-  position: fixed;
-  z-index: 5;
-  top: 0;
-  left: 0;
-  right: 0;
-  bottom: 0;
-  background: rgba(251, 251, 251, 0.66);
-  backdrop-filter: blur(4px);
-  overflow: auto;
-  width: 100vw;
+    z-index: 5;
+    backdrop-filter: blur(4px);
+    overflow: auto;
+    width: 100vw;
+    position: fixed;
+    left: 0%;
+    right: 0%;
+    top: 0%;
+    bottom: 0%;
+    background: rgba(19, 24, 32, 0.6);
+    mix-blend-mode: normal;
 
   #form-container {
     background: #ffffff;
     border-radius: 17px;
     padding: 2em;
     position: relative;
+
+    &.no-padding{
+      padding: 0;
+        #close-button{
+          position: absolute;
+          z-index: 2;
+          top: 15px;
+          background: transparent;
+          border: 2px solid white;
+          &:hover{
+            background: white;
+            color: rgba(10,44,86,0.5);
+          }
+        }
+      
+      }
+    }
   }
 
   #form-heading {
@@ -67,29 +86,47 @@ export const ModalWrapperStyler = styled.div`
     font-weight: 500;
     color: #4f4f4f;
   }
-`;
 
-export const ViewTaskMotherWrapper = styled.div`
-  position: fixed;
-  z-index: 3;
-  top: 0;
-  left: 0;
-  right: 0;
-  bottom: 0;
-  background: rgba(251, 251, 251, 0.66);
-  backdrop-filter: blur(4px);
-  overflow: auto;
+  &.task, &.view-image{
+    position: fixed;
+    z-index: 3;
+    top: 0;
+    left: 0;
+    right: 0;
+    bottom: 0;
+    background: rgba(251, 251, 251, 0.66);
+    backdrop-filter: blur(4px);
+    overflow: auto;
 
-  #form-container {
-    background: #ffffff;
-    border-radius: 17px;
-    position: relative;
-    overflow: hidden;
+    #form-container {
+      background: #ffffff;
+      border-radius: 17px;
+      position: relative;
+      overflow: hidden;
+    }
+
+    .fix {
+      position: absolute;
+      right: 1em;
+      top: 1em;
+    }
   }
 
-  .fix {
-    position: absolute;
-    right: 1em;
-    top: 1em;
+
+  &.interests{
+    #form-container{      
+      background: #FFFFFF;
+      border-radius: 2px;
+    }
+
+    #close-button{
+      color: #201D41 !important;
+      border-color: #201D41 !important;
+
+      &:hover{
+        background: #201D41 !important;
+        color: white !important; 
+      }
+    }
   }
 `;

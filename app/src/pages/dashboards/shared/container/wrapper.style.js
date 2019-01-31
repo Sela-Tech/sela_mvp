@@ -1,6 +1,18 @@
 import styled from "styled-components";
 
 export const StyledWrapperElem = styled.div`
+  .edit-interest{
+    cursor: pointer;  
+    @media(max-width:767px){
+      margin-bottom: 1em;
+    }
+    &:hover{
+      .inner{
+        background: rgba(10,44,86,0.15);
+      }
+    }
+  }
+
   height: 100%;
   overflow: auto;
   #sdbar-wrpr {

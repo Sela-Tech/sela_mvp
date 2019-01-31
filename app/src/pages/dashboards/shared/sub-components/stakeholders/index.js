@@ -5,7 +5,7 @@ import { fetchProject } from "../../../../../store/action-creators/project-funde
 import {
   showAddStakeholderModal,
   showStakeHolderModal
-} from "../../../../../store/action-creators/project-funder/modal";
+} from "../../../../../store/action-creators/modal";
 
 class Stakeholders extends React.Component {
   state = {

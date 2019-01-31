@@ -4,54 +4,12 @@ import { connect } from "react-redux";
 import withRouter from "react-router-dom/withRouter";
 import Link from "react-router-dom/Link";
 
-import { showDeleteModal } from "../../../../store/action-creators/project-funder/modal";
-
-import ProjectTemplate from './dara.design/card';
-import NotEmptyWrapper from "./dara.design/card.style";
 import Slider from "react-slick";
+import { showSetInterestsModal } from "../../../../store/action-creators/modal";
 
-import BomaWrapper from "./boma.design/main.style";
+import SharedViewWrapper from "../../shared/styling/projects.view";
 
-const mode = 'boma';
-let exportMe = null;
-
-if(mode === "dara"){
-
-  exportMe = ({ dispatch, projects, history }) => {
-  const go = id => history.push("/dashboard/project/" + id + "/overview");
-
-  return (
-    <NotEmptyWrapper className="xs-12">
-      <div id="bottom" className="xs-12">
-        {projects.map((p, i) => {
-          return (
-            <ProjectTemplate
-              history={history}
-              key={i}
-              c={p.tasks}
-              t={p.name}
-              p={p["project-avatar"]}
-              o={p.owner.organization.name}
-              id={p._id}
-              goal={p.goal}
-              tasks={p.tasks}
-              raised={p.raised}
-              go={() => go(p._id)}
-              activated={p.activated}
-              triggerDeleteModal={() => dispatch(showDeleteModal(p._id))}
-              triggerToggleModal={() =>
-                dispatch(showDeleteModal(p._id, p.activated))
-              }
-            />
-          );
-        })}
-      </div>
-    </NotEmptyWrapper>
-  );
-};
-
-
-}else{
+  let exportMe = null;
 
   exportMe = class extends React.Component{
 
@@ -96,7 +54,6 @@ if(mode === "dara"){
       window.removeEventListener("resize", this.resizer);
     }
 
-
     componentWillReceiveProps(nextProps){
       if(this.props !== nextProps){
         const { projects_you_joined,projects_you_proposed} = nextProps
@@ -105,7 +62,9 @@ if(mode === "dara"){
         })
       }
     }
-  
+    
+    launch_edit_interest_modal = ()=>this.props.dispatch(showSetInterestsModal())
+    
     resizer = () => {
       let temp;
       if (window.innerWidth > 768 && window.innerWidth < 1023) {
@@ -130,9 +89,9 @@ if(mode === "dara"){
 
       const {settings,  projects_you_joined,projects_you_proposed }= this.state;
       
-     return <BomaWrapper className="xs-12">
+     return <SharedViewWrapper className="xs-12">
      <section className='xs-12'>
-      <label>Projects you created</label>
+      <label>Projects you initiated</label>
       
       <Slider 
        ref={slider => (this.one_slider = slider)}
@@ -156,24 +115,31 @@ if(mode === "dara"){
        
        })
       :
-      <p>None Found.</p>
-      }
+      <div className='xs-12 sm-3'>
+      <div className='empty-box inner'>
+        <div className='c-w xs-12'>
+          <div className='c t-c'>
+            <p>You have no saved projects</p>
+          </div>
+        </div>
+      </div>
+      </div> }
         
       </Slider>
 
      </section>
 
      <section className='xs-12'>
-      <label>Projects you joined</label>
+     {
+      
+      Boolean(projects_you_joined.length) ?
       <Slider 
        ref={slider => (this.one_slider = slider)}
        {...settings}
        containerClass="xs-12"
        className="xs-12 slider">
 
-      {
-         Boolean(projects_you_joined.length) ?
-         projects_you_joined.map((p,i)=>{
+        { projects_you_joined.map((p,i)=>{
          return <div className="xs-12 sm-3" key={i}>
          <Link className="xs-12 inner"
           onMouseDown={e => this.handleOnMouseDown(e)}
@@ -185,31 +151,53 @@ if(mode === "dara"){
          </Link>
        </div>
        
-       })
-      :
-      <p>None Found.</p>
-      }
+       })}
+    
       </Slider>
-        
+      :
+
+      <div className='xs-12 sm-3'>
+      <div className='empty-box inner'>
+        <div className='c-w xs-12'>
+          <div className='c t-c'>
+            <p>You have not joined any project.</p>
+          </div>
+        </div>
+      </div>
+      </div>
+
+     }
      </section>
 
      <section className='xs-12'>
       <label>Projects in your areas of interest</label>
-      <p>None Found.</p>
-
+      <div className='xs-12 sm-3 edit-interest' onClick={this.launch_edit_interest_modal}>
+          <div className='empty-box inner'>
+            <div className='c-w xs-12'>
+              <div className='c t-c'>
+                <p><strong>+</strong>Edit Interests</p>
+              </div>
+            </div>
+          </div>
+        </div>
      </section>
 
      <section className='xs-12'>
       <label>Saved projects</label>
-      <p>None Found.</p>
+      <div className='xs-12 sm-3'>
+      <div className='empty-box inner'>
+        <div className='c-w xs-12'>
+          <div className='c t-c'>
+            <p>You have no saved projects</p>
+          </div>
+        </div>
+      </div>
+      </div>
 
      </section>
      
-     
-     
-     </BomaWrapper>
+     </SharedViewWrapper>
     }
   }
-}
 
 export default connect()(withRouter(exportMe));

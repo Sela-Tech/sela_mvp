@@ -4,11 +4,11 @@ import { connect } from "react-redux";
 import { Line } from "rc-progress";
 import { withRouter } from "react-router-dom";
 import NotEmptyWrapper from "./not-empty.style";
-import modals from "../../../../store/actions/project-funder/modals";
+import modals from "../../../../store/actions/modals";
 import {
   showModal,
   showDeleteModal
-} from "../../../../store/action-creators/project-funder/modal";
+} from "../../../../store/action-creators/modal";
 
 class ProjectTemplate extends React.Component {
   state = {

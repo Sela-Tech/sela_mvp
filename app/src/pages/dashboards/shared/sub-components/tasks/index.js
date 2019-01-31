@@ -5,7 +5,7 @@ import moment from "moment";
 import {
   showAddTaskModal,
   showTaskModal
-} from "../../../../../store/action-creators/project-funder/modal";
+} from "../../../../../store/action-creators/modal";
 import { fetchProject } from "../../../../../store/action-creators/project-funder/project";
 import search from "../documents/search.svg";
 

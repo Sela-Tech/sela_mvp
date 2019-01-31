@@ -3,9 +3,7 @@ import connect from "react-redux/lib/connect/connect";
 import DocStyle from "./doc.style";
 import moment from "moment";
 import search from "./search.svg";
-
-// import up from "./up.svg";
-import { showAddDocumentModal } from "../../../../../store/action-creators/project-funder/modal";
+import { showAddDocumentModal } from "../../../../../store/action-creators/modal";
 import { fetchProject } from "../../../../../store/action-creators/project-funder/project";
 
 class Documents extends React.Component {
@@ -118,24 +116,6 @@ class Documents extends React.Component {
                       View
                     </a>
 
-                    {/* <select
-      className="xs-9"
-      name="date"
-      onChange={this.handleDateUpdate}
-    >
-      <option value="" hidden>
-        Actions
-      </option>
-      <option value="delete">Delete</option>
-      <option value="view">View</option>
-    </select>
-     */}
-                    {/* <div className="xs-2">
-      <button id="download">
-        <img src={up} alt="" />
-      </button>
-    </div>
-     */}
                   </div>
                 </div>
               );

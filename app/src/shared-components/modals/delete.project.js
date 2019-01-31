@@ -4,7 +4,7 @@ import {
   deleteProject,
   fetchProjects
 } from "../../store/action-creators/project-funder/project";
-import { closeModal } from "../../store/action-creators/project-funder/modal";
+import { closeModal } from "../../store/action-creators/modal";
 import AsyncButton from "../unique/async-button";
 import dA from "../../store/actions/project-funder/dashboard";
 import { Form } from "./styles.modals/delete";

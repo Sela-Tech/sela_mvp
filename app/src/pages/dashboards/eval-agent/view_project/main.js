@@ -5,7 +5,7 @@ import Analytics from "./subs/analytics";
 import Transactions from "./subs/transactions";
 import Tasks from "./subs/tasks";
 import Documents from "./subs/documents";
-import { showAddStakeholderModal } from "../../../../store/action-creators/project-funder/modal";
+import { showAddStakeholderModal } from "../../../../store/action-creators/modal";
 
 import { connect } from "react-redux";
 

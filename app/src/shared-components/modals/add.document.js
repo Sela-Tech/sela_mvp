@@ -9,7 +9,7 @@ import endpoints from "../../endpoints";
 import { addDoc } from "../../store/action-creators/project-funder/documents";
 
 import { notify } from "../../store/action-creators/app";
-import { closeModal } from "../../store/action-creators/project-funder/modal";
+import { closeModal } from "../../store/action-creators/modal";
 
 const mapStateToProps = state => {
   const { type, message } = state.document;

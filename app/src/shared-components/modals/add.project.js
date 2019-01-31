@@ -10,7 +10,7 @@ import {
 } from "../../store/action-creators/project-funder/project";
 import dA from "../../store/actions/project-funder/dashboard";
 import { Form } from "./styles.modals/add";
-import { closeModal, clearAddModal } from "../../store/action-creators/project-funder/modal";
+import { closeModal, clearAddModal } from "../../store/action-creators/modal";
 import AsyncButton from "../unique/async-button";
 import LocationLoader from "./sub-components/location-loader";
 import GeoSuggest from "react-geosuggest";

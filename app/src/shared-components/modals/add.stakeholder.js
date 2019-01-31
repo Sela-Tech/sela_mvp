@@ -8,7 +8,7 @@ import dashboard from "../../store/actions/project-funder/dashboard";
 import AsyncButton from "../unique/async-button";
 
 import { notify } from "../../store/action-creators/app";
-import { closeModal } from "../../store/action-creators/project-funder/modal";
+import { closeModal } from "../../store/action-creators/modal";
 
 const mapStateToProps = state => {
   return {

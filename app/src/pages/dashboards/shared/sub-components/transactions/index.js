@@ -2,7 +2,7 @@ import React from "react";
 import connect from "react-redux/lib/connect/connect";
 import TWrap from "./transactions.style";
 import moment from "moment";
-import { showAddTransactionModal } from "../../../../../store/action-creators/project-funder/modal";
+import { showAddTransactionModal } from "../../../../../store/action-creators/modal";
 import { fetchProject } from "../../../../../store/action-creators/project-funder/project";
 import Chance from "chance";
 

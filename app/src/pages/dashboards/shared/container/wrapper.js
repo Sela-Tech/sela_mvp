@@ -50,11 +50,12 @@ const MetaData = ({ viewName, projectName }) => {
 const Wrapper = ({ viewName, children, projectName }) => {
   return (
     <StyledWrapperElem className="xs-12">
+      <MetaData viewName={viewName} projectName={projectName} />
+       
       <div className="xs-12 md-2" id="sdbar-wrpr">
         <DashboardSidebar />
       </div>
       <div className="xs-12 md-10 md-off-2" id="main-wrpr">
-        <MetaData viewName={viewName} projectName={projectName} />
         {children}
       </div>
     </StyledWrapperElem>

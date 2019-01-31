@@ -12,7 +12,7 @@ import {
   fetchProject,
   ignoreProjectId
 } from "../../../../store/action-creators/homepage";
-import { closeModal } from "../../../../store/action-creators/project-funder/modal";
+import { closeModal } from "../../../../store/action-creators/modal";
 import Transactions from "./subs/transaction";
 
 const DetermineWhatToShow = ({ show, id, project }) => {
@@ -32,9 +32,10 @@ const DetermineWhatToShow = ({ show, id, project }) => {
 class ViewProject extends React.Component {
   constructor(props) {
     super(props);
-    this.props.fetchProject(this.props.match.params.id);
+    props.fetchProject(props.match.params.id);
+    console.log("here")
     this.state = {
-      id: this.props.match.params.id,
+      id: props.match.params.id,
       project: {
         owner: {
           organization: {}
@@ -90,13 +91,12 @@ class ViewProject extends React.Component {
                 <h1>
                   {project.name ? project.name : <p className="short-loader" />}
                 </h1>
-                <p>
-                  {project.owner.organization.name ? (
-                    project.owner.organization.name
-                  ) : (
+                  {project.owner.organization.name ? <p>
+                  { project.owner.organization.name}
+                  </p> : (
                     <p className="long-loader" />
                   )}
-                </p>
+                
 
                 <div className="xs-12">
                   {project["project-video"] ? (
@@ -192,7 +192,8 @@ class ViewProject extends React.Component {
 
 const mapStateToProps = state => {
   return {
-    project: state.home.project
+    project: state.home.project,
+    action: state.home.action
   };
 };
 
