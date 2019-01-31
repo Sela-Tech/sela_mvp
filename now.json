@@ -1,0 +1,6 @@
+{
+    "name": "sela",
+    "env": {
+        "NODE_ENV": "production"
+    }
+}

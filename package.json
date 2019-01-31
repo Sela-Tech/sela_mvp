@@ -1,0 +1,16 @@
+{
+  "name": "selaPlatform",
+  "version": "1.0.0",
+  "main": "index.js",
+  "repository": "https://github.com/mhkane/sela_mvp.git",
+  "author": "Dotun <oludotunlonge@gmail.com>",
+  "license": "MIT",
+  "dependencies": {
+    "express": "^4.16.4",
+    "path": "^0.12.7"
+  },
+  "scripts": {
+    "start": "node index.js",
+    "deploy": "cd app && yarn build && cd ../ && now && now alias sela"
+  }
+}
