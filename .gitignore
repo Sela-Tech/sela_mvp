@@ -24,7 +24,7 @@ coverage
 .lock-wscript
 
 build
-
+node_modules/*
 
 
 # Compiled binary addons (http://nodejs.org/api/addons.html)
@@ -55,3 +55,8 @@ bower_components
 **.sublime-*
 todolist.txt
 *.todolist
+
+
+/node_modules
+node_modules/
+node_modules
