@@ -1,12 +1,13 @@
 import React from "react";
 import  withRouter from "react-router-dom/withRouter";
 import Home from "./view_home/";
-import Settings from "./view_settings/settings.js";
-import Project from "./view_project/index.js";
+import Settings from "../shared/whole-views/dashboard-settings";
+import Project from "../shared/whole-views/view-my-project";
+
 import Blank from "../blank";
 import Notifications from "../shared/notifications/index.js";
 import DashboardWrapper from "../shared/container/wrapper";
-import DashboardHomeWrapper from "../shared/dashboard.home";
+import DashboardHomeWrapper from "../shared/whole-views/dashboard-home";
 
 export default withRouter(props => {
   const pathname = props.match.path;
@@ -14,18 +15,18 @@ export default withRouter(props => {
 
   switch (pathname) {
     case "/dashboard/settings":
-    return <Settings {...props} />;
-
+    return <Settings {...props} />
+ 
     case "/dashboard/project/:id/:view":
     return <DashboardWrapper viewName={ viewname ? viewname: "project" }>
-    <Project {...props} />;
+      <Project {...props} />
     </DashboardWrapper>
     
     case "/dashboard":
     return <DashboardWrapper viewName="home">
       <DashboardHomeWrapper>
         <Home {...props} />
-      </DashboardHomeWrapper>;
+      </DashboardHomeWrapper>
     </DashboardWrapper>
     
     case "/dashboard/notifications":

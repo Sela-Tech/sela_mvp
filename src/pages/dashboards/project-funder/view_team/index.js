@@ -1,7 +1,7 @@
 import React from "react";
 import  connect  from "react-redux/lib/connect/connect";
 import DashboardWrapper from "../../../../shared-components/dashboards/project-funder/wrapper";
-import dashboard from "../../../../store/actions/project-funder/dashboard";
+import dashboard from "../../../../store/actions/dashboard";
 import { LoadingRoute } from "../../../../helpers/routes";
 import Spinner from "../../../../shared-components/spinners";
 

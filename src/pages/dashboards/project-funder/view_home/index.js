@@ -1,10 +1,11 @@
 import React from "react";
 import connect  from "react-redux/lib/connect/connect";
 import withRouter from "react-router-dom/withRouter";
-import Link from "react-router-dom/Link";
+// import Link from "react-router-dom/Link";
 import { showSetInterestsModal } from "../../../../store/action-creators/modal";
 import Slider from "react-slick";
 import SharedViewWrapper from "../../shared/styling/projects.view";
+import HomeCard from "../../shared/card.dashboard";
 
 let exportMe = null;
 exportMe = class extends React.Component{
@@ -20,23 +21,6 @@ exportMe = class extends React.Component{
           clientYonMouseDown: null
         }
       }
-    }
-    
-    handleOnClick (e) {
-      e.stopPropagation()
-      if (this.state.clientXonMouseDown !== e.clientX || 
-          this.state.clientYonMouseDown !== e.clientY) {
-        // prevent link click if the element was dragged
-        e.preventDefault()
-      }
-    }
-
-    handleOnMouseDown (e) {
-      this.setState({
-        clientXonMouseDown: e.clientX,
-        clientYonMouseDown: e.clientY
-      })
-      e.preventDefault() // stops weird link dragging effect
     }
 
     componentWillMount() {
@@ -95,13 +79,7 @@ exportMe = class extends React.Component{
             { 
               createdProjects.docs.map((p,i)=>{
                 return <div className="xs-12 sm-3" key={i}>
-                  <Link className="xs-12 inner"
-                  onMouseDown={e => this.handleOnMouseDown(e)}
-                  onClick={e => this.handleOnClick(e)}
-                  to={`/dashboard/project/${p._id}/overview`}>
-                    <p> {p.name} </p>
-                    <img src={p["project-avatar"]} alt=""/>
-                  </Link>
+                <HomeCard info={p}/>
                 </div>
               })
             }
@@ -132,21 +110,14 @@ exportMe = class extends React.Component{
             { 
             fundedProjects.docs.map((p,i)=>{
               return <div className="xs-12 sm-3" key={i}>
-                <Link className="xs-12 inner"
-                onMouseDown={e => this.handleOnMouseDown(e)}
-                onClick={e => this.handleOnClick(e)}
-                to={`/dashboard/project/${p._id}/overview`}>
-                  <p> {p.name} </p>
-                  <img src={p["project-avatar"]} alt=""/>
-                </Link>
+                <HomeCard info={p} type="not-mine" />
               </div>
             })
             }
             </Slider>
           :
         <div className='xs-12 sm-3'>
-          <div className='empty-box inner'>
-        
+          <div className='empty-box inner-not-proj'>
             <div className='c-w xs-12'>
               <div className='c t-c'>
                 <p>You have not funded any project yet</p>
@@ -157,53 +128,44 @@ exportMe = class extends React.Component{
         }
         </section>
 
-      <section className='xs-12'>
-        <label>Projects in your areas of interest</label>
-        
-        <div className='xs-12 sm-3 edit-interest' onClick={this.launch_edit_interest_modal}>
-          <div className='empty-box inner'>
-            <div className='c-w xs-12'>
-              <div className='c t-c'>
-                <p><strong>+</strong>Edit Interests</p>
-              </div>
-            </div>
-          </div>
-        </div>
-        
-
-        { 
-          areasOfInterest && areasOfInterest.docs.length > 0 ?
+        <section className='xs-12'>
+      <label>Projects in your areas of interest</label>
+    
             <Slider 
             {...settings}
             containerClass="xs-12"
             className="xs-12 slider">
-            { 
-            areasOfInterest.docs.map((p,i)=>{
-              return <div className="xs-12 sm-3" key={i}>
-                <Link className="xs-12 inner"
-                onMouseDown={e => this.handleOnMouseDown(e)}
-                onClick={e => this.handleOnClick(e)}
-                to={`/dashboard/project/${p._id}/overview`}>
-                  <p> {p.name} </p>
-                  <img src={p["project-avatar"]} alt=""/>
-                </Link>
-              </div>
-            })
-            }
-            </Slider>
-          :        
-        <div className='xs-12 sm-3'>
-          <div className='empty-box inner'>
-            <div className='c-w xs-12'>
-              <div className='c t-c'>
-                <p>There are no projects in your area of interest</p>
+   
+             <div className='xs-12 sm-3 edit-interest' onClick={this.launch_edit_interest_modal}>
+              <div className='empty-box inner-not-proj'>
+                <div className='c-w xs-12'>
+                  <div className='c t-c'>
+                    <p><strong>+</strong>Edit Interests</p>
+                  </div>
+                </div>
               </div>
             </div>
-          </div>
-        </div>
-        }
-        
-      </section>
+            
+            { areasOfInterest 
+              && areasOfInterest.docs.length > 0 ?
+              areasOfInterest.docs.map((p,i)=>{
+                return <div className="xs-12 sm-3" key={i}>
+                <HomeCard info={p} type="not-mine" />
+                </div>
+            })
+            :        
+            <div className='xs-12 sm-3'>
+              <div className='empty-box inner-not-proj'>
+                <div className='c-w xs-12'>
+                  <div className='c t-c'>
+                    <p>There are no projects in your area of interest</p>
+                  </div>
+                </div>
+              </div>
+            </div>
+            }
+            </Slider>
+     </section>
 
       <section className='xs-12'>
         <label>Saved projects</label>
@@ -217,13 +179,7 @@ exportMe = class extends React.Component{
             { 
             savedProjects.docs.map((p,i)=>{
               return <div className="xs-12 sm-3" key={i}>
-                <Link className="xs-12 inner"
-                onMouseDown={e => this.handleOnMouseDown(e)}
-                onClick={e => this.handleOnClick(e)}
-                to={`/dashboard/project/${p._id}/overview`}>
-                  <p> {p.name} </p>
-                  <img src={p["project-avatar"]} alt=""/>
-                </Link>
+                <HomeCard info={p} type="not-mine" />
               </div>
             })
             }
@@ -244,8 +200,6 @@ exportMe = class extends React.Component{
      </SharedViewWrapper>
     }
   }
-
-
 
 const mapStateToProps = state => {
   let projects = state.projects.all.collection;
