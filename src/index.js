@@ -2,7 +2,7 @@ import React from "react";
 import ReactDOM from "react-dom";
  import App from "./App";
 //  import registerServiceWorker from './registerServiceWorker';
- import {unregister} from './registerServiceWorker';
+ import { unregister } from './registerServiceWorker';
  
 import store from "./store";
 import Provider from "react-redux/lib/components/Provider";
@@ -31,7 +31,6 @@ if (retrieveToken()) {
       }
 
       let retrieved_token = Boolean(retrieveToken());
-    
       if ( retrieved_token === true && loop_stop === false ){  
         loop_stop = true;
         
