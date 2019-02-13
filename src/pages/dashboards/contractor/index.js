@@ -1,13 +1,14 @@
 import React from "react";
 import withRouter from "react-router-dom/withRouter";
 import Home from "./view_home";
-import Settings from "./view_settings/settings.js";
-import Project from "./view_project/index.js";
+import Settings from "../shared/whole-views/dashboard-settings";
 import PreviewProject from "./preview_project";
+import Proposal from "./proposal";
+import Project from "../shared/whole-views/view-my-project";
 
 import Notifications from "../shared/notifications/index.js";
 import DashboardWrapper from "../shared/container/wrapper";
-import DashboardHomeWrapper from "../shared/dashboard.home";
+import DashboardHomeWrapper from "../shared/whole-views/dashboard-home";
 import Blank from "../blank";
 
 export default withRouter(props => {
@@ -15,22 +16,30 @@ export default withRouter(props => {
   const viewname = props.match.params.view;
 
   switch (pathname) {
+
+    case "/dashboard/proposal/:project_id/:contractor_id":
+    return <DashboardWrapper viewName={viewname ? viewname: "proposal"}>
+   <Proposal {...props}/>
+   </DashboardWrapper>
+   
+    
+    
     case "/dashboard/settings":
     return <Settings {...props} />;
 
     case "/dashboard/project/preview/:id":
     return <DashboardWrapper viewName={viewname ? viewname: "preview project"}>
-    <PreviewProject {...props} />
+      <PreviewProject {...props} />
     </DashboardWrapper>
      
-    case "/dashboard/project/:id/:view":
-    return <DashboardWrapper viewName={viewname ? viewname: "project"}>
-    <Project {...props} />
-    </DashboardWrapper>
-     
+     case "/dashboard/project/:id/:view":
+     return <DashboardWrapper viewName={ viewname ? viewname: "project" }>
+       <Project {...props} />
+     </DashboardWrapper>
+   
     case "/dashboard/notifications":
     return <DashboardWrapper viewName="notifications">
-    <Notifications {...props}/>
+      <Notifications {...props}/>
     </DashboardWrapper>
 
     case "/dashboard":

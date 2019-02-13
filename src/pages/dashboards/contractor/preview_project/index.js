@@ -3,7 +3,7 @@ import { connect } from "react-redux";
 import contractor from "../../../../store/actions/contractor/project";
 import { LoadingRoute } from "../../../../helpers/routes";
 import Spinner from "../../../../shared-components/spinners";
-import { fetch_project_preview } from "../../../../store/action-creators/contractor/project";
+import { fetchPreviewInfo } from "../../../../store/action-creators/contractor/project";
 import ViewPreviewPage from "./main";
 import PreviewNotFound from "./error";
 import Navbar from "../../shared/navbar";
@@ -15,12 +15,14 @@ class ViewPreview extends React.Component {
       hide_loading: false,
       error: false
     };
-    props.fetch_project_preview(props.match.params.id);
+    props.dispatch(fetchPreviewInfo(props.match.params.id))
   }
 
   componentWillReceiveProps(nextProps){
     if(this.props !== nextProps){
-      let obj = {};
+      let obj = {
+        iWasAddedOrJoined: nextProps.iWasAddedOrJoined
+      };
       if(nextProps.type === contractor.FETCH_P_P_S || nextProps.type === contractor.FETCH_P_P_F){
         obj.hide_loading = true;
       }
@@ -33,9 +35,9 @@ class ViewPreview extends React.Component {
 
   render() {
     let { hide_loading,error } = this.state;
-    // comment below code in production 
+   
+    // error = !iWasAddedOrJoined;
     error = false;
-
     switch (hide_loading) {
       case true:
       return (
@@ -57,19 +59,22 @@ class ViewPreview extends React.Component {
 }
 
 const mapStateToProps = state => {
-  return {
+
+  let obj = {
     type: state.contractor.type,
     info: state.contractor.preview_info
-  };
+  }
+
+  if(obj.info.owner){
+    obj.iWasAddedOrJoined = obj.info.stakeholders.some(stakeholder=>{
+        return stakeholder._id === state.auth.credentials.id
+    })
+  }
+
+  return obj;
 };
 
-const mapDispatchToProps = dispatch => {
-  return {
-    fetch_project_preview: id => dispatch(fetch_project_preview(id))
-  };
-};
 
 export default connect(
   mapStateToProps,
-  mapDispatchToProps
 )(ViewPreview);
