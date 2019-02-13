@@ -14,7 +14,7 @@ export default {
     marked_viewed: b + "notifications/mark-as-read"
   },
   contractor: {
-    fetch_preview_info: b + "project/preview/",
+    fetch_preview_info: b + "project/", //:id/contractor-preview
     fetch_projects_you_proposed: b + "projects/",
     join_or_reject_project: b + "project/" //5c0f90284e5aae025ca8d233/accept
   },
