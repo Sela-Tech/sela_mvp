@@ -4,10 +4,10 @@ import { extractMessage } from "../../../helpers/utils";
 import contractor from "../../actions/contractor/project";
 import { retrieveToken } from "../../../helpers/TokenManager";
 
-export const join_or_reject_project = (agreed,id)=>{
+export const join_or_reject_project = (agreed,id, notif_id)=>{
   return dispatch => {
       ax({
-          url: e.contractor.join_or_reject_project + id + "/accept",
+          url: e.contractor.join_or_reject_project + id + `/accept?notification=${notif_id}` ,
           method: "PUT",
           data: {
               agreed
@@ -16,8 +16,7 @@ export const join_or_reject_project = (agreed,id)=>{
               authorization: retrieveToken()
           }
       }).then( res => {
-        let message = res.data.message;
-        
+        let message = res.data.message;       
         if( Boolean(message) === false ){
             message = agreed === true
             ? "You Successfully Joined The Project"
@@ -40,22 +39,19 @@ export const join_or_reject_project = (agreed,id)=>{
   }
 }
 
-export const fetch_project_preview = (id)=>{
-    return dispatch=>{
-        dispatch({ type: contractor.FETCH_P_P_R })
-        ax({
-            url: e.contractor.fetch_preview_info + id, 
-            method: "GET",
-            headers: {
-                "authorization": retrieveToken()
-            }
-        }).then(res=>{
-            dispatch({ type: contractor.FETCH_P_P_S, data: res.data })
-        }).catch(res=>{
-            dispatch({ 
-                type: contractor.FETCH_P_P_F,
-                message: extractMessage(res) 
-            })
-        })
-    }
+export const fetchPreviewInfo = id =>{
+  return dispatch => {
+    dispatch({ type: contractor.FETCH_P_P_R })
+    ax({
+      url: e.contractor.fetch_preview_info + id + "/contractor-preview",
+      method: "GET",
+      headers:{
+        authorization: retrieveToken()
+      }
+    }).then(res=>{
+      dispatch({ type: contractor.FETCH_P_P_S, data: res.data })
+    }).catch(res=>{
+      dispatch({ type: contractor.FETCH_P_P_F })
+    })
+  }
 }

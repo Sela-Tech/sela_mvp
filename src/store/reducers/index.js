@@ -1,7 +1,7 @@
 import { combineReducers } from "redux";
 import auth from "./auth";
 import modal from ".//project-funder/modal";
-import projects from "./project-funder/projects";
+import projects from "./projects";
 import tasks from "./project-funder/tasks";
 import home from "./homepage";
 import organizations from "./organizations";

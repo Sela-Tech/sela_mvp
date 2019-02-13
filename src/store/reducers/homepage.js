@@ -63,7 +63,7 @@ export default (state = init, payload) => {
     case homepageActions.GET_HOMEPAGE_PROJS_S:
     
       if(payload.projects.length >0){
-        payload.projects = payload.projects.reverse();
+        payload.projects = payload.projects;
       }
       
       return {

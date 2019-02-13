@@ -1,5 +1,5 @@
 import ax from "axios";
-import dA from "../../actions/project-funder/dashboard";
+import dA from "../../actions/dashboard";
 import e from "../../../endpoints";
 import { retrieveToken } from "../../../helpers/TokenManager";
 import { extractMessage } from "../../../helpers/utils";

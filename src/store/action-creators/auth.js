@@ -4,8 +4,6 @@ import authActions from "../actions/auth";
 import e from "../../endpoints";
 import { retrieveToken, setToken } from "../../helpers/TokenManager";
 import { extractMessage, storeManager } from "../../helpers/utils";
-import auth from '../actions/auth';
-import modals from '../actions/modal';
 
 export const signout = () => {
   return { type: authActions.SIGNOUT };
@@ -82,11 +80,7 @@ export const signin = obj => {
     })
       .then(({ data }) => {
         if (data.token) {
-          if (obj.rememberMe) {
-            setToken("ls", data.token);
-          } else {
-            setToken("ss", data.token);
-          }
+          setToken("ls", data.token);
           
           switch (true) {
             case data.isEvaluator:
@@ -178,6 +172,11 @@ export const verify_user_token = () => {
       }
     })
       .then(({ data }) => {
+        console.log(data)
+        if (data.token) {
+            setToken("ls", data.token);
+            setToken("ss", data.token);
+        }
         switch (true) {
           case data.isEvaluator:
             data.signUpType = "evaluation-agent";
@@ -308,24 +307,4 @@ export const update = obj => {
       });
   };
 };
-
-export const update_interests = obj =>{
-  return dispatch => {
-    ax({
-      url: e.update_interests,
-      method: "PUT",
-      data: obj,
-      headers: {
-        authorization: retrieveToken()
-      }
-    }).then(res=>{
-      dispatch({type: auth.SET_INTERESTS, areasOfInterest: obj.areasOfInterest})
-      dispatch({ type: "NEW_TOAST", status: "success", message: "Interests Updated Successfully."})
-      dispatch({type: modals.CLOSE_MODAL_FORM });
-      storeManager.keep("areasOfInterest", obj.areasOfInterest)
-    }).catch(res=>{
-      dispatch({ type: "NEW_TOAST", status: "error", message: extractMessage(res) || "Could Not Update Interests."})
-    })
-  }
-}
 
