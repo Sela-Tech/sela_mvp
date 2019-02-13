@@ -2,7 +2,7 @@ import React from "react";
 import { connect } from "react-redux";
 import { bindActionCreators } from "redux";
 import DashboardWrapper from "../../shared/container/wrapper";
-import dashboard from "../../../../store/actions/project-funder/dashboard";
+import dashboard from "../../../../store/actions/dashboard";
 import { LoadingRoute } from "../../../../helpers/routes";
 import Spinner from "../../../../shared-components/spinners";
 import ProjectComponent from "./main.js";
