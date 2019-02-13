@@ -1,6 +1,6 @@
 import React from "react";
 import styled from "styled-components";
-import Transactions from "../../../../../dashboards/shared/sub-components/transactions";
+import Transactions from "../../../../../dashboards/shared/mini-views/dashboard/sub-components/transactions";
 
 const TranWrapper = styled.div`
   padding-bottom: 2em;

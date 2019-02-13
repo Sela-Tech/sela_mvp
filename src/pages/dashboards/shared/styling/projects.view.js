@@ -2,6 +2,39 @@ import styled from 'styled-components';
 
 export default styled.div`
 
+.wrap-img{
+    width: 100%;
+    width: 100%;
+    height: 135px; 
+    position: relative;
+
+    button{
+        position: absolute;
+        bottom: 8px;
+        left: 8px;
+        border-radius: 50px;
+        height: 20px;
+        width: 100px;
+        border: 0;
+        color: white;
+        text-transform: Capitalize;
+        font-weight:300;
+
+        &.proposed, &.dormant{
+            background: #201D41;
+        }
+        &.ongoing{
+            background: #F2C94C;
+        }
+        &.completed{
+            background: #369C05;
+        }
+        &.terminated{
+            background: #BC1717;
+        }
+    }
+}
+
 section{
     padding-bottom: 50px;
 }
@@ -58,7 +91,7 @@ label{
     border: 1px dashed #B1BAD2;
     box-sizing: border-box;
     border-radius: 5px;
-    height: 200px;
+    height: 224px;
     font-family: Acumin Pro;
     line-height: 21px;
     font-size: 14px;
@@ -78,5 +111,4 @@ label{
         padding: 0 2em;
     }
 }
-
 `;

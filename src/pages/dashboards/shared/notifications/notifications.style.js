@@ -1,6 +1,18 @@
 import styled from 'styled-components';
 
 export default styled.div`
+
+#refresh{
+    height: 30px;
+    background: #1f1e42;
+    border-radius: 5px;
+    border: 0;
+    font-weight: 300;
+    letter-spacing: 0.6px;
+    margin-top: 20px;
+    color: white;
+}
+
 .accept{
     height: 30px;
     margin: 1em 0.5em;
@@ -31,7 +43,7 @@ export default styled.div`
 
 .white{
     background: white;
-    margin-top: 6%;
+    margin-top: 2.75%;
     background: #FFFFFF;
     border: 1px solid #EAEDF3;
     box-sizing: border-box;
@@ -97,4 +109,19 @@ export default styled.div`
         }
 
     }
-}`;
+}
+
+
+.text {
+    font-size: 13px !important;
+        margin-top: 10px !important;
+        font-weight: 900 !important;
+    &.accepted{
+        color: teal !important;
+    }
+    &.rejected{
+        color: #f44336 !important;
+    }
+}
+
+`;

@@ -72,6 +72,7 @@ const NavStyle = styled.nav`
       line-height: 46px;
       font-size: 16.5px;
       color: #201D41;
+      background: unset;
     }
 
     button {
