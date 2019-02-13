@@ -158,6 +158,7 @@ export default styled.div`
       width: 100%;
       background: gray;
       display: block;
+      object-fit: cover;
     }
     div {
       position: absolute;

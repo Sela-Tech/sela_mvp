@@ -1,7 +1,8 @@
 import React,{Component} from 'react';
 import styled from 'styled-components';
 import { connect } from 'react-redux';
-import { update_interests } from '../../store/action-creators/auth';
+import { updateInterests } from '../../store/action-creators/project';
+import mapping from "../../mapping";
 
 const InterestWrapper = styled.div`
 .grayed{
@@ -36,24 +37,34 @@ p{
 }
 
 .sdg-btn{
-    padding: 1em;
-    margin-top: 1em;
-    margin-bottom: 1em;
-    border: 1px solid #B1BAD2;
+
+    padding: 0;
+    background: transparent;
+    margin-top: 0.5em;
+    margin-bottom: 0.5em;
+    border: 0;
     box-sizing: border-box;
-    border-radius: 5px;;
-    font-size: 13px;
+    border-radius: 5px;
     font-weight: 300;
     text-align: center;
     color: #201D41;
+    filter: grayscale(100);
+    transition: 150ms;
+
+    img{
+        height: 100px;
+        width: 100%;
+        object-fit: contain;
+        object-position: center;
+    }
 
     &:hover{
-        background: rgba(31, 30, 66,0.8);
+        filter:grayscale(0.5) !important;
         color: white;
     }
 
     &.selected{
-        background: rgba(31, 30, 66,1);
+        filter: grayscale(0) !important;
         color: white;
         
     }
@@ -88,7 +99,6 @@ p{
     componentWillReceiveProps(nextProps){
         if(this.props !== nextProps){
             if(Boolean(nextProps.user_interests.length)){
-                console.log(nextProps.user_interests)
                 this.setState({
                     selected: new Set(nextProps.user_interests)
                 })
@@ -96,32 +106,35 @@ p{
         }
     }
 
-    handleClick = (e)=>{
-        const {name} = e.target;
+    handleClick = (name)=>{
         this.setState(p=>{
             let selected = p.selected;
             selected.has(name) ? selected.delete(name): selected.add(name);
             return {
                 selected 
             }
+        },()=>{
+             console.log( this.state.selected )
         })
     }
 
     handleSubmit = ()=>{
         let arr = Array.from(this.state.selected);
-        this.props.dispatch(update_interests({areasOfInterest: arr}))
+        this.props.dispatch(updateInterests({areasOfInterest: arr}))
     }
 
     render(){
-        const {sdgs} = this.props;
+        const { sdgs } = this.props;
+
         const Boxes = sdgs.map((sdg,i)=>{
             let is_selected = this.state.selected.has(sdg) ? "selected": "";
-            return <div key={i} className={ 
-                i > sdgs.length - 4 ? 
-               'xs-12 sm-6 md-4':'xs-6 md-4'}>
-                <button className={`${'xs-10 xs-off-1 ' + is_selected } sdg-btn`} onClick={this.handleClick} name={sdg}>{sdg}</button>
+            return <div key={i} className={'xs-4  md-3'}>
+                <button className={`${'xs-10 xs-off-1 ' + is_selected } sdg-btn`} onClick={() => this.handleClick(sdg)}>
+                    <img src={mapping[sdg]} alt="sdg"/>
+                </button>
             </div>
         });
+        
         return (
             <InterestWrapper className="xs-12">
                 <div className="xs-12 t-c grayed">

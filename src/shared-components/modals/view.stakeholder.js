@@ -13,7 +13,7 @@ import { Link } from "react-router-dom";
 
 const mapStateToProps = state => {
   const { citizenData, action, message } = state.home;
-  const id = state.dashboard.stakeholder;
+  const id = state.modal.stakeholder;
   const ignoreId = state.home.ignoreProjectWithID;
   return {
     citizenData,

@@ -3,7 +3,7 @@ import { connect } from "react-redux";
 import ContractorLoader from "./sub-components/user-loader";
 import { Form } from "./styles.modals/add.stakeholder";
 import { addStakeholder } from "../../store/action-creators/project-funder/stakeholder";
-import dashboard from "../../store/actions/project-funder/dashboard";
+import dashboard from "../../store/actions/dashboard";
 import AsyncButton from "../unique/async-button";
 
 const mapStateToProps = state => {

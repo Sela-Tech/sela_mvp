@@ -8,7 +8,7 @@ import {
   addProject,
   // fetchProjects
 } from "../../store/action-creators/project";
-import dA from "../../store/actions/project-funder/dashboard";
+import dA from "../../store/actions/dashboard";
 import { Form } from "./styles.modals/add";
 // import {  clearAddModal } from "../../store/action-creators/modal";
 import AsyncButton from "../unique/async-button";

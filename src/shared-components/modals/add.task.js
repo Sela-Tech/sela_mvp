@@ -6,7 +6,7 @@ import "react-datepicker/dist/react-datepicker.css";
 import { connect } from "react-redux";
 import { addTask } from "../../store/action-creators/project-funder/task";
 import AsyncButton from "../unique/async-button";
-import dA from "../../store/actions/project-funder/dashboard";
+import dA from "../../store/actions/dashboard";
 import { Form } from "./styles.modals/task";
 
 const mapStateToProps = state => {

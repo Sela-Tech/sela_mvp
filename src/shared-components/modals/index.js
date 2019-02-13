@@ -139,7 +139,7 @@ const  ModalWrapper = (props)=>{
         return <GenericModalWrapper 
         name={name}  
         specific_type={'interests'}
-        className={"xs-12 sm-6 sm-off-3 no-padding"}            
+        className={"xs-12 sm-8 sm-off-2 md-6 md-off-3 no-padding"}            
         close={close} stop={stop} 
         has_heading={false} show_close_button={true} >
           <SetInterestModal/>

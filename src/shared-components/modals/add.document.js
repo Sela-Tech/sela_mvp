@@ -1,7 +1,7 @@
 import React from "react";
 import { connect } from "react-redux";
 import AsyncButton from "../unique/async-button";
-import dA from "../../store/actions/project-funder/dashboard";
+import dA from "../../store/actions/dashboard";
 import { Form } from "./styles.modals/add";
 
 import ReactS3Uploader from "react-s3-uploader";
