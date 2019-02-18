@@ -1,37 +1,27 @@
 import React from "react";
 // icons
-
 import Logo from "../../../assets/icons/sela-circle-blue.svg";
-
 // others
 import { Link, withRouter } from "react-router-dom";
 import { validator } from "../../../helpers/utils";
-
 // store related
 import { connect } from "react-redux";
 import { bindActionCreators } from "redux";
 import { signup, signout } from "../../../store/action-creators/auth";
-
 // components
 import Wrapper from "./wrapper";
 import SignUpWrapper from "../styles/signup.style";
-
 import AsycnButton from "../../../shared-components/unique/async-button";
 import auth from "../../../store/actions/auth";
-
 import { Creatable as Select } from "react-select";
 import { fetchOrganizations } from "../../../store/action-creators/organizations";
-
 import { notify } from "../../../store/action-creators/app";
 import CheckInboxAfterSignUp from "./sub/check_inbox.after-signup";
 import DownloadAppAfterSignup from "./sub/download_app.after-signup";
-
 import ReactPasswordStrength from 'react-password-strength';
 import config from "./config";
-
 const Button = ({ active, title, description, name, Ftn }) => {
   let onClick = () => Ftn(name);
-
   const activeClassName = active === name ? "active" : "";
   return (
     <div className="xs-12 md-4 signup-type-button" onClick={onClick}>
@@ -42,7 +32,6 @@ const Button = ({ active, title, description, name, Ftn }) => {
             <span className="checkmark" />
           </label>
         </div>
-
         <div className="text-part xs-8 md-12">
           <h3>{title}</h3>
           <p>{description}</p>
@@ -51,7 +40,6 @@ const Button = ({ active, title, description, name, Ftn }) => {
     </div>
   );
 };
-
 class Signup extends React.Component {
   constructor(props) {
     super(props);
@@ -70,21 +58,16 @@ class Signup extends React.Component {
     this.props.clear();
     this.props.fetchOrganizations();
   }
-
   onSubmit = e => {
     e.preventDefault();
-
     this.setState({
       inprogress: true
     });
-
     let { formData } = this.state,
       objToSubmit = {};
-
     Object.keys(formData).map(key => {
       return (objToSubmit = { ...objToSubmit, [key]: formData[key].value });
     });
-
     objToSubmit = {
       ...objToSubmit,
       organization: {
@@ -92,14 +75,11 @@ class Signup extends React.Component {
         id: formData.organization.id
       }
     };
-
      this.props.signup(objToSubmit);
     
   };
-
   onSelect = name => {
     this.setState(p => {
-
       if(name === "evaluation-agent"){
         return {
           selectedOption: undefined,
@@ -126,17 +106,14 @@ class Signup extends React.Component {
     }
     });
   };
-
   handleOrgSelect = selectedOption => {
     let value, id;
-
     if (selectedOption === null) {
       selectedOption = undefined;
     } else {
       value = selectedOption.value;
       id = selectedOption.id;
     }
-
     this.setState(p => {
       return {
         selectedOption,
@@ -151,7 +128,6 @@ class Signup extends React.Component {
       };
     });
   };
-
   onChange = e => {
     const { name, value } = e.target;
     this.setState({
@@ -164,12 +140,10 @@ class Signup extends React.Component {
       }
     });
   };
-
   componentWillReceiveProps(nextProps){
     if(this.props !== nextProps){
       
       const { type, message, inprogress, organizations } = nextProps;
-
       if(type === auth.SIGNOUT){
         nextProps.history.push("/")
       }
@@ -207,24 +181,18 @@ class Signup extends React.Component {
       }
     });  
   }
-
   render() {
-
     let {
       inprogress,
       type,
       selectedOption,
       organizations
     } = this.state;
-
     const { formData } = this.state;
-
     let disable_form  = true, form_is_complete = false;
-
      const valid_fields = Object.keys(formData).filter(key => {     
       return formData[key].valid === true;
     })
-
     if( formData.signUpType.value === "evaluation-agent" ){
       form_is_complete = valid_fields.length >= config.min_valid_field_count_for_evaluators;
     }else if(formData.signUpType.value === "project-funder") {
@@ -241,7 +209,6 @@ class Signup extends React.Component {
       
       case auth.SIGNUP_SUCCESSFUL:
         window.scrollTo(0, 0);
-
        return this.props.signUpType === "evaluation-agent" 
         ?
         <DownloadAppAfterSignup logout={this.props.logout}/>
@@ -268,7 +235,6 @@ class Signup extends React.Component {
                   </Link>
                 </p>
               </div>
-
               <div className="xs-12">
                 <form
                   className="xs-10 xs-off-1 sm-6 sm-off-3"
@@ -297,7 +263,6 @@ class Signup extends React.Component {
                       active={formData["signUpType"].value}
                     />
                   </div>
-
                   <div className="form-group xs-12 md-12">
                     <div className="form-group xs-12 md-6">
                       <input
@@ -311,7 +276,6 @@ class Signup extends React.Component {
                         required
                       />
                     </div>
-
                     <div className="form-group xs-12 md-6">
                       <input
                         name="lastName"
@@ -341,7 +305,6 @@ class Signup extends React.Component {
                     />
                   </div>
               }
-
                   <div className="form-group xs-12">
                     <input
                       name="email"
@@ -352,7 +315,6 @@ class Signup extends React.Component {
                       onChange={this.onChange}
                     />
                   </div>
-
                   <div className="form-group xs-12">
                     <input
                       name="phone"
@@ -363,7 +325,6 @@ class Signup extends React.Component {
                       onChange={this.onChange}
                     />
                   </div>
-
                   <div className="form-group xs-12">
                     <ReactPasswordStrength
                       minLength={config.min_password_length}
@@ -375,7 +336,6 @@ class Signup extends React.Component {
                       required
                     />
                   </div>
-
                   <div className="form-group xs-12" id="submit-part">
                     <div className="xs-12 md-4 center-t">
                       <AsycnButton
@@ -386,7 +346,6 @@ class Signup extends React.Component {
                         Get Started
                       </AsycnButton>
                     </div>
-
                     <div className="xs-12 md-8">
                       <p className="xs-12 md-10 md-off-1 center-t-sm">
                         By clicking this button, you agree to our{" "}
@@ -395,9 +354,7 @@ class Signup extends React.Component {
                         </Link>
                       </p>
                     </div>
-
                 
-
                   </div>
                 </form>
               </div>
@@ -407,7 +364,6 @@ class Signup extends React.Component {
     }
   }
 }
-
 const mapStateToProps = state => {
   const { type, message } = state.auth.action;
   return {

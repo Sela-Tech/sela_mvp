@@ -11,6 +11,6 @@
   },
   "scripts": {
     "start": "node index.js",
-    "deploy": "cd app && yarn build &&  cd ../ && now && now alias sela-test"
+    "deploy": "cd app && yarn build &&  cd ../ && now"
   }
 }

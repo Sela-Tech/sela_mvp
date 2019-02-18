@@ -4,6 +4,10 @@ import { showStakeHolderModal } from "../../../../../../store/action-creators/pr
 import { connect } from "react-redux";
 
 const StakeholderWrapper = styled.div`
+
+img{
+  object-fit:cover;
+}
   section {
     padding-bottom: 2em;
     h4 {

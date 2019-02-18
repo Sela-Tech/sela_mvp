@@ -86,7 +86,7 @@ class Transactions extends React.Component {
           )}
         </div>
         <div className="xs-12 container">
-          {Boolean(transactions.length) ? (
+          {/* {Boolean(transactions.length) ? (
             transactions.map((t, i) => {
               return (
                 <div className="xs-12 row b" key={i}>
@@ -126,9 +126,9 @@ class Transactions extends React.Component {
                 </div>
               );
             })
-          ) : (
+          ) : ( */}
             <p>No Records Found.</p>
-          )}
+          {/* )} */}
         </div>
       </TWrap>
     );

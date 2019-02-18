@@ -4,6 +4,7 @@ import UpdatesStyle from "./updates.style";
 import MediaElement from "../../../../../../shared-components/modals/sub-components/media-element";
 
 import styled from "styled-components";
+import {withRouter} from "react-router-dom";
 
 const UpdatesWrapper = styled.div`
   section {
@@ -19,25 +20,87 @@ const UpdatesWrapper = styled.div`
   }
 `;
 
-export default () => {
-  const tasksData = [
-    {
-      deadline: new Date(),
+export default withRouter((props) => {
+  const id = props.match.params.id;
+  console.log(id);
+  
+  let tasksData = [];
+
+if(id === '5c6ac73943a7550022127075'){
+  let startdate = "20.6.2019";
+  let new_date =(d) => moment(startdate, "DD-MM-YYYY").add('days', d);
+
+  let stuff =[
+    'Identify the 3 ponds to be treated. Move Biotechnology products to secured location at the site',
+    'Identify VSE team and assignment to pond with laid out instructions for project execution',
+    'Site preparation and Collection of baseline data',
+    'Application of first part of biotechnology',
+    // 'Application of second part of biotechnology Day 3',
+    // 'Collection of 1st samples of water and soil and data after treatment. Send samples to the laboratory',
+    // 'Collection of 2nd samples and data. Send samples to the laboratory',
+    // 'Collection of 3rd samples and data. Send samples to the laboratory',
+    // 'Collection of 4th samples and data. Send samples to the laboratory',
+    // 'Collection of 5th samples and data. Send samples to the laboratory',
+    // 'Collection of laboratory results and report writing'
+  ];
+
+  tasksData = stuff.map((txt, i)=>{
+    return {
+      deadline: new_date(parseInt(i * 3,10)).format("YYYY MM DD"),
       status: "DORMANT",
-      name: "A Test Project Task",
-      description:
-        "This is where the brief description of the task goes. This is where the brief description of the task goes. This is where the brief description of the task goes. This is where the brief description of the task goes. This is where the brief description of the task goes. ",
+      name: "Task " + i,
+      description: txt,
       evaluation_submissions: [
         {
-          src:
-            "http://commondatastorage.googleapis.com/gtv-videos-bucket/sample/ElephantsDream.mp4",
-          status: "IN-PROGRESS",
+          src:"",
+          status: "DORMANT",
           type: "video",
           name: "Test"
         }
       ]
     }
-  ];
+  })
+
+}
+
+if(id === '5c6ac13643a755002212705f'){
+  let startdate = "20.6.2019";
+  let new_date =(d) => moment(startdate, "DD-MM-YYYY").add('days', d);
+
+  let stuff =[
+    'Break Ground',
+    'Excavation',
+    'Foundation : Concrete Forms',
+    'Foundation : Pour Foundation Wall',
+
+    `Foundation : Concrete Slab Pour : Gravel,
+    Water Barrier,
+    Rigid Foam,
+    Rebar (and PEX tubing for radiant floor heating),
+    Pour Concrete for Slab
+     `,
+    `Utilities : Sewer, Electrical, Water, Gas`
+    ];
+
+  tasksData = stuff.map((txt, i)=>{
+    return {
+      deadline: new_date(parseInt(i * 6, 10)).format("YYYY MM DD"),
+      status: "DORMANT",
+      name: "Task " + i,
+      description: txt,
+      evaluation_submissions: [
+        {
+          src:"",
+          status: "DORMANT",
+          type: "video",
+          name: "Test"
+        }
+      ]
+    }
+  })
+
+}
+
 
   let Tasks = tasksData.map((t, i) => {
     return <Update {...t} key={i} />;
@@ -53,7 +116,7 @@ export default () => {
       </div>
     </UpdatesWrapper>
   );
-};
+});
 
 const Update = ({
   deadline,
@@ -93,10 +156,11 @@ const Update = ({
         <p className="desc">{description}</p>
       </div>
 
-      <div className="xs-12" id="eval-subs">
+      {/* <div className="xs-12" id="eval-subs">
         <h5>Evaluation Submissions</h5>
         <div className="xs-12 ">{MediaElements}</div>
       </div>
+       */}
     </UpdatesStyle>
   );
 };

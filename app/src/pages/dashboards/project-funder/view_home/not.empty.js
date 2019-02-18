@@ -154,7 +154,9 @@ if(mode === "dara"){
 
      <section className='xs-12'>
       <label>Projects you funded</label>
-      <Slider 
+      <p>No Projects Found</p> 
+
+      {/* <Slider 
        {...settings}
        containerClass="xs-12"
        className="xs-12 slider">
@@ -173,13 +175,15 @@ if(mode === "dara"){
        
        })}
         
-      </Slider>
+      </Slider> */}
 
      </section>
 
      <section className='xs-12'>
       <label>Projects in your areas of interest</label>
-      <Slider 
+      <p>No Projects Found</p> 
+
+      {/* <Slider 
        {...settings}
        containerClass="xs-12"
        className="xs-12 slider">
@@ -198,7 +202,7 @@ if(mode === "dara"){
        
        })}
         
-      </Slider>
+      </Slider> */}
      </section>
 
      <section className='xs-12'>

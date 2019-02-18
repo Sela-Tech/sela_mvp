@@ -117,7 +117,7 @@ class ViewProject extends React.Component {
 
                   <div className="xs-12 sm-5 t-c">
                     <h4>
-                      {(project.raised / project.goal) * 100}% <span>of</span> $
+                      {((project.raised / project.goal) * 100).toFixed(2)}% <span>of</span> $
                       {project.goal} <span> goal</span>
                     </h4>
                     <Line

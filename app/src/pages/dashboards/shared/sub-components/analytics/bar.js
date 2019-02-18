@@ -17,7 +17,7 @@ export default ({ data }) => {
         width={450}
         height={245}
         data={data}
-        margin={{ top: 35, right: 20, left: -10, bottom: 5 }}
+        margin={{ top: 35, right: 20, left: 10, bottom: 5 }}
       >
         <CartesianGrid strokeDasharray="3 3" />
         <XAxis dataKey="name" />

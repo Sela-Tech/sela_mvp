@@ -50,7 +50,7 @@ const NotEmptyCard = ({ p, history, showMap }) => {
                 trailColor="#F2F2F2"
               />
               <div className="xs-12 dw">
-                <p className="xs-9">{(p.raised / p.goal) * 100}% Funded</p>
+                <p className="xs-9">{((p.raised / p.goal) * 100).toFixed(2)}% Funded</p>
               </div>
             </div>
           </div>

@@ -12,6 +12,7 @@ import io from 'socket.io-client';
 import ends from "./endpoints";
 import notifications_actions from "./store/actions/notifications";
 
+let dispatch_count = 0;
 
 if (retrieveToken()) {
   store.dispatch(verify_user_token());
@@ -30,7 +31,10 @@ if (retrieveToken()) {
       if ( retrieved_token === true && loop_stop === false ){  
         loop_stop = true;
         
-        store.dispatch(get_notifications());
+        if(dispatch_count === 0){
+          store.dispatch(get_notifications());
+          dispatch_count = 1;
+        }
 
         let obj = {
           "userId": store.getState().auth.credentials.id,// the authenticated userId
