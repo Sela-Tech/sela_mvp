@@ -5,10 +5,11 @@ import  connect  from "react-redux/lib/connect/connect";
 
 import modals from "../../../../store/actions/modal";
 import { showModal } from "../../../../store/action-creators/modal";
-import Icon from 'react-fa';
+// import Icon from 'react-fa';
 import MenuNotifier from "../../shared/notify";
 import { withRouter } from "react-router";
 import lar from "../../../../assets/left-arrow.svg";
+import { switch_view } from "../../../../store/action-creators/proposal";
 
 const NavStyle = styled.nav`
   background: white;
@@ -78,10 +79,18 @@ const NavStyle = styled.nav`
     button {
       img{
         position: relative;
-        top: 0px;
+        top: 1px;
         margin-right: 7px;
         height: 12px;
       }
+    }
+  }
+
+  #other-dir{
+    float: right;
+    img{
+      transform: rotateY(180deg);
+      margin-left: 7px;
     }
   }
 `;
@@ -97,6 +106,14 @@ const Navigator = withRouter(({...props})=>{
   </div>
 });
 
+
+const ProposalViewNavigator = ({ switchView, showCommentSection })=>{
+  return <div className='xs-12' id='navigator'>
+     <button id='other-dir' onClick={switchView}>{ showCommentSection ? "Proposal":"Comments"}<img src={lar} alt=""/></button>
+  </div>
+};
+
+
 class ProposalNavbar extends React.Component {
   constructor(props) {
     super(props);
@@ -105,36 +122,30 @@ class ProposalNavbar extends React.Component {
     };
   }
 
-  resizer = () =>  this.setState({
+  resizer = () => this.setState({
       isBigScreen: window.innerWidth > 1023
     });
   
 
-  componentWillMount =() =>  window.addEventListener("resize", this.resizer);
+  componentWillMount = () =>  window.addEventListener("resize", this.resizer);
   
 
-  componentWillUnmount=()=>
-    window.removeEventListener("resize", this.resizer);
+  componentWillUnmount= () => window.removeEventListener("resize", this.resizer);
   
   render() {
    let { isBigScreen } = this.state;
-
+    let {showCommentSection, switchView} = this.props;
     switch (isBigScreen) {
       case false:
       return (
         <NavStyle className="xs-12">
-          <div className='xs-4'>
-            <Navigator/>
-          </div>
-          <div className="xs-8">
-              <div className="xs-12 sm-8">
-                <div className="xs-12" id="well">
-                <div className="xs-2 t-c"><Icon name="search"/></div>
-                  <input name='search' placeholder="Search For Projects" id="search" className="xs-10"/>
-                </div>
-              </div>
-          </div>
-          
+            <div className='xs-4'>
+              <Navigator/>
+            </div>
+
+            <div className='xs-off-4 xs-4'>
+              <ProposalViewNavigator showCommentSection={showCommentSection} switchView={switchView}/>
+            </div>
         </NavStyle>
       );
 
@@ -147,12 +158,8 @@ class ProposalNavbar extends React.Component {
               <Navigator/>
             </div>
 
-             <div className="xs-8 sm-5 md-6">
-                {null}
-            </div> 
-            
-            
-            <div className="xs-12 sm-4">
+              
+            <div className="xs-12 sm-4 sm-off-6">
             <NavLink
                 className="xs-12 sm-6 f-r"
                 to="#"
@@ -173,6 +180,7 @@ class ProposalNavbar extends React.Component {
 const mapStateToProps = state => {
   const { isFunder, isEvaluator, isContractor } = state.auth.credentials;
   return {
+    showCommentSection: state.proposal.view === "comments",
     userType:
       (isFunder === true && "Funder") ||
       (isEvaluator === true && "Evaluator") ||
@@ -182,7 +190,8 @@ const mapStateToProps = state => {
 
 const mapDispatchToProps = dispatch => {
   return {
-    showModal: ()=>dispatch(showModal(modals.add_project))
+    showModal: ()=>dispatch(showModal(modals.add_project)),
+    switchView: ()=>dispatch(switch_view())
   }
 }
 export default connect(mapStateToProps, mapDispatchToProps)(ProposalNavbar);

@@ -33,15 +33,20 @@ export const showImageInModal = image => ({
   image
 })
 
-export const showTaskModal = id => ({
+export const showTaskModal = () => ({
   type: m.SHOW_TASK_MODAL,
-  name: m.view_task,
-  id
+  name: m.view_task
 })
 
 export const showAddTaskModal = id => ({
   type: m.SHOW_ADD_TASK_MODAL,
   name: m.add_task,
+  id
+})
+
+export const showModifyTaskModal = id => ({
+  type: m.SHOW_MODIFY_TASK_MODAL,
+  name: m.modify_task,
   id
 })
 

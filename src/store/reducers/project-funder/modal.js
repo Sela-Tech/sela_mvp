@@ -1,4 +1,5 @@
-import dA from "../../actions/modal";
+
+import modal from "../../actions/modal";
 
 const initstate = {
   modalToShow: "",
@@ -10,14 +11,14 @@ const initstate = {
 
 export default (state = initstate, payload) => {
   switch (payload.type) {
-    case dA.SHOW_MODAL_FORM:
+    case modal.SHOW_MODAL_FORM:
       return {
         ...state,
         modalToShow: payload.name,
         id: payload.id
       };
 
-    case dA.SHOW_DELETE_MODAL_FORM:
+    case modal.SHOW_DELETE_MODAL_FORM:
       return {
         ...state,
         modalToShow: payload.name,
@@ -25,56 +26,62 @@ export default (state = initstate, payload) => {
         activated: payload.activated
       };
 
-    case dA.SHOW_IMAGE_IN_MODAL_FORM:
+    case modal.SHOW_IMAGE_IN_MODAL_FORM:
       return {
         ...state,
         modalToShow: payload.name,
         image_to_show: payload.image
       };
 
-    case dA.SHOW_STAKEHOLDER_MODAL:
+    case modal.SHOW_STAKEHOLDER_MODAL:
       return {
         ...state,
         modalToShow: payload.name,
         stakeholder: payload.id
       };
 
-    case dA.SHOW_ADD_STAKEHOLDER_MODAL:
+    case modal.SHOW_ADD_STAKEHOLDER_MODAL:
       return {
         ...state,
         modalToShow: payload.name,
         projectId: payload.id
       };
 
-    case dA.SHOW_ADD_TASK_MODAL:
+    case modal.SHOW_ADD_TASK_MODAL:
       return {
         ...state,
-        modalToShow: "Add Task",
+        modalToShow: modal.add_task,
         projectId: payload.id
       };
 
-    case dA.SHOW_ADD_DOCUMENT_MODAL:
+      case modal.SHOW_MODIFY_TASK_MODAL:
       return {
         ...state,
-        modalToShow: "Add Document",
+        modalToShow: modal.modify_task
+      };
+
+    case modal.SHOW_ADD_DOCUMENT_MODAL:
+      return {
+        ...state,
+        modalToShow: modal.add_document,
         projectId: payload.id
       };
 
-    case dA.SHOW_TASK_MODAL:
+    case modal.SHOW_TASK_MODAL:
       return {
         ...state,
-        modalToShow: "View Task",
+        modalToShow: modal.view_task,
         taskId: payload.id
       };
 
-    case dA.SHOW_ADD_TRANSACTION_MODAL:
+    case modal.SHOW_ADD_TRANSACTION_MODAL:
       return {
         ...state,
-        modalToShow: "Add Transaction",
+        modalToShow: modal.add_transaction,
         projectId: payload.id
       };
 
-    case dA.CLOSE_MODAL_FORM:
+    case modal.CLOSE_MODAL_FORM:
       return {
         ...state,
         modalToShow: ""

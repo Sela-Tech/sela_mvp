@@ -1,6 +1,8 @@
 import React from "react";
 import AddProjectModal from "./add.project";
 import AddTaskModal from "./add.task";
+import ModifyTaskModal from "./modify.task";
+
 import AddTransactionModal from "./add.transaction";
 
 import ViewTaskModal from "./view.task";
@@ -9,7 +11,6 @@ import DeleteProjectModal from "./delete.project";
 import ViewStakeholderModal from "./view.stakeholder";
 import AddDocumentModal from "./add.document";
 import SetInterestModal from "./set.interests";
-
 import { connect } from "react-redux";
 import { closeModal } from "../../store/action-creators/modal";
 import modals from "../../store/actions/modal";
@@ -25,9 +26,6 @@ const SimiliarModalSelector = ({ name }) => {
   switch (name) {
     case modals.add_document:
       return <AddDocumentModal />;
-
-    case modals.add_task:
-      return <AddTaskModal />;
 
     case modals.add_transaction:
       return <AddTransactionModal />;
@@ -51,12 +49,12 @@ const GenericModalWrapper = ({ specific_type,close, name, stop, has_heading, cla
         onClick={stop ? stop: ()=>{}}>
         <div className='xs-12 top-header'>
           { has_heading &&
-            <div className="xs-11">
+            <div className="xs-10">
               <h1 id="form-heading">{name}</h1>
             </div>
           }
           { show_close_button && 
-            <div className={"xs-1"}>
+            <div className={ has_heading ?`xs-1`:`xs-off-1 xs-off-10`}>
               <SharedCloseButton id="close-button" onClick={close} style={close_button_styling}>
               &times;
               </SharedCloseButton>
@@ -135,16 +133,37 @@ const  ModalWrapper = (props)=>{
             <ViewStakeholderModal/>
           </GenericModalWrapper>
     
-    case modals.set_interests:
+        case modals.set_interests:
+            return <GenericModalWrapper 
+            name={name}  
+            specific_type={'interests'}
+            className={"xs-12 sm-8 sm-off-2 md-6 md-off-3 no-padding"}            
+            close={close} stop={stop} 
+            has_heading={false} show_close_button={true} >
+              <SetInterestModal/>
+            </GenericModalWrapper>
+       
+       case modals.add_task:
         return <GenericModalWrapper 
         name={name}  
         specific_type={'interests'}
         className={"xs-12 sm-8 sm-off-2 md-6 md-off-3 no-padding"}            
         close={close} stop={stop} 
         has_heading={false} show_close_button={true} >
-          <SetInterestModal/>
+        <AddTaskModal/>
         </GenericModalWrapper>
-        
+       
+       case modals.modify_task:
+       return <GenericModalWrapper 
+       name={name}  
+       specific_type={'interests'}
+       className={"xs-12 sm-8 sm-off-2 md-6 md-off-3 no-padding"}            
+       close={close} stop={stop} 
+       has_heading={false} show_close_button={true} >
+       <ModifyTaskModal/>
+       </GenericModalWrapper>
+      
+
         default:
           return <GenericModalWrapper name={name}  
           className={"xs-12 sm-6 sm-off-3 md-4 md-off-4"} 

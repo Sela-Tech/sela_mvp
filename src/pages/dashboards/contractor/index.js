@@ -22,8 +22,6 @@ export default withRouter(props => {
    <Proposal {...props}/>
    </DashboardWrapper>
    
-    
-    
     case "/dashboard/settings":
     return <Settings {...props} />;
 

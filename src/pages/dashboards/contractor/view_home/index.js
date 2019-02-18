@@ -38,6 +38,7 @@ import HomeCard from "../../shared/card.dashboard";
 
     componentWillReceiveProps(nextProps){
       if(this.props !== nextProps){
+        console.log(nextProps)
         const { projects} = nextProps
         this.setState({
           projects
@@ -218,4 +219,4 @@ import HomeCard from "../../shared/card.dashboard";
       projects
     }
   };
-export default connect(mapStateToProps)(withRouter(exportMe));
+export default withRouter(connect(mapStateToProps)(exportMe));

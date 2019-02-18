@@ -172,7 +172,6 @@ export const verify_user_token = () => {
       }
     })
       .then(({ data }) => {
-        console.log(data)
         if (data.token) {
             setToken("ls", data.token);
             setToken("ss", data.token);

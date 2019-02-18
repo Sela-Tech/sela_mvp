@@ -11,12 +11,13 @@ import document from "./project-funder/document";
 import app from "./app";
 import notification_state from "./notifications";
 import contractor from "./contractor/project";
-
+import proposal from "./proposal";
 export default combineReducers({
   auth,
   admin,
   projects,
   modal,
+  proposal,
   tasks,
   transactions,
   home,

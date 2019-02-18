@@ -94,12 +94,13 @@ const mapStateToProps = state => {
   const { type, message } = state.tasks.add.action;
   return {
     message,
-    type
+    type,
+    tasks: state.proposal.tasks
   };
 };
 
 export default connect(mapStateToProps)(
-  class AddPTaskModal extends React.Component {
+  class EditPTaskModal extends React.Component {
     constructor(props) {
       super(props);
       this.state = {
@@ -120,7 +121,8 @@ export default connect(mapStateToProps)(
       if (this.props !== nextProps) {
         this.setState({
           type: nextProps.type,
-          message: nextProps.message
+          message: nextProps.message,
+          tasks: nextProps.tasks
         });
       }
     }
@@ -141,7 +143,7 @@ export default connect(mapStateToProps)(
       return (
         <AddTaskWrapper className="xs-12">
             <div className="xs-12 t-c grayed">
-                <h3>Add Task</h3>
+                <h3>Modify Task</h3>
                 <p>Create tasks that reflect phases of work and allow your team to track progress of your project</p>
             </div>
 

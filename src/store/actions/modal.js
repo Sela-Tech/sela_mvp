@@ -1,6 +1,7 @@
 export default {
     add_task: "Add Task",
     add_project: "Propose A Project",
+    modify_task: 'Modify Task',
     view_task: "View Task",
     view_image: "View Image",
     delete_project: "Delete Project",
@@ -21,6 +22,7 @@ export default {
 
     SHOW_ADD_STAKEHOLDER_MODAL: "SHOW_ADD_STAKEHOLDER_MODAL",
     SHOW_ADD_TASK_MODAL: "SHOW_ADD_TASK_MODAL",
+    SHOW_MODIFY_TASK_MODAL: 'SHOW_MODIFY_TASK_MODAL',
     SHOW_ADD_TRANSACTION_MODAL: "SHOW_ADD_TRANSACTION_MODAL",
     SHOW_ADD_DOCUMENT_MODAL: "SHOW_ADD_DOCUMENT_MODAL",
 

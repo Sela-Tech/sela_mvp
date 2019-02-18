@@ -162,7 +162,7 @@ export default (state = initstate, payload) => {
     if(payload.category === "i"){
       collection = {
         ...collection,
-        areaOfInterest: payload.projects.areaOfInterest
+        areasOfInterest: payload.projects.areasOfInterest
       }
     }
     
