@@ -29,13 +29,11 @@ if (retrieveToken()) {
       let retrieved_token = Boolean(retrieveToken());
     
       if ( retrieved_token === true && loop_stop === false ){  
+        console.log('here')
         loop_stop = true;
         
-        if(dispatch_count === 0){
-          store.dispatch(get_notifications());
-          dispatch_count = 1;
-        }
-
+        store.dispatch(get_notifications());
+         
         let obj = {
           "userId": store.getState().auth.credentials.id,// the authenticated userId
           "socketId": data.user  // the socketId received   
