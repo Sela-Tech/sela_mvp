@@ -1,6 +1,13 @@
 import styled from "styled-components";
 
 export default styled.div`
+
+input,select{
+  &:disabled{
+    background: white !important;
+    cursor: not-allowed;
+  }
+}
   .uploaded-by {
     border-bottom: 1px solid #eee;
 

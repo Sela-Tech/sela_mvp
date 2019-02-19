@@ -22,11 +22,10 @@ const UpdatesWrapper = styled.div`
 
 export default withRouter((props) => {
   const id = props.match.params.id;
-  console.log(id);
   
   let tasksData = [];
 
-if(id === '5c6ac73943a7550022127075'){
+if(id === '5c6ac13643a755002212705f'){
   let startdate = "20.11.2018";
   let new_date =(d) => moment(startdate, "DD-MM-YYYY").add('days', d);
 
@@ -88,8 +87,8 @@ if(id === '5c6ac73943a7550022127075'){
 
 }
 
-if(id === '5c6ac13643a755002212705f'){
-  let startdate = "20.6.2019";
+if(id === '5c6ac73943a7550022127075'){
+  let startdate = "15.12.2018";
   let new_date =(d) => moment(startdate, "DD-MM-YYYY").add('days', d);
 
   let stuff =[
@@ -107,13 +106,17 @@ if(id === '5c6ac13643a755002212705f'){
     `Utilities : Sewer, Electrical, Water, Gas`
     ];
 
+    let days = [
+      0,15,31,53,76,94
+    ];
+
   let i = 0;
-  tasksData = stuff.map((txt)=>{
+  tasksData = stuff.map((txt,y)=>{
     i = i + 1;
     return {
-      deadline: new_date(parseInt(i, 10)).format("YYYY MM DD"),
-      status: "DORMANT",
-      name: "Task " + i,
+      deadline: new_date(days[y]).format("YYYY MM DD"),
+      status: new_date(days[y]).isAfter(moment(new Date())) ? "IN-PROGRESS": "COMPLETED",
+      name: txt,
       description: txt,
       evaluation_submissions: [
         {
@@ -167,9 +170,10 @@ const Update = withRouter(({
     );
   });
 
-  if(id === "5c6ac73943a7550022127075" || id === "5c6ac13643a755002212705f"){
-    status = 'COMPLETED';
-  }
+  // if(id === "5c6ac73943a7550022127075" || id === "5c6ac13643a755002212705f"){
+  //   status = 'COMPLETED';
+  // }
+
   return (
     <UpdatesStyle className="xs-12">
       <div className="bar" />

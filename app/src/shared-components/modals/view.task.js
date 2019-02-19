@@ -6,6 +6,7 @@ import { ViewTaskWrapper } from "./styles.modals/view-task";
 import MediaElement from "./sub-components/media-element";
 import moment from "moment";
 import { fetchTaskInfo } from "../../store/action-creators/project-funder/task";
+import { withRouter } from "react-router";
 
 const mapStateToProps = state => {
   const { info } = state.tasks.single;
@@ -17,7 +18,7 @@ const mapStateToProps = state => {
   };
 };
 
-export default connect(mapStateToProps)(
+export default withRouter(connect(mapStateToProps)(
   class ViewTask extends React.Component {
     constructor(props) {
       super(props);
@@ -30,19 +31,29 @@ export default connect(mapStateToProps)(
     componentWillReceiveProps(nextProps) {
       if (this.props !== nextProps) {
         if (nextProps.info) {
-          if (nextProps.info.status)
-            this.setState({
-              info: nextProps.info,
-              complete: nextProps.info.status === "COMPLETED" ? "active" : "",
-              "in-progress":
-                nextProps.info.status === "ASSIGNED" ||
-                nextProps.info.status === "STARTED"
-                  ? "active"
-                  : "",
-              "not-started":
-                nextProps.info.status === "UNASSIGNED" ? "active" : "",
-              terminated: nextProps.info.status === "TERMINATED" ? "active" : ""
-            });
+
+            if (nextProps.info.status){
+              let obj = {
+                info: nextProps.info,
+                complete: nextProps.info.status === "COMPLETED" ? "active" : "",
+                "in-progress":
+                  nextProps.info.status === "ASSIGNED" ||
+                  nextProps.info.status === "STARTED"
+                    ? "active"
+                    : "",
+                "not-started":
+                  nextProps.info.status === "UNASSIGNED" ? "active" : "",
+                terminated: nextProps.info.status === "TERMINATED" ? "active" : ""
+              }
+
+            if(nextProps.match.params.id === '5c6ac13643a755002212705f' || 
+            nextProps.match.params.id === '5c6ac13643a755002212705f' || 
+            "5c6ac73943a7550022127075"){
+              obj.complete = "active";
+              obj['not-started']= "";
+            }
+            this.setState(obj);
+          }
         }
       }
     }
@@ -71,10 +82,12 @@ export default connect(mapStateToProps)(
           <div className="xs-12 md-6 left">
             <h2> {info.name} </h2>
             <p className="desc">{info.description}</p>
-            <div className="xs-6 sm-4">
+            
+            {/* <div className="xs-6 sm-4">
               <h4>Task Created</h4>
               <p>{moment(info.createdOn).format("MMM D, YYYY")}</p>
-            </div>
+            </div> */}
+
             <div className=" xs-6 sm-4">
               <h4>Deadline</h4>
               <p>{moment(info.dueDate).format("MMM D, YYYY")}</p>
@@ -124,4 +137,4 @@ export default connect(mapStateToProps)(
       );
     }
   }
-);
+));

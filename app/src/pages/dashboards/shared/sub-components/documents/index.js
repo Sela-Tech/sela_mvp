@@ -56,7 +56,7 @@ class Documents extends React.Component {
 
                 <form>
                   <div className="xs-12" id="search">
-                    <input name="search" placeholder="Search Documents" />
+                    <input name="search" placeholder="Search Documents" disabled />
                     <button>
                       <img src={search} alt="" />
                     </button>
@@ -69,7 +69,7 @@ class Documents extends React.Component {
               <div className="xs-12 sm-11">
                 <label>Filter By</label>
 
-                <select className="xs-12">
+                <select className="xs-12" disabled>
                   <option value="">No Filter</option>
                   <option>Funder</option>
                 </select>
@@ -78,14 +78,14 @@ class Documents extends React.Component {
           </div>
         </div>
 
-        <div className="xs-12 uploaded-by">
+        {/* <div className="xs-12 uploaded-by">
           <div className="xs-12 sm-6">
             <button className="active">Uploaded By Contractors</button>
           </div>
           <div className="xs-12 sm-6">
             <button>Uploaded By Evaluators</button>
           </div>
-        </div>
+        </div> */}
 
         <div className="xs-12 container">
           <div className="xs-12 row hide-sm-laptop">
@@ -102,7 +102,9 @@ class Documents extends React.Component {
                 <div className="xs-12 row b" key={i}>
                   <div className="xs-12 sm-4">
                     <div className="xs-12 sm-4">
-                      <img src={d.doc} alt="100" />
+                      <img src={
+                        d.doc.indexOf("pdf") !== -1 && d.doc.indexOf("docx") !== -1
+                      ? d.doc : "https://placehold.it/100"} alt="100" />
                     </div>
                     <div className="xs-12 sm-8">
                       <p>{d.name}</p>
@@ -113,7 +115,7 @@ class Documents extends React.Component {
                   </div>
 
                   <div className="xs-12 sm-3">
-                    <button className="more">Delete</button>
+                    <button className="more" disabled>Delete</button>
                     <a target="_blank" href={d.doc} className="more">
                       View
                     </a>

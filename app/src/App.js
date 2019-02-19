@@ -1,5 +1,5 @@
 import React, { Suspense, lazy } from 'react';
-import { Switch, Route, BrowserRouter as Router } from "react-router-dom";
+import { Switch, Route, BrowserRouter as Router, withRouter } from "react-router-dom";
 import { connect } from "react-redux";
 
 import authActions from "./store/actions/auth";
@@ -33,13 +33,14 @@ const App = ({ isAuthenticated, actionType, modalToShow, isEvaluator }) => {
 
   switch (isEvaluator && isAuthenticated) {
     case true:
-    console.log('here')
-   return <Router>
-      <Switch>
-        <Route component={evaluator_default_page}/>
-      </Switch>
-    </Router>    
-      
+    return <Router>
+       <Suspense fallback={<NotLoggedIn/>}>
+       <Switch>
+         <Route component={withRouter(evaluator_default_page)}/>
+       </Switch>
+       </Suspense>
+     </Router>    
+       
     default:
     return (
       <Router>
