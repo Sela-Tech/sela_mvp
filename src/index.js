@@ -31,7 +31,7 @@ if (retrieveToken()) {
       }
 
       let retrieved_token = Boolean(retrieveToken());
-      if ( retrieved_token === true && loop_stop === false ){  
+      if ( retrieved_token === true && loop_stop === false && store.getState().auth.isAuthenticated === true){  
         loop_stop = true;
         
         store.dispatch(get_notifications());
