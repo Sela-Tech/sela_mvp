@@ -8,6 +8,7 @@ export default styled.div`
   border-radius: 4px;
   position: relative;
 
+
   select {
     height: 40px;
     margin: 7px auto;
@@ -19,6 +20,9 @@ export default styled.div`
     font-size: 14px;
     color: #777;
     font-weight: 300;
+    &:disabled{
+      cursor: not-allowed;
+    }
   }
 
   #search {
@@ -29,7 +33,7 @@ export default styled.div`
     border: 1px solid #e2e5ed;
     box-sizing: border-box;
     border-radius: 4px;
-
+   
     input {
       width: 85%;
       height: 100%;
@@ -38,6 +42,10 @@ export default styled.div`
       font-weight: 300;
       display: block;
       float: left;
+      &:disabled{
+        background:white !important;
+      }
+  
     }
     button {
       height: 100%;

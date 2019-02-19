@@ -30,6 +30,7 @@ export default (state = init, payload) => {
         ]
       };
 
+      
     case app.FINDING_SDGS:
       return {
         ...state,

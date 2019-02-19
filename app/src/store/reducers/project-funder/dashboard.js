@@ -1,4 +1,5 @@
 import dA from "../../actions/project-funder/dashboard";
+import modals from "../../actions/project-funder/modals";
 
 const initstate = {
   modalToShow: "",
@@ -73,6 +74,13 @@ export default (state = initstate, payload) => {
         modalToShow: "Add Transaction",
         projectId: payload.id
       };
+
+      case modals.LAUNCH_SDG:
+      return {
+        ...state,
+        modalToShow: modals.LAUNCH_SDG,
+        sdg: payload.sdg
+      }
 
     case dA.CLOSE_MODAL_FORM:
       return {

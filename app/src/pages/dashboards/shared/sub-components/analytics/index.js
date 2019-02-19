@@ -100,7 +100,7 @@ class Analytics extends React.Component {
         };
     })
 
-    const months = ['Jan','Feb','Mar','Apr',"May",'Jun',"Jul","aug","Sep","Oct",'Nov','Dec']
+    const months = ['Jan','Feb','Mar']
     temp.spentVsRaised = Array.from({ length: 9 }).map((x,i)=>{
       let formatted = parseFloat(temp.paid.replace("$",""))
       return {
@@ -136,23 +136,23 @@ class Analytics extends React.Component {
     }
 
     if(id === "5c6ac13643a755002212705f"){
-      temp.project_completion = 13; 
+      temp.project_completion = +(4/11 * 100).toFixed(2); 
       temp.project_increase_rate = 1.76;
       temp.percentage_task_completed = 75;
-      temp.total_tasks = 5;
-      temp.budget_exhausted = +(100 - (((2000000 - 150000)/2000000) * 100)).toFixed(2);
+      temp.total_tasks = 11;
+      temp.budget_exhausted = +(100 - (((350000 - 150000)/350000) * 100)).toFixed(2);
       temp.budget_exhaustion_rate = 0;
       temp.paid = 150000;
       temp.spending_rate =0;
       temp.spent = 0;
       temp.tasks_completed = 4;
       temp.tasks_completion_rate = 37;
-      temp.spentVsRaised = Array.from({ length: 9 }).map((x,i)=>{
+      temp.spentVsRaised = Array.from({ length: 2 }).map((x,i)=>{
         // let formatted = parseFloat(temp.paid.replace("$",""));
         return {
             name: months[i],
-            spent: i === 1 ? 150000 / 3: i === 2 ? 150000 / 3: i === 3 ? 150000 / 3:  i = 0  ,
-            raised: i === 1 ? 1350000 / 2: i === 2 ? 1350000 /4: i === 3 ? 1350000 /4: i === 4 ? 1350000: i === 5 ? 500000: i === 9 ? 250000: i = 0  ,
+            spent: i === 1 ? 150000:  i = 0,
+            raised: i > 1 ?  0: 350000/2,
           };
       })
 
@@ -274,10 +274,20 @@ class Analytics extends React.Component {
           <div className="xs-12 sm-6 md-3">
             <div className="xs-12 sm-11">
               <div className="xs-12 a-info-card">
-                <div className="xs-12">
-                  <h3>Spending Total</h3>
+                
+              <div className='xs-12'>
+                  <h3>Funding Goal</h3>
+                  <h2>${this.props.goal}</h2>
+
                 </div>
-                <div className="xs-12 space">
+                
+                <div className='xs-12'>
+                  <h3>Funds Raised</h3>
+                  <h2>${this.props.raised}</h2>
+
+                </div>
+                
+                {/* <div className="xs-12 space">
                   <div className="f-l">
                     <h2>{temp.spent}</h2>
                   </div>
@@ -285,11 +295,8 @@ class Analytics extends React.Component {
                     <span>+{temp.spending_rate}%</span>
                   </div>
                 </div>
-                <div className="progress xs-12">
-                  <BarChart width={150} height={40} data={temp.spendData}>
-                    <Bar dataKey="uv" fill="#8884d8" />
-                  </BarChart>
-                </div>
+                 */}
+            
               </div>
             </div>
           </div>
@@ -302,11 +309,11 @@ class Analytics extends React.Component {
                 <div className="xs-12 text-info">
                   <div className="f-l">
                     <h5>Monthly Spend by Category</h5>
-                    <p>SEPTEMBER, 2018</p>
+                    <p>FEB, 2018</p>
                   </div>
-                  <div className="f-r">
-                    <Link to="/transactions"> See All Transactions </Link>
-                  </div>
+                  {/* <div className="f-r">
+                    <Link to={`/dashboard/project/${this.props.id}/transactions`}> See All Transactions </Link>
+                  </div> */}
                 </div>
 
                 <div className="xs-12" id="chart-info">
@@ -360,8 +367,10 @@ class Analytics extends React.Component {
 
 const mapStateToProps = state => {
   return {
-    tasks: state.projects.single.info.tasks
-  };
+    tasks: state.projects.single.info.tasks,
+    goal: state.projects.single.info.goal,
+    raised: state.projects.single.info.raised
+    };
 };
 
 export default withRouter(connect(mapStateToProps)(Analytics));

@@ -27,28 +27,53 @@ export default withRouter((props) => {
   let tasksData = [];
 
 if(id === '5c6ac73943a7550022127075'){
-  let startdate = "20.6.2019";
+  let startdate = "20.11.2018";
   let new_date =(d) => moment(startdate, "DD-MM-YYYY").add('days', d);
 
   let stuff =[
     'Identify the 3 ponds to be treated. Move Biotechnology products to secured location at the site',
-    'Identify VSE team and assignment to pond with laid out instructions for project execution',
-    'Site preparation and Collection of baseline data',
-    'Application of first part of biotechnology',
-    // 'Application of second part of biotechnology Day 3',
-    // 'Collection of 1st samples of water and soil and data after treatment. Send samples to the laboratory',
-    // 'Collection of 2nd samples and data. Send samples to the laboratory',
-    // 'Collection of 3rd samples and data. Send samples to the laboratory',
-    // 'Collection of 4th samples and data. Send samples to the laboratory',
-    // 'Collection of 5th samples and data. Send samples to the laboratory',
-    // 'Collection of laboratory results and report writing'
+    'Identify VSE team and assignment to pond with laid out instructions for project execution.',
+    'Site preparation and Collection of baseline data.',
+    'Application of first part of biotechnology.',
+    'Application of second part of biotechnology Day 3.',
+    'Collection of 1st samples of water and soil and data after treatment. Send samples to the laboratory.',
+    'Collection of 2nd samples and data. Send samples to the laboratory',
+    'Collection of 3rd samples and data. Send samples to the laboratory',
+    'Collection of 4th samples and data. Send samples to the laboratory',
+    'Collection of 5th samples and data. Send samples to the laboratory',
+    'Collection of laboratory results and report writing'
   ];
 
-  tasksData = stuff.map((txt, i)=>{
+
+  let names = [
+    'Identify the 3 ponds to be treated.',
+    'Identify VSE team and assignment',
+    'Site preparation and Collection of baseline data',
+    'Application of first part of biotechnology',
+    'Application of second part of biotechnology',
+    'Collection of 1st samples',
+    'Collection of 2nd samples',
+    'Collection of 3rd samples',
+    'Collection of 4th samples',
+    'Collection of 5th samples',
+    'Collection of laboratory results and report writing'
+  ];
+
+  let days = [
+    0,
+    0,
+    2,
+    2,
+    3,3,10,17, 24,31,45
+  ];
+
+  let i = 0;
+  tasksData = stuff.map((txt, y)=>{
+    i = i + 1;
     return {
-      deadline: new_date(parseInt(i * 3,10)).format("YYYY MM DD"),
+      deadline: new_date(days[y]).format("YYYY MM DD"),
       status: "DORMANT",
-      name: "Task " + i,
+      name: names[y],
       description: txt,
       evaluation_submissions: [
         {
@@ -82,9 +107,11 @@ if(id === '5c6ac13643a755002212705f'){
     `Utilities : Sewer, Electrical, Water, Gas`
     ];
 
-  tasksData = stuff.map((txt, i)=>{
+  let i = 0;
+  tasksData = stuff.map((txt)=>{
+    i = i + 1;
     return {
-      deadline: new_date(parseInt(i * 6, 10)).format("YYYY MM DD"),
+      deadline: new_date(parseInt(i, 10)).format("YYYY MM DD"),
       status: "DORMANT",
       name: "Task " + i,
       description: txt,
@@ -118,13 +145,16 @@ if(id === '5c6ac13643a755002212705f'){
   );
 });
 
-const Update = ({
+const Update = withRouter(({
   deadline,
   status,
   name,
   description,
-  evaluation_submissions
+  evaluation_submissions,match
 }) => {
+
+  let id = match.params.id;
+
   let MediaElements = evaluation_submissions.map((d, i) => {
     return (
       <MediaElement
@@ -137,6 +167,9 @@ const Update = ({
     );
   });
 
+  if(id === "5c6ac73943a7550022127075" || id === "5c6ac13643a755002212705f"){
+    status = 'COMPLETED';
+  }
   return (
     <UpdatesStyle className="xs-12">
       <div className="bar" />
@@ -163,4 +196,4 @@ const Update = ({
        */}
     </UpdatesStyle>
   );
-};
+});

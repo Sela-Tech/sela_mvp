@@ -7,5 +7,7 @@ export default {
   add_stakeholder: "Add Stakeholder",
   add_transaction: "Add Transaction",
   add_document: "Add Document",
-  view_stakeholder: "SELA CITIZEN CARD"
+  view_stakeholder: "SELA CITIZEN CARD",
+  LAUNCH_SDG: "LAUNCH_SDG"
+
 };

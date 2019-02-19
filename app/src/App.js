@@ -33,6 +33,7 @@ const App = ({ isAuthenticated, actionType, modalToShow, isEvaluator }) => {
 
   switch (isEvaluator && isAuthenticated) {
     case true:
+    console.log('here')
    return <Router>
       <Switch>
         <Route component={evaluator_default_page}/>

@@ -20,6 +20,7 @@ import {
   ViewTaskMotherWrapper
 } from "./styles.modals/main";
 import AddStakeholderModal from "./add.stakeholder";
+import ShowSdgModal from "./show.sdg";
 
 const ModalSelector = ({ name }) => {
   switch (name) {
@@ -50,6 +51,9 @@ const ModalSelector = ({ name }) => {
     case modalActions.add_stakeholder:
       return <AddStakeholderModal />;
 
+      case modalActions.LAUNCH_SDG:
+      return <ShowSdgModal />;
+
     default:
       return null;
   }
@@ -72,6 +76,29 @@ class ModalWrapper extends React.Component {
 
     if (name !== "") {
       switch (name) {
+
+        case modals.LAUNCH_SDG:
+          return (
+            <ViewTaskMotherWrapper>
+              <div className="center-wrapper">
+                <div className="center" onClick={this.close}>
+                  <div
+                    id="form-container"
+                    className={"xs-12 sm-10 sm-off-1"}
+                    onClick={this.stop}
+                  >
+                    <div className={"fix"}>
+                      <SharedCloseButton id="close-button" onClick={this.close}>
+                        x
+                      </SharedCloseButton>
+                    </div>
+                    <ModalSelector name={name} />
+                  </div>
+                </div>
+              </div>
+            </ViewTaskMotherWrapper>
+          );
+
         case modals.view_task:
           return (
             <ViewTaskMotherWrapper>

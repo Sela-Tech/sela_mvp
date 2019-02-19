@@ -57,7 +57,7 @@ class Tasks extends React.Component {
 
                 <form>
                   <div className="xs-12" id="search">
-                    <input name="search" placeholder="Search For Tasks" />
+                    <input name="search" placeholder="Search For Tasks" disabled />
                     <button>
                       <img src={search} alt="" />
                     </button>
@@ -70,7 +70,7 @@ class Tasks extends React.Component {
               <div className="xs-12 sm-11">
                 <label>Filter By</label>
 
-                <select className="xs-12">
+                <select className="xs-12" disabled>
                   <option value="">No Filter</option>
                   <option>Funder</option>
                 </select>

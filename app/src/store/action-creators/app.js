@@ -27,5 +27,4 @@ export const fetchSGDs = () => {
   };
 };
 
-
 export const notify = (message,type,obj) => toast[type](message,obj);
