@@ -1,7 +1,7 @@
 import React from "react";
 import moment from "moment";
 import UpdatesStyle from "./updates.style";
-import MediaElement from "../../../../../../shared-components/modals/sub-components/media-element";
+// import MediaElement from "../../../../../../shared-components/modals/sub-components/media-element";
 
 import styled from "styled-components";
 import {withRouter} from "react-router-dom";
@@ -27,7 +27,7 @@ export default withRouter((props) => {
 
 if(id === '5c6ac13643a755002212705f'){
   let startdate = "20.11.2018";
-  let new_date =(d) => moment(startdate, "DD-MM-YYYY").add('days', d);
+  let new_date =(d) => moment(startdate, "DD-MM-YYYY").add(d,'days');
 
   let stuff =[
     'Identify the 3 ponds to be treated. Move Biotechnology products to secured location at the site',
@@ -70,8 +70,8 @@ if(id === '5c6ac13643a755002212705f'){
   tasksData = stuff.map((txt, y)=>{
     i = i + 1;
     return {
-      deadline: new_date(days[y]).format("YYYY MM DD"),
-      status: "DORMANT",
+      deadline: new_date(days[y]).toISOString(),
+      status: y > stuff.length /2 ? "IN-PROGRESS":new_date(days[y]).isAfter(moment(new Date())) ? "IN-PROGRESS": "COMPLETED",
       name: names[y],
       description: txt,
       evaluation_submissions: [
@@ -89,7 +89,7 @@ if(id === '5c6ac13643a755002212705f'){
 
 if(id === '5c6ac73943a7550022127075'){
   let startdate = "15.12.2018";
-  let new_date =(d) => moment(startdate, "DD-MM-YYYY").add('days', d);
+  let new_date =(d) => moment(startdate, "DD-MM-YYYY").add(d,'days');
 
   let stuff =[
     'Break Ground',
@@ -114,7 +114,7 @@ if(id === '5c6ac73943a7550022127075'){
   tasksData = stuff.map((txt,y)=>{
     i = i + 1;
     return {
-      deadline: new_date(days[y]).format("YYYY MM DD"),
+      deadline: new_date(days[y]).toISOString(),
       status: new_date(days[y]).isAfter(moment(new Date())) ? "IN-PROGRESS": "COMPLETED",
       name: txt,
       description: txt,
@@ -156,19 +156,19 @@ const Update = withRouter(({
   evaluation_submissions,match
 }) => {
 
-  let id = match.params.id;
+  // let id = match.params.id;
 
-  let MediaElements = evaluation_submissions.map((d, i) => {
-    return (
-      <MediaElement
-        key={i}
-        src={d.src}
-        status={d.status}
-        type={d.type}
-        name={d.name}
-      />
-    );
-  });
+  // let MediaElements = evaluation_submissions.map((d, i) => {
+  //   return (
+  //     <MediaElement
+  //       key={i}
+  //       src={d.src}
+  //       status={d.status}
+  //       type={d.type}
+  //       name={d.name}
+  //     />
+  //   );
+  // });
 
   // if(id === "5c6ac73943a7550022127075" || id === "5c6ac13643a755002212705f"){
   //   status = 'COMPLETED';

@@ -1,12 +1,12 @@
 import React from "react";
 import AStyle from "./a.styles";
 import moment from "moment";
-import { Link } from "react-router-dom";
+// import { Link } from "react-router-dom";
 import BarChartComp from "./bar";
 import PieChartComp from "./pie";
 
 import { Line } from "rc-progress";
-import { BarChart, Bar } from "recharts";
+// import { BarChart, Bar } from "recharts";
 import { connect } from "react-redux";
 import {withRouter} from 'react-router-dom';
 
@@ -63,7 +63,7 @@ class Analytics extends React.Component {
   handleDateUpdate = e => this.setState({ date: e.target.value });
 
   render() {
-    const { date, pie } = this.state;
+    const {  pie } = this.state;
 
     let temp = {
       project_completion: chance.integer({ min: 0, max: 100 }),
@@ -113,23 +113,23 @@ class Analytics extends React.Component {
     let id = this.props.match.params.id;
 
     if(id === "5c6ac73943a7550022127075"){
-      temp.project_completion = 6; 
-      temp.project_increase_rate = 1.25;
-      temp.percentage_task_completed = 50;
-      temp.total_tasks = 4;
-      temp.budget_exhausted = +(100 - (((750000 - 124760)/750000) * 100)).toFixed(2);
+      temp.project_completion = 33.3; 
+      temp.project_increase_rate = 8.33;
+      temp.percentage_task_completed = 33.3;
+      temp.total_tasks = 6;
+      temp.budget_exhausted = +(100 - (((750000 - (96585 + 124760 ))/750000) * 100)).toFixed(2);
       temp.budget_exhaustion_rate = 0;
       temp.paid = 124760;
-      temp.spending_rate =0;
+      temp.spending_rate = 0;
       temp.spent = 0;
       temp.tasks_completed = 2;
-      temp.tasks_completion_rate = 67;
-      temp.spentVsRaised = Array.from({ length: 9 }).map((x,i)=>{
+      temp.tasks_completion_rate = 8.33;
+      temp.spentVsRaised = Array.from({ length: 2 }).map((x,i)=>{
         // let formatted = parseFloat(temp.paid.replace("$",""));
         return {
             name: months[i],
-            spent: i === 1 ? 124760 / 3: i === 2 ? 124760 / 3: i === 3 ? 124760 / 3: i = 0  ,
-            raised: i === 1 ? 250000: i === 2 ? 300000: i === 3 ? 200000: i = 0  ,
+            spent: i === 0 ? 96585 : i === 1 ? 124760: i = 0  ,
+            raised: i === 0 ? 400000: i === 1 ? 150000: i = 0  ,
           };
       })
 
@@ -165,7 +165,8 @@ class Analytics extends React.Component {
             <div className="f-l c-sm-screen">
               <h3>Project Health Overview</h3>
             </div>
-            <div className="f-r c-sm-screen">
+
+            {/* <div className="f-r c-sm-screen">
               <select
                 className="date"
                 name="date"
@@ -180,7 +181,8 @@ class Analytics extends React.Component {
                 <option value="250">Last 250 days </option>
                 <option value="365">Last 365 days </option>
               </select>
-            </div>
+            </div> */}
+
           </div>
         </div>
 

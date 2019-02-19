@@ -2,6 +2,7 @@ import React from "react";
 import loadable from "loadable-components";
 import Blank from "./blank";
 import { connect } from "react-redux";
+import { withRouter } from "react-router";
 
 const ProjectFunderDashboard = loadable(
   () => import("./project-funder/index.js"),
@@ -44,6 +45,6 @@ const mapStateToProps = state => {
 };
 
 
-export default connect(
+export default withRouter(connect(
   mapStateToProps,
-)(DashboardDecider);
+)(DashboardDecider));

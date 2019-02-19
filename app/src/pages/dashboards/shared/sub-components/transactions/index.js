@@ -1,7 +1,7 @@
 import React from "react";
 import { connect } from "react-redux";
 import TWrap from "./transactions.style";
-import moment from "moment";
+// import moment from "moment";
 import { showAddTransactionModal } from "../../../../../store/action-creators/project-funder/modal";
 import { fetchProject } from "../../../../../store/action-creators/project-funder/project";
 import Chance from "chance";
@@ -51,7 +51,7 @@ class Transactions extends React.Component {
   handleDateUpdate = e => this.setState({ date: e.target.value });
 
   render() {
-    const { date, transactions } = this.state;
+    const { date } = this.state;
   
     return (
       <TWrap className="xs-12">

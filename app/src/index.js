@@ -66,7 +66,7 @@ if (retrieveToken()) {
     let { notifications, unreadNIds }  = data.notifications;
     if( typeof(notifications) === "object"){
       store.dispatch({
-        type: notifications_actions.UPDATE_NOTIFICATIONS_S,
+        type: notifications_actions.UPDATE_NOTIFICATIONS_SUCCESSFUL,
         notifications,
         unreadNIds
       })

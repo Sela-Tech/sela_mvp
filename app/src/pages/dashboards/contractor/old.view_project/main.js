@@ -61,7 +61,7 @@ const ProjectComponent = ({ info, match, dispatch }) => {
                 {info.activated ? "Visible To Public" : "Not Visible To Public"}
               </button>{" "}
               <p>{info.description}</p>
-              <button id="completion-status">{info.status}</button>
+              {/* <button id="completion-status">{info.status}</button> */}
             </div>
           </div>
 

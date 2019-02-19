@@ -47,7 +47,7 @@ const ProjectComponent = ({ info, match }) => {
                 {info.activated ? "Visible To Public" : "Not Visible To Public"}
               </button>
               <p>{info.description}</p>
-              <button>{info.status}</button>
+              {/* <button>{info.status}</button> */}
             </div>
           </div>
 

@@ -1,7 +1,19 @@
 import app from "../actions/app";
 
 const init = {
-  type: ""
+  type: "",
+  sdgs: [
+    "No Poverty", "Zero Hunger",
+    "Health & Well-being", "Quality Education",
+    "Gender Equality", "Water & Sanitation",
+    "Clean Energy", "Economic Growth",
+    "Infrastructure",
+    "Reduced Inequality", "Sustainable Cities",
+    "Climate Action", "Life Below Water",
+    "Life on Land", "Responsible Consumption & Production",
+    "Peace, Justice And Strong Institutions",
+    "Partnership For The Goals"
+  ]
 };
 
 export default (state = init, payload) => {

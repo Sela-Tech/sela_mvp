@@ -149,7 +149,7 @@ class ViewProject extends React.Component {
 
             <div className='xs-12 t-c' id='sdgs'>
               {project.tags && project.tags.map((tag,i)=>{
-                return <img src={mapping[tag]} alt={i} onClick={()=>this.props.displaySDGInfo(tag)} />
+                return <img key={i} src={mapping[tag]} alt={i} onClick={()=>this.props.displaySDGInfo(tag)} />
               })}
           </div>
             </div>
