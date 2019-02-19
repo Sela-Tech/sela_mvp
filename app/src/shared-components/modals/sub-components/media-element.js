@@ -22,7 +22,7 @@ const MediaElemWrapper = styled.div`
   cursor: pointer;
 
   > div {
-    background: #f2f2f2;
+    background: white;
   }
   position: relative;
 
@@ -177,6 +177,21 @@ export default connect(mapStateToProps)(
           );
 
       switch (type) {
+
+        case "image":
+        return (
+          <MediaElemWrapper className="xs-6 sm-3" onClick={() => window.open(src, "_blank")}>
+          <div className="xs-11">
+            <div className="center">
+              <img src={src} alt="name" style={{
+                height: 150,
+                width: 150,
+                objectFit: "contain"
+              }}/>
+            </div>
+          </div>
+        </MediaElemWrapper>
+        )
         case "document":
           return (
             <MediaElemWrapper

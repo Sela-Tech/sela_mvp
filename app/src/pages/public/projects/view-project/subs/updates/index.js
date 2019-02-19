@@ -1,7 +1,7 @@
 import React from "react";
 import moment from "moment";
 import UpdatesStyle from "./updates.style";
-// import MediaElement from "../../../../../../shared-components/modals/sub-components/media-element";
+ import MediaElement from "../../../../../../shared-components/modals/sub-components/media-element";
 
 import styled from "styled-components";
 import {withRouter} from "react-router-dom";
@@ -66,6 +66,36 @@ if(id === '5c6ac13643a755002212705f'){
     3,3,10,17, 24,31,45
   ];
 
+  let evaldata = {
+   task_1: [
+  'https://s3.us-east-2.amazonaws.com/selamvp/task_1_site_identification.jpg',
+  'https://s3.us-east-2.amazonaws.com/selamvp/task_1_site_identification+(1).jpg'],
+  task_2:[
+  'https://s3.us-east-2.amazonaws.com/selamvp/task_2_VSE_team.jpg',
+  'https://s3.us-east-2.amazonaws.com/selamvp/task_2_VSE_team+(1).jpg',
+  'https://s3.us-east-2.amazonaws.com/selamvp/task_2_VSE_team+(2).jpg',
+  ],
+  task_3:[
+  'https://s3.us-east-2.amazonaws.com/selamvp/task_3_site_preparation.png',
+  'https://s3.us-east-2.amazonaws.com/selamvp/task_3_site_preparation+(1).png']
+  ,
+  task_4:['https://s3.us-east-2.amazonaws.com/selamvp/task_4_biotechnology_application.jpg',
+  'https://s3.us-east-2.amazonaws.com/selamvp/task_4_biotechnology_application+(1).jpg']
+  ,
+  task_5 : ['https://s3.us-east-2.amazonaws.com/selamvp/task_5_biotechnology_application.jpg']
+  ,
+  task_6 : [
+  'https://s3.us-east-2.amazonaws.com/selamvp/task_6_collection_samples+(1).png']
+  ,
+  task_7 : [
+  'https://s3.us-east-2.amazonaws.com/selamvp/task_7_collection_samples.png']
+  ,
+  task_11 : [
+  'https://s3.us-east-2.amazonaws.com/selamvp/task_10_report.png',
+  'https://s3.us-east-2.amazonaws.com/selamvp/task_10_report+(3).png'
+  ]
+  }
+
   let i = 0;
   tasksData = stuff.map((txt, y)=>{
     i = i + 1;
@@ -74,14 +104,12 @@ if(id === '5c6ac13643a755002212705f'){
       status: y > stuff.length /2 ? "IN-PROGRESS":new_date(days[y]).isAfter(moment(new Date())) ? "IN-PROGRESS": "COMPLETED",
       name: names[y],
       description: txt,
-      evaluation_submissions: [
-        {
-          src:"",
+      evaluation_submissions: evaldata[`task_${i}`] ?  evaldata[`task_${i}`].map(link=>({
+          src: link,
           status: "DORMANT",
-          type: "video",
-          name: "Test"
-        }
-      ]
+          type: "image",
+          name: link
+        })): []
     }
   })
 
@@ -119,12 +147,7 @@ if(id === '5c6ac73943a7550022127075'){
       name: txt,
       description: txt,
       evaluation_submissions: [
-        {
-          src:"",
-          status: "DORMANT",
-          type: "video",
-          name: "Test"
-        }
+       
       ]
     }
   })
@@ -158,17 +181,17 @@ const Update = withRouter(({
 
   // let id = match.params.id;
 
-  // let MediaElements = evaluation_submissions.map((d, i) => {
-  //   return (
-  //     <MediaElement
-  //       key={i}
-  //       src={d.src}
-  //       status={d.status}
-  //       type={d.type}
-  //       name={d.name}
-  //     />
-  //   );
-  // });
+  let MediaElements = evaluation_submissions.map((d, i) => {
+    return (
+      <MediaElement
+        key={i}
+        src={d.src}
+        status={d.status}
+        type={d.type}
+        name={d.name}
+      />
+    );
+  });
 
   // if(id === "5c6ac73943a7550022127075" || id === "5c6ac13643a755002212705f"){
   //   status = 'COMPLETED';
@@ -192,12 +215,13 @@ const Update = withRouter(({
         <h4 className="name"> {name} </h4>
         <p className="desc">{description}</p>
       </div>
-
-      {/* <div className="xs-12" id="eval-subs">
+    {MediaElements.length > 0 &&
+      <div className="xs-12" id="eval-subs">
         <h5>Evaluation Submissions</h5>
         <div className="xs-12 ">{MediaElements}</div>
       </div>
-       */}
+    }
+      
     </UpdatesStyle>
   );
 });

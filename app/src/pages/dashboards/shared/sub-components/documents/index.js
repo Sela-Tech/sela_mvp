@@ -100,7 +100,7 @@ class Documents extends React.Component {
             documents.map((d, i) => {
               return (
                 <div className="xs-12 row b" key={i}>
-                  <div className="xs-12 sm-4">
+                  <div className="xs-12 sm-7">
                     <div className="xs-12 sm-4">
                       <img src={
                         d.doc.indexOf("pdf") !== -1 && d.doc.indexOf("docx") !== -1
@@ -110,7 +110,7 @@ class Documents extends React.Component {
                       <p>{d.name}</p>
                     </div>
                   </div>
-                  <div className="xs-12 sm-5">
+                  <div className="xs-12 sm-2">
                     <p>{moment(d.createdAt).format("DD MMM YYYY")} </p>
                   </div>
 

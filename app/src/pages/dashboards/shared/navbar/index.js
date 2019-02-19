@@ -111,7 +111,7 @@ class Navbar extends React.Component {
                 <div className="xs-12 sm-8">
                   <div className="xs-12" id="well">
                   <div className="xs-2 t-c"><Icon name="search"/></div>
-                    <input name='search' placeholder="Search For Projects" id="search" className="xs-10"/>
+                    <input style={{textIndent: "1em"}} disabled name='search' placeholder="Search For Projects" id="search" className="xs-10"/>
                   </div>
                 </div>
             </div>
