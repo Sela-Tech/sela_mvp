@@ -1,32 +1,3 @@
-@font-face {
-  font-family: "ProximaNova";
-  src: url("./fonts/ProximaNovaRegular.woff")
-      format("woff");
-  font-weight: 300;
-  font-style: normal;
-}
-@font-face {
-  font-family: "ProximaNova";
-  src: url("./fonts/ProximaNovaBold.woff")
-      format("woff");
-  font-weight: 700;
-  font-style: normal;
-}
-@font-face {
-  font-family: "ProximaNova";
-  src: url("./fonts/ProximaNovaLight.woff")
-      format("woff");
-  font-weight: 100;
-  font-style: normal;
-}
-@font-face {
-  font-family: "ProximaNova";
-  src: url("./fonts/ProximaNovaSemiBold.woff")
-      format("woff");
-  font-weight: 500;
-  font-style: normal;
-}
-
 .center-wrapper {
   height: 100%;
   width: 100%;
@@ -41,7 +12,7 @@
 }
 
 * {
-  font-family: "ProximaNova", "Open Sans", sans-serif;
+  font-family: "Acumin Pro", sans-serif;
   color: #444;
 }
 
@@ -143,7 +114,6 @@ a {
 }
 .init-load h1 {
   font-size: 1em;
-  font-family: sans-serif;
   text-align: center;
   color: #0a2c56;
   font-weight: 500;
