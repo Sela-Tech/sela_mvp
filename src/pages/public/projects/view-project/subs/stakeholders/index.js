@@ -1,13 +1,14 @@
 import React from "react";
 import styled from "styled-components";
-import { showStakeHolderModal } from "../../../../../../store/action-creators/modal";
+import { showModal } from "../../../../../../store/action-creators/modal";
 import  connect from "react-redux/lib/connect/connect";
+import { SHOW_STAKEHOLDER_MODAL } from "../../../../../../store/actions/modal";
 
 const StakeholderWrapper = styled.div`
   section {
     padding-bottom: 2em;
     h4 {
-      font-family: Cabin;
+      font-family: Acumin Pro;
       font-style: normal;
       font-weight: 600;
       line-height: normal;
@@ -28,6 +29,14 @@ export default connect()(({ project, dispatch }) => {
       return s.user.information.isEvaluator === true;
     });
 
+    const displayStakeholder =  id =>{
+      dispatch(
+        showModal(
+          SHOW_STAKEHOLDER_MODAL, { stakeholder: id }
+        )
+      )
+    };
+
   return (
     <StakeholderWrapper className="xs-12">
       <div className="xs-10 xs-off-1">
@@ -38,7 +47,7 @@ export default connect()(({ project, dispatch }) => {
             <h4>INITIATED BY</h4>
             <div
               className="xs-12 sm-4"
-              onClick={() => dispatch(showStakeHolderModal(owner._id))}
+              onClick={()=>displayStakeholder(owner._id)}
             >
               <div className="card xs-12">
                 <div className="xs-3">
@@ -64,7 +73,7 @@ export default connect()(({ project, dispatch }) => {
                   <div
                     className="xs-12 sm-4"
                     key={i}
-                    onClick={() => dispatch(showStakeHolderModal(id))}
+                    onClick={ () => displayStakeholder(id) }
                   >
                     <div className="card xs-12">
                       <div className="xs-3">
@@ -98,7 +107,7 @@ export default connect()(({ project, dispatch }) => {
                   <div
                     className="xs-12 sm-4"
                     key={i}
-                    onClick={() => dispatch(showStakeHolderModal(id))}
+                    onClick={ () => displayStakeholder(id) }
                   >
                     <div className="card xs-12">
                       <div className="xs-3">
@@ -131,7 +140,7 @@ export default connect()(({ project, dispatch }) => {
                   <div
                     className="xs-12 sm-4"
                     key={i}
-                    onClick={() => dispatch(showStakeHolderModal(id))}
+                    onClick={ () => displayStakeholder(id) }
                   >
                     <div className="card xs-12">
                       <div className="xs-3">

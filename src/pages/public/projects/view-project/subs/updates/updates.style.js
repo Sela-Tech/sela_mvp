@@ -27,7 +27,7 @@ export default styled.div`
   }
 
   h4.name {
-    font-family: ProximaNova;
+    font-family: Acumin Pro;
     font-size: 16.5px !important;
     letter-spacing: 0.02em !important;
     font-weight: 400 !important;
@@ -35,7 +35,7 @@ export default styled.div`
   }
 
   p.desc {
-    font-family: ProximaNova;
+    font-family: Acumin Pro;
     line-height: 24px;
     font-size: 16px;
     letter-spacing: 0.02em;

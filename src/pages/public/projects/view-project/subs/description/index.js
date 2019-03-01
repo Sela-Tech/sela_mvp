@@ -34,7 +34,7 @@ const DescriptionWrapper = styled.div`
 
   #initiated-section {
     h4 {
-      font-family: Cabin;
+      font-family: Acumin Pro;
       font-style: normal;
       font-weight: 600;
       line-height: normal;
@@ -64,7 +64,7 @@ const DescriptionWrapper = styled.div`
       a {
         margin: 0;
         margin-bottom: 0.25em;
-        font-family: ProximaNova;
+        font-family: Acumin Pro;
       }
 
       h4 {

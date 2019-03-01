@@ -9,7 +9,7 @@ const UpdatesWrapper = styled.div`
   section {
     padding-bottom: 2em;
     h4 {
-      font-family: Cabin;
+      font-family: Acumin Pro;
       font-style: normal;
       font-weight: 600;
       line-height: normal;
