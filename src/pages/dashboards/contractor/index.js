@@ -2,8 +2,8 @@ import React from "react";
 import withRouter from "react-router-dom/withRouter";
 import Home from "./view_home";
 import Settings from "../shared/whole-views/dashboard-settings";
-import PreviewProject from "./preview_project";
-import Proposal from "./proposal";
+import PreviewProject from "../shared/preview_project";
+import Proposal from "../shared/proposal";
 import Project from "../shared/whole-views/view-my-project";
 
 import Notifications from "../shared/notifications/index.js";
@@ -17,10 +17,15 @@ export default withRouter(props => {
 
   switch (pathname) {
 
-    case "/dashboard/proposal/:project_id/:contractor_id":
+    case "/dashboard/proposal/new/:project_id":
     return <DashboardWrapper viewName={viewname ? viewname: "proposal"}>
-   <Proposal {...props}/>
+   <Proposal {...props} mode='new'/>
    </DashboardWrapper>
+
+    case "/dashboard/proposal/:proposal_id":
+    return <DashboardWrapper viewName={viewname ? viewname: "proposal"}>
+    <Proposal {...props} mode="view-modify"/>
+    </DashboardWrapper>
    
     case "/dashboard/settings":
     return <Settings {...props} />;
