@@ -1,7 +1,7 @@
 import React,{Component,Fragment} from 'react';
-import {connect} from 'react-redux';
+// import {connect} from 'react-redux';
 import WrapStyle from "./main.style";
-// import moment from 'moment';
+import moment from 'moment';
 import mapping from "../../../../mapping";
 import { withRouter, Link } from 'react-router-dom';
 
@@ -25,12 +25,25 @@ class MainViewForPreviewingProject extends Component{
     
     render(){
 
+       
         const { info } = this.state,
         splited_description = info.description.split(".");
-        const { sdgs, hasSubmitted, documents } = info;
+        let { hasSubmitted, documents } = info;
 
+        const image = info.image || info['project-avatar'];
+        const duration = info.expected_duration ||  `${moment(info.startDate).format("DD MMM YY")} -  ${moment(info.endDate).format("DD MMM YY")}`;
 
-        const project_id = this.props.match.params.id, contractor_id = this.props.my_id;
+        const goal = typeof(info.goal) === "string"? info.goal : window.moneyFormat(info.goal, "$")
+        let sdgs = info.sdgs || info.tags;
+        let location = "";
+        const title = info.title || info.name;
+
+        
+        if(info.location){
+            location = typeof(info.location) === "string" ? info.location: info.location.name;
+        }
+
+        const project_id = this.props.match.params.id = this.props.my_id;
         
         const withBreaks = splited_description.map((text,i)=>{
             return <Fragment key={i}>
@@ -49,12 +62,12 @@ class MainViewForPreviewingProject extends Component{
 
         return <WrapStyle className='xs-12'>
             <div className='xs-12'>
-                <img id='header' src={info.image} alt={info.image} />
+                <img id='header' src={image} alt={info.image} />
             </div>
             <div className='xs-12 contain'>
                 <div className='xs-12 md-6 pad'>
                     <div className="xs-12 sm-9 text">
-                        <h2>{info.title}</h2> 
+                        <h2>{title}</h2> 
                     </div>
                     <div className="xs-12 sm-3">
                         <button id='status'> {info.status} </button>                    
@@ -86,25 +99,29 @@ class MainViewForPreviewingProject extends Component{
                 </div>
 
                 <div className='xs-12 md-4 pad' id='initiated'>
-                    <h3>Initiated By</h3>
-                    <div className='xs-12 border-top-bottom'>
-                        <div className='xs-4 sm-3 md-2'>
-                            <img src={ Boolean(info.initiated_by.avatar) ? info.initiated_by.avatar: "https://placehold.it/50"} alt='avatar'/>
+                    {this.props.self !== true && 
+                    <Fragment>
+                        <h3>Initiated By</h3>
+                        <div className='xs-12 border-top-bottom'>
+                            <div className='xs-4 sm-3 md-2'>
+                                <img src={ Boolean(info.initiated_by.avatar) ? info.initiated_by.avatar: "https://placehold.it/50"} alt='avatar'/>
+                            </div>
+                            <div className='xs-8 sm-9 md-10'>
+                                <h5>{info.initiated_by.name}</h5>
+                                <span>{info.initiated_by.user_type}</span>
+                            </div>
                         </div>
-                        <div className='xs-8 sm-9 md-10'>
-                            <h5>{info.initiated_by.name}</h5>
-                            <span>{info.initiated_by.user_type}</span>
-                        </div>
-                    </div>
+                    </Fragment>
+                    }
                     <div className='xs-12 p-text'>
                         <div className='xs-12'>
-                            <span id="location"/><p>{info.location}</p>
+                            <span id="location"/><p>{location}</p>
                         </div>
                         <div className='xs-12'>
-                            <span id="money"/><p>{info.goal}</p>
+                            <span id="money"/><p>{ goal }</p>
                         </div>
                         <div className='xs-12'>
-                            <span id="duration"/><p>{info.expected_duration}</p>
+                            <span id="duration"/><p>{duration}</p>
                         </div>
                     </div>
                     <div className='xs-12'>
@@ -112,26 +129,28 @@ class MainViewForPreviewingProject extends Component{
                     </div>
                 </div>
                 
-                <div className='xs-12 md-2 pad'>
-                { hasSubmitted ?
-                    <Link to={`/dashboard/proposal/${project_id}/${contractor_id}/view`} className='btn-proposal inverse'>View Proposal</Link>
-                : 
-                    <Link to={`/dashboard/proposal/${project_id}/${contractor_id}`} className='btn-proposal'>Submit Proposal</Link>
+                {this.props.self !== true &&    
+                    <div className='xs-12 md-2 pad'>
+                    { hasSubmitted ?
+                        <Link to={`/dashboard/proposal/:proposal_id`} className='btn-proposal inverse'>View Proposal</Link>
+                    : 
+                        <Link to={`/dashboard/proposal/new/${project_id}`} className='btn-proposal'>Submit Proposal</Link>
+                    }
+                    </div>
                 }
-                </div>
             </div>
         </WrapStyle>
     }
 }
 
-const mapStateToProps = state=>{
-    const { preview_info } = state.contractor;
+// const mapStateToProps = state=>{
+//     const { preview_info } = state.contractor;
     
-    let obj = {
-        info: preview_info,
-        my_id: state.auth.credentials.id
-    }
-    return obj;
-}
+//     let obj = {
+//         info: preview_info,
+//         my_id: state.auth.credentials.id
+//     }
+//     return obj;
+// }
 
-export default withRouter(connect(mapStateToProps)(MainViewForPreviewingProject))
+export default withRouter(MainViewForPreviewingProject);

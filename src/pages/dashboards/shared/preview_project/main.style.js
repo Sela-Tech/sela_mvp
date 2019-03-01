@@ -38,14 +38,14 @@ export default styled.div`
         }
         #status{
             line-height: 15px;
-            font-size: 13px;
+            font-size: 10px;
             text-align: center;
             color: #201D41;
             padding: 7px 18px;
             background: rgba(32,29,65,0.05);
             border-radius: 50px;
             border: 0;
-            font-weight: 300;
+            font-weight: 400;
             margin: 10px 0 0;
         }
     }

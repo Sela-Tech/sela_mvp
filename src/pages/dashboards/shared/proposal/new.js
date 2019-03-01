@@ -1,179 +1,17 @@
-import React,{Component, Fragment} from 'react';
+import React,{Component} from 'react';
 import {connect} from 'react-redux';
-import {withRouter, Link} from 'react-router-dom';
-import styled from 'styled-components';
+import {withRouter} from 'react-router-dom';
 import Navbar from './navbar';
 import Comments from './comments';
-import { showAddTaskModal,showModifyTaskModal } from '../../../../store/action-creators/modal';
+import { showModal } from '../../../../store/action-creators/modal';
 import moment from 'moment';
-import calendar from "../../../../assets/icons/calendar-icon.svg";
-import money from '../../../../assets/icons/money-icon.svg';
-import btn from '../../../../assets/icons/button.svg';
-import { create_milestone, set_milestone_name } from '../../../../store/action-creators/proposal';
+import trash from '../../../../assets/icons/delete.svg';
+import { create_milestone, set_milestone_name, delete_milestone, clear, attach_contractor, set_proposal_name } from '../../../../store/action-creators/proposal';
+import { SHOW_ADD_TASK_MODAL, SHOW_EDIT_TASK_MODAL } from '../../../../store/actions/modal';
+import StakeholderLoader from "../../../../shared-components/unique/user-loader";
+import proposal from '../../../../store/actions/proposal';
+import Wrap from "./style";
 
-const Wrap = styled.div`
-    height: 100%;
-    
-    @media(min-width: 1024px){
-        overflow: hidden;
-    }
-
-    #comments{
-        height: 100vh;
-    }
-
-    .proposal-left{
-        padding: 1em;
-        overflow: auto;
-        padding-bottom: 5em;
-        
-        h3{
-            margin-bottom: 5px;
-            font-weight: 400;
-        }
-        h5{
-            margin: 0;
-            font-weight: 300;
-            font-size: 16px;
-            text-align: left;
-            color: #201D41;
-            line-height: 40px;
-        }
-    }
-
-    #new-task{
-        width: 100%;
-        padding: 1.25em;
-        border: 1px dashed #B1BAD2;
-        color: #F2994A;
-        background: transparent;
-        font-size: 14px;
-        border-radius: 5px;
-        margin-top: 1em;
-
-        &:hover{
-            background: white;
-            box-shadow: 0px 0px 3px 0px #eee;
-        }
-    }
-
-    #create-milestone{
-        float: right;
-        border: 0.5px solid #B1BAD2;
-        box-sizing: border-box;
-        border-radius: 5px;
-        height: 40px;
-        background: transparent;
-        font-weight:300;
-        width: 125px;
-        font-size: 13px;
-        text-align: center;
-        
-        &.active{
-            color: white;
-            background:#201D41;
-            border: 0;
-        }
-        &.not-active{
-            color: rgba(105, 111, 116, 0.5);
-            cursor: not-allowed;
-        }
-
-    }
-
-    .single-task{
-        background: white;
-        padding: 1em;
-        margin: 1em 0 0;
-        border-radius: 5px;
-        
-        .menu{
-            background: url(${btn});
-            height: 10px;
-            width: 25px;
-            background-size: contain;
-            background-position: center;
-            background-repeat: no-repeat;
-            border: 0;
-            margin: 1.5em 0;
-            display: inline-block;
-            float: right;
-            &:hover{
-                filter: contrast(0%);
-            }
-        }
-        h3{
-            line-height: 15px;
-            font-size: 14px;
-            color: #3D4851;
-            font-weight: 200;
-            margin: 0;
-            margin-bottom: 5px;
-        }
-        span{
-            display: inline-block;
-            line-height: 15px;
-            font-size: 13px;
-            color: #696F74;
-            font-weight: 300;
-            margin-right: 5px;
-        }
-        .money-icon, .calendar-icon{
-            position: relative;
-            top: 3px;
-        }
-        .money-icon{
-            background: url(${money});
-            height: 14px;
-            width: 14px;
-            background-position: center;
-            background-size: contain;
-        }
-        .calendar-icon{
-            background: url(${calendar});
-            height: 14px;
-            width: 14px;
-            background-position: center;
-            background-size: contain;
-        }
-    }
-
-    .select{
-        border: 2px solid #ccc;
-        border-radius: 2px;
-        height: 18px;
-        width: 18px;
-        margin-top: 8px;
-        padding: 1px;
-        display: block;
-        background: white;
-       &.selected{
-            background: #201D41;
-        }
-    }
-
-    .single-milestone{
-        background: white;
-        margin: 1em 0;
-        padding: 1em;
-        .single-task{
-            background:#FAFAFA;
-        }
-        .milestone-name{
-            border:0;
-            font-weight: 300;
-            border-bottom: 2px solid #201D41;
-            height: 50px;
-            background: transparent;
-            font-size:15px;
-        }
-        .milestone-amount{
-            text-align: right;
-            font-weight: 300;
-            color: #F2994A;
-        }
-    }
-`;
 
 class Proposal extends Component{
     constructor(props){
@@ -194,10 +32,19 @@ class Proposal extends Component{
     
     componentWillMount = () =>  window.addEventListener("resize", this.resizer);
     
-    componentWillUnmount= () => window.removeEventListener("resize", this.resizer);
+    componentWillUnmount= () => {
+        window.removeEventListener("resize", this.resizer);
+        this.props.dispatch(clear())
+    }
     
     componentWillReceiveProps(nextProps){
         if(this.props !== nextProps){
+            
+            if(nextProps.type === proposal.SUBMIT_PROPOSAL_S){
+                // nextProps.history.back();
+                nextProps.history.push(`/dashboard/project/${nextProps.match.params.project_id}/proposals`)
+            }
+
             this.setState({
                 tasks: nextProps.tasks,
                 milestones: nextProps.milestones,
@@ -206,7 +53,14 @@ class Proposal extends Component{
         }
     }
 
-    showTaskModal = ()=> this.props.dispatch(showAddTaskModal())
+    showTaskModal = ()=> this.props.dispatch(showModal(
+        SHOW_ADD_TASK_MODAL
+    ))
+
+    showEditModal = tempId => this.props.dispatch(showModal(
+        SHOW_EDIT_TASK_MODAL,
+        { tempId }
+    ))
 
     selectTask=(name)=>{
         this.setState(p=>{
@@ -217,12 +71,20 @@ class Proposal extends Component{
     }
 
     createMilestone = ()=> {
-        this.props.dispatch(create_milestone([...this.state.selected]))
-        this.setState({ selected: new Set([])})
+        if([...this.state.selected].length > 0){
+            this.props.dispatch(create_milestone([...this.state.selected]))
+            this.setState({ selected: new Set([])})
+        }
+    }
+
+    setProposalName = e => {
+        this.props.dispatch(set_proposal_name(e.target.value))
     }
 
     setMilestoneName = (e, milestoneId)=>{
-        e.persist();
+        e.persist();        
+        clearTimeout(this.delayed);
+
         this.setState(p=>{
             return { 
                 milestone_names:[
@@ -231,27 +93,43 @@ class Proposal extends Component{
                     [milestoneId]: e.target.value
                 }
             ]}
+        },()=>{
+            this.delayed = setTimeout(()=>{
+                this.props.dispatch(set_milestone_name(e.target.value, milestoneId))
+            },850);
         })
     }
 
+    deleteMilestone = (milestoneId) => this.props.dispatch(delete_milestone(milestoneId))
+
+    addStakeholders = values => this.props.dispatch(attach_contractor(values[0]))
+    
     render(){
+        
         const { tasks, milestones,showCommentSection,isBigScreen } = this.state;
         let milestoneBtnActive = false;
 
-        console.log(showCommentSection)
         milestoneBtnActive = Boolean(this.state.selected.size)
         ? true: false;
 
         let showProposalView = showCommentSection === false || isBigScreen;
 
         return <Wrap className='xs-12'>
-        <Navbar/>
+        
+        <Navbar projectId = { this.props.match.params.project_id } mode={"new"}/>
+        
         <div className='xs-12 i-h'>
             
             {  showProposalView &&
             <div className='xs-12 md-7 proposal-left i-h'>
+                
                 <div className='xs-12'>
-                    <h3>Proposal</h3>
+                    <label id='prop-name'>Proposal name</label>
+                    <input id = "proposal-name" name = 'name' className = 'form-control' placeholder = 'Enter proposal name'  onChange={this.setProposalName}/>
+                </div>
+                
+                <div className='xs-12 p-t'>
+                    {/* <h3>Proposal</h3> */}
                     
                     <div className='xs-6 t-l'>
                         <h5>Tasks and milestones</h5>
@@ -279,8 +157,10 @@ class Proposal extends Component{
                         });
 
                         return <div className='xs-12 single-milestone' key={i}>
+
                             <div className='xs-12'>
                                 <div className='xs-6 t-l'>
+                                    <button className='milestone-id'>{i + 1}</button>
                                     <input className='milestone-name xs-12 sm-10' name={`milestone-name-${i}`} value={this.state.milestone_names[milestone.milestoneId]} 
                                     onChange={e=>this.setMilestoneName(e, milestone.milestoneId)}
                                     placeholder="Add milestone title"/> 
@@ -292,7 +172,7 @@ class Proposal extends Component{
 
                             {Boolean(tasks) && tasks_under_milestone.map((task,i)=>{
                                 return <div className='xs-12 single-task' key={i}>
-                                    <div className='xs-9'>
+                                    <div className='xs-10'>
                                         <h3>{task.name}</h3>
                                         
                                         <span className="money-icon"/>
@@ -305,10 +185,17 @@ class Proposal extends Component{
 
                                     </div>
                                     <div className='xs-2'>
-                                        <button className='menu'/>
+                                    <button className='edit' onClick={() => this.showEditModal(task.tempId)}/>
                                     </div>
                                 </div>
                             })}
+                            <div className='xs-12 trash f-r'>
+                                <button onClick={()=>this.deleteMilestone(milestone.milestoneId)}>
+                                    <img src={trash} alt='trash'/>
+                                    <span>Delete Milestone</span>
+                                    <label> You won't lose your tasks </label>
+                                </button>
+                            </div>
                         </div>
                     })}
 
@@ -333,15 +220,24 @@ class Proposal extends Component{
 
                             </div>
                             <div className='xs-2'>
-                                <button className='menu'/>
+                                <button className='edit' onClick={() => this.showEditModal(task.tempId)}/>
                             </div>
                         </div>
                     })}
                 </div>
             </div>
             }
+
             { showCommentSection && 
                 <div className='xs-12 md-5 i-h' id='comments'>
+                    <div className='xs-12 stakeholder-bit'>
+                        <div className='xs-10 xs-off-1'>
+                            <StakeholderLoader addStakeholders= {this.addStakeholders}/>
+                            <span className='line xs-12'/>
+                   
+                        </div>
+                    </div>
+
                     <Comments/>
                 </div>
             }
@@ -352,6 +248,7 @@ class Proposal extends Component{
 
 const mapStateToProps = state => {
     return {
+        source: state.projects.single.info.stakeholders,
         tasks: state.proposal.tasks,
         milestones: state.proposal.milestones,
         type: state.proposal.type,

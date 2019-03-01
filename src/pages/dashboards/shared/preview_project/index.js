@@ -15,7 +15,10 @@ class ViewPreview extends React.Component {
       hide_loading: false,
       error: false
     };
-    props.dispatch(fetchPreviewInfo(props.match.params.id))
+    let {id} = props.match.params;
+    if(id){
+      props.dispatch(fetchPreviewInfo(props.match.params.id))
+    }
   }
 
   componentWillReceiveProps(nextProps){
@@ -35,15 +38,14 @@ class ViewPreview extends React.Component {
 
   render() {
     let { hide_loading,error } = this.state;
-   
-    // error = !iWasAddedOrJoined;
     error = false;
+    let { info, my_id } = this.props;
     switch (hide_loading) {
       case true:
       return (
         <React.Fragment>
             <Navbar/>
-            { error ? <PreviewNotFound/> : <ViewPreviewPage/> } 
+            { error ? <PreviewNotFound/> : <ViewPreviewPage info={info} my_id={my_id}/> } 
         </React.Fragment>
       );
 
@@ -59,18 +61,16 @@ class ViewPreview extends React.Component {
 }
 
 const mapStateToProps = state => {
-
   let obj = {
     type: state.contractor.type,
     info: state.contractor.preview_info
   }
-
+  obj.my_id = state.auth.credentials.id
   if(obj.info.owner){
     obj.iWasAddedOrJoined = obj.info.stakeholders.some(stakeholder=>{
         return stakeholder._id === state.auth.credentials.id
     })
   }
-
   return obj;
 };
 
