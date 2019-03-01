@@ -1,5 +1,17 @@
 let b = "https://sela-develop.herokuapp.com/";
 
+
+const proposals = (type, data)=>{
+  switch (type) {
+    case "fetch_one_proposal":
+    return  b + `proposal/${data.proposal_id}`; 
+    case 'fetch':
+    return b +  `project/${data.project_id}/proposals`;
+    default:
+      return  b + "proposals";
+  }
+}
+
 export default {
   b,
   update_interests: b + "user/area-of-interest",
@@ -37,5 +49,10 @@ export default {
   fetch_users: b + "users",
   fetch_locations: b + "locations",
   add_stakeholder: b + "project/stakeholder",
-  fetch_tasks: b + "projects" //:id/tasks
+  fetch_tasks: b + "projects", //:id/tasks
+  proposals: proposals,
+
+  // fetch_proposals: (project_id) => proposals('fetch', { project_id }),
+  // create_a_proposal: proposals
 };
+

@@ -155,10 +155,18 @@ const App = ({ isAuthenticated, actionType, isEvaluator }) => {
 
                     <PrivateRoute
                       exact
-                      path="/dashboard/proposal/:project_id/:contractor_id"
+                      path="/dashboard/proposal/new/:project_id"
                       isAuthenticated={isAuthenticated}
                       component={dashboard_decider}
                     />
+
+                    <PrivateRoute
+                      exact
+                      path="/dashboard/proposal/:proposal_id"
+                      isAuthenticated={isAuthenticated}
+                      component={dashboard_decider}
+                    />
+                    
                     <Route component={Error404} />
                   </Switch>
                 )}
