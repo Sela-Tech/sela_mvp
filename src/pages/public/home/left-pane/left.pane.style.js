@@ -35,7 +35,7 @@ export default styled.div`
   padding-bottom: 5em;
 
   #projects-h2 {
-    font-family: Cabin;
+    font-family: Acumin Pro;
     font-style: normal;
     font-weight: 600;
     line-height: normal;

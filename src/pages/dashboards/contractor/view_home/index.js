@@ -5,10 +5,11 @@ import withRouter from "react-router-dom/withRouter";
 // import Link from "react-router-dom/Link";
 
 import Slider from "react-slick";
-import { showSetInterestsModal } from "../../../../store/action-creators/modal";
+import { showModal } from "../../../../store/action-creators/modal";
 
 import SharedViewWrapper from "../../shared/styling/projects.view";
 import HomeCard from "../../shared/card.dashboard";
+import { SHOW_INTERESTS_MODAL } from "../../../../store/actions/modal";
 
   let exportMe = null;
 
@@ -46,7 +47,9 @@ import HomeCard from "../../shared/card.dashboard";
       }
     }
     
-    launch_edit_interest_modal = ()=>this.props.dispatch(showSetInterestsModal())
+    launch_edit_interest_modal = ()=>this.props.dispatch(showModal(
+      SHOW_INTERESTS_MODAL
+    ))
     
     resizer = () => {
       let temp;

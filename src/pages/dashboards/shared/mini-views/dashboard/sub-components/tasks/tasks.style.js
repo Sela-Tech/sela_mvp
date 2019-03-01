@@ -65,7 +65,7 @@ export default styled.div`
 
     h3 {
       margin: 10px 0;
-      font-family: ProximaNova;
+      font-family: Acumin Pro;
       line-height: 28px;
       font-weight: 400;
       font-size: 18px;
@@ -79,12 +79,11 @@ export default styled.div`
   }
 
   .container {
-    height: 500px;
     overflow: auto;
     padding: 3%;
     position: relative;
     h4 {
-      font-family: ProximaNova;
+      font-family: Acumin Pro;
       font-style: normal;
       font-weight: 300;
       line-height: 18px;
@@ -137,7 +136,7 @@ export default styled.div`
         margin: 0;
       }
       h3 {
-        font-family: ProximaNova;
+        font-family: Acumin Pro;
         line-height: 22px;
         font-size: 14px;
         color: #3e3f42;
@@ -150,7 +149,7 @@ export default styled.div`
       }
 
       p {
-        font-family: ProximaNova;
+        font-family: Acumin Pro;
         line-height: normal;
         font-size: 12px;
         color: #a5a5a5;

@@ -3,8 +3,8 @@ import connect from "react-redux/lib/connect/connect";
 import DocStyle from "./doc.style";
 import moment from "moment";
 import search from "./search.svg";
-import { showAddDocumentModal } from "../../../../../../../store/action-creators/modal";
-// import { fetchProject } from "../../../../../store/action-creators/project";
+import { showModal } from "../../../../../../../store/action-creators/modal";
+import { SHOW_ADD_DOCUMENT_MODAL } from "../../../../../../../store/actions/modal";
 
 class Documents extends React.Component {
   state = {
@@ -12,7 +12,9 @@ class Documents extends React.Component {
     documents: this.props.documents
   };
 
-  showAddDocument = () => this.props.dispatch(showAddDocumentModal(this.props.projectId));
+  showAddDocument = () => this.props.dispatch(showModal(
+    SHOW_ADD_DOCUMENT_MODAL
+  ));
 
   componentWillReceiveProps(nextProps) {
     if (this.props !== nextProps) {

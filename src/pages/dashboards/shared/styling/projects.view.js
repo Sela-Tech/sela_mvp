@@ -41,7 +41,7 @@ section{
 padding: 3%;
 label{
     font-weight: 300;
-    font-family: ProximaNova;
+    font-family: Acumin Pro;
     line-height: 22px;
     font-size: 15px;
     color: #696F74;
@@ -64,7 +64,7 @@ label{
         position: relative;
 
         p{
-            font-family: ProximaNova;
+            font-family: Acumin Pro;
             line-height: 20px;
             font-weight: 300;
             font-size: 14px;
@@ -92,7 +92,6 @@ label{
     box-sizing: border-box;
     border-radius: 5px;
     height: 224px;
-    font-family: Acumin Pro;
     line-height: 21px;
     font-size: 14px;
     text-align: center; 

@@ -24,7 +24,7 @@ export default styled.div`
   }
 
   * {
-    font-family: cabin !important;
+    font-family: Acumin Pro !important;
   }
   #needs-line-height {
     height: ${height};
@@ -89,7 +89,7 @@ export default styled.div`
       }
 
       h4 {
-        font-family: ProximaNova, sans-serif !important;
+        font-family: Acumin Pro, sans-serif !important;
         line-height: normal;
         font-size: 1.35em;
         font-weight: 300;
@@ -98,7 +98,7 @@ export default styled.div`
       }
 
       h3 {
-        font-family: ProximaNova, sans-serif !important;
+        font-family: Acumin Pro, sans-serif !important;
         line-height: 45px;
         font-size: 1.8em;
         color: #ffffff;
@@ -107,7 +107,7 @@ export default styled.div`
       }
 
       p {
-        font-family: ProximaNova, sans-serif !important;
+        font-family: Acumin Pro, sans-serif !important;
 
         line-height: 28px;
         font-size: 1.2em;

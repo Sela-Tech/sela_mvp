@@ -3,7 +3,7 @@ import styled from "styled-components";
 import NavLink from "react-router-dom/NavLink";
 import  connect  from "react-redux/lib/connect/connect";
 
-import modals from "../../../../store/actions/modal";
+import { SHOW_ADD_PROJECT_MODAL } from "../../../../store/actions/modal";
 import { showModal } from "../../../../store/action-creators/modal";
 import Icon from 'react-fa';
 import MenuNotifier from "../notify";
@@ -70,7 +70,7 @@ const NavStyle = styled.nav`
       margin: 0;
       font-weight: 400;
       line-height: 46px;
-      font-size: 16.5px;
+      font-size: 14.5px;
       color: #201D41;
       background: unset;
     }
@@ -187,7 +187,7 @@ const mapStateToProps = state => {
 
 const mapDispatchToProps = dispatch => {
   return {
-    showModal: ()=>dispatch(showModal(modals.add_project))
+    showModal: () => dispatch( showModal( SHOW_ADD_PROJECT_MODAL ))
   }
 }
 export default connect(mapStateToProps, mapDispatchToProps)(Navbar);

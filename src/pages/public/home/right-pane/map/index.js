@@ -109,15 +109,13 @@ class SimpleMap extends Component {
     return (
       <Wrapper className="xs-12 i-h">
         <React.Fragment>
+
           <Expand onClick={this.props.toggleFullScreen}>
             {this.props.fullscreen ? "Collapse" : "Expand"}
           </Expand>
+
           <GoogleMapReact
-            bootstrapURLKeys={{
-              key: Config.map.googleMapsAPIKey,
-              language: "en",
-              region: "en"
-            }}
+            bootstrapURLKeys={{ key: Config.map.googleMapsAPIKey, language: "en", region: "en" }}
             center={this.props.center}
             defaultZoom={this.props.zoom}
             options={createMapOptions}
@@ -130,6 +128,7 @@ class SimpleMap extends Component {
           <TargetButton onClick={this.getMyLocation}>
             <img src={Target} alt="target" />
           </TargetButton>
+
         </React.Fragment>
       </Wrapper>
     );

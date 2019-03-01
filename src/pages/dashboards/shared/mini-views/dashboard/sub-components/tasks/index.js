@@ -3,10 +3,10 @@ import connect from "react-redux/lib/connect/connect";
 import TaskStyle from "./tasks.style";
 import moment from "moment";
 import {
-  showAddTaskModal,
-  showTaskModal
+  showModal
 } from "../../../../../../../store/action-creators/modal";
 import search from "../documents/search.svg";
+import { SHOW_ADD_TASK_MODAL, SHOW_TASK_MODAL } from "../../../../../../../store/actions/modal";
 
 class Tasks extends React.Component {
   state = {
@@ -14,10 +14,15 @@ class Tasks extends React.Component {
     tasks: this.props.tasks
   };
 
-  showAddTask = () =>
-    this.props.dispatch(showAddTaskModal(this.props.projectId));
+  showAddTask = () => this.props.dispatch(showModal(
+      SHOW_ADD_TASK_MODAL,
+      { projectId: this.props.projectId }
+    ));
 
-  showTask = id => this.props.dispatch(showTaskModal(id));
+  showTask = taskId => this.props.dispatch(showModal(
+    SHOW_TASK_MODAL,
+    { taskId }
+  ));
 
   componentWillReceiveProps(nextProps) {
     if (this.props !== nextProps) {
@@ -77,10 +82,6 @@ class Tasks extends React.Component {
         <div className="xs-12 container">
           <div className="xs-12 row hide-sm-laptop">
            
-            {/* <div className="xs-12 sm-2">
-              <h4> Status</h4>
-            </div> */}
-           
             <div className="xs-12 sm-6">
               <h4> Task Details</h4>
             </div>
@@ -102,10 +103,6 @@ class Tasks extends React.Component {
               return (
                 <div className="xs-12 row b" key={i}>
                  
-                  {/* <div className="xs-12 sm-2">
-                    <button className={t.status}>{t.status}</button>
-                  </div> */}
-
                   <div className="xs-12 sm-6">
                     <h3>{t.name}</h3>
                     <p className='xs-12 sm-11'>{t.description}</p>

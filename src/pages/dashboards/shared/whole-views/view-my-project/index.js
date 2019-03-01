@@ -1,7 +1,6 @@
 import React,{Component} from 'react';
 import {connect} from 'react-redux';
-import InitStage from './init-stage';
-import InProgressStage from './in-progress-stage';
+import PresenterView from './presenter-view';
 import { fetchProject } from '../../../../../store/action-creators/project';
 import { withRouter } from 'react-router-dom';
 import dashboard from "../../../../../store/actions/dashboard";
@@ -9,6 +8,7 @@ import { LoadingRoute } from "../../../../../helpers/routes";
 import Spinner from "../../../../../shared-components/spinners";
 import Navbar from '../../navbar';
 import Error from './error';
+
 class ViewMyProject extends Component{
     constructor(props){
         super(props);
@@ -35,19 +35,18 @@ class ViewMyProject extends Component{
 
         switch (hide_loading) {
           case true:
-          return <React.Fragment>
+          return <div className='xs-12' style={{backgroundColor: "white", height: "100vh", overflow: "hidden" }}>
               <Navbar/>
               {
                 iMadeThisProject ?
-                this.props.showInitView ?
-                <InitStage/>:<InProgressStage/>:<Error/>
+                <PresenterView/>:<Error/>
               }
-          </React.Fragment>
+          </div>
    
           default:
           return <div style={{ width: "100%", height: "100vh" }}>
               <LoadingRoute>
-              <Spinner type="one" />
+                <Spinner type="one" />
               </LoadingRoute>   
           </div>
         }
@@ -58,8 +57,7 @@ const mapStateToProps = state =>{
     const {action, info} = state.projects.single;
     
     let obj = {
-        type: action.type,
-        showInitView: info.status === "PROPOSED" ? true: false,
+        type: action.type
     }
     if(info.owner){
         obj.iMadeThisProject = info.owner._id === state.auth.credentials.id

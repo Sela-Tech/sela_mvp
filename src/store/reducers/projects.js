@@ -35,7 +35,7 @@ const initstate = {
       createdProjects: []
     }
   },
-  funders: {
+  stakeholders: {
     action: {
       type: "",
       message: ""
@@ -270,7 +270,7 @@ export default (state = initstate, payload) => {
     case dA.GET_P_STAKEHOLDERS_R:
       return {
         ...state,
-        funders: {
+        stakeholders: {
           action: {
             type: dA.GET_P_STAKEHOLDERS_R,
             message: ""
@@ -281,7 +281,7 @@ export default (state = initstate, payload) => {
     case dA.GET_P_STAKEHOLDERS_S:
   return {
         ...state,
-        funders: {
+        stakeholders: {
           action: {
             type: dA.GET_P_STAKEHOLDERS_S,
             message: payload.message || "Funders Fetched Successfully"
@@ -304,7 +304,7 @@ export default (state = initstate, payload) => {
     case dA.GET_P_STAKEHOLDERS_F:
       return {
         ...state,
-        funders: {
+        stakeholders: {
           action: {
             type: dA.GET_P_STAKEHOLDERS_F,
             message: payload.message || "Could Not Fetch Possible Funders."

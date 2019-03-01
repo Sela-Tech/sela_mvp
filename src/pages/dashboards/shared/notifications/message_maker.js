@@ -2,8 +2,9 @@ import React from 'react';
 import moment from 'moment';
 import  Link  from 'react-router-dom/Link';
 import connect from 'react-redux/lib/connect/connect';
-import { showStakeHolderModal } from '../../../../store/action-creators/modal';
+import { showModal } from '../../../../store/action-creators/modal';
 import { join_or_reject_project } from '../../../../store/action-creators/contractor/project';
+import { SHOW_STAKEHOLDER_MODAL } from '../../../../store/actions/modal';
 
 const Timediff = (startDate) => {
 
@@ -41,7 +42,9 @@ export default connect()(({data, dispatch})=>{
     }
     let project_name = data.project.name;
     let project_id = data.project.id;
-    let user_link = () => dispatch(showStakeHolderModal(data.stakeholder._id));
+    let user_link = () => dispatch(showModal(
+        SHOW_STAKEHOLDER_MODAL, { stakeholder: data.stakeholder._id }
+    ));
     let notification_id = data._id;
 
     let project_link = `/projects/${data.project.id}/description`;

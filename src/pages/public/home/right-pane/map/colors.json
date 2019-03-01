@@ -1,5 +1,5 @@
 {
-  "DORMANT": "#0073e0",
+  "PROPOSED": "#0073e0",
   "ACCEPTED": "rgba(242, 153, 74, 0.97);",
   "STARTED": "#333333",
   "TERMINATED": "#EB5757",

@@ -2,9 +2,7 @@ import styled from "styled-components";
 
 export default styled.div`
   background: #ffffff;
-  border: 1px solid #eaedf3;
   box-sizing: border-box;
-  box-shadow: 0px 1px 3px rgba(0, 0, 0, 0.04);
   border-radius: 4px;
   position: relative;
   .sp {
@@ -13,7 +11,7 @@ export default styled.div`
 
     h3 {
       margin: 10px 0;
-      font-family: ProximaNova;
+      font-family: Acumin Pro;
       text-transform: capitalize;
       line-height: 28px;
       font-weight: 400;
@@ -28,12 +26,11 @@ export default styled.div`
   }
 
   .container {
-    height: 500px;
     overflow: auto;
     padding: 3%;
     position: relative;
     h4 {
-      font-family: ProximaNova;
+      font-family: Acumin Pro;
       font-style: normal;
       font-weight: 300;
       line-height: 18px;
@@ -80,7 +77,7 @@ export default styled.div`
         margin: 0;
       }
       h3 {
-        font-family: ProximaNova;
+        font-family: Acumin Pro;
         line-height: 22px;
         font-size: 14px;
         color: #3e3f42;
@@ -94,7 +91,7 @@ export default styled.div`
       }
 
       p {
-        font-family: ProximaNova;
+        font-family: Acumin Pro;
         line-height: normal;
         font-size: 12px;
         color: #a5a5a5;
@@ -102,5 +99,12 @@ export default styled.div`
         font-weight: 300;
       }
     }
+  }
+
+  .accepted{
+    color: #369C05 !important;
+  }
+  .pending{
+    color: #FFC000 !important;
   }
 `;

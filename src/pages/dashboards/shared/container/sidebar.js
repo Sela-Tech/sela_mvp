@@ -10,11 +10,11 @@ import logout from "../../../../assets/icons/power.svg";
 import  connect from "react-redux/lib/connect/connect";
 import { showModal } from "../../../../store/action-creators/modal";
 import { signout } from "../../../../store/action-creators/auth";
-import modals from "../../../../store/actions/modal";
 import HamWrapper from "../../../../styles/external/hamburger";
 
 import { WebSidebar, MobileSidebar } from "./sidebar.style";
 import MenuNotifier from "../notify";
+import { SHOW_ADD_PROJECT_MODAL } from "../../../../store/actions/modal";
 
 const Decider = () => {
     return (
@@ -78,7 +78,9 @@ const MobileDashboardSidebar = ({
         <div className='padded xs-12'>
           <button
             id="create"
-            onClick={() => dispatch(showModal(modals.add_project))}
+            onClick={() => dispatch(showModal(
+              SHOW_ADD_PROJECT_MODAL
+            ))}
           >
             + Propose Project
           </button>

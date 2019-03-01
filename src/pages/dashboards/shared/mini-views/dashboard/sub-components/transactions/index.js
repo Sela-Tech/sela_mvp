@@ -2,9 +2,9 @@ import React from "react";
 import connect from "react-redux/lib/connect/connect";
 import TWrap from "./transactions.style";
 import moment from "moment";
-import { showAddTransactionModal } from "../../../../../../../store/action-creators/modal";
-// import { fetchProject } from "../../../../../store/action-creators/project";
+import { showModal } from "../../../../../../../store/action-creators/modal";
 import Chance from "chance";
+import { SHOW_ADD_TRANSACTION_MODAL } from "../../../../../../../store/actions/modal";
 
 let chance = new Chance();
 const types_of_currencies = ["USD", "Ether", "Bitcoin"];
@@ -25,27 +25,10 @@ class Transactions extends React.Component {
         createdOn: chance.date()
       }
     }) 
-      // this.props.homePageDeep === true
-        // ? this.props.transactionsForHomePage
-        // : this.props.transactions
   };
 
-  showAddTransactionModal = () =>
-    this.props.dispatch(showAddTransactionModal(this.props.projectId));
-
-  componentWillReceiveProps(nextProps) {
-    if (this.props !== nextProps) {
-      // if (nextProps.type === "ADD_TRANSACTION_S") {
-      //   this.props.dispatch(fetchProject(this.props.projectId));
-      // }
-      // this.setState({
-        // transactions:
-        //   nextProps.homePageDeep === true
-        //     ? nextProps.transactionsForHomePage
-        //     : nextProps.transactions
-      // });
-    }
-  }
+  showAddTransactionModal = () => this.props.dispatch(
+    showModal( SHOW_ADD_TRANSACTION_MODAL, { projectId: this.props.projectId }));
 
   handleDateUpdate = e => this.setState({ date: e.target.value });
 

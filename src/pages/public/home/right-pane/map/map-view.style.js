@@ -68,7 +68,7 @@ export const Marker = styled.div`
   left: -${props => props.markerWidth / 2.1}px;
   text-align: center;
   line-height: 40px;
-  font-family: ProximaNova;
+  font-family: Acumin Pro;
   font-weight: 300;
   font-size: 17px;
 

@@ -53,7 +53,7 @@ export default styled.div`
         padding: 1.25em;
         margin:0;
         border-bottom: 1px solid #F5F5F8;
-        font-family: ProximaNova;
+        font-family: Acumin Pro;
         font-weight: 400;
         line-height: 22px;
         font-size: 17px;
@@ -82,7 +82,7 @@ export default styled.div`
         }
         
         p,a{
-            font-family: ProximaNova;
+            font-family: Acumin Pro;
             line-height: 20px;
             font-size: 15px;
             color: #201D41;
@@ -98,7 +98,7 @@ export default styled.div`
         }
 
         span{
-            font-family: ProximaNova;
+            font-family: Acumin Pro;
             line-height: 14px;
             font-size: 12px;
             font-weight: 300;

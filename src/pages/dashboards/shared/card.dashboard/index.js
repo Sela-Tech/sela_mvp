@@ -98,7 +98,7 @@ class HomeCard extends React.Component{
             <div className='xs-12 white'>
             <span>{location}</span>
             <h4>{info.name}</h4>
-            <h3> {info.goal}</h3>
+            <h3>{ window.moneyFormat(info.goal, "$") }</h3>
             </div>
         </Link>   
         </HomeCardWrapper> 

@@ -2,7 +2,6 @@ import React from "react";
 import Helmet from "react-helmet";
 import { StyledWrapperElem } from "./wrapper.style";
 import DashboardSidebar from "./sidebar";
-import connect from "react-redux/lib/connect/connect";
 
 const MetaData = ({ viewName, projectName }) => {
   switch (viewName) {
@@ -62,9 +61,4 @@ const Wrapper = ({ viewName, children, projectName }) => {
   );
 };
 
-const mapStateToProps = state => {
-  return {
-    modalToShow: state.modal.modalToShow
-  };
-};
-export default connect(mapStateToProps)(Wrapper);
+export default Wrapper

@@ -28,7 +28,6 @@ class MarkerClass extends React.Component {
 export default projects => {
   return projects.map((project, index) => {
     const width = project.name.length * 12;
-
     return (
       <MarkerClass
         key={index}

@@ -20,7 +20,7 @@ export default styled.div`
     background: #fbfbfb;
 
     h1 {
-      font-family: Cabin;
+      font-family: Acumin Pro;
       font-style: normal;
       font-weight: 500;
       line-height: normal;
@@ -32,7 +32,7 @@ export default styled.div`
       padding: 0;
     }
     p {
-      font-family: ProximaNova;
+      font-family: Acumin Pro;
       line-height: normal;
       font-size: 18px;
       text-align: center;
@@ -53,7 +53,7 @@ export default styled.div`
     }
     .info {
       h3 {
-        font-family: ProximaNova;
+        font-family: Acumin Pro;
         line-height: normal;
         font-size: 22px;
         letter-spacing: 0.02em;
@@ -68,7 +68,7 @@ export default styled.div`
       }
 
       h4 {
-        font-family: ProximaNova;
+        font-family: Acumin Pro;
         line-height: normal;
         font-size: 18px;
         text-align: center;
@@ -88,7 +88,7 @@ export default styled.div`
     border-bottom: 2px solid rgba(135, 149, 161, 0.05);
     padding: 1em 0;
     a {
-      font-family: Cabin;
+      font-family: Acumin Pro;
       font-style: normal;
       font-weight: 300;
       line-height: normal;
@@ -118,7 +118,7 @@ export default styled.div`
   .variable {
     padding: 2em 0;
     h3 {
-      font-family: Cabin;
+      font-family: Acumin Pro;
       font-style: normal;
       font-weight: 600;
       line-height: normal;
@@ -155,7 +155,7 @@ export default styled.div`
       a {
         margin: 0;
         margin-bottom: 0.35em;
-        font-family: ProximaNova;
+        font-family: Acumin Pro;
       }
 
       h4 {

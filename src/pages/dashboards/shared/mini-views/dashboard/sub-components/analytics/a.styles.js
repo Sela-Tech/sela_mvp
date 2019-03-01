@@ -4,7 +4,7 @@ export default styled.div`
   #top {
     h3 {
       margin: 12px 0;
-      font-family: ProximaNova;
+      font-family: Acumin Pro;
       line-height: 20px;
       font-size: 14px;
       color: #000000;
@@ -26,7 +26,7 @@ export default styled.div`
 
     .progress {
       p {
-        font-family: ProximaNova;
+        font-family: Acumin Pro;
         line-height: 18px;
         font-size: 12px;
         color: #9ea0a5;
@@ -45,14 +45,14 @@ export default styled.div`
     }
     h3 {
       font-weight: 100;
-      font-family: ProximaNova;
+      font-family: Acumin Pro;
       line-height: 24px;
       font-size: 14px;
       color: #3e3f42;
     }
 
     h2 {
-      font-family: ProximaNova;
+      font-family: Acumin Pro;
       line-height: 35px;
       font-size: 24px;
       color: #3e3f42;
@@ -61,7 +61,7 @@ export default styled.div`
 
     span {
       font-weight: 300;
-      font-family: ProximaNova;
+      font-family: Acumin Pro;
       line-height: 22px;
       font-size: 13px;
       text-align: right;
@@ -90,7 +90,7 @@ export default styled.div`
         }
         span {
           margin: 0 10px;
-          font-family: ProximaNova;
+          font-family: Acumin Pro;
           line-height: 28px;
           font-size: 13.5px;
           color: #777;
@@ -106,7 +106,7 @@ export default styled.div`
         }
 
         h5 {
-          font-family: ProximaNova;
+          font-family: Acumin Pro;
           line-height: 28px;
           font-size: 16px;
           color: #3e3f42;
@@ -131,7 +131,7 @@ export default styled.div`
 
       .text-info {
         h5 {
-          font-family: ProximaNova;
+          font-family: Acumin Pro;
           line-height: 20px;
           font-size: 14px;
           color: #000000;
@@ -140,7 +140,7 @@ export default styled.div`
         }
 
         p {
-          font-family: ProximaNova;
+          font-family: Acumin Pro;
           line-height: 18px;
           font-size: 12px;
           text-transform: uppercase;
@@ -149,7 +149,7 @@ export default styled.div`
         }
 
         a {
-          font-family: ProximaNova;
+          font-family: Acumin Pro;
           line-height: 22px;
           font-size: 14px;
           text-align: center;
@@ -163,7 +163,7 @@ export default styled.div`
         margin-bottom: 0.3em;
 
         h1 {
-          font-family: ProximaNova;
+          font-family: Acumin Pro;
           line-height: 40px;
           font-size: 30px;
           text-align: left;
@@ -172,7 +172,7 @@ export default styled.div`
         }
 
         p {
-          font-family: ProximaNova;
+          font-family: Acumin Pro;
           line-height: 18px;
           font-size: 12px;
           color: #9ea0a5;
@@ -192,7 +192,7 @@ export default styled.div`
             display: inline-block;
           }
           p {
-            font-family: ProximaNova;
+            font-family: Acumin Pro;
             line-height: 18px;
             font-size: 12px;
             text-transform: uppercase;

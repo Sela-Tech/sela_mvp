@@ -2,10 +2,11 @@ import React from "react";
 import connect  from "react-redux/lib/connect/connect";
 import withRouter from "react-router-dom/withRouter";
 // import Link from "react-router-dom/Link";
-import { showSetInterestsModal } from "../../../../store/action-creators/modal";
+import { showModal } from "../../../../store/action-creators/modal";
 import Slider from "react-slick";
 import SharedViewWrapper from "../../shared/styling/projects.view";
 import HomeCard from "../../shared/card.dashboard";
+import { SHOW_INTERESTS_MODAL } from "../../../../store/actions/modal";
 
 let exportMe = null;
 exportMe = class extends React.Component{
@@ -58,7 +59,9 @@ exportMe = class extends React.Component{
       });
     };
 
-    launch_edit_interest_modal = ()=>this.props.dispatch(showSetInterestsModal())
+    launch_edit_interest_modal = () => this.props.dispatch(showModal(
+      SHOW_INTERESTS_MODAL
+    ));
     
     go = id => this.props.history.push("/dashboard/project/" + id + "/overview");
 

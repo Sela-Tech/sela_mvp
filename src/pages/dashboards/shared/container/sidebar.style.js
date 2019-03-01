@@ -15,7 +15,7 @@ const shared_user_styling=`
 
   h3,
   p {
-    font-family: ProximaNova;
+    font-family: Acumin Pro;
     margin: 1px 0;
     text-transform: Capitalize;
 
@@ -209,7 +209,7 @@ button#top,
           padding: 0 1em 0.35em;
           display: inline-block;
           color: #ffffffd9;
-          font-family: ProximaNova;
+          font-family: Acumin Pro;
         }
       }
     }
@@ -360,7 +360,7 @@ export const MobileSidebar=styled.div` ${
           padding: 0 1em 0.35em;
           display: inline-block;
           color: white;
-          font-family: ProximaNova;
+          font-family: Acumin Pro;
         }
       }
     }
