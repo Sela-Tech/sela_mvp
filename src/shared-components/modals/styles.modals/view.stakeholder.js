@@ -76,7 +76,7 @@ export default styled.div`
     border-radius: 80px;
     background: gold;
     position: relative;
-    top: 50px;
+    top:80px;
   }
 
   .bottom {
@@ -103,7 +103,7 @@ export default styled.div`
     }
 
     h4 {
-      font-family: Cabin;
+      font-family: Acumin Pro;
       font-style: normal;
       font-weight: 300;
       line-height: normal;
@@ -112,7 +112,7 @@ export default styled.div`
       margin-bottom: 5px;
     }
     h5 {
-      font-family: Cabin;
+      font-family: Acumin Pro;
       font-style: normal;
       font-weight: 400;
       line-height: normal;
@@ -120,7 +120,7 @@ export default styled.div`
       color: #3d4851;
     }
     p {
-      font-family: ProximaNova;
+      font-family: Acumin Pro;
       line-height: normal;
       font-size: 14px;
       font-weight: 100;
@@ -171,7 +171,7 @@ export default styled.div`
       p {
         color: white;
         font-weight: 300;
-        font-family: ProximaNova;
+        font-family: Acumin Pro;
         line-height: normal;
         font-size: 14px;
         text-align: left;

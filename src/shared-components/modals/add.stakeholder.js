@@ -1,8 +1,8 @@
 import React from "react";
 import { connect } from "react-redux";
-import ContractorLoader from "./sub-components/user-loader";
+// import ContractorLoader from "./sub-components/user-loader";
 import { Form } from "./styles.modals/add.stakeholder";
-import { addStakeholder } from "../../store/action-creators/project-funder/stakeholder";
+// import { addStakeholder } from "../../store/action-creators/project-funder/stakeholder";
 import dashboard from "../../store/actions/dashboard";
 import AsyncButton from "../unique/async-button";
 
@@ -12,7 +12,7 @@ const mapStateToProps = state => {
     type: state.projects.stakeholder.action.type,
     message: state.projects.stakeholder.action.message,
     stakeholders: state.projects.single.info.stakeholders,
-    selected: state.projects.funders.selected,
+    selected: state.projects.stakeholders.selected,
     in_progress:
       state.projects.stakeholder.action.type ===
       dashboard.ADD_STAKEHOLDER_R
@@ -45,7 +45,7 @@ export default connect(mapStateToProps)(
     handleSubmit = e => {
       e.preventDefault();
       let obj = { id: this.props.projectId, stakeholders: this.state.values };
-      this.props.dispatch(addStakeholder(obj));
+      // this.props.dispatch(addStakeholder(obj));
     };
 
     render() {
@@ -55,7 +55,8 @@ export default connect(mapStateToProps)(
         <Form onSubmit={this.handleSubmit} className="xs-12">
           <React.Fragment>
             <div className="form-control xs-12">
-              <ContractorLoader addStakeholders={this.obtainValues} />
+               <label>Add project stakeholders <em> funders, contractors etc. </em></label>
+              {/* <ContractorLoader addStakeholders={this.obtainValues} /> */}
             </div>
 
             <div className="form-control xs-12">
@@ -68,6 +69,7 @@ export default connect(mapStateToProps)(
                 Add
               </AsyncButton>
             </div>
+
           </React.Fragment>
        
         </Form>

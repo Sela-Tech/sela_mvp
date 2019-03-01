@@ -35,7 +35,7 @@ export default connect(mapStateToProps)(
 
       return (
         <div className="form-control" style={{ overflow: "unset" }}>
-          <label>Associated Tags: Seperate tags with a comma.</label>
+          <label>Add relevant tags</label>
           <Select
             id="select-contractor"
             value={selectedOption}

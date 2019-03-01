@@ -4,91 +4,8 @@ import DatePicker from "react-datepicker";
 import moment from "moment";
 import "react-datepicker/dist/react-datepicker.css";
 import { connect } from "react-redux";
-import styled from 'styled-components';
 import { create_task } from "../../store/action-creators/proposal";
-
-const AddTaskWrapper = styled.div`
-.grayed{
-    background: #F5F5F8;
-    padding: 0 2em;
-}
-.white{
-    background: white;
-    padding: 1em 0;
-
-}
-border-radius: 5px 5px 0px 0px;
-
-h3{
-    margin: 0;
-    padding: 10px;
-    line-height: 29px;
-    font-size: 18px;
-    text-align: center;
-    color: #201D41;
-    font-weight: 400;
-}
-
-p{
-    line-height: 21px;
-    font-size: 15px;
-    text-align: center;
-    color: #222829;
-    font-weight: 300;
-    padding: 0;
-    margin-top: 0;
-
-}
-
-#save{
-    background: #F2994A;
-    border-radius: 5px;
-    padding: 1.15em 2.5em;
-    border: 0;
-    color: white;
-    font-weight: 300;
-    font-size: 13.5px;
-    margin-bottom: 20px;
-}
-
-form{
-  .form-group{
-    padding: 0.5em 0;
-  }
-  label,input {
-    text-align: left;
-    display: block;
-  }
-  label{
-    margin-bottom: 5px;
-    font-size: 14px;
-    color: #3D4851;
-  }
-  input, textarea{
-    background: #FFFFFF;
-    border: 1px solid #DDDDDD;
-    box-sizing: border-box;
-    border-radius: 4px;
-    width: 100%;
-    padding: 1em;
-    font-size: 14px;
-    font-weight: 300;
-    margin-bottom: 7.5px;
-  }
-#slant{
-  font-weight: 300;
-  font-style:italic;
-  font-size: 12px;
-  text-align: left;
-  color: #555;
-}
-}
-
-.react-datepicker-wrapper, .react-datepicker__input-container{
-  width:100%;
-}
-
-`;
+import AddTaskWrapper from "./styles.modals/dash-task";
 
 const mapStateToProps = state => {
   const { type, message } = state.tasks.add.action;
@@ -153,6 +70,11 @@ export default connect(mapStateToProps)(
                         <label>Enter task name</label>
                         <input name='name' id='name' placeholder='Task Name' onChange={this.handleChange} required/>
                       </div>
+
+                      <div className='xs-12 form-group'>
+                        <label>Set the deadline for this task</label>
+                        <DatePicker selected={this.state.deadline} onChange={this.handleDateChange} required/>
+                      </div>
                       
                       <div className='xs-12 form-group'>
                         <label>Add a description of this task</label>
@@ -167,11 +89,6 @@ export default connect(mapStateToProps)(
                         <p id='slant'>Amount can be adjusted later</p>
                       </div>
 
-                      <div className='xs-12 form-group'>
-                        <label>Set the deadline for this task</label>
-                        <DatePicker selected={this.state.deadline} onChange={this.handleDateChange} required/>
-                      </div>
-                      
                       <div className='xs-12'>
                           <button id='save' type='submit'> Add Task To Proposal</button>
                       </div>

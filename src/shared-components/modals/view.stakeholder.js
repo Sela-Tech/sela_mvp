@@ -2,7 +2,6 @@ import React from "react";
 import { connect } from "react-redux";
 import StakeStyle from "./styles.modals/view.stakeholder";
 import whitelogo from "../../assets/icons/sela-circle-white.svg";
-// import larrow from "./assets/left-arrow.svg";
 import cal from "./assets/cal.svg";
 import Swiper from "react-id-swiper";
 import Spinners from "../spinners";
@@ -71,15 +70,8 @@ export default connect(mapStateToProps)(
                 <div className="b-img">
                   <div className="rl">
                     <div className="xs-10 xs-off-1" id="text-info">
-                      {/* <div className="f-l">
-                    <button>
-                      <img src={larrow} alt="" />
-                    </button>
-
-                    <p>SELA CITIZEN CARD</p>
-                  </div>
-                   */}
-                      <div className="f-r">
+                     
+                      {/* <div className="f-r">
                         <img
                           src={whitelogo}
                           alt=""
@@ -88,6 +80,7 @@ export default connect(mapStateToProps)(
                           id="s-logo"
                         />
                       </div>
+                       */}
                     </div>
                     <div className="xs-12 t-c">
                       <img
@@ -103,9 +96,9 @@ export default connect(mapStateToProps)(
               <div className="bottom xs-12">
                 <div className="xs-10 xs-off-1">
                   <div className="xs-12 t-c">
-                    <h4>
-                      {citizenData.userInfo.lastName}{" "}
-                      {citizenData.userInfo.firstName}
+                    <h4 style={{textTransform: "capitalize"}}>
+                    {citizenData.userInfo.firstName}{" "}
+                      {citizenData.userInfo.lastName}
                     </h4>
                     <p>
                       Reputation Score: {citizenData.userInfo.reputationScore}%
@@ -139,7 +132,7 @@ export default connect(mapStateToProps)(
 
                     <div className="xs-12" id="other-projects">
                       <p className="l">
-                        Other Projects With {citizenData.userInfo.firstName}
+                        Projects By {citizenData.userInfo.firstName}
                       </p>
 
                       <div className="xs-12">
@@ -177,23 +170,6 @@ export default connect(mapStateToProps)(
                 <div className="b-img">
                   <div className="rl">
                     <div className="xs-10 xs-off-1" id="text-info">
-                      {/* <div className="f-l">
-                     <button>
-                       <img src={larrow} alt="" />
-                     </button>
-
-                     <p>SELA CITIZEN CARD</p>
-                   </div>
-                    */}
-                      <div className="f-r">
-                        <img
-                          src={whitelogo}
-                          alt=""
-                          height="60"
-                          width="60"
-                          id="s-logo"
-                        />
-                      </div>
                     </div>
                     <div className="xs-12 t-c">
                       <img src={"http://placehold.it/100"} alt="" id="avatar" />
