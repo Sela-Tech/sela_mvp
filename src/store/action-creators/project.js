@@ -3,9 +3,8 @@ import dA from "../actions/dashboard";
 import e from "../../endpoints";
 import { retrieveToken } from "../../helpers/TokenManager";
 import { extractMessage, storeManager } from "../../helpers/utils";
-import modal from "../actions/modal"
 import auth from '../actions/auth';
-import modals from '../actions/modal';
+import * as modals from "../actions/modal";
 
 export const selectFunders = selected => {
   return {
@@ -55,7 +54,7 @@ export const addProject = obj => {
           added_project: data.project
         });
         dispatch({ type: "NEW_TOAST", status: "success", message: "Project Added Successfully"})
-        dispatch({type: modal.CLOSE_MODAL_FORM})
+        dispatch({type: modals.CLOSE_MODAL_FORM})
         dispatch(fetchProjects('c'));
 
       })
@@ -108,7 +107,7 @@ export const deleteProject = (id, type) => {
           info: data
         });
         dispatch({ type: "NEW_TOAST", status: "success", message: "Project Deleted Succesfully"})
-        dispatch({type: modal.CLOSE_MODAL_FORM})
+        dispatch({type: modals.CLOSE_MODAL_FORM})
 
       })
       .catch(res => {
