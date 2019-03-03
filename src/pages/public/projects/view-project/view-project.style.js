@@ -179,4 +179,20 @@ export default styled.div`
       }
     }
   }
+
+  #sdgs{
+    margin: 1em 0;
+    img{
+      height: 100px;
+      width: 100px;
+      object-fit: contain;
+      object-position: center;
+      display: inline-block;
+      cursor: pointer;
+
+      &:hover{
+        filter: contrast(80%);
+      }
+    }
+  }
 `;

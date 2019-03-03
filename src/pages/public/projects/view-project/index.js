@@ -8,22 +8,27 @@ import Line from "rc-progress/lib/Line";
 import Description from "./subs/description";
 import Stakeholders from "./subs/stakeholders";
 import Updates from "./subs/updates";
+import Map from "./subs/map";
+import mapping from "../../../../mapping";
+
 import {
   fetchProject,
   ignoreProjectId
 } from "../../../../store/action-creators/homepage";
-import { closeModal } from "../../../../store/action-creators/modal";
+import { closeModal, showModal } from "../../../../store/action-creators/modal";
 import Transactions from "./subs/transaction";
+import { LAUNCH_SDG } from "../../../../store/actions/modal";
 
 const DetermineWhatToShow = ({ show, id, project }) => {
   switch (show) {
     case "transactions":
       return <Transactions id={id} />;
-
     case "updates":
       return <Updates project={project} />;
     case "stakeholders":
       return <Stakeholders project={project} />;
+    case "map":
+      return <Map id={id} project={project}/>;
     default:
       return <Description id={id} project={project} />;
   }
@@ -33,7 +38,6 @@ class ViewProject extends React.Component {
   constructor(props) {
     super(props);
     props.fetchProject(props.match.params.id);
-    console.log("here")
     this.state = {
       id: props.match.params.id,
       project: {
@@ -130,44 +134,56 @@ class ViewProject extends React.Component {
                   </div>
                   <div className="xs-12 sm-3 r">
                     <h3>
-                      {project.stakeholders.length} <span>stakeholder(s)</span>
+                      {project.stakeholders.length + 1} <span>stakeholder(s)</span>
                     </h3>
                   </div>
                 </div>
               </div>
+
+              <div className='xs-12 t-c' id='sdgs'>
+              {project.tags && project.tags.map((tag,i)=>{
+                return <img key={i} src={mapping[tag]} alt={i} onClick={()=>this.props.displaySDGInfo(tag)} />
+              })}
+          </div>
+          
             </div>
           </div>
 
           <div className="xs-12" id="tabs">
             <div className="xs-10 xs-off-1">
-              <div className="xs-12 sm-7">
-                <div className="xs-12 sm-6 md-3">
+              <div className="xs-12 sm-9">
+                <div className="xs-12 sm-6 md-2">
                   <NavLink
                     to={`/projects/${id}/description`}
                     name="description"
                     onClick={this.select}
                   >
-                    Project description
+                    Description
                   </NavLink>
                 </div>
-                <div className="xs-12 sm-6 md-3">
-                  <NavLink to={`/projects/${id}/stakeholders`}>
-                    Stakeholders
-                  </NavLink>
-                </div>
-                <div className="xs-12 sm-6 md-3">
+                <div className="xs-12 sm-6 md-2">
                   <NavLink to={`/projects/${id}/updates`}>
-                    Project Updates
+                    Updates
                   </NavLink>
                 </div>
-                <div className="xs-12 sm-6 md-3">
+                <div className="xs-12 sm-6 md-2">
                   <NavLink to={`/projects/${id}/transactions`}>
                     Transaction
                   </NavLink>
                 </div>
+                <div className="xs-12 sm-6 md-2">
+                  <NavLink to={`/projects/${id}/stakeholders`}>
+                    Stakeholders
+                  </NavLink>
+                </div>
+                
+                <div className="xs-12 sm-6 md-2">
+                  <NavLink to={`/projects/${id}/map`}>
+                    Map
+                  </NavLink>
+                </div>
               </div>
-
-              <div className="xs-12 sm-5">
+              <div className="xs-12 sm-3">
                 <div className="f-r">
                   <NavLink to="invest" id="invest">
                     Invest
@@ -201,7 +217,8 @@ const mapDispatchToProps = dispatch => {
   return {
     fetchProject: id => dispatch(fetchProject(id)),
     ignoreProjectId: id => dispatch(ignoreProjectId(id)),
-    dismissModal: () => dispatch(closeModal())
+    dismissModal: () => dispatch(closeModal()),
+    displaySDGInfo: sdg => dispatch(showModal( LAUNCH_SDG, { sdg } ))
   };
 };
 
