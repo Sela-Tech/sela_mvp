@@ -7,6 +7,7 @@ import doc from "../../../../assets/icons/preview-doc.svg";
 import pdf from "../../../../assets/icons/preview-pdf.svg";
 import img from "../../../../assets/icons/preview-img.svg";
 import vid from "../../../../assets/icons/preview-video.svg";
+import audio from "../../../../assets/icons/preview-audio.svg";
 
 export default styled.div`
     img#header{
@@ -147,16 +148,19 @@ export default styled.div`
         display: block;
         float:left;
 
-        &.preview-img{
+        &.preview-image{
             background: url(${img});
         }
         &.preview-video{
             background: url(${vid});
         }
+        &.preview-audio{
+            background: url(${audio});
+        }
         &.preview-pdf{
             background: url(${pdf});
         }
-        &.preview-doc{
+        &.preview-document{
             background: url(${doc});
         }
     }
@@ -193,10 +197,14 @@ export default styled.div`
                 padding-top: 15px;
             a{
                 font-size: 10px;
-                font-weight: 100;
+                font-weight: 300;
                 text-align: right;
                 color: #696F74;
                 display: block;
+
+                &:hover{
+                    color: green ;
+                }
             }
         }
     }

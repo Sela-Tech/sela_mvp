@@ -5,15 +5,13 @@ import NavLink from "react-router-dom/NavLink";
 import withRouter from "react-router-dom/withRouter";
 import Stakeholders from "../../../../shared/mini-views/dashboard/sub-components/stakeholders";
 import Proposals from "../../../../shared/mini-views/dashboard/sub-components/proposals";
-import Uploads from "../../../../shared/mini-views/dashboard/sub-components/documents";
+import Uploads from "../../../../shared/mini-views/dashboard/sub-components/uploads";
 // import Overview from "../../../../shared/mini-views/dashboard/sub-components/overview";
 import  connect  from "react-redux/lib/connect/connect";
 import Overview from "../../../../shared/preview_project/main";
 
 import Analytics from "../../../../shared/mini-views/dashboard/sub-components/analytics";
 import Transactions from "../../../../shared/mini-views/dashboard/sub-components/transactions";
-
-
 
 
 import Evidence from "../../../../shared/mini-views/dashboard/sub-components/tasks";

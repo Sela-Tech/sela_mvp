@@ -69,10 +69,7 @@ export default styled.div`
   }
 
   background: #ffffff;
-  border: 1px solid #eaedf3;
   box-sizing: border-box;
-  box-shadow: 0px 1px 3px rgba(0, 0, 0, 0.04);
-  border-radius: 4px;
   position: relative;
 
   .sp {
@@ -212,5 +209,16 @@ export default styled.div`
       display: block;
       float: right;
     }
+  }
+
+  .v-button{
+    background: #03A9F4;
+    border-radius: 4px;
+    color: white !important;
+    font-size: 0.8em !important;
+    text-align: center;
+    padding: 0.25em 0.85em 0;
+    display: inline-block;
+    font-weight: 300;
   }
 `;

@@ -1,10 +1,13 @@
 import React from "react";
 import { connect } from "react-redux";
-// import ContractorLoader from "./sub-components/user-loader";
 import { Form } from "./styles.modals/add.stakeholder";
-// import { addStakeholder } from "../../store/action-creators/project-funder/stakeholder";
 import dashboard from "../../store/actions/dashboard";
 import AsyncButton from "../unique/async-button";
+import styled from 'styled-components';
+
+const AddWrapper = styled.div`
+background: rgba(0,0,0,0.5);
+`;
 
 const mapStateToProps = state => {
   return {
@@ -52,28 +55,32 @@ export default connect(mapStateToProps)(
       const { in_progress } = this.props;
 
       return (
-        <Form onSubmit={this.handleSubmit} className="xs-12">
-          <React.Fragment>
-            <div className="form-control xs-12">
-               <label>Add project stakeholders <em> funders, contractors etc. </em></label>
-              {/* <ContractorLoader addStakeholders={this.obtainValues} /> */}
-            </div>
+        <AddWrapper className='xs-12'>
+        
+        </AddWrapper>
+        // <Form onSubmit={this.handleSubmit} className="xs-12">
+        //   <React.Fragment>
+        //     <div className="form-control xs-12">
+        //        <label>Add project stakeholders <em> funders, contractors etc. </em></label>
+        //       {/* <ContractorLoader addStakeholders={this.obtainValues} /> */}
+        //     </div>
 
-            <div className="form-control xs-12">
-              <AsyncButton
-                attempt={in_progress}
-                type="submit"
-                id="create-project-btn"
-                disabled={in_progress}
-              >
-                Add
-              </AsyncButton>
-            </div>
+        //     <div className="form-control xs-12">
+        //       <AsyncButton
+        //         attempt={in_progress}
+        //         type="submit"
+        //         id="create-project-btn"
+        //         disabled={in_progress}
+        //       >
+        //         Add
+        //       </AsyncButton>
+        //     </div>
 
-          </React.Fragment>
+        //   </React.Fragment>
        
-        </Form>
-      );
+        // </Form>
+     
+     );
     }
   }
 );

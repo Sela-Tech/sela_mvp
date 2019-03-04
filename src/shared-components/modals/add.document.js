@@ -2,7 +2,7 @@ import React from "react";
 import { connect } from "react-redux";
 import AsyncButton from "../unique/async-button";
 import dA from "../../store/actions/dashboard";
-import { Form } from "./styles.modals/add";
+import FormWrapper from "./styles.modals/new.standard";
 
 import ReactS3Uploader from "react-s3-uploader";
 import endpoints from "../../endpoints";
@@ -58,9 +58,12 @@ export default connect(mapStateToProps)(
           doc: "https://s3.us-east-2.amazonaws.com/selamvp/" + upload.filename
         },
         () => {
-          let form = this.state;
+          let form = {};
+          form.name = this.state.name;
+          form.doc = this.state.doc;
           form.projectId = this.props.projectId;
-          form.filetype = this.state.filetype.join("/");
+          form.filetype = `${this.state.filetype.join("/")}`;
+          form.filesize = this.state.filesize;
 
           this.props.dispatch(addDoc(form));
         }
@@ -75,9 +78,9 @@ export default connect(mapStateToProps)(
 
     handleImageChange = (file, next) => {
       this.setState({
-        message: file.size > 1000000 ? "File too big" : "",
         filetype: file.type.split("/"),
         type: file.size > 1000000 ? "FAILED" : "",
+        filesize: file.size,
         doc: {
           preview: URL.createObjectURL(file),
           file
@@ -97,26 +100,34 @@ export default connect(mapStateToProps)(
     }
 
     render() {
-      let {  name } = this.state;
+      let { name } = this.state;
 
       let isDocumentPresent = Boolean(this.state.doc.preview);
 
       return (
-        <Form onSubmit={this.handleSubmit} className="xs-12">
-          <div className="form-control">
-            <label>Document Name</label>
+        <FormWrapper className='xs-12'>
+        <div className="xs-12 t-c grayed">
+          <h3>New Upload</h3>
+        </div>
+
+        <div className='xs-12 white'>
+          <div className='xs-10 xs-off-1'>
+
+        <form onSubmit={this.handleSubmit} className="xs-12">
+          <div className="form-group">
+            <label>Upload Name</label>
             <input
               type="text"
               name="name"
-              placeholder="Document Name"
+              placeholder="Name"
               value={name}
               onChange={this.handleChange}
               required
             />
           </div>
 
-          <div className="form-control">
-            <label> Document Preview</label>
+          <div className="form-group">
+            <label> Upload Preview</label>
             <label htmlFor="doc" id="label-image">
               {this.state.filetype[0] === "image" ? (
                 <React.Fragment>
@@ -161,34 +172,29 @@ export default connect(mapStateToProps)(
             </label>
           </div>
 
-          <div className="form-control xs-12">
+          <div className="form-group xs-12">
             {isDocumentPresent ? (
               <AsyncButton
                 attempt={this.state.add_doc_in_progress}
                 type="submit"
-                id="create-project-btn"
+                id="save"
               >
                 Upload
               </AsyncButton>
             ) : (
-              <button disabled={true} type="button" id="create-project-btn">
+              <button disabled={true} type="button" id="save">
                 Upload
               </button>
             )}
 
-            {Boolean(this.state.uploading) && (
-              <label
-                style={{
-                  display: "block",
-                  marginTop: "5px"
-                }}
-              >
-                Uploading Document: {this.state.uploading}%
-              </label>
-            )}
           </div>
        
-        </Form>
+        </form>
+        </div>
+          </div>
+
+        </FormWrapper>
+      
       );
     }
   }

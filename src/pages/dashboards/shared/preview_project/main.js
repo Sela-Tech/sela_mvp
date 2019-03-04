@@ -25,7 +25,6 @@ class MainViewForPreviewingProject extends Component{
     
     render(){
 
-       
         const { info } = this.state,
         splited_description = info.description.split(".");
         let { hasSubmitted, documents } = info;
@@ -81,14 +80,18 @@ class MainViewForPreviewingProject extends Component{
                         <div className='xs-12 sm-10 document'>
                             {
                                 documents.map((doc,i)=>{
+                                let type = doc.filetype.split("/")[0];
+                                if(type !== 'image' && type !== 'video' && type !== 'audio'){
+                                    type = 'document';
+                                }
                                 return <div className='xs-12 inner' key={i}>
-                                    <div className={`img preview-${doc.type} xs-3 sm-2`}/>
+                                    <div className={`img preview-${type} xs-3 sm-2`}/>
                                     <div className='text xs-6 sm-7'>
                                     <h4>{doc.name}</h4>
                                         <p>{doc.size}</p>
                                     </div>
                                     <div className='download xs-2 sm-2'>
-                                        <a href={doc.url} rel='noopenner noreferrer' target="_blank"> Download</a>
+                                        <a href={doc.doc} rel='noopenner noreferrer' target="_blank"> Download</a>
                                     </div>
                                 </div>
                                 })
@@ -142,15 +145,5 @@ class MainViewForPreviewingProject extends Component{
         </WrapStyle>
     }
 }
-
-// const mapStateToProps = state=>{
-//     const { preview_info } = state.contractor;
-    
-//     let obj = {
-//         info: preview_info,
-//         my_id: state.auth.credentials.id
-//     }
-//     return obj;
-// }
 
 export default withRouter(MainViewForPreviewingProject);

@@ -1,18 +1,35 @@
 import React from 'react';
 import styled from 'styled-components';
 import {connect} from 'react-redux';
+import { SharedCloseButton } from "./styles.modals/main";
 
 const Wrp = styled.div`
-    text-align: left;
-    padding: 2em;
-    h2{
-        font-size: 1.5em;
-        text-transform: capitalize;
-    }
+    background: rgba(0,0,0,0.5);
+    position: fixed;
+    top: 0;
+    left: 0;
+    right: 0;
+    bottom: 0;
+    z-index: 10;
+    .container{
+        background: white;
+        overflow: auto;
+        height: 91.67vh;
+        margin-top: 4.165vh;
+        width: 91.67vw;
+        margin-left: 4.165vw;
+        text-align: left;
+        padding: 2em;
+        border-radius: 5px;
+        h2{
+            font-size: 1.5em;
+            text-transform: capitalize;
+        }
 
-    li{
-        padding: 1em 0;
-        font-weight: 300;
+        li{
+            padding: 1em 0;
+            font-weight: 300;
+        }
     }
 `;
 
@@ -396,18 +413,26 @@ class SdgViewer extends React.Component{
     render(){
         const sdg = info[this.props.sdg];
         
-        console.log(Object.keys(info), this.props.sdg)
-
         if(sdg){
         let layers = sdg.split("..");
+        const {stop, close} = this.props;
 
-        return <Wrp className='xs-12'>
-            <h2>{this.props.sdg}</h2>
-            <ul>
-            {layers.filter(p=>(p.trim() !== "")).map((paragraph,i)=>{
-                return <li key={i}>{paragraph}.</li>
-            })}
-            </ul>
+        return <Wrp className='xs-12' onClick={close}>
+            <div className='xs-10 xs-off-1 container'  onClick={ stop ? stop : ()=>{}}>
+                <div className={ `xs-off-1 xs-off-10`}>
+                <SharedCloseButton id="close-button" onClick={close}>
+                &times;
+                </SharedCloseButton>
+                </div>
+                <div className='xs-12'> 
+                <h2>{this.props.sdg}</h2>
+                <ul>
+                {layers.filter(p=>(p.trim() !== "")).map((paragraph,i)=>{
+                    return <li key={i}>{paragraph}.</li>
+                })}
+                </ul>
+                </div>
+            </div>
         </Wrp>
         }
         return null;
@@ -416,7 +441,7 @@ class SdgViewer extends React.Component{
 
 const mapStateToProps = state =>{
     return {
-        sdg: state.dashboard.sdg
+        sdg: state.modal.sdg
     }
 }
 

@@ -61,8 +61,6 @@ class Proposals extends React.Component{
     render(){
         const { proposals } = this.state,
         { id } = this.props;
-
-        console.log(proposals)
         return <Wrap className='xs-12'>
             <TableWrap className='xs-12'>
                 <div className='top xs-12'>
