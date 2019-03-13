@@ -3,6 +3,9 @@
   "version": "0.1.0",
   "private": true,
   "dependencies": {
+    "@nivo/bar": "^0.52.1",
+    "@nivo/line": "^0.52.1",
+    "@nivo/pie": "^0.52.1",
     "axios": "^0.18.0",
     "chance": "^1.0.18",
     "global": "^4.3.2",
@@ -38,10 +41,9 @@
   "scripts": {
     "analyze": "yarn build && source-map-explorer build/static/js/main.*",
     "pretty-up": "npx onchange '**/*.js' -- npx prettier --write {{changed}}",
-    "build": "react-scripts build", 
+    "build": "react-scripts build",
     "now-build": "react-scripts build && mv build dist",
-
-    "deploy":"now && now alias sela-test",
+    "deploy": "now && now alias sela-test",
     "start": "PORT=3065 react-scripts start",
     "test": "react-scripts test --env=jsdom",
     "eject": "react-scripts eject"
