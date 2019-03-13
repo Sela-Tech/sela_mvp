@@ -77,6 +77,7 @@ export default (state = init, payload)=>{
         case proposal_actions.CLEAR_PROPOSAL:
             return {
                 ...state,
+                type: "",
                 tasks: [],
                 milestones: [],
                 comments: [],

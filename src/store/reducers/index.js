@@ -12,7 +12,10 @@ import app from "./app";
 import notification_state from "./notifications";
 import contractor from "./contractor/project";
 import proposal from "./proposal";
+import evidence from './evidence';
+
 export default combineReducers({
+  evidence,
   auth,
   admin,
   projects,

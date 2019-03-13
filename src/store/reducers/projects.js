@@ -274,7 +274,8 @@ export default (state = initstate, payload) => {
           action: {
             type: dA.GET_P_STAKEHOLDERS_R,
             message: ""
-          }
+          },
+          options: []
         }
       };
 
