@@ -1,43 +1,108 @@
 import React from "react";
 import connect from "react-redux/lib/connect/connect";
 import TWrap from "./transactions.style";
-import moment from "moment";
+// import moment from "moment";
 import { showModal } from "../../../../../../../store/action-creators/modal";
-import Chance from "chance";
+// import Chance from "chance";
 import { SHOW_ADD_TRANSACTION_MODAL } from "../../../../../../../store/actions/modal";
+import TableWrap from "../../../../styling/table";
+import { Link } from "react-router-dom";
 
-let chance = new Chance();
-const types_of_currencies = ["USD", "Ether", "Bitcoin"];
-const type_of_proofs = [];
 
-type_of_proofs.USD='https://cdn.vertex42.com/ExcelTemplates/Images/simple-receipt-template.png';
-type_of_proofs.Ether=`https://etherscan.io/tx/0xfab0705d0e141e82cd3dc9bdf8f505cd5de6f2d13cf5c821c85aae10c209f6e1`;
-type_of_proofs.Bitcoin = 'https://www.blockchain.com/btc/tx/5136bf70efa3e63ebc97481f3e01a4030ccc99a4110d30e99ca3da26b92e3e2b';
+// let chance = new Chance();
+// const types_of_currencies = ["USD", "Ether", "Bitcoin"];
+// const type_of_proofs = [];
+
+// type_of_proofs.USD='https://cdn.vertex42.com/ExcelTemplates/Images/simple-receipt-template.png';
+// type_of_proofs.Ether=`https://etherscan.io/tx/0xfab0705d0e141e82cd3dc9bdf8f505cd5de6f2d13cf5c821c85aae10c209f6e1`;
+// type_of_proofs.Bitcoin = 'https://www.blockchain.com/btc/tx/5136bf70efa3e63ebc97481f3e01a4030ccc99a4110d30e99ca3da26b92e3e2b';
 
 class Transactions extends React.Component {
   state = {
     date: "",
-    transactions: Array.from({length: chance.integer({min: 10, max: 200 })}).map(i=>{
-      return  {
-        receiver: chance.name(),
-        value: chance.integer({min: 5000, max: 90000}),
-        currency: types_of_currencies[chance.integer({ min: 0, max: 2 })],
-        createdOn: chance.date()
-      }
-    }) 
+    transactions:[]
+    //  Array.from({length: chance.integer({min: 10, max: 200 })}).map(i=>{
+    //   return  {
+    //     receiver: chance.name(),
+    //     value: chance.integer({min: 5000, max: 90000}),
+    //     currency: types_of_currencies[chance.integer({ min: 0, max: 2 })],
+    //     createdOn: chance.date()
+    //   }
+    // }) 
   };
 
   showAddTransactionModal = () => this.props.dispatch(
     showModal( SHOW_ADD_TRANSACTION_MODAL, { projectId: this.props.projectId }));
 
-  handleDateUpdate = e => this.setState({ date: e.target.value });
+  // handleDateUpdate = e => this.setState({ date: e.target.value });
 
   render() {
-    const { date, transactions } = this.state;
+    const { transactions } = this.state;
   
     return (
       <TWrap className="xs-12">
-        <div className="xs-12 sp">
+        <TableWrap className='xs-12'>
+          <div className='top xs-12'>  
+            <div className='f-l'>
+              <h3>Transactions</h3>
+              {/* <span id='info'>Values in the <strong>Name</strong> column can be clicked on</span> */}
+            </div>
+              <div className='f-r'>
+               {this.props.homePageDeep !== true && this.props.readOnly !== true &&
+                <button className="button" onClick={this.showAddTransactionModal}>
+                  Add Transaction
+                </button>
+            }
+              </div>
+          </div>
+
+          <div className='headings xs-12'>
+            <div className='xs-3'>
+                <h3>From</h3>
+            </div>
+            <div className='xs-2'>
+                <h3>Date</h3>
+            </div>
+            <div className='xs-2'>
+                <h3>Amount</h3>
+            </div>
+            <div className='xs-2'>
+                <h3>Type</h3>
+            </div>
+            <div className='xs-3'>
+                <h3>Proof</h3>
+            </div>
+            
+          </div>
+
+
+          <div className='content xs-12'>
+                    { Boolean(transactions.length) ?
+                        transactions.map((p,index)=>{
+                            return <div className='row xs-12' key={index}>
+                            <div className='xs-3 col-row'>
+                                <Link to={`/dashboard/proposal/${p._id}`}>{""}</Link>
+                            </div>
+                            <div className='xs-3 col-row'>
+                                <button onClick={()=>this.showSH(3102)}><img src="http://placehold.it/50" alt=""/>{""} </button>
+                            </div>
+                            
+                            <div className='xs-3 col-row'>
+                                <p>{window.moneyFormat(3000, '$')} </p>
+                            </div>
+                        </div>
+                        })
+                    : <div className='row xs-12'>
+                        <p style={{
+                            padding: '1em'
+                        }}>No Transactions Found.</p>
+                    </div>
+                }
+                    
+                </div>
+        </TableWrap>
+        
+        {/* <div className="xs-12 sp">
           <div className="f-l c-sm-screen">
             <h3>Transaction History</h3>
           </div>
@@ -66,8 +131,9 @@ class Transactions extends React.Component {
               </button>
             </div>
           )}
-        </div>
-        <div className="xs-12 container">
+        </div> */}
+
+        {/* <div className="xs-12 container">
           { transactions && Boolean(transactions.length) ? (
             transactions.map((t, i) => {
               return (
@@ -112,6 +178,7 @@ class Transactions extends React.Component {
             <p>No Records Found.</p>
           )}
         </div>
+     */}
       </TWrap>
     );
   }

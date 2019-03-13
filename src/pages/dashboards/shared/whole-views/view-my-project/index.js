@@ -20,8 +20,10 @@ class ViewMyProject extends Component{
 
     componentWillReceiveProps(nextProps){
         if(this.props !== nextProps){
+          
           let obj = {};
           obj.iMadeThisProject = nextProps.iMadeThisProject;
+          obj.iAmStakeholderOnProject = nextProps.iAmStakeholderOnProject;
 
           if(nextProps.type === dashboard.GET_PROJ_S || nextProps.type === dashboard.GET_PROJ_F){
             obj.hide_loading = true;
@@ -31,16 +33,23 @@ class ViewMyProject extends Component{
       }
 
     render(){
-        const { hide_loading,iMadeThisProject } = this.state;
+      const { hide_loading,iMadeThisProject, iAmStakeholderOnProject } = this.state;
 
+      let View;
+      
+      if(iMadeThisProject) {
+        View = <PresenterView/>
+      }else if(iAmStakeholderOnProject){
+        View = <PresenterView readOnly={true}/>
+      }else{
+        View = <Error/>
+      }
+      
         switch (hide_loading) {
           case true:
           return <div className='xs-12' style={{backgroundColor: "white", height: "100vh", overflow: "hidden" }}>
               <Navbar/>
-              {
-                iMadeThisProject ?
-                <PresenterView/>:<Error/>
-              }
+              { View }
           </div>
    
           default:
@@ -59,8 +68,16 @@ const mapStateToProps = state =>{
     let obj = {
         type: action.type
     }
+    
     if(info.owner){
-        obj.iMadeThisProject = info.owner._id === state.auth.credentials.id
+    
+      obj.iMadeThisProject = info.owner._id === state.auth.credentials.id;
+
+        obj.iAmStakeholderOnProject = Boolean(
+          info.stakeholders.filter(stakeholder=>{
+            return stakeholder.user.information._id === state.auth.credentials.id
+          })[0]
+        )
     }
 
     return obj;

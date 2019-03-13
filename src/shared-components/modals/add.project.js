@@ -267,10 +267,18 @@ export default connect(mapStateToProps, mapDispatchToProps)(
                 </div>
 
                 <div className='xs-12 form-group'>
-                <label>Enter the project’s estimated cost</label>
-                <input name='goal'  onChange={this.handleChange} placeholder='Amount in USD' type='number' required/>
-                <em>Amount can be adjusted later</em>
+                <label>Enter the estimated <strong>Implementation Budget</strong></label>
+                <input name='goal'  onChange={this.handleChange} placeholder='Amount in USD' min={1} type='number' required/>
+                {/* <em>Amount can be adjusted later</em> */}
                 </div>
+
+                <div className='xs-12 form-group'>
+                <label>Enter the estimated <strong>Observation Budget</strong></label>
+                <input name='observationBudget'  onChange={this.handleChange} placeholder='Amount in USD' min={1} type='number' required/>
+                {/* <em>Amount can be adjusted later</em> */}
+                </div>
+                
+
 
                 <div className='xs-12 form-group'>
                 <SdgPicker onChange={this.handleSDG} />
@@ -325,67 +333,61 @@ export default connect(mapStateToProps, mapDispatchToProps)(
                 </div>
                 </div>
 
-                <div className={"xs-12 sm-6 date-wrpr show"}>
-                <div className='xs-12 sm-11 border sm-off-1'>
-                <div className="xs-10 adjusted">
-                <DatePicker
-                type="date"
-                name="end-date"
-                id="end-date"
-                ref="end-date"
-                selected={this.state["end-date-unformatted"]}
-                onChange={this.handleEndDatePick}
-                minDate={this.state["end-date-unformatted"]}
-                required
-                />
-                </div>
+                  <div className={"xs-12 sm-6 date-wrpr show"}>
+                    <div className='xs-12 sm-11 border sm-off-1'>
+                      <div className="xs-10 adjusted">
+                        <DatePicker
+                        type="date"
+                        name="end-date"
+                        id="end-date"
+                        ref="end-date"
+                        selected={this.state["end-date-unformatted"]}
+                        onChange={this.handleEndDatePick}
+                        minDate={this.state["end-date-unformatted"]}
+                        required
+                        />
+                      </div>
 
-                <div className="xs-2" id="c-one">
-                <img src={calendericon} alt="calender-icon" />
-                </div>
-                </div>
-                </div>
-                </div>
-
-                {/* <div className='xs-12 form-group'>
-                <label>Add project stakeholders <em> funders, contractors etc. </em></label>
-
-                <GenericLoader addStakeholders= {this.addStakeholders}/>
-                </div> */}
-
-                <div className="xs-12 form-group">
-                  <label>Upload a picture to represent your project</label>
-                  <label htmlFor="avatar" id="label-image">
-                  <img src={this.state["project-avatar"].preview} alt="" />
-
-                  <div className="c-w">
-                  <div className="c t-c">
-                  <p>+</p>
+                      <div className="xs-2" id="c-one">
+                        <img src={calendericon} alt="calender-icon" />
+                      </div>
+                    </div>
                   </div>
                 </div>
 
-                <ReactS3Uploader
-                id="avatar"
-                name="project-avatar"
-                server={endpoints.b}
-                signingUrl="s3/sign"
-                signingUrlMethod="GET"
-                accept="image/*"
-                s3path="project-avatars/"
-                preprocess={this.handleImageChange}
-                onSignedUrl={this.onSignedUrl}
-                onProgress={this.onUploadProgress}
-                onError={this.onUploadError}
-                onFinish={this.onUploadFinish}
-                uploadRequestHeaders={{ "x-amz-acl": "public-read" }} // this is the default
-                contentDisposition="auto"
-                scrubFilename={filename =>
-                filename.replace(/[^\w\d_\-.]+/gi, "")
-                }
-                autoUpload={true}
-                />
-                </label>
-                </div>
+                <div className="xs-12 form-group">
+                  <label>Upload a picture to represent your project</label>
+                    <label htmlFor="avatar" id="label-image">
+                      <img src={this.state["project-avatar"].preview} alt="" />
+
+                      <div className="c-w">
+                        <div className="c t-c">
+                          <p>+</p>
+                        </div>
+                      </div>
+
+                      <ReactS3Uploader
+                        id="avatar"
+                        name="project-avatar"
+                        server={endpoints.b}
+                        signingUrl="s3/sign"
+                        signingUrlMethod="GET"
+                        accept="image/*"
+                        s3path="project-avatars/"
+                        preprocess={this.handleImageChange}
+                        onSignedUrl={this.onSignedUrl}
+                        onProgress={this.onUploadProgress}
+                        onError={this.onUploadError}
+                        onFinish={this.onUploadFinish}
+                        uploadRequestHeaders={{ "x-amz-acl": "public-read" }} // this is the default
+                        contentDisposition="auto"
+                        scrubFilename={filename =>
+                        filename.replace(/[^\w\d_\-.]+/gi, "")
+                        }
+                        autoUpload={true}
+                      />
+                    </label>
+                  </div>
 
                 </div>
 

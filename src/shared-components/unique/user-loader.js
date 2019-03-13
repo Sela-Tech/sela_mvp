@@ -4,6 +4,8 @@ import styled from 'styled-components';
 import Icon from "react-fa";
  import { fetchProject } from "../../store/action-creators/project";
 import { withRouter } from 'react-router';
+import { Link } from 'react-router-dom';
+import { Fragment } from 'react';
 // import { fetchPossibleStakeholders } from "../../store/action-creators/project-funder/stakeholder";
 
 const L = styled.div`
@@ -162,6 +164,18 @@ const L = styled.div`
         }
     }
 }
+
+.em-desc{
+    font-weight: 400;
+    font-size: 0.8em;
+    margin-bottom: 0.5em;
+    display: block;
+    color: #555;
+    a{
+        font-weight: 500;
+        color: orange;
+    }
+}
 `;
 
 const mapStateToProps = state => {
@@ -173,8 +187,7 @@ const mapStateToProps = state => {
 
 const mapDispatchToProps = dispatch => {
   return {
-     fetchProject: id => dispatch(fetchProject(id)),
-    // selectFunders: selected => dispatch(selectFunders(selected))
+     fetchProject: id => dispatch(fetchProject(id))
   };
 };
 
@@ -187,7 +200,7 @@ class StakeHolderLoader extends React.Component {
         ],
         options: []
     }
-    this.props.fetchProject(props.match.params.project_id);
+    this.props.fetchProject(props.match.params.project_id || props.projectId);
     }
 
     static defaultProps = {
@@ -211,10 +224,15 @@ class StakeHolderLoader extends React.Component {
         
             untouched = options;
 
-            this.setState({
-                options,
-                untouched
-            });
+            let obj = {
+                options, untouched
+            };
+
+            if(nextProps.defaultValue){
+                obj.valuesSelected = [{ value: nextProps.defaultValue._id, label: nextProps.defaultValue.fullName }]
+            }
+
+            this.setState(obj);
         }
       }
     
@@ -235,7 +253,7 @@ class StakeHolderLoader extends React.Component {
             this.setState(p => {
                 let found = 0;
                 p.valuesSelected.map( v => {
-                    if(v.value === o.id)  {
+                    if(v.value === o._id)  {
                         found = found + 1;
                         
                     }
@@ -244,7 +262,7 @@ class StakeHolderLoader extends React.Component {
 
                 if( Boolean(found) === false ) {
                     let valuesSelected =  [
-                        { value: o.id, label: o.name},
+                        {value: o._id, label: `${o.firstName} ${o.lastName}`  },
                         ...p.valuesSelected,
                     ]
                     
@@ -254,6 +272,7 @@ class StakeHolderLoader extends React.Component {
                 }
             
             },()=>{
+
                 this.props.addStakeholders(this.state.valuesSelected.map(v=>{
                     return v.value
                 }))
@@ -262,6 +281,7 @@ class StakeHolderLoader extends React.Component {
     }
 
     removeFromSelected = (o)=>{
+        if(!this.props.defaultValue)
         this.setState(p=>{
             return {
                 valuesSelected: p.valuesSelected.filter(v=>{
@@ -318,10 +338,13 @@ class StakeHolderLoader extends React.Component {
 
         const { valuesSelected, options, open } = this.state;
 
-        console.log(options)
         return <L className='xs-12'>
-           <h3 id='f'>Contractor</h3>
-         
+            { this.props.hideText !== true && 
+                <Fragment>
+                <h3 id='f'>Contractor</h3>
+                <span className='em-desc'> If you cannot find a particular contractor in the dropbox, <Link to={`/dashboard/project/${this.props.match.params.project_id}/stakeholders`}>Click Here</Link></span>
+            </Fragment>
+            }
         <div className="xs-12 container">
             <div className="s xs-10">
                 { 
@@ -331,7 +354,7 @@ class StakeHolderLoader extends React.Component {
                         <div className="f-l">{v.label}</div>
                         <div className="f-r t-c" onClick={()=>this.removeFromSelected(v)}>&times;</div>
                     </div>
-                }): <p>Select contractor to add to proposal</p> }
+                }): <p>Select contractor to add</p> }
             </div>
 
             <div className="xs-2 chev t-c">

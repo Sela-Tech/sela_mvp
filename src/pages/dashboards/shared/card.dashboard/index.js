@@ -3,7 +3,7 @@ import {Link} from "react-router-dom";
 import styled from 'styled-components';
 
 const HomeCardWrapper = styled.div`
-min-height: 230px;
+min-height: 250px;
 .in{
     width: 95%;
     border-radius: 5px;
@@ -81,14 +81,21 @@ class HomeCard extends React.Component{
     render(){
         const {info, type} = this.props,
         location = info.location ? Object.keys(info.location) ? info.location.name: info.location: null;
+
+        const type_based_link =()=>{
+            switch (type) {
+                case 'joined':
+                    return `/dashboard/project/${info._id}/overview`;
+                case 'interests':
+                    return `/dashboard/project/preview/${info._id}`;
+                default:
+                    return `/dashboard/project/${info._id}/overview`;
+            }
+        }
+
         return <HomeCardWrapper className='xs-12'>
         <Link className='in xs-12' 
-        to={
-            type === "not-mine"? 
-            `/dashboard/project/preview/${info._id}`
-            :
-            `/dashboard/project/${info._id}/overview`
-        } 
+        to={type_based_link()} 
         onClick={(e)=>this.handleOnClick(e)} 
         onMouseDown={e=>this.handleOnMouseDown(e)}>
             <div className='xs-12 wrap-img'>

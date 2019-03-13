@@ -78,7 +78,6 @@ export const get_proposals = project_id => {
 }
 
 export const create_proposal = obj =>{
-    console.log(obj)
     return dispatch => {
         dispatch({ type: proposal_actions.SUBMIT_PROPOSAL_R })
         Axios({

@@ -1,29 +1,75 @@
 import React from "react";
-import loadable from "loadable-components";
-import Blank from "./blank";
+// import loadable from "loadable-components";
 import { connect } from "react-redux";
 
-const ProjectFunderDashboard = loadable(
-  () => import("./project-funder/index.js"),
-  {
-    LoadingComponent: Blank
-  }
-);
+import withRouter from "react-router-dom/withRouter";
 
-const ContractorDashboard = loadable(() => import("./contractor/index.js"), {
-  LoadingComponent: Blank
-});
+import ContractorHome from "./contractor/view_home";
+import FunderHome from "./project-funder/view_home";
 
-const DashboardDecider = ({ userType }) => {
-  
-  switch (userType) {
-    case "Contractor":
-      return <ContractorDashboard />;
+import Settings from "./shared/whole-views/dashboard-settings";
+import Proposal from "./shared/proposal";
+import Project from "./shared/whole-views/view-my-project";
+
+import Notifications from "./shared/notifications/index.js";
+import DashboardWrapper from "./shared/container/wrapper";
+import DashboardHomeWrapper from "./shared/whole-views/dashboard-home";
+import Blank from "./blank";
+
+import FunderInterestProjectView from "./project-funder/view_project_via_interest";
+import ContractorInterestProjectView from "./contractor/view_project_via_interest";
+
+const DashboardRouter =  withRouter(({ userType, ...props }) => {
+
+  const pathname = props.match.path;
+  const viewname = props.match.params.view;
+
+  switch (pathname) {
+
+    case "/dashboard/proposal/new/:project_id/s":
+    return <DashboardWrapper viewName={viewname ? viewname: "New Proposal"}>
+      <Proposal {...props} mode={ 'self' }/>
+   </DashboardWrapper>
+
+    case "/dashboard/proposal/new/:project_id":
+    return <DashboardWrapper viewName={viewname ? viewname: "New Proposal"}>
+      <Proposal {...props} mode={ 'new' }/>
+   </DashboardWrapper>
+
+    case "/dashboard/proposal/:proposal_id":
+    return <DashboardWrapper viewName={viewname ? viewname: "View Proposal"}>
+      <Proposal {...props} mode="view"/>
+    </DashboardWrapper>
+   
+    case "/dashboard/settings":
+    return <Settings {...props} />;
+
+    case "/dashboard/project/preview/:id":
+    return <DashboardWrapper viewName={viewname ? viewname: "preview project"}>
+      { userType === 'Funder' ? <FunderInterestProjectView {...props}/>: <ContractorInterestProjectView {...props} /> }
+    </DashboardWrapper>
+      
+     case "/dashboard/project/:id/:view":
+     return <DashboardWrapper viewName={ viewname ? viewname: "project" }>
+       <Project {...props} />
+     </DashboardWrapper>
+   
+    case "/dashboard/notifications":
+    return <DashboardWrapper viewName="notifications">
+      <Notifications {...props}/>
+    </DashboardWrapper>
+
+    case "/dashboard":
+    return <DashboardWrapper viewName="home">
+      <DashboardHomeWrapper>
+        { userType === 'Funder' ? <FunderHome {...props}/>: <ContractorHome {...props} /> }
+        </DashboardHomeWrapper> 
+    </DashboardWrapper>
 
     default:
-      return <ProjectFunderDashboard />;
+    return <Blank {...props} notFound={true}/>;
   }
-};
+});
 
 const mapStateToProps = state => {
   const { isFunder, isEvaluator, isContractor } = state.auth.credentials;
@@ -39,4 +85,4 @@ const mapStateToProps = state => {
 
 export default connect(
   mapStateToProps,
-)(DashboardDecider);
+)(DashboardRouter);

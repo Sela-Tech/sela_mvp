@@ -177,9 +177,9 @@ class ProposalNavbar extends React.Component {
   }
   
   render() {
-  let can_send, { milestones, tasks, proposal_name } = this.props;
+  let can_send, { milestones, tasks, proposal_name, contractor } = this.props;
     
-  if(Boolean(milestones.length) && Boolean(tasks.length) && Boolean(proposal_name)){
+  if(Boolean(milestones.length) && Boolean(tasks.length) && Boolean(proposal_name) && Boolean(contractor) ){
     
     can_send = true;
 

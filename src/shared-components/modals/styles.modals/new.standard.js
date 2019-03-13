@@ -157,6 +157,18 @@ export default styled.div`
   .crowdfund{
     text-align: left;
 
+    .req-checkbox{
+      height: 1.5em;
+      width: 1.5em;
+      border-radius: 4px;
+      border: 2px solid #3D4851;
+      background: white;
+      display: inline-block;
+      position: relative;
+      top: 0.1em;
+      padding: 0;
+    }
+
     #crowdfund-checkbox{
       height: 25px;
       width: 25px;
@@ -167,7 +179,9 @@ export default styled.div`
       position: relative;
       top: 0.5em;
       padding: 0;
+    } 
 
+    .req-checkbox, #crowdfund-checkbox{
       &.active{
         span{
           background: #3D4851;
@@ -179,10 +193,12 @@ export default styled.div`
         }
       }
     }
+
     label{
       display: inline-block;
       margin-left: 1em;
-    }  
+    }
+
   }
   
   .react-datepicker__input-container{
@@ -207,4 +223,51 @@ export default styled.div`
       right: 0.5em;  
     }
    }
+
+
+   #transaction-proof{
+    height: 43px;
+    width: 100%;
+    position: relative;
+    z-index: 0;
+   
+   }
+
+`;
+
+export const RequestWrapper = styled.div`
+   margin-bottom: 1.25em;
+  background: #F5F5F8;
+  padding: 1.25em;
+
+  h3{
+    text-align: left;
+    padding: 0 0 1em 0;
+    font-size: 1em;
+    font-weight: 400;
+  }
+  .pad-left{
+    padding-left: 1em !important;
+  }
+  .pad-right{
+    padding-right: 1em !important;
+  }
+
+  .new-field{
+    width: 100%;
+    border: 2px dashed #eee;
+    background: transparent;
+    font-size: 0.85em;
+    padding: 1em;
+  }
+
+  .delete-btn{
+    height: 43px;
+    background: white;
+    border: 1px solid #ddd;
+    border-radius: 4px;
+    font-size: 1.25em;
+  }
+  
+
 `;

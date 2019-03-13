@@ -13,7 +13,7 @@ class Error extends React.Component{
         return <ErrorWrap className='xs-12'>
             <div className='xs-12 c-w i-h'>
                 <div className='c t-c'>
-                    <h1>You cannot see this page because you did not create the project.</h1>            
+                    <h1>You cannot see this because you did not create the project.</h1>            
                 </div>
             </div>
         </ErrorWrap>;

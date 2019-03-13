@@ -1,9 +1,8 @@
 import React from "react";
 import { connect } from "react-redux";
-import AsyncButton from "../unique/async-button";
 import dA from "../../store/actions/dashboard";
-import { Form } from "./styles.modals/task";
 import { addTransaction } from "../../store/action-creators/project-funder/transaction";
+import FormWrapper from "./styles.modals/new.standard";
 
 const mapStateToProps = state => {
   const { type, message } = state.transactions;
@@ -20,8 +19,6 @@ export default connect(mapStateToProps)(
     constructor(props) {
       super(props);
       this.state = {
-        hash: "",
-        networkName: "Ethereum"
       };
     }
 
@@ -29,14 +26,12 @@ export default connect(mapStateToProps)(
       e.preventDefault();
       const data = this.state;
       data.projectId = this.props.projectId;
-
       this.props.dispatch(addTransaction(data));
     };
 
     handleChange = e => {
       const { value, name } = e.target;
       this.setState({
-        message: undefined,
         [name]: value
       });
     };
@@ -51,46 +46,109 @@ export default connect(mapStateToProps)(
     }
 
     render() {
-      let {  networkName, hash } = this.state;
+      // let { } = this.state;
       return (
-        <Form onSubmit={this.handleSubmit} className="xs-12">
-          <p>Only Ethereum is currently supported. </p>
-          <div className="form-control">
-            <label>Network Name</label>
-            <input
-              type="text"
-              name="networkName"
-              placeholder="Network Name"
-              value={networkName}
-              disabled
-              onChange={this.handleChange}
-              required
-            />
-          </div>
-          <div className="form-control">
-            <label>Transaction Hash</label>
-            <textarea
-              type="text"
-              name="hash"
-              placeholder="Transaction Hash"
-              value={hash}
-              onChange={this.handleChange}
-              required
-            />
-          </div>
+        <FormWrapper className='xs-12'>
+        <div className="xs-12 t-c grayed">
+          <h3>Add New Transaction</h3>
+        </div>
 
-          <div className="form-control xs-12">
-            <AsyncButton
-              attempt={this.props.add_tran_in_progress}
-              type="submit"
-              id="create-project-btn"
-            >
-              Confirm Transaction
-            </AsyncButton>
+        <div className='xs-12 white'>
+          <div className='xs-10 xs-off-1'>
+            <form onSubmit={this.handleSubmit} className='xs-12'>
+              
+              <div className='form-group'>
+                <label>Amount in USD</label>
+                <input type='number' name='amount' placeholder='Amount' onChange={this.handleChange}/>
+              </div>
+
+              <div className='form-group'>
+                <label>Specify Type Of Transaction</label>
+                <select name='type' placeholder='Type Of Transaction' onChange={this.handleChange}>
+                <option hidden>Click here to select</option>
+
+                  <option value="Fiat">Fiat</option>
+                  <option value="Ethereum">Ethereum</option>
+                  <option value="Bitcoin">Bitcoin</option>
+                </select>
+              </div>
+
+              <div className='form-group'>
+                <label>Specify Proof Type</label>
+                <select name='proof' onChange={this.handleChange}>
+                  <option hidden>Click here to select</option>
+                  <option value="link">Link</option>
+                  <option value="upload">File Upload</option>
+                </select>
+              </div>
+
+
+              {
+                this.state.proof && <div className='form-group'>
+                  {this.state.proof === 'link' 
+                  ?
+                  <React.Fragment>
+                    <label>The link to the proof of this transaction</label>
+                    <input type='text' name='link' placeholder='e.g. https://s3.amazon.com/3123901ad' onChange={this.handleChange}/>
+                  </React.Fragment>
+                  :
+                  <React.Fragment>
+                  <label>Upload a file as proof of your transaction</label>
+                   <input type='file' name='file' id='transaction-proof' onChange={this.handleChange}/>
+                  </React.Fragment>
+
+                  }
+                </div>
+              }
+            
+              <div className='xs-12'>
+                <button id='save' type='submit'> Add Transaction </button>
+              </div>
+
+            </form>
           </div>
+        </div>
+        </FormWrapper>
+
+        // <Form onSubmit={this.handleSubmit} className="xs-12">
+        //   <p>Only Ethereum is currently supported. </p>
+        //   <div className="form-control">
+        //     <label>Network Name</label>
+        //     <input
+        //       type="text"
+        //       name="networkName"
+        //       placeholder="Network Name"
+        //       value={networkName}
+        //       disabled
+        //       onChange={this.handleChange}
+        //       required
+        //     />
+        //   </div>
+        //   <div className="form-control">
+        //     <label>Transaction Hash</label>
+        //     <textarea
+        //       type="text"
+        //       name="hash"
+        //       placeholder="Transaction Hash"
+        //       value={hash}
+        //       onChange={this.handleChange}
+        //       required
+        //     />
+        //   </div>
+
+        //   <div className="form-control xs-12">
+        //     <AsyncButton
+        //       attempt={this.props.add_tran_in_progress}
+        //       type="submit"
+        //       id="create-project-btn"
+        //     >
+        //       Confirm Transaction
+        //     </AsyncButton>
+        //   </div>
         
-        </Form>
-      );
+        // </Form>
+     
+     );
     }
   }
 );

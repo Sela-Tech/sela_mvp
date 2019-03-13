@@ -90,7 +90,7 @@ import { SHOW_INTERESTS_MODAL } from "../../../../store/actions/modal";
 
         { createdProjects.docs.map((p,i)=>{
           return <div className="xs-12 sm-3" key={i}>
-          <HomeCard info={p}/>
+          <HomeCard info={p} type='mine'/>
           </div>
         })}
         </Slider>
@@ -121,7 +121,7 @@ import { SHOW_INTERESTS_MODAL } from "../../../../store/actions/modal";
 
             { joinedProjects.docs.map((p,i)=>{
            return <div className="xs-12 sm-3" key={i}>
-                <HomeCard info={p} type="not-mine" />
+                <HomeCard info={p} type="joined" />
            </div>
             })}
         
@@ -163,7 +163,7 @@ import { SHOW_INTERESTS_MODAL } from "../../../../store/actions/modal";
             { areasOfInterest && areasOfInterest.docs.length > 0 ?
               areasOfInterest.docs.map((p,i)=>{
                 return <div className="xs-12 sm-3" key={i}>
-                <HomeCard info={p} type = "not-mine" />
+                <HomeCard info={p} type = "interests" />
                 </div>
             })
             :        

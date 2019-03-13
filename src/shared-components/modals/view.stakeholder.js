@@ -1,7 +1,6 @@
 import React from "react";
 import { connect } from "react-redux";
 import StakeStyle from "./styles.modals/view.stakeholder";
-import whitelogo from "../../assets/icons/sela-circle-white.svg";
 import cal from "./assets/cal.svg";
 import Swiper from "react-id-swiper";
 import Spinners from "../spinners";

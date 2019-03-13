@@ -8,46 +8,44 @@ import Proposals from "../../../../shared/mini-views/dashboard/sub-components/pr
 import Uploads from "../../../../shared/mini-views/dashboard/sub-components/uploads";
 // import Overview from "../../../../shared/mini-views/dashboard/sub-components/overview";
 import  connect  from "react-redux/lib/connect/connect";
-import Overview from "../../../../shared/preview_project/main";
+import Overview from "../../../../contractor/view_project_via_interest/main";
 
 import Analytics from "../../../../shared/mini-views/dashboard/sub-components/analytics";
 import Transactions from "../../../../shared/mini-views/dashboard/sub-components/transactions";
-
-
-import Evidence from "../../../../shared/mini-views/dashboard/sub-components/tasks";
+import Evidence from "../../../../shared/mini-views/dashboard/sub-components/evidence";
 
 const C = ({Component, ...rest })=>{
   return <div className='xs-12 container'><Component {...rest}/> </div>
 }
 
-const View = ({ id, view, info }) => {
+const View = ({ id, view, info,readOnly }) => {
   switch (view) {
     case "uploads":
-    return <C Component ={Uploads} id={id}/>;
+    return <C Component ={Uploads} id={id} readOnly={readOnly} />;
 
     case "stakeholders":
-    return <C Component ={Stakeholders} id={id}/>;
+    return <C Component ={Stakeholders} id={id} readOnly={readOnly}/>;
 
     case "transactions":
-    return <C Component ={Transactions} id={id}/>;
+    return <C Component ={Transactions} id={id} readOnly={readOnly}/>;
 
     case "analytics":
-    return <C Component ={Analytics} id={id}/>;
+    return <C Component ={Analytics} id={id} readOnly={readOnly}/>;
 
     case "evidence":
-    return <C Component ={Evidence} id={id}/>;
+    return <C Component ={Evidence} id={id} readOnly={readOnly}/>;
 
     case "proposals":
-    return <C Component ={Proposals} id={id}/>;
+    return <C Component ={Proposals} id={id} readOnly={readOnly}/>;
     
     default:
     return <Overview id={id} info={info} self={true}/>;
   }
 };
 
-const ProjectComponent = ({ match,history, info }) => {
-const { id, view } = match.params;
-const pathname = history.location.pathname;
+const ProjectComponent = ({ match,history, info, readOnly }) => {
+  const { id, view } = match.params;
+  const pathname = history.location.pathname;
 
  return (
     <ProjectWrapper className="xs-12">
@@ -111,7 +109,7 @@ const pathname = history.location.pathname;
     </div>
     
     <div className="xs-12" id="view">
-        <View id={id} view={view} info={info} />
+        <View id={id} view={view} info={info} readOnly={readOnly} />
     </div>
 
     </ProjectWrapper>

@@ -18,6 +18,8 @@ import * as modals from "../../store/actions/modal";
 
 import { SharedCloseButton, GenericModalWrapperStyler } from "./styles.modals/main";
 import AddStakeholderModal from "./add.stakeholder";
+import AddRequest from "./add.request";
+import SubmissionModal from "./submission.modal";
 
 const GenericModalWrapper = ({ 
   specific_type, close, name,
@@ -100,6 +102,17 @@ const  ModalWrapper = (props)=>{
             <AddProjectModal/>
       </GenericModalWrapper>
 
+      case modals.SHOW_ADD_REQUEST_MODAL:
+      return <GenericModalWrapper 
+        name={name}  
+        specific_type={'interests'}
+        className={"xs-12 sm-8 sm-off-2 no-padding"}            
+        close={close} stop={stop} 
+        has_heading={false} show_close_button={true} >
+            <AddRequest/>
+      </GenericModalWrapper>
+
+
     case modals.SHOW_DELETE_MODAL_FORM:
       return (
         <GenericModalWrapper name={name} className={"xs-12 sm-6 sm-off-3 md-4 md-off-4"}
@@ -159,23 +172,35 @@ const  ModalWrapper = (props)=>{
       </GenericModalWrapper>
 
     case modals.SHOW_ADD_DOCUMENT_MODAL:
-    return <GenericModalWrapper 
-      name={name}  
-      specific_type={'interests'}
-      className={"xs-12 sm-6 sm-off-3 md-4 md-off-4 no-padding"}            
-      close={close} stop={stop} 
-      has_heading={false} show_close_button={true} >
-          <AddDocumentModal/>
-    </GenericModalWrapper>
-
-    case modals.SHOW_ADD_TRANSACTION_MODAL:
-      return <GenericModalWrapper name={name}  
-      className={"xs-12 sm-6 sm-off-3 md-4 md-off-4"} 
-      has_heading={true} 
-      close={close} stop={stop} >
-        <AddTransactionModal />
+      return <GenericModalWrapper 
+        name={name}  
+        specific_type={'interests'}
+        className={"xs-12 sm-6 sm-off-3 md-4 md-off-4 no-padding"}            
+        close={close} stop={stop} 
+        has_heading={false} show_close_button={true} >
+            <AddDocumentModal/>
       </GenericModalWrapper>
 
+    case modals.SHOW_ADD_TRANSACTION_MODAL:
+      return <GenericModalWrapper 
+      name={name}  
+      specific_type={'interests'}
+      className={"xs-12 sm-8 sm-off-2 md-6 md-off-3 no-padding"}            
+      close={close} stop={stop} 
+      has_heading={false} show_close_button={true} >
+        <AddTransactionModal />
+      </GenericModalWrapper>
+      
+    case modals.SHOW_SUBMISSION_BY_TYPE_MODAL:
+    return <GenericModalWrapper
+    name={name}  
+    specific_type={'interests'}
+    className={"xs-12 sm-8 sm-off-2 md-6 md-off-3 no-padding"}            
+    close={close} stop={stop} 
+    has_heading={false} show_close_button={true} >
+      <SubmissionModal />
+    </GenericModalWrapper>
+  
     case modals.LAUNCH_SDG:
       return <ShowSdgModal close={close} stop={stop}/>;
 

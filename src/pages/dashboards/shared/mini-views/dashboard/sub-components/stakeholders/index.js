@@ -18,9 +18,9 @@ class Stakeholders extends React.Component {
     { stakeholder: id }
   ));
 
-  showAddSH = projectId => this.props.dispatch(showModal(
+  showAddSH = () => this.props.dispatch(showModal(
     SHOW_ADD_STAKEHOLDER_MODAL,
-    { projectId }
+    { projectId: this.props.projectId }
   ));
 
   componentWillReceiveProps(nextProps) {
@@ -32,6 +32,7 @@ class Stakeholders extends React.Component {
   }
 
   render() {
+    console.log(this.props)
     const { stakeholders } = this.state;
 
     return (
@@ -45,9 +46,11 @@ class Stakeholders extends React.Component {
           </div>
           
         <div className='f-r'>
-            <button className="button" onClick={this.showAddSH}>
-              Add Stakeholder
-            </button>
+            {this.props.readOnly !== true &&
+              <button className="button" onClick={this.showAddSH}>
+                Add Stakeholder
+              </button>
+            }
            </div>
         </div>
 
@@ -70,12 +73,12 @@ class Stakeholders extends React.Component {
               let name = `${info.firstName} ${info.lastName}`;
               let img = info.profilePhoto;
               let id= info._id;
-              let status = s.agreed;
+              let status = s.user.agreed;
 
               let role = ()=>{
                 if(info.isFunder) return "Project Funder";
-                if(info.isContractor) return "Project Evaluator";
-                if(info.isEvaluator) return "Project Contractor"; 
+                if(info.isContractor) return "Project Contractor";
+                if(info.isEvaluator) return "Project Evaluator"; 
               }
                 
                 return <div className='row xs-12' key={index}>

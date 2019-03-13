@@ -1,6 +1,5 @@
 import React,{Component} from 'react';
 import {connect} from 'react-redux';
-import {withRouter} from 'react-router-dom';
 import Navbar from './navbar';
 import Comments from './comments';
 import moment from 'moment';
@@ -117,7 +116,7 @@ class Proposal extends Component{
                 <div className='xs-12 md-5 i-h' id='comments'>
                     <div className='xs-12 stakeholder-bit'>
                         <div className='xs-10 xs-off-1'>
-                            <StakeholderLoader addStakeholders= {this.addStakeholders} isNotEditable={true} defaultValue={proposal.contractor}/>
+                            <StakeholderLoader addStakeholders= {this.addStakeholders} isNotEditable={true} defaultValue={proposal.assignedTo}/>
                             <span className='line xs-12'/>
                    
                         </div>
@@ -153,4 +152,4 @@ const mapStateToProps = state => {
 }
 
 
-export default withRouter(connect(mapStateToProps)(Proposal));
+export default connect(mapStateToProps)(Proposal)

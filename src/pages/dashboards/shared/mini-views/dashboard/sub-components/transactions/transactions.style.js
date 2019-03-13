@@ -2,9 +2,7 @@ import styled from "styled-components";
 
 export default styled.div`
   background: #ffffff;
-  border: 1px solid #eaedf3;
   box-sizing: border-box;
-  box-shadow: 0px 1px 3px rgba(0, 0, 0, 0.04);
   border-radius: 4px;
   position: relative;
   .sp {

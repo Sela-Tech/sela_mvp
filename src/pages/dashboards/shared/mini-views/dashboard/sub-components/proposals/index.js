@@ -7,36 +7,13 @@ import { Link } from 'react-router-dom';
 import { showModal } from '../../../../../../../store/action-creators/modal';
 import { SHOW_ADD_STAKEHOLDER_MODAL, SHOW_STAKEHOLDER_MODAL } from '../../../../../../../store/actions/modal';
 import proposal from '../../../../../../../store/actions/proposal';
-// import { Spinner } from '../../../../../../public/home/right-pane/map/map-section.style';
 import TableWrap from "../../../../styling/table";
-
-// const Empty = connect()(
-//     ({ id, dispatch })=>{
-    
-//     const showAddSH = e => {
-//         e.preventDefault();
-//         dispatch( showModal( SHOW_ADD_STAKEHOLDER_MODAL, { projectId: id }));
-//     }
-
-//     return <div className='xs-12 empty'>
-//         <div className='xs-12 c-w i-h'>
-//             <div className='xs-12 c i-h t-c'>
-//                 <img src={noproposal} alt="none"/>
-//                 <p>No proposals have been submitted for this project.</p>
-//                 <Link to={ "/dashboard/proposal/new/" + id } id='create-proposal'> Create A Proposal</Link>
-//                 <Link to="" id='add-stakeholder' onClick={showAddSH}> Add A Stakeholder</Link>
-//             </div>
-//         </div>
-//     </div>
-
-// });
 
 class Proposals extends React.Component{
     constructor(props){
         super(props);
         props.get_proposals(props.id);
-
-        this.state={
+        this.state = {
             proposals: props.proposals,
             isLoading: true
         }
@@ -51,11 +28,6 @@ class Proposals extends React.Component{
         }
     }
     
-    // showAddSH = e => {
-    //     e.preventDefault();
-    //     this.props.showAddSH(this.props.id);
-    // }
-
   showSH = id => this.props.showSH(id)
 
     render(){
@@ -71,7 +43,9 @@ class Proposals extends React.Component{
                     </div>
                     
                     <div className='f-r'>
-                        <Link className='button' to={ "/dashboard/proposal/new/" + id }>Create proposal</Link>
+                        {this.props.readOnly !== true &&
+                            <Link className='button' to={ "/dashboard/proposal/new/" + id }>Create proposal</Link>
+                        }
                     </div>
                 </div>
 
@@ -92,10 +66,17 @@ class Proposals extends React.Component{
 
                 <div className='content xs-12'>
                     { Boolean(proposals.length) ?
-                        proposals.map((p,index)=>{
+                        proposals.filter(p=>{
+                            if(this.props.iMadeThisProject === false){
+                                return p.assignedTo._id === this.props.my_id
+                            }
+                            return true;
+                        }).map((p,index)=>{
                             let proposedBy = "", 
+                            aProfilePhoto ="",
+                            pProfilePhoto = '',
                             pById = "",
-                            assignedTo = "Name Not Found",
+                            assignedTo = "No One",
                             aById = "",
                             title="No Title Found";
 
@@ -103,25 +84,28 @@ class Proposals extends React.Component{
                             if(p.assignedTo){
                                 assignedTo = p.assignedTo.fullName;
                                 aById = p.assignedTo._id;
+                                aProfilePhoto = p.assignedTo.profilePhoto;
                             }
                             if(p.proposedBy){
                                 proposedBy = p.proposedBy.fullName;
                                 pById = p.proposedBy._id;
+                                pProfilePhoto = p.proposedBy.profilePhoto;
+
                             }
 
-                            if(p.title){
-                                title= p.title;
+                            if(p.proposal_name){
+                                title= p.proposal_name;
                             }
-                            
+
                             return <div className='row xs-12' key={index}>
                             <div className='xs-3 col-row'>
                                 <Link to={`/dashboard/proposal/${p._id}`}>{title}</Link>
                             </div>
                             <div className='xs-3 col-row'>
-                                <button onClick={()=>this.showSH(pById)}><img src="http://placehold.it/50" alt=""/>{proposedBy} </button>
+                                <button onClick={()=>this.showSH(pById)}><img src={pProfilePhoto} alt=""/>{proposedBy} </button>
                             </div>
                             <div className='xs-3 col-row'>
-                                <button onClick={()=>this.showSH(aById)}><img src="http://placehold.it/50" alt=""/> {assignedTo} </button>
+                                <button onClick={()=>this.showSH(aById)}><img src={aProfilePhoto} alt=""/> {assignedTo} </button>
                             </div>
                             <div className='xs-3 col-row'>
                                 <p>{window.moneyFormat(p.totalBudget, '$')} </p>
@@ -144,9 +128,20 @@ class Proposals extends React.Component{
 }
 
 const mapStateToProps = state =>{
-    return {
-        proposals: state.proposal.proposals
+
+    const { action, info } = state.projects.single;
+    
+    let obj = {
+        type: action.type,
+        proposals: state.proposal.proposals,
+        my_id: state.auth.credentials.id
     }
+    
+    if(info.owner){
+      obj.iMadeThisProject = info.owner._id === obj.my_id;
+    }
+
+    return obj;
 }
 
 const mapDispatchToProps = dispatch =>{

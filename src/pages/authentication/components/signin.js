@@ -170,7 +170,7 @@ class Login extends React.Component {
                 <h2> Sign in to Sela </h2>
                 <div className="test-cred xs-12">
                   <p>Test Username: test@gmail.com</p>
-                  <p>Test Password: password</p>
+                  <p>Test Password: password@1</p>
                 </div>
               </React.Fragment>
             )}

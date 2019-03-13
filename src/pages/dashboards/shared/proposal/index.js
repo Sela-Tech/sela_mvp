@@ -15,15 +15,18 @@ class Proposal extends React.Component{
     render(){
         const {mode} = this.props;
         switch (mode) {
+            
+            case "self":
+            return <NewProposal self={true} {...this.props}/>
 
             case "new":
-            return <NewProposal/>
+            return <NewProposal {...this.props}/>
 
             case "edit":  
                 return <EditProposal/>
         
             default:
-                return <ViewProposal/>;
+                return <ViewProposal {...this.props}/>;
         }
     }
 }

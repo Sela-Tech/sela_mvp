@@ -12,6 +12,16 @@ const proposals = (type, data)=>{
   }
 }
 
+
+const evidence = (type, data)=>{
+  switch (type) {
+    case "get-kpis": 
+    return b + `project/${data.id}/evidence-requests`;
+    default:
+      return  b + "specify-kpi";
+  }
+}
+
 export default {
   b,
   update_interests: b + "user/area-of-interest",
@@ -50,8 +60,8 @@ export default {
   fetch_locations: b + "locations",
   add_stakeholder: b + "project/stakeholder",
   fetch_tasks: b + "projects", //:id/tasks
-  proposals: proposals,
-
+  proposals,
+  evidence
   // fetch_proposals: (project_id) => proposals('fetch', { project_id }),
   // create_a_proposal: proposals
 };

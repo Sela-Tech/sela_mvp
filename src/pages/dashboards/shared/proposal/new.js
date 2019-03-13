@@ -1,6 +1,5 @@
 import React,{Component} from 'react';
 import {connect} from 'react-redux';
-import {withRouter} from 'react-router-dom';
 import Navbar from './navbar';
 import Comments from './comments';
 import { showModal } from '../../../../store/action-creators/modal';
@@ -17,6 +16,7 @@ class Proposal extends Component{
     constructor(props){
         super(props);
         this.state  = {
+
             tasks: props.tasks,
             selected: new Set([]),
             milestone_names: [],
@@ -30,7 +30,12 @@ class Proposal extends Component{
         showCommentSection: this.props.showCommentSection ||  window.innerWidth > 1023
      });
     
-    componentWillMount = () =>  window.addEventListener("resize", this.resizer);
+    componentWillMount = () =>  {
+        window.addEventListener("resize", this.resizer);
+        if(this.props.self_info.id && this.props.self === true){
+            this.props.dispatch( attach_contractor( this.props.self_info.id ));
+        }
+    }
     
     componentWillUnmount= () => {
         window.removeEventListener("resize", this.resizer);
@@ -39,10 +44,17 @@ class Proposal extends Component{
     
     componentWillReceiveProps(nextProps){
         if(this.props !== nextProps){
-            
             if(nextProps.type === proposal.SUBMIT_PROPOSAL_S){
-                // nextProps.history.back();
-                nextProps.history.push(`/dashboard/project/${nextProps.match.params.project_id}/proposals`)
+                const {project_id} = nextProps.match.params;
+                
+                nextProps.history.push( 
+                nextProps.self === true ?
+                `/dashboard/project/preview/${project_id}`
+                :
+                `/dashboard/project/${project_id}/proposals` 
+                )
+            
+
             }
 
             this.setState({
@@ -102,10 +114,12 @@ class Proposal extends Component{
 
     deleteMilestone = (milestoneId) => this.props.dispatch(delete_milestone(milestoneId))
 
-    addStakeholders = values => this.props.dispatch(attach_contractor(values[0]))
+    addStakeholders = values => {
+        this.props.dispatch(attach_contractor(values[0]))            
+    }    
     
     render(){
-        
+                   
         const { tasks, milestones,showCommentSection,isBigScreen } = this.state;
         let milestoneBtnActive = false;
 
@@ -129,7 +143,6 @@ class Proposal extends Component{
                 </div>
                 
                 <div className='xs-12 p-t'>
-                    {/* <h3>Proposal</h3> */}
                     
                     <div className='xs-6 t-l'>
                         <h5>Tasks and milestones</h5>
@@ -163,7 +176,7 @@ class Proposal extends Component{
                                     <button className='milestone-id'>{i + 1}</button>
                                     <input className='milestone-name xs-12 sm-10' name={`milestone-name-${i}`} value={this.state.milestone_names[milestone.milestoneId]} 
                                     onChange={e=>this.setMilestoneName(e, milestone.milestoneId)}
-                                    placeholder="Add milestone title"/> 
+                                    placeholder="Add milestone title (optional)"/> 
                                 </div>
                                 <div className='xs-6 t-r'>
                                     <p className='milestone-amount'>${amount}</p>
@@ -232,7 +245,13 @@ class Proposal extends Component{
                 <div className='xs-12 md-5 i-h' id='comments'>
                     <div className='xs-12 stakeholder-bit'>
                         <div className='xs-10 xs-off-1'>
-                            <StakeholderLoader addStakeholders= {this.addStakeholders}/>
+                            {this.props.self === true ?
+                            <StakeholderLoader addStakeholders= {this.addStakeholders} 
+                            isNotEditable={true} defaultValue={ this.props.self_info } />
+                            :
+                            <StakeholderLoader addStakeholders= {this.addStakeholders} />
+                            
+                            }
                             <span className='line xs-12'/>
                    
                         </div>
@@ -247,7 +266,10 @@ class Proposal extends Component{
 }
 
 const mapStateToProps = state => {
+    let { id, firstName, lastName, isContractor }  =  state.auth.credentials;
+
     return {
+        self_info: {id,fullName: firstName + " " + lastName,isContractor},
         source: state.projects.single.info.stakeholders,
         tasks: state.proposal.tasks,
         milestones: state.proposal.milestones,
@@ -258,4 +280,5 @@ const mapStateToProps = state => {
 }
 
 
-export default withRouter(connect(mapStateToProps)(Proposal));
+export default connect(mapStateToProps)(Proposal);
+

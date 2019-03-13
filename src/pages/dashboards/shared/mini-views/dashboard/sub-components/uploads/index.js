@@ -39,9 +39,11 @@ class Documents extends React.Component {
         </div>
         
         <div className='f-r'>
+          {this.props.readOnly !== true &&
           <button className="button" onClick={this.showAddDocument}>
                 Upload
             </button>
+          }
         </div>
     </div>
 
@@ -62,7 +64,13 @@ class Documents extends React.Component {
 
         <div className='content xs-12'>
                     { Boolean(documents.length) ?
-                        documents.map((d,index)=>{
+                        documents.filter(p=>{
+                          // if(this.props.iMadeThisProject === false){
+                          //     return p.assignedTo._id === this.props.my_id
+                          // }
+                          return true;
+                        })
+                        .map((d,index)=>{
                             return <div className='row xs-12' key={index}>
                             <div className='xs-3 col-row'>
                               <p>{d.name}</p>
@@ -90,113 +98,25 @@ class Documents extends React.Component {
                
       </TableWrap>
     </DocStyle>
-    //   <DocStyle className="xs-12">
-    //     <div className="xs-12 sp">
-    //       <div className="f-l xs-12 sm-9">
-    //         <div className="xs-12 md-3">
-    //           <h3>Related Documents</h3>
-    //         </div>
-    //       </div>
-
-    //       <div className="f-r c-sm-screen">
-    //         <button className="blue-btn" onClick={this.showAddDocument}>
-    //           Upload
-    //         </button>
-    //       </div>
-    //     </div>
-
-    //     <div className="xs-12 sp">
-    //       <div className="f-l xs-12 ">
-    //         <div className="xs-12 md-6">
-    //           <div className="xs-12 sm-11">
-    //             <label>Search For Document</label>
-
-    //             <form>
-    //               <div className="xs-12" id="search">
-    //                 <input name="search" placeholder="Search Documents" />
-    //                 <button>
-    //                   <img src={search} alt="" />
-    //                 </button>
-    //               </div>
-    //             </form>
-    //           </div>
-    //         </div>
-
-    //         <div className="xs-12 sm-6">
-    //           <div className="xs-12 sm-11">
-    //             <label>Filter By</label>
-
-    //             <select className="xs-12">
-    //               <option value="">No Filter</option>
-    //               <option>Funder</option>
-    //             </select>
-    //           </div>
-    //         </div>
-    //       </div>
-    //     </div>
-
-    //     <div className="xs-12 uploaded-by">
-    //       <div className="xs-12 sm-6">
-    //         <button className="active">Uploaded By Contractors</button>
-    //       </div>
-    //       <div className="xs-12 sm-6">
-    //         <button>Uploaded By Evaluators</button>
-    //       </div>
-    //     </div>
-
-    //     <div className="xs-12 container">
-    //       <div className="xs-12 row hide-sm-laptop">
-    //         <div className="xs-12 sm-4">
-    //           <h4> File</h4>
-    //         </div>
-    //         <div className="xs-12 sm-5">
-    //           <h4> Date Added </h4>
-    //         </div>
-    //       </div>
-    //       { documents && Boolean(documents.length) ? (
-    //         documents.map((d, i) => {
-    //           return (
-    //             <div className="xs-12 row b" key={i}>
-    //               <div className="xs-12 sm-4">
-    //                 <div className="xs-12 sm-4">
-    //                   <img src={d.doc} alt="100" />
-    //                 </div>
-    //                 <div className="xs-12 sm-8">
-    //                   <p>{d.name}</p>
-    //                 </div>
-    //               </div>
-    //               <div className="xs-12 sm-5">
-    //                 <p>{moment(d.createdAt).format("DD MMM YYYY")} </p>
-    //               </div>
-
-    //               <div className="xs-12 sm-3">
-    //                 <button className="more">Delete</button>
-    //                 <a target="_blank" href={d.doc} className="more">
-    //                   View
-    //                 </a>
-
-    //               </div>
-    //             </div>
-    //           );
-    //         })
-    //       ) : (
-    //         <div className="">
-    //           <p> No documents found. </p>
-    //         </div>
-    //       )}
-    //     </div>
-    //   </DocStyle>
-    // );
     )
   }
 }
 
 const mapStateToProps = state => {
-  return {
-    projectId: state.projects.single.info._id,
-    documents: state.projects.single.info.documents,
-    type: state.document.type
-  };
+  const { info } = state.projects.single;
+    
+  let obj = {
+      my_id: state.auth.credentials.id,
+      projectId: state.projects.single.info._id,
+      documents: state.projects.single.info.documents,
+      type: state.document.type  
+  }
+  
+  if(info.owner){
+    obj.iMadeThisProject = info.owner._id === obj.my_id;
+  }
+
+  return obj;
 };
 
 export default connect(mapStateToProps)(Documents);

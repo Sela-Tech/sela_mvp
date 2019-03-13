@@ -82,7 +82,7 @@ exportMe = class extends React.Component{
             { 
               createdProjects.docs.map((p,i)=>{
                 return <div className="xs-12 sm-3" key={i}>
-                <HomeCard info={p}/>
+                <HomeCard info={p} type='mine'/>
                 </div>
               })
             }
@@ -101,7 +101,7 @@ exportMe = class extends React.Component{
       </section>
 
       <section className='xs-12'>
-        <label>Projects you fund</label>
+        <label>Projects you got invited to</label>
 
 
         { 
@@ -113,7 +113,7 @@ exportMe = class extends React.Component{
             { 
             fundedProjects.docs.map((p,i)=>{
               return <div className="xs-12 sm-3" key={i}>
-                <HomeCard info={p} type="not-mine" />
+                <HomeCard info={p} type="joined" />
               </div>
             })
             }
@@ -153,7 +153,7 @@ exportMe = class extends React.Component{
               && areasOfInterest.docs.length > 0 ?
               areasOfInterest.docs.map((p,i)=>{
                 return <div className="xs-12 sm-3" key={i}>
-                <HomeCard info={p} type="not-mine" />
+                <HomeCard info={p} type="interests" />
                 </div>
             })
             :        

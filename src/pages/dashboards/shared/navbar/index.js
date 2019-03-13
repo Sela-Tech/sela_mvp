@@ -93,7 +93,7 @@ const Navigator = withRouter(({...props})=>{
   return <div className='xs-12' id='navigator'>
    {pathname === "/dashboard" 
    ? <h4>Projects</h4>
-   : <button onClick={props.history.goBack}><img src={lar} alt=""/>Back</button> }
+   : <button onClick={()=>props.history.push("/dashboard")}><img src={lar} alt=""/>Back</button> }
   </div>
 });
 
