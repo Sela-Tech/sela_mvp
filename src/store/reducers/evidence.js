@@ -44,8 +44,13 @@ export default (state=init, payload)=>{
             ...state,
             type: evidenceActions.RETRIEVE_KPIS_F
         };
+
+        case evidenceActions.SUBMIT_EVIDENCE_S:
+        return {
+            ...state,
+            type: evidenceActions.SUBMIT_EVIDENCE_S
+        };
         
-    
         default:
             return state;
     }

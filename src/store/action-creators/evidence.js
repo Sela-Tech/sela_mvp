@@ -43,3 +43,23 @@ export const getKPIs = id => {
     }
 }
 
+export const submitEvidence = data => {
+    return dispatch => {
+        dispatch({type: evidence.SUBMIT_EVIDENCE_R})
+        Axios({
+            url: endpoints.evidence("submit-evidence"),
+            method: "PUT",
+            data,
+            headers: {
+                authorization: retrieveToken()
+            }
+        }).then(res=>{
+            dispatch({type: evidence.SUBMIT_EVIDENCE_S})
+            dispatch({ type: "NEW_TOAST", status: "success", message: "Evidence Submitted Successfully" });
+            dispatch({ type: CLOSE_MODAL_FORM });
+        }).catch(res=>{
+            dispatch({type: evidence.SUBMIT_EVIDENCE_F})
+
+        })
+    }
+}
