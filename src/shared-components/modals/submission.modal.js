@@ -2,20 +2,22 @@ import React, { Component, Fragment } from 'react';
  import styled from 'styled-components';
 import {connect} from 'react-redux';
 import FormWrapper from "./styles.modals/new.standard";
-
+import Icon from 'react-fa';
 import ReactS3Uploader from "react-s3-uploader";
 import endpoints from "../../endpoints";
+import { submitEvidence } from '../../store/action-creators/evidence';
+import MiniExcelTable from "./view.table";
 
- const SubWrapper = styled.form`
- #image{
-     width: 100%;
-     object-fit: contain;
-     max-height: 30em;
- }
+const SubWrapper = styled.form`
+  #image{
+      width: 100%;
+      object-fit: contain;
+      max-height: 30em;
+  }
 
- #label-image{
-     height: 14em !important;
- }
+  #label-image{
+      height: 14em !important;
+   }
  `;
 
  const SubmissionInputMaker = ({inputs})=> {
@@ -38,40 +40,60 @@ const SubmissionFieldBuilder  = class extends Component{
 
     }
 
-    handleChange = e=>{
+    handleChange = (e, id)=>{
         const{ name, value } = e.target;
         this.setState({
-            [name]: value
+            [name]: {value, id}
         })
+    }
+
+
+    handleSubmit = e => {
+      e.preventDefault();
+      let obj = {
+        evidenceRequestId: this.props.evidenceRequestId,
+        "fields": Object.keys(this.state).map(key=>{
+          let { value, id } = this.state[key];
+          return { 'title': key, value, _id: id }
+        })
+      }
+      this.props.dispatch(submitEvidence(obj))
     }
 
     render(){
         const { fields } = this.props;
+       const disabled =  Object.keys(this.state).filter(key=>{
+         return this.state[key] !== ""
+       }).length !== fields.filter(field=>{
+        return field.title.toLowerCase().trim() !== "date";
+      }).length;
+
         return <div className='xs-12'>
           <div className='form-group'>
                 <p>The instruction entered by the funder on the evidence request form goes here</p>
             </div>  
-          
-            {fields.map((field,i)=>{
-                let type;
-                if(field.responseType === 'Text'){
-                    type = "text";
-                }
-                if(field.responseType === 'Number'){
-                    type = 'number';
-                }
-                return <div className='form-group xs-12' key={i}>
-                    <input type = {type} name={field.title} onChange={this.handleChange} placeholder={field.title}/>
-                </div>
-            })}
-              <button type="button" id="save">
+              {fields.filter(field=>{
+                return field.title.toLowerCase().trim() !== "date";
+              }).map((field,i)=>{
+                  let type;
+                  if(field.responseType === 'Text'){
+                      type = "text";
+                  }
+                  if(field.responseType === 'Number'){
+                      type = 'number';
+                  }
+                  return <div className='form-group xs-12' key={i}>
+                      <input type = {type} name={field.title} onChange={(e)=>this.handleChange(e, field._id)} placeholder={field.title} required/>
+                  </div>
+              })}
+              <button type="button" id="save" onClick={this.handleSubmit} disabled={disabled}>
                 Submit
-                </button>
+              </button>
         </div>
     }
 }
 
- const SurveyInputMaker = class extends Component{
+const SurveyInputMaker = class extends Component{
      state = {
          answers:[
              {question: "", optionSelected: ""}
@@ -159,13 +181,14 @@ const UploadMedia = class extends Component {
           },
           () => {
             let form = {};
-            form.name = this.state.name;
-            form.doc = this.state.doc;
-            form.projectId = this.props.projectId;
-            form.filetype = `${this.state.filetype.join("/")}`;
-            form.filesize = this.state.filesize;
-            console.log(form)
-            // this.props.dispatch(addDoc(form));
+            // form.name = this.state.name;
+            form.file = this.state.doc;
+            form.evidenceRequestId = this.props.evidenceRequestId;
+            // form.projectId = this.props.projectId;
+            // form.filetype = `${this.state.filetype.join("/")}`;
+            // form.filesize = this.state.filesize;
+            // console.log(form)
+             this.props.dispatch(submitEvidence(form));
           }
         );
       };
@@ -259,11 +282,11 @@ const UploadMedia = class extends Component {
             <div className="form-group xs-12">
               {isDocumentPresent ? (
                 <button type="button" id="save" onClick={this.handleSubmit}>
-                Upload
+                {this.state.uploading ? <Icon name='spinner' spin/>: "Upload"}
                 </button>
               ):
                 <button disabled={true} type="button" id="save">
-                Upload
+                  Upload
                 </button>
               }
   
@@ -276,38 +299,44 @@ const UploadMedia = class extends Component {
     }
 }
 
-
-const Router = ({ submissionModalType,data, mode })=>{
+const Router = ({ submissionModalType,data, mode, dispatch })=>{
     if(mode === "submit"){
         switch (submissionModalType) {
 
             case "table":
-            return <SubmissionFieldBuilder fields={data.fields}/>;
-
+            return <div className='xs-12 sm-8 sm-off-2'>
+              <SubmissionFieldBuilder dispatch={dispatch} fields={data.fields} evidenceRequestId={data.evidenceRequestId}/>
+            </div>
             case "submission":
-            return <SubmissionInputMaker inputs={data.inputs}/>;
+            return <SubmissionInputMaker dispatch={dispatch} inputs={data.inputs}/>
 
             case "survey":
-            return <SurveyInputMaker questions ={data.questions}/>;
+            return <SurveyInputMaker dispatch={dispatch} questions ={data.questions}/>
 
             default:
             return <div className="xs-12">
-                <UploadMedia/>
-            </div>;
+                <UploadMedia dispatch={dispatch} evidenceRequestId={data.evidenceRequestId}/>
+            </div>
         }
     }else if(mode === "view"){
         switch (submissionModalType) {
 
             case "table":
-            return<iframe title='example' style={{
+            
+            if(data.submissions && data.submissions.length > 0){
+              return <MiniExcelTable submissions={data.submissions} fields={data.fields}/>
+            }
+
+            return  <iframe title='example' style={{
                 border: 0,
                 height: '20em',
                 width: '100%',
                 display: 'block'
             }} src="https://docs.google.com/spreadsheets/d/e/2PACX-1vTKpKtr3i_He9wnaDDh08rR_-QCNGuGfHg2EDVMnMbu6n6SdAPx78eUgHOxB0D0NTZ_UOF2tjkM6b-p/pubhtml?gid=0&amp;single=true&amp;widget=true&amp;headers=false"></iframe>
+            
             case "submission":
-            return <SubmissionInputMaker inputs={data.inputs}/>;
-
+            return <SubmissionInputMaker inputs={data.inputs}/>
+        
             case "survey":
             return <SurveyInputMaker questions ={data.questions}/>;
 
@@ -317,31 +346,49 @@ const Router = ({ submissionModalType,data, mode })=>{
             </div>;
             
             default:
-                return <div className="xs-12">
-                    <img src={data.src} id = "image" alt=''/>
-                </div>;
+              let image = data.src;
+              if(data.submissions && data.submissions.length > 0){
+                image = data.submissions[0].image;
+              }
+                return <div className="xs-12" style={{position: 'relative'}}>
+                  <p style={{ position: 'absolute' }}>Loading...</p>
+                  <img src={image} id = "image" alt=''/>
+                </div>
         }
     }
 }
 
 class SubmissionModal extends Component{
-
     render(){
         return <FormWrapper className ='xs-12'>
             <div className="xs-12 t-c grayed">
                 <h3>Submission</h3>
             </div>
 
-            <div className='xs-12 white'>
-                <div className='xs-10 xs-off-1'>
-                    <SubWrapper className='xs-12'>
-                        <Router 
-                        submissionModalType = {this.props.submissionModalType} 
-                        data = {this.props.data} 
-                        mode= {this.props.data.mode }/>
-                    </SubWrapper>
-                </div>
+          {this.props.submissionModalType === 'table' ?
+            <div className='xs-12'>
+              <SubWrapper className='xs-12'>
+                  <Router 
+                  submissionModalType = {this.props.submissionModalType} 
+                  data = {this.props.data} 
+                  dispatch = {this.props.dispatch}
+                  mode= {this.props.data.mode }/>
+              </SubWrapper>
             </div>
+        :
+          <div className='xs-12 white'>
+          <div className={'xs-10 xs-off-1'}>
+              <SubWrapper className='xs-12'>
+                  <Router 
+                  submissionModalType = {this.props.submissionModalType} 
+                  data = {this.props.data} 
+                  dispatch = {this.props.dispatch}
+                  mode= {this.props.data.mode }/>
+              </SubWrapper>
+          </div>
+          </div>
+        }
+
         </FormWrapper>
     }
 }
