@@ -192,7 +192,17 @@ const  ModalWrapper = (props)=>{
       </GenericModalWrapper>
       
     case modals.SHOW_SUBMISSION_BY_TYPE_MODAL:
-    return <GenericModalWrapper
+    return props.submissionModalType === 'table' ?
+    <GenericModalWrapper
+      name={name}  
+      specific_type={'interests'}
+      className={"xs-12 sm-10 sm-off-1 no-padding"}            
+      close={close} stop={stop} 
+      has_heading={false} show_close_button={true} >
+        <SubmissionModal />
+    </GenericModalWrapper>
+    :
+    <GenericModalWrapper
     name={name}  
     specific_type={'interests'}
     className={"xs-12 sm-8 sm-off-2 md-6 md-off-3 no-padding"}            
@@ -200,7 +210,7 @@ const  ModalWrapper = (props)=>{
     has_heading={false} show_close_button={true} >
       <SubmissionModal />
     </GenericModalWrapper>
-  
+    
     case modals.LAUNCH_SDG:
       return <ShowSdgModal close={close} stop={stop}/>;
 
@@ -212,7 +222,8 @@ const  ModalWrapper = (props)=>{
 
   const mapStateToProps = state => {
     return {
-      type: state.modal.type_of_modal
+      type: state.modal.type_of_modal,
+      submissionModalType: state.modal.submissionModalType
     }
   }
 export default connect(mapStateToProps)(ModalWrapper);

@@ -37,8 +37,8 @@ export default connect(mapStateToProps, mapDispatchToProps)(
         requestTitle: '',
         title: '', responseType: '',
         proposal: '',task:"",taskObject: { name: "", id: "" },
-        type:'table', instructions: '',
-        stakeholders:"",price: 1,
+        type:'table', instructio: '',
+        stakeholders:"",price: '1',
 
       };
     }
@@ -57,7 +57,7 @@ export default connect(mapStateToProps, mapDispatchToProps)(
             level: state.level,
             datatype: state.type,
             instructions: state.instructions,
-            stakeholder: state.stakeholders,
+            stakeholders: state.stakeholders,
             quote: state.price,
             dueDate: state.date
         }
@@ -79,7 +79,7 @@ export default connect(mapStateToProps, mapDispatchToProps)(
 
     addStakeholders = values => {
         this.setState({
-            stakeholders: values[0]
+            stakeholders: values
         })
     }    
 
@@ -277,19 +277,13 @@ export default connect(mapStateToProps, mapDispatchToProps)(
                             </select>
                         </div>
 
-
-                        <div className='xs-12 form-group'>
-                            <label>Instructions</label>
-                            <textarea name='instructions' onChange={this.handleChange}  value={this.state.instructions} placeholder='Add instruction to guide stakeholder'></textarea>
-                        </div>
-
                     </div>
 
                     <div className='xs-12 sm-6 pad-left'>
 
                         <div className='xs-12 form-group'>
                             <label>Stakeholder</label>
-                            <UserLoader addStakeholders= {this.addStakeholders} hideText={true} single={true}/>
+                            <UserLoader addStakeholders= {this.addStakeholders} hideText={true} single={false}/>
                         </div>
 
                         <div className='xs-12 form-group'>
@@ -297,6 +291,12 @@ export default connect(mapStateToProps, mapDispatchToProps)(
                             <input value={this.state.price} min={1} name='price' type='number' placeholder='Enter amounf in project tokens' onChange={this.handleChange} required/>
                             <label style={{color: "#F2994A"}}>You have 50,000 unalloted observation budget tokens </label>
                         </div>
+
+                        <div className='xs-12 form-group'>
+                            <label>Instructions</label>
+                            <textarea name='instruction' onChange={this.handleChange}  value={this.state.instructions} placeholder='Add instruction to guide stakeholder'></textarea>
+                        </div>
+
 
                         <div className="xs-12 form-group">
                         <label>Due date</label>    

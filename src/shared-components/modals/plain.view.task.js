@@ -55,7 +55,6 @@ export default connect(mapStateToProps)(
                       <div className='xs-12 form-group'>
                         <label>Estimated cost for this task</label>
                         <input defaultValue={task.estimatedCost} name='amount' placeholder='Amount in USD' type='number' disabled required/>
-                        <p id='slant'>Amount can be adjusted later</p>
                       </div>
 
                     </form>
