@@ -278,12 +278,25 @@ class StakeHolderLoader extends React.Component {
                 }))
             })
         }
+
+        this.setState(p=>{
+            return{
+                options: p.options.filter(user=>{
+                    return user._id !== o._id
+                })
+           }
+        })
     }
 
     removeFromSelected = (o)=>{
         if(!this.props.defaultValue)
         this.setState(p=>{
+            let fullData = p.untouched.filter(sth=>{
+                return sth._id === o.value
+            })[0];
+
             return {
+                options: [...p.options, fullData],
                 valuesSelected: p.valuesSelected.filter(v=>{
                     return v !== o
                 })
