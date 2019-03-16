@@ -122,7 +122,7 @@ class Proposal extends Component{
                         </div>
                     </div>
 
-                    <Comments isNotEditable={true}/>
+                    <Comments isNotEditable={true} comments={proposal.comments}/>
                 </div>
             }
 

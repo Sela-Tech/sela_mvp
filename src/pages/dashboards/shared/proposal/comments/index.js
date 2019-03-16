@@ -157,11 +157,28 @@ class Comments extends React.Component{
     
     render(){
         const { comment } = this.state;
-
+        const {comments} = this.props;
+        
         return <CommentWrap className='xs-12'>
             <div className='xs-10 xs-off-1'>
                 <h2>Comments</h2>
-            
+            {comments && Boolean(comments.length) ?
+            <div className='xs-12 comments' ref="comments">
+                {comments.map((comment_data,i)=>{
+                    return <div className='xs-12 comment' key={i}>
+                        <div className="img-c t-c">
+                        <img src={comment_data.actor.profilePhoto} alt=""/>
+                    </div>
+                    <div className="xs-9">
+                        <h4>{comment_data.actor.lastName + " " + comment_data.actor.firstName}</h4> 
+                        <p>
+                            {comment_data.comment}
+                        </p>
+                    </div>
+                    </div>
+                })}
+            </div>     
+        :
             <div className='xs-12 comments' ref="comments">
                 { Boolean(this.props.myComments.length) ?
                 this.props.myComments.map((comment_data,index)=>{
@@ -182,7 +199,7 @@ class Comments extends React.Component{
                 </ div>
                 }
             </div>
-            
+            }
             {this.props.isNotEditable !== true &&
                 <div className='xs-12 text-place'>
                     <div className='xs-9'>
