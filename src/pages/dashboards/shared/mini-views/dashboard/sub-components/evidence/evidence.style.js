@@ -48,6 +48,18 @@ export default styled.div`
   }
 }
 
+
+.col-row{
+  .stakeholder{
+    padding: 0.25em 1em;
+    font-size: 0.7em;
+    float: left;
+    margin: 0.2em;
+    border-radius: 4px;
+    color: white;
+    background #201D41;
+  }
+}
 `;
 
 export const SubmissionWrap = styled.div`

@@ -15,6 +15,8 @@ const proposals = (type, data)=>{
 
 const evidence = (type, data)=>{
   switch (type) {
+    case "submit-evidence":
+    return b + `evidence-request-submission`;
     case "get-kpis": 
     return b + `project/${data.id}/evidence-requests`;
     default:
