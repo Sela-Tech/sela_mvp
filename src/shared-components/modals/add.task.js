@@ -9,9 +9,14 @@ import AddTaskWrapper from "./styles.modals/dash-task";
 
 const mapStateToProps = state => {
   const { type, message } = state.tasks.add.action;
+  const { previousTaskDeadline } = state.tasks.add;
+
   return {
     message,
-    type
+    type,
+    previousTaskDeadline,
+    maxDate: state.projects.single.info.endDate,
+    minDate: state.projects.single.info.startDate
   };
 };
 
@@ -20,7 +25,8 @@ export default connect(mapStateToProps)(
     constructor(props) {
       super(props);
       this.state = {
-        deadline: moment(new Date())
+        deadline:moment(props.minDate),
+        previousTaskDeadline: moment(props.previousTaskDeadline || props.minDate)
       };
     }
 
@@ -29,6 +35,7 @@ export default connect(mapStateToProps)(
       const data = this.state;  
       this.props.dispatch(create_task({
         ...data,
+        previousTaskDeadline: data.deadline,
         deadline: data.deadline.toDate()
       }))
     };
@@ -73,20 +80,22 @@ export default connect(mapStateToProps)(
 
                       <div className='xs-12 form-group'>
                         <label>Set the deadline for this task</label>
-                        <DatePicker selected={this.state.deadline} onChange={this.handleDateChange} required/>
+                        <DatePicker selected={this.state.deadline} onChange={this.handleDateChange}
+                        minDate={ this.state.previousTaskDeadline }
+                        maxDate={ this.props.maxDate } required/>
                       </div>
                       
                       <div className='xs-12 form-group'>
                         <label>Add a description of this task</label>
                         <textarea name='description' onChange={this.handleChange} placeholder='Task description (140 word min; 280 words max)' 
-                        // minLength={140} maxLength={280} 
+                         minLength={10} maxLength={280} 
                         required/>
                       </div>
                       
                       <div className='xs-12 form-group'>
                         <label>Enter the estimated cost for this task</label>
                         <input name='amount' placeholder='Amount in USD' type='number' onChange={this.handleChange} required/>
-                        <p id='slant'>Amount can be adjusted later</p>
+                        {/* <p id='slant'>Amount can be adjusted later</p> */}
                       </div>
 
                       <div className='xs-12'>

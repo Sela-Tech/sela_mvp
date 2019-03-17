@@ -13,7 +13,10 @@ import { specifyKPI } from "../../store/action-creators/evidence";
 const mapStateToProps = state => {
   return {
     proposals: state.proposal.proposals,
-    projectId: state.projects.single.info._id
+    projectId: state.projects.single.info._id,
+    endDate: state.projects.single.info.endDate,
+    startDate: state.projects.single.info.startDate,
+    observationBudget: state.projects.single.info.observationBudget
   };
 };
 
@@ -32,8 +35,8 @@ export default connect(mapStateToProps, mapDispatchToProps)(
         fields: [],
         proposals: props.proposals || [],
         level: 'task',
-        'date-unformatted': moment(),
-        date: moment().toISOString(),
+        'date-unformatted': moment(props.startDate),
+        date: moment(props.startDate).toISOString(),
         requestTitle: '',
         title: '', responseType: '',
         proposal: '',task:"",taskObject: { name: "", id: "" },
@@ -118,17 +121,12 @@ export default connect(mapStateToProps, mapDispatchToProps)(
     handleDatePick = date => {
         // set in-date normally and set default minimum date of out date to in-date
         let obj = {
-        "start-date-unformatted": date,
-        endDate: moment(date)
-            .toDate()
-            .toISOString()
+        "date": date,
+        "date-unformatted": moment(date)
         };  
         this.setState(obj);
     };
 
-    toggleCrowdfund = type => {
-        this.setState({ level: type })
-    }
 
     handleTableChange = (i,e)=>{
         const { name,value } = e.target;
@@ -270,9 +268,8 @@ export default connect(mapStateToProps, mapDispatchToProps)(
                                 <option value='image'>Image</option>
                                 <option value='video'>Video</option>
                                 <option value='audio'>Audio</option>
-                                
                                 <option value='table'>Table</option>
-                                {/* <option value='survey'>Survey</option> */}
+                                <option value='survey'>Survey</option>
                                 
                             </select>
                         </div>
@@ -289,7 +286,7 @@ export default connect(mapStateToProps, mapDispatchToProps)(
                         <div className='xs-12 form-group'>
                             <label>Set price for successful completion</label>    
                             <input value={this.state.price} min={1} name='price' type='number' placeholder='Enter amounf in project tokens' onChange={this.handleChange} required/>
-                            <label style={{color: "#F2994A"}}>You have 50,000 unalloted observation budget tokens </label>
+                            <label style={{color: "#F2994A"}}>You have {window.moneyFormat(this.props.observationBudget, '$')} left of unalloted observation budget tokens </label>
                         </div>
 
                         <div className='xs-12 form-group'>
@@ -311,7 +308,8 @@ export default connect(mapStateToProps, mapDispatchToProps)(
                                         ref="date"
                                         selected={this.state["date-unformatted"]}
                                         onChange={this.handleDatePick}
-                                        minDate={this.state["date-unformatted"]}
+                                        minDate={moment(this.props.startDate)}
+                                        maxDate={moment(this.props.endDate)}
                                         required
                                         />
                                     </div>
