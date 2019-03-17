@@ -24,14 +24,14 @@ export const addStakeholder = obj => {
           type: dA.ADD_STAKEHOLDER_S,
           message: data.message
         });
-        dispatch({ type: "NEW_TOAST", status: "success", message: "Stakeholder Added Succesfully"})
+        dispatch({ type: "NEW_TOAST", status: "success", message: "Stakeholder(s) Added Succesfully"})
         dispatch({type: CLOSE_MODAL_FORM});
         dispatch(fetchProject(obj.id));
       })
       .catch((res) => {
   
         dispatch({ type: dA.ADD_STAKEHOLDER_F });
-        dispatch({ type: "NEW_TOAST", status: "error", message: extractMessage(res) || "Could Not Remove Stakeholder."})
+        dispatch({ type: "NEW_TOAST", status: "error", message: extractMessage(res) || "Could Not Remove Stakeholder(s)."})
 
       });
   };

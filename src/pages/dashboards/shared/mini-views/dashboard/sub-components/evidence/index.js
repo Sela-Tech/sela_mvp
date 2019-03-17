@@ -86,7 +86,7 @@ class Evidence extends React.Component {
                   <h3>Type</h3>
                 </div>
                 <div className='xs-3'>
-                    <h3>Stakeholder</h3>
+                    <h3>Assigned To</h3>
                 </div>
                 <div className='xs-2'>
                     <h3>Due Date</h3>
