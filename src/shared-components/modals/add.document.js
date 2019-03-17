@@ -125,8 +125,16 @@ export default connect(mapStateToProps)(
               required
             />
           </div>
-
-          <div className="form-group">
+          
+          <div className='form-group'>
+            <label>Select Document Type </label>
+            <select className='form-control' name='type' onChange={this.handleChange}>
+            <option value="document">Document | Pdf </option>
+              <option value="media">Image | Video | Audio</option>
+            </select>
+          </div>
+          {this.state.type === "media" ?
+          <div className="form-group with-preview">
             <label> Upload Preview</label>
             <label htmlFor="doc" id="label-image">
               {this.state.filetype[0] === "image" ? (
@@ -142,7 +150,7 @@ export default connect(mapStateToProps)(
                 <React.Fragment>
                   <div className="c-w">
                     <div className="c t-c">
-                      <p>{this.state.filetype}</p>
+                      <p>{this.state.filetype.indexof("officedocument") !== -1 ? "Document": this.state.filetype}</p>
                     </div>
                   </div>
                 </React.Fragment>
@@ -172,6 +180,31 @@ export default connect(mapStateToProps)(
             </label>
           </div>
 
+          :
+
+          <div className='form-group'>
+            <ReactS3Uploader
+                name="doc"
+                server={endpoints.b}
+                signingUrl="s3/sign"
+                signingUrlMethod="GET"
+                accept="image/* application/pdf"
+                s3path="docs/"
+                preprocess={this.handleImageChange}
+                onSignedUrl={this.onSignedUrl}
+                onProgress={this.onUploadProgress}
+                onError={this.onUploadError}
+                onFinish={this.onUploadFinish}
+                // signingUrlWithCredentials={true} // in case when need to pass authentication credentials via CORS
+                uploadRequestHeaders={{ "x-amz-acl": "public-read" }} // this is the default
+                contentDisposition="auto"
+                scrubFilename={filename =>
+                  filename.replace(/[^\w\d_\-.]+/gi, "")
+                }
+                autoUpload={true}
+              />
+          </div>
+          }
           <div className="form-group xs-12">
             {isDocumentPresent ? (
               <AsyncButton
