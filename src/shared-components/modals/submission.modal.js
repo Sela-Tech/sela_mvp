@@ -231,10 +231,11 @@ const UploadMedia = class extends Component {
           <div className='xs-12 white'>
             <div className='xs-10 xs-off-1'>
   
-            <div className='form-group'>
+            <div className='form-group xs-12'>
                 <p>The instruction entered by the funder on the evidence request form goes here</p>
             </div>  
-            <div className="form-group">
+
+            <div className="form-group xs-12" style={{marginBottom: '3em'}}>
               <label> Upload Preview</label>
               <label htmlFor="doc" id="label-image">
                 {this.state.filetype[0] === "image" ? (

@@ -96,16 +96,14 @@ export default styled.div`
 
   }
 
-
   #label-image {
-    height: 8em;
+    height: 12em;
     width: 100%;
     background: #ADB5BD;
     cursor: pointer;
     position: relative;
     padding: 0;
     border-radius: 4px;
-    overflow: hidden;
 
     img {
       position: absolute;
@@ -129,7 +127,7 @@ export default styled.div`
     }
   }
   
-  input[type="file"] {
+  .with-preview input[type="file"] {
     height: 0.1px;
     width: 0.1px;
     overflow: hidden;
