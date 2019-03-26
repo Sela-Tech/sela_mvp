@@ -4,6 +4,23 @@ import { retrieveToken } from "../../helpers/TokenManager";
 import * as evidence from "../actions/evidence";
 import {CLOSE_MODAL_FORM} from "../actions/modal";
 
+export const retrieveSubmission = obj=>{
+    return dispatch => {
+        dispatch({ type:  evidence.RETRIEVE_SUBMISSION_R })        
+        Axios({
+            url: endpoints.evidence('retrieve-submission', obj ),
+            method: 'GET',
+            headers:{
+                authorization: retrieveToken()
+            }
+        }).then(res=>{
+            dispatch({ type:  evidence.RETRIEVE_SUBMISSION_S, submissions: res.data })
+        }).catch(res=>{
+            dispatch({ type:  evidence.RETRIEVE_SUBMISSION_F })
+        })
+    }
+}
+
 export const specifyKPI = data=>{
     return dispatch => {
         dispatch({ type:  evidence.SPECIFY_KPI_R})
@@ -16,6 +33,7 @@ export const specifyKPI = data=>{
             }
         }).then(res=>{
             dispatch({ type:  evidence.SPECIFY_KPI_S });
+            dispatch({type: evidence.UPDATE_OBSERVATION_BUDGET, amount: data.price })
             dispatch({ type: "NEW_TOAST", status: "success", message: "New KPI Created" });
             dispatch({ type: CLOSE_MODAL_FORM });
             dispatch(getKPIs(data.project))
@@ -62,4 +80,8 @@ export const submitEvidence = data => {
 
         })
     }
+}
+
+export const selectTask = ( milestone, taskId ) => {
+    return { type: evidence.SELECT_TASK_SUBMISSIONS, milestone, taskId }
 }

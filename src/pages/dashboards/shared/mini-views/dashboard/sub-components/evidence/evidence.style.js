@@ -70,7 +70,34 @@ box-shadow: 0px 1px 3px rgba(0, 0, 0, 0.04);
 border-radius: 4px;
 
 .pad-top{
-  padding-top: 1em;
+  padding-top: 2em;
+}
+
+.form-group.proposal{
+  margin: 1em 0 0 0;
+  padding: 1em;
+  label{
+    display: block;
+    font-family: Acumin Pro;
+    font-size: 0.8em;
+    line-height: 16px;
+    color: #3D4851;
+    margin-bottom: 0.5em;
+  }
+  select{
+    background: #FFFFFF;
+    border: 1px solid #DDDDDD;
+    box-sizing: border-box;
+    border-radius: 4px;
+    display: block;
+    width: 100%;
+    font-size: 0.85em;
+    height: 45px;
+  }
+}
+
+.tasks-view{
+  border-right: 1px solid #fafafa;
 }
 
 .tasks-view, .submission-view{
@@ -92,8 +119,9 @@ border-radius: 4px;
       padding-right: 1em;
       .container{
         position: relative;
-        height: 14em;
+        height: 7em;
         background-color: #0A2C56;
+        overflow: hidden;
         
         &.video{
           &::after{
@@ -120,13 +148,14 @@ border-radius: 4px;
         }
         
         &.table, &.survey {
-          padding-top: 4.5em;
+          padding-top: 2em;
           .shared{
-            height: 4em;
-            width: 4em;
+            height: 2em;
+            width: 2em;
             color: white;
             text-align: center; 
             background-position: center;
+            background-size: contain;
             background-repeat: no-repeat;
             display: block;
             margin: auto;
@@ -153,10 +182,40 @@ border-radius: 4px;
         
       }
       .avatar{
-        height: 2.15em;
-        width: 2.15em;
-        border-radius: 2.15em;
+        height: 2em;
+        width: 2em;
+        border-radius: 2em;
         object-fit: cover;
+        position: relative;
+        display: inline-block;
+        border: 1px solid #aaa;
+        text-align: center;
+        line-height: 2em;
+
+        &.n1 {
+          left: -0.5em;
+        }
+        &.n2 {
+          left: -1em;
+        }
+        &.n3 {
+          left: -1.5em;
+        }
+        &.n4 {
+          /* left: -2.5em; */
+          background: #201d41;
+          color: white;
+          font-size: 0.5em;
+          display: inline-block;
+          height: 32px;
+          width: 32px;
+          border-radius: 32px;
+          line-height: 32px;
+          position: relative;
+          display: inline-block;
+          float: right;
+          border: 0;
+        }
       }
 
       .pad-top{
@@ -164,13 +223,14 @@ border-radius: 4px;
       }
       .av-container{
         float: left;
+        padding-top: 0.5em;
       }
 
       .info-container{
         float: left;
         h4,p{
           margin: 0;
-          padding: 0.25em 0 0 0.5em;
+          padding: 0.25em 0 0 0em;
           font-size: 0.8em;
           font-weight: 400;
         }
@@ -207,7 +267,7 @@ border-radius: 4px;
   cursor: pointer;
   &.active {
     background: #201D41;
-    span {
+    span, h3 {
       color: white;
     }
   }

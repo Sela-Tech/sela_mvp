@@ -2,6 +2,7 @@ import React from "react";
 import Helmet from "react-helmet";
 import { StyledWrapperElem } from "./wrapper.style";
 import DashboardSidebar from "./sidebar";
+import { withRouter } from "react-router";
 
 const MetaData = ({ viewName, projectName }) => {
   switch (viewName) {
@@ -61,4 +62,4 @@ const Wrapper = ({ viewName, children, projectName }) => {
   );
 };
 
-export default Wrapper
+export default withRouter(Wrapper)

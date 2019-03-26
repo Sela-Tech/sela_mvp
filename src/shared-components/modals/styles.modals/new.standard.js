@@ -1,13 +1,21 @@
 import styled from 'styled-components';
 
 export default styled.div`
+&.full{
+  height: 100vh;
+  .white{
+    height: calc(100vh - 81px);
+    form{
+      height: 100%;
+    }
+  }
+}
 .grayed{
     background: #F5F5F8;
     padding: 1em 2em;
   }
   .white{
     background: white;
-    padding: 1em 0;
   }
 
   border-radius: 5px 5px 0px 0px;

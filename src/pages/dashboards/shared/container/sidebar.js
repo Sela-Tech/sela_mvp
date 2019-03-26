@@ -6,6 +6,7 @@ import settings from "../../../../assets/icons/settings.svg";
 import folder from "../../../../assets/icons/folder.svg";
 import help from "../../../../assets/icons/question.svg";
 import logout from "../../../../assets/icons/power.svg";
+import wallet from "../../../../assets/icons/wallet.svg";
 
 import  connect from "react-redux/lib/connect/connect";
 import { showModal } from "../../../../store/action-creators/modal";
@@ -16,31 +17,10 @@ import { WebSidebar, MobileSidebar } from "./sidebar.style";
 import MenuNotifier from "../notify";
 import { SHOW_ADD_PROJECT_MODAL } from "../../../../store/actions/modal";
 
-const Decider = () => {
-    return (
-        <ul>
-          <li>
-            <NavLink exact to="/dashboard" activeClassName="active">
-              <img src={folder} alt="folder" />
-              <span>Projects</span>
-            </NavLink>
-          </li>
-
-          <li>
-            <NavLink exact to="/dashboard/settings" activeClassName="active">
-              <img src={settings} alt="settings" />
-              <span>Settings</span>
-            </NavLink>
-          </li>
-        </ul>
-      );
-};
-
 const MobileDashboardSidebar = ({
   dispatch,
   isOpened,
   toggleMenu,
-  userType,
   user
 }) => {
 
@@ -92,7 +72,7 @@ const MobileDashboardSidebar = ({
           </div>
           <div className='f-l'>
             <h3>
-              {user.lastName} {user.firstName}
+              {user.firstName} {user.lastName}
             </h3>
             <p>
               {(user.isFunder && "Project Funder") ||
@@ -103,8 +83,28 @@ const MobileDashboardSidebar = ({
         </div>
 
         <div className='xs-12'>
-          <Decider userType={userType} />
-        </div>
+        <ul>
+          <li>
+            <NavLink exact to="/dashboard" >
+              <img src={folder} alt="folder" />
+              <span>Projects</span>
+            </NavLink>
+          </li>
+
+          <li>
+            <NavLink exact to="/dashboard/wallet" >
+              <img src={wallet} alt="wallet" />
+              <span>Wallet</span>
+            </NavLink>
+          </li>
+
+          <li>
+            <NavLink exact to="/dashboard/settings" >
+              <img src={settings} alt="settings" />
+              <span>Settings</span>
+            </NavLink>
+          </li>
+        </ul>        </div>
         <div id="fixed-bottom">
           <div className="padded">
                <button id="logout-btn" onClick={() => dispatch(signout())}>
@@ -129,9 +129,7 @@ const WebDashboardSidebar = ({ dispatch, user }) => {
       <div id="bottom">
         <div className="xs-12" id="user">
           <img src={user.profilePhoto} alt="" />
-          <h3>
-            {user.lastName} {user.firstName}
-          </h3>
+          <h3>{user.firstName} {user.lastName}</h3>
           <p>
             {(user.isFunder && "Project Funder") ||
               (user.isEvaluator && "Project Evaluator") ||
@@ -142,13 +140,20 @@ const WebDashboardSidebar = ({ dispatch, user }) => {
         <h4 className="xs-12">MANAGE</h4>
         <ul className="xs-12">
           <li>
-            <NavLink exact to="/dashboard" activeClassName="active">
+            <NavLink exact to="/dashboard">
               <img src={folder} alt="folder" />
               <span>Projects</span>
             </NavLink>
           </li>
           <li>
-            <NavLink exact to="/dashboard/settings" activeClassName="active">
+            <NavLink exact to="/dashboard/wallet" >
+              <img src={wallet} alt="wallet" />
+              <span>Wallet</span>
+            </NavLink>
+          </li>
+
+          <li>
+            <NavLink exact to="/dashboard/settings">
               <img src={settings} alt="settings" />
               <span>Settings</span>
             </NavLink>

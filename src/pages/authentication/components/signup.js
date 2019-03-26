@@ -363,9 +363,9 @@ class Signup extends React.Component {
                       minLength={config.min_password_length}
                       minScore={1}
                       value={this.state.formData.password.value}
-                      scoreWords={['weak', 'okay', 'good', 'strong', 'solid']}
+                      scoreWords={['weak', 'okay', 'good', 'solid']}
                       changeCallback={this.onPassChange}
-                      inputProps={{ name: "password", autoComplete: "off", className: "form-control" }}
+                      inputProps={{ name: "password", autoComplete: "off", className: "form-control", placeholder:"Please enter a long new pasword i.e. password@1" }}
                       required
                     />
                   </div>

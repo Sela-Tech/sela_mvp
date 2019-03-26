@@ -105,10 +105,13 @@ class Evidence extends React.Component {
                   return evidence.stakeholders.some(stakeholder=>{
                     return stakeholder.user._id === this.props.my_id
                   })}).map((evidence,i)=>{
+
                     let status  = evidence.status;
+
                     if(status === 'Completed'){
                       status = 'Submitted';
                     } 
+
                   return <div className='row xs-12' key={i}>
                   <div className='xs-2 col-row'> 
                     <p>{evidence.title}</p>
@@ -122,7 +125,8 @@ class Evidence extends React.Component {
                    
                   <div className='xs-3 col-row'> 
                     {evidence.stakeholders.map((stakeholder,i)=>{
-                      return <button className='stakeholder' onClick={()=>this.showSH(stakeholder.user._id)}>{stakeholder.user.fullName} </button>
+                      return <button className='stakeholder' key={i}
+                      onClick={()=>this.showSH(stakeholder.user._id)}>{stakeholder.user.fullName} </button>
                     })}
                   </div>
                   <div className='xs-2 col-row'>
@@ -131,15 +135,26 @@ class Evidence extends React.Component {
                   
                     <div className='xs-3 col-row'>
                     
-                      <p className='submitted'>{ status }</p>
-                      { evidence.status !== 'Pending' && this.props.iMadeThisProject && 
+                      <p className='submitted'>{  
+                        evidence.requestedBy._id === this.props.my_id 
+                        ? status
+                        :evidence.stakeholders.some(
+                        ev=> ( ev.hasSubmitted === true && ev.user._id === this.props.my_id )) === true ? "Submitted": "Not Submitted"
+                      }</p>
+                      {
+                        /*{ 
+                        evidence.status !== 'Pending' && this.props.iMadeThisProject && 
                         <button className='view' onClick={()=>this.props.showSubmissionByType({
                         type: evidence.datatype, submissionData: { fields: evidence.fields, submissions: evidence.submissions, mode: 'view'} })}> 
                           View
                         </button>
+                        }*/
                       }
 
-                      { evidence.status === 'Pending' && this.props.iMadeThisProject === false && 
+                      { 
+                        this.props.iMadeThisProject === false &&
+                        evidence.stakeholders.some(
+                          ev=> ( ev.hasSubmitted === false && ev.user._id === this.props.my_id )) &&
                         <button className='view' onClick={()=>this.props.showSubmissionByType({
                         type: evidence.datatype,
                         submissionData: { fields: evidence.fields, mode: 'submit', evidenceRequestId: evidence._id }} )}> 

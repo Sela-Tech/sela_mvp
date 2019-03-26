@@ -13,6 +13,7 @@ import notification_state from "./notifications";
 import contractor from "./contractor/project";
 import proposal from "./proposal";
 import evidence from './evidence';
+import wallet from "./wallet";
 
 export default combineReducers({
   evidence,
@@ -27,6 +28,6 @@ export default combineReducers({
   organizations,
   document,
   app,
-  contractor,
-  notification_state
+  contractor,wallet,
+  notification_state,
 });

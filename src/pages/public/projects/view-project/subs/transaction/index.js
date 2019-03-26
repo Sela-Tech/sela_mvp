@@ -4,19 +4,6 @@ import Transactions from "../../../../../dashboards/shared/mini-views/dashboard/
 
 const TranWrapper = styled.div`
   padding-bottom: 2em;
-  h4 {
-    font-family: Acumin Pro;
-    font-style: normal;
-    font-weight: 600;
-    line-height: normal;
-    font-size: 18px;
-    color: #3d4851;
-  }
-
-  > div > div {
-    box-shadow: none !important;
-    border: 0 !important;
-  }
 `;
 
 export default ({ id }) => {

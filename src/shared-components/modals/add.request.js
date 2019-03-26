@@ -69,12 +69,9 @@ export default connect(mapStateToProps, mapDispatchToProps)(
             toSubmit.fields = state.fields;
         }
 
-        if(state.level === "project"){
-            toSubmit.title = state.requestTitle;
-        }
+        toSubmit.title = state.requestTitle || state.taskObject.name;
 
         if(state.level === "task"){
-            toSubmit.title = state.taskObject.name;
             toSubmit.task = state.taskObject.id;
         }
         this.props.newKPI(toSubmit)
@@ -127,7 +124,6 @@ export default connect(mapStateToProps, mapDispatchToProps)(
         this.setState(obj);
     };
 
-
     handleTableChange = (i,e)=>{
         const { name,value } = e.target;
 
@@ -175,6 +171,12 @@ export default connect(mapStateToProps, mapDispatchToProps)(
             }
         })
     }
+
+    handleLevelChange = level =>{
+        this.setState({
+            level
+        })
+    }
   
     render() {
 
@@ -211,14 +213,14 @@ export default connect(mapStateToProps, mapDispatchToProps)(
                             <div className='xs-12 form-group'>
                                 <label>Select the level this request applies to</label>
                                 <div className='xs-12 form-group crowdfund'>
-                                    <button type='button' onClick={()=>this.toggleCrowdfund('task')} className={
+                                    <button type='button' onClick={()=>this.handleLevelChange('task')} className={
                                     `req-checkbox ${this.state.level === 'task' ? 'active': ''}`
                                     }><span/></button>
                                     <label>Task level request </label>
                                 </div>   
 
                                  <div className='xs-12 form-group crowdfund'>
-                                    <button type='button' onClick={()=>this.toggleCrowdfund('project')} className={
+                                    <button type='button' onClick={()=>this.handleLevelChange('project')} className={
                                     `req-checkbox ${this.state.level === 'project' ? 'active': ''}`}><span/></button>
                                     <label>Project level request </label>
                                 </div>  
@@ -226,12 +228,15 @@ export default connect(mapStateToProps, mapDispatchToProps)(
                             </div>
                         
 
-                        { this.state.level === "project" &&
                         <div className='xs-12 form-group'>
                             <label>Request title</label>
-                            <input name='requestTitle' onChange={this.handleChange} value={this.state.requestTitle} placeholder='Enter the name for this project level request'/>
+                            <input name='requestTitle' onChange={this.handleChange} 
+                            value={this.state.requestTitle} 
+                            placeholder= {this.state.level === 'project' ?
+                            'Enter the title for this request':
+                            'Task name will be used if left empty (optional)' }/>
                         </div>
-                        }
+                        
                         
                         { this.state.level === "task" && 
                         <Fragment>

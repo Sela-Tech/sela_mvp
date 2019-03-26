@@ -448,8 +448,8 @@ class AdminDashboard extends React.Component {
                       <div className="xs-2">
                         {moment(u.createdOn).format("YYYY-MM-DD")}
                       </div>
-                      <div className="xs-3">{`${u.lastName} ${
-                        u.firstName
+                      <div className="xs-3">{`${u.firstName} ${
+                        u.lastName
                       }`}</div>
                       <div className="xs-3">{u.email}</div>
                       <div className="xs-2">

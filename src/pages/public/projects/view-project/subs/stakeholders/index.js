@@ -55,7 +55,7 @@ export default connect()(({ project, dispatch }) => {
                 </div>
                 <div className="xs-9">
                   <h4>
-                    {owner.lastName} {owner.firstName}
+                    {owner.firstName} {owner.lastName}
                   </h4>
                   <p>Reputation Score: {owner.reputationScore}</p>
                   <span>{owner.organization.name}</span>
@@ -81,8 +81,8 @@ export default connect()(({ project, dispatch }) => {
                       </div>
                       <div className="xs-9">
                         <h4>
-                          {u.user.information.lastName}{" "}
-                          {u.user.information.firstName}
+                          {u.user.information.firstName}{" "}
+                          {u.user.information.lastName}
                         </h4>
                         <p>
                           Reputation Score: {u.user.information.reputationScore}
@@ -115,8 +115,8 @@ export default connect()(({ project, dispatch }) => {
                       </div>
                       <div className="xs-9">
                         <h4>
-                          {u.user.information.lastName}{" "}
-                          {u.user.information.firstName}
+                          {u.user.information.firstName}{" "}
+                          {u.user.information.lastName}
                         </h4>
                         <p>
                           Reputation Score: {u.user.information.reputationScore}
@@ -147,11 +147,11 @@ export default connect()(({ project, dispatch }) => {
                         <img src={u.user.information.profilePhoto} alt="" />
                       </div>
                       <div className="xs-9">
-                        <h4>
-                          {u.user.information.lastName}{" "}
-                          {u.user.information.firstName}
+                      <h4>
+                          {u.user.information.firstName}{" "}
+                          {u.user.information.lastName}
                         </h4>
-                        <p>
+                      <p>
                           Reputation Score: {u.user.information.reputationScore}
                         </p>
                         <span>{u.user.information.organization.name}</span>

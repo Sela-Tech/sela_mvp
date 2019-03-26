@@ -118,13 +118,13 @@ export default styled.div`
   .variable {
     padding: 2em 0;
     h3 {
-      font-family: Acumin Pro;
-      font-style: normal;
-      font-weight: 600;
-      line-height: normal;
-      font-size: 24px;
-      letter-spacing: 0.02em;
-      color: #156edc;
+      // font-family: Acumin Pro;
+      // font-style: normal;
+      // font-weight: 600;
+      // line-height: normal;
+      // font-size: 24px;
+      // letter-spacing: 0.02em;
+      // color: #156edc;
     }
 
     .card {

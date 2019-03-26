@@ -213,9 +213,10 @@ class StakeHolderLoader extends React.Component {
             let options = nextProps.stakeholders, untouched;
 
             if(nextProps.stakeholders){
-                options = nextProps.stakeholders.filter(stakeholder=>{
-                    return stakeholder.user.information.isContractor === true
-                });
+                options = nextProps.stakeholders
+                // .filter(stakeholder=>{
+                //     return stakeholder.user.information.isContractor === true
+                // });
 
                 options = options.map(option=>{
                     return option.user.information

@@ -38,7 +38,7 @@ export default connect()(({data, dispatch})=>{
     if(data.stakeholder){
         is_stakeholder_present = Boolean(data.stakeholder);
         image = data.stakeholder.profilePhoto;
-        name = data.stakeholder.lastName + " " + data.stakeholder.firstName;
+        name = data.stakeholder.firstName + " " + data.stakeholder.lastName;
     }
     let project_name = data.project.name;
     let project_id = data.project.id;
@@ -57,17 +57,41 @@ export default connect()(({data, dispatch})=>{
 
     switch(type){
 
-        case "ACCEPT_INVITE_TO_JOIN_PROJECT":
+        case "PROPOSAL_ASSIGNED":
         return <div className='xs-12 row'>
-        <div className="xs-4 sm-3  md-1 t-c">
-            <img src= { imageToShow } alt=""/>
+            <div className='xs-4 sm-3 md-1 t-c'>
+                <img src= { imageToShow } alt=""/>
+            </div>
+
+            <div className="xs-8 sm-9 md-11">
+                <p>You've been assigned a proposal by <Link to="#" onClick={user_link}><strong>{name}</strong></Link> for the <a  href={project_link}><strong>{project_name}</strong></a> Project</p>
+                <span> {Timediff(date)} </span>
+            </div>
         </div>
 
-        <div className="xs-8 sm-9 md-11">
-            <p><Link to="#" onClick={user_link}><strong>{name}</strong></Link> has accepted your invite to join the <a href={project_link}><strong>{project_name}</strong></a> Project</p>
-            <span> {Timediff(date)} </span>
-        </div>
-    </div>
+        case "PROPOSAL_APPROVED":
+            return <div className='xs-12 row'>
+                <div className='xs-4 sm-3 md-1 t-c'>
+                    <img src= { imageToShow } alt=""/>
+                </div>
+
+                <div className="xs-8 sm-9 md-11">
+                    <p>You now have an approved proposal with <Link to="#" onClick={user_link}><strong>{name}</strong></Link> for the <a  href={project_link}><strong>{project_name}</strong></a> Project</p>
+                    <span> {Timediff(date)} </span>
+                </div>
+            </div>
+
+        case "ACCEPT_INVITE_TO_JOIN_PROJECT":
+            return <div className='xs-12 row'>
+                <div className="xs-4 sm-3  md-1 t-c">
+                    <img src= { imageToShow } alt=""/>
+                </div>
+
+                <div className="xs-8 sm-9 md-11">
+                    <p><Link to="#" onClick={user_link}><strong>{name}</strong></Link> has accepted your invite to join the <a href={project_link}><strong>{project_name}</strong></a> Project</p>
+                    <span> {Timediff(date)} </span>
+                </div>
+            </div>
 
 
         case "NEW_PROPOSAL":

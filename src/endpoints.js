@@ -13,19 +13,62 @@ const proposals = (type, data)=>{
 }
 
 
-const evidence = (type, data)=>{
+const evidence = (type, obj)=>{
   switch (type) {
+    case "retrieve-submission":
+    return b + `project/${obj.projectId}/submissions?level=${obj.level}${obj.proposalId ? `&proposalId=${obj.proposalId}`:``}`;
+
     case "submit-evidence":
     return b + `evidence-request-submission`;
+
     case "get-kpis": 
-    return b + `project/${data.id}/evidence-requests`;
+    return b + `project/${obj.id}/evidence-requests`;
+
     default:
       return  b + "specify-kpi";
   }
 }
 
+const fake_wallet_endpoints = (type,projectId, userId)=>{
+  let c = "https://obscure-depths-61467.herokuapp.com/";
+  switch (type) {
+
+    case 'c-transactions':
+    return c + `wallet/${projectId}/c/${userId}`
+
+    case 'transactions':
+    return c + `wallet/${projectId}/${userId}`;
+
+    default:
+    return c + "wallet";
+  }
+}
+
+const wallet_endpoints = (type, projectId) => {
+  switch (type) {
+
+    case "asset-balance":
+      return b + `/project/${projectId}/asset-balance`;
+
+    case "transaction-history":
+      return b + `/project/${projectId}/transaction-history`; 
+
+    case "wallet-transaction-history":
+      return b + `/user/wallet-transaction-history`;
+
+    case "balance":
+      return b + `/user/wallet-balance`
+  
+    default:
+      return b;
+  }
+}
+
 export default {
   b,
+  wallet: fake_wallet_endpoints,
+  r_wallet: wallet_endpoints,
+  fetch_organizations: b + "organizations",
   update_interests: b + "user/area-of-interest",
   email_verification: b + "account/verify?token=",
   resend_verification: b + "verify/account/resend",

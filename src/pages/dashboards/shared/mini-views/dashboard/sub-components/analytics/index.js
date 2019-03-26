@@ -455,8 +455,7 @@ class Analytics extends React.Component {
         </div>
 
         { 
-        this.props.match.params.id === "5c8690c8e432c70022633168" &&
-        
+       // this.props.match.params.id === "5c8690c8e432c70022633168" &&
         <Fragment>
 
         <div className='xs-12' style={{height: 350, marginTop: '2em'}}>
@@ -714,14 +713,7 @@ class Analytics extends React.Component {
         
         </Fragment>
         }
-
-        { 
-        this.props.match.params.id === "5c7e60b4308f070022eadbfb" &&
-        <div className='xs-12'>
-
-        </div>
-        }
-        
+  
       </AStyle>
     );
   }

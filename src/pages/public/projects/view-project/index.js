@@ -184,11 +184,11 @@ class ViewProject extends React.Component {
                 </div>
               </div>
               <div className="xs-12 sm-3">
-                <div className="f-r">
+                {/* <div className="f-r">
                   <NavLink to="invest" id="invest">
                     Invest
                   </NavLink>
-                </div>
+                </div> */}
               </div>
             </div>
           </div>

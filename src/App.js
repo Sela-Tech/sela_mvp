@@ -17,6 +17,7 @@ import email_verification from "./pages/authentication/components/email-verifica
 
 import home from './pages/public/home';
 import ErrorBoundary from './error.boundary';
+import { fetchOrganizations } from './store/action-creators/organizations';
 
 const change_password = lazy(()=> import("./pages/authentication/components/change-password"));
 const signup = lazy(()=> import("./pages/authentication/components/signup"));
@@ -25,9 +26,14 @@ const dashboard_decider = loadable(() => import("./pages/dashboards/"), {
     LoadingComponent: Blank
   });
 const evaluator_default_page = lazy(()=> import("./pages/authentication/components/sub/evaluator.after-signup"));
+let pulled_organization = false;
 
-
-const App = ({ isAuthenticated, actionType, isEvaluator }) => {
+const App = ({ isAuthenticated, actionType, isEvaluator, dispatch }) => {
+  if(pulled_organization === false){
+    dispatch(fetchOrganizations());
+    pulled_organization = true;
+  }
+     
   switch (isEvaluator && isAuthenticated) {
     case true:
    return <Router>
@@ -118,6 +124,21 @@ const App = ({ isAuthenticated, actionType, isEvaluator }) => {
                       isAuthenticated={isAuthenticated}
                       component={dashboard_decider}
                     />
+
+                    <PrivateRoute
+                      exact
+                      path="/dashboard/wallet"
+                      isAuthenticated={isAuthenticated}
+                      component={dashboard_decider}
+                    />
+
+                    <PrivateRoute
+                      exact
+                      path="/dashboard/wallet/:projectId"
+                      isAuthenticated={isAuthenticated}
+                      component={dashboard_decider}
+                    />
+
                     <PrivateRoute
                       exact
                       path="/dashboard/notifications"
@@ -186,8 +207,6 @@ const App = ({ isAuthenticated, actionType, isEvaluator }) => {
   }
   
 };
-
-
 
 const mapStateToProps = state => { 
   const { isAuthenticated, action, credentials } = state.auth;

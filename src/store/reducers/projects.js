@@ -1,4 +1,5 @@
 import dA from "../actions/dashboard";
+// import { UPDATE_OBSERVATION_BUDGET } from "../actions/evidence";
 
 const initstate = {
   add: {
@@ -47,6 +48,19 @@ const initstate = {
 
 export default (state = initstate, payload) => {
   switch (payload.type) {
+
+    // case UPDATE_OBSERVATION_BUDGET:
+    // return {
+    //   ...state,
+    //   single: {
+    //     ...state.single,
+    //     info: {
+    //       ...state.single.info,
+    //       observationBudget: state.single.info.observationBudget  - payload.amount
+    //     }
+    //   }
+    // }
+
     case dA.CLEAR_ADD:
       return {
         ...state,
@@ -289,7 +303,7 @@ export default (state = initstate, payload) => {
           },
           options: payload.pstakeholders.map(f => {
             return {
-              name: `${f.lastName} ${f.firstName}`,
+              name: `${f.firstName} ${f.lastName}`,
               type: `${(f.isFunder === true && "Project Funder") ||
                 (f.isContractor === true && "Contractor") ||
                 (f.isEvaluator === true && "Evaluation Agent")}`,

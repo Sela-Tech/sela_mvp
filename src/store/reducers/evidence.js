@@ -2,7 +2,15 @@ import * as evidenceActions from "../actions/evidence";
 
 const init = {
     type: "",
-    kpis: []
+    kpis: [],
+    selectedTaskSubmissions: {},
+    submissions: {
+        projectLevelSubmissions: {
+            others: [],
+            requested: []
+        },
+        taskLevelSubmissions: []
+    }
 }
 
 export default (state=init, payload)=>{
@@ -50,7 +58,40 @@ export default (state=init, payload)=>{
             ...state,
             type: evidenceActions.SUBMIT_EVIDENCE_S
         };
+
+        case evidenceActions.RETRIEVE_SUBMISSION_R:
+        return {
+            ...state,
+            type: evidenceActions.RETRIEVE_SUBMISSION_R
+            };
+
+        case evidenceActions.RETRIEVE_SUBMISSION_S:
+        return {
+            ...state,
+            type: evidenceActions.RETRIEVE_SUBMISSION_S,
+            submissions: {...state.submissions, ...payload.submissions}
+        };
+
+        case evidenceActions.RETRIEVE_SUBMISSION_F:
+        return {
+            ...state,
+            type: evidenceActions.RETRIEVE_SUBMISSION_F
+        };
         
+        case evidenceActions.SELECT_TASK_SUBMISSIONS:
+        return {
+            ...state,
+            type: evidenceActions.SELECT_TASK_SUBMISSIONS,
+            selectedTaskSubmissions: state
+            .submissions
+            .taskLevelSubmissions
+            .filter( milestone => {
+                return milestone.title === payload.milestone
+            })[0]
+            .tasks.filter( task => {
+                return task._id === payload.taskId
+            })[0]
+        }
         default:
             return state;
     }

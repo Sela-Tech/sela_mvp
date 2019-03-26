@@ -192,25 +192,25 @@ const  ModalWrapper = (props)=>{
       </GenericModalWrapper>
       
     case modals.SHOW_SUBMISSION_BY_TYPE_MODAL:
-    return props.submissionModalType === 'table' ?
-    <GenericModalWrapper
+      return props.submissionModalType === 'table' ?
+      <GenericModalWrapper
+        name={name}  
+        specific_type={'interests'}
+        className={"xs-12 no-padding"}            
+        close={close} stop={stop} 
+        has_heading={false} show_close_button={true} >
+          <SubmissionModal />
+      </GenericModalWrapper>
+      :
+      <GenericModalWrapper
       name={name}  
       specific_type={'interests'}
-      className={"xs-12 sm-10 sm-off-1 no-padding"}            
+      className={"xs-12 no-padding"}            
       close={close} stop={stop} 
       has_heading={false} show_close_button={true} >
         <SubmissionModal />
-    </GenericModalWrapper>
-    :
-    <GenericModalWrapper
-    name={name}  
-    specific_type={'interests'}
-    className={"xs-12 sm-8 sm-off-2 md-6 md-off-3 no-padding"}            
-    close={close} stop={stop} 
-    has_heading={false} show_close_button={true} >
-      <SubmissionModal />
-    </GenericModalWrapper>
-    
+      </GenericModalWrapper>
+      
     case modals.LAUNCH_SDG:
       return <ShowSdgModal close={close} stop={stop}/>;
 

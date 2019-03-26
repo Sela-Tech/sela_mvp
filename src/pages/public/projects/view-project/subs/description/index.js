@@ -130,7 +130,7 @@ export default ({ id, project }) => {
             </div>
             <div className="xs-9">
               <h4>
-                {project.owner.lastName} {project.owner.firstName}
+                {project.owner.firstName} {project.owner.lastName}
               </h4>
               <p>Reputation Score: {project.owner.reputationScore}</p>
               <span>{project.owner.organization.name}</span>

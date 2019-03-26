@@ -18,6 +18,8 @@ import Blank from "./blank";
 
 import FunderInterestProjectView from "./project-funder/view_project_via_interest";
 import ContractorInterestProjectView from "./contractor/view_project_via_interest";
+import Wallet from "./shared/wallet";
+import Token from "./shared/wallet/token";
 
 const DashboardRouter =  withRouter(({ userType, ...props }) => {
 
@@ -60,11 +62,21 @@ const DashboardRouter =  withRouter(({ userType, ...props }) => {
     </DashboardWrapper>
 
     case "/dashboard":
-    return <DashboardWrapper viewName="home">
+    return <DashboardWrapper viewName="home" key={1}>
       <DashboardHomeWrapper>
         { userType === 'Funder' ? <FunderHome {...props}/>: <ContractorHome {...props} /> }
         </DashboardHomeWrapper> 
     </DashboardWrapper>
+
+  case "/dashboard/wallet":
+  return <DashboardWrapper viewName={ viewname ? viewname: "Wallet" } key={2}>
+    <Wallet {...props} />
+  </DashboardWrapper>
+
+  case "/dashboard/wallet/:projectId":
+  return <DashboardWrapper viewName = {viewname ? viewname: "Transactions"}>
+    <Token {...props}/>
+  </DashboardWrapper>
 
     default:
     return <Blank {...props} notFound={true}/>;

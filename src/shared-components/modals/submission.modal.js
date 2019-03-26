@@ -7,20 +7,21 @@ import ReactS3Uploader from "react-s3-uploader";
 import endpoints from "../../endpoints";
 import { submitEvidence } from '../../store/action-creators/evidence';
 import MiniExcelTable from "./view.table";
+import GalleryViewer from './submission-viewers/gallery';
 
 const SubWrapper = styled.form`
   #image{
       width: 100%;
       object-fit: contain;
-      max-height: 30em;
+      height: 100%;
   }
 
   #label-image{
-      height: 14em !important;
+      height: 25em !important;
    }
  `;
 
- const SubmissionInputMaker = ({inputs})=> {
+const SubmissionInputMaker = ({inputs})=> {
     return inputs.map((input,i)=>{
         let type = input.type;
 
@@ -47,7 +48,6 @@ const SubmissionFieldBuilder  = class extends Component{
         })
     }
 
-
     handleSubmit = e => {
       e.preventDefault();
       let obj = {
@@ -61,8 +61,8 @@ const SubmissionFieldBuilder  = class extends Component{
     }
 
     render(){
-        const { fields } = this.props;
-       const disabled =  Object.keys(this.state).filter(key=>{
+      const { fields } = this.props;
+      const disabled =  Object.keys(this.state).filter(key=>{
          return this.state[key] !== ""
        }).length !== fields.filter(field=>{
         return field.title.toLowerCase().trim() !== "date";
@@ -82,8 +82,10 @@ const SubmissionFieldBuilder  = class extends Component{
                   if(field.responseType === 'Number'){
                       type = 'number';
                   }
-                  return <div className='form-group xs-12' key={i}>
-                      <input type = {type} name={field.title} onChange={(e)=>this.handleChange(e, field._id)} placeholder={field.title} required/>
+                  return <div className='form-group xs-6' key={i}>
+                      <div className='xs-11'>
+                        <input type = {type} name={field.title} onChange={(e)=>this.handleChange(e, field._id)} placeholder={field.title} required/>
+                      </div>
                   </div>
               })}
               <button type="button" id="save" onClick={this.handleSubmit} disabled={disabled}>
@@ -347,23 +349,24 @@ const Router = ({ submissionModalType,data, mode, dispatch })=>{
             </div>;
             
             default:
-              let image = data.src;
-              if(data.submissions && data.submissions.length > 0){
-                image = data.submissions[0].image;
-              }
-                return <div className="xs-12" style={{position: 'relative'}}>
-                  <p style={{ position: 'absolute' }}>Loading...</p>
-                  <img src={image} id = "image" alt=''/>
-                </div>
+              return <GalleryViewer data={data}/>
+              // let image = data.src;
+              // if(data.submissions && data.submissions.length > 0){
+              //   image = data.submissions[0].image;
+              // }
+              //   return <div className="xs-12 i-h" style={{position: 'relative'}}>
+              //     {imageLoaded === false && <p  className='t-c' style={{ position: 'absolute', left: 0,right: 0, height: "2em", lineHeight:"2em", zIndex: -1 }}>Loading...</p>}
+              //     <img src={image} id = "image" alt='' onLoadedData={()=>(imageLoaded = true)}/>
+              //   </div>
         }
     }
 }
 
 class SubmissionModal extends Component{
     render(){
-        return <FormWrapper className ='xs-12'>
+        return <FormWrapper className ='xs-12 full'>
             <div className="xs-12 t-c grayed">
-                <h3>Submission</h3>
+                <h3> Submissions For {this.props.data.title || 'Submission Request' } </h3>
             </div>
 
           {this.props.submissionModalType === 'table' ?
@@ -378,7 +381,6 @@ class SubmissionModal extends Component{
             </div>
         :
           <div className='xs-12 white'>
-          <div className={'xs-10 xs-off-1'}>
               <SubWrapper className='xs-12'>
                   <Router 
                   submissionModalType = {this.props.submissionModalType} 
@@ -386,7 +388,6 @@ class SubmissionModal extends Component{
                   dispatch = {this.props.dispatch}
                   mode= {this.props.data.mode }/>
               </SubWrapper>
-          </div>
           </div>
         }
 

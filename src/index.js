@@ -14,9 +14,13 @@ import ends from "./endpoints";
 import notifications_actions from "./store/actions/notifications";
 import ToastContainer from 'react-toastify/lib/components/ToastContainer';
 
-
 window.moneyFormat = function(value, currency){
+  if(isNaN(value)){
+    return "-";
+  }
+  if( typeof(value) === 'number' ){
   return `${currency}${value.toFixed(2).replace(/\d(?=(\d{3})+\.)/g, '$&,')}`;
+  }
 } 
 
 if (retrieveToken()) {

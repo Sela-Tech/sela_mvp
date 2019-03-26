@@ -170,7 +170,7 @@ class Comments extends React.Component{
                         <img src={comment_data.actor.profilePhoto} alt=""/>
                     </div>
                     <div className="xs-9">
-                        <h4>{comment_data.actor.lastName + " " + comment_data.actor.firstName}</h4> 
+                        <h4>{comment_data.actor.firstName + " " + comment_data.actor.lastName}</h4> 
                         <p>
                             {comment_data.comment}
                         </p>
@@ -223,7 +223,7 @@ const mapStateToProps = state => {
         myComments: state.proposal.comments.map(comment=>{
             return {
                 profilePhoto,
-                fullName: lastName + " " + firstName,
+                fullName: firstName + " " + lastName,
                 comment
             }
         })
