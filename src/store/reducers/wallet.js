@@ -1,12 +1,7 @@
 import * as wallet from "../actions/wallet";
 
 const init = {
-token:{
-    balance: "",
-    spent: "",
-    transactions: []
-},
-perTransaction: []
+    balances: []
 }
 
 export default ( state = init, payload ) => {
@@ -43,8 +38,7 @@ export default ( state = init, payload ) => {
             return {
                 ...state,
                 type: wallet.FETCH_MY_WALLET_S,
-                createdTokens: payload.wallet.tokens.createdProjects,
-                receivedTokens: payload.wallet.tokens.joinedProjects
+                ...payload.wallet
             };
     
             case wallet.FETCH_MY_WALLET_F:
@@ -53,6 +47,81 @@ export default ( state = init, payload ) => {
                 type: wallet.FETCH_MY_WALLET_F
             };
     
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+                  
+
+    case wallet.FETCH_PROJECT_ASSET_BALANCE_R:
+        return {
+            ...state,
+            type: wallet.FETCH_PROJECT_ASSET_BALANCE_R,
+            projectAssetBalance: payload.data
+        }
+        
+    case wallet.FETCH_PROJECT_ASSET_BALANCE_S:
+        return {
+            ...state,
+            type: wallet.FETCH_PROJECT_ASSET_BALANCE_S
+        }
+        
+    case wallet.FETCH_PROJECT_ASSET_BALANCE_F:
+        return {
+            ...state,
+            type: wallet.FETCH_PROJECT_ASSET_BALANCE_F
+        };
+
+
+        case wallet.FETCH_PROJECT_ASSET_TRANSACTIONS_R:
+        return {
+            ...state,
+            type: wallet.FETCH_PROJECT_ASSET_TRANSACTIONS_R
+        }
+
+        case wallet.FETCH_PROJECT_ASSET_TRANSACTIONS_S:
+        return {
+            ...state,
+            type: wallet.FETCH_PROJECT_ASSET_TRANSACTIONS_S,
+            projectAssetTransactions: payload.data
+        };
+
+        case wallet.FETCH_PROJECT_ASSET_TRANSACTIONS_F:
+        return {
+            ...state,
+            type: wallet.FETCH_PROJECT_ASSET_TRANSACTIONS_F
+        };
+
+
+
+
+
+
+
+
+
         default:
             return state;
     }
