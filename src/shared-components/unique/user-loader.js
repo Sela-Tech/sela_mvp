@@ -400,7 +400,7 @@ class StakeHolderLoader extends React.Component {
                                     </div>
                                     <div className="xs-9 t">
                                         <h4>{`${o.firstName} ${o.lastName}` } </h4>
-                                        <p><strong>{o.organization.name}</strong></p>
+                                        <p><strong>{o.organization ? o.organization.name: ""}</strong></p>
                                     </div>
                                     
                                 </div>
