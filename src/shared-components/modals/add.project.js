@@ -120,7 +120,7 @@ export default connect(mapStateToProps, mapDispatchToProps)(
         message: undefined,
         form: {
           ...this.state.form,
-          goal: value.indexOf(0) === 0 ? 1: value
+          implementationBudget: value.indexOf(0) === 0 ? 1: value
         }
       });
     };
@@ -268,7 +268,7 @@ export default connect(mapStateToProps, mapDispatchToProps)(
 
                 <div className='xs-12 form-group'>
                 <label>Enter the estimated <strong>Implementation Budget</strong></label>
-                <input name='goal'  onChange={this.handleChange} placeholder='Amount in USD' min={1} type='number' required/>
+                <input name='implementationBudget'  onChange={this.handleChange} placeholder='Amount in USD' min={1} type='number' required/>
                 {/* <em>Amount can be adjusted later</em> */}
                 </div>
 

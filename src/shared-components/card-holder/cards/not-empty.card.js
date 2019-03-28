@@ -43,14 +43,14 @@ const NotEmptyCard = ({ p, history, showMap }) => {
 
             <div className="tasks xs-12">
               <Line
-                percent={(p.raised / p.goal) * 100}
+                percent={(p.raised / p.implementationBudget) * 100}
                 strokeWidth="4"
                 trailWidth="4"
                 strokeColor="#156EDC"
                 trailColor="#F2F2F2"
               />
               <div className="xs-12 dw">
-                <p className="xs-9">{(p.raised / p.goal) * 100}% Funded</p>
+                <p className="xs-9">{(p.raised / p.implementationBudget) * 100}% Funded</p>
               </div>
             </div>
           </div>

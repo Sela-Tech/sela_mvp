@@ -32,7 +32,10 @@ class MainViewForPreviewingProject extends Component{
         const image = info.image || info['project-avatar'];
         const duration = info.expected_duration ||  `${moment(info.startDate).format("DD MMM YY")} -  ${moment(info.endDate).format("DD MMM YY")}`;
 
-        const goal = typeof(info.goal) === "string"? info.goal : window.moneyFormat(info.goal, "$")
+        const implementationBudget = typeof(info.implementationBudget) === "string"? info.implementationBudget : window.moneyFormat(info.implementationBudget, "$");
+
+        const observationBudget = typeof(info.observationBudget) === "string"? info.observationBudget : window.moneyFormat(info.observationBudget, "$");
+
         let sdgs = info.sdgs || info.tags;
         let location = "";
         const title = info.title || info.name;
@@ -121,7 +124,11 @@ class MainViewForPreviewingProject extends Component{
                             <span id="location"/><p>{location}</p>
                         </div>
                         <div className='xs-12'>
-                            <span id="money"/><p>{ goal }</p>
+                            <label style={{fontSize: '0.7em', display: "block", color: "#888"}}>Implementation Budget</label>
+                            <span id="money"/><p>{ implementationBudget }</p>
+                            <label style={{fontSize: '0.7em', display: "block", color: "#888"}}>Observation Budget</label>
+                            <span id="money"/><p>{ observationBudget }</p>
+                            
                         </div>
                         <div className='xs-12'>
                             <span id="duration"/><p>{duration}</p>

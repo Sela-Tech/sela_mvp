@@ -121,11 +121,11 @@ class ViewProject extends React.Component {
 
                   <div className="xs-12 sm-5 t-c">
                     <h4>
-                      {(project.raised / project.goal) * 100}% <span>of</span> $
-                      {project.goal} <span> goal</span>
+                      {(project.raised / project.implementationBudget) * 100}% <span>of</span> $
+                      {project.implementationBudget} <span> goal</span>
                     </h4>
                     <Line
-                      percent={(project.raised / project.goal) * 100}
+                      percent={(project.raised / project.implementationBudget) * 100}
                       strokeWidth="4"
                       trailWidth="4"
                       strokeColor="#156EDC"

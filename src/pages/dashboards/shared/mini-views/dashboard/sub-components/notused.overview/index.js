@@ -48,7 +48,7 @@ class Overview extends React.Component{
                 <p>{info.description}</p>
                 <div className='xs-12 p-text'>
                 <span id="location"/><p>{info.location.name}</p>
-                <span id="money"/><p>{info.goal}</p>
+                <span id="money"/><p>{info.implementationBudget}</p>
                 </div>
             </div>
             <div className='xs-12'>
