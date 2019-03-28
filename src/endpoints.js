@@ -47,17 +47,17 @@ const fake_wallet_endpoints = (type,projectId, userId)=>{
 const wallet_endpoints = (type, projectId) => {
   switch (type) {
 
-    case "asset-balance":
-      return b + `/project/${projectId}/asset-balance`;
+    case "project-asset-balance":
+      return b + `project/${projectId}/asset-balance`;
 
-    case "transaction-history":
-      return b + `/project/${projectId}/transaction-history`; 
+    case "project-transaction-history":
+      return b + `project/${projectId}/transaction-history`; 
 
-    case "wallet-transaction-history":
-      return b + `/user/wallet-transaction-history`;
+    case "self-acount-transaction-history":
+      return b + `user/wallet-transaction-history`;
 
-    case "balance":
-      return b + `/user/wallet-balance`
+    case "self-account-balance":
+      return b + `balances`
   
     default:
       return b;

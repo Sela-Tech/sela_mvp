@@ -18,9 +18,15 @@ window.moneyFormat = function(value, currency){
   if(isNaN(value)){
     return "-";
   }
+  
+  if(typeof(value) === 'string'){
+    value = parseFloat(value);
+  }
+
   if( typeof(value) === 'number' ){
   return `${currency}${value.toFixed(2).replace(/\d(?=(\d{3})+\.)/g, '$&,')}`;
   }
+
 } 
 
 if (retrieveToken()) {

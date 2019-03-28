@@ -125,16 +125,16 @@ const App = ({ isAuthenticated, actionType, isEvaluator, dispatch }) => {
                       component={dashboard_decider}
                     />
 
+
                     <PrivateRoute
                       exact
-                      path="/dashboard/wallet"
+                      path="/dashboard/wallet/:id"
                       isAuthenticated={isAuthenticated}
                       component={dashboard_decider}
                     />
 
                     <PrivateRoute
-                      exact
-                      path="/dashboard/wallet/:projectId"
+                      path="/dashboard/wallet"
                       isAuthenticated={isAuthenticated}
                       component={dashboard_decider}
                     />

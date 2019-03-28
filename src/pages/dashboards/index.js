@@ -69,13 +69,13 @@ const DashboardRouter =  withRouter(({ userType, ...props }) => {
     </DashboardWrapper>
 
   case "/dashboard/wallet":
-  return <DashboardWrapper viewName={ viewname ? viewname: "Wallet" } key={2}>
+  return <DashboardWrapper viewName = {viewname ? viewname: "Wallet"}>
     <Wallet {...props} />
   </DashboardWrapper>
 
-  case "/dashboard/wallet/:projectId":
+  case "/dashboard/wallet/:id":
   return <DashboardWrapper viewName = {viewname ? viewname: "Transactions"}>
-    <Token {...props}/>
+    <Token {...props} />
   </DashboardWrapper>
 
     default:
