@@ -185,11 +185,11 @@ export const NotEmptyCardStyling2 = styled.div`
   }
   .box {
     background: #ffffff;
-    border-radius: 9px;
+    border-radius: 4px;
     overflow: auto;
     transition: 250ms;
     cursor: pointer;
-    min-height:325px;
+    min-height: 250px;
     &:hover {
       border-color: #156edc;
       #add {

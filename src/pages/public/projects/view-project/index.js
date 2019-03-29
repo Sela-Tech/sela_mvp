@@ -4,10 +4,10 @@ import connect  from "react-redux/lib/connect/connect";
 import NavLink from "react-router-dom/NavLink";
 import  Link from "react-router-dom/Link";
 import Navbar from "../../../../shared-components/navbar";
-import Line from "rc-progress/lib/Line";
+// import Line from "rc-progress/lib/Line";
 import Description from "./subs/description";
 import Stakeholders from "./subs/stakeholders";
-import Updates from "./subs/updates";
+// import Updates from "./subs/updates";
 import Map from "./subs/map";
 import mapping from "../../../../mapping";
 
@@ -23,9 +23,11 @@ const DetermineWhatToShow = ({ show, id, project }) => {
   switch (show) {
     case "transactions":
       return <Transactions id={id} />;
-    case "updates":
-      return <Updates project={project} />;
-    case "stakeholders":
+   
+      // case "updates":
+      // return <Updates project={project} />;
+   
+      case "stakeholders":
       return <Stakeholders project={project} />;
     case "map":
       return <Map id={id} project={project}/>;
@@ -95,7 +97,8 @@ class ViewProject extends React.Component {
                 <h1>
                   {project.name ? project.name : <p className="short-loader" />}
                 </h1>
-                  {project.owner.organization.name ? <p>
+                  {
+                    project.owner.organization ? <p>
                   { project.owner.organization.name}
                   </p> : (
                     <p className="long-loader" />
@@ -113,24 +116,29 @@ class ViewProject extends React.Component {
                 </div>
 
                 <div className="xs-12 info">
-                  <div className="xs-12 sm-4 l">
+
+                  {/* <div className="xs-12 sm-4 l">
                     <h3>
                       ${project.raised} <span>raised</span>
                     </h3>
-                  </div>
+                  </div> */}
 
-                  <div className="xs-12 sm-5 t-c">
-                    <h4>
+                  <div className="xs-12 sm-9 l t-l">
+                    {/* <h4>
                       {(project.raised / project.implementationBudget) * 100}% <span>of</span> $
                       {project.implementationBudget} <span> goal</span>
                     </h4>
-                    <Line
+                     */}
+                    <h3>{ window.moneyFormat(parseFloat(project.goal || project.implementationBudget || 0) + parseFloat(project.observationBudget || 0), "$") }</h3>
+
+                    {/* <Line
                       percent={(project.raised / project.implementationBudget) * 100}
                       strokeWidth="4"
                       trailWidth="4"
                       strokeColor="#156EDC"
                       trailColor="#F2F2F2"
-                    />
+                    /> */}
+
                   </div>
                   <div className="xs-12 sm-3 r">
                     <h3>
@@ -161,14 +169,14 @@ class ViewProject extends React.Component {
                     Description
                   </NavLink>
                 </div>
-                <div className="xs-12 sm-6 md-2">
+                {/* <div className="xs-12 sm-6 md-2">
                   <NavLink to={`/projects/${id}/updates`}>
                     Updates
                   </NavLink>
-                </div>
+                </div> */}
                 <div className="xs-12 sm-6 md-2">
                   <NavLink to={`/projects/${id}/transactions`}>
-                    Transaction
+                    Transactions
                   </NavLink>
                 </div>
                 <div className="xs-12 sm-6 md-2">

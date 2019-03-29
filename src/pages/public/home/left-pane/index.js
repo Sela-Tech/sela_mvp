@@ -140,7 +140,7 @@ class LeftPane extends React.Component {
         onScroll={this.handleScroll}
       >
         <div className="xs-10 xs-off-1">
-          <h2 id="projects-h2">Projects</h2>
+          <h2 id="projects-h2">{" "}</h2>
           <div className={showMap ? "xs-12" : "xs-12 sm-8"}>
             <div className="xs-12 sm-5 md-5">
               <label>Select Location</label>
@@ -150,7 +150,7 @@ class LeftPane extends React.Component {
                 onChange={this.handleSelect}
                 value={location}
               >
-                <option value="Unspecified"> Unspecified</option>
+                <option value="Unspecified"> Filter By Location </option>
                 {locations.map((l, i) => {
                   return (
                     <option value={l.name} key={i}>
@@ -169,7 +169,7 @@ class LeftPane extends React.Component {
                 onChange={this.handleSelect}
                 value={status}
               >
-                <option value="Unspecified"> Unspecified</option>
+                <option value="Unspecified"> Filter By Project Status</option>
 
                 {statuses.map((s, i) => {
                   return (

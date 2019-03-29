@@ -10,13 +10,14 @@ const CardHolder = ({ projects, heading, type, action }) => {
     case home.GET_HOMEPAGE_PROJS_S:
       return (
         <CardHolderStyle className="xs-10 xs-off-1">
-          {projects.length > 0 ? (
-            projects.map((p, i) => {
+          { 
+            projects.length > 0 ? ( projects.map((p, i) => {
               return <NotEmptyCard p={p} key={i} />;
             })
-          ) : (
-            <h4> No Projects Found. </h4>
-          )}
+            ) : (
+              <h4> No Projects Found. </h4>
+            )
+          }
 
           <div className="xs-12">
             {type !== "all" &&
