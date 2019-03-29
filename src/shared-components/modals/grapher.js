@@ -2,6 +2,7 @@ import React, {Component} from 'react';
 import styled from 'styled-components';
 import { ResponsiveLine } from '@nivo/line'
 import moment from 'moment';
+import { isNumber } from 'util';
 
 const GraphWrapper = styled.div`
 position: fixed;
@@ -44,7 +45,9 @@ const SimpleLineGraph = ({ data, config })=>{
         return new Date(b.date) - new Date(a.date);
     }).map(datum=>{
         
-        let date, obj = {
+        let date, 
+        obj = {
+            user: datum.user,
             "x": datum[config.columnX],
             "y": datum[config.columnY]
         };
@@ -63,33 +66,64 @@ const SimpleLineGraph = ({ data, config })=>{
             obj.y = datum[config.columnY].fullName;;
         }
 
+        if( isNumber(datum[config.columnX])){
+            obj.x = parseFloat(datum[config.columnX]);
+        }
+
+        if( isNumber(datum[config.columnY])){
+            obj.y = parseFloat(datum[config.columnY]);
+        }
+        
         return obj;
     });
 
-    // first sort data by date, then map through sorted data to generate data according to syntax needed for line graph data
-    const data_for_line_graph = [
-        { 
-         "name": <p>Line Graph Plot Of <strong>{config.columnY}</strong> against <strong>{config.columnX}</strong></p>,
-          "yAxisName": config.columnY,
-          "xAxisName": config.columnX,
-           "id": "Line Graph Plot",
-          "color": `hsl(${Math.round(Math.random() * 100)},${Math.round(Math.random() * 100)}%, ${Math.round(Math.random() * 100)}%)`,
-          "data": data
-        }
-      ];
+    let users = new Set([]);
+    let usersSimplified = [];
+    
+    data.forEach(datum => {
+       if(users.has(datum.user._id)  === false ){
+            usersSimplified.push({
+                _id: datum.user._id, name: datum.user.fullName
+            });
+            users.add(datum.user._id)
+       }
+    });
+
+    users = [...users];
+
+    let dataPerUser = usersSimplified.map(user => {
+        return { 
+            "id": user.name,
+            "color": `hsl(${Math.round(Math.random() * 100)}, 
+            ${Math.round(Math.random() * 100)}%,
+            ${Math.round(Math.random() * 100)}%)`,
+            "data": data.filter(datum => datum.user._id === user._id)
+            .map(legendInfo => {
+                return {
+                    'x': legendInfo.x,
+                    "y": legendInfo.y
+                }
+             })
+           }
+    });
+
     return <div className='xs-12' style={{height: 350, marginTop: '2em'}}>
+
       <p style={{
         padding: 0,
         margin: 0,
         fontSize: '0.9em',
         color: '#777',
         fontWeight: '300'
-      }}>{data_for_line_graph[0].name}</p>
+      }}>
+        <span>Line Graph Plot Of <strong>{config.columnY}</strong> against <strong>{config.columnX}</strong></span>
+      </p>
+
      <ResponsiveLine
-        data={data_for_line_graph}
+        data={dataPerUser}
         margin={{
             "top": 50,
-            "right": 200,
+            "right": 150,
             "bottom": 50,
             "left": 60
         }}
@@ -109,7 +143,7 @@ const SimpleLineGraph = ({ data, config })=>{
             "tickSize": 5,
             "tickPadding": 5,
             "tickRotation": 0,
-            "legend": data_for_line_graph[0].xAxisName,
+            "legend": config.columnX,
             "legendOffset": 36,
             "legendPosition": "middle"
         }}
@@ -118,8 +152,8 @@ const SimpleLineGraph = ({ data, config })=>{
             "tickSize": 5,
             "tickPadding": 5,
             "tickRotation": 0,
-            "legend": data_for_line_graph[0].yAxisName,
-            "legendOffset": -40,
+            "legend":config.columnX,
+            "legendOffset": -55,
             "legendPosition": "middle"
         }}
         dotSize={10}

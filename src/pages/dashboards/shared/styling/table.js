@@ -1,6 +1,26 @@
 import styled from 'styled-components';
 
-export const plain = `border: 1px solid #F5F5F8;
+export const plain = `
+.t-options{
+    label{
+        font-size: 0.8em;
+        display: block;
+        color: #555;
+    }
+    select{
+        height: 2.5em;
+        background: white;
+        border: 1px solid #cacaca;
+        border-radius: 0;
+        font-size: 0.8em;
+        width: 10em;
+        margin: 0.25em 0.5em;    
+    }
+
+}
+
+
+border: 1px solid #F5F5F8;
 border-radius: 4px;
 background: #FFFFFF;
 
