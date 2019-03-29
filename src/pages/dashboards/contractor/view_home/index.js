@@ -73,7 +73,9 @@ import { SHOW_INTERESTS_MODAL } from "../../../../store/actions/modal";
 
     render(){      
       const {settings, projects }= this.state;      
-      const {createdProjects, joinedProjects,savedProjects, areasOfInterest} = projects;
+      const {createdProjects, joinedProjects,savedProjects, 
+        // areasOfInterest
+      } = projects;
 
      return <SharedViewWrapper className="xs-12">
      <section className='xs-12'>
@@ -142,7 +144,7 @@ import { SHOW_INTERESTS_MODAL } from "../../../../store/actions/modal";
      }
      </section>
 
-     <section className='xs-12'>
+     {/* <section className='xs-12'>
       <label>Projects in your areas of interest</label>
     
             <Slider 
@@ -178,7 +180,7 @@ import { SHOW_INTERESTS_MODAL } from "../../../../store/actions/modal";
             </div>
             }
             </Slider>
-     </section>
+     </section> */}
 
      <section className='xs-12'>
         <label>Saved projects</label>

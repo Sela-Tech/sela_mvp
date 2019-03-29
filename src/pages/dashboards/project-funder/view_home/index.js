@@ -68,7 +68,9 @@ exportMe = class extends React.Component{
     render(){
 
       const { settings, projects }= this.state;      
-      const { createdProjects, fundedProjects,savedProjects, areasOfInterest } = projects;
+      const { createdProjects, fundedProjects,savedProjects, 
+        // areasOfInterest
+       } = projects;
 
      return <SharedViewWrapper className="xs-12">
       <section className='xs-12'>
@@ -131,7 +133,7 @@ exportMe = class extends React.Component{
         }
         </section>
 
-        <section className='xs-12'>
+        {/* <section className='xs-12'>
       <label>Projects in your areas of interest</label>
     
             <Slider 
@@ -168,7 +170,7 @@ exportMe = class extends React.Component{
             </div>
             }
             </Slider>
-     </section>
+     </section> */}
 
       <section className='xs-12'>
         <label>Saved projects</label>
