@@ -289,60 +289,59 @@ class MiniExcelTable extends Component{
             return temp;
         });
 
-        let fake_sub = [
-            {
-                user: submissions[0].user,
-                "Absorbance @ 420nm": "0",
-                "Concentration (mg/l)": 0,
-                Date: submissions[0].date
-            },
-            {
-                user: submissions[0].user,
-                "Absorbance @ 420nm": "0.5",
-                "Concentration (mg/l)": 0.046,
-                Date: submissions[0].date
-            },
-            {
-                user: submissions[0].user,
-                "Absorbance @ 420nm": "1",
-                "Concentration (mg/l)": 0.054,
-                Date: submissions.date
-            },
-            {
-                user: submissions[0].user,
-                "Absorbance @ 420nm": "1.5",
-                "Concentration (mg/l)": 0.103,
-                Date: submissions[0].date
-            },
-            {
-                user: submissions[0].user,
-                "Absorbance @ 420nm": "2",
-                "Concentration (mg/l)": 0.155,
-                Date: submissions[0].date
-            },
-            {
-                user: submissions[0].user,
-                "Absorbance @ 420nm": "2.5",
-                "Concentration (mg/l)": 0.165,
-                Date: submissions[0].date,
-            },
-            {
-                user: submissions[0].user,
+    //     let fake_sub = [
+    //         {
+    //             user: submissions[0].user,
+    //             "Absorbance @ 420nm": "0",
+    //             "Concentration (mg/l)": 0,
+    //             Date: submissions[0].date
+    //         },
+    //         {
+    //             user: submissions[0].user,
+    //             "Absorbance @ 420nm": "0.5",
+    //             "Concentration (mg/l)": 0.046,
+    //             Date: submissions[0].date
+    //         },
+    //         {
+    //             user: submissions[0].user,
+    //             "Absorbance @ 420nm": "1",
+    //             "Concentration (mg/l)": 0.054,
+    //             Date: submissions.date
+    //         },
+    //         {
+    //             user: submissions[0].user,
+    //             "Absorbance @ 420nm": "1.5",
+    //             "Concentration (mg/l)": 0.103,
+    //             Date: submissions[0].date
+    //         },
+    //         {
+    //             user: submissions[0].user,
+    //             "Absorbance @ 420nm": "2",
+    //             "Concentration (mg/l)": 0.155,
+    //             Date: submissions[0].date
+    //         },
+    //         {
+    //             user: submissions[0].user,
+    //             "Absorbance @ 420nm": "2.5",
+    //             "Concentration (mg/l)": 0.165,
+    //             Date: submissions[0].date,
+    //         },
+    //         {
+    //             user: submissions[0].user,
 
-                "Absorbance @ 420nm": "3",
-                "Concentration (mg/l)": 0.208,
-                Date: submissions[0].date,
-            },
-            {
-                user: submissions[0].user,
+    //             "Absorbance @ 420nm": "3",
+    //             "Concentration (mg/l)": 0.208,
+    //             Date: submissions[0].date,
+    //         },
+    //         {
+    //             user: submissions[0].user,
 
-                "Absorbance @ 420nm": "3.5",
-                "Concentration (mg/l)": 0.246,
-                Date: submissions[0].date,
-            }
+    //             "Absorbance @ 420nm": "3.5",
+    //             "Concentration (mg/l)": 0.246,
+    //             Date: submissions[0].date,
+    //         }
            
-    ]
-
+    // ]
 
         return <Fragment>
 
@@ -359,7 +358,7 @@ class MiniExcelTable extends Component{
                     { 
                         showMiniView === false && 
                         showGraph === true && 
-                        <Grapher data = {fake_sub} 
+                        <Grapher data = {submissions} 
                         graphInformation = {graphInformation}
                         closeGraph={this.closeGraph}
                         />
@@ -389,7 +388,7 @@ class MiniExcelTable extends Component{
                     </div>
 
                     <div className='content xs-12'>
-                        { fake_sub.map((sub,i)=>{
+                        { submissions.map((sub,i)=>{
                             return <div className='xs-12 row' key={i}>
                                 {Object.keys(sub).map(( column, index )=>{
                                     return <div className='col-row' style={{ width: `${width}%`, float: "left" }} key={index}> 
