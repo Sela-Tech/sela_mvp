@@ -54,7 +54,6 @@ class Proposal extends Component{
                 `/dashboard/project/${project_id}/proposals` 
                 )
             
-
             }
 
             this.setState({
@@ -249,7 +248,7 @@ class Proposal extends Component{
                             <StakeholderLoader addStakeholders= {this.addStakeholders} 
                             isNotEditable={true} defaultValue={ this.props.self_info } />
                             :
-                            <StakeholderLoader addStakeholders= {this.addStakeholders} />
+                            <StakeholderLoader addStakeholders= {this.addStakeholders} limitTo={'contractor'}/>
                             
                             }
                             <span className='line xs-12'/>
