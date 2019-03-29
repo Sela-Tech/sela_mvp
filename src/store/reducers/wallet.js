@@ -1,7 +1,15 @@
 import * as wallet from "../actions/wallet";
 
 const init = {
-    balances: []
+    balances: [],
+    projectAssetTransactions:{
+        transactions: [],
+        createdToken: {
+            distributor: {
+                distributionAccountBalances: []
+            }
+        }
+    }
 }
 
 export default ( state = init, payload ) => {
@@ -47,34 +55,6 @@ export default ( state = init, payload ) => {
                 type: wallet.FETCH_MY_WALLET_F
             };
     
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-                  
-
     case wallet.FETCH_PROJECT_ASSET_BALANCE_R:
         return {
             ...state,
@@ -113,14 +93,6 @@ export default ( state = init, payload ) => {
             ...state,
             type: wallet.FETCH_PROJECT_ASSET_TRANSACTIONS_F
         };
-
-
-
-
-
-
-
-
 
         default:
             return state;

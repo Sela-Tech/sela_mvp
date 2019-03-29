@@ -12,6 +12,7 @@ import Icon from 'react-fa';
 import {Link,withRouter, NavLink} from 'react-router-dom';
 import { FETCH_MY_WALLET_R } from '../../../../store/actions/wallet';
 import { Fragment } from 'react';
+import Token from "./token";
 
 const blue = "#156edc";
 export const  colors = ["#F7AF7B", "#F77B8A", "#7B96F7", "#a8b0b9","#e04f96","#4fe0c2","#e04f4f","#e04fc4","#834fe0"];
@@ -117,7 +118,14 @@ export const Nav  = styled.div`
 
 `;
 export const WalletWrapper = styled.div`
+    height: 100vh;
+    overflow: hidden;
 
+.full{
+    background: white;
+    overflow: auto;
+    height: 90.5vh;;
+}
 .proof{
 
     label {
@@ -275,154 +283,153 @@ class Wallet extends Component {
 
         return   <WalletWrapper className='xs-12'>
                     <Navbar />
-                    <Nav className='xs-12'>    
-                        <div className="xs-12" id="header">
-                            <div className="xs-12"> 
-                            <nav className="xs-12">
+                    <div className='xs-3 full'>
+                        <div className='xs-12'>
+                            <Nav className='xs-12'>    
+                            <div className="xs-12" id="header">
+                                <div className="xs-12"> 
+                                <nav className="xs-12">
 
-                            <NavLink
-                                className={`side-stack ${pathname !== "project-tokens" ? "active":""}`}
-                                activeClassName="active"
-                                name="my-tokens"
-                                onClick={this.manualNavigator}
-                                exact to={`/dashboard/wallet/my-tokens`}>
-                                My Tokens
-                            </NavLink>
+                                <NavLink
+                                    className={`side-stack xs-6 ${pathname !== "project-tokens" ? "active":""}`}
+                                    activeClassName="active"
+                                    name="my-tokens"
+                                    onClick={this.manualNavigator}
+                                    exact to={`/dashboard/wallet/my-tokens`}>
+                                    My Tokens
+                                </NavLink>
 
-                            <NavLink
-                                className={`side-stack ${pathname  === "project-tokens" ? "active":""}`}
-                                activeClassName="active"
-                                name="project-tokens"
-                                onClick={this.manualNavigator}
-                                exact to={`/dashboard/wallet/project-tokens`}>
-                                Project Tokens
-                            </NavLink>
+                                <NavLink
+                                    className={`side-stack xs-6 ${pathname  === "project-tokens" ? "active":""}`}
+                                    activeClassName="active"
+                                    name="project-tokens"
+                                    onClick={this.manualNavigator}
+                                    exact to={`/dashboard/wallet/project-tokens`}>
+                                    Project Tokens
+                                </NavLink>
 
-                            </nav>
-                        </div>
-                        </div>
-                    </Nav>
+                                </nav>
+                            </div>
+                            </div>
+                        </Nav>    
+                        </div>   
+                        <div className="xs-12" id="view">
+                            <SharedViewWrapper className='xs-12'>
+                                { this.state.pathname === "my-tokens" ? 
+                                    <div className='xs-12'>
+                                        <div className='tokens xs-12'>
+                                        
+                                            { preloaders && [1].map(i=>{
+                                                return <div className='token-card xs-12' key={i}>
+                                                    <div className='inner xs-12'>
+                                                        <h4 className='name placeholder'>
+                                                            <Icon name='spinner' spin/>
+                                                        </h4>
+                                                        <label>Balance</label>
+                                                        <h4 className='balance placeholder' >
+                                                            <Icon name='spinner' spin/>
+                                                        </h4>
+                                                    </div>
+                                                    
+                                                </div>
+                                            })
+                                            }
 
-                <div className="xs-12" id="view">
+                                            {Boolean(myTokens.length) &&
+                                                myTokens.map((token,i)=>{
+                                                    return <Link className='token-card xs-12' 
+                                                        key={i} to={`/dashboard/wallet/${token.type}`}>
+                                                        <div className={`inner xs-12 ${token.type === "native" ? 'native': "pst"}`}>
+                                                            <h4 className='name'> {token.type === "native" ? "My Lumens": token.projectName}</h4>
+                                                            <label>Balance</label>
+                                                            <h4 className='balance'>
+                                                            <span className={token.type === "native" ? "xlm ":"pst"}>
+                                                                {token.token ?  token.token : "XML"}
+                                                            </span>
+                                                            {
+                                                                window.moneyFormat(token.balance,  "")
+                                                            }</h4>
+                                                        </div>
+                                                    </Link>
+                                                })
+                                            }
                     
-                    <SharedViewWrapper className='xs-12'>
-                    <div className="xs-12 proof">
-                        {/* <label>Click For Blockchain Proof</label> */}
-                        {/* <a href={link} target="_blank">Blockchain Proof Link</a> */}
+                                        {preloaders === false && Boolean(myTokens.length)=== false && 
+                                            <div className='token-card xs-12'>
+                                                <div className='inner xs-12'>    
+                                                    <label>None Found</label>   
+                                                </div>
+                                            </div>
+                                        }
+                                            
+                                        </div>
+                                    </div> 
+                                            :
+                                    <div className='xs-12'>
+                                        {/* <label>Tokens Created</label> */}
+                                        <div className='tokens xs-12'>
+                                            
+                                        { preloaders && [1].map(i=>{
+                                                return <div className='token-card xs-12' key={i}>
+                                                    <div className='inner xs-12'>
+                                                        <h4 className='name placeholder'>
+                                                            <Icon name='spinner' spin/>
+                                                        </h4>
+                                                        <label>Created</label>
+                                                        <h4 className='balance placeholder' >
+                                                            <Icon name='spinner' spin/>
+                                                        </h4>
+                                                    </div>
+                                                    
+                                                </div>
+                                            })
+                                            }
+
+                                        {Boolean(createdTokens.length) &&
+                                            createdTokens.map((token,i)=>{
+                                                return <Link className='token-card xs-12' 
+                                                    key={i} to={`/dashboard/wallet/${token.projectId}`}>
+
+                                                    <div className={`inner xs-12 ${token.type === "native" ? 'native': "pst"}`}>
+                                                        <h4 className='name'> {token.projectName}</h4>
+                                                        <label>Balance</label>
+                                                        
+                                                        { token.balances
+                                                            .distributor.distributionAccountBalances.map((val,i)=>{
+                                                            return <Fragment key={i}>
+                                                        
+                                                                <h4 className='balance'>
+                                                                    <span className={val.type === "native" ? "xlm ":"pst"}>
+                                                                        {val.token ?  val.token : "XML"}
+                                                                    </span>
+                                                                    { window.moneyFormat(val.balance, " ")  }
+                                                                </h4>
+                                                            </Fragment>
+                                                        })}
+                                                    </div>
+
+                                                </Link>
+                                            })
+                                        }
+
+                                        {preloaders === false && Boolean(createdTokens.length)=== false && 
+                                            <div className='token-card xs-12'>
+                                                <div className='inner xs-12'>    
+                                                    <label>None Found</label>   
+                                                </div>
+                                            </div>
+                                        }
+                                
+                                        </div>
+                                    </div>
+                                }
+                            </SharedViewWrapper>
+                        </div>                
                     </div>
 
-                        { this.state.pathname === "my-tokens" ? 
-                            <div className='xs-12'>
-                                <div className='tokens xs-12'>
-                                
-                                    { preloaders && [1].map(i=>{
-                                        return <div className='token-card xs-3' key={i}>
-                                            <div className='inner xs-12'>
-                                                <h4 className='name placeholder'>
-                                                    <Icon name='spinner' spin/>
-                                                </h4>
-                                                <label>Balance</label>
-                                                <h4 className='balance placeholder' >
-                                                    <Icon name='spinner' spin/>
-                                                </h4>
-                                            </div>
-                                            
-                                        </div>
-                                    })
-                                    }
-
-                                    {Boolean(myTokens.length) &&
-                                    myTokens.map((token,i)=>{
-                                        return <Link className='token-card xs-3' 
-                                            key={i} to={`/dashboard/wallet/${token.type}`}>
-                                            <div className={`inner xs-12 ${token.type === "native" ? 'native': "pst"}`}>
-                                                <h4 className='name'> {token.type === "native" ? "My Lumens": token.projectName}</h4>
-                                                <label>Balance</label>
-                                                <h4 className='balance'>
-                                                <span className={token.type === "native" ? "xlm ":"pst"}>
-                                                    {token.token ?  token.token : "XML"}
-                                                </span>
-                                                {
-                                                    window.moneyFormat(token.balance,  "")
-                                                }</h4>
-                                            </div>
-                                        </Link>
-                                    })
-                                    }
-            
-                                {preloaders === false && Boolean(myTokens.length)=== false && 
-                                    <div className='token-card xs-3'>
-                                        <div className='inner xs-12'>    
-                                            <label>None Found</label>   
-                                        </div>
-                                    </div>
-                                }
-                                    
-                                </div>
-                            </div> 
-                                    :
-                            <div className='xs-12'>
-                                {/* <label>Tokens Created</label> */}
-                                <div className='tokens xs-12'>
-                                    
-                                { preloaders && [1].map(i=>{
-                                        return <div className='token-card xs-3' key={i}>
-                                            <div className='inner xs-12'>
-                                                <h4 className='name placeholder'>
-                                                    <Icon name='spinner' spin/>
-                                                </h4>
-                                                <label>Created</label>
-                                                <h4 className='balance placeholder' >
-                                                    <Icon name='spinner' spin/>
-                                                </h4>
-                                            </div>
-                                            
-                                        </div>
-                                    })
-                                    }
-
-                                {Boolean(createdTokens.length) &&
-                                    createdTokens.map((token,i)=>{
-                                        return <Link className='token-card xs-3' 
-                                            key={i} to={`/dashboard/wallet/${token.projectId}`}>
-
-                                            <div className={`inner xs-12 ${token.type === "native" ? 'native': "pst"}`}>
-                                                <h4 className='name'> {token.projectName}</h4>
-                                                <label>Balance</label>
-                                                
-                                                { token.balances
-                                                    .distributor.distributionAccountBalances.map((val,i)=>{
-                                                    return <Fragment key={i}>
-                                                
-                                                        <h4 className='balance'>
-                                                            <span className={val.type === "native" ? "xlm ":"pst"}>
-                                                                {val.token ?  val.token : "XML"}
-                                                            </span>
-                                                            { window.moneyFormat(val.balance, " ")  }
-                                                        </h4>
-                                                    </Fragment>
-                                                })}
-                                            </div>
-
-                                        </Link>
-                                    })
-                                }
-
-                                {preloaders === false && Boolean(createdTokens.length)=== false && 
-                                    <div className='token-card xs-3'>
-                                        <div className='inner xs-12'>    
-                                            <label>None Found</label>   
-                                        </div>
-                                    </div>
-                                }
-                        
-                                </div>
-                            </div>
-                        }
-                        </SharedViewWrapper>
-                    {/* <View id={id} view={view} info={info} readOnly={readOnly} /> */}
-                </div>
-
+                    <div className='xs-9'>
+                        <Token {...this.props}/>
+                    </div>
         
         </WalletWrapper>
     }

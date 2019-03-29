@@ -1,6 +1,6 @@
 import React, {Component, Fragment} from 'react';
 import { connect } from 'react-redux';
-import Navbar from "../../navbar";
+// import Navbar from "../../navbar";
 import styled from 'styled-components';
 import { fetch_projectAsset_transaction_history } from '../../../../../store/action-creators/wallet';
 import TableWrapper from "../../styling/table";
@@ -10,130 +10,77 @@ import moment from 'moment';
 import { showModal } from '../../../../../store/action-creators/modal';
 import { SHOW_STAKEHOLDER_MODAL } from '../../../../../store/actions/modal';
 // import Link from 'react-router-dom/Link';
-import { ResponsivePie } from '@nivo/pie';
+
+// import { ResponsivePie } from '@nivo/pie';
+
 import { ResponsiveLine } from '@nivo/line';
 import {Nav} from "../index";
 import { NavLink, withRouter } from 'react-router-dom';
+import { FETCH_PROJECT_ASSET_TRANSACTIONS_S, FETCH_PROJECT_ASSET_TRANSACTIONS_F } from '../../../../../store/actions/wallet';
 
-const line = [
-    {
-      "id": "contractor 1",
-      "color": "hsl(211, 70%, 50%)",
-      "data": [
-        {
-          "x": "plane",
-          "y": 135
-        },
-        {
-          "x": "helicopter",
-          "y": 283
-        },
-        {
-          "x": "boat",
-          "y": 233
-        },
-        {
-          "x": "train",
-          "y": 145
-        },
-        {
-          "x": "subway",
-          "y": 293
-        },
-        {
-          "x": "bus",
-          "y": 237
-        },
-        {
-          "x": "car",
-          "y": 43
-        },
-        {
-          "x": "moto",
-          "y": 44
-        },
-        {
-          "x": "bicycle",
-          "y": 181
-        },
-        {
-          "x": "others",
-          "y": 181
-        }
-      ]
-    },
-    {
-      "id": "evaluator 1",
-      "color": "hsl(125, 70%, 50%)",
-      "data": [
-        {
-          "x": "plane",
-          "y": 141
-        },
-        {
-          "x": "helicopter",
-          "y": 283
-        },
-        {
-          "x": "boat",
-          "y": 196
-        },
-        {
-          "x": "train",
-          "y": 175
-        },
-        {
-          "x": "subway",
-          "y": 18
-        },
-        {
-          "x": "bus",
-          "y": 215
-        },
-        {
-          "x": "car",
-          "y": 153
-        },
-        {
-          "x": "moto",
-          "y": 71
-        },
-        {
-          "x": "bicycle",
-          "y": 288
-        },
-        {
-          "x": "others",
-          "y": 113
-        }
-      ]
-    },
- 
-  ];
-const pie = [
-    {
-      "id": "python",
-      "label": "python",
-      "value": 362,
-      "color": "hsl(335, 70%, 50%)"
-    },
-    {
-      "id": "go",
-      "label": "go",
-      "value": 369,
-      "color": "hsl(281, 70%, 50%)"
-    },
-    {
-      "id": "lisp",
-      "label": "lisp",
-      "value": 272,
-      "color": "hsl(90, 70%, 50%)"
-    }
-  ]
+// const pie = [
+//     {
+//       "id": "python",
+//       "label": "python",
+//       "value": 362,
+//       "color": "hsl(335, 70%, 50%)"
+//     },
+//     {
+//       "id": "go",
+//       "label": "go",
+//       "value": 369,
+//       "color": "hsl(281, 70%, 50%)"
+//     },
+//     {
+//       "id": "lisp",
+//       "label": "lisp",
+//       "value": 272,
+//       "color": "hsl(90, 70%, 50%)"
+//     }
+//   ]
 
 const TokenWrapper = styled.div`
+    overflow: auto;
+    .options{
+        #send, #withdraw{
+            height: 2.5em;
+            line-height: 2.5em;
+            padding: 0 1em;
+            margin: 0.5em;
+            color: white;
+            font-size: 0.8em;
+            border: 0;
+            border-radius: 3px;
+            float:left;
+        }
+        #send{
+           background: #03a9f4;
+        }
+        #withdraw{
+            background: #f2994a;
+        }
+    }
+    .overview{
+
+        label{
+            font-size: 0.8em;
+            color: #999;
+        }
+        h4{
+            font-size: 0.9em;
+            font-weight: 400;
+            margin: 0.25em 0 1em;
+        }
+        .text{
+            padding: 3% 3% 2%;
+            background: white;
+            border-radius: 3px;
+        }
+    
+    }
+
+   
     padding: 3%;
-    background: white;
     .acc-no{
         font-size: 0.4em;
         color: skyblue;
@@ -144,7 +91,9 @@ const TokenWrapper = styled.div`
     }
     .pad{
         .line, .pie{
-            height: 17em;
+            height: 20em;
+            background: white;
+
         }
         margin: 1em 0;
         &.f-r{
@@ -153,8 +102,7 @@ const TokenWrapper = styled.div`
             }
         }
         .inner{
-            width: 95%;
-            border: 1px solid #F5F5F8;
+            width: 98%;
             border-radius: 3px;
             padding: 1em;
         }
@@ -164,19 +112,39 @@ const TokenWrapper = styled.div`
 class Token extends Component {
     constructor(props){
         super(props);
-        console.log(props.match);
-        props.fetch_transactions(props.match.params.id);
+        if(props.match.params.id){
+            props.fetch_transactions(props.match.params.id);
+        }
         this.state = {
-            perTransaction: [],pathname: "overview"
+            info: props.info || {transactions: []},
+            pathname: "overview"
         }
     }
 
     componentWillReceiveProps(nextProps){
         if(this.props !== nextProps){
-            const {perTransaction,created,toDeduct, name} = nextProps;
-            this.setState({
-                perTransaction,created,toDeduct, name
-            })
+            const {info, type, match} = nextProps;
+
+            if(match.params.id !== this.props.match.params.id){
+                nextProps.fetch_transactions(match.params.id);
+            }
+
+            if(type === FETCH_PROJECT_ASSET_TRANSACTIONS_S){
+                this.setState({
+                    info
+                })
+            }else if (type === FETCH_PROJECT_ASSET_TRANSACTIONS_F){
+                this.setState({
+                    info:  {
+                        transactions: [],
+                        createdToken: {
+                            distributor: {
+                                distributionAccountBalances: []
+                            }
+                        }
+                    }
+                })
+            }
         }
     }
 
@@ -190,11 +158,43 @@ class Token extends Component {
     }
 
     render(){
-        const { perTransaction, pathname } = this.state;
+        
+        const { info,pathname } = this.state;
+       // store only receivers
+        let receivers = new Set([]);
+        let receiversSimplified = [];
+        
+        info.transactions.forEach(tran => {
+           if(receivers.has(tran.receiver._id)  === false ){
+                receiversSimplified.push({
+                    id: tran.receiver._id, name: tran.receiver.firstName + " " + tran.receiver.lastName
+                });
+                receivers.add(tran.receiver._id)
+           }
+        });;
+
+        receivers = [...receivers];
+
+        // use receivers to filter through transactions to get value and dates per receiver
+        let amountVsDate = receivers.map(receiverId=>{
+            return {
+                id:   receiversSimplified.filter(r=> r.id === receiverId)[0].name,
+                color: `hsl(
+                    ${ Math.round( Math.random() * 255 ) },
+                    ${ Math.round( Math.random() * 100 ) }%,
+                    ${ Math.round( Math.random() * 100 ) }%)`,
+                data: info.transactions.map(tran=>{
+                    return  {
+                        "x": moment(tran.createdAt).format("DD/MM/YY"),
+                        "y": tran.value
+                    }
+                })
+            }
+        })
+
         return (
             <Fragment>
-                <Navbar/>
-                    
+     
                     <Nav className='xs-12'>
                         <div className="xs-12" id="header">
                         <div className="xs-12"> 
@@ -226,53 +226,65 @@ class Token extends Component {
                     <TokenWrapper className='xs-12'>
 
                     {pathname === "overview" && 
-                    <Fragment>
-                        <div className='xs-12'>
-                            <div className='xs-6 keys'>
-                                <label>Public Key</label>
-                                <h4>931203921321392adisdioasidnasdiasnd1320931n302</h4>
+                        <div className='overview xs-12'>
+                        <div className='text xs-12'>
+                            <div className='xs-12'>
+                                <div className='xs-12 keys'>
+                                    <label>Public Key</label>
+                                    <h4><a target="_blank" href={`
+                                        ${
+                                            process.env.REACT_APP_STELLAR_MODE === "testnet" ? 
+                                            `https://testnet.steexp.com/account/${info.distributorPublicKey}`:
+                                            `https://steexp.com/account/${info.distributorPublicKey}`
+                                        }`
+                                    }>{info.distributorPublicKey}</a></h4>
+                                </div>
+
+                              
                             </div>
 
-                            <div className='xs-6 options'>
-                                <button>Withdraw</button>
-                                <button>Send</button>
+                            {
+                                info.createdToken.distributor.distributionAccountBalances.map((token,i)=>{
+                                    return <div className='xs-12' key={i}>
+                                        { token.type !== 'native' && 
+                                            <Fragment>
+                                                <div className='xs-4'>
+                                                    <label>PST Code</label>
+                                                    <h4>{token.token} | {info.projectName}</h4>
+                                                </div>
+                                                <div className='xs-4'>
+                                                    <label>PST Balance</label>
+                                                    <h4>{token.balance ? token.balance: "-"}</h4>
+                                                </div>
+                                            </Fragment>
+                                        }
+
+                                        { token.type === 'native' &&
+                                            <div className='xs-4'>
+                                                <label>Lumens Available</label>
+                                                <h4>{token.balance}</h4>
+                                            </div>
+                                        }
+                                </div>
+                                })
+                            }
+
+                            <div className='xs-12 options'>
+                                <button id='withdraw'>Withdraw</button>
+                                <button id='send'>Send</button>
                             </div>
+
+                          
                         </div>
-
+                        
                         <div className='xs-12'>
-                            <div className='xs-6'>
-                                <label>Lumens Available</label>
-                                <h4>10.00</h4>
-                            </div>
-                            <div className='xs-6'>
-                                <label>Lumens Spent</label>
-                                <h4>10.00</h4>
-                            </div>
-                        </div>
-
-                        <div className='xs-12'>       
-                            <div className='xs-4'>
-                                <label>Total PST Cap</label>
-                                <h4>10.00</h4>
-                            </div>
-                            <div className='xs-4'>
-                                <label>PST Available</label>
-                                <h4>10.00</h4>
-                            </div>
-                            <div className='xs-4'>
-                                <label>PST Spent</label>
-                                <h4>10.00</h4>
-                            </div>
-                        </div>
-
-                        <div className='xs-12'>
-                        <div className='xs-7 pad'>
+                        <div className='xs-12 pad'>
                             <div className='inner xs-12 line'>
                                 <ResponsiveLine
-                                    data={line}
+                                    data={amountVsDate}
                                     margin={{
                                         "top": 50,
-                                        "right": 110,
+                                        "right": 150,
                                         "bottom": 50,
                                         "left": 60
                                     }}
@@ -292,7 +304,7 @@ class Token extends Component {
                                         "tickSize": 5,
                                         "tickPadding": 5,
                                         "tickRotation": 0,
-                                        "legend": "transportation",
+                                        "legend": "Date",
                                         "legendOffset": 36,
                                         "legendPosition": "middle"
                                     }}
@@ -301,7 +313,7 @@ class Token extends Component {
                                         "tickSize": 5,
                                         "tickPadding": 5,
                                         "tickRotation": 0,
-                                        "legend": "count",
+                                        "legend": "Token",
                                         "legendOffset": -40,
                                         "legendPosition": "middle"
                                     }}
@@ -344,7 +356,7 @@ class Token extends Component {
                                 />
                             </div>
                         </div>
-                        <div className='xs-5 pad f-r'>
+                        {/* <div className='xs-4 pad f-r'>
                             <div className='inner xs-12 pie'>
                                 <ResponsivePie
                                     data={pie}
@@ -467,8 +479,10 @@ class Token extends Component {
                                 />
                             </div>
                         </div>
+                   */}
                     </div>
-                    </Fragment>
+                    
+                    </div>
                     }
 
                     { pathname === "transactions" && 
@@ -479,56 +493,76 @@ class Token extends Component {
                                 
                             </div>
                             
-                            <div className='f-r'>
-                            <select className='form-control' placeholder="">
-                                <option value="30 days">Last 30 days</option>
+                            <div className='f-r t-options'>
+                            {/* <label>Filter By</label> */}
+
+                            <select className='form-control'>
+                                <option value="no-filter">No Filter</option>
+                                <option value="xlm">Lumens</option>
+                                {info.transactions.length > 0 &&
+                                    <option value="pst">{info.transactions[0].asset}</option>
+                                }
                             </select>
+                            
+                            {/* <select className='form-control' placeholder="">
+                                <option value="30 days">Last 30 days</option>
+                            </select> */}
+
                             </div>
                         </div>
 
                         <div className='headings xs-12'>
-                        <div className='xs-3'>
-                            <h3>From</h3>
-                            </div>
                             <div className='xs-3'>
-                            <h3> To</h3>
+                                <h3>From</h3>
+                                </div>
+                                <div className='xs-3'>
+                                <h3> To</h3>
+                                </div>
+                                <div className='xs-3'>
+                                <h3> Amount</h3>
+                                </div>
+                                <div className='xs-3'>
+                                <h3>Prood</h3>
+                                </div>
                             </div>
-                            <div className='xs-3'>
-                            <h3> Amount</h3>
-                            </div>
-                            <div className='xs-3'>
-                            <h3>Transaction Date</h3>
-                            </div>
-                        
-                        </div>
                         <div className='content xs-12'>
-                        { 
-                            perTransaction.map((transaction,i)=>{
-                                return <div className='row xs-12' key={i}>
-                                
-                                <div className='xs-3 col-row'> 
-                                <button className='stakeholder' key={i}
-                                onClick={()=>this.showSH(transaction.from._id)}>{transaction.from.fullName} </button>
-                                </div>
+                            { 
+                                info.transactions.map((transaction,i)=>{
+                                    return <div className='row xs-12' key={i}>
+                                        
+                                        <div className='xs-3 col-row'> 
+                                            <button className='stakeholder' key={i} 
+                                            onClick={()=>this.showSH(transaction.sender._id)}>
+                                                <img src={transaction.sender.profilePhoto} alt=""/>
+                                                {`${transaction.sender.firstName} ${transaction.sender.lastName}`}
+                                            </button>
+                                        </div>
 
+                                        <div className='xs-3 col-row'> 
+                                            <button className='stakeholder' key={i} 
+                                            onClick={()=>this.showSH(transaction.receiver._id)}>
+                                                <img src={transaction.receiver.profilePhoto} alt=""/>
+                                                {`${transaction.receiver.firstName} ${transaction.receiver.lastName}`}
+                                            </button>
+                                        </div>
 
-                                <div className='xs-3 col-row'> 
-                                <button className='stakeholder' key={i}
-                                onClick={()=>this.showSH(transaction.stakeholder._id)}>{transaction.stakeholder.fullName} </button>
-                                </div>
+                                        <div className='xs-3 col-row'> 
+                                            <p>{ window.moneyFormat( parseFloat(transaction.value),
+                                            `${transaction.asset } `)}</p>
+                                            <label style = {{fontSize: "0.8em", color:"#999"}}>{moment(transaction.createdAt).format("DD MMMM YYYY, HH:mm")}</label>
 
-                                <div className='xs-3 col-row'> 
-                                <p style={{color: "red"}}>-{ window.moneyFormat( parseFloat(transaction.quote), "PST ")}</p>
-                                </div>
+                                        </div>
 
+                                        <div className='xs-3 col-row'>
+                                        <a href={`
+                                        ${process.env.REACT_APP_STELLAR_MODE === 'testnet'?
+                                        `https://testnet.steexp.com/tx/`:`https://steexp.com/tx/`}${transaction.hash}
+                                        `} target="_blank">View On Explorer</a>
+                                        </div>
 
-                                <div className='xs-3 col-row'>
-                                <p>{moment(transaction.date).format("DD MMMM YYYY")}</p>
-                                </div>
-
-                                </div>
-                            })
-                        }
+                                    </div>
+                                })
+                            }
                         </div>
                     </TableWrapper>
                     }
@@ -540,10 +574,11 @@ class Token extends Component {
 }
 
 const mapStateToProps = state => {
-    const { created,name, toDeduct, perTransaction } =state.wallet;
+    const { projectAssetTransactions,type } =state.wallet;
     return {
-        created,name, toDeduct, perTransaction, 
+        info: projectAssetTransactions,
         userId: state.auth.credentials.id,
+        type,
         isContractor: state.auth.credentials.isContractor
     }
 }
