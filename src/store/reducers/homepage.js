@@ -15,7 +15,7 @@ const init = {
   citizenData: {},
   ignoreProjectWithID: "",
   map: {
-    show: false,
+    show: true,
     fullscreen: false
   }
 };

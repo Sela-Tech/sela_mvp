@@ -133,7 +133,7 @@ export default ({ id, project }) => {
                 {project.owner.firstName} {project.owner.lastName}
               </h4>
               <p>Reputation Score: {project.owner.reputationScore}</p>
-              <span>{project.owner.organization.name}</span>
+              <span>{project.owner.organization && project.owner.organization.name}</span>
             </div>
           </div>
           <div className="xs-12">
