@@ -128,7 +128,8 @@ const SimpleLineGraph = ({ data, config })=>{
             "left": 60
         }}
         xScale={{
-            "type": "point"
+            "type": "linear",
+            min: "0"
         }}
         yScale={{
             "type": "linear",
@@ -152,7 +153,7 @@ const SimpleLineGraph = ({ data, config })=>{
             "tickSize": 5,
             "tickPadding": 5,
             "tickRotation": 0,
-            "legend":config.columnX,
+            "legend":config.columnY,
             "legendOffset": -55,
             "legendPosition": "middle"
         }}

@@ -91,7 +91,7 @@ const MobileDashboardSidebar = ({
             </NavLink>
           </li>
 
-          <li>
+          <li id="wallet">
             <NavLink exact to="/dashboard/wallet" >
               <img src={wallet} alt="wallet" />
               <span>Wallet</span>
@@ -145,7 +145,7 @@ const WebDashboardSidebar = ({ dispatch, user }) => {
               <span>Projects</span>
             </NavLink>
           </li>
-          <li>
+          <li id="wallet">
             <NavLink exact to="/dashboard/wallet" >
               <img src={wallet} alt="wallet" />
               <span>Wallet</span>

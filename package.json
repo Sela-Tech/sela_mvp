@@ -21,6 +21,7 @@
     "react-geosuggest": "^2.8.0",
     "react-helmet": "^5.2.0",
     "react-id-swiper": "^1.6.8",
+    "react-joyride": "^2.0.5",
     "react-lazyload": "^2.5.0",
     "react-password-strength": "^2.3.1",
     "react-redux": "^5.0.7",

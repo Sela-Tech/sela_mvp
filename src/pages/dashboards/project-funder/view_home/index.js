@@ -1,4 +1,4 @@
-import React from "react";
+import React, { Fragment } from "react";
 import connect  from "react-redux/lib/connect/connect";
 import withRouter from "react-router-dom/withRouter";
 // import Link from "react-router-dom/Link";
@@ -7,12 +7,50 @@ import Slider from "react-slick";
 import SharedViewWrapper from "../../shared/styling/projects.view";
 import HomeCard from "../../shared/card.dashboard";
 import { SHOW_INTERESTS_MODAL } from "../../../../store/actions/modal";
+import Joyride from 'react-joyride';
+
 
 let exportMe = null;
 exportMe = class extends React.Component{
     constructor(props){
       super(props);
       this.state={
+        steps: [
+          {
+            target: '#add',
+            content: <p>Loads up a view that allows you to create a project on the sela platform. We are deeply integrated with the stellar network's blockchain, so project creation is known to take a couple of seconds <strong>:)</strong></p>,
+          },
+          {
+            target: '#initiated',
+            content: <div>
+              <p>When you create a project, it appears as a singular <strong>card</strong> of information (Project name, budget summation, location} </p>
+              <br/>
+              <p>To see more cards,<br/><strong>Drag any card left or right.</strong></p>
+              </div>,
+          },
+          {
+            target: '#interest-selector',
+            content: <p>Clicking on this loads up a view that lets you specify the types of projects existing on the Sela platform you'd like to be aware of.<br/> Projects on the Sela Platform are classfied by the <strong>Sustainable Development Goal(s)</strong> they fall under.</p>,
+          },
+          {
+            target: '#notifications',
+            content: <Fragment>
+            <p>Clicking on this loads up a view showing:<br/></p> 
+              <ul>
+                <li>Activities such as the status of requests made to your projects as well as the status of requests you've made to projects belonging to others on the platform i.e.<br/><br/> <em><strong>Contractor X</strong> Accepted To Join Your Project: <strong>Project Y</strong></em><br/></li>
+              
+                <li><br/> <strong>Prompts</strong> for you to perform an action also appear in the view</li>
+              </ul>
+            </Fragment>
+          },
+          {
+            target: '#wallet',
+            content: <p>Your Platform Currency Balance in <strong>Lumens</strong>,  And <strong>Project Based Token (PST)</strong> Balance(s) for projects you've created and/or been involved with can be found here, as well as tables of transactional data about your expenditure for the projects.</p>,
+          },
+          {
+            target: ".inner.xs-12native",
+            content: <p>This represents the base balance of the currency used by the sela system to perform actions on the platform, actions range from simple project creation to transfering tokens between stakeholders on a project etc.</p>
+        }],
         projects: this.props.projects || {},
         settings:{
           infinite: false,
@@ -66,13 +104,15 @@ exportMe = class extends React.Component{
     go = id => this.props.history.push("/dashboard/project/" + id + "/overview");
 
     render(){
+      const { steps } = this.state;
 
       const { settings, projects }= this.state;      
       const { createdProjects, fundedProjects,savedProjects, 
-        // areasOfInterest
+         areasOfInterest
        } = projects;
 
      return <SharedViewWrapper className="xs-12">
+      <Joyride steps={steps} />
       <section className='xs-12'>
         <label>Projects you initiated</label>
         { 
@@ -90,7 +130,7 @@ exportMe = class extends React.Component{
             }
             </Slider>
           :
-          <div className='xs-12 sm-3'>
+          <div className='xs-12 sm-3' id="initiated">
             <div className='empty-box inner'>
               <div className='c-w xs-12'>
                 <div className='c t-c'>
@@ -133,7 +173,7 @@ exportMe = class extends React.Component{
         }
         </section>
 
-        {/* <section className='xs-12'>
+        <section className='xs-12'>
       <label>Projects in your areas of interest</label>
     
             <Slider 
@@ -141,7 +181,7 @@ exportMe = class extends React.Component{
             containerClass="xs-12"
             className="xs-12 slider">
    
-             <div className='xs-12 sm-3 edit-interest' onClick={this.launch_edit_interest_modal}>
+             <div className='xs-12 sm-3 edit-interest' id='interest-selector' onClick={this.launch_edit_interest_modal}>
               <div className='empty-box inner-not-proj'>
                 <div className='c-w xs-12'>
                   <div className='c t-c'>
@@ -170,7 +210,7 @@ exportMe = class extends React.Component{
             </div>
             }
             </Slider>
-     </section> */}
+     </section>
 
       <section className='xs-12'>
         <label>Saved projects</label>

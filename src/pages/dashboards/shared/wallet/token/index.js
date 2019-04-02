@@ -185,7 +185,7 @@ class Token extends Component {
                     ${ Math.round( Math.random() * 100 ) }%)`,
                 data: info.transactions.map(tran=>{
                     return  {
-                        "x": moment(tran.createdAt).format("DD/MM/YY"),
+                        "x": moment(tran.createdAt).format("DD/MM/YY HH:mm"),
                         "y": tran.value
                     }
                 })
@@ -270,7 +270,7 @@ class Token extends Component {
                             }
 
                             <div className='xs-12 options'>
-                                <button id='withdraw'>Withdraw</button>
+                                {/* <button id='withdraw'>Withdraw</button> */}
                                 <button id='send'>Send</button>
                             </div>
 
@@ -289,12 +289,13 @@ class Token extends Component {
                                         "left": 60
                                     }}
                                     xScale={{
-                                        "type": "point"
+                                        "type": "point",
+                                        min: "0"
                                     }}
                                     yScale={{
                                         "type": "linear",
                                         "stacked": true,
-                                        "min": "auto",
+                                        "min": "0",
                                         "max": "auto"
                                     }}
                                     axisTop={null}

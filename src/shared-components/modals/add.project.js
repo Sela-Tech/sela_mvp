@@ -1,5 +1,4 @@
 import React from "react";
-
 import calendericon from "../../assets/icons/calendar.svg";
 import DatePicker from "react-datepicker";
 import moment from "moment";
@@ -12,7 +11,6 @@ import GeoSuggest from "react-geosuggest";
 import ReactS3Uploader from "react-s3-uploader";
 import endpoints from "../../endpoints";
 import SdgPicker from "./sub-components/sdg-picker";
-// import GenericLoader from "./sub-components/user-loader";
 import Icon from "react-fa";
 import FormWrapper from "./styles.modals/new.standard";
 
@@ -201,6 +199,14 @@ export default connect(mapStateToProps, mapDispatchToProps)(
           message: nextProps.message,
           add_project_in_progress: nextProps.add_project_in_progress
         });
+
+        if(nextProps.add_project_in_progress){
+          setTimeout(()=>{
+           this.setState({
+            nextView: true
+           }) 
+          },2000)
+        }
       }
     }
 
@@ -249,7 +255,12 @@ export default connect(mapStateToProps, mapDispatchToProps)(
 
           <div className='xs-12 white'>
             <div className='xs-10 xs-off-1'>
-
+              { add_project_in_progress && this.state.nextView ?
+                <div className='xs-12' style={{padding: "2em 0"}}>
+                  <p style={{padding: '1em', fontWeight:"normal" }}>Project Creation <strong>Takes A While</strong>...</p>
+                  <Icon name='spinner' spin/>
+                </div>
+              : 
               <form onSubmit={this.handleSubmit} className='xs-12'>
                 { add_view === "one" && 
                 <div className='xs-12'>
@@ -404,6 +415,8 @@ export default connect(mapStateToProps, mapDispatchToProps)(
                 
                 
               </form>
+              }
+
             </div>
           </div>
 

@@ -13,6 +13,7 @@ import {Link,withRouter, NavLink} from 'react-router-dom';
 import { FETCH_MY_WALLET_R } from '../../../../store/actions/wallet';
 import { Fragment } from 'react';
 import Token from "./token";
+import Joyride from 'react-joyride';
 
 const blue = "#156edc";
 export const  colors = ["#F7AF7B", "#F77B8A", "#7B96F7", "#a8b0b9","#e04f96","#4fe0c2","#e04f4f","#e04fc4","#834fe0"];
@@ -235,6 +236,11 @@ class Wallet extends Component {
         super(props);
         props.fetch_wallet();
         this.state = {
+            steps: [
+                {
+                  target: ".tokens",
+                  content: "This represents the base balance of the currency used by the sela system to perform actions on the platform, actions range from simple project creation to transfering tokens between stakeholders on a project etc."
+              }],
             projects: {},
             pathname: "my-tokens",
             preloaders: false,
@@ -278,10 +284,12 @@ class Wallet extends Component {
 
     render(){
 
-        const { myTokens, createdTokens,preloaders } = this.state;
+        const { myTokens, createdTokens,preloaders,steps } = this.state;
         const pathname = this.state.pathname;
 
         return   <WalletWrapper className='xs-12'>
+              <Joyride steps={steps} />
+
                     <Navbar />
                     <div className='xs-3 full'>
                         <div className='xs-12'>
