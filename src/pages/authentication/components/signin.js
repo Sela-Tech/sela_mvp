@@ -168,10 +168,10 @@ class Login extends React.Component {
             ) : (
               <React.Fragment>
                 <h2> Sign in to Sela </h2>
-                <div className="test-cred xs-12">
-                  <p>Test Username: test@gmail.com</p>
+                {/* <div className="test-cred xs-12">
+                  <p>Test Username: si@sela-labs.co</p>
                   <p>Test Password: password@1</p>
-                </div>
+                </div> */}
               </React.Fragment>
             )}
           </div>
