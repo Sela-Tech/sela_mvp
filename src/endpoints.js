@@ -58,6 +58,9 @@ const wallet_endpoints = (type, projectId) => {
 
     case "self-account-balance":
       return b + `balances`
+
+    case "transfer":
+      return b + `fund/transfer`;
   
     default:
       return b;
@@ -106,7 +109,9 @@ export default {
   add_stakeholder: b + "project/stakeholder",
   fetch_tasks: b + "projects", //:id/tasks
   proposals,
-  evidence
+  evidence,
+  public_updates: (id)=>  b + `updates`,
+  public_transactions: (id)=> b +  `projects/${id}/transaction-history/public`
   // fetch_proposals: (project_id) => proposals('fetch', { project_id }),
   // create_a_proposal: proposals
 };

@@ -74,7 +74,6 @@ export default ( state = init, payload ) => {
             type: wallet.FETCH_PROJECT_ASSET_BALANCE_F
         };
 
-
         case wallet.FETCH_PROJECT_ASSET_TRANSACTIONS_R:
         return {
             ...state,
@@ -85,7 +84,7 @@ export default ( state = init, payload ) => {
         return {
             ...state,
             type: wallet.FETCH_PROJECT_ASSET_TRANSACTIONS_S,
-            projectAssetTransactions: payload.data
+            projectAssetTransactions: {...payload.data, transactions: payload.data.transactions.reverse()}
         };
 
         case wallet.FETCH_PROJECT_ASSET_TRANSACTIONS_F:
@@ -93,6 +92,11 @@ export default ( state = init, payload ) => {
             ...state,
             type: wallet.FETCH_PROJECT_ASSET_TRANSACTIONS_F
         };
+
+        case wallet.TRANSFER_ASSET_F:
+        return {
+            ...state, type: wallet.TRANSFER_ASSET_F
+        }
 
         default:
             return state;

@@ -8,15 +8,15 @@ import TableWrapper from "../../styling/table";
 // import SharedViewWrapper from "../../styling/projects.view";
 import moment from 'moment';
 import { showModal } from '../../../../../store/action-creators/modal';
-import { SHOW_STAKEHOLDER_MODAL } from '../../../../../store/actions/modal';
+import { SHOW_STAKEHOLDER_MODAL, SHOW_TOKEN_TRANSFER_MODAL } from '../../../../../store/actions/modal';
 // import Link from 'react-router-dom/Link';
-
 // import { ResponsivePie } from '@nivo/pie';
 
 import { ResponsiveLine } from '@nivo/line';
 import {Nav} from "../index";
 import { NavLink, withRouter } from 'react-router-dom';
 import { FETCH_PROJECT_ASSET_TRANSACTIONS_S, FETCH_PROJECT_ASSET_TRANSACTIONS_F } from '../../../../../store/actions/wallet';
+import { fetchProject } from '../../../../../store/action-creators/project';
 
 // const pie = [
 //     {
@@ -41,6 +41,13 @@ import { FETCH_PROJECT_ASSET_TRANSACTIONS_S, FETCH_PROJECT_ASSET_TRANSACTIONS_F 
 
 const TokenWrapper = styled.div`
     overflow: auto;
+
+    .content{
+        padding-bottom: 300px;
+        height: 70vh;
+        position: relative;
+        overflow: auto;
+    }
     .options{
         #send, #withdraw{
             height: 2.5em;
@@ -91,7 +98,8 @@ const TokenWrapper = styled.div`
     }
     .pad{
         .line, .pie{
-            height: 20em;
+            min-height: 40em !important;
+            height: 45vh;
             background: white;
 
         }
@@ -157,9 +165,24 @@ class Token extends Component {
         })
     }
 
+    showTokenTransferModal = e => {
+        if(this.props.match.params.id){
+            let token = this.props.info.createdToken
+            .distributor.distributionAccountBalances.filter(token => token.type !== "native")[0];
+
+            let tokenModalSetupInfo = {
+                projectId: this.props.match.params.id,
+                pstCode: token.token,
+                pstBalance: token.balance
+            }
+
+            this.props.showTokenTransferModal(tokenModalSetupInfo)
+        }
+    }
+
     render(){
         
-        const { info,pathname } = this.state;
+        const { info, pathname } = this.state;
        // store only receivers
         let receivers = new Set([]);
         let receiversSimplified = [];
@@ -176,22 +199,24 @@ class Token extends Component {
         receivers = [...receivers];
 
         // use receivers to filter through transactions to get value and dates per receiver
-        let amountVsDate = receivers.map(receiverId=>{
+        let amountVsDate = [];
+
+        amountVsDate = receivers.map(receiverId=>{
             return {
                 id:   receiversSimplified.filter(r=> r.id === receiverId)[0].name,
                 color: `hsl(
                     ${ Math.round( Math.random() * 255 ) },
                     ${ Math.round( Math.random() * 100 ) }%,
                     ${ Math.round( Math.random() * 100 ) }%)`,
-                data: info.transactions.map(tran=>{
+                data: info.transactions.reverse().map(tran=>{
                     return  {
-                        "x": moment(tran.createdAt).format("DD/MM/YY HH:mm"),
-                        "y": tran.value
+                        "x": moment(tran.createdAt).format("HH:mm:s DD MMMM YY")
+                       ,"y": tran.value
                     }
                 })
             }
         })
-
+      
         return (
             <Fragment>
      
@@ -229,22 +254,29 @@ class Token extends Component {
                         <div className='overview xs-12'>
                         <div className='text xs-12'>
                             <div className='xs-12'>
+                            
+                              {info.projectName && 
+                               <div className='xs-12 keys'>     
+                                    <label>Project Name</label>
+                                    <h4>{info.projectName}</h4>
+                                </div>
+
+                                }
+
                                 <div className='xs-12 keys'>
                                     <label>Public Key</label>
-                                    <h4><a target="_blank" href={`
+                                    <h4><a target="_blank" rel="noopener noreferrer" href={`
                                         ${
-                                            process.env.REACT_APP_STELLAR_MODE === "testnet" ? 
+                                             this.props.publicKey ? this.props.publicKey : info && process.env.REACT_APP_STELLAR_MODE === "testnet" ? 
                                             `https://testnet.steexp.com/account/${info.distributorPublicKey}`:
                                             `https://steexp.com/account/${info.distributorPublicKey}`
                                         }`
                                     }>{info.distributorPublicKey}</a></h4>
-                                </div>
-
-                              
+                                </div>                              
                             </div>
 
                             {
-                                info.createdToken.distributor.distributionAccountBalances.map((token,i)=>{
+                                info.createdToken && info.createdToken.distributor.distributionAccountBalances.map((token,i)=>{
                                     return <div className='xs-12' key={i}>
                                         { token.type !== 'native' && 
                                             <Fragment>
@@ -270,8 +302,7 @@ class Token extends Component {
                             }
 
                             <div className='xs-12 options'>
-                                {/* <button id='withdraw'>Withdraw</button> */}
-                                <button id='send'>Send</button>
+                                <button id='send' onClick={this.showTokenTransferModal}>Send</button>
                             </div>
 
                           
@@ -285,7 +316,7 @@ class Token extends Component {
                                     margin={{
                                         "top": 50,
                                         "right": 150,
-                                        "bottom": 50,
+                                        "bottom": 250,
                                         "left": 60
                                     }}
                                     xScale={{
@@ -304,7 +335,7 @@ class Token extends Component {
                                         "orient": "bottom",
                                         "tickSize": 5,
                                         "tickPadding": 5,
-                                        "tickRotation": 0,
+                                        "tickRotation": -60,
                                         "legend": "Date",
                                         "legendOffset": 36,
                                         "legendPosition": "middle"
@@ -488,6 +519,7 @@ class Token extends Component {
 
                     { pathname === "transactions" && 
                         <TableWrapper className='xs-12'>
+
                         <div className='top xs-12'>
                             <div className='f-l'>
                                 <h3>Transaction History</h3>
@@ -558,7 +590,7 @@ class Token extends Component {
                                         <a href={`
                                         ${process.env.REACT_APP_STELLAR_MODE === 'testnet'?
                                         `https://testnet.steexp.com/tx/`:`https://steexp.com/tx/`}${transaction.hash}
-                                        `} target="_blank">View On Explorer</a>
+                                        `} target="_blank" rel="noopener noreferrer">View On Explorer</a>
                                         </div>
 
                                     </div>
@@ -575,13 +607,17 @@ class Token extends Component {
 }
 
 const mapStateToProps = state => {
+
     const { projectAssetTransactions,type } =state.wallet;
+    const { id, publicKey } = state.auth.credentials;
+
     return {
         info: projectAssetTransactions,
-        userId: state.auth.credentials.id,
+        userId: id, publicKey,
         type,
         isContractor: state.auth.credentials.isContractor
     }
+
 }
 
 const mapDispatchToProps = dispatch => {
@@ -590,8 +626,11 @@ const mapDispatchToProps = dispatch => {
         showSH: id => {
             if(Boolean(id))
                 dispatch(showModal( SHOW_STAKEHOLDER_MODAL, { stakeholder: id }))
-          }
-        
+        },
+        showTokenTransferModal: tokenModalSetupInfo => {
+            dispatch( fetchProject(tokenModalSetupInfo.projectId ))
+            dispatch(showModal( SHOW_TOKEN_TRANSFER_MODAL, tokenModalSetupInfo ))
+        }
     }
 }
 
