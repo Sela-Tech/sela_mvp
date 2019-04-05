@@ -61,11 +61,6 @@ export default (state = init, payload) => {
       };
 
     case homepageActions.GET_HOMEPAGE_PROJS_S:
-    
-      if(payload.projects.length >0){
-        payload.projects = payload.projects;
-      }
-      
       return {
         ...state,
         action: homepageActions.GET_HOMEPAGE_PROJS_S,
@@ -120,6 +115,48 @@ export default (state = init, payload) => {
         action: homepageActions.GET_CITIZEN_INFO_S,
         citizenData: payload.citizenData
       };
+
+      case homepageActions.GET_PUBLIC_TRANSACTIONS_S:
+      return {
+        ...state,
+        action: homepageActions.GET_PUBLIC_TRANSACTIONS_S,
+        transactions: payload.data
+      }
+
+      case homepageActions.GET_PUBLIC_TRANSACTIONS_R:
+      return {
+        ...state,
+        action: homepageActions.GET_PUBLIC_TRANSACTIONS_R
+      }
+
+      case homepageActions.GET_PUBLIC_TRANSACTIONS_F:
+      return {
+        ...state,
+        action: homepageActions.GET_PUBLIC_TRANSACTIONS_F
+      }
+
+
+      
+      case homepageActions.GET_PUBLIC_UPDATES_R:
+      return {
+        ...state,
+        action: homepageActions.GET_PUBLIC_UPDATES_R,
+        updates: payload.data
+      }
+
+      case homepageActions.GET_PUBLIC_UPDATES_S:
+      return {
+        ...state,
+        action: homepageActions.GET_PUBLIC_UPDATES_S
+      }
+
+      case homepageActions.GET_PUBLIC_UPDATES_F:
+      return {
+        ...state,
+        action: homepageActions.GET_PUBLIC_UPDATES_F
+      }
+
+
 
     default:
       return state;

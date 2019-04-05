@@ -39,7 +39,7 @@ export const Nav  = styled.div`
         display: inline-block;
         font-family: Acumin Pro;
         line-height: 20px;
-        font-size: 13px;
+        font-size: 0.95em;
         font-weight: 300;
         text-align: center;
         color: #828282;
@@ -346,7 +346,7 @@ class Wallet extends Component {
                                             {Boolean(myTokens.length) &&
                                                 myTokens.map((token,i)=>{
                                                     return <Link className='token-card xs-12' 
-                                                        key={i} to={`/dashboard/wallet/${token.type}`}>
+                                                        key={i} to={`/dashboard/wallet/${token.type === 'native' ? 'native':`native/${token.projectId}`}/`}>
                                                         <div className={`inner xs-12 ${token.type === "native" ? 'native': "pst"}`}>
                                                             <h4 className='name'> {token.type === "native" ? "My Lumens": token.projectName}</h4>
                                                             <label>Balance</label>
@@ -435,7 +435,9 @@ class Wallet extends Component {
                         </div>                
                     </div>
 
-                    <div className='xs-9'>
+                    <div className='xs-9' style={{
+                            height: '100%', overflow: 'auto'
+                    }}>
                         <Token {...this.props}/>
                     </div>
         

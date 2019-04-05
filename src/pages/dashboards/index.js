@@ -78,6 +78,11 @@ const DashboardRouter =  withRouter(({ userType, ...props }) => {
       <Wallet {...props} />
     </DashboardWrapper>
 
+    case "/dashboard/wallet/native/:id":
+    return <DashboardWrapper viewName = {viewname ? viewname: "Transactions"}>
+      <Wallet {...props} />
+    </DashboardWrapper>
+
     default:
     return <Blank {...props} notFound={true}/>;
   }

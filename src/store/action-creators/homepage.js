@@ -2,6 +2,7 @@ import ax from "axios";
 import hA from "../actions/home";
 import e from "../../endpoints";
 import { extractMessage } from "../../helpers/utils";
+import endpoints from "../../endpoints";
 
 export const showMap = {
   type: hA.SHOW_MAP
@@ -91,3 +92,34 @@ export const fetchProject = id => {
       });
   };
 };
+export const updates = () => {
+  return dispatch => {
+    dispatch({ type: hA.GET_PUBLIC_UPDATES_R })
+    ax({
+      method: "GET",
+      url: endpoints.public_updates
+    }).then(res=>{
+      dispatch({ type: hA.GET_PUBLIC_UPDATES_S })
+
+    }).catch(res=>{
+      dispatch({ type: hA.GET_PUBLIC_UPDATES_F })
+
+    })
+  }
+}
+
+export const get_public_transactions = id => {
+  return dispatch => {
+    dispatch({ type: hA.GET_PUBLIC_TRANSACTIONS_R })
+    ax({
+      method: "GET",
+      url: endpoints.public_transactions(id)
+    }).then(res=>{
+      dispatch({ type: hA.GET_PUBLIC_TRANSACTIONS_S, data: res.data })
+
+    }).catch(res=>{
+      dispatch({ type: hA.GET_PUBLIC_TRANSACTIONS_F })
+
+    })
+  }
+}

@@ -327,8 +327,9 @@ export default connect(mapStateToProps)(
       const { close, stop } = this.props;
       const { role, users, selected, type } = this.state;
 
-      const disabled = selected.length === 0;
-      console.log(type)
+      const disabled = selected.length === 0 || this.props.type === dashboard.ADD_STAKEHOLDER_R;
+      console.log(this.props.type)
+      
       return (
       <AddWrapper className='xs-12' onClick={close}>
         <div className='xs-12 i-h' onClick={stop}>
@@ -443,7 +444,7 @@ export default connect(mapStateToProps)(
                       <div className='xs-12 t-c'>
                       <button id='save' disabled={disabled} onClick={this.sendInvites}>
                         {
-                           type === dashboard.ADD_STAKEHOLDER_R ?
+                           this.props.type === dashboard.ADD_STAKEHOLDER_R ?
                            <Icon name='spinner' spin/>
                             : 'Send Invites'
                            }

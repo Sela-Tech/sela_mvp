@@ -9,6 +9,8 @@ import Description from "./subs/description";
 import Stakeholders from "./subs/stakeholders";
 // import Updates from "./subs/updates";
 import Map from "./subs/map";
+import Media from "./subs/media";
+
 import mapping from "../../../../mapping";
 
 import {
@@ -24,9 +26,12 @@ const DetermineWhatToShow = ({ show, id, project }) => {
     case "transactions":
       return <Transactions id={id} />;
    
-      // case "updates":
-      // return <Updates project={project} />;
-   
+       case "media":
+      return <Media id = {id} project = {project} />;
+  
+    // case "updates":
+    // return <Updates project={project} />;
+  
       case "stakeholders":
       return <Stakeholders project={project} />;
     case "map":
@@ -117,28 +122,9 @@ class ViewProject extends React.Component {
 
                 <div className="xs-12 info">
 
-                  {/* <div className="xs-12 sm-4 l">
-                    <h3>
-                      ${project.raised} <span>raised</span>
-                    </h3>
-                  </div> */}
 
                   <div className="xs-12 sm-9 l t-l">
-                    {/* <h4>
-                      {(project.raised / project.implementationBudget) * 100}% <span>of</span> $
-                      {project.implementationBudget} <span> goal</span>
-                    </h4>
-                     */}
                     <h3>{ window.moneyFormat(parseFloat(project.goal || project.implementationBudget || 0) + parseFloat(project.observationBudget || 0), "$") }</h3>
-
-                    {/* <Line
-                      percent={(project.raised / project.implementationBudget) * 100}
-                      strokeWidth="4"
-                      trailWidth="4"
-                      strokeColor="#156EDC"
-                      trailColor="#F2F2F2"
-                    /> */}
-
                   </div>
                   <div className="xs-12 sm-3 r">
                     <h3>
@@ -186,10 +172,18 @@ class ViewProject extends React.Component {
                 </div>
                 
                 <div className="xs-12 sm-6 md-2">
+                  <NavLink to={`/projects/${id}/media`}>
+                    Media
+                  </NavLink>
+                </div>
+
+                <div className="xs-12 sm-6 md-2">
                   <NavLink to={`/projects/${id}/map`}>
                     Map
                   </NavLink>
                 </div>
+
+
               </div>
               <div className="xs-12 sm-3">
                 {/* <div className="f-r">
@@ -201,7 +195,7 @@ class ViewProject extends React.Component {
             </div>
           </div>
 
-          <div className="xs-12 variable">
+          <div className={`xs-12 ${this.props.match.params.show === 'media' ?'':'variable' }`}>
             <DetermineWhatToShow
               show={this.props.match.params.show}
               id={id}

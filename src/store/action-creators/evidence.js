@@ -4,6 +4,10 @@ import { retrieveToken } from "../../helpers/TokenManager";
 import * as evidence from "../actions/evidence";
 import {CLOSE_MODAL_FORM} from "../actions/modal";
 
+export const clearSub = () => {
+    return {type: evidence.CLEAR_SUBMISSIONS_STORE }
+}
+
 export const retrieveSubmission = obj=>{
     return dispatch => {
         dispatch({ type:  evidence.RETRIEVE_SUBMISSION_R })        
@@ -11,7 +15,7 @@ export const retrieveSubmission = obj=>{
             url: endpoints.evidence('retrieve-submission', obj ),
             method: 'GET',
             headers:{
-                authorization: retrieveToken()
+                authorization: retrieveToken() || 'eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJvcmdhbml6YXRpb24iOnsibmFtZSI6Ik5vIE9yZ2FuaXphdGlvbiIsImlkIjoiIn0sInByb2ZpbGVQaG90byI6Imh0dHBzOi8vczMudXMtZWFzdC0yLmFtYXpvbmF3cy5jb20vc2VsYW12cC91c2VyLWF2YXRhcnMvMmUzMmEyM2MtMjJmMy00NGVlLTk3NzMtZDE5ZWVjZTY1MmMwXzA3Nm5zWDFYXzQwMHg0MDAuanBnIiwiaWQiOiI1YzdlNWU0YjA1ZWRkYTAwMjJlNTA4OTIiLCJpc0Z1bmRlciI6dHJ1ZSwiaXNFdmFsdWF0b3IiOmZhbHNlLCJpc0NvbnRyYWN0b3IiOmZhbHNlLCJmaXJzdE5hbWUiOiJTdXN0YWluYWJpbGl0eSIsInBob25lIjoiMDgwMDAwMDAwIiwiZW1haWwiOiJ0ZXN0QGdtYWlsLmNvbSIsImxhc3ROYW1lIjoiSW50ZXJuYXRpb25hbCIsImFyZWFzT2ZJbnRlcmVzdCI6WyJObyBQb3ZlcnR5IiwiWmVybyBIdW5nZXIiLCJIZWFsdGggJiBXZWxsLWJlaW5nIiwiUXVhbGl0eSBFZHVjYXRpb24iLCJMaWZlIEJlbG93IFdhdGVyIiwiTGlmZSBvbiBMYW5kIiwiUmVzcG9uc2libGUgQ29uc3VtcHRpb24gJiBQcm9kdWN0aW9uIiwiUGVhY2UsIEp1c3RpY2UgQW5kIFN0cm9uZyBJbnN0aXR1dGlvbnMiLCJQYXJ0bmVyc2hpcCBGb3IgVGhlIEdvYWxzIl0sImlhdCI6MTU1NDUwMjc5OCwiZXhwIjoxNTU1MTA3NTk4fQ.rTw1NOt9yl9VeTl6IoBUafqxmZgdbUepSqWDzjStSCI'
             }
         }).then(res=>{
             dispatch({ type:  evidence.RETRIEVE_SUBMISSION_S, submissions: res.data })

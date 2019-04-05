@@ -15,7 +15,13 @@ const init = {
 
 export default (state=init, payload)=>{
     switch (payload.type) {
-
+        case evidenceActions.CLEAR_SUBMISSIONS_STORE:
+        return {
+            ...state,
+            submissions: init.submissions,
+            selectedTaskSubmissions: {}
+        }
+        
         case evidenceActions.SPECIFY_KPI_R:
         return {
             ...state,

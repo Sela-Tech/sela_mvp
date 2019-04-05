@@ -3,20 +3,23 @@ import {connect} from 'react-redux';
 import ProposalTypeStyling from "../../../../proposal/style";
 import {SubmissionWrap} from "./evidence.style";
 import moment from 'moment';
-import { retrieveSubmission, selectTask } from '../../../../../../../store/action-creators/evidence';
+import { retrieveSubmission, selectTask, clearSub } from '../../../../../../../store/action-creators/evidence';
 import { RETRIEVE_SUBMISSION_F, RETRIEVE_SUBMISSION_R, RETRIEVE_SUBMISSION_S, SELECT_TASK_SUBMISSIONS } from '../../../../../../../store/actions/evidence';
 import Spinners from '../../../../../../../shared-components/spinners';
 
 class SubmissionEvidence extends Component{
     constructor(props){
         super(props);
-        props.retrieveSubmission({
-            projectId: props.projectId,
-            proposalId: props.proposalId,
-            level: "project"
-        });
+        if(props.proposalId){
+            props.retrieveSubmission({
+                projectId: props.id || props.projectId,
+                proposalId: props.proposalId,
+                level: "project"
+            });
+        }
         this.state = {
-            view: 'project',
+            view: 'task',
+            selectedTaskSubmissions: {},    
             type: '',
             proposalId: '',
             selected_task: "",
@@ -59,7 +62,7 @@ class SubmissionEvidence extends Component{
                         submissions: 0
                     }] 
                 }]
-            }
+        }
     }
    
     loadData = proposalId => {
@@ -67,7 +70,7 @@ class SubmissionEvidence extends Component{
             proposalId
         },()=>{
             this.props.retrieveSubmission({
-                projectId: this.props.projectId,
+                projectId: this.props.id || this.props.projectId,
                 proposalId, level: this.state.view 
             })
         })
@@ -118,13 +121,16 @@ class SubmissionEvidence extends Component{
             this.props.selectTask(milestone,taskId)
         })
     }
+
+    componentWillUnmount(){
+        this.props.clearSubmission()
+    }
     
     render(){
-
         const { 
         submissions, type, proposals,
         proposalId, selectedTaskSubmissions } = this.state;
-
+       
         const { projectLevelSubmissions, taskLevelSubmissions } = submissions;
         const milestones = taskLevelSubmissions;
  
@@ -250,14 +256,14 @@ class SubmissionEvidence extends Component{
                 this.state.view === "task" && 
                 <div className='xs-12'>
                     <div className='xs-6 tasks-view'>
-                        <ProposalTypeStyling className='xs-12'>
+                        <ProposalTypeStyling className='xs-12' style={{height: "unset"}}>
                             <div className='xs-12 form-group proposal'>
                                 <label>Select propsal</label>
                                 <select name='proposal' value={proposalId} className='select-proposal form-control'
                                 onChange={e => this.loadData( e.target.value )}>
                                     <option hidden>Select a proposal</option>
                                     {proposals.map((p,i)=>{
-                                        return <option value={p._id} key={i}>{p.proposal_name}</option>
+                                        return <option value={p._id} key={i}>{p.proposal_name || p.proposalName}</option>
                                     })}
                                 </select>
                             </div>
@@ -419,25 +425,16 @@ class SubmissionEvidence extends Component{
                 </div>
             }
 
-            {   type === RETRIEVE_SUBMISSION_R && <div className='i-h xs-12'>
-                    <div className='c-w xs-12 '>
-                        <div className='c t-c'>
-                            <Spinners type='one'/>
-                        </div>
-                    </div>
-                </div> 
-            }
-
         </SubmissionWrap>
     </div>
     }
 }
 
 const mapStateToProps = state => {
-    return {
+  return {
         submissions: state.evidence.submissions,
-        selectedTaskSubmissions: state.evidence.selectedTaskSubmissions,
-        proposals: state.proposal.proposals,
+        selectedTaskSubmissions: state.evidence.selectedTaskSubmissions || {},
+        proposals: state.home.project.proposals || state.proposal.proposals,
         type: state.evidence.type,
         projectId: state.projects.single.info._id
     }
@@ -446,6 +443,7 @@ const mapStateToProps = state => {
 const mapDispatchToProps = dispatch => {
     return {
         retrieveSubmission: obj => dispatch(retrieveSubmission(obj)),
+        clearSubmission: () => dispatch(clearSub()),
         selectTask: ( milestone,taskId ) => dispatch(selectTask(milestone,taskId))
     }
 }

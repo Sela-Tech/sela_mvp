@@ -18,6 +18,7 @@ import email_verification from "./pages/authentication/components/email-verifica
 import home from './pages/public/home';
 import ErrorBoundary from './error.boundary';
 import { fetchOrganizations } from './store/action-creators/organizations';
+import Walkthrough from './shared-components/modals/walkthrough.modal';
 
 const change_password = lazy(()=> import("./pages/authentication/components/change-password"));
 const signup = lazy(()=> import("./pages/authentication/components/signup"));
@@ -132,7 +133,11 @@ const App = ({ isAuthenticated, actionType, isEvaluator, dispatch }) => {
                       isAuthenticated={isAuthenticated}
                       component={dashboard_decider}
                     />
-
+                    <PrivateRoute
+                      path="/dashboard/wallet/native/:id"
+                      isAuthenticated={isAuthenticated}
+                      component={dashboard_decider}
+                    />
                     <PrivateRoute
                       path="/dashboard/wallet"
                       isAuthenticated={isAuthenticated}
@@ -201,6 +206,10 @@ const App = ({ isAuthenticated, actionType, isEvaluator, dispatch }) => {
                 )}
               </Suspense>
               </ErrorBoundary>
+              {isAuthenticated &&
+                <Walkthrough/>
+              }
+           
             </React.Fragment>
           </Router>
     );

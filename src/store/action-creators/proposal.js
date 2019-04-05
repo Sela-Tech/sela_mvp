@@ -20,9 +20,9 @@ export const update_task = taskData => {
     }
 }
 
-export const delete_task = taskId => {
+export const delete_task = (taskData) => {
     return dispatch=>{
-        dispatch({ type: proposal_actions.DELETE_TASK, taskId });
+        dispatch({ type: proposal_actions.DELETE_TASK, taskId: taskData.taskId, taskData });
         dispatch({ type: "NEW_TOAST", status: "success", message: "Task Deleted Successfully."})
         dispatch({type: "CLOSE_MODAL_FORM"})
     }

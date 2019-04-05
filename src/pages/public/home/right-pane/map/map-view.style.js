@@ -42,7 +42,7 @@ export const Marker = styled.div`
     `
         : ``};
     h1 {
-      font-size: 13px;
+      font-size: 0.95em;
       text-align: left;
       margin: 0;
     }

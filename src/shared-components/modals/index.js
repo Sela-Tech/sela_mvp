@@ -4,7 +4,7 @@ import AddTaskModal from "./add.task";
 import ModifyTaskModal from "./modify.task";
 import JustViewTaskModal from "./plain.view.task";
 import AddTransactionModal from "./add.transaction";
-
+import TokenTransferModal from "./transfer.token";
 import ViewTaskModal from "./view.task";
 import ViewImageModal from "./view.image";
 import DeleteProjectModal from "./delete.project";
@@ -20,6 +20,7 @@ import { SharedCloseButton, GenericModalWrapperStyler } from "./styles.modals/ma
 import AddStakeholderModal from "./add.stakeholder";
 import AddRequest from "./add.request";
 import SubmissionModal from "./submission.modal";
+import Walkthrough from "./walkthrough.modal";
 
 const GenericModalWrapper = ({ 
   specific_type, close, name,
@@ -66,6 +67,19 @@ const  ModalWrapper = (props)=>{
   let name ="";
   
   switch (type) {
+    case modals.SHOW_TOKEN_TRANSFER_MODAL:
+      return (
+        <GenericModalWrapper
+        name={name}  
+        specific_type={'interests'}
+        className={"xs-12 sm-8 sm-off-2 md-4 md-off-4 no-padding"}            
+        close={close} stop={stop} 
+        has_heading={false} show_close_button={true} >
+       
+      <TokenTransferModal/>
+      </GenericModalWrapper>
+      );
+
     case modals.SHOW_TASK_MODAL:
       return (
         <GenericModalWrapper 
@@ -190,7 +204,18 @@ const  ModalWrapper = (props)=>{
       has_heading={false} show_close_button={true} >
         <AddTransactionModal />
       </GenericModalWrapper>
+    
+    case modals.SHOW_WALKTHROUGH_MODAL:
+      return <GenericModalWrapper 
+      name={name}  
+      specific_type={'interests'}
+      className={"xs-12 sm-8 sm-off-2 md-6 md-off-3 no-padding"}            
+      close={close} stop={stop} 
+      has_heading={false} show_close_button={true} >
+        <Walkthrough />
+      </GenericModalWrapper>
       
+
     case modals.SHOW_SUBMISSION_BY_TYPE_MODAL:
       return props.submissionModalType === 'table' ?
       <GenericModalWrapper

@@ -10,13 +10,21 @@ import AddTaskWrapper from "./styles.modals/dash-task";
 const mapStateToProps = state => {
   const { type, message } = state.tasks.add.action;
   const { previousTaskDeadline } = state.tasks.add;
+  let allocated = 0;
 
+  state.proposal.tasks.map(task => {
+    allocated = allocated + parseFloat(task.amount);
+    return 1;
+  })
+  
   return {
     message,
     type,
     previousTaskDeadline,
     maxDate: state.projects.single.info.endDate,
-    minDate: state.projects.single.info.startDate
+    minDate: state.projects.single.info.startDate,
+    implementationBudget: parseFloat(state.projects.single.info.implementationBudget) - allocated,
+    
   };
 };
 
@@ -25,6 +33,7 @@ export default connect(mapStateToProps)(
     constructor(props) {
       super(props);
       this.state = {
+        implementationBudget: props.implementationBudget,
         deadline:moment(props.minDate),
         previousTaskDeadline: moment(props.previousTaskDeadline || props.minDate)
       };
@@ -44,17 +53,31 @@ export default connect(mapStateToProps)(
       if (this.props !== nextProps) {
         this.setState({
           type: nextProps.type,
-          message: nextProps.message
+          message: nextProps.message,
+          implementationBudget: nextProps.implementationBudget
         });
       }
     }
 
     handleChange = e => {
       e.persist();
-      this.setState({
-        [e.target.name]: e.target.value
-      })
+      let obj = {};
+
+      if( e.target.name === 'amount' && this.props.implementationBudget >= e.target.value  ){
+        obj.amount =e.target.value < 0 ? 1 : e.target.value;
+        obj.implementationBudget = this.props.implementationBudget - e.target.value;
+      }else if( e.target.name === 'amount' && this.state.implementationBudget){
+          obj.amount = e.target.value >= this.props.implementationBudget ? this.props.implementationBudget : e.target.value; 
+          obj.implementationBudget = 0; 
+      }
+
+      if(e.target.name !== "amount"){
+          obj[e.target.name] = e.target.value
+      }
+      
+        this.setState(obj)
     }
+
     handleDateChange=(date)=> {
       this.setState({
         deadline: date
@@ -93,13 +116,24 @@ export default connect(mapStateToProps)(
                       </div>
                       
                       <div className='xs-12 form-group'>
-                        <label>Enter the estimated cost for this task</label>
-                        <input name='amount' placeholder='Amount in USD' type='number' onChange={this.handleChange} required/>
-                        {/* <p id='slant'>Amount can be adjusted later</p> */}
+                        <div className='xs-4'>
+                           <label>Budget</label>
+                          <p name='implementationBudget' style={{
+                            borderRadius: '4px', lineHeight: '3.2em',
+                            height: '3.2em', border: '1px solid #DDD',
+                            width: '95%'
+                          }}>{ window.moneyFormat(this.state.implementationBudget, "")} </p>
+                        </div>
+
+                        <div className='xs-8'>
+                           <label>Enter the estimated cost for this task</label>
+                          <input name='amount' placeholder='Amount in USD' type='number' min = {1} value={this.state.amount} onChange={this.handleChange} required/>
+                        </div>
+                        
                       </div>
 
                       <div className='xs-12'>
-                          <button id='save' type='submit'> Add Task To Proposal</button>
+                          <button id='save' type='submit' disabled={ this.state.amount <= 0 }> Add Task To Proposal</button>
                       </div>
                       
                     </form>

@@ -45,7 +45,7 @@ export default styled.div`
     video,
     img {
       width: 100%;
-      height: 250px;
+      height: 25em;
       display: block;
       background: #e3e4e4;
       object-fit: cover;
@@ -178,7 +178,7 @@ export default styled.div`
         font-weight: 100;
       }
     }
-  }
+  } 
 
   #sdgs{
     margin: 1em 0;

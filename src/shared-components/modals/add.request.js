@@ -11,12 +11,24 @@ import UserLoader from "../unique/user-loader";
 import { specifyKPI } from "../../store/action-creators/evidence";
 
 const mapStateToProps = state => {
+    let allocated = 0;
+
+    state.evidence.kpis.map(kpi => {
+       return kpi.stakeholders.map(stakeholder=>{
+            if(stakeholder.hasSubmitted === true ) {
+                allocated = allocated + parseFloat(stakeholder.quote);
+                return 1;
+            }
+            return 1;
+        })
+    })
+
   return {
     proposals: state.proposal.proposals,
     projectId: state.projects.single.info._id,
     endDate: state.projects.single.info.endDate,
     startDate: state.projects.single.info.startDate,
-    observationBudget: state.projects.single.info.observationBudget
+    observationBudget: parseFloat(state.projects.single.info.observationBudget) - allocated
   };
 };
 
@@ -42,7 +54,7 @@ export default connect(mapStateToProps, mapDispatchToProps)(
         proposal: '',task:"",taskObject: { name: "", id: "" },
         type:'table', instructio: '',
         stakeholders:"",price: '1',
-
+        observationBudget: props.observationBudget
       };
     }
 
@@ -84,11 +96,24 @@ export default connect(mapStateToProps, mapDispatchToProps)(
     }    
 
     handleChange = e => {
-      const { value, name } = e.target;
-      this.setState({
-          [name]: value
-      });
-    };
+        e.persist();
+        let obj = {};
+  
+        if( e.target.name === 'price' && this.props.observationBudget >= e.target.value  ){
+            obj.price =e.target.value < 0 ? 1 : e.target.value;
+            obj.observationBudget = this.props.observationBudget - e.target.value;
+        }else if( e.target.name === 'price' && this.state.observationBudget){
+            obj.price = e.target.value >= this.state.observationBudget ? this.state.observationBudget : e.target.value; 
+            obj.observationBudget = 0; 
+        }
+
+        if(e.target.name !== "price"){
+            obj[e.target.name] = e.target.value
+        }
+        
+        this.setState(obj)
+      }
+  
 
     handleTaskSelectChange = e => {
         const { value } = e.target;
@@ -106,11 +131,13 @@ export default connect(mapStateToProps, mapDispatchToProps)(
 
     componentWillReceiveProps(nextProps) {
       if (this.props !== nextProps) {
+
         this.setState({
           type: nextProps.type,
           proposals: nextProps.proposals,
           message: nextProps.message,
-          add_project_in_progress: nextProps.add_project_in_progress
+          add_project_in_progress: nextProps.add_project_in_progress,
+          observationBudget: nextProps.observationBudget
         });
       }
     }
@@ -290,8 +317,8 @@ export default connect(mapStateToProps, mapDispatchToProps)(
 
                         <div className='xs-12 form-group'>
                             <label>Set price for successful completion</label>    
-                            <input value={this.state.price} min={1} name='price' type='number' placeholder='Enter amounf in project tokens' onChange={this.handleChange} required/>
-                            <label style={{color: "#F2994A"}}>You have {window.moneyFormat(this.props.observationBudget, '$')} left of unalloted observation budget tokens </label>
+                            <input value={this.state.price} min={1}  name='price' type='number' placeholder='Enter amounf in project tokens' onChange={this.handleChange} required/>
+                            <label style={{color: "#F2994A"}}>You have {window.moneyFormat(this.state.observationBudget, '$')} left of unalloted observation budget tokens </label>
                         </div>
 
                         <div className='xs-12 form-group'>

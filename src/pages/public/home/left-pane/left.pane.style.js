@@ -9,7 +9,7 @@ export default styled.div`
   }
   label {
     font-weight: 100;
-    font-size: 13px;
+    font-size: 0.95em;
   }
 
   #show-map {
@@ -52,7 +52,7 @@ export default styled.div`
     background: white;
     font-weight: 300;
     line-height: normal;
-    font-size: 13px;
+    font-size: 0.95em;
     text-indent: 1em;
     color: #3d4851;
     background: url(${chevron}) no-repeat right white;

@@ -107,6 +107,8 @@ const SimpleLineGraph = ({ data, config })=>{
            }
     });
 
+    console.log(dataPerUser)
+
     return <div className='xs-12' style={{height: 350, marginTop: '2em'}}>
 
       <p style={{
@@ -128,7 +130,7 @@ const SimpleLineGraph = ({ data, config })=>{
             "left": 60
         }}
         xScale={{
-            "type": "linear",
+            "type": "point",
             min: "0"
         }}
         yScale={{

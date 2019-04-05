@@ -1,4 +1,4 @@
-import React from "react";
+import React, { Fragment } from "react";
 import styled from "styled-components";
 import arrow from "./arrow.svg";
 import Link from "react-router-dom/Link";
@@ -98,6 +98,22 @@ const DescriptionWrapper = styled.div`
       top: 5px;
     }
   }
+
+  .extra{
+    label{
+    display: block;
+    font-size: 1em;
+    font-weight: 500;
+    }
+    p,strong,span,label{
+      text-transform: capitalize;
+    }
+    span{
+      display: inline-block;
+      padding: 1em;
+    }
+  }
+
 `;
 export default ({ id, project }) => {
   return (
@@ -107,6 +123,7 @@ export default ({ id, project }) => {
           <h3> Project Description </h3>
 
           <div className="xs-10 sm-10">
+            
             {project.description ? (
               <p>{project.description}</p>
             ) : (
@@ -119,15 +136,45 @@ export default ({ id, project }) => {
                 </p>
               </React.Fragment>
             )}
+
+            <div className='extra xs-12'>
+            {project.extra ? 
+              Boolean(project.extra.length) ?
+                project.extra.map((v,y)=>{
+                  return <Fragment key={y}>
+                    <p>{
+                      Object.keys(v).map((k)=>{
+                      return (
+                        <Fragment>
+                        <label>{k}</label>
+                        { 
+                          Object.keys(v[k]).map((key, i) => {
+                        return <Fragment key={i}> 
+                          <strong>{key}:</strong>
+                          <span>{ v[k][key] }</span>
+                        </Fragment> })
+                        }
+                      </Fragment>
+                      )
+                    })
+                  }
+                  </p>
+                  </Fragment>
+                }): null: null  
+            }
+            </div>
+
           </div>
         </div>
 
         <div className="xs-12 md-4" id="initiated-section">
           <h4>INITIATED BY</h4>
+
           <div className="card xs-12">
             <div className="xs-3">
               <img src={project.owner.profilePhoto} alt="" />
             </div>
+
             <div className="xs-9">
               <h4>
                 {project.owner.firstName} {project.owner.lastName}
@@ -136,6 +183,7 @@ export default ({ id, project }) => {
               <span>{project.owner.organization && project.owner.organization.name}</span>
             </div>
           </div>
+
           <div className="xs-12">
             <Link to={`/projects/${id}/stakeholders`} id="see-all">
               Sell All Stakeholders
@@ -143,6 +191,7 @@ export default ({ id, project }) => {
             </Link>
           </div>
         </div>
+
       </div>
     </DescriptionWrapper>
   );
