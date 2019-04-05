@@ -6,6 +6,8 @@ import withRouter from "react-router-dom/withRouter";
 import Stakeholders from "../../../../shared/mini-views/dashboard/sub-components/stakeholders";
 import Proposals from "../../../../shared/mini-views/dashboard/sub-components/proposals";
 import Uploads from "../../../../shared/mini-views/dashboard/sub-components/uploads";
+import Settings from "../../../../shared/mini-views/dashboard/sub-components/settings";
+
 // import Overview from "../../../../shared/mini-views/dashboard/sub-components/overview";
 import  connect  from "react-redux/lib/connect/connect";
 import Overview from "../../../../contractor/view_project_via_interest/main";
@@ -31,6 +33,9 @@ const View = ({ id, view, info,readOnly }) => {
 
     // case "analytics":
     // return <C Component ={Analytics} id={id} readOnly={readOnly}/>;
+
+    case "settings":
+    return readOnly ? null: <C Component ={Settings} id={id} />;
 
     case "evidence":
     return <C Component ={Evidence} id={id} readOnly={readOnly}/>;
@@ -103,6 +108,15 @@ const ProjectComponent = ({ match,history, info, readOnly }) => {
                 to={`/dashboard/project/${id}/uploads`}
               >
                 Uploads
+              </NavLink>
+
+              <NavLink
+                 className={`side-stack ${pathname.indexOf("settings") !== -1 ? "active":""}`}
+                 activeClassName="active"
+                exact
+                to={`/dashboard/project/${id}/settings`}
+              >
+                Settings
               </NavLink>
             </nav>
         </div>

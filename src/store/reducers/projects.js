@@ -1,5 +1,4 @@
 import dA from "../actions/dashboard";
-// import { UPDATE_OBSERVATION_BUDGET } from "../actions/evidence";
 
 const initstate = {
   add: {
@@ -69,7 +68,7 @@ export default (state = initstate, payload) => {
     case dA.ADD_STAKEHOLDER_F:
       return {
         ...state,
-        stakeholder: {
+        stakeholders: {
           action: {
             type: dA.ADD_STAKEHOLDER_F,
             message: payload.message
@@ -80,7 +79,7 @@ export default (state = initstate, payload) => {
     case dA.ADD_STAKEHOLDER_R:
       return {
         ...state,
-        stakeholder: {
+        stakeholders: {
           action: {
             type: dA.ADD_STAKEHOLDER_R,
             message: ""
@@ -91,13 +90,14 @@ export default (state = initstate, payload) => {
     case dA.ADD_STAKEHOLDER_S:
       return {
         ...state,
-        stakeholder: {
+        stakeholders: {
           action: {
             type: dA.ADD_STAKEHOLDER_S,
             message: payload.message
           }
         }
       };
+
     case dA.GET_PROJ_R:
       return {
         ...state,

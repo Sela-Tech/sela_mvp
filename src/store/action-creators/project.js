@@ -67,6 +67,35 @@ export const addProject = obj => {
   };
 };
 
+export const updateProject = obj => {
+  return dispatch => {
+    dispatch({ type: dA.UPDATE_PROJ_R });
+    ax({
+      url: e.add_project,
+      method: "PUT",
+      data: obj,
+      headers: {
+        "x-access-token": retrieveToken(),
+        contentType: "application/json; charset=UTF-8"
+      }
+    })
+      .then(({ data }) => {
+        dispatch({
+          type: dA.UPDATE_PROJ_S,
+        });
+        dispatch({ type: "NEW_TOAST", status: "success", message: "Project Updated Successfully"})
+        dispatch({type: modals.CLOSE_MODAL_FORM})
+        dispatch(fetchProjects('c'));
+
+      })
+      .catch((res) => {
+        dispatch({ type: dA.UPDATE_PROJ_F });
+        dispatch({ type: "NEW_TOAST", status: "error", message: extractMessage(res) || "Could Not Update Project"})
+
+      });
+  };
+};
+
 export const fetchProject = id => {
   return dispatch => {
     dispatch({ type: dA.GET_PROJ_R });
