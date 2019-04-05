@@ -59,6 +59,7 @@ class Signup extends React.Component {
     this.state = {
       organizations: [],
       formData: {
+        taxId: {value: "", valid: false},
         firstName: { value: "", valid: false },
         lastName: { value: "", valid: false },
         signUpType: {  value: "", valid: false },
@@ -90,11 +91,12 @@ class Signup extends React.Component {
       ...objToSubmit,
       organization: {
         name: formData.organization.name,
-        id: formData.organization.id
+        id: formData.organization.id,
+        taxId: formData.taxId.value
       }
     };
 
-     this.props.signup(objToSubmit);
+    this.props.signup(objToSubmit);
     
   };
 
@@ -174,18 +176,45 @@ class Signup extends React.Component {
       if(type === auth.SIGNOUT){
         nextProps.history.push("/")
       }
-    
+      
+      organizations.forEach(o=>{
+        if( this.state.organizations.some (c  => c.label === o.name ) === false ){
+            setTimeout(()=>{
+              this.setState(p=> {
+                if( this.state.organizations.some (c  => c.label === o.name ) === false ){
+                return{
+                  organizations: [
+                    ...p.organizations,
+                    {
+                      label: o.name,
+                      value: o.name,
+                      id: o._id
+                    }
+                  ]
+              }
+            }
+              })
+            },50)
+        }
+      });
+
       this.setState({
         type,
         message,
-        inprogress,
-        organizations: organizations.map(o => {
-          return {
-            label: o.name,
-            value: o.name,
-            id: o._id
-          };
-        })
+        inprogress
+        // organizations: organizations
+        // .filter(o => {   
+        //   return organizations.some(c => {
+        //     return c.name === o.name
+        //   }) === true
+        // }) 
+        // .map(o=>{
+        //   return {
+        //     label: o.name,
+        //     value: o.name,
+        //     id: o._id
+        //   };
+        // })
       });
     }
   }
@@ -334,6 +363,7 @@ class Signup extends React.Component {
                       placeholder="Organization"
                     />
                   </div>
+
               }
 
                   <div className="form-group xs-12">
@@ -358,6 +388,20 @@ class Signup extends React.Component {
                     />
                   </div>
 
+                  {
+                    this.state.formData["signUpType"].value !== "evaluation-agent" &&
+                    <div className="form-group xs-12">
+                    <input
+                      name="taxId"
+                      type="text"
+                      value={this.state.formData.taxId.value}
+                      className="form-control"
+                      placeholder="Company Tax Identification Number"
+                      onChange={this.onChange}
+                    />
+                  </div>
+                  }
+
                   <div className="form-group xs-12">
                     <ReactPasswordStrength
                       minLength={config.min_password_length}
@@ -365,7 +409,7 @@ class Signup extends React.Component {
                       value={this.state.formData.password.value}
                       scoreWords={['weak', 'okay', 'good', 'solid']}
                       changeCallback={this.onPassChange}
-                      inputProps={{ name: "password", autoComplete: "off", className: "form-control", placeholder:"Please enter a long new pasword i.e. password@1" }}
+                      inputProps={{ name: "password", autoComplete: "off", className: "form-control", placeholder:"Please enter a pasword i.e. password@1" }}
                       required
                     />
                   </div>
