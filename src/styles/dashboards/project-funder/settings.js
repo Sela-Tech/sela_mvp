@@ -79,7 +79,7 @@ export default styled.div`
         display: block;
         font-weight: 300;
         line-height: 16px;
-        font-size: 13px;
+        font-size: 0.95em;
         color: #333333;
         margin: 0.2em 0;
       }

@@ -141,16 +141,7 @@ class Evidence extends React.Component {
                         :evidence.stakeholders.some(
                         ev=> ( ev.hasSubmitted === true && ev.user._id === this.props.my_id )) === true ? "Submitted": "Not Submitted"
                       }</p>
-                      {
-                        /*{ 
-                        evidence.status !== 'Pending' && this.props.iMadeThisProject && 
-                        <button className='view' onClick={()=>this.props.showSubmissionByType({
-                        type: evidence.datatype, submissionData: { fields: evidence.fields, submissions: evidence.submissions, mode: 'view'} })}> 
-                          View
-                        </button>
-                        }*/
-                      }
-
+              
                       { 
                         this.props.iMadeThisProject === false &&
                         evidence.stakeholders.some(

@@ -24,10 +24,6 @@ export default styled.div`
   width: 100%;
 }
 
-.container{
-  
-}
-
 .content{
   .row{
     .submitted{
@@ -101,8 +97,12 @@ border-radius: 4px;
 }
 
 .tasks-view, .submission-view{
-  height: 30em;
-  overflow: auto;
+  // height: 30em;
+  // overflow: auto;
+
+  // @media(min-width: 1440px){
+  //   height: 37.5em;
+  // }
 }
 
 .submission-view{
