@@ -201,7 +201,7 @@ const ADW = styled.div`
   #activate,
   #revoke {
     margin: 4px;
-    font-size: 13px;
+    font-size: 0.95em;
   }
 `;
 

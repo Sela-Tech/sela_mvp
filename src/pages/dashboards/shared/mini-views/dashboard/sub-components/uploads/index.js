@@ -82,7 +82,7 @@ class Documents extends React.Component {
                               <p>{moment(d.createdAt).format("DD MMMM YYYY")}</p>
                             </div>
                             <div className='xs-3 col-row'>
-                              <a target="_blank" href={d.doc} className="v-button"> View </a>
+                              <a target="_blank" rel="noopener noreferrer" href={d.doc} className="v-button"> View </a>
                             </div>
                             
                         </div>

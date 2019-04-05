@@ -11,12 +11,10 @@ import StakeholderLoader from "../../../../shared-components/unique/user-loader"
 import proposal from '../../../../store/actions/proposal';
 import Wrap from "./style";
 
-
 class Proposal extends Component{
     constructor(props){
         super(props);
         this.state  = {
-
             tasks: props.tasks,
             selected: new Set([]),
             milestone_names: [],
@@ -246,9 +244,9 @@ class Proposal extends Component{
                         <div className='xs-10 xs-off-1'>
                             {this.props.self === true ?
                             <StakeholderLoader addStakeholders= {this.addStakeholders} 
-                            isNotEditable={true} defaultValue={ this.props.self_info } />
+                            isNotEditable={true} defaultValue={ this.props.self_info } proposalMode ={true}/>
                             :
-                            <StakeholderLoader addStakeholders= {this.addStakeholders} limitTo={'contractor'}/>
+                            <StakeholderLoader addStakeholders= {this.addStakeholders} proposalMode ={true} limitTo={'contractor'}/>
                             
                             }
                             <span className='line xs-12'/>

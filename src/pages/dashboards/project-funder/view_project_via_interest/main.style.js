@@ -118,7 +118,7 @@ export default styled.div`
         border:0;
         padding: 1.25em 0;
         width: 100%;
-        font-size: 13px;
+        font-size: 0.95em;
         font-weight: 300;
         color: white;
         background: #201D41;

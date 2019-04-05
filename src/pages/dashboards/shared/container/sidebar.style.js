@@ -259,7 +259,7 @@ export const MobileSidebar=styled.div` ${
     }
     
     h3{
-      font-size: 13px;
+      font-size: 0.95em;
       margin-left: 0;
       margin-top: 10px;
 

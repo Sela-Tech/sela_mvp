@@ -32,7 +32,7 @@ overflow: auto;
         display: inline-block;
         font-family: Acumin Pro;
         line-height: 20px;
-        font-size: 13px;
+        font-size: 0.95em;
         font-weight: 300;
         text-align: center;
         color: #828282;

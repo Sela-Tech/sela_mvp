@@ -57,7 +57,9 @@ bower_components
 todolist.txt
 *.todolist
 
-
+node_modules
+/node_modules
+node_modules/
 node_modules/*
 node_modules/**
 ./node_modules

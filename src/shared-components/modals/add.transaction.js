@@ -109,45 +109,6 @@ export default connect(mapStateToProps)(
           </div>
         </div>
         </FormWrapper>
-
-        // <Form onSubmit={this.handleSubmit} className="xs-12">
-        //   <p>Only Ethereum is currently supported. </p>
-        //   <div className="form-control">
-        //     <label>Network Name</label>
-        //     <input
-        //       type="text"
-        //       name="networkName"
-        //       placeholder="Network Name"
-        //       value={networkName}
-        //       disabled
-        //       onChange={this.handleChange}
-        //       required
-        //     />
-        //   </div>
-        //   <div className="form-control">
-        //     <label>Transaction Hash</label>
-        //     <textarea
-        //       type="text"
-        //       name="hash"
-        //       placeholder="Transaction Hash"
-        //       value={hash}
-        //       onChange={this.handleChange}
-        //       required
-        //     />
-        //   </div>
-
-        //   <div className="form-control xs-12">
-        //     <AsyncButton
-        //       attempt={this.props.add_tran_in_progress}
-        //       type="submit"
-        //       id="create-project-btn"
-        //     >
-        //       Confirm Transaction
-        //     </AsyncButton>
-        //   </div>
-        
-        // </Form>
-     
      );
     }
   }

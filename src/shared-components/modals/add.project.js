@@ -41,6 +41,7 @@ export default connect(mapStateToProps, mapDispatchToProps)(
       super(props);
       this.state = {
         add_view: "one",
+        projectType: "",
         add_project_in_progress: false,
         "end-date-unformatted": moment().add(1, "d"),
         "start-date-unformatted": moment(),
@@ -55,7 +56,8 @@ export default connect(mapStateToProps, mapDispatchToProps)(
           defaultEndDate: moment()
             .add(1, "d")
             .format("MM-DD-YYYY"),
-          location: {}
+          location: {},
+          extra: {}
         }
       };
     }
@@ -77,11 +79,20 @@ export default connect(mapStateToProps, mapDispatchToProps)(
         });
       }
 
+      let extra = [{size: this.state.form.extra}];
+
+      if( this.state.projectType === 'environmental' ){
+        formData.extra = extra;
+      }else{
+        delete formData.extra
+      };
+
       if (this.state["project-avatar"].file) {
         this.next(this.state["project-avatar"].file);
       } else {
         this.props.add_project(formData);
       }
+
     };
 
     forceFocus = name => {
@@ -107,6 +118,32 @@ export default connect(mapStateToProps, mapDispatchToProps)(
           ...this.state.form,
           [name]: value
         }
+      });
+    };
+
+    handleOptionChange = e => {
+      const { value, name } = e.target;
+      
+      this.setState(p => {
+
+        let extra = p.form.extra || {};
+        let splitup = name.split("-");
+        let option = splitup[0];
+
+        if(splitup[1] === "fieldValue"){
+          extra[option] = value;
+        } else if(splitup[1] === "fieldUnit"){
+          extra.unit = value;
+        }
+  
+      return {
+          message: undefined,
+          form: {
+            ...this.state.form,
+            extra
+          }
+        }
+
       });
     };
 
@@ -242,11 +279,16 @@ export default connect(mapStateToProps, mapDispatchToProps)(
       })
     }
 
-    render() {
+    typeSelect = e => {
+      this.setState({
+          projectType: e.target.value
+      })
+    }
 
+    render() {
       const { add_project_in_progress, form, add_view } = this.state;
       
-      const {crowdfundable} = form;
+      // const {crowdfundable} = form;
       return (
         <FormWrapper className='xs-12'>
           <div className="xs-12 t-c grayed">
@@ -279,7 +321,7 @@ export default connect(mapStateToProps, mapDispatchToProps)(
 
                 <div className='xs-12 form-group'>
                 <label>Enter the estimated <strong>Implementation Budget</strong></label>
-                <input name='implementationBudget'  onChange={this.handleChange} placeholder='Amount in USD' min={1} type='number' required/>
+                <input name='implementationBudget' onChange={this.handleChange} placeholder='Amount in USD' min={1} type='number' required/>
                 {/* <em>Amount can be adjusted later</em> */}
                 </div>
 
@@ -289,19 +331,67 @@ export default connect(mapStateToProps, mapDispatchToProps)(
                 {/* <em>Amount can be adjusted later</em> */}
                 </div>
                 
+                <div className='xs-12 form-group'>
+                  <label>Select the <strong>Type</strong> that best describes the project</label>
+                  <select className="projectType" onChange={this.typeSelect}>
+                    <option value=""> Please select a project type</option>
+                    <option value="environmental">Pond Cleanup</option>
+                  </select>
+                </div>
 
+                {
+                  this.state.projectType === "environmental" &&
+                  <div className='xs-12'>
+                    
+                    <div className='xs-12'>
+                      <div className='xs-9'>
+                        <label> Pond Size</label>
+                        
+                        <input className = 'xs-4' style={{ width: "30%" }} placeholder="Length" 
+                        name = {"length-fieldValue"} type='number' onChange={ this.handleOptionChange } />
+                        
+                        <input className = 'xs-4' style={{ width: "30%", marginLeft: "2.5%" }} placeholder="Width" 
+                        name = {"width-fieldValue"} type='number' onChange={ this.handleOptionChange } />
+                        
+                        <input className = 'xs-4' style={{ width: "30%", marginLeft: "2.5%" }}  placeholder="Depth" 
+                        name = {"depth-fieldValue"} type='number' onChange={ this.handleOptionChange } />
+
+                      </div>
+
+                      <div className='xs-3'>
+                      <label> Unit </label>
+                        <select placeholder="Unit" 
+                        name={"size-fieldUnit"} onChange={ this.handleOptionChange }>
+                          <option value=""> Select Unit  </option>  
+                          <option value="Kilometers"> Kilometers  </option>  
+                          <option value="Meters"> Meters  </option>  
+                          <option value="Centimeters"> Centimeters  </option>  
+                          <option value="Feet"> Feet  </option>  
+                          <option value="Miles"> Miles  </option>  
+                          <option value="Inches"> Inches  </option>  
+                        </select>
+                    </div>
+
+                    </div>
+
+                
+
+                  </div>
+                }
 
                 <div className='xs-12 form-group'>
                 <SdgPicker onChange={this.handleSDG} />
                 </div>
 
-                <div className='xs-12 form-group crowdfund'>
-                <button type='button' id='crowdfund-checkbox' onClick={this.toggleCrowdfund} className={
-                crowdfundable ? 'active': ''
-                }><span/></button>
-                <label>Crowdfund </label>
-                <em> (get contributions from other funders) </em>
-                </div>  
+                {/* <div className='xs-12 form-group crowdfund'>
+                  <button type='button' id='crowdfund-checkbox' onClick={this.toggleCrowdfund} className={
+                  crowdfundable ? 'active': ''}>
+                    <span/>
+                  </button>
+                  
+                  <label>Crowdfund </label>
+                  <em style={{display: "block",marginTop: '1em'}}> (get contributions from other funders) </em>
+                </div>   */}
 
                 </div>
 
@@ -404,135 +494,20 @@ export default connect(mapStateToProps, mapDispatchToProps)(
 
                 <div className='xs-12'>
                   <div className='xs-12'>
-                    <button id='save' type='submit'>
+                    <button id='save' type='submit' disabled={add_project_in_progress}>
                     { add_project_in_progress ?  <Icon name = 'spinner' spin/> : 'Create Project' }
                     </button>
                   </div>
                 </div>
-
                 </div>
                 }
-                
-                
               </form>
               }
-
             </div>
           </div>
-
         </FormWrapper>
       );
     }
+
   }
 );
-
-
-
-
-/*
-   <Form onSubmit={this.handleSubmit} className="xs-12">
-            <div className="xs-12 sm-6">
-              <div className="xs-12 sm-11">
-
-              </div>
-            </div>
-
-            <div className="xs-12 sm-6">
-            
-              <div className="form-control">
-                <label> Add a project description </label>
-
-                <textarea
-                  type="text"
-                  name="description"
-                  placeholder="Project Description"
-                  value={fd["description"] || ""}
-                  onChange={this.handleChange}
-                  required
-                />
-              </div>
-
-              <SdgPicker onChange={this.handleSDG} />
-              
-              <GenericLoader addStakeholders= {this.addStakeholders}/>
-              
-              <div className="form-control xs-12" id="date-part">
-                <div className={"xs-12 sm-5 date-wrpr show"}>
-                  <label
-                    onClick={() => this.forceFocus("show-start-date")}
-                    className="xs-10"
-                  >
-                    Start Date
-                  </label>
-                  <div className="xs-10 adjusted">
-                    <DatePicker
-                      type="date"
-                      name="start-date"
-                      id="start-date"
-                      ref="start-date"
-                      selected={this.state["start-date-unformatted"]}
-                      onChange={this.handleStartDatePick}
-                      minDate={moment()}
-                    />
-                  </div>
-
-                  <div className="xs-2" id="c-one">
-                    <img src={calendericon} alt="calender-icon" />
-                  </div>
-                </div>
-
-                <span className="xs-12 sm-2">
-                  <p id="dash">-</p>
-                </span>
-
-                <div className={"xs-12 sm-5 date-wrpr show"}>
-                  <label
-                    onClick={() => this.forceFocus("show-end-date")}
-                    className="xs-10 "
-                  >
-                    End Date
-                  </label>
-
-                  <div className="xs-10 adjusted">
-                    <DatePicker
-                      type="date"
-                      name="end-date"
-                      id="end-date"
-                      ref="end-date"
-                      selected={this.state["end-date-unformatted"]}
-                      onChange={this.handleEndDatePick}
-                      minDate={this.state["end-date-unformatted"]}
-                    />
-                  </div>
-
-                  <div className="xs-2" id="c-one">
-                    <img src={calendericon} alt="calender-icon" />
-                  </div>
-                </div>
-              </div>
-              <div className="form-control xs-12">
-                <AsyncButton
-                  attempt={this.state.add_project_in_progress}
-                  type="submit"
-                  id="create-project-btn"
-                  disabled={disabled}
-                >
-                  Create Project
-                </AsyncButton>
-
-                {Boolean(this.state.uploading) && (
-                  <label
-                    style={{
-                      display: "block",
-                      marginTop: "5px"
-                    }}
-                  >
-                    Uploading Picture: {this.state.uploading}%
-                  </label>
-                )}
-              </div>
-            </div>
-            
-         
-          </Form>
-       */

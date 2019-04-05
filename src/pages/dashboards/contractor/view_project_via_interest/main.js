@@ -76,6 +76,34 @@ class MainViewForPreviewingProject extends Component{
                     </div>
                     <div className='xs-12 bg-text'>
                     <p>{withBreaks}</p>
+
+                    <div className='extra xs-12'>
+                        {info.extra ? 
+                        Boolean(info.extra.length) ?
+                            info.extra.map((v,y)=>{
+                            return <Fragment key={y}>
+                                <p>{
+                                Object.keys(v).map((k)=>{
+                                return (
+                                    <Fragment>
+                                    <label>{k}</label>
+                                    { 
+                                    Object.keys(v[k]).map((key, i) => {
+                                    return <Fragment key={i}> 
+                                    <strong>{key}:</strong>
+                                    <span>{ v[k][key] }</span>
+                                    </Fragment> })
+                                    }
+                                </Fragment>
+                                )
+                                })
+                            }
+                            </p>
+                            </Fragment>
+                            }): null: null  
+                        }
+                        </div>
+
                     </div>
                     <div className='xs-12 add-doc'>
                         <h5>Additional documents</h5>
@@ -94,7 +122,7 @@ class MainViewForPreviewingProject extends Component{
                                         <p>{doc.size}</p>
                                     </div>
                                     <div className='download xs-2 sm-2'>
-                                        <a href={doc.doc} rel='noopenner noreferrer' target="_blank"> Download</a>
+                                        <a href={doc.doc} target="_blank" rel="noopener noreferrer"> Download</a>
                                     </div>
                                 </div>
                                 })

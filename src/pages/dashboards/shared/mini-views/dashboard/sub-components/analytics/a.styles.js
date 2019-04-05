@@ -63,7 +63,7 @@ export default styled.div`
       font-weight: 300;
       font-family: Acumin Pro;
       line-height: 22px;
-      font-size: 13px;
+      font-size: 0.95em;
       text-align: right;
       color: #34aa44;
       padding-top: 10px;
@@ -76,7 +76,7 @@ export default styled.div`
 
     .corner {
       box-sizing: border-box;
-      font-size: 13px;
+      font-size: 0.95em;
       font-weight: 300;
     }
 

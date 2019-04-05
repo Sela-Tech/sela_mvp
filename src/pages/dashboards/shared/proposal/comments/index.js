@@ -102,7 +102,7 @@ const CommentWrap = styled.div`
             box-sizing: border-box;
             border-radius: 4px;
             padding: 0.5em;
-            font-size: 13px;
+            font-size: 0.95em;
             font-weight: 300;
             height: 4em;
             resize: none;

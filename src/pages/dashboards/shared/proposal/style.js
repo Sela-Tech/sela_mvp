@@ -64,8 +64,8 @@ export default styled.div`
         height: 40px;
         background: transparent;
         font-weight:300;
-        width: 125px;
-        font-size: 13px;
+        width: 10em;
+        font-size: 0.95em;
         text-align: center;
         
         &.active{
@@ -102,7 +102,7 @@ export default styled.div`
             }
             label{
                 font-weight: 200;
-                font-size: 13px;
+                font-size: 0.95em;
                 font-style: italic;
                 display: block;
                 margin: 0;
@@ -151,7 +151,7 @@ export default styled.div`
         span{
             display: inline-block;
             line-height: 15px;
-            font-size: 13px;
+            font-size: 0.95em;
             color: #696F74;
             font-weight: 300;
             margin-right: 5px;

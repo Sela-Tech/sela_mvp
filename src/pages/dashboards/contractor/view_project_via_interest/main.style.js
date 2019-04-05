@@ -113,27 +113,28 @@ export default styled.div`
         }
     }
 
-    .btn-proposal{
-        
+    .btn-proposal{ 
         border:0;
         padding: 1.25em 0;
         width: 100%;
-        font-size: 13px;
+        font-size: 0.95em;
         font-weight: 300;
         color: white;
         background: #201D41;
         border-radius: 5px;
         display: block;
         text-align:center;
+
         &.inverse{
-             background: transparent;
-             color: #201D41;
-             border: 1px solid #201D41;
-             &:hover{
+            background: transparent;
+            color: #201D41;
+            border: 1px solid #201D41;
+            &:hover{
                 background: #201D41;
                 color: white;        
-             }
+            }
         }
+
     }
 
     .img{
@@ -225,4 +226,20 @@ export default styled.div`
         
     }
 
+
+    .extra{
+        label{
+        display: block;
+        font-size: 1em;
+        font-weight: 500;
+        }
+        p,strong,span,label{
+          text-transform: capitalize;
+        }
+        span{
+          display: inline-block;
+          padding: 1em;
+        }
+      }
+    
 `

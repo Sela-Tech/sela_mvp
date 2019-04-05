@@ -37,7 +37,7 @@ img{
         margin: 8px 0;
         font-weight: 300;
         margin: 5px 0;
-        font-size: 13px;
+        font-size: 0.95em;
         text-transform: Capitalize;
     }
     h3{

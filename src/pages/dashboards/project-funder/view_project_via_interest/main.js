@@ -98,7 +98,7 @@ class MainViewForPreviewingProject extends Component{
                                         <p>{doc.size}</p>
                                     </div>
                                     <div className='download xs-2 sm-2'>
-                                        <a href={doc.doc} rel='noopenner noreferrer' target="_blank"> Download</a>
+                                        <a href={doc.doc} target="_blank" rel="noopener noreferrer"> Download</a>
                                     </div>
                                 </div>
                                 })
@@ -109,9 +109,7 @@ class MainViewForPreviewingProject extends Component{
                 </div>
 
                 <div className='xs-12 md-4 pad' id='initiated'>
-                    {this.props.self !== true && 
-                    <Fragment>
-                        <h3>Initiated By</h3>
+                     <h3>Initiated By</h3>
                         <div className='xs-12 border-top-bottom'>
                             <div className='xs-4 sm-3 md-2'>
                                 <img src={ Boolean(info.initiated_by.avatar) ? info.initiated_by.avatar: "https://placehold.it/50"} alt='avatar'/>
@@ -121,8 +119,7 @@ class MainViewForPreviewingProject extends Component{
                                 <span>{info.initiated_by.user_type}</span>
                             </div>
                         </div>
-                    </Fragment>
-                    }
+                 
                     <div className='xs-12 p-text'>
                         <div className='xs-12'>
                             <span id="location"/><p>{location}</p>

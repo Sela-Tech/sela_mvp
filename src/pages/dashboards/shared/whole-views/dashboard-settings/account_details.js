@@ -247,7 +247,7 @@ class AccountDetails extends Component {
             style={{
               margin: "15px 0 5px",
               fontWeight: 300,
-              fontSize: "13px",
+              fontSize: "0.95em",
               color: actionType === auth.CHANGE_USER_DETAILS_S?  "seagreen": "tomato"
             }}
           >

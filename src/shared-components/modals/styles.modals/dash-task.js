@@ -65,7 +65,7 @@ export default styled.div`
     }
     label{
         margin-bottom: 0px;
-        font-size: 13px;
+        font-size: 0.95em;
         color: #7b8c9a;
     }
     input, textarea, select{
