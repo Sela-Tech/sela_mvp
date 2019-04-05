@@ -252,15 +252,7 @@ class Signup extends React.Component {
                 </Link>
               </div>
               <div className="xs-12">
-                <h2>Let's get started </h2>
-                <p className="xs-10 xs-off-1" id="signup-info-text">
-                  <span>
-                    Create an account to join the Sela platform and community.
-                  </span>
-                  <Link className="link" to="/signin">
-                    Already have an account? Sign in here
-                  </Link>
-                </p>
+                <h2>Create your account</h2>
               </div>
 
               <div className="xs-12">
@@ -389,8 +381,14 @@ class Signup extends React.Component {
                         </Link>
                       </p>
                     </div>
-
-                  </div>
+          
+                    <div className="xs-12">
+                      <p className="xs-10 xs-off-1" id="signup-info-text">
+                        <Link className="link" to="/signin">
+                          Already have a Sela account? Sign in 
+                        </Link>
+                      </p>
+                      </div>
                 </form>
               </div>
             </SignUpWrapper>
