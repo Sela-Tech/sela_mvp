@@ -31,13 +31,14 @@ const L = styled.div`
             color: #AAAAAA;
             margin: 0;
             padding: 1em 1.1em 0;
+            text-align: left;
             font-weight: 300;
         }
   >  div{
             background: #EFF5FB;
             border-radius: 5px;
             font-family: Acumin Pro;
-            font-size: 13px;
+            font-size: 0.95em;
             color: #156EDC;
             display: inline-block;
             min-height: 35px;
@@ -211,9 +212,15 @@ class StakeHolderLoader extends React.Component {
         if (this.props !== nextProps) {
             
             let options = nextProps.stakeholders, untouched;
+            // console.log(options)
 
             if(nextProps.stakeholders){
-                options = nextProps.stakeholders;
+
+                if(Boolean(nextProps.proposalMode) === true){
+                    console.log('here')
+                    options = nextProps.stakeholders.filter( s => s.user.agreed === true );
+                }
+
                 if(nextProps.limitTo === 'contractor'){
                     options = options.filter(stakeholder=>{
                         return stakeholder.user.information.isContractor === true
@@ -222,7 +229,9 @@ class StakeHolderLoader extends React.Component {
 
                 options = options.map(option=>{
                     return option.user.information
-                })
+                });
+
+                console.log(options)
             }
         
             untouched = options;
@@ -237,13 +246,12 @@ class StakeHolderLoader extends React.Component {
 
             this.setState(obj);
         }
-      }
-    
+    }    
 
     addToSelected = o =>{
         if(this.props.single === true){
             let valuesSelected = [
-                {value: o._id, label: `${o.firstName} ${o.lastName}`  }
+                { value: o._id, label: `${o.firstName} ${o.lastName}` }
             ]
             this.setState({
                 valuesSelected
@@ -265,7 +273,7 @@ class StakeHolderLoader extends React.Component {
 
                 if( Boolean(found) === false ) {
                     let valuesSelected =  [
-                        {value: o._id, label: `${o.firstName} ${o.lastName}`  },
+                        { value: o._id, label: `${o.firstName} ${o.lastName}` },
                         ...p.valuesSelected,
                     ]
                     
@@ -275,7 +283,6 @@ class StakeHolderLoader extends React.Component {
                 }
             
             },()=>{
-
                 this.props.addStakeholders(this.state.valuesSelected.map(v=>{
                     return v.value
                 }))
@@ -350,14 +357,14 @@ class StakeHolderLoader extends React.Component {
 
     render(){
 
-        const {isNotEditable} = this.props;
+        const { isNotEditable, limitTo } = this.props;
 
         const { valuesSelected, options, open } = this.state;
 
         return <L className='xs-12'>
             { this.props.hideText !== true && 
                 <Fragment>
-                <h3 id='f'>Contractor</h3>
+                <h3 id='f'>{limitTo === "contractor" ? "Contractor": "Stakeholder"}</h3>
                 <span className='em-desc'> If you cannot find a particular contractor in the dropbox, <Link to={`/dashboard/project/${this.props.match.params.project_id}/stakeholders`}>Click Here</Link></span>
             </Fragment>
             }
@@ -370,7 +377,7 @@ class StakeHolderLoader extends React.Component {
                         <div className="f-l">{v.label}</div>
                         <div className="f-r t-c" onClick={()=>this.removeFromSelected(v)}>&times;</div>
                     </div>
-                }): <p>Select contractor to add</p> }
+                }): <p>Select stakeholder</p> }
             </div>
 
             <div className="xs-2 chev t-c">
