@@ -13,6 +13,7 @@ import io from 'socket.io-client';
 import ends from "./endpoints";
 import notifications_actions from "./store/actions/notifications";
 import ToastContainer from 'react-toastify/lib/components/ToastContainer';
+import ErrorSize from "./pages/errorSize";
 
 window.moneyFormat = function(value, currency){
   if(isNaN(value)){
@@ -46,7 +47,8 @@ if (retrieveToken()) {
       }
 
       let retrieved_token = Boolean(retrieveToken());
-      if ( retrieved_token === true && loop_stop === false && store.getState().auth.isAuthenticated === true){  
+      if ( retrieved_token === true && loop_stop === false &&
+        store.getState().auth.isAuthenticated === true){  
         loop_stop = true;
         
         store.dispatch(get_notifications());
@@ -58,7 +60,6 @@ if (retrieveToken()) {
 
         if( Boolean(obj.userId) && Boolean(obj.socketId)){      
             socket.emit("user",obj);
-            console.log({obj})
         };
 
         store.dispatch(store_socket_data(data));
@@ -93,7 +94,7 @@ ReactDOM.render(
    <React.Fragment>
       <ToastContainer/>
       <Provider store={store}>
-          <App />
+          {window.innerWidth > 1023 ? <App/> : <ErrorSize/>}
       </Provider>
     </React.Fragment>,
   document.getElementById("root")
