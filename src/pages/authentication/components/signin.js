@@ -168,10 +168,6 @@ class Login extends React.Component {
             ) : (
               <React.Fragment>
                 <h2> Sign in to Sela </h2>
-                <div className="test-cred xs-12">
-                  <p>Test Username: test@gmail.com</p>
-                  <p>Test Password: password</p>
-                </div>
               </React.Fragment>
             )}
           </div>
@@ -186,7 +182,7 @@ class Login extends React.Component {
                   name="username"
                   type="text"
                   className="form-control"
-                  placeholder="Phone Number/Email Address"
+                  placeholder="Email or phone number"
                   onChange={this.onUsernameChange}
                   value={username["base"]}
                   minLength={minName}
