@@ -25,14 +25,10 @@ coverage
 
 build
 
-
 # Compiled binary addons (http://nodejs.org/api/addons.html)
 build/Release
 
 # Dependency directories
-node_modules/
-/node_modules
-node_modules
 jspm_packages
 bower_components
 
@@ -57,9 +53,17 @@ bower_components
 todolist.txt
 *.todolist
 
+node_modules/
+/node_modules
+node_modules
+
 node_modules
 /node_modules
 node_modules/
 node_modules/*
 node_modules/**
+node_modules/***
+node_modules/****
+
 ./node_modules
+./node_modules/*
