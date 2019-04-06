@@ -11,10 +11,10 @@ import audio from "../../../../assets/icons/preview-audio.svg";
 
 export default styled.div`
     img#header{
-        height: 300px;
+        height: 25em;
         width: 100%;
         object-fit:cover;
-        object-position:center;
+        object-position:0 33%;
         background: #f5f5f5;
     }
     .pad{
