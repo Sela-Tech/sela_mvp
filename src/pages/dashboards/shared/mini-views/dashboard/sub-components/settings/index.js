@@ -73,12 +73,12 @@ class Settings extends React.Component{
           update_project_in_progress: true
         });
   
-        let formData = this.state;
+        let formData = {...this.state};
   
         if (this.state["project-avatar"].file) {
           this.next(this.state["project-avatar"].file);
-        } else {
-            formData["project-avatar"] = formData["project-avatar"].preview;
+        } else { 
+            delete formData['project-avatar']
             this.props.update_project(formData);
         }
   
