@@ -348,13 +348,13 @@ export default connect(mapStateToProps, mapDispatchToProps)(
                         <label> Pond Size</label>
                         
                         <input className = 'xs-4' style={{ width: "30%" }} placeholder="Length" 
-                        name = {"length-fieldValue"} type='number' onChange={ this.handleOptionChange } />
+                        name = {"length-fieldValue"} type='string' onChange={ this.handleOptionChange } />
                         
                         <input className = 'xs-4' style={{ width: "30%", marginLeft: "2.5%" }} placeholder="Width" 
-                        name = {"width-fieldValue"} type='number' onChange={ this.handleOptionChange } />
+                        name = {"width-fieldValue"} type='string' onChange={ this.handleOptionChange } />
                         
                         <input className = 'xs-4' style={{ width: "30%", marginLeft: "2.5%" }}  placeholder="Depth" 
-                        name = {"depth-fieldValue"} type='number' onChange={ this.handleOptionChange } />
+                        name = {"depth-fieldValue"} type='string' onChange={ this.handleOptionChange } />
 
                       </div>
 
@@ -382,16 +382,6 @@ export default connect(mapStateToProps, mapDispatchToProps)(
                 <div className='xs-12 form-group'>
                 <SdgPicker onChange={this.handleSDG} />
                 </div>
-
-                {/* <div className='xs-12 form-group crowdfund'>
-                  <button type='button' id='crowdfund-checkbox' onClick={this.toggleCrowdfund} className={
-                  crowdfundable ? 'active': ''}>
-                    <span/>
-                  </button>
-                  
-                  <label>Crowdfund </label>
-                  <em style={{display: "block",marginTop: '1em'}}> (get contributions from other funders) </em>
-                </div>   */}
 
                 </div>
 
