@@ -32,14 +32,13 @@ import config from "./config";
 
 const Button = ({ active, title, description, name, Ftn }) => {
   let onClick = () => Ftn(name);
-
   const activeClassName = active === name ? "active" : "";
   return (
     <div className="xs-12 md-4 signup-type-button" onClick={onClick}>
       <div className={"inner " + activeClassName}>
         <div className="checkbox-part xs-3">
           <label className="l-container">
-            <input type="checkbox" checked={active === name} />
+            <input type="checkbox" checked={active === name} onChange={()=>{}}/>
             <span className="checkmark" />
           </label>
         </div>
@@ -97,7 +96,6 @@ class Signup extends React.Component {
     };
 
     this.props.signup(objToSubmit);
-    
   };
 
   onSelect = name => {
