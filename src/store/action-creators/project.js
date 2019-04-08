@@ -71,7 +71,7 @@ export const updateProject = obj => {
   return dispatch => {
     dispatch({ type: dA.UPDATE_PROJ_R });
     ax({
-      url: e.add_project,
+      url: e.add_project +"/"+ obj.id,
       method: "PUT",
       data: obj,
       headers: {

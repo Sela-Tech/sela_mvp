@@ -24,6 +24,7 @@ class Settings extends React.Component{
     constructor(props){
         super(props);
         this.state = {
+            id: props.info._id,
             update_project_in_progress: false,
             "project-avatar":{
                 preview: props.info['project-avatar']
@@ -94,6 +95,14 @@ class Settings extends React.Component{
         // next();
         this.next = next;
       };
+
+      componentWillReceiveProps(nextProps){
+          if(this.props !== nextProps){
+              this.setState({
+                  id: nextProps.info._id
+              })
+          }
+      }
 
     render(){
         return <FormWrapper className='xs-12'>
