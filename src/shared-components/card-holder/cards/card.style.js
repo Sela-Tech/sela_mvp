@@ -58,6 +58,8 @@ export const NotEmptyCardStyling = styled.div`
       color: #3d4852;
     }
   }
+
+
 `;
 
 export const EmptyCardStyling = styled.div`
@@ -253,4 +255,37 @@ export const NotEmptyCardStyling2 = styled.div`
       }
     }
   }
+
+
+
+
+.wrap-img{
+  position: relative;
+
+  button{
+      position: absolute;
+      bottom: 8px;
+      left: 8px;
+      border-radius: 50px;
+      height: 20px;
+      width: 100px;
+      border: 0;
+      color: white;
+      text-transform: Capitalize;
+      font-weight:300;
+
+      &.proposed, &.dormant{
+          background: #201D41;
+      }
+      &.in-progress{
+          background: #F2C94C;
+      }
+      &.completed{
+          background: #369C05;
+      }
+      &.terminated{
+          background: #BC1717;
+      }
+  }
+}
 `;

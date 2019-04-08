@@ -23,7 +23,7 @@ export default styled.div`
         &.proposed, &.dormant{
             background: #201D41;
         }
-        &.ongoing{
+        &.in-progress{
             background: #F2C94C;
         }
         &.completed{

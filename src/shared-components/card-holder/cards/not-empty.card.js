@@ -15,7 +15,9 @@ const NotEmptyCard = ({ p, history, showMap }) => {
       <div className="container xs-12">
 
         <div className="box xs-12 md-11 sm-11">
-          {
+
+        <div className='wrap-img'>
+        {
             Boolean(hasImage) ? (
             <img
               src={p["project-avatar"]}
@@ -29,6 +31,10 @@ const NotEmptyCard = ({ p, history, showMap }) => {
             >
             </div>
           )}
+            <button className={`has-radius ${p.status.toLowerCase()}`}>{p.status.toLowerCase()}</button>
+        </div>
+        
+     
 
           
 

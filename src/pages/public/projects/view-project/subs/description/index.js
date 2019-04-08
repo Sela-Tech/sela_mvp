@@ -161,7 +161,6 @@ const DescriptionWrapper = styled.div`
 
 `;
 export default ({ id, project }) => {
-  console.log(project)
 
   return (
     <DescriptionWrapper className="xs-12">

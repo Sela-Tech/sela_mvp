@@ -12,7 +12,7 @@ import { getQueryString } from "../../../../helpers/utils";
 
 import map from "./map.png";
 
-const statuses = ["DORMANT", "ACCEPTED", "STARTED", "TERMINATED", "COMPLETED"];
+const statuses = ["Proposed", "In-Progress", "Terminated", "Completed"];
 
 class LeftPane extends React.Component {
   constructor(props) {
@@ -173,7 +173,7 @@ class LeftPane extends React.Component {
 
                 {statuses.map((s, i) => {
                   return (
-                    <option value={s} key={i}>
+                    <option value={s.toUpperCase()} key={i}>
                       {s}
                     </option>
                   );
