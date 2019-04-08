@@ -216,6 +216,11 @@ export const signup = obj => {
 
   delete obj.signUpType;
 
+
+  if(Boolean(obj.isEvaluator)){
+    delete obj.organization;
+  };
+
   return dispatch => {
     dispatch({
       type: authActions.SIGNUP_R,
