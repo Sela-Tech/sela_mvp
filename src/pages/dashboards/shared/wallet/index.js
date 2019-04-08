@@ -352,7 +352,7 @@ class Wallet extends Component {
                                                             <label>Balance</label>
                                                             <h4 className='balance'>
                                                             <span className={token.type === "native" ? "xlm ":"pst"}>
-                                                                {token.token ?  token.token : "XML"}
+                                                                {token.token ?  token.token : "XLM"}
                                                             </span>
                                                             {
                                                                 window.moneyFormat(token.balance,  "")
@@ -408,7 +408,7 @@ class Wallet extends Component {
                                                         
                                                                 <h4 className='balance'>
                                                                     <span className={val.type === "native" ? "xlm ":"pst"}>
-                                                                        {val.token ?  val.token : "XML"}
+                                                                        {val.token ?  val.token : "XLM"}
                                                                     </span>
                                                                     { window.moneyFormat(val.balance, " ")  }
                                                                 </h4>
