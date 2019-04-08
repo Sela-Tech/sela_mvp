@@ -99,9 +99,9 @@ export default connect(mapStateToProps)(
                     {citizenData.userInfo.firstName}{" "}
                       {citizenData.userInfo.lastName}
                     </h4>
-                    <p>
+                    {/* <p>
                       Reputation Score: {citizenData.userInfo.reputationScore}%
-                    </p>
+                    </p> */}
 
                     <div className="xs-10 xs-off-1 s3">
                       <div className="xs-4 t-c">
@@ -181,7 +181,7 @@ export default connect(mapStateToProps)(
                 <div className="xs-10 xs-off-1">
                   <div className="xs-12 t-c">
                     <h4 id="pl"> </h4>
-                    <p>Reputation Score: - %</p>
+                    {/* <p>Reputation Score: - %</p> */}
 
                     <div className="xs-10 xs-off-1 s3">
                       <div className="xs-4 t-c">

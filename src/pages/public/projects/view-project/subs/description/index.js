@@ -253,7 +253,7 @@ export default ({ id, project }) => {
               <h4>
                 {project.owner.firstName} {project.owner.lastName}
               </h4>
-              <p>Reputation Score: {project.owner.reputationScore}</p>
+              {/* <p>Reputation Score: {project.owner.reputationScore}</p> */}
               <span>{project.owner.organization && project.owner.organization.name}</span>
             </div>
           </div>

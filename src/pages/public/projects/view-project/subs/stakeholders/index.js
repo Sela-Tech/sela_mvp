@@ -60,7 +60,7 @@ export default connect()(({ project, dispatch }) => {
                   <h4>
                     {owner.firstName} {owner.lastName}
                   </h4>
-                  <p>Reputation Score: {owner.reputationScore}</p>
+                  {/* <p>Reputation Score: {owner.reputationScore}</p> */}
                   <span>{owner.organization && owner.organization.name}</span>
                 </div>
               </div>
@@ -87,9 +87,9 @@ export default connect()(({ project, dispatch }) => {
                           {u.user.information.firstName}{" "}
                           {u.user.information.lastName}
                         </h4>
-                        <p>
+                        {/* <p>
                           Reputation Score: {u.user.information.reputationScore}
-                        </p>
+                        </p> */}
                         <span>{u.user.information.organization && u.user.information.organization.name}</span>
                       </div>
                     </div>
@@ -121,9 +121,9 @@ export default connect()(({ project, dispatch }) => {
                           {u.user.information.firstName}{" "}
                           {u.user.information.lastName}
                         </h4>
-                        <p>
+                        {/* <p>
                           Reputation Score: {u.user.information.reputationScore}
-                        </p>
+                        </p> */}
                         <span>{ u.user.information.organization &&  u.user.information.organization.name}</span>
                       </div>
                     </div>
@@ -154,9 +154,9 @@ export default connect()(({ project, dispatch }) => {
                           {u.user.information.firstName}{" "}
                           {u.user.information.lastName}
                         </h4>
-                      <p>
+                      {/* <p>
                           Reputation Score: {u.user.information.reputationScore}
-                        </p>
+                        </p> */}
                         <span>{u.user.information.organization ?
                         u.user.information.organization.name: ""}</span>
                       </div>
