@@ -57,8 +57,8 @@ const Wrap = styled.div`
                     <div className="c t-c i-h">
 
                       <img src={map} alt='map' id='map'/>
-                      <h2>Seems like you're trying to open visit the web platform via a mobile phone browser. </h2>
-                      <p  className='text'>Please download the mobile application instead</p>
+                      <h2>Seems like you're trying to visit the web platform via a mobile phone browser. </h2>
+                      <p  className='text'>Please download the mobile application instead.</p>
                       
                       <a  className="colored" rel="noopener noreferrer"  href="https://sela-labs.co" >Home</a>
                       <a className='plain'  rel="noopener noreferrer" href='/' >Explore Projects </a>
