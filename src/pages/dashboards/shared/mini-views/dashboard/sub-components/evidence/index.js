@@ -144,8 +144,8 @@ class Evidence extends React.Component {
               
                       { 
                         this.props.iMadeThisProject === false &&
-                        evidence.stakeholders.some(
-                          ev=> ( ev.hasSubmitted === false && ev.user._id === this.props.my_id )) &&
+                        // evidence.stakeholders.some(
+                        //   ev=> ( ev.hasSubmitted === false && ev.user._id === this.props.my_id )) &&
                         <button className='view' onClick={()=>this.props.showSubmissionByType({
                         type: evidence.datatype,
                         submissionData: { fields: evidence.fields, mode: 'submit', evidenceRequestId: evidence._id }} )}> 
@@ -189,7 +189,14 @@ const mapStateToProps = state => {
       kpis: state.evidence.kpis,
       evidence_type: state.evidence.type
   }
-  
+  if(obj.kpis.length > 0){
+    obj.kpis.reduce(
+      (a,b)=>{
+      return {
+        totalPrice: a.totalPrice + b.totalPrice
+      }});
+}
+
   if(info.owner){
     obj.iMadeThisProject = info.owner._id === obj.my_id;
   }
