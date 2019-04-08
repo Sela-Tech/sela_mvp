@@ -8,6 +8,7 @@ import moment from 'moment';
 import { ResponsiveLine } from '@nivo/line';
 import { SHOW_STAKEHOLDER_MODAL } from "../../../../../../store/actions/modal";
 import { showModal } from "../../../../../../store/action-creators/modal";
+import pilotData from "./pilot.data";
 
 const TokenWrapper = styled.div`
     overflow: auto;
@@ -117,7 +118,7 @@ const Token = connect(()=>{return {}}, dispatch=>{
     render(){
         
         const { info } = this.state;
-
+        console.log(info)
        // store only receivers
         let receivers = new Set([]);
         let receiversSimplified = [];
@@ -147,7 +148,7 @@ const Token = connect(()=>{return {}}, dispatch=>{
                 data:  info.transactions.reverse().map(tran=>{
                     return  {
                         "x": moment(tran.createdAt).format("HH:mm DD MMMM YY")
-                       ,"y": tran.value
+                       ,"y": this.props.overwrite ? tran.value / 171: tran.value
                     }
                 })
             }
@@ -198,7 +199,7 @@ const Token = connect(()=>{return {}}, dispatch=>{
                           <label>Public Key</label>
                           <h4><a target="_blank" rel="noopener noreferrer" href={`
                               ${
-                                    this.props.publicKey ? this.props.publicKey : info && process.env.REACT_APP_STELLAR_MODE === "testnet" ? 
+                                this.props.publicKey ? this.props.publicKey : info && process.env.REACT_APP_STELLAR_MODE === "testnet" && this.props.overwrite !== true ? 
                                   `https://testnet.steexp.com/account/${info.distributorPublicKey}`:
                                   `https://steexp.com/account/${info.distributorPublicKey}`
                               }`
@@ -328,20 +329,13 @@ const Token = connect(()=>{return {}}, dispatch=>{
                         </div>
                         
                         <div className='f-r t-options'>
-                        {/* <label>Filter By</label> */}
-
-                        <select className='form-control'>
-                            <option value="no-filter">No Filter</option>
-                            <option value="xlm">Lumens</option>
-                            {info.transactions.length > 0 &&
-                                <option value="pst">{info.transactions[0].asset}</option>
-                            }
-                        </select>
-                        
-                        {/* <select className='form-control' placeholder="">
-                            <option value="30 days">Last 30 days</option>
-                        </select> */}
-
+                            <select className='form-control'>
+                                <option value="no-filter">No Filter</option>
+                                <option value="xlm">Lumens</option>
+                                {info.transactions.length > 0 &&
+                                    <option value="pst">{info.transactions[0].asset}</option>
+                                }
+                            </select>
                         </div>
                     </div>
 
@@ -361,7 +355,14 @@ const Token = connect(()=>{return {}}, dispatch=>{
                         </div>
                     <div className='content xs-12'>
                         { 
-                            info.transactions.map((transaction,i)=>{
+                            info.transactions.map(t=>{
+                                if(this.props.overwrite === true){
+                                    const temp = {...t};
+                                    temp.value = temp.value / 171;
+                                    return temp;
+                                }
+                                return t;
+                            }).map((transaction,i)=>{
                                 return <div className='row xs-12' key={i}>
                                     
                                     <div className='xs-3 col-row'> 
@@ -389,7 +390,7 @@ const Token = connect(()=>{return {}}, dispatch=>{
 
                                     <div className='xs-3 col-row'>
                                     <a href={`
-                                    ${process.env.REACT_APP_STELLAR_MODE === 'testnet'?
+                                    ${process.env.REACT_APP_STELLAR_MODE === 'testnet' && this.props.overwrite === false ?
                                     `https://testnet.steexp.com/tx/`:`https://steexp.com/tx/`}${transaction.hash}
                                     `} target="_blank" rel="noopener noreferrer">View On Explorer</a>
                                     </div>
@@ -412,17 +413,27 @@ const TranWrapper = styled.div`
 class TransactionsClass extends Component{
   constructor(props){
     super(props);
-    props.dispatch(get_public_transactions(props.id))
+    if(props.id !== "5ca8a10d35b915002208c730"){
+        props.dispatch(get_public_transactions(props.id))
+    }
     this.state = {}
   }
 
 render(){
-  const {info} = this.props;
-  
+
+    let { info,id } = this.props;
+
+    const data = id === "5ca8a10d35b915002208c730" ? {...pilotData} : info;
+
+    let overwrite = false;
+    if(id === "5ca8a10d35b915002208c730"){
+        overwrite = true;
+    }
+    
     return (
       <TranWrapper className="xs-12">
         <div className="xs-10 xs-off-1">
-          <Token info={info || { transactions: []}}/>
+          <Token info={data || { transactions: []}} overwrite={overwrite}/>
         </div>
       </TranWrapper>
     );
