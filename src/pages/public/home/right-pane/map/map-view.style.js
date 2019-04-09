@@ -1,4 +1,5 @@
 import styled from "styled-components";
+import pin from "./assets/003-maps-and-flags.svg";
 
 export const Expand = styled.button`
   position: absolute;
@@ -10,6 +11,7 @@ export const Expand = styled.button`
   margin: 10px;
   font-weight: 100;
 `;
+
 export const Marker = styled.div`
   cursor: pointer !important;
   .hovered {
@@ -23,7 +25,7 @@ export const Marker = styled.div`
         : `
       top: -110px;
     `}
-    left: 19px;
+    left: 0px;
     z-index: 1000000000000000000000;
     width: 200px;
 
@@ -42,9 +44,12 @@ export const Marker = styled.div`
     `
         : ``};
     h1 {
-      font-size: 0.95em;
+      font-size: 0.8em;
+      padding: 0;
       text-align: left;
       margin: 0;
+      font-weight: 400;
+      line-height: 1.25em;
     }
 
     p {
@@ -63,9 +68,8 @@ export const Marker = styled.div`
   position: relative;
   color: white;
   min-height: 40px;
-  min-width: ${props => props.markerWidth}px;
   top: -40px;
-  left: -${props => props.markerWidth / 2.1}px;
+  left:0;
   text-align: center;
   line-height: 40px;
   font-family: Acumin Pro;
@@ -80,12 +84,14 @@ export const Marker = styled.div`
     right: 0;
     display: block;
     top: 38px;
-    width: 0;
+    width: 30px;
     margin: auto;
-    height: 0;
-    border-style: solid;
-    border-width: 14px 10px 0 10px;
-    border-color: ${props => props.backgroundColor} transparent transparent
+    height: 30px;
+    background: url(${pin});
+    // border-style: solid;
+    // border: 3px solid white;
+    // border-width: 14px 10px 0 10px;
+    // border-color: ${props => props.backgroundColor} transparent transparent
       transparent;
   }
 `;

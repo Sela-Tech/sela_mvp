@@ -1,0 +1,14 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<svg width="374px" height="487px" viewBox="0 0 374 487" version="1.1" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink">
+    <!-- Generator: Sketch 53.2 (72643) - https://sketchapp.com -->
+    <title>004-placeholder-1</title>
+    <desc>Created with Sketch.</desc>
+    <g id="Page-1" stroke="none" stroke-width="1" fill="none" fill-rule="evenodd">
+        <g id="004-placeholder-1" fill-rule="nonzero">
+            <path d="M187.15,0 L187.15,104.4 C231.26,104.4 267.15,140.28 267.15,184.4 C267.15,228.51 231.26,264.4 187.15,264.4 L187.15,486.3 L333.58,302.2 C359.87,268.95 373.77,228.99 373.77,186.62 C373.77,83.72 290.05,0 187.15,0 Z" id="Path" fill="#CD5B00"></path>
+            <path d="M267.15,184.4 C267.15,140.28 231.26,104.4 187.15,104.4 L187.15,264.4 C231.26,264.4 267.15,228.51 267.15,184.4 Z" id="Path" fill="#F4F1C3"></path>
+            <path d="M107.15,184.4 C107.15,140.28 143.04,104.4 187.15,104.4 L187.15,0 C84.25,0 0.53,83.72 0.53,186.62 C0.53,228.99 14.43,268.95 40.76,302.24 L187.15,486.3 L187.15,264.4 C143.04,264.4 107.15,228.51 107.15,184.4 Z" id="Path" fill="#FF8A01"></path>
+            <path d="M107.15,184.4 C107.15,228.51 143.04,264.4 187.15,264.4 L187.15,104.4 C143.04,104.4 107.15,140.28 107.15,184.4 Z" id="Path" fill="#FFFFFF"></path>
+        </g>
+    </g>
+</svg>

@@ -9,14 +9,16 @@ class MarkerClass extends React.Component {
     return (
       <Marker {...this.props}>
         <span id="arrow" />
-        {project.name}
-
+       
         {this.props.$hover && (
           <div className="hovered">
+
             <img src={project["project-avatar"]} alt="img" />
             <div className="inner">
               <h1>{project.name}</h1>
-              <p>{project.description}</p>
+              <p>{ 
+                project.description.length > 200 ? `${project.description.substr(0,200)}...` : project.description
+              }</p>
             </div>
           </div>
         )}
@@ -27,7 +29,7 @@ class MarkerClass extends React.Component {
 
 export default projects => {
   return projects.map((project, index) => {
-    const width = project.name.length * 12;
+     const width = project.name.length * 12;
     return (
       <MarkerClass
         key={index}
