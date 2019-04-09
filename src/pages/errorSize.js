@@ -61,7 +61,7 @@ const Wrap = styled.div`
                       <p  className='text'>Please download the mobile application instead.</p>
                       
                       <a  className="colored" rel="noopener noreferrer"  href="https://sela-labs.co" >Home</a>
-                      <a className='plain'  rel="noopener noreferrer" href='/' >Explore Projects </a>
+                      <a className='plain' rel="noopener noreferrer" href='https://drive.google.com/file/d/1KOXUL4UPgR9dUiaChB0PtVXc_3QOX3PN/view' >Download App </a>
 
                     </div>
                   </div>
