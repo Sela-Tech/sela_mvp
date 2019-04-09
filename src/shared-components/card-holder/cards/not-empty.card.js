@@ -10,7 +10,7 @@ const NotEmptyCard = ({ p, history, showMap }) => {
 
   return (
     <NotEmptyCardStyling2
-      className={showMap === true ? "xs-12 sm-6 " : "xs-12 sm-6 md-3"}
+      className={showMap === true ? "xs-12 sm-6 lg-4 " : "xs-12 sm-6 lg-4"}
     >
       <div className="container xs-12">
 
@@ -38,7 +38,7 @@ const NotEmptyCard = ({ p, history, showMap }) => {
 
           
 
-          <div className="inner">
+          <div className="inner xs-12">
 
           <div className='xs-12 white'>
               <span className='location'>{p.location.name}</span>

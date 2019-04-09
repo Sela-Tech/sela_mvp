@@ -555,7 +555,7 @@ class Token extends Component {
                                 <h3> Amount</h3>
                                 </div>
                                 <div className='xs-3'>
-                                <h3>Prood</h3>
+                                <h3>Proof</h3>
                                 </div>
                             </div>
                         <div className='content xs-12'>

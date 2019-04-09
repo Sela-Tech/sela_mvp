@@ -191,7 +191,7 @@ export const NotEmptyCardStyling2 = styled.div`
     overflow: auto;
     transition: 250ms;
     cursor: pointer;
-    min-height: 250px;
+    min-height: 275px;
     &:hover {
       border-color: #156edc;
       #add {

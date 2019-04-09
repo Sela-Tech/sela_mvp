@@ -235,89 +235,90 @@ const Token = connect(()=>{return {}}, dispatch=>{
                   }
                 
               </div>
-              
-              <div className='xs-12'>
-              <div className='xs-12 pad'>
-                  <div className='inner xs-12 line'>
-                      <ResponsiveLine
-                          data={amountVsDate}
-                          margin={{
-                              "top": 50,
-                              "right": 150,
-                              "bottom": 250,
-                              "left": 60
-                          }}
-                          xScale={{
-                              "type": "point",
-                              min: "0"
-                          }}
-                          yScale={{
-                              "type": "linear",
-                              "stacked": true,
-                              "min": "0",
-                              "max": "auto"
-                          }}
-                          axisTop={null}
-                          axisRight={null}
-                          axisBottom={{
-                              "orient": "bottom",
-                              "tickSize": 5,
-                              "tickPadding": 5,
-                              "tickRotation": -60,
-                              "legend": "Date",
-                              "legendOffset": 36,
-                              "legendPosition": "middle"
-                          }}
-                          axisLeft={{
-                              "orient": "left",
-                              "tickSize": 5,
-                              "tickPadding": 5,
-                              "tickRotation": 0,
-                              "legend": "Token",
-                              "legendOffset": -40,
-                              "legendPosition": "middle"
-                          }}
-                          dotSize={10}
-                          dotColor="inherit:darker(0.3)"
-                          dotBorderWidth={2}
-                          dotBorderColor="#ffffff"
-                          enableDotLabel={true}
-                          dotLabel="y"
-                          dotLabelYOffset={-12}
-                          animate={true}
-                          motionStiffness={90}
-                          motionDamping={15}
-                          legends={[
-                              {
-                                  "anchor": "bottom-right",
-                                  "direction": "column",
-                                  "justify": false,
-                                  "translateX": 100,
-                                  "translateY": 0,
-                                  "itemsSpacing": 0,
-                                  "itemDirection": "left-to-right",
-                                  "itemWidth": 80,
-                                  "itemHeight": 20,
-                                  "itemOpacity": 0.75,
-                                  "symbolSize": 12,
-                                  "symbolShape": "circle",
-                                  "symbolBorderColor": "rgba(0, 0, 0, .5)",
-                                  "effects": [
-                                      {
-                                          "on": "hover",
-                                          "style": {
-                                              "itemBackground": "rgba(0, 0, 0, .03)",
-                                              "itemOpacity": 1
-                                          }
-                                      }
-                                  ]
-                              }
-                          ]}
-                      />
-                  </div>
-              </div>
-          
-          </div>
+              {
+                amountVsDate.length > 0 &&
+                <div className='xs-12'>
+                    <div className='xs-12 pad'>
+                        <div className='inner xs-12 line'>
+                            <ResponsiveLine
+                                data={amountVsDate}
+                                margin={{
+                                    "top": 50,
+                                    "right": 150,
+                                    "bottom": 250,
+                                    "left": 60
+                                }}
+                                xScale={{
+                                    "type": "point",
+                                    min: "0"
+                                }}
+                                yScale={{
+                                    "type": "linear",
+                                    "stacked": true,
+                                    "min": "0",
+                                    "max": "auto"
+                                }}
+                                axisTop={null}
+                                axisRight={null}
+                                axisBottom={{
+                                    "orient": "bottom",
+                                    "tickSize": 5,
+                                    "tickPadding": 5,
+                                    "tickRotation": -60,
+                                    "legend": "Date",
+                                    "legendOffset": 36,
+                                    "legendPosition": "middle"
+                                }}
+                                axisLeft={{
+                                    "orient": "left",
+                                    "tickSize": 5,
+                                    "tickPadding": 5,
+                                    "tickRotation": 0,
+                                    "legend": "Token",
+                                    "legendOffset": -40,
+                                    "legendPosition": "middle"
+                                }}
+                                dotSize={10}
+                                dotColor="inherit:darker(0.3)"
+                                dotBorderWidth={2}
+                                dotBorderColor="#ffffff"
+                                enableDotLabel={true}
+                                dotLabel="y"
+                                dotLabelYOffset={-12}
+                                animate={true}
+                                motionStiffness={90}
+                                motionDamping={15}
+                                legends={[
+                                    {
+                                        "anchor": "bottom-right",
+                                        "direction": "column",
+                                        "justify": false,
+                                        "translateX": 100,
+                                        "translateY": 0,
+                                        "itemsSpacing": 0,
+                                        "itemDirection": "left-to-right",
+                                        "itemWidth": 80,
+                                        "itemHeight": 20,
+                                        "itemOpacity": 0.75,
+                                        "symbolSize": 12,
+                                        "symbolShape": "circle",
+                                        "symbolBorderColor": "rgba(0, 0, 0, .5)",
+                                        "effects": [
+                                            {
+                                                "on": "hover",
+                                                "style": {
+                                                    "itemBackground": "rgba(0, 0, 0, .03)",
+                                                    "itemOpacity": 1
+                                                }
+                                            }
+                                        ]
+                                    }
+                                ]}
+                            />
+                        </div>
+                    </div>
+                </div>
+              }
           
           </div>
               <TableWrapper className='xs-12'>
@@ -350,7 +351,7 @@ const Token = connect(()=>{return {}}, dispatch=>{
                             <h3> Amount</h3>
                             </div>
                             <div className='xs-3'>
-                            <h3>Prood</h3>
+                            <h3>Proof</h3>
                             </div>
                         </div>
                     <div className='content xs-12'>

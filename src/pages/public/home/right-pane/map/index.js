@@ -24,10 +24,13 @@ class SimpleMap extends Component {
     if (map) {
       this.setState({ map, maps });
 
-      if (this.props.centerize && Boolean(this.props.projects.length)) {
+      if (this.props.projects.length > 0) {
         this.recenter(null, null, this.props.projects);
+       }
+      if (this.props.centerize && Boolean(this.props.projects.length)) {
+        // this.recenter(null, null, this.props.projects);
       } else {
-        this.getMyLocation(map, maps);
+        // this.getMyLocation(map, maps);
       }
     }
   };
@@ -71,13 +74,14 @@ class SimpleMap extends Component {
         projects: nextProps.projects
       });
 
-      if (nextProps.centerize === true && nextProps.projects.length > 0) {
-        this.recenter(null, null, nextProps.projects);
+      if (nextProps.projects.length > 0) {
+       this.recenter(null, null, nextProps.projects);
       }
     }
   }
 
   render() {
+
     const markers = createMarkers(this.state.projects);
 
     let createMapOptions = maps => {
@@ -106,6 +110,22 @@ class SimpleMap extends Component {
         fullscreenControl: false
       };
     };
+    let bounds;
+
+    if(this.state.maps){
+      var points = this.state.projects.map(p=>{
+        const {lat,lng} = p.location;
+        return {
+          lat, lng
+        }
+      });
+      
+      bounds = new this.state.maps.LatLngBounds();
+      for (var i = 0; i < points.length; i++) {
+        bounds.extend(points[i]);
+      }
+    }
+    
     return (
       <Wrapper className="xs-12 i-h">
         <React.Fragment>
@@ -116,8 +136,9 @@ class SimpleMap extends Component {
 
           <GoogleMapReact
             bootstrapURLKeys={{ key: Config.map.googleMapsAPIKey, language: "en", region: "en" }}
-            center={this.props.center}
+            defaultCenter={this.props.center}
             defaultZoom={this.props.zoom}
+            xbounds={bounds}
             options={createMapOptions}
             yesIWantToUseGoogleMapApiInternals
             onGoogleApiLoaded={({ map, maps }) => this.apiIsLoaded(map, maps)}
