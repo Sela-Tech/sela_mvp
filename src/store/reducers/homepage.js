@@ -1,4 +1,5 @@
 import homepageActions from "../actions/home";
+import { dynamicSort } from "../../helpers/utils";
 
 const init = {
   action: "",
@@ -64,7 +65,7 @@ export default (state = init, payload) => {
       return {
         ...state,
         action: homepageActions.GET_HOMEPAGE_PROJS_S,
-        projects: payload.projects,
+        projects: payload.projects.sort(dynamicSort("status")),
         centerize: payload.centerize
       };
 

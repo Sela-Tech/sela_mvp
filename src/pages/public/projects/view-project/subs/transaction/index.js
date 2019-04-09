@@ -199,11 +199,13 @@ const Token = connect(()=>{return {}}, dispatch=>{
                           <label>Public Key</label>
                           <h4><a target="_blank" rel="noopener noreferrer" href={`
                               ${
-                                this.props.publicKey ? this.props.publicKey : info && process.env.REACT_APP_STELLAR_MODE === "testnet" && this.props.overwrite !== true ? 
+                                this.props.publicKey ? this.props.publicKey : info 
+                                && process.env.REACT_APP_STELLAR_MODE === "testnet" 
+                                && this.props.overwrite !== true ? 
                                   `https://testnet.steexp.com/account/${info.distributorPublicKey}`:
                                   `https://steexp.com/account/${info.distributorPublicKey}`
                               }`
-                          }>{info.distributorPublicKey}</a></h4>
+                          }>{info.distributorPublicKey ? info.distributorPublicKey:  "-"}</a></h4>
                       </div>                              
                   </div>
 
