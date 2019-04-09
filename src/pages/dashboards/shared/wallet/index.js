@@ -124,8 +124,8 @@ export const WalletWrapper = styled.div`
 
 .full{
     background: white;
-    overflow: auto;
-    height: 90.5vh;;
+    overflow: auto !important;
+    height: 90.5vh;
 }
 .proof{
 

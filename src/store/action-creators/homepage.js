@@ -44,7 +44,7 @@ export const fetchStakeholderInfo = id => {
   };
 };
 export const fetchProjects = (query = "") => {
-  let url = `${e.fetch_projects}${query !== "" ? "limit=12&" + query : "limit=12"}`;
+  let url = `${e.fetch_projects}${query !== "" ? "limit=500&" + query : "limit=500"}`;
 
   return dispatch => {
     dispatch({ type: hA.GET_HOMEPAGE_PROJS_R });

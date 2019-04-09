@@ -14,7 +14,7 @@ export const selectFunders = selected => {
   };
 };
 
-export const fetchProjects = (category='a',limit=20,page=1) => {
+export const fetchProjects = (category='a',limit=500,page=1) => {
   return dispatch => {
     dispatch({ type: dA.GET_PROJS_R });
     ax({

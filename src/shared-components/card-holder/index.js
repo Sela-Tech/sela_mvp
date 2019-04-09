@@ -1,11 +1,12 @@
 import React from "react";
-import { Link } from "react-router-dom";
+// import { Link } from "react-router-dom";
 import home from "../../store/actions/home";
 import CardHolderStyle from "./card-holder.style";
 import EmptyCard from "./cards/empty.card";
 import NotEmptyCard from "./cards/not-empty.card";
 
 const CardHolder = ({ projects, heading, type, action }) => {
+  console.log(heading)
   switch (action) {
     case home.GET_HOMEPAGE_PROJS_S:
       return (
@@ -19,19 +20,23 @@ const CardHolder = ({ projects, heading, type, action }) => {
             )
           }
 
-          <div className="xs-12">
+          {/* <div className="xs-12">
             {type !== "all" &&
               projects.length > 12 && (
                 <Link
                   className="see-all"
-                  to={`/projects/all/${heading
+                  to={`/projects/all/${ heading ? 
+                    heading
                     .replace(" ", "-")
-                    .toLowerCase()}`}
+                    .toLowerCase()
+                    :
+                    ""
+                  }`}
                 >
                   See all
                 </Link>
               )}
-          </div>
+          </div> */}
         </CardHolderStyle>
       );
 
