@@ -62,10 +62,13 @@ export default (state = init, payload) => {
       };
 
     case homepageActions.GET_HOMEPAGE_PROJS_S:
+      
+      let completedProjects = payload.projects.filter(p=> p.status === "COMPLETED");
+
       return {
         ...state,
         action: homepageActions.GET_HOMEPAGE_PROJS_S,
-        projects: payload.projects.sort(dynamicSort("status")),
+        projects: [...payload.projects.filter(p=> p.status !== "COMPLETED").sort(dynamicSort("status")), ...completedProjects],
         centerize: payload.centerize
       };
 
