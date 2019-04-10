@@ -185,7 +185,7 @@ class LeftPane extends React.Component {
                     name="show-map"
                     onClick={toggleMap}
                   >
-                    <img src={map} alt="" /><span>View map</span>
+                    <img src={map} alt="" /><span> Close Map</span>
                   </button>
                 </div>
               )}
@@ -199,7 +199,7 @@ class LeftPane extends React.Component {
                     name="show-map"
                     onClick={toggleMap}
                   >
-                    <img src={map} alt="" /><span>View map</span>
+                    <img src={map} alt="" /><span>View Map</span>
                 </button>
                 </div>
               </div>
