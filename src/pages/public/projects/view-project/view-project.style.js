@@ -1,10 +1,13 @@
 import styled from "styled-components";
 
 export default styled.div`
+
+.content{
+  padding: 2.5em 0;
+}
   .long-loader,
   .short-loader {
-    text-align: center;
-    margin: auto;
+    text-align: left;
     display: block;
     height: 9px;
     background: #ccc;
@@ -22,15 +25,14 @@ export default styled.div`
     h1 {
       font-family: Acumin Pro;
       font-style: normal;
-      font-weight: 500;
-      line-height: normal;
-      font-size: 24px;
-      text-align: center;
-      letter-spacing: 0.04em;
-      color: #3d4851;
+      font-weight: 600;
+      font-size: 1.35em;
+      letter-spacing: 0.02em;
+      color: #222829;
       margin: 10px 0;
       padding: 0;
     }
+
     p {
       font-family: Acumin Pro;
       line-height: normal;
@@ -42,8 +44,9 @@ export default styled.div`
       margin-top: 5px;
       margin-bottom: 25px;
     }
+
     video,
-    img {
+    img,.no-image {
       width: 100%;
       height: 25em;
       display: block;
@@ -51,7 +54,52 @@ export default styled.div`
       object-fit: cover;
       object-position: center;
     }
+
+    
+    #arrow{
+      height: 1em;
+      width: 1em;
+      object-fit:contain;
+      background: transparent;
+      transform: rotate(-180deg);
+      display: inline-block;
+      margin-right: 1em;
+    }
+
     .info {
+      padding: 1em 2.5em; 
+
+      .line{
+        margin: 2em 0;
+      }
+      
+      label{
+        font-size: 1em;
+        line-height: normal;
+        color: #67747C;
+      }
+      
+      h3{
+        color: #222829 !important;
+        font-weight: 600 !important;
+        font-size: 1.35em !important;
+        margin-bottom: 0.5em;
+      }
+
+      .dw{
+        background: #212D40;
+        border-radius: 50px;
+        height: 2.25em;
+        width: auto;
+        padding: 0 1em;
+        line-height: 2.35em;
+        display: inline-block;
+        color: white;
+        font-size: 0.55em;
+        font-weight: 300;
+        margin-left: 1em;
+        letter-spacing: 0px;
+      }
       h3 {
         font-family: Acumin Pro;
         line-height: normal;
@@ -71,7 +119,6 @@ export default styled.div`
         font-family: Acumin Pro;
         line-height: normal;
         font-size: 18px;
-        text-align: center;
         letter-spacing: 0.02em;
         color: #3d4851;
         margin: 15px 0 5px;
@@ -183,8 +230,9 @@ export default styled.div`
   #sdgs{
     margin: 1em 0;
     img{
-      height: 80px;
-      width: 80px;
+      height: 6em;
+      width: 6em;
+      margin: 0.25em 0.5em 0.25em 0em;
       object-fit: contain;
       object-position: center;
       display: inline-block;
@@ -195,5 +243,80 @@ export default styled.div`
       }
     }
   }
+
+
+
+
+.has-radius{
+
+  color: #0145BE;
+  text-transform: Capitalize;
+  font-size: 1em;
+  border: 0;
+  background: transparent;
+  padding: 0;
+  margin: 2em 0 1em;
+
+  span{
+    display: inline-block;
+  }
+
+  &.proposed, &.dormant{
+    color: #0145BE;
+  }
+  &.in-progress{
+    color: #F2C94C;
+  }
+  &.completed{
+    color: #369C05;
+  }
+  &.terminated{
+    color: #BC1717;
+  }
+
+  img{
+    object-fit: contain;
+    background: white;
+    height: 1.25em !important;
+    width: 1.25em !important;
+    margin-left: 0.5em;
+    display: block;
+    position: relative;
+    top: 0.35em;
+    background: transparent !important;
+  }
+}
+
+.__react_component_tooltip#completed{
+  background-color: #369C05;
+  span{
+    color: white;
+  }
+}
+
+.__react_component_tooltip#in-progress{
+  background-color: #F2C94C;
+  span{
+    color: black;
+  }
+}
+
+.__react_component_tooltip#proposed{
+  background-color: #0145BE;
+  span{
+    color: white;
+  }
+}
+
+
+.invest{
+  margin-top: 2em;
+  border-radius: 3px;
+  padding: 1em 2em;
+  color: white;
+  background: #F2994A;
+  font-size: 1em;
+  border: 0;
+}
 
 `;

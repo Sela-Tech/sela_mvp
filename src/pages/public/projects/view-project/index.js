@@ -10,8 +10,10 @@ import Stakeholders from "./subs/stakeholders";
 // import Updates from "./subs/updates";
 import Map from "./subs/map";
 import Media from "./subs/media";
-
-import mapping from "../../../../mapping";
+// import mapping from "../../../../mapping";
+import { Line } from "rc-progress";
+import help from "../../../../assets/icons/help.svg";
+import ReactTooltip from "react-tooltip";
 
 import {
   fetchProject,
@@ -20,6 +22,7 @@ import {
 import { closeModal, showModal } from "../../../../store/action-creators/modal";
 import Transactions from "./subs/transaction";
 import { LAUNCH_SDG } from "../../../../store/actions/modal";
+import arrow from "./subs/description/arrow.svg";
 
 const DetermineWhatToShow = ({ show, id, project }) => {
   switch (show) {
@@ -94,51 +97,91 @@ class ViewProject extends React.Component {
             <div className="xs-10 xs-off-1">
               <div className="xs-12">
                 <div className="f-l">
-                  <Link to="/">Back To Projects</Link>
+                  <Link to="/"> <img id='arrow' src={arrow} alt='arrow'/>Back To Projects</Link>
                 </div>
               </div>
 
-              <div className="xs-12 sm-8 sm-off-2 t-c">
-                <h1>
-                  {project.name ? project.name : <p className="short-loader" />}
-                </h1>
-                  {
-                    project.owner.organization ? <p>
-                  { project.owner.organization.name}
-                  </p> : (
-                    <p className="long-loader" />
-                  )}
+              <div className="xs-12 content">
+                <div className='xs-12 sm-6'> 
+                  <div className="xs-12">
+                    {project["project-video"] ? (
+                      <video src={project["project-video"]} alt="" />
+                    ) : Boolean(project["project-avatar"]) ? (
+                      <img src={project["project-avatar"]} alt="" />
+                    ) : (
+                      <div className="no-image" />
+                    )}
+                  </div>
+                </div>
                 
+                <div className='xs-12 sm-6 info t-l'>
+                  <label>{project.location ? project.location.name: <p className="long-loader" />}</label>
+                  <h1>
+                    {project.name ? project.name : <p className="short-loader" />} 
+                    <span className='dw f-r'>
+                      0% funded
+                    </span>
+                  </h1>
 
-                <div className="xs-12">
-                  {project["project-video"] ? (
-                    <video src={project["project-video"]} alt="" />
-                  ) : Boolean(project["project-avatar"]) ? (
-                    <img src={project["project-avatar"]} alt="" />
-                  ) : (
-                    <div className="no-image" />
-                  )}
+                  <div className="xs-12 line ">
+                      <Line
+                        percent={
+                          project.raised
+                        }
+                        strokeWidth="2"
+                        trailWidth="2"
+                        strokeColor="#F2994A"
+                        trailColor="rgba(242, 153, 74, 0.15)"
+                      />
+
+                    <div className='xs-6 sp'>
+                      <h3>{ window.moneyFormat(parseFloat(project.goal || project.implementationBudget || 0) + parseFloat(project.observationBudget || 0), "$") }</h3>
+                      <label className='funding-label'>Funding goal</label>
+                    </div>
+                  
+                    <div className='xs-6 sp'>
+                      <h3>{ window.moneyFormat(parseFloat(project.raised), "$") }</h3>
+                      <label className='funding-label'>Funding raised</label>
+                    </div>
+                    {
+                      project.status &&
+                      <div className='xs-12'>
+                        <button className={`has-radius ${project.status.toLowerCase()}`}>
+                          {project.status.toLowerCase()} 
+                          <span><img src={help} className={project.status.toLowerCase()} alt="" data-tip data-for={project.status.toLowerCase()} /></span>
+                        </button>
+
+                        <ReactTooltip place="bottom" type="info" effect="solid" id='completed'>
+                          <span>This project has been fully funded and executed to completion</span>
+                        </ReactTooltip>
+
+                        <ReactTooltip place="bottom" type="info" effect="solid" id='in-progress'>
+                          <span>Execution of this project is currently still in progress.</span>
+                        </ReactTooltip>
+                        
+                        <ReactTooltip place="bottom" type="info" effect="solid" id='proposed'>
+                          <span>This project has not been started and is actively seeking financial investments.</span>
+                        </ReactTooltip>
+                        
+                      </div>
+                    }
+
+
+                    <div className='xs-12'>
+                      <button className='invest'>Invest</button>  
+                    </div>
+                    
+                  </div>
+
                 </div>
 
-                <div className="xs-12 info">
-
-
-                  <div className="xs-12 sm-9 l t-l">
-                    <h3>{ window.moneyFormat(parseFloat(project.goal || project.implementationBudget || 0) + parseFloat(project.observationBudget || 0), "$") }</h3>
-                  </div>
-                  <div className="xs-12 sm-3 r">
-                    <h3>
-                      {project.stakeholders.length + 1} <span>stakeholder(s)</span>
-                    </h3>
-                  </div>
-                </div>
               </div>
 
-              <div className='xs-12 t-c' id='sdgs'>
+              {/* <div className='xs-12 t-c' id='sdgs'>
               {project.tags && project.tags.map((tag,i)=>{
                 return <img key={i} src={mapping[tag]} alt={i} onClick={()=>this.props.displaySDGInfo(tag)} />
               })}
-          </div>
+          </div> */}
           
             </div>
           </div>
