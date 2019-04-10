@@ -1,22 +1,26 @@
 import React from "react";
 import { NotEmptyCardStyling2 } from "./card.style";
-// import { Line } from "rc-progress";
+import { Line } from "rc-progress";
 import { withRouter } from "react-router";
-
 import { connect } from "react-redux";
+import help from "../../../assets/icons/help.svg";
 
 const NotEmptyCard = ({ p, history, showMap }) => {
   const hasImage = p["project-avatar"];
 
   return (
     <NotEmptyCardStyling2
-      className={showMap === true ? "xs-12 sm-6 lg-4 " : "xs-12 sm-6 lg-4"}
+      className={showMap === true ? "xs-12 sm-6 md-4 lg-4" : "xs-12 sm-6 md-4 lg-3"}
     >
       <div className="container xs-12">
 
         <div className="box xs-12 md-11 sm-11">
 
         <div className='wrap-img'>
+          <div className="xs-12 dw">
+            <p>{(p.raised / p.implementationBudget) * 100}% Funded</p>
+          </div>
+            
         {
             Boolean(hasImage) ? (
             <img
@@ -31,29 +35,52 @@ const NotEmptyCard = ({ p, history, showMap }) => {
             >
             </div>
           )}
-            <button className={`has-radius ${p.status.toLowerCase()}`}>{p.status.toLowerCase()}</button>
         </div>
         
-     
-
-          
-
           <div className="inner xs-12">
 
           <div className='xs-12 white'>
-              <span className='location'>{p.location.name}</span>
-              <h4>{p.name}</h4>
-              <h3>{ window.moneyFormat(parseFloat(p.goal || p.implementationBudget || 0) + parseFloat(p.observationBudget || 0), "$") }</h3>
-              {/* <div className='xs-12'>
-              {p.tags && p.tags.map((tag,i)=>{
-                return <span className='tag' key={i} style={{background: `rgb(${
-                  `${Math.round(Math.random() * 255)},
-                  ${Math.round(Math.random() * 255)},
-                  ${Math.round(Math.random() * 255)}`
-                }
-                )`}}>{tag}</span>
-              })}
-              </div> */}
+
+              <div className='xs-12'>
+                <span className='location'>{p.location.name}</span>
+                <h4>{p.name}</h4>
+              </div>
+
+              <div className="tasks xs-12">
+                <Line
+                  percent={
+                    (p.raised / p.implementationBudget) * 100
+                  }
+                  strokeWidth="4"
+                  trailWidth="4"
+                  strokeColor="#F2994A"
+                  trailColor="rgba(242, 153, 74, 0.15)"
+                />
+            </div>
+              
+              <div className='xs-6 sp'>
+                <h3>{ window.moneyFormat(parseFloat(p.goal || p.implementationBudget || 0) + parseFloat(p.observationBudget || 0), "$") }</h3>
+                <label className='funding-label'>Funding goal</label>
+              </div>
+             
+              <div className='xs-6 sp'>
+                <h3>{ window.moneyFormat(parseFloat(p.raised), "$") }</h3>
+                <label className='funding-label'>Funding raised</label>
+              </div>
+              
+              {/* 
+                <div className='xs-12'>
+                {p.tags && p.tags.map((tag,i)=>{
+                  return <span className='tag' key={i} style={{background: `rgb(${
+                    `${Math.round(Math.random() * 255)},
+                    ${Math.round(Math.random() * 255)},
+                    ${Math.round(Math.random() * 255)}`
+                  }
+                  )`}}>{tag}</span>
+                })}
+                </div> 
+              */}
+
             </div>
         
             {/* <div className="text">
@@ -61,19 +88,11 @@ const NotEmptyCard = ({ p, history, showMap }) => {
               <p> {p.owner.organization && p.owner.organization.name} </p>
             </div> */}
 
-            {/* <div className="tasks xs-12">
-              <Line
-                percent={(p.raised / p.implementationBudget) * 100}
-                strokeWidth="4"
-                trailWidth="4"
-                strokeColor="#156EDC"
-                trailColor="#F2F2F2"
-              />
-              <div className="xs-12 dw">
-                <p className="xs-9">{(p.raised / p.implementationBudget) * 100}% Funded</p>
-              </div>
-            </div> */}
-
+            <button className={`has-radius ${p.status.toLowerCase()}`}>
+            {p.status.toLowerCase()} 
+            <span><img src={help} className={p.status.toLowerCase()} alt=""/></span>
+            </button>
+        
           </div>
         </div>
       </div>

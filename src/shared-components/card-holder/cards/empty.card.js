@@ -10,8 +10,8 @@ const EmptyCard = ({ showMap }) => {
     <EmptyCardStyling
       className={
         showMap === true
-          ? "xs-12 sm-6 lg-4 card-wrapper"
-          : "xs-12 sm-6 lg-4  card-wrapper"
+          ? "xs-12 sm-6 md-4 lg-3 card-wrapper"
+          : "xs-12 sm-6 md-4 lg-3 card-wrapper"
       }
     >
       <Link to={`#`}>

@@ -1,6 +1,9 @@
 import styled from "styled-components";
 export default styled.div`
 .white{
+  .sp{
+    margin: 0.5em 0;
+  }
   .location{
     display: block;
     font-size: 10.5px;
@@ -8,8 +11,8 @@ export default styled.div`
     color: black;
   }
   h3{
-    color: #F2994A;
-    font-weight: 400;
+    color: #222829;
+    font-weight: 600;
     margin: 5px 0;
     font-size: 14px;
     letter-spacing: 0.65px;
@@ -17,7 +20,7 @@ export default styled.div`
   h4{
     font-weight: 300;
     margin: 5px 0;
-    font-size: 0.95em;
+    font-size: 0.9em;
     text-transform: Capitalize;
   }
   .tag{
