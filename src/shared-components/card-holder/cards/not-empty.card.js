@@ -4,6 +4,7 @@ import { Line } from "rc-progress";
 import { withRouter } from "react-router";
 import { connect } from "react-redux";
 import help from "../../../assets/icons/help.svg";
+import ReactTooltip from "react-tooltip";
 
 const NotEmptyCard = ({ p, history, showMap }) => {
   const hasImage = p["project-avatar"];
@@ -90,8 +91,23 @@ const NotEmptyCard = ({ p, history, showMap }) => {
 
             <button className={`has-radius ${p.status.toLowerCase()}`}>
             {p.status.toLowerCase()} 
-            <span><img src={help} className={p.status.toLowerCase()} alt=""/></span>
+            <span><img src={help} className={p.status.toLowerCase()} alt="" data-tip data-for={p.status.toLowerCase()} /></span>
             </button>
+
+            <ReactTooltip place="bottom" type="info" effect="solid" id='completed'>
+              <span>This project has been fully funded and executed to completion</span>
+            </ReactTooltip>
+
+            <ReactTooltip place="bottom" type="info" effect="solid" id='in-progress'>
+              <span>Execution of this project is currently still in progress.</span>
+            </ReactTooltip>
+            
+            <ReactTooltip place="bottom" type="info" effect="solid" id='proposed'>
+              <span>This project has not been started and is actively seeking financial investments.</span>
+            </ReactTooltip>
+            
+
+
         
           </div>
         </div>

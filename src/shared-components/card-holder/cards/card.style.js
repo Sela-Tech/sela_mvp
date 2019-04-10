@@ -328,6 +328,20 @@ export const NotEmptyCardStyling2 = styled.div`
   span{
     display: inline-block;
   }
+
+  &.proposed, &.dormant{
+    color: #0145BE;
+  }
+  &.in-progress{
+    color: #F2C94C;
+  }
+  &.completed{
+    color: #369C05;
+  }
+  &.terminated{
+    color: #BC1717;
+  }
+
   img{
     object-fit: contain;
     background: white;
@@ -339,4 +353,26 @@ export const NotEmptyCardStyling2 = styled.div`
     top: 0.35em;
   }
 }
+
+.__react_component_tooltip#completed{
+  background-color: #369C05;
+  span{
+    color: white;
+  }
+}
+
+.__react_component_tooltip#in-progress{
+  background-color: #F2C94C;
+  span{
+    color: black;
+  }
+}
+
+.__react_component_tooltip#proposed{
+  background-color: #0145BE;
+  span{
+    color: white;
+  }
+}
+
 `;
