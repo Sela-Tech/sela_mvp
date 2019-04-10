@@ -1,7 +1,8 @@
 import React, { Fragment } from "react";
 import styled from "styled-components";
-import arrow from "./arrow.svg";
-import Link from "react-router-dom/Link";
+// import arrow from "./arrow.svg";
+// import Link from "react-router-dom/Link";
+import mapping from "../../../../../../mapping";
 
 const DescriptionWrapper = styled.div`
   p {
@@ -88,7 +89,7 @@ const DescriptionWrapper = styled.div`
 
   #see-all {
     line-height: normal;
-    font-size: 15px;
+    font-size: 1em;
     margin: 1em 0;
     display: block;
     color: #156edc;
@@ -96,6 +97,7 @@ const DescriptionWrapper = styled.div`
     img {
       position: relative;
       top: 5px;
+      left: 5px;
     }
   }
 
@@ -241,7 +243,7 @@ export default ({ id, project }) => {
         </div>
 
         <div className="xs-12 md-4" id="initiated-section">
-          <h4>INITIATED BY</h4>
+          <h4>Initiated By</h4>
 
           <div className="card xs-12">
             <div className="xs-3">
@@ -257,12 +259,21 @@ export default ({ id, project }) => {
             </div>
           </div>
 
+          <div className='xs-12 t-l' id='sdgs'>
+          <h4>Sustainable Development Goals (SDGs)</h4>
+
+              {project.tags && project.tags.map((tag,i)=>{
+                return <img key={i} src={mapping[tag]} alt={i} onClick={()=>this.props.displaySDGInfo(tag)} />
+              })}
+          </div>
+{/* 
           <div className="xs-12">
             <Link to={`/projects/${id}/stakeholders`} id="see-all">
               Sell All Stakeholders
               <img src={arrow} alt="arrow" />
             </Link>
-          </div>
+          </div> */}
+
         </div>
 
       </div>
