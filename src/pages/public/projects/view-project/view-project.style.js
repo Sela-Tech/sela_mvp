@@ -183,8 +183,8 @@ export default styled.div`
   #sdgs{
     margin: 1em 0;
     img{
-      height: 100px;
-      width: 100px;
+      height: 80px;
+      width: 80px;
       object-fit: contain;
       object-position: center;
       display: inline-block;
@@ -195,4 +195,5 @@ export default styled.div`
       }
     }
   }
+
 `;

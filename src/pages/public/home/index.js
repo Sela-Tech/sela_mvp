@@ -17,11 +17,11 @@ const  HomePageContainer = ({show,fullscreen})=>{
         <Navbar />
         <HomeStyle className="xs-12">
           {fullscreen === false && (
-            <LeftPane className={show ? "xs-12 sm-7" : "xs-12"} />
+            <LeftPane className={show ? "xs-12 sm-8" : "xs-12"} />
           )}
           {show && (
             <RightPane
-              className={fullscreen ? "xs-12" : "xs-12 sm-5"}
+              className={fullscreen ? "xs-12" : "xs-12 sm-4"}
             />
           )}
         </HomeStyle>

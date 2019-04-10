@@ -2,6 +2,17 @@ import styled from "styled-components";
 import chevron from "./down-chevron.svg";
 
 export default styled.div`
+
+.custom-white{
+  background: white;
+  padding: 1.5em 0;
+  #projects-title{
+    margin: 0;
+    line-height: 50px;
+    font-size: 1.25em;
+  }
+  margin-bottom: 1em;
+}
   overflow: scroll;
   height: 100%;
   .p {
@@ -14,22 +25,30 @@ export default styled.div`
 
   #show-map {
     height: 50px;
-    width: 50px;
     background: white;
-    border-radius: 50px;
-    border: 1px solid rgba(135, 149, 161, 0.25);
-    margin: 30px 0 0;
+    border-radius: 3px;
+    border: 1px solid #F2F2F2;
     text-align: center;
-    padding: 0;
-
+    padding: 0 1.75em;
+   
+    span{
+      display: inline-block;
+      padding-left: 0.5em;
+      font-size: 1.25em;
+      font-weight: 600;
+    }
+   
     &:hover {
       border-color: #0073e0;
     }
+
     img {
-      height: 15px;
-      width: 15px;
+      height: 18px;
+      width: 18px;
       object-fit: contain;
       object-position: center;
+      position: relative;
+      top: 4px;
     }
   }
   padding-bottom: 5em;
@@ -44,11 +63,10 @@ export default styled.div`
   }
 
   .boma-select {
-    border: 1px solid rgba(135, 149, 161, 0.25);
+    border: 1px solid #F2F2F2;
     box-sizing: border-box;
     border-radius: 5px;
     height: 50px;
-    margin: 10px 0;
     background: white;
     font-weight: 300;
     line-height: normal;
