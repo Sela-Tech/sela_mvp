@@ -9,7 +9,7 @@ const COLORS = ["#0088FE", "#00C49F", "#FFBB28", "#FF8042"];
 export default ({  pie }) => {
   return (
     <div className="xs-12">
-      <PieChart height={180} width={180} onMouseEnter={this.onPieEnter}>
+      <PieChart height={180} width={180}>
         <Pie
           data={pie}
           innerRadius={50}
