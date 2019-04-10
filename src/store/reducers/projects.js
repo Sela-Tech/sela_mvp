@@ -48,18 +48,6 @@ const initstate = {
 export default (state = initstate, payload) => {
   switch (payload.type) {
 
-    // case UPDATE_OBSERVATION_BUDGET:
-    // return {
-    //   ...state,
-    //   single: {
-    //     ...state.single,
-    //     info: {
-    //       ...state.single.info,
-    //       observationBudget: state.single.info.observationBudget  - payload.amount
-    //     }
-    //   }
-    // }
-
     case dA.CLEAR_ADD:
       return {
         ...state,
