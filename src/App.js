@@ -41,11 +41,14 @@ const append = () => {
 const App = class extends Component{
   constructor(props){
     super(props); 
-    if(props.isAuthenticated){
-      if(!window.google){
-        append();
-      }else if(!window.google.places){
-        append();
+    
+    if(props.isAuthenticated){      
+      if(window.location.pathname !== "/"){
+        if(!window.google){
+          append();
+        }else if(!window.google.places){
+          append();
+        }
       }
     } 
    if(pulled_organization === false){
@@ -57,10 +60,12 @@ const App = class extends Component{
   componentWillReceiveProps(nextProps){
     if(this.props !== nextProps){
       if(nextProps.isAuthenticated){
-        if(!window.google){
-          append();
-        }else if(!window.google.places){
-          append();
+        if(window.location.pathname !== "/"){
+          if(!window.google){
+            append();
+          }else if(!window.google.places){
+            append();
+          }
         }
       } 
     }
