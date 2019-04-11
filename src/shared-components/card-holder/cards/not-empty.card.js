@@ -13,7 +13,7 @@ const NotEmptyCard = ({ p, history, showMap }) => {
     <NotEmptyCardStyling2
       className={showMap === true ? "xs-12 sm-6 md-4 lg-4" : "xs-12 sm-6 md-4 lg-3"}
     >
-      <div className="container xs-12">
+      <div className="container xs-12" onClick={() => history.push(`/projects/${p._id}/description`)}>
 
         <div className="box xs-12 md-11 sm-11">
 
@@ -27,12 +27,10 @@ const NotEmptyCard = ({ p, history, showMap }) => {
             <img
               src={p["project-avatar"]}
               alt={""}
-              onClick={() => history.push(`/projects/${p._id}/description`)}
             />
           ) : (
             <div
               className="no-image"
-              onClick={() => history.push(`/projects/${p._id}/description`)}
             >
             </div>
           )}
@@ -105,10 +103,7 @@ const NotEmptyCard = ({ p, history, showMap }) => {
             <ReactTooltip place="bottom" type="info" effect="solid" id='proposed'>
               <span>This project has not been started and is actively seeking financial investments.</span>
             </ReactTooltip>
-            
-
-
-        
+      
           </div>
         </div>
       </div>
