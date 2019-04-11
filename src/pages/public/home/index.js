@@ -1,14 +1,13 @@
 import React from "react";
 import Helmet from "react-helmet";
 import HomeStyle from "./home.style";
-import Footer from "../../../shared-components/footer";
+// import Footer from "../../../shared-components/footer";
 import Navbar from "../../../shared-components/navbar";
 import LeftPane from "./left-pane";
 import RightPane from "./right-pane";
 import connect from "react-redux/lib/connect/connect";
 
 const  HomePageContainer = ({show,fullscreen})=>{
-
     return (
       <React.Fragment>
         <Helmet>
@@ -26,7 +25,7 @@ const  HomePageContainer = ({show,fullscreen})=>{
           )}
         </HomeStyle>
 
-        <Footer />
+        {/* <Footer /> */}
       </React.Fragment>
     );
   
