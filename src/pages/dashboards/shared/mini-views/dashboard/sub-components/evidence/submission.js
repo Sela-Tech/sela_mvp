@@ -10,13 +10,6 @@ import Spinners from '../../../../../../../shared-components/spinners';
 class SubmissionEvidence extends Component{
     constructor(props){
         super(props);
-        if(props.proposalId){
-            props.retrieveSubmission({
-                projectId: props.id || props.projectId,
-                proposalId: props.proposalId,
-                level: "project"
-            });
-        }
         this.state = {
             view: 'task',
             selectedTaskSubmissions: {},    
@@ -64,6 +57,16 @@ class SubmissionEvidence extends Component{
                 }]
         }
     }
+
+    componentWillMount(){
+        if(this.props.proposals && this.props.proposals[0]){
+            this.props.retrieveSubmission({
+                projectId: this.props.id || this.props.projectId,
+                proposalId: this.props.proposals[0]._id,
+                level: this.state.view
+            });
+        }
+    }
    
     loadData = proposalId => {
         this.setState({
@@ -102,6 +105,9 @@ class SubmissionEvidence extends Component{
                 default: obj.type = this.state.type ;
             }
             
+            if(this.state.proposals !== obj.proposals){
+                this.loadData(obj.proposals[0]._id)
+            }
             this.setState(obj)
         }
     }
