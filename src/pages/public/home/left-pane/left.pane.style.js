@@ -77,5 +77,6 @@ export default styled.div`
     background-position: 94% center;
     cursor: pointer;
     appearance: none;
+    margin-bottom: 1em;
   }
 `;

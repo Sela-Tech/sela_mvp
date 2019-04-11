@@ -14,6 +14,7 @@ import ends from "./endpoints";
 import notifications_actions from "./store/actions/notifications";
 import ToastContainer from 'react-toastify/lib/components/ToastContainer';
 import ErrorSize from "./pages/errorSize";
+import {connect} from 'react-redux';
 
 window.moneyFormat = function(value, currency){
   if(isNaN(value)){
@@ -90,11 +91,52 @@ if (retrieveToken()) {
 
   });
 
+const ResponsiveContainer = connect((state)=>{
+  return { isAuthenticated: state.auth.isAuthenticated }
+})(class extends React.Component{
+
+  constructor(props){
+    super(props);
+    this.state = {
+      isSmallScreen: window.innerWidth < 1023,
+      isAuthenticated: props.isAuthenticated
+    }
+  }
+
+  componentWillReceiveProps(nextProps){
+    if(this.props !== nextProps){
+      this.setState({
+        isAuthenticated: nextProps.isAuthenticated
+      })
+    }
+  }
+
+  resizer = ()=>{
+    this.setState({
+      isSmallScreen: window.innerWidth < 1023
+    });
+  }
+
+  componentWillMount(){
+    this.resizer();
+    window.addEventListener("resize", this.resizer);
+  }
+
+  componentWillUnmount(){
+    window.removeEventListener("resize", this.resizer);
+  }
+
+  render(){
+    const {isSmallScreen, isAuthenticated} = this.state;
+    return isSmallScreen && isAuthenticated ? <ErrorSize/> : <App/> 
+  }
+});
+
 ReactDOM.render(
    <React.Fragment>
       <ToastContainer/>
       <Provider store={store}>
-          {window.innerWidth > 1023 ? <App/> : <ErrorSize/>}
+         <ResponsiveContainer/>
       </Provider>
     </React.Fragment>,
   document.getElementById("root")

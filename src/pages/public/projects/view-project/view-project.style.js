@@ -67,7 +67,12 @@ export default styled.div`
     }
 
     .info {
-      padding: 1em 2.5em; 
+      @media(min-width: 768px){
+        padding: 1em 2.5em; 
+      }
+      @media(max-width: 767px){
+        padding: 2em 0em; 
+      }
 
       .line{
         margin: 2em 0;
@@ -131,6 +136,11 @@ export default styled.div`
     }
   }
 
+  @media(max-width: 767px){
+    #tabs{
+      display: none !important;
+    }
+  }
   #tabs {
     border-bottom: 2px solid rgba(135, 149, 161, 0.05);
     padding: 1em 0;
@@ -308,7 +318,6 @@ export default styled.div`
   }
 }
 
-
 .invest{
   margin-top: 2em;
   border-radius: 3px;
@@ -317,6 +326,7 @@ export default styled.div`
   background: #F2994A;
   font-size: 1em;
   border: 0;
+  display: inline-block;
 }
 
 `;

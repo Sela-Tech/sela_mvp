@@ -170,7 +170,7 @@ export default ({ id, project }) => {
         <div className="xs-12 md-8">
           <h3> Project Description </h3>
 
-          <div className="xs-10 sm-10">
+          <div className="xs-12 sm-10">
             
             {project.description ? (
               <p>{project.description}</p>
@@ -200,6 +200,7 @@ export default ({ id, project }) => {
                         return <Fragment key={i}> 
                           <strong>{key}:</strong>
                           <span>{ v[k][key] }</span>
+                          {i % 2 === 0 ? <br/>: null }
                         </Fragment> })
                         }
                       </Fragment>

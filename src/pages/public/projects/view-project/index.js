@@ -168,7 +168,7 @@ class ViewProject extends React.Component {
 
 
                     <div className='xs-12'>
-                      <button className='invest'>Invest</button>  
+                      <a href='http://www.sustainability-international.org/donate/' target='_blank' rel="noopener noreferrer" className='invest'>Invest</a>  
                     </div>
                     
                   </div>
