@@ -23,23 +23,36 @@ import { closeModal, showModal } from "../../../../store/action-creators/modal";
 import Transactions from "./subs/transaction";
 import { LAUNCH_SDG } from "../../../../store/actions/modal";
 import arrow from "./subs/description/arrow.svg";
+import Analytics from "../../../dashboards/shared/mini-views/dashboard/sub-components/analytics";
+
+import styled from 'styled-components';
+
+const OverrideAnalyticsWrapper = styled.div`
+#top, #cards{
+  display: none !important;
+}
+`;
 
 const DetermineWhatToShow = ({ show, id, project }) => {
   switch (show) {
     case "transactions":
       return <Transactions id={id} />;
    
-       case "media":
+      case "media":
       return <Media id = {id} project = {project} />;
   
-    // case "updates":
-    // return <Updates project={project} />;
-  
-      case "stakeholders":
+    case "analytics":
+      return <OverrideAnalyticsWrapper className='xs-10 xs-off-1'>
+        <Analytics project={project} />;
+      </OverrideAnalyticsWrapper>
+    
+    case "stakeholders":
       return <Stakeholders project={project} />;
+    
     case "map":
-      return <Map id={id} project={project}/>;
-    default:
+    return <Map id={id} project={project}/>;
+    
+      default:
       return <Description id={id} project={project} />;
   }
 };
@@ -198,11 +211,15 @@ class ViewProject extends React.Component {
                     Description
                   </NavLink>
                 </div>
-                {/* <div className="xs-12 sm-6 md-2">
-                  <NavLink to={`/projects/${id}/updates`}>
-                    Updates
-                  </NavLink>
-                </div> */}
+                
+                {id === '5ca8a10d35b915002208c730' &&
+                  <div className="xs-12 sm-6 md-2">
+                    <NavLink to={`/projects/${id}/analytics`}>
+                      Analytics
+                    </NavLink>
+                  </div>
+                }
+                
                 <div className="xs-12 sm-6 md-2">
                   <NavLink to={`/projects/${id}/transactions`}>
                     Transactions
