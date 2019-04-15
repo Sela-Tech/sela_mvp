@@ -135,10 +135,10 @@ export default styled.div`
 
   .project {
     cursor: pointer;
-    border-radius: 5px;
+    border-radius: 0px;
     overflow: hidden;
     width: 250px;
-    height: 140px;
+    height: 10em;
     &::before {
       content: "";
       position: absolute;

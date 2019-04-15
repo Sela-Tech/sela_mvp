@@ -131,6 +131,26 @@ const info = {
     
     5.C Adopt and strengthen sound policies and enforceable legislation for the promotion of gender equality and the empowerment of all women and girls at all levels..`,
 
+    "Water & Sanitation":`
+    6.1 By 2030, achieve universal and equitable access to safe and affordable drinking water for all..
+    
+    6.2 By 2030, achieve access to adequate and equitable sanitation and hygiene for all and end open defecation, paying special 
+    attention to the needs of women and girls and those in vulnerable situations..
+    
+    6.3 By 2030, improve water quality by reducing pollution, eliminating dumping and minimizing release of hazardous chemicals and materials, halving the proportion of untreated wastewater and substantially increasing recycling and safe reuse globally..
+    
+    6.4 By 2030, substantially increase water-use efficiency across all sectors and ensure sustainable withdrawals and supply of freshwater to address water scarcity and substantially reduce the number of people suffering from water scarcity..
+    
+    6.5 By 2030, implement integrated water resources management at all levels, including through transboundary cooperation as appropriate..
+    
+    6.6 By 2020, protect and restore water-related ecosystems, including mountains, forests, wetlands, rivers, aquifers and lakes..
+    
+    6.A By 2030, expand international cooperation and capacity-building support to developing countries in water- and sanitation-related 
+    activities and programmes, including water harvesting, desalination, water efficiency, wastewater treatment, recycling and reuse technologies..
+    
+    6.B Support and strengthen the participation of local communities in improving water and sanitation management..`,
+
+
     "Clean Water & Sanitation":`
     6.1 By 2030, achieve universal and equitable access to safe and affordable drinking water for all..
     

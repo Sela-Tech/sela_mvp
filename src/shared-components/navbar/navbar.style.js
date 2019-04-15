@@ -45,25 +45,26 @@ export default styled.div`
   }
 
   nav {
-    line-height: ${height};
+  
     a {
-      padding: 1em 1.2em;
-      color: white;
-      font-style: normal;
-      font-weight: 100;
-      line-height: normal;
+
+      border-radius: 3px;
       font-size: 1em;
+      border: 0;
+      display: inline-block;
+      padding: 0.85em 1.2em;
+      font-weight: 300;
       color: #f9fafc;
       transition: 150ms;
+     
       &:hover {
         color: #156edc !important ;
       }
+
     }
 
     #get-started {
-      border: 1px solid rgba(242, 153, 74, 0.97);
-      border-radius: 4px;
-      background: rgba(242, 153, 74, 0.97);
+      background: #F2994A;
       color: white;
     }
 
@@ -122,6 +123,7 @@ export default styled.div`
 
     nav {
       float: right;
+      margin-top: 1em;
     }
     .hide-sm {
       display: none;

@@ -7,9 +7,9 @@ import Navbar from "../../../../shared-components/navbar";
 // import Line from "rc-progress/lib/Line";
 import Description from "./subs/description";
 import Stakeholders from "./subs/stakeholders";
-// import Updates from "./subs/updates";
-import Map from "./subs/map";
-import Media from "./subs/media";
+import Updates from "./subs/updates";
+// import Map from "./subs/map";
+// import Media from "./subs/media";
 // import mapping from "../../../../mapping";
 import { Line } from "rc-progress";
 import help from "../../../../assets/icons/help.svg";
@@ -19,9 +19,8 @@ import {
   fetchProject,
   ignoreProjectId
 } from "../../../../store/action-creators/homepage";
-import { closeModal, showModal } from "../../../../store/action-creators/modal";
+import { closeModal } from "../../../../store/action-creators/modal";
 import Transactions from "./subs/transaction";
-import { LAUNCH_SDG } from "../../../../store/actions/modal";
 import arrow from "./subs/description/arrow.svg";
 import Analytics from "../../../dashboards/shared/mini-views/dashboard/sub-components/analytics";
 
@@ -38,8 +37,8 @@ const DetermineWhatToShow = ({ show, id, project }) => {
     case "transactions":
       return <Transactions id={id} />;
    
-      case "media":
-      return <Media id = {id} project = {project} />;
+    case "updates":
+      return <Updates id = {id} project={project}/>;
   
     case "analytics":
       return <OverrideAnalyticsWrapper className='xs-10 xs-off-1'>
@@ -49,8 +48,8 @@ const DetermineWhatToShow = ({ show, id, project }) => {
     case "stakeholders":
       return <Stakeholders project={project} />;
     
-    case "map":
-    return <Map id={id} project={project}/>;
+    // case "map":
+    // return <Map id={id} project={project}/>;
     
       default:
       return <Description id={id} project={project} />;
@@ -101,7 +100,8 @@ class ViewProject extends React.Component {
 
   render() {
     const { id, project } = this.state;
-
+    const { goal, raised, percentage_raised } = project;
+  
     return (
       <React.Fragment>
         <Navbar />
@@ -132,14 +132,14 @@ class ViewProject extends React.Component {
                   <h1>
                     {project.name ? project.name : <p className="short-loader" />} 
                     <span className='dw f-r'>
-                      0% funded
+                      {percentage_raised}% funded
                     </span>
                   </h1>
 
                   <div className="xs-12 line ">
                       <Line
                         percent={
-                          project.raised
+                          percentage_raised
                         }
                         strokeWidth="2"
                         trailWidth="2"
@@ -148,12 +148,12 @@ class ViewProject extends React.Component {
                       />
 
                     <div className='xs-6 sp'>
-                      <h3>{ window.moneyFormat(parseFloat(project.goal || project.implementationBudget || 0) + parseFloat(project.observationBudget || 0), "$") }</h3>
+                      <h3>{ goal }</h3>
                       <label className='funding-label'>Funding goal</label>
                     </div>
                   
                     <div className='xs-6 sp'>
-                      <h3>{ window.moneyFormat(parseFloat(project.raised), "$") }</h3>
+                      <h3>{ raised }</h3>
                       <label className='funding-label'>Funding raised</label>
                     </div>
                     {
@@ -173,29 +173,21 @@ class ViewProject extends React.Component {
                         </ReactTooltip>
                         
                         <ReactTooltip place="bottom" type="info" effect="solid" id='proposed'>
-                          <span>This project has not been started and is actively seeking financial investments.</span>
+                          <span>This project has not been started and is open to receiving funding.</span>
                         </ReactTooltip>
-                        
                       </div>
                     }
 
-
-                    <div className='xs-12'>
-                      <a href='http://www.sustainability-international.org/donate/' target='_blank' rel="noopener noreferrer" className='invest'>Invest</a>  
-                    </div>
+                    {
+                      project.status !== "COMPLETED" &&
+                      <div className='xs-12'>
+                        <a href='http://www.sustainability-international.org/donate/' target='_blank' rel="noopener noreferrer" className='invest'>Fund</a> </div>
+                    }
                     
                   </div>
-
                 </div>
-
               </div>
 
-              {/* <div className='xs-12 t-c' id='sdgs'>
-              {project.tags && project.tags.map((tag,i)=>{
-                return <img key={i} src={mapping[tag]} alt={i} onClick={()=>this.props.displaySDGInfo(tag)} />
-              })}
-          </div> */}
-          
             </div>
           </div>
 
@@ -232,19 +224,12 @@ class ViewProject extends React.Component {
                 </div>
                 
                 <div className="xs-12 sm-6 md-2">
-                  <NavLink to={`/projects/${id}/media`}>
-                    Media
+                  <NavLink to={`/projects/${id}/updates`}>
+                    Updates
                   </NavLink>
                 </div>
-
-                <div className="xs-12 sm-6 md-2">
-                  <NavLink to={`/projects/${id}/map`}>
-                    Map
-                  </NavLink>
-                </div>
-
-
               </div>
+              
               <div className="xs-12 sm-3">
                 {/* <div className="f-r">
                   <NavLink to="invest" id="invest">
@@ -252,6 +237,7 @@ class ViewProject extends React.Component {
                   </NavLink>
                 </div> */}
               </div>
+
             </div>
           </div>
 
@@ -279,8 +265,7 @@ const mapDispatchToProps = dispatch => {
   return {
     fetchProject: id => dispatch(fetchProject(id)),
     ignoreProjectId: id => dispatch(ignoreProjectId(id)),
-    dismissModal: () => dispatch(closeModal()),
-    displaySDGInfo: sdg => dispatch(showModal( LAUNCH_SDG, { sdg } ))
+    dismissModal: () => dispatch(closeModal())
   };
 };
 

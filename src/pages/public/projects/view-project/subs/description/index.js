@@ -1,15 +1,18 @@
-import React, { Fragment } from "react";
+import React from "react";
 import styled from "styled-components";
-// import arrow from "./arrow.svg";
-// import Link from "react-router-dom/Link";
 import mapping from "../../../../../../mapping";
+import { ShowDisclaimer } from "../../../../../../startupMode.config";
+import Map from "../map";
+import {connect} from 'react-redux';
+import { SHOW_STAKEHOLDER_MODAL, LAUNCH_SDG } from "../../../../../../store/actions/modal";
+import { showModal } from "../../../../../../store/action-creators/modal";
 
 const DescriptionWrapper = styled.div`
   p {
-    line-height: 24px;
-    font-size: 16px;
+    line-height: 1.85em;
+    font-size: 1em;
     color: #3d4851;
-    font-weight: 100;
+    font-weight: 200; 
   }
 
   #loading {
@@ -34,26 +37,20 @@ const DescriptionWrapper = styled.div`
   }
 
   #initiated-section {
-    h4 {
-      font-family: Acumin Pro;
-      font-style: normal;
-      font-weight: 600;
-      line-height: normal;
-      font-size: 18px;
-      color: #3d4851;
-    }
-
     .card {
-      margin-top: 16px;
-      padding: 1em;
-      border: 1px solid rgba(135, 149, 161, 0.25);
+      margin: 0;
+      padding: 1em 1.5em;
+      border: 1px solid #eaeaea;
       box-sizing: border-box;
       border-radius: 5px;
+      background: white;
+      width: 100% !important;
+      margin-bottom: 1em;
 
       img {
-        height: 60px;
-        width: 60px;
-        border-radius: 60px;
+        height: 3em;
+        width: 3em;
+        border-radius: 3em;
         display: block;
         background: silver;
         object-fit: cover;
@@ -69,18 +66,17 @@ const DescriptionWrapper = styled.div`
       }
 
       h4 {
-        font-size: 17px;
-        color: #156edc;
+        font-size: 1em;
         font-weight: 300;
       }
 
       p {
-        font-size: 15px;
+        font-size: 1em;
         color: #3d4851;
       }
 
       span {
-        font-size: 15px;
+        font-size: 1em;
         color: #8795a1;
         font-weight: 100;
       }
@@ -161,123 +157,181 @@ const DescriptionWrapper = styled.div`
     }
 }
 
+#init-h4{
+  background: #FFFFFF;
+  border-bottom: 1px solid #F2F2F2;
+  box-sizing: border-box;
+  font-weight: 500 !important;
+  line-height: 2em !important;
+  margin-bottom: 1em !important;
+  text-align: left;
+  color: #0a1f46 ;
+}
+
+#init-by-h4{
+  margin-top: 1em !important;
+  color: #555 !important;
+  font-weight: 500 !important;
+  font-size: 1em !important;
+}
+
+.pad-white{
+  padding: 1.5em;
+  border-radius: 3px;
+  background: white;
+  margin-bottom: 1em;
+
+  @media(min-width: 768px){
+    width: 95%;
+  }
+
+  p,label{
+    color: #666;
+    font-weight: 400;
+  }
+}
+
+#sdgs{
+  width: 100% !important;
+}
 `;
-export default ({ id, project }) => {
+
+const DescriptionSub =  ({ id, project, dispatch }) => {
+  
+  const displayStakeholder =  id =>{
+    dispatch(
+      showModal( SHOW_STAKEHOLDER_MODAL, { stakeholder: id })
+    );
+  };
+
+  const displaySDGInfo =  sdg => dispatch(showModal( LAUNCH_SDG, { sdg } ));
+
+  const { extra } = project;
+  let size;
+  
+  if(extra && extra.length > 0){
+    size = extra.filter(obj=> { return Object.keys(obj)[0] === 'size' })[0].size;
+  };
 
   return (
     <DescriptionWrapper className="xs-12">
       <div className="xs-10 xs-off-1">
+          
+
         <div className="xs-12 md-8">
-          <h3> Project Description </h3>
+          { ShowDisclaimer(id) && 
+            <div className='xs-12 disclaimer pad-white'>
+              <h3 style={{color: "tomato"}} >Disclaimer</h3>
+              <p>This is a historical project backfilled with data from a previous version of the platform.</p>
+            </div>
+          }
 
-          <div className="xs-12 sm-10">
-            
-            {project.description ? (
-              <p>{project.description}</p>
-            ) : (
-              <React.Fragment>
-                <p id="loading">
-                  <span />
-                  <span />
-                  <span />
-                  <span />
-                </p>
-              </React.Fragment>
-            )}
+          <div className='xs-12'>
+            <div className='xs-12 pad-white'>
+              <h3> Project Description </h3>
+              <div className="xs-12 sm-10">       
+                {project.description ? (
+                  <p>{project.description}</p>
+                ) : (
+                  <React.Fragment>
+                    <p id="loading">
+                      <span />
+                      <span />
+                      <span />
+                      <span />
+                    </p>
+                  </React.Fragment>
+                )}
+                </div>
+              </div>
+              
+              {size && 
+                <div className='extra xs-12 pad-white'>
+                  <div className='xs-3'>
+                    <h5>Unit</h5>
+                    <p>{size.unit}</p>
+                  </div>
+                  <div className='xs-3'>
+                    <h5>Length</h5>
+                    <p>{size.length}</p>
+                  </div>
+                  <div className='xs-3'>
+                    <h5>Width</h5>
+                    <p>{size.width}</p>
+                  </div>
+                  <div className='xs-3'>
+                    <h5>Depth</h5>
+                    <p>{size.depth}</p>
+                  </div>
+                </div>
+              }
 
-            <div className='extra xs-12'>
-            {project.extra ? 
-              Boolean(project.extra.length) ?
-                project.extra.map((v,y)=>{
-                  return <Fragment key={y}>
-                    <p>{
-                      Object.keys(v).map((k)=>{
-                      return (
-                        <Fragment>
-                        <label>{k}</label>
-                        { 
-                          Object.keys(v[k]).map((key, i) => {
-                        return <Fragment key={i}> 
-                          <strong>{key}:</strong>
-                          <span>{ v[k][key] }</span>
-                          {i % 2 === 0 ? <br/>: null }
-                        </Fragment> })
+              <div className='xs-12 add-doc pad-white'>
+                <h5>Additional documents</h5>
+                
+                <div className='xs-12 sm-10 document'>
+                    {project.documents && project.documents.length === 0 && <label>No Documents Found.</label>}
+                    {
+                        project.documents && project.documents.map((doc,i)=>{
+                        let type = doc.filetype.split("/")[0];
+                        if(type !== 'image' && type !== 'video' && type !== 'audio'){
+                            type = 'document';
                         }
-                      </Fragment>
-                      )
-                    })
-                  }
-                  </p>
-                  </Fragment>
-                }): null: null  
-            }
+                        return <div className='xs-12 inner' key={i}>
+                            <div className={`img preview-${type} xs-3 sm-2`}/>
+                            <div className='text xs-6 sm-7'>
+                            <h4>{doc.name}</h4>
+                                <p>{doc.size}</p>
+                            </div>
+                            <div className='download xs-2 sm-2'>
+                                <a href={doc.doc} target="_blank" rel="noopener noreferrer"> Download</a>
+                            </div>
+                        </div>
+                        })
+                        
+                    }
+                </div>
+
             </div>
 
-            <div className='xs-12 add-doc'>
-              <h5>Additional documents</h5>
-              
-              <div className='xs-12 sm-10 document'>
-                  {
-                      project.documents && project.documents.map((doc,i)=>{
-                      let type = doc.filetype.split("/")[0];
-                      if(type !== 'image' && type !== 'video' && type !== 'audio'){
-                          type = 'document';
-                      }
-                      return <div className='xs-12 inner' key={i}>
-                          <div className={`img preview-${type} xs-3 sm-2`}/>
-                          <div className='text xs-6 sm-7'>
-                          <h4>{doc.name}</h4>
-                              <p>{doc.size}</p>
-                          </div>
-                          <div className='download xs-2 sm-2'>
-                              <a href={doc.doc} target="_blank" rel="noopener noreferrer"> Download</a>
-                          </div>
-                      </div>
-                      })
-                      
-                  }
-              </div>
-
           </div>
 
-          </div>
         </div>
 
         <div className="xs-12 md-4" id="initiated-section">
-          <h4>Initiated By</h4>
-
           <div className="card xs-12">
-            <div className="xs-3">
-              <img src={project.owner.profilePhoto} alt="" />
+            <h4 id='init-h4'>Initiated By</h4>
+            <div className='xs-12' onClick={() => displayStakeholder(project.owner._id)}>
+              <div className="xs-3">
+                <img src={project.owner.profilePhoto} alt="" />
+              </div>
+
+              <div className="xs-9">
+                <h4 id='init-by-h4'>
+                  {project.owner.firstName} {project.owner.lastName}
+                </h4>
+                <span>{project.owner.organization && project.owner.organization.name}</span>
+              </div>
             </div>
 
-            <div className="xs-9">
-              <h4>
-                {project.owner.firstName} {project.owner.lastName}
-              </h4>
-              {/* <p>Reputation Score: {project.owner.reputationScore}</p> */}
-              <span>{project.owner.organization && project.owner.organization.name}</span>
-            </div>
           </div>
 
-          <div className='xs-12 t-l' id='sdgs'>
+          <div className='xs-12'>
+            <Map project={project} id={id}/>
+          </div>
+          
+          <div className='xs-12 t-l pad-white' id='sdgs'>
           <h4>Sustainable Development Goals (SDGs)</h4>
 
               {project.tags && project.tags.map((tag,i)=>{
-                return <img key={i} src={mapping[tag]} alt={i} onClick={()=>this.props.displaySDGInfo(tag)} />
+                return <img key={i} src={mapping[tag]} alt={i} onClick={()=>displaySDGInfo(tag)} />
               })}
           </div>
-{/* 
-          <div className="xs-12">
-            <Link to={`/projects/${id}/stakeholders`} id="see-all">
-              Sell All Stakeholders
-              <img src={arrow} alt="arrow" />
-            </Link>
-          </div> */}
-
         </div>
 
       </div>
     </DescriptionWrapper>
   );
 };
+
+export default connect()(DescriptionSub);

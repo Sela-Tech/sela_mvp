@@ -7,7 +7,6 @@ import NotEmptyCard from "./cards/not-empty.card";
 import Joyride from 'react-joyride';
 
 const CardHolder = ({ projects, heading, type, action }) => {
-  console.log(heading)
   switch (action) {
     case home.GET_HOMEPAGE_PROJS_S:
       return (

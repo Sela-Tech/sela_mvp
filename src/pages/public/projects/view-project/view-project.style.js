@@ -20,7 +20,7 @@ export default styled.div`
   }
   #header {
     padding: 2em 0 3em;
-    background: #fbfbfb;
+    background: white;
 
     h1 {
       font-family: Acumin Pro;
@@ -141,15 +141,18 @@ export default styled.div`
       display: none !important;
     }
   }
+  
+  
   #tabs {
     border-bottom: 2px solid rgba(135, 149, 161, 0.05);
+    border-top: 2px solid rgba(135, 149, 161, 0.05);
     padding: 1em 0;
+
     a {
       font-family: Acumin Pro;
-      font-style: normal;
-      font-weight: 300;
+      font-weight: 500;
       line-height: normal;
-      font-size: 13.75px;
+      font-size: 0.9em;
       color: #8795a1;
       display: inline-block;
       padding: 1em 0;
@@ -159,7 +162,7 @@ export default styled.div`
       &:active,
       &:focus,
       &:hover {
-        color: #156edc;
+        color: #101010;
       }
     }
 
@@ -174,6 +177,8 @@ export default styled.div`
 
   .variable {
     padding: 2em 0;
+    background: #fafafa;
+
     h3 {
       // font-family: Acumin Pro;
       // font-style: normal;
@@ -194,11 +199,12 @@ export default styled.div`
         width: 95%;
       }
 
-      margin: 16px 0;
+      margin: 0 0 1em 0;
       padding: 1em;
       border: 1px solid rgba(135, 149, 161, 0.25);
       box-sizing: border-box;
       border-radius: 5px;
+      background: white;
 
       img {
         height: 50px;
@@ -211,7 +217,6 @@ export default styled.div`
       span,
       a {
         margin: 0;
-        margin-bottom: 0.35em;
         font-family: Acumin Pro;
       }
 
@@ -230,9 +235,9 @@ export default styled.div`
       }
 
       span {
-        font-size: 15px;
+        font-size: 0.8em;
         color: #8795a1;
-        font-weight: 100;
+        font-weight: 300;
       }
     }
   } 
@@ -321,7 +326,7 @@ export default styled.div`
 .invest{
   margin-top: 2em;
   border-radius: 3px;
-  padding: 1em 2em;
+  padding: 0.85em 2em;
   color: white;
   background: #F2994A;
   font-size: 1em;

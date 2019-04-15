@@ -19,7 +19,7 @@ const NotEmptyCard = ({ p, history, showMap }) => {
 
         <div className='wrap-img'>
           <div className="xs-12 dw">
-            <p>{(p.raised / p.implementationBudget) * 100}% Funded</p>
+            <p>{p.percentage_raised}% Funded</p>
           </div>
             
         {
@@ -48,7 +48,7 @@ const NotEmptyCard = ({ p, history, showMap }) => {
               <div className="tasks xs-12">
                 <Line
                   percent={
-                    (p.raised / p.implementationBudget) * 100
+                    p.percentage_raised
                   }
                   strokeWidth="4"
                   trailWidth="4"
@@ -58,35 +58,17 @@ const NotEmptyCard = ({ p, history, showMap }) => {
             </div>
               
               <div className='xs-6 sp'>
-                <h3>{ window.moneyFormat(parseFloat(p.goal || p.implementationBudget || 0) + parseFloat(p.observationBudget || 0), "$") }</h3>
+                <h3>{p.goal }</h3>
                 <label className='funding-label'>Funding goal</label>
               </div>
              
               <div className='xs-6 sp'>
-                <h3>{ window.moneyFormat(parseFloat(p.raised), "$") }</h3>
+                <h3>{ p.raised }</h3>
                 <label className='funding-label'>Funding raised</label>
               </div>
               
-              {/* 
-                <div className='xs-12'>
-                {p.tags && p.tags.map((tag,i)=>{
-                  return <span className='tag' key={i} style={{background: `rgb(${
-                    `${Math.round(Math.random() * 255)},
-                    ${Math.round(Math.random() * 255)},
-                    ${Math.round(Math.random() * 255)}`
-                  }
-                  )`}}>{tag}</span>
-                })}
-                </div> 
-              */}
-
             </div>
         
-            {/* <div className="text">
-              <h3 onClick={() => history.push(`/projects/${p._id}/description`)}>{p.name}</h3>
-              <p> {p.owner.organization && p.owner.organization.name} </p>
-            </div> */}
-
             <button className={`has-radius ${p.status.toLowerCase()}`}>
             {p.status.toLowerCase()} 
             <span><img src={help} className={p.status.toLowerCase()} alt="" data-tip data-for={p.status.toLowerCase()} /></span>

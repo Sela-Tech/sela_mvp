@@ -11,24 +11,28 @@ img{
   section {
     padding-bottom: 2em;
     h4 {
-      font-family: Acumin Pro;
-      font-style: normal;
-      font-weight: 600;
-      line-height: normal;
-      font-size: 18px;
-      color: #3d4851;
+      margin-top: 1em !important;
+      color: #555 !important;
+      font-weight: 500 !important;
+      font-size: 1em !important;
     }
   }
 `;
 export default connect()(({ project, dispatch }) => {
-  const { owner, stakeholders } = project,
-    contractors = stakeholders.filter(s => {
+
+  let { owner, stakeholders } = project;
+
+  stakeholders = stakeholders.filter(s=>{
+    return s.user.agreed === true;
+  });
+
+  const contractors = stakeholders.filter(s => {
       return s.user.information.isContractor === true;
-    }),
-    funders = stakeholders.filter(s => {
+    });
+  const  funders = stakeholders.filter(s => {
       return s.user.information.isFunder === true;
-    }),
-    evaluators = stakeholders.filter(s => {
+    });
+   const evaluators = stakeholders.filter(s => {
       return s.user.information.isEvaluator === true;
     });
 
@@ -47,7 +51,7 @@ export default connect()(({ project, dispatch }) => {
           <h3> Stakeholders </h3>
 
           <section className="xs-12">
-            <h4>INITIATED BY</h4>
+            <h4>Initiated By</h4>
             <div
               className="xs-12 sm-4"
               onClick={()=>displayStakeholder(owner._id)}
@@ -69,7 +73,7 @@ export default connect()(({ project, dispatch }) => {
 
           {contractors.length > 0 && (
             <section className="xs-12">
-              <h4>CONTRACTOR(S)</h4>
+              <h4>Contractor (s)</h4>
               {contractors.map((u, i) => {
                 let id = u.user.information._id;
                 return (
@@ -101,7 +105,7 @@ export default connect()(({ project, dispatch }) => {
 
           {evaluators.length > 0 && (
             <section className="xs-12">
-              <h4>EVALUATION AGENT(S)</h4>
+              <h4>Evaluation Agent (s)</h4>
               {evaluators.map((u, i) => {
               
                 let id = u.user.information._id;

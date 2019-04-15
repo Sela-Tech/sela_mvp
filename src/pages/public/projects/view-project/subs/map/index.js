@@ -4,22 +4,23 @@ import GoogleMapReact from "google-map-react";
 import config from "../../../../home/right-pane/map/config";
 
 const MapWrpr = styled.div`
-    img{
-        object-fit: cover;
-    }
-    section {
-        padding-bottom: 2em;
-        h4 {
-        font-family: Cabin;
-        font-style: normal;
-        font-weight: 600;
-        line-height: normal;
-        font-size: 18px;
-        color: #3d4851;
-        }
-    }
+  img{
+      object-fit: cover;
+  }
+  section {
+      padding-bottom: 2em;
+      h4 {
+      font-family: Cabin;
+      font-style: normal;
+      font-weight: 600;
+      line-height: normal;
+      font-size: 18px;
+      color: #3d4851;
+      }
+  }
 
-    height: 60vh;
+  height: 30em;
+  margin-bottom: 1.5em;
 `;
 
 const K_WIDTH = 40;
@@ -115,7 +116,7 @@ export default ({ project }) => {
           };
         
         return (
-        <MapWrpr className='xs-10 xs-off-1'>
+        <MapWrpr className='xs-12'>
 
             <GoogleMapReact
             bootstrapURLKeys={{

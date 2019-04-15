@@ -5,10 +5,10 @@ import {connect} from 'react-redux';
 import { get_public_transactions } from "../../../../../../store/action-creators/homepage";
 import TableWrapper from "../../../../../dashboards/shared/styling/table";
 import moment from 'moment';
-import { ResponsiveLine } from '@nivo/line';
 import { SHOW_STAKEHOLDER_MODAL } from "../../../../../../store/actions/modal";
 import { showModal } from "../../../../../../store/action-creators/modal";
 import pilotData from "./pilot.data";
+import { isLiveNet } from "../../../../../../startupMode.config";
 
 const TokenWrapper = styled.div`
     overflow: auto;
@@ -53,12 +53,11 @@ const TokenWrapper = styled.div`
             padding: 3% 3% 2%;
             background: white;
             border-radius: 3px;
+            margin-bottom: 1em;
         }
     
     }
-
-   
-    padding: 3%;
+    
     .acc-no{
         font-size: 0.4em;
         color: skyblue;
@@ -85,6 +84,25 @@ const TokenWrapper = styled.div`
             border-radius: 3px;
             padding: 1em;
         }
+    }
+
+    .headings h3{
+        ont-size: 0.9em;
+        font-weight: 500;
+        padding: 0 1em;
+        color: #3D4851;
+        margin-bottom: 0em;
+    }
+
+    .headings label{
+        display: block;
+        font-size: 0.8em;
+        margin: 0em 1em 1em;
+        color: #999;
+    }
+
+    .content{
+        padding-top: 1em !important;
     }
 `;
 
@@ -118,7 +136,6 @@ const Token = connect(()=>{return {}}, dispatch=>{
     render(){
         
         const { info } = this.state;
-        console.log(info)
        // store only receivers
         let receivers = new Set([]);
         let receiversSimplified = [];
@@ -135,24 +152,7 @@ const Token = connect(()=>{return {}}, dispatch=>{
 
         receivers = [...receivers];
 
-        // use receivers to filter through transactions to get value and dates per receiver
-        let amountVsDate = [];
-
-        amountVsDate = receivers.map(receiverId=>{
-            return {
-                id:   receiversSimplified.filter(r=> r.id === receiverId)[0].name,
-                color: `hsl(
-                    ${ Math.round( Math.random() * 255 ) },
-                    ${ Math.round( Math.random() * 100 ) }%,
-                    ${ Math.round( Math.random() * 100 ) }%)`,
-                data:  info.transactions.reverse().map(tran=>{
-                    return  {
-                        "x": moment(tran.createdAt).format("HH:mm DD MMMM YY")
-                       ,"y": this.props.overwrite ? tran.value / 171: tran.value
-                    }
-                })
-            }
-        });
+        
         let amountSpent = 0;
 
         if(info.transactions && info.transactions.length > 0){
@@ -160,15 +160,15 @@ const Token = connect(()=>{return {}}, dispatch=>{
             return { value: parseFloat(a.value) + parseFloat(b.value) }
           }).value;
         }
-      
+
         return (
           <Fragment>
             <TokenWrapper className='xs-12'>
               <div className='overview xs-12'>
               <div className='text xs-12'>
-                  <div className='xs-12'>
+                  <div className='xs-12 sm-8'>
                   
-                      <div className='xs-4 keys'>     
+                      <div className='xs-4 keys t-l'>     
                           <label>Initial Balance</label>
                           <h4>
                           {window.moneyFormat(info.totalBudget,'')}
@@ -176,7 +176,7 @@ const Token = connect(()=>{return {}}, dispatch=>{
                           </h4>
                       </div>
 
-                      <div className='xs-4 keys'>     
+                      <div className='xs-4 keys t-l'>     
                           <label>Total Spent</label>
                           <h4>
                           { window.moneyFormat(amountSpent,'') }<br/>
@@ -184,32 +184,16 @@ const Token = connect(()=>{return {}}, dispatch=>{
                           </h4>
                       </div>
 
-                      <div className='xs-4 keys'>     
+                      <div className='xs-4 keys t-l'>     
                           <label>Available Balance</label>
                           <h4>
                           {window.moneyFormat( info.totalBudget - amountSpent,'')}<br/>
                           <span style={{color: "skyblue", fontSize: "0.75em"}}> {window.moneyFormat( info.totalBudget - amountSpent,'')} Dollars</span>
                           </h4>
-
-
                       </div>
-
-                    
-                      <div className='xs-12 keys'>
-                          <label>Public Key</label>
-                          <h4><a target="_blank" rel="noopener noreferrer" href={`
-                              ${
-                                this.props.publicKey ? this.props.publicKey : info 
-                                && process.env.REACT_APP_STELLAR_MODE === "testnet" 
-                                && this.props.overwrite !== true ? 
-                                  `https://testnet.steexp.com/account/${info.distributorPublicKey}`:
-                                  `https://steexp.com/account/${info.distributorPublicKey}`
-                              }`
-                          }>{info.distributorPublicKey ? info.distributorPublicKey:  "-"}</a></h4>
-                      </div>                              
                   </div>
 
-                  {
+                  {/* {
                       info.createdToken && info.createdToken.distributor 
                       && info.createdToken.distributor.distributionAccountBalances.map((token,i)=>{
                           return <div className='xs-12' key={i}>
@@ -219,126 +203,36 @@ const Token = connect(()=>{return {}}, dispatch=>{
                                           <label>PST Code</label>
                                           <h4>{token.token} | {info.projectName}</h4>
                                       </div>
-                                      {/* <div className='xs-4'>
-                                          <label>PST Balance</label>
-                                          <h4>{token.balance ? token.balance: "-"}</h4>
-                                      </div> */}
                                   </Fragment>
-                              }
-
-                              { token.type === 'native' &&
-                                  <div className='xs-4'>
-                                      <label>Lumens Available</label>
-                                      <h4>{token.balance}</h4>
-                                  </div>
-                              }
+                              }                           
                       </div>
                       })
-                  }
+                  } */}
                 
               </div>
-              {
-                amountVsDate.length > 0 &&
-                <div className='xs-12'>
-                    <div className='xs-12 pad'>
-                        <div className='inner xs-12 line'>
-                            <ResponsiveLine
-                                data={amountVsDate}
-                                margin={{
-                                    "top": 50,
-                                    "right": 150,
-                                    "bottom": 250,
-                                    "left": 60
-                                }}
-                                xScale={{
-                                    "type": "point",
-                                    min: "0"
-                                }}
-                                yScale={{
-                                    "type": "linear",
-                                    "stacked": true,
-                                    "min": "0",
-                                    "max": "auto"
-                                }}
-                                axisTop={null}
-                                axisRight={null}
-                                axisBottom={{
-                                    "orient": "bottom",
-                                    "tickSize": 5,
-                                    "tickPadding": 5,
-                                    "tickRotation": -60,
-                                    "legend": "Date",
-                                    "legendOffset": 36,
-                                    "legendPosition": "middle"
-                                }}
-                                axisLeft={{
-                                    "orient": "left",
-                                    "tickSize": 5,
-                                    "tickPadding": 5,
-                                    "tickRotation": 0,
-                                    "legend": "Token",
-                                    "legendOffset": -40,
-                                    "legendPosition": "middle"
-                                }}
-                                dotSize={10}
-                                dotColor="inherit:darker(0.3)"
-                                dotBorderWidth={2}
-                                dotBorderColor="#ffffff"
-                                enableDotLabel={true}
-                                dotLabel="y"
-                                dotLabelYOffset={-12}
-                                animate={true}
-                                motionStiffness={90}
-                                motionDamping={15}
-                                legends={[
-                                    {
-                                        "anchor": "bottom-right",
-                                        "direction": "column",
-                                        "justify": false,
-                                        "translateX": 100,
-                                        "translateY": 0,
-                                        "itemsSpacing": 0,
-                                        "itemDirection": "left-to-right",
-                                        "itemWidth": 80,
-                                        "itemHeight": 20,
-                                        "itemOpacity": 0.75,
-                                        "symbolSize": 12,
-                                        "symbolShape": "circle",
-                                        "symbolBorderColor": "rgba(0, 0, 0, .5)",
-                                        "effects": [
-                                            {
-                                                "on": "hover",
-                                                "style": {
-                                                    "itemBackground": "rgba(0, 0, 0, .03)",
-                                                    "itemOpacity": 1
-                                                }
-                                            }
-                                        ]
-                                    }
-                                ]}
-                            />
-                        </div>
-                    </div>
-                </div>
-              }
-          
+       
           </div>
               <TableWrapper className='xs-12'>
 
                     <div className='top xs-12'>
+
                         <div className='f-l'>
                             <h3>Transaction History</h3>
-                            
                         </div>
                         
                         <div className='f-r t-options'>
-                            <select className='form-control'>
+
+
+                            <a href={`https://${ isLiveNet(info.distributorPublicKey) === false ? 'testnet.': ''}steexp.com/account/${info.distributorPublicKey}`} target="_blank" rel ='noopener noreferrer' className='view-on-block'>View All On Explorer</a>
+                            
+                            {/* <select className='form-control'>
                                 <option value="no-filter">No Filter</option>
                                 <option value="xlm">Lumens</option>
                                 {info.transactions.length > 0 &&
                                     <option value="pst">{info.transactions[0].asset}</option>
                                 }
-                            </select>
+                            </select> */}
+
                         </div>
                     </div>
 
@@ -351,6 +245,11 @@ const Token = connect(()=>{return {}}, dispatch=>{
                             </div>
                             <div className='xs-3'>
                             <h3> Amount</h3>
+                            <label>{
+                                info.createdToken && info.createdToken.distributor 
+                                && info.createdToken.distributor.distributionAccountBalances.map((token,i)=>{
+                                    return token.type !== 'native' && token.token
+                                })}</label>
                             </div>
                             <div className='xs-3'>
                             <h3>Proof</h3>
@@ -386,7 +285,7 @@ const Token = connect(()=>{return {}}, dispatch=>{
 
                                     <div className='xs-3 col-row'> 
                                         <p>{ window.moneyFormat( parseFloat(transaction.value),
-                                        `${transaction.asset } `)}</p>
+                                        ``)}</p>
                                         <label style = {{fontSize: "0.8em", color:"#999"}}>{moment(transaction.createdAt).format("DD MMMM YYYY, HH:mm")}</label>
 
                                     </div>
