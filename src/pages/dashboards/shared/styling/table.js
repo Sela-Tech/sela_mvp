@@ -16,7 +16,18 @@ export const plain = `
         width: 10em;
         margin: 0.25em 0.5em;    
     }
-
+    .view-on-block{
+        height: 2.5em;
+        font-size: 0.78em;
+        background: #f3f3f3;
+        color: #545151;
+        line-height: 2.5em;
+        margin: 0.25em 1em 0em 0;
+        padding: 0 1em;
+        border: 1px solid #cacaca;
+        border-radius: 2px;
+        display: inline-block;    
+    }
 }
 
 

@@ -315,23 +315,23 @@ class Analytics extends React.Component {
             <h3>Project Health Overview</h3>
           </div>
 
-          {/* <div className="f-r c-sm-screen">
-            <select
-              className="date"
-              name="date"
-              value={date}
-              onChange={this.handleDateUpdate}
-            >
-              <option value="30">Last 30 days </option>
-              <option value="60">Last 60 days </option>
-              <option value="90">Last 90 days </option>
-              <option value="120">Last 120 days </option>
-              <option value="150">Last 150 days </option>
-              <option value="250">Last 250 days </option>
-              <option value="365">Last 365 days </option>
-            </select>
-          </div>
-            */}
+            {/* <div className="f-r c-sm-screen">
+              <select
+                className="date"
+                name="date"
+                value={date}
+                onChange={this.handleDateUpdate}
+              >
+                <option value="30">Last 30 days </option>
+                <option value="60">Last 60 days </option>
+                <option value="90">Last 90 days </option>
+                <option value="120">Last 120 days </option>
+                <option value="150">Last 150 days </option>
+                <option value="250">Last 250 days </option>
+                <option value="365">Last 365 days </option>
+              </select>
+            </div>
+              */}
         </div>
       </div>
 
