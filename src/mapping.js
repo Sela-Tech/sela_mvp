@@ -23,6 +23,7 @@ let mapping = {
     "Quality Education": qe,
     "Gender Equality": ge,
     "Water & Sanitation": cws,
+    "Clean Water & Sanitation": cws,
     "Clean Energy": ace,
     "Economic Growth": dwag,
     "Infrastructure": iiai,

@@ -8,7 +8,7 @@ const init = {
   sdgs: [
     "No Poverty", "Zero Hunger",
     "Health & Well-being", "Quality Education",
-    "Gender Equality", "Water & Sanitation",
+    "Gender Equality", "Clean Water & Sanitation",
     "Clean Energy", "Economic Growth",
     "Infrastructure",
     "Reduced Inequality", "Sustainable Cities",

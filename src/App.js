@@ -30,7 +30,6 @@ const evaluator_default_page = lazy(()=> import("./pages/authentication/componen
 let pulled_organization = false;
 
 const append = () => {
-  console.log("fired")
   const script = document.createElement("script");
   script.src = "https://maps.googleapis.com/maps/api/js?key=AIzaSyDRMWoNjCQp00UvNO7xWxK4DWy_H34Ov8I&libraries=places";
   script.async = true;
