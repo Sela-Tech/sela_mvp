@@ -55,7 +55,8 @@ class SubmissionEvidence extends Component{
                         submissions: 0
                     }] 
                 }]
-        }
+        };
+        this.loadData = this.loadData.bind(this);
     }
 
     componentWillMount(){
@@ -68,24 +69,18 @@ class SubmissionEvidence extends Component{
         }
     }
    
-    loadData = proposalId => {
-        this.setState({
-            proposalId
-        },()=>{
-            this.props.retrieveSubmission({
-                projectId: this.props.id || this.props.projectId,
-                proposalId, level: this.state.view 
-            })
-        })
-        
-    };
+    loadData(proposalId){
+        this.setState({ proposalId },()=>{
+            this.props.retrieveSubmission({  projectId: this.props.id || this.props.projectId, proposalId, level: this.state.view });
+        });  
+    }
     
     componentWillReceiveProps(nextProps){
         if(this.props !== nextProps){
             let obj = {
                 proposals: nextProps.proposals,
                 selectedTaskSubmissions: nextProps.selectedTaskSubmissions
-            }
+            };
             obj.submissions = nextProps.submissions;
 
             switch (nextProps.type) {
@@ -264,7 +259,7 @@ class SubmissionEvidence extends Component{
                     <div className='xs-6 tasks-view'>
                         <ProposalTypeStyling className='xs-12' style={{height: "unset"}}>
                             <div className='xs-12 form-group proposal'>
-                                <label>Select propsal</label>
+                                <label>Select proposal</label>
                                 <select name='proposal' value={proposalId} className='select-proposal form-control'
                                 onChange={e => this.loadData( e.target.value )}>
                                     <option hidden>Select a proposal</option>
