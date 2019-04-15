@@ -63,12 +63,37 @@ export default (state = init, payload) => {
 
     case homepageActions.GET_HOMEPAGE_PROJS_S:
       
-      let completedProjects = payload.projects.filter(p=> p.status === "COMPLETED");
+      let projects = [...payload.projects];
+
+      projects = projects.map(p => {  
+
+        let info = p;
+
+        if(info.status === 'COMPLETED'){
+          info.raised = info.observationBudget + info.implementationBudget;
+        }
+
+        let goal = parseFloat(info.goal || info.implementationBudget || 0) + parseFloat(info.observationBudget || 0);
+        const percentage_raised = (info.raised / goal) * 100;
+        goal =  window.moneyFormat((goal), "$"); 
+        info.raised = window.moneyFormat(info.raised, "$");
+        info.goal = goal;
+        info.percentage_raised = percentage_raised;
+
+        return info;
+
+      });
+
+      let completedProjects = projects.filter(p => p.status === "COMPLETED");
 
       return {
         ...state,
         action: homepageActions.GET_HOMEPAGE_PROJS_S,
-        projects: [...payload.projects.filter(p=> p.status !== "COMPLETED").sort(dynamicSort("status")), ...completedProjects],
+        projects: [
+          ...payload.projects
+          .filter(p=> p.status !== "COMPLETED")
+          .sort(dynamicSort("status")), ...completedProjects
+        ],
         centerize: payload.centerize
       };
 
@@ -92,10 +117,25 @@ export default (state = init, payload) => {
       };
 
     case homepageActions.GET_HOMEPAGE_PROJ_S:
+      
+      let { info } = payload;
+
+      if(info.status === 'COMPLETED'){
+        info.raised = info.observationBudget + info.implementationBudget;
+      }
+
+      let goal = parseFloat(info.goal || info.implementationBudget || 0) + parseFloat(info.observationBudget || 0);
+      const percentage_raised = (info.raised / goal) * 100;
+      goal =  window.moneyFormat((goal), "$");
+      info.raised = window.moneyFormat(info.raised, "$");
+      
+      info.goal = goal;
+      info.percentage_raised = percentage_raised;
+    
       return {
         ...state,
         action: homepageActions.GET_HOMEPAGE_PROJ_S,
-        project: payload.info
+        project: info
       };
 
     case homepageActions.GET_CITIZEN_INFO_R:
