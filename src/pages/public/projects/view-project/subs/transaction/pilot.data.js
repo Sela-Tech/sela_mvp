@@ -1,3 +1,11 @@
+const sender = {
+    firstName: "Sustainability",
+    lastName: "International",
+    organization: null,
+    profilePhoto: "https://s3.us-east-2.amazonaws.com/selamvp/user-avatars/786babfe-36ee-44ff-9511-99cfd7bfea9c_ScreenShot2019-04-08at6.44.49PM.png",
+    _id: "5c7e5e4b05edda0022e50892"
+};
+
 export default {
     transactions: [
     {
@@ -16,13 +24,7 @@ export default {
             profilePhoto: "http://placehold.it/50",
             _id: "5ca329cb8a38f000227463ae"
         },
-        sender:{
-        firstName: "Sustainability",
-        lastName: "International",
-        organization: null,
-        profilePhoto: "https://s3.us-east-2.amazonaws.com/selamvp/user-avatars/2e32a23c-22f3-44ee-9773-d19eece652c0_076nsX1X_400x400.jpg",
-        _id: "5c7e5e4b05edda0022e50892"
-        },
+        sender,
         status: "CONFIRMED",
         success: true,
         updatedAt: "2018-04-18T13:36:59Z",
@@ -45,13 +47,7 @@ export default {
             profilePhoto: "http://placehold.it/50",
             _id: "5ca329cb8a38f000227463ae"
         },
-        sender:{
-        firstName: "Sustainability",
-        lastName: "International",
-        organization: null,
-        profilePhoto: "https://s3.us-east-2.amazonaws.com/selamvp/user-avatars/2e32a23c-22f3-44ee-9773-d19eece652c0_076nsX1X_400x400.jpg",
-        _id: "5c7e5e4b05edda0022e50892"
-        },
+        sender,
         status: "CONFIRMED",
         success: true,
         updatedAt: "2018-04-18T13:45:08Z",
@@ -74,13 +70,7 @@ export default {
             profilePhoto: "http://placehold.it/50",
             _id: "5ca329cb8a38f000227463ae"
         },
-        sender:{
-        firstName: "Sustainability",
-        lastName: "International",
-        organization: null,
-        profilePhoto: "https://s3.us-east-2.amazonaws.com/selamvp/user-avatars/2e32a23c-22f3-44ee-9773-d19eece652c0_076nsX1X_400x400.jpg",
-        _id: "5c7e5e4b05edda0022e50892"
-        },
+        sender,
         status: "CONFIRMED",
         success: true,
         updatedAt: "2018-05-02T10:52:13Z",
@@ -103,13 +93,7 @@ export default {
             profilePhoto: "http://placehold.it/50",
             _id: "5ca329cb8a38f000227463ae"
         },
-        sender:{
-        firstName: "Sustainability",
-        lastName: "International",
-        organization: null,
-        profilePhoto: "https://s3.us-east-2.amazonaws.com/selamvp/user-avatars/2e32a23c-22f3-44ee-9773-d19eece652c0_076nsX1X_400x400.jpg",
-        _id: "5c7e5e4b05edda0022e50892"
-        },
+        sender,
         status: "CONFIRMED",
         success: true,
         updatedAt: "2018-04-28T16:41:49Z",
@@ -132,13 +116,7 @@ export default {
             profilePhoto: "http://placehold.it/50",
             _id: "5ca329cb8a38f000227463ae"
         },
-        sender:{
-        firstName: "Sustainability",
-        lastName: "International",
-        organization: null,
-        profilePhoto: "https://s3.us-east-2.amazonaws.com/selamvp/user-avatars/2e32a23c-22f3-44ee-9773-d19eece652c0_076nsX1X_400x400.jpg",
-        _id: "5c7e5e4b05edda0022e50892"
-        },
+        sender,
         status: "CONFIRMED",
         success: true,
         updatedAt: "2018-04-24T21:40:00Z",
@@ -161,13 +139,7 @@ export default {
             profilePhoto: "http://placehold.it/50",
             _id: "5ca329cb8a38f000227463ae"
         },
-        sender:{
-        firstName: "Sustainability",
-        lastName: "International",
-        organization: null,
-        profilePhoto: "https://s3.us-east-2.amazonaws.com/selamvp/user-avatars/2e32a23c-22f3-44ee-9773-d19eece652c0_076nsX1X_400x400.jpg",
-        _id: "5c7e5e4b05edda0022e50892"
-        },
+        sender,
         status: "CONFIRMED",
         success: true,
         updatedAt: "2018-04-24T21:27:44Z",
@@ -190,13 +162,7 @@ export default {
             profilePhoto: "http://placehold.it/50",
             _id: "5ca329cb8a38f000227463ae"
         },
-        sender:{
-        firstName: "Sustainability",
-        lastName: "International",
-        organization: null,
-        profilePhoto: "https://s3.us-east-2.amazonaws.com/selamvp/user-avatars/2e32a23c-22f3-44ee-9773-d19eece652c0_076nsX1X_400x400.jpg",
-        _id: "5c7e5e4b05edda0022e50892"
-        },
+        sender,
         status: "CONFIRMED",
         success: true,
         updatedAt: "2018-04-24T21:08:46Z",
@@ -219,13 +185,7 @@ export default {
             profilePhoto: "http://placehold.it/50",
             _id: "5ca329cb8a38f000227463ae"
         },
-        sender:{
-        firstName: "Sustainability",
-        lastName: "International",
-        organization: null,
-        profilePhoto: "https://s3.us-east-2.amazonaws.com/selamvp/user-avatars/2e32a23c-22f3-44ee-9773-d19eece652c0_076nsX1X_400x400.jpg",
-        _id: "5c7e5e4b05edda0022e50892"
-        },
+        sender,
         status: "CONFIRMED",
         success: true,
         updatedAt: "2018-04-24T21:05:24Z",
@@ -248,13 +208,7 @@ export default {
             profilePhoto: "http://placehold.it/50",
             _id: "5ca329cb8a38f000227463ae"
         },
-        sender:{
-        firstName: "Sustainability",
-        lastName: "International",
-        organization: null,
-        profilePhoto: "https://s3.us-east-2.amazonaws.com/selamvp/user-avatars/2e32a23c-22f3-44ee-9773-d19eece652c0_076nsX1X_400x400.jpg",
-        _id: "5c7e5e4b05edda0022e50892"
-        },
+        sender,
         status: "CONFIRMED",
         success: true,
         updatedAt: "2018-04-24T21:04:34Z",
@@ -277,13 +231,7 @@ export default {
             profilePhoto: "http://placehold.it/50",
             _id: "5ca329cb8a38f000227463ae"
         },
-        sender:{
-        firstName: "Sustainability",
-        lastName: "International",
-        organization: null,
-        profilePhoto: "https://s3.us-east-2.amazonaws.com/selamvp/user-avatars/2e32a23c-22f3-44ee-9773-d19eece652c0_076nsX1X_400x400.jpg",
-        _id: "5c7e5e4b05edda0022e50892"
-        },
+        sender,
         status: "CONFIRMED",
         success: true,
         updatedAt: "2018-04-24T20:52:58Z",
@@ -306,13 +254,7 @@ export default {
             profilePhoto: "http://placehold.it/50",
             _id: "5ca329cb8a38f000227463ae"
         },
-        sender:{
-        firstName: "Sustainability",
-        lastName: "International",
-        organization: null,
-        profilePhoto: "https://s3.us-east-2.amazonaws.com/selamvp/user-avatars/2e32a23c-22f3-44ee-9773-d19eece652c0_076nsX1X_400x400.jpg",
-        _id: "5c7e5e4b05edda0022e50892"
-        },
+        sender,
         status: "CONFIRMED",
         success: true,
         updatedAt: "2018-04-24T20:51:34Z",
@@ -335,13 +277,7 @@ export default {
             profilePhoto: "http://placehold.it/50",
             _id: "5ca329cb8a38f000227463ae"
         },
-        sender:{
-        firstName: "Sustainability",
-        lastName: "International",
-        organization: null,
-        profilePhoto: "https://s3.us-east-2.amazonaws.com/selamvp/user-avatars/2e32a23c-22f3-44ee-9773-d19eece652c0_076nsX1X_400x400.jpg",
-        _id: "5c7e5e4b05edda0022e50892"
-        },
+        sender,
         status: "CONFIRMED",
         success: true,
         updatedAt: "2018-04-24T19:28:56Z",
