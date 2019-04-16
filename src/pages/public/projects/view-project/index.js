@@ -7,9 +7,9 @@ import Navbar from "../../../../shared-components/navbar";
 // import Line from "rc-progress/lib/Line";
 import Description from "./subs/description";
 import Stakeholders from "./subs/stakeholders";
-import Updates from "./subs/updates";
+// import Updates from "./subs/updates";
 // import Map from "./subs/map";
-// import Media from "./subs/media";
+ import Updates from "./subs/media";
 // import mapping from "../../../../mapping";
 import { Line } from "rc-progress";
 import help from "../../../../assets/icons/help.svg";
@@ -241,7 +241,7 @@ class ViewProject extends React.Component {
             </div>
           </div>
 
-          <div className={`xs-12 ${this.props.match.params.show === 'media' ?'':'variable' }`}>
+          <div className={`xs-12 ${this.props.match.params.show === 'updates' ?'':'variable' }`}>
             <DetermineWhatToShow
               show={this.props.match.params.show}
               id={id}

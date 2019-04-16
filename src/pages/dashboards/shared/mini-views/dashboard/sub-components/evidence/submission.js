@@ -334,7 +334,7 @@ class SubmissionEvidence extends Component{
                                         <div className='xs-12 inner'>
 
                                         {   datum.datatype === 'image' ?
-                                            <div className={`xs-12 container ${datum.type}`} 
+                                            <div className={`xs-12 container ${datum.datatype}`} 
                                             onClick={()=>this.props.showSubmissionByType({
                                                 type: datum.datatype, submissionData: { 
                                                     ...datum,
