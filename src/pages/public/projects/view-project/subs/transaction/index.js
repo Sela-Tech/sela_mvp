@@ -9,6 +9,7 @@ import { SHOW_STAKEHOLDER_MODAL } from "../../../../../../store/actions/modal";
 import { showModal } from "../../../../../../store/action-creators/modal";
 import pilotData from "./pilot.data";
 import { isLiveNet } from "../../../../../../startupMode.config";
+import { ShowDisclaimer } from "../../../../../../startupMode.config";
 
 const TokenWrapper = styled.div`
     overflow: auto;
@@ -106,14 +107,21 @@ const TokenWrapper = styled.div`
     }
 `;
 
+const mapStateToPropsForTokenClass = state => {
+    return {};
+}
 
-const Token = connect(()=>{return {}}, dispatch=>{
-  return {
-    showSH: id => {
-    if(Boolean(id))
-        dispatch(showModal( SHOW_STAKEHOLDER_MODAL, { stakeholder: id }))
+const mapDispatchToPropsForTokenClass = dispatch => {
+    return {
+        showSH: id => {
+        if(Boolean(id))
+            dispatch(showModal( SHOW_STAKEHOLDER_MODAL, { stakeholder: id }))
+        }
     }
-  }})(class extends Component {
+}
+
+const Token = connect(mapStateToPropsForTokenClass, mapDispatchToPropsForTokenClass)(
+    class extends Component {
     constructor(props){
         super(props);
         this.state = {
@@ -132,9 +140,7 @@ const Token = connect(()=>{return {}}, dispatch=>{
 
     showSH = id => this.props.showSH(id)
 
-  
     render(){
-        
         const { info } = this.state;
        // store only receivers
         let receivers = new Set([]);
@@ -151,8 +157,7 @@ const Token = connect(()=>{return {}}, dispatch=>{
         });;
 
         receivers = [...receivers];
-
-        
+   
         let amountSpent = 0;
 
         if(info.transactions && info.transactions.length > 0){
@@ -165,6 +170,16 @@ const Token = connect(()=>{return {}}, dispatch=>{
           <Fragment>
             <TokenWrapper className='xs-12'>
               <div className='overview xs-12'>
+                { 
+                ShowDisclaimer(this.props.id) && 
+                    <div className='xs-12 disclaimer pad-white' style={{width: "100%"}}>
+                        <h3 style={{color: "tomato"}} >Disclaimer</h3>
+                        <p>This is a historical project backfilled with data from a previous version of the platform.</p>
+                        <p>At the time of the project, we used tokens as a digital voucher for data received.</p><p> We had not yet adopted the convention that each project would have its token and that 1 token was equal to $1.</p>
+                    </div>
+                }
+            
+            {  ShowDisclaimer(this.props.id) === false && 
               <div className='text xs-12'>
                   <div className='xs-12 sm-8'>
                   
@@ -191,25 +206,10 @@ const Token = connect(()=>{return {}}, dispatch=>{
                           <span style={{color: "skyblue", fontSize: "0.75em"}}> {window.moneyFormat( info.totalBudget - amountSpent,'')} Dollars</span>
                           </h4>
                       </div>
-                  </div>
 
-                  {/* {
-                      info.createdToken && info.createdToken.distributor 
-                      && info.createdToken.distributor.distributionAccountBalances.map((token,i)=>{
-                          return <div className='xs-12' key={i}>
-                              { token.type !== 'native' && 
-                                  <Fragment>
-                                      <div className='xs-4'>
-                                          <label>PST Code</label>
-                                          <h4>{token.token} | {info.projectName}</h4>
-                                      </div>
-                                  </Fragment>
-                              }                           
-                      </div>
-                      })
-                  } */}
-                
+                  </div>                
               </div>
+            }
        
           </div>
               <TableWrapper className='xs-12'>
@@ -221,22 +221,13 @@ const Token = connect(()=>{return {}}, dispatch=>{
                         </div>
                         
                         <div className='f-r t-options'>
-
-
                             <a href={`https://${ isLiveNet(info.distributorPublicKey) === false ? 'testnet.': ''}steexp.com/account/${info.distributorPublicKey}`} target="_blank" rel ='noopener noreferrer' className='view-on-block'>View All On Explorer</a>
-                            
-                            {/* <select className='form-control'>
-                                <option value="no-filter">No Filter</option>
-                                <option value="xlm">Lumens</option>
-                                {info.transactions.length > 0 &&
-                                    <option value="pst">{info.transactions[0].asset}</option>
-                                }
-                            </select> */}
-
                         </div>
+
                     </div>
 
                     <div className='headings xs-12'>
+
                         <div className='xs-3'>
                             <h3>From</h3>
                             </div>
@@ -255,14 +246,10 @@ const Token = connect(()=>{return {}}, dispatch=>{
                             <h3>Proof</h3>
                             </div>
                         </div>
+
                     <div className='content xs-12'>
                         { 
                             info.transactions.map(t=>{
-                                if(this.props.overwrite === true){
-                                    const temp = {...t};
-                                    temp.value = temp.value / 171;
-                                    return temp;
-                                }
                                 return t;
                             }).map((transaction,i)=>{
                                 return <div className='row xs-12' key={i}>
@@ -301,6 +288,7 @@ const Token = connect(()=>{return {}}, dispatch=>{
                             })
                         }
                     </div>
+
                 </TableWrapper>
             </TokenWrapper>
           </Fragment>
@@ -313,34 +301,34 @@ const TranWrapper = styled.div`
 `;
 
 class TransactionsClass extends Component{
-  constructor(props){
-    super(props);
-    if(props.id !== "5ca8a10d35b915002208c730"){
-        props.dispatch(get_public_transactions(props.id))
+    constructor(props){
+        super(props);
+        if(props.id !== "5ca8a10d35b915002208c730"){
+            props.dispatch(get_public_transactions(props.id))
+        }
+        this.state = {}
     }
-    this.state = {}
-  }
 
-render(){
+    render(){
 
-    let { info,id } = this.props;
+        let { info,id } = this.props;
 
-    const data = id === "5ca8a10d35b915002208c730" ? {...pilotData} : info;
+        const data = id === "5ca8a10d35b915002208c730" ? {...pilotData} : info;
 
-    let overwrite = false;
-    if(id === "5ca8a10d35b915002208c730"){
-        overwrite = true;
+        let overwrite = false;
+        if(id === "5ca8a10d35b915002208c730"){
+            overwrite = true;
+        }
+        
+        return (
+        <TranWrapper className="xs-12">
+            <div className="xs-10 xs-off-1">
+            <Token info={data || { transactions: []}} overwrite={overwrite} id={this.props.id}/>
+            </div>
+        </TranWrapper>
+        );
     }
-    
-    return (
-      <TranWrapper className="xs-12">
-        <div className="xs-10 xs-off-1">
-          <Token info={data || { transactions: []}} overwrite={overwrite}/>
-        </div>
-      </TranWrapper>
-    );
-  }
-};
+    };
 
 const mapStateToProps = state => {
   return {

@@ -7,8 +7,11 @@ import {Bar} from "recharts";
 
 import connect from "react-redux/lib/connect/connect";
 import { ResponsiveLine } from '@nivo/line'
-
+import ReactTooltip from "react-tooltip";
 import { withRouter } from "react-router";
+
+import help from "../../../../../../../assets/icons/help.svg";
+// import { ShowDisclaimer } from "../../../../../../../startupMode.config";
 
 const data_for_line_graph = [
   { "name": "TPH Calibration Curve",
@@ -304,34 +307,18 @@ class Analytics extends React.Component {
 
   handleDateUpdate = e => this.setState({ date: e.target.value });
 
+
   render() {
     return (
 
       <AStyle className="xs-12">
         
       <div className="xs-12" id="top">
+
         <div className="xs-12">
           <div className="f-l c-sm-screen">
             <h3>Project Health Overview</h3>
           </div>
-
-            {/* <div className="f-r c-sm-screen">
-              <select
-                className="date"
-                name="date"
-                value={date}
-                onChange={this.handleDateUpdate}
-              >
-                <option value="30">Last 30 days </option>
-                <option value="60">Last 60 days </option>
-                <option value="90">Last 90 days </option>
-                <option value="120">Last 120 days </option>
-                <option value="150">Last 150 days </option>
-                <option value="250">Last 250 days </option>
-                <option value="365">Last 365 days </option>
-              </select>
-            </div>
-              */}
         </div>
       </div>
 
@@ -393,7 +380,6 @@ class Analytics extends React.Component {
               </div>
             </div>
           </div>
-
           <div className="xs-12 sm-6 md-3">
             <div className="xs-12 sm-11">
               <div className="xs-12 a-info-card">
@@ -421,7 +407,6 @@ class Analytics extends React.Component {
               </div>
             </div>
           </div>
-
           <div className="xs-12 sm-6 md-3">
             <div className="xs-12 sm-11">
               <div className="xs-12 a-info-card">
@@ -444,278 +429,284 @@ class Analytics extends React.Component {
               </div>
             </div>
           </div>
-        </div>
+      </div>
 
-        <div className="xs-12" id="top">
-          <div className="xs-12">
-            <div className="f-l c-sm-screen">
-              <h3>Visualizations</h3>
-            </div>
+      <div className="xs-12" id="top">
+        <div className="xs-12">
+          <div className="f-l c-sm-screen">
+            <h3>Visualizations</h3>
           </div>
         </div>
+      </div>
 
+      <section className='xs-12 graphs'>
         { 
-       // this.props.match.params.id === "5c8690c8e432c70022633168" &&
         <Fragment>
 
-        <div className='xs-12' style={{height: 350, marginTop: '2em'}}>
-            <p style={{
-              padding: 0,
-              margin: 0,
-              fontSize: '0.9em',
-              color: '#777',
-              fontWeight: '300'
-            }}>{data_for_line_graph[0].name}</p>
-           <ResponsiveLine
-              data={data_for_line_graph}
-              margin={{
-                  "top": 50,
-                  "right": 200,
-                  "bottom": 50,
-                  "left": 60
-              }}
-              xScale={{
-                  "type": "linear"
-              }}
-              yScale={{
-                  "type": "linear",
-                  "stacked": true,
-                  "min": "auto",
-                  "max": "auto"
-              }}
-              axisTop={null}
-              axisRight={null}
-              axisBottom={{
-                  "orient": "bottom",
-                  "tickSize": 5,
-                  "tickPadding": 5,
-                  "tickRotation": 0,
-                  "legend": data_for_line_graph[0].xAxisName,
-                  "legendOffset": 36,
-                  "legendPosition": "middle"
-              }}
-              axisLeft={{
-                  "orient": "left",
-                  "tickSize": 5,
-                  "tickPadding": 5,
-                  "tickRotation": 0,
-                  "legend": data_for_line_graph[0].yAxisName,
-                  "legendOffset": -40,
-                  "legendPosition": "middle"
-              }}
-              dotSize={10}
-              dotColor="inherit:darker(0.3)"
-              dotBorderWidth={2}
-              dotBorderColor="#ffffff"
-              enableDotLabel={true}
-              dotLabel="y"
-              dotLabelYOffset={-12}
-              animate={true}
-              motionStiffness={90}
-              motionDamping={15}
-              legends={[
-                  {
-                      "anchor": "bottom-right",
-                      "direction": "column",
-                      "justify": false,
-                      "translateX": 100,
-                      "translateY": 0,
-                      "itemsSpacing": 0,
-                      "itemDirection": "left-to-right",
-                      "itemWidth": 80,
-                      "itemHeight": 20,
-                      "itemOpacity": 0.75,
-                      "symbolSize": 12,
-                      "symbolShape": "circle",
-                      "symbolBorderColor": "rgba(0, 0, 0, .5)",
-                      "effects": [
-                          {
-                              "on": "hover",
-                              "style": {
-                                  "itemBackground": "rgba(0, 0, 0, .03)",
-                                  "itemOpacity": 1
+        <div className='xs-12 graph-container'>
+            <p>
+                <span>{data_for_line_graph[0].name}</span>
+                <span><img src={help} data-tip data-for={'TPH Calibration Curve'} alt='' className='help'/></span>
+            </p>
+            <div className='xs-12 one'>
+              <ResponsiveLine
+                  data={data_for_line_graph}
+                  margin={{
+                      "top": 50,
+                      "right": 200,
+                      "bottom": 50,
+                      "left": 60
+                  }}
+                  xScale={{
+                      "type": "linear"
+                  }}
+                  yScale={{
+                      "type": "linear",
+                      "stacked": true,
+                      "min": "auto",
+                      "max": "auto"
+                  }}
+                  axisTop={null}
+                  axisRight={null}
+                  axisBottom={{
+                      "orient": "bottom",
+                      "tickSize": 5,
+                      "tickPadding": 5,
+                      "tickRotation": 0,
+                      "legend": data_for_line_graph[0].xAxisName,
+                      "legendOffset": 36,
+                      "legendPosition": "middle"
+                  }}
+                  axisLeft={{
+                      "orient": "left",
+                      "tickSize": 5,
+                      "tickPadding": 5,
+                      "tickRotation": 0,
+                      "legend": data_for_line_graph[0].yAxisName,
+                      "legendOffset": -40,
+                      "legendPosition": "middle"
+                  }}
+                  dotSize={10}
+                  dotColor="inherit:darker(0.3)"
+                  dotBorderWidth={2}
+                  dotBorderColor="#ffffff"
+                  enableDotLabel={true}
+                  dotLabel="y"
+                  dotLabelYOffset={-12}
+                  animate={true}
+                  motionStiffness={90}
+                  motionDamping={15}
+                  legends={[
+                      {
+                          "anchor": "bottom-right",
+                          "direction": "column",
+                          "justify": false,
+                          "translateX": 100,
+                          "translateY": 0,
+                          "itemsSpacing": 0,
+                          "itemDirection": "left-to-right",
+                          "itemWidth": 80,
+                          "itemHeight": 20,
+                          "itemOpacity": 0.75,
+                          "symbolSize": 12,
+                          "symbolShape": "circle",
+                          "symbolBorderColor": "rgba(0, 0, 0, .5)",
+                          "effects": [
+                              {
+                                  "on": "hover",
+                                  "style": {
+                                      "itemBackground": "rgba(0, 0, 0, .03)",
+                                      "itemOpacity": 1
+                                  }
                               }
-                          }
-                      ]
-                  }
-              ]}
-          />
+                          ]
+                      }
+                  ]}
+              />
+            </div>
         </div>
         
-        <div className='xs-12' style={{height: 350, marginTop: '2em' }}>
-            <p style={{
-              padding: 0,
-              margin: 0,
-              marginTop: '1em',
-              fontSize: '0.9em',
-              color: '#777',
-              fontWeight: '300'
-            }}>{data_right[0].name}</p>
-           <ResponsiveLine
-              data={data_right}
-              margin={{
-                  "top": 50,
-                  "right": 200,
-                  "bottom": 50,
-                  "left": 60
-              }}
-              xScale={{
-                  "type": "point"
-              }}
-              yScale={{
-                  "type": "linear",
-                  "stacked": true,
-                  "min": "auto",
-                  "max": "auto"
-              }}
-              axisTop={null}
-              axisRight={null}
-              axisBottom={{
-                  "orient": "bottom",
-                  "tickSize": 5,
-                  "tickPadding": 5,
-                  "tickRotation": 0,
-                  "legend": data_right[0].xAxisName,
-                  "legendOffset": 36,
-                  "legendPosition": "middle"
-              }}
-              axisLeft={{
-                  "orient": "left",
-                  "tickSize": 5,
-                  "tickPadding": 5,
-                  "tickRotation": 0,
-                  "legend": data_right[0].yAxisName,
-                  "legendOffset": -40,
-                  "legendPosition": "middle"
-              }}
-              dotSize={10}
-              dotColor="inherit:darker(0.3)"
-              dotBorderWidth={2}
-              dotBorderColor="#ffffff"
-              enableDotLabel={true}
-              dotLabel="y"
-              dotLabelYOffset={-12}
-              animate={true}
-              motionStiffness={90}
-              motionDamping={15}
-              legends={[
-                  {
-                      "anchor": "bottom-right",
-                      "direction": "column",
-                      "justify": false,
-                      "translateX": 100,
-                      "translateY": 0,
-                      "itemsSpacing": 0,
-                      "itemDirection": "left-to-right",
-                      "itemWidth": 80,
-                      "itemHeight": 20,
-                      "itemOpacity": 0.75,
-                      "symbolSize": 12,
-                      "symbolShape": "circle",
-                      "symbolBorderColor": "rgba(0, 0, 0, .5)",
-                      "effects": [
-                          {
-                              "on": "hover",
-                              "style": {
-                                  "itemBackground": "rgba(0, 0, 0, .03)",
-                                  "itemOpacity": 1
-                              }
-                          }
-                      ]
-                  }
-              ]}
-          />
+        <div className='xs-12 graph-container'>
+            <p>
+              <span>{data_right[0].name}</span>
+              <span><img src={help} data-tip data-for={'Total Petroleum Hydrocarbon Content Of Soil'} alt='' className='help'/></span>
+            </p>
+          
+          <div className='xs-12 one'>
+            <ResponsiveLine
+                data={data_right}
+                margin={{
+                    "top": 50,
+                    "right": 200,
+                    "bottom": 50,
+                    "left": 60
+                }}
+                xScale={{
+                    "type": "point"
+                }}
+                yScale={{
+                    "type": "linear",
+                    "stacked": true,
+                    "min": "auto",
+                    "max": "auto"
+                }}
+                axisTop={null}
+                axisRight={null}
+                axisBottom={{
+                    "orient": "bottom",
+                    "tickSize": 5,
+                    "tickPadding": 5,
+                    "tickRotation": 0,
+                    "legend": data_right[0].xAxisName,
+                    "legendOffset": 36,
+                    "legendPosition": "middle"
+                }}
+                axisLeft={{
+                    "orient": "left",
+                    "tickSize": 5,
+                    "tickPadding": 5,
+                    "tickRotation": 0,
+                    "legend": data_right[0].yAxisName,
+                    "legendOffset": -40,
+                    "legendPosition": "middle"
+                }}
+                dotSize={10}
+                dotColor="inherit:darker(0.3)"
+                dotBorderWidth={2}
+                dotBorderColor="#ffffff"
+                enableDotLabel={true}
+                dotLabel="y"
+                dotLabelYOffset={-12}
+                animate={true}
+                motionStiffness={90}
+                motionDamping={15}
+                legends={[
+                    {
+                        "anchor": "bottom-right",
+                        "direction": "column",
+                        "justify": false,
+                        "translateX": 100,
+                        "translateY": 0,
+                        "itemsSpacing": 0,
+                        "itemDirection": "left-to-right",
+                        "itemWidth": 80,
+                        "itemHeight": 20,
+                        "itemOpacity": 0.75,
+                        "symbolSize": 12,
+                        "symbolShape": "circle",
+                        "symbolBorderColor": "rgba(0, 0, 0, .5)",
+                        "effects": [
+                            {
+                                "on": "hover",
+                                "style": {
+                                    "itemBackground": "rgba(0, 0, 0, .03)",
+                                    "itemOpacity": 1
+                                }
+                            }
+                        ]
+                    }
+                ]}
+            />
+          </div>
+
+          <div className='xs-12 two'>
+            <ResponsiveLine
+                data={data_left}
+                margin={{
+                    "top": 50,
+                    "right": 200,
+                    "bottom": 50,
+                    "left": 60
+                }}
+                xScale={{
+                    "type": "point"
+                }}
+                yScale={{
+                    "type": "linear",
+                    "stacked": true,
+                    "min": "auto",
+                    "max": "auto"
+                }}
+                axisTop={null}
+                axisRight={null}
+                axisBottom={{
+                    "orient": "bottom",
+                    "tickSize": 5,
+                    "tickPadding": 5,
+                    "tickRotation": 0,
+                    "legend": data_left[0].xAxisName,
+                    "legendOffset": 36,
+                    "legendPosition": "middle"
+                }}
+                axisLeft={{
+                    "orient": "left",
+                    "tickSize": 5,
+                    "tickPadding": 5,
+                    "tickRotation": 0,
+                    "legend": data_left[0].yAxisName,
+                    "legendOffset": -40,
+                    "legendPosition": "middle"
+                }}
+                dotSize={10}
+                dotColor="inherit:darker(0.3)"
+                dotBorderWidth={2}
+                dotBorderColor="#ffffff"
+                enableDotLabel={true}
+                dotLabel="y"
+                dotLabelYOffset={-12}
+                animate={true}
+                motionStiffness={90}
+                motionDamping={15}
+                legends={[
+                    {
+                        "anchor": "bottom-right",
+                        "direction": "column",
+                        "justify": false,
+                        "translateX": 100,
+                        "translateY": 0,
+                        "itemsSpacing": 0,
+                        "itemDirection": "left-to-right",
+                        "itemWidth": 80,
+                        "itemHeight": 20,
+                        "itemOpacity": 0.75,
+                        "symbolSize": 12,
+                        "symbolShape": "circle",
+                        "symbolBorderColor": "rgba(0, 0, 0, .5)",
+                        "effects": [
+                            {
+                                "on": "hover",
+                                "style": {
+                                    "itemBackground": "rgba(0, 0, 0, .03)",
+                                    "itemOpacity": 1
+                                }
+                            }
+                        ]
+                    }
+                ]}
+            />
+          </div>
+        
         </div>
         
-        <div className='xs-12' style={{height: 350, marginTop: '2em' }}>
-            <p style={{
-              padding: 0,
-              margin: 0,
-              fontSize: '0.9em',
-              color: '#777',
-              fontWeight: '300'
-            }}>{data_left[0].name}</p>
-           <ResponsiveLine
-              data={data_left}
-              margin={{
-                  "top": 50,
-                  "right": 200,
-                  "bottom": 50,
-                  "left": 60
-              }}
-              xScale={{
-                  "type": "point"
-              }}
-              yScale={{
-                  "type": "linear",
-                  "stacked": true,
-                  "min": "auto",
-                  "max": "auto"
-              }}
-              axisTop={null}
-              axisRight={null}
-              axisBottom={{
-                  "orient": "bottom",
-                  "tickSize": 5,
-                  "tickPadding": 5,
-                  "tickRotation": 0,
-                  "legend": data_left[0].xAxisName,
-                  "legendOffset": 36,
-                  "legendPosition": "middle"
-              }}
-              axisLeft={{
-                  "orient": "left",
-                  "tickSize": 5,
-                  "tickPadding": 5,
-                  "tickRotation": 0,
-                  "legend": data_left[0].yAxisName,
-                  "legendOffset": -40,
-                  "legendPosition": "middle"
-              }}
-              dotSize={10}
-              dotColor="inherit:darker(0.3)"
-              dotBorderWidth={2}
-              dotBorderColor="#ffffff"
-              enableDotLabel={true}
-              dotLabel="y"
-              dotLabelYOffset={-12}
-              animate={true}
-              motionStiffness={90}
-              motionDamping={15}
-              legends={[
-                  {
-                      "anchor": "bottom-right",
-                      "direction": "column",
-                      "justify": false,
-                      "translateX": 100,
-                      "translateY": 0,
-                      "itemsSpacing": 0,
-                      "itemDirection": "left-to-right",
-                      "itemWidth": 80,
-                      "itemHeight": 20,
-                      "itemOpacity": 0.75,
-                      "symbolSize": 12,
-                      "symbolShape": "circle",
-                      "symbolBorderColor": "rgba(0, 0, 0, .5)",
-                      "effects": [
-                          {
-                              "on": "hover",
-                              "style": {
-                                  "itemBackground": "rgba(0, 0, 0, .03)",
-                                  "itemOpacity": 1
-                              }
-                          }
-                      ]
-                  }
-              ]}
-          />
-        </div>
-        
+             <div className='xs-12'>
+                      
+              <ReactTooltip place="bottom" type="info" effect="solid" id='TPH Calibration Curve'>
+                <span style={{color: "white"}}>Experimental method used to determine TPH level from different soil samples</span>
+              </ReactTooltip>
+
+              <ReactTooltip place="bottom" type="info" effect="solid" id='Total Petroleum Hydrocarbon Content Of Soil'>
+                <span  style={{color: "white"}}>
+                Total petroleum hydrocarbons (TPH) is a term used to describe a large family of several hundred chemical compounds that originally come from crude oil.
+                </span>
+              </ReactTooltip>
+            
+            </div>
         </Fragment>
         }
+        </section>
   
       </AStyle>
-    );
+    )
   }
 }
 

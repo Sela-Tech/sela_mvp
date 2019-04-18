@@ -175,22 +175,6 @@ const DescriptionWrapper = styled.div`
   font-size: 1em !important;
 }
 
-.pad-white{
-  padding: 1.5em;
-  border-radius: 3px;
-  background: white;
-  margin-bottom: 1em;
-
-  @media(min-width: 768px){
-    width: 95%;
-  }
-
-  p,label{
-    color: #666;
-    font-weight: 400;
-  }
-}
-
 #sdgs{
   width: 100% !important;
 }
@@ -198,6 +182,8 @@ const DescriptionWrapper = styled.div`
 
 const DescriptionSub =  ({ id, project, dispatch }) => {
   
+  const { extra } = project;
+
   const displayStakeholder =  id =>{
     dispatch(
       showModal( SHOW_STAKEHOLDER_MODAL, { stakeholder: id })
@@ -206,7 +192,7 @@ const DescriptionSub =  ({ id, project, dispatch }) => {
 
   const displaySDGInfo =  sdg => dispatch(showModal( LAUNCH_SDG, { sdg } ));
 
-  const { extra } = project;
+
   let size;
   
   if(extra && extra.length > 0){
@@ -270,7 +256,20 @@ const DescriptionSub =  ({ id, project, dispatch }) => {
                 <h5>Additional documents</h5>
                 
                 <div className='xs-12 sm-10 document'>
-                    {project.documents && project.documents.length === 0 && <label>No Documents Found.</label>}
+                    {ShowDisclaimer(id) ? 
+                    <div className='xs-12 inner'>
+                            <div className={`img preview-doc xs-3 sm-2`}/>
+                            <div className='text xs-6 sm-7'>
+                              <h4>Beyond Protocol Reflecting On The Sela Platform</h4>
+                            </div>
+                            <div className='download xs-2 sm-2'>
+                              <a href={'https://medium.com/sela-labs/beyond-protocol-reflecting-on-the-sela-platform-mid-april-pilot-e04c8204a5d1'
+} target="_blank" rel="noopener noreferrer">Read</a>
+                            </div>
+                        </div>
+                    : project.documents && project.documents.length === 0 && <label>No Documents Found.</label>
+                    }
+
                     {
                         project.documents && project.documents.map((doc,i)=>{
                         let type = doc.filetype.split("/")[0];

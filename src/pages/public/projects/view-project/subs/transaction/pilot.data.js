@@ -21,7 +21,7 @@ export default {
             firstName: "Collins",
             lastName: "Peters",
             organization: {_id: "5ca43f6afb8df10022cf5cfd", name: "Sela Citizens"},
-            profilePhoto: "http://placehold.it/50",
+            profilePhoto: "https://s3.us-east-2.amazonaws.com/selamvp/user-avatars/0cb47901-e8a0-4f04-82e9-e86f6e949e75_ScreenShot2019-04-18at3.11.37PM.png",
             _id: "5ca329cb8a38f000227463ae"
         },
         sender,
@@ -44,7 +44,7 @@ export default {
             firstName: "Collins",
             lastName: "Peters",
             organization: {_id: "5ca43f6afb8df10022cf5cfd", name: "Sela Citizens"},
-            profilePhoto: "http://placehold.it/50",
+            profilePhoto: "https://s3.us-east-2.amazonaws.com/selamvp/user-avatars/0cb47901-e8a0-4f04-82e9-e86f6e949e75_ScreenShot2019-04-18at3.11.37PM.png",
             _id: "5ca329cb8a38f000227463ae"
         },
         sender,
@@ -67,7 +67,7 @@ export default {
             firstName: "Collins",
             lastName: "Peters",
             organization: {_id: "5ca43f6afb8df10022cf5cfd", name: "Sela Citizens"},
-            profilePhoto: "http://placehold.it/50",
+            profilePhoto: "https://s3.us-east-2.amazonaws.com/selamvp/user-avatars/0cb47901-e8a0-4f04-82e9-e86f6e949e75_ScreenShot2019-04-18at3.11.37PM.png",
             _id: "5ca329cb8a38f000227463ae"
         },
         sender,
@@ -90,7 +90,7 @@ export default {
             firstName: "Collins",
             lastName: "Peters",
             organization: {_id: "5ca43f6afb8df10022cf5cfd", name: "Sela Citizens"},
-            profilePhoto: "http://placehold.it/50",
+            profilePhoto: "https://s3.us-east-2.amazonaws.com/selamvp/user-avatars/0cb47901-e8a0-4f04-82e9-e86f6e949e75_ScreenShot2019-04-18at3.11.37PM.png",
             _id: "5ca329cb8a38f000227463ae"
         },
         sender,
@@ -113,7 +113,7 @@ export default {
             firstName: "Collins",
             lastName: "Peters",
             organization: {_id: "5ca43f6afb8df10022cf5cfd", name: "Sela Citizens"},
-            profilePhoto: "http://placehold.it/50",
+            profilePhoto: "https://s3.us-east-2.amazonaws.com/selamvp/user-avatars/0cb47901-e8a0-4f04-82e9-e86f6e949e75_ScreenShot2019-04-18at3.11.37PM.png",
             _id: "5ca329cb8a38f000227463ae"
         },
         sender,
@@ -136,7 +136,7 @@ export default {
             firstName: "Collins",
             lastName: "Peters",
             organization: {_id: "5ca43f6afb8df10022cf5cfd", name: "Sela Citizens"},
-            profilePhoto: "http://placehold.it/50",
+            profilePhoto: "https://s3.us-east-2.amazonaws.com/selamvp/user-avatars/0cb47901-e8a0-4f04-82e9-e86f6e949e75_ScreenShot2019-04-18at3.11.37PM.png",
             _id: "5ca329cb8a38f000227463ae"
         },
         sender,
@@ -159,7 +159,7 @@ export default {
             firstName: "Collins",
             lastName: "Peters",
             organization: {_id: "5ca43f6afb8df10022cf5cfd", name: "Sela Citizens"},
-            profilePhoto: "http://placehold.it/50",
+            profilePhoto: "https://s3.us-east-2.amazonaws.com/selamvp/user-avatars/0cb47901-e8a0-4f04-82e9-e86f6e949e75_ScreenShot2019-04-18at3.11.37PM.png",
             _id: "5ca329cb8a38f000227463ae"
         },
         sender,
@@ -182,7 +182,7 @@ export default {
             firstName: "Collins",
             lastName: "Peters",
             organization: {_id: "5ca43f6afb8df10022cf5cfd", name: "Sela Citizens"},
-            profilePhoto: "http://placehold.it/50",
+            profilePhoto: "https://s3.us-east-2.amazonaws.com/selamvp/user-avatars/0cb47901-e8a0-4f04-82e9-e86f6e949e75_ScreenShot2019-04-18at3.11.37PM.png",
             _id: "5ca329cb8a38f000227463ae"
         },
         sender,
@@ -205,7 +205,7 @@ export default {
             firstName: "Collins",
             lastName: "Peters",
             organization: {_id: "5ca43f6afb8df10022cf5cfd", name: "Sela Citizens"},
-            profilePhoto: "http://placehold.it/50",
+            profilePhoto: "https://s3.us-east-2.amazonaws.com/selamvp/user-avatars/0cb47901-e8a0-4f04-82e9-e86f6e949e75_ScreenShot2019-04-18at3.11.37PM.png",
             _id: "5ca329cb8a38f000227463ae"
         },
         sender,
@@ -228,7 +228,7 @@ export default {
             firstName: "Collins",
             lastName: "Peters",
             organization: {_id: "5ca43f6afb8df10022cf5cfd", name: "Sela Citizens"},
-            profilePhoto: "http://placehold.it/50",
+            profilePhoto: "https://s3.us-east-2.amazonaws.com/selamvp/user-avatars/0cb47901-e8a0-4f04-82e9-e86f6e949e75_ScreenShot2019-04-18at3.11.37PM.png",
             _id: "5ca329cb8a38f000227463ae"
         },
         sender,
@@ -251,7 +251,7 @@ export default {
             firstName: "Collins",
             lastName: "Peters",
             organization: {_id: "5ca43f6afb8df10022cf5cfd", name: "Sela Citizens"},
-            profilePhoto: "http://placehold.it/50",
+            profilePhoto: "https://s3.us-east-2.amazonaws.com/selamvp/user-avatars/0cb47901-e8a0-4f04-82e9-e86f6e949e75_ScreenShot2019-04-18at3.11.37PM.png",
             _id: "5ca329cb8a38f000227463ae"
         },
         sender,
@@ -274,7 +274,7 @@ export default {
             firstName: "Collins",
             lastName: "Peters",
             organization: {_id: "5ca43f6afb8df10022cf5cfd", name: "Sela Citizens"},
-            profilePhoto: "http://placehold.it/50",
+            profilePhoto: "https://s3.us-east-2.amazonaws.com/selamvp/user-avatars/0cb47901-e8a0-4f04-82e9-e86f6e949e75_ScreenShot2019-04-18at3.11.37PM.png",
             _id: "5ca329cb8a38f000227463ae"
         },
         sender,
@@ -286,7 +286,7 @@ export default {
     }].sort((a,b)=>{
         return new Date(b.createdAt) - new Date(a.createdAt); 
     }).map(o => {
-        o.value =  o.value * 171;
+        // o.value =  o.value * 171;
         return o;
     }),
     distributorPublicKey: "GAD4KBKNWN5IB6SL7IEVU2ZGBHHSY75575XFL6K52RT4MYIQUEZUGDP7",

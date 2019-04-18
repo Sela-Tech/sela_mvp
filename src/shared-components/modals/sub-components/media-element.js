@@ -18,7 +18,7 @@ const MediaElemWrapper = styled.div`
   }
   }
   margin-bottom: 0.5em;
-  height: 6em;
+  height: 10em;
   cursor: pointer;
 
   > div {
@@ -64,6 +64,7 @@ const MediaElemWrapper = styled.div`
       width: 100%;
       height: 100%;
       z-index: 1;
+      left: 0;
       span {
         color: white;
         border: 2px solid white;
@@ -75,12 +76,6 @@ const MediaElemWrapper = styled.div`
         padding-left: 2px;
       }
     }
-  }
-
-  video {
-    width: 100%;
-    object-fit: contain;
-    height: 100%;
   }
 
   .good {
@@ -98,7 +93,15 @@ const MediaElemWrapper = styled.div`
     padding: auto;
   }
 
-text-align: center;
+  text-align: center;
+
+  img, video{
+    height: 100%;
+    width: 100%;
+    display: block;
+    object-fit: cover;
+  }
+
 `;
 
 const mapStateToProps = state => {
@@ -138,8 +141,8 @@ export default connect(mapStateToProps)(
       });
     };
 
-    componentDidMount() {
-      const v = this.refs.video;
+    componentDidMount(){
+      const v = this.refs.media;
       //make sure the video exists before listening
       if (v) {
         v.addEventListener("loadeddata", this.cbSuccess);
@@ -147,47 +150,26 @@ export default connect(mapStateToProps)(
       }
     }
 
-    componentWillUnmount() {
-      const v = this.refs.video;
+    componentWillUnmount(){
+      const v = this.refs.media;
       if (v) {
         //remove the listeners when component is dropped
         v.removeEventListener("loadeddata", this.cbSuccess);
         v.removeEventListener("error", this.cbFailed);
       }
     }
-    render() {
-      const {
-          status,
-          poster,
-          type,
-          name,
-          redux_playing,
-          redux_src,
-          src
-        } = this.props,
-        iconPicker =
-          redux_playing === true ? (
-            src === redux_src ? (
-              <Icon name="pause" />
-            ) : (
-              <Icon name="play" />
-            )
-          ) : (
-            <Icon name="play" />
-          );
 
+    render(){
+
+      const { status, type, name, src } = this.props;
+      // iconPicker = redux_playing === true ?  
+      // src === redux_src  ? <Icon name = "pause" /> : <Icon name="play" />  :  <Icon name="play" />;
       switch (type) {
-        case "document":
+
+        case "table":
           return (
-            <MediaElemWrapper
-              className="xs-6 sm-3"
-              onClick={() => window.open(src, "_blank")}
-            >
-              {status === "good" ? (
-                <Icon className="s good" name="check" />
-              ) : (
-                <Icon className="s bad" name="exclamation" />
-              )}
+            <MediaElemWrapper className="xs-6 sm-3" onClick={() => window.open(src, "_blank")}>
+              {status === "good" ? ( <Icon className="s good" name="check" /> ) : (  <Icon className="s bad" name="exclamation" />  )}
               <div className="xs-11">
                 <div className="center">
                   <img src={pdf} alt="" />
@@ -196,17 +178,14 @@ export default connect(mapStateToProps)(
               </div>
             </MediaElemWrapper>
           );
+
         default:
           if (this.state.hide === false) {
             return (
               <MediaElemWrapper className="xs-6 sm-3">
-                {status === "complete" ? (
-                  <Icon className="s good" name="check" />
-                ) : (
-                  <Icon className="s bad" name="exclamation" />
-                )}
+                {/* {status === "complete" ? ( <Icon className="s good" name="check" /> ) : ( <Icon className="s bad" name="exclamation" /> )} */}
                 <div className="xs-11">
-                  <button onClick={this.togglePlayer}>{iconPicker}</button>
+                  {/* <button onClick={this.togglePlayer}>{iconPicker}</button> */}
                   {this.state.videoLoaded === false && (
                     <div className="loading">
                       <div className="center-wrapper">
@@ -216,11 +195,12 @@ export default connect(mapStateToProps)(
                       </div>
                     </div>
                   )}
-                  <video poster={poster} src={src} ref={"video"} />
+                  <img src={src} ref={"media"} alt='' onLoad={this.cbSuccess  } />
                 </div>
               </MediaElemWrapper>
             );
           }
+
           return null;
       }
     }

@@ -12,7 +12,6 @@ const proposals = (type, data)=>{
   }
 }
 
-
 const evidence = (type, obj)=>{
   switch (type) {
     case "retrieve-submission":

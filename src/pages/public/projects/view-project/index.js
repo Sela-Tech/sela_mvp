@@ -7,9 +7,8 @@ import Navbar from "../../../../shared-components/navbar";
 // import Line from "rc-progress/lib/Line";
 import Description from "./subs/description";
 import Stakeholders from "./subs/stakeholders";
-// import Updates from "./subs/updates";
-// import Map from "./subs/map";
- import Updates from "./subs/media";
+import Updates from "./subs/updates";
+ //import Updates from "./subs/media";
 // import mapping from "../../../../mapping";
 import { Line } from "rc-progress";
 import help from "../../../../assets/icons/help.svg";
@@ -35,24 +34,21 @@ const OverrideAnalyticsWrapper = styled.div`
 const DetermineWhatToShow = ({ show, id, project }) => {
   switch (show) {
     case "transactions":
-      return <Transactions id={id} />;
+      return <Transactions id={id} />
    
     case "updates":
-      return <Updates id = {id} project={project}/>;
+      return <Updates id = {id} project={project}/>
   
     case "analytics":
       return <OverrideAnalyticsWrapper className='xs-10 xs-off-1'>
-        <Analytics project={project} />;
+        <Analytics project={project} id={id} />
       </OverrideAnalyticsWrapper>
     
     case "stakeholders":
-      return <Stakeholders project={project} />;
-    
-    // case "map":
-    // return <Map id={id} project={project}/>;
+      return <Stakeholders project={project} />
     
       default:
-      return <Description id={id} project={project} />;
+      return <Description id={id} project={project} />
   }
 };
 
@@ -181,7 +177,7 @@ class ViewProject extends React.Component {
                     {
                       project.status !== "COMPLETED" &&
                       <div className='xs-12'>
-                        <a href='http://www.sustainability-international.org/donate/' target='_blank' rel="noopener noreferrer" className='invest'>Fund</a> </div>
+                        <a href='http://www.sustainability-international.org/donate/' target='_blank' rel="noopener noreferrer" className='invest'>Sponsor This Project</a> </div>
                     }
                     
                   </div>
@@ -241,7 +237,9 @@ class ViewProject extends React.Component {
             </div>
           </div>
 
-          <div className={`xs-12 ${this.props.match.params.show === 'updates' ?'':'variable' }`}>
+          <div className={`xs-12  ${'variable'
+            //this.props.match.params.show === 'updates' ?'':'variable'
+             }`}>
             <DetermineWhatToShow
               show={this.props.match.params.show}
               id={id}

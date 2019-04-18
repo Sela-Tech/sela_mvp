@@ -2,6 +2,22 @@ import styled from "styled-components";
 
 export default styled.div`
 
+.pad-white{
+  padding: 1.5em;
+  border-radius: 3px;
+  background: white;
+  margin-bottom: 1em;
+
+  @media(min-width: 768px){
+    width: 95%;
+  }
+
+  p,label{
+    color: #666;
+    font-weight: 400;
+  }
+}
+
 .content{
   padding: 2.5em 0;
 }

@@ -1,6 +1,36 @@
 import styled from "styled-components";
 
 export default styled.div`
+  .graph-container{
+    height: auto;
+    margin-top: 2em;
+    background-color: white;
+    padding: 3em 1.5em;
+    border-radius: 5px;
+
+    > p{
+       padding: 0;
+      margin: 0;
+      font-size: 1.25em;
+      color: #555;
+      font-weight: 500;
+    }
+
+    .one, .two{
+      height: 500px;
+    }
+
+
+  }
+
+  .help{
+    height: 1.25em;
+    width: 1.25em;
+    margin-left: 0.5em;
+    position: relative;
+    top: 0.3em;
+  }
+
   #top {
     h3 {
       margin: 12px 0;
