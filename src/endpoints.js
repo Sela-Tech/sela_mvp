@@ -1,5 +1,4 @@
-let b = "https://sela-develop.herokuapp.com/";
-
+let b = "https://sela-testing.herokuapp.com/";
 
 const proposals = (type, data)=>{
   switch (type) {
