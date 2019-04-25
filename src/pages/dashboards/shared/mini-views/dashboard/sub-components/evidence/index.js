@@ -147,8 +147,7 @@ class Evidence extends React.Component {
                         // evidence.stakeholders.some(
                         //   ev=> ( ev.hasSubmitted === false && ev.user._id === this.props.my_id )) &&
                         <button className='view' onClick={()=>this.props.showSubmissionByType({
-                        type: evidence.datatype,
-                        submissionData: { fields: evidence.fields, mode: 'submit', evidenceRequestId: evidence._id }} )}> 
+                        type: evidence.datatype, submissionData: { fields: evidence.fields, mode: 'submit', evidenceRequestId: evidence._id }} )}> 
                           Submit
                         </button>
                       }

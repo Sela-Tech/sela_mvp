@@ -1,14 +1,97 @@
-import React from "react";
-// import moment from "moment";
-import MediaElement from "../../../../../../shared-components/modals/sub-components/media-element";
+import React, { Component, Fragment } from "react";
+import moment from "moment";
+// import MediaElement from "../../../../../../shared-components/modals/sub-components/media-element";
 import styled from "styled-components";
 import { connect } from "react-redux";
-import { retrieveSubmission } from "../../../../../../store/action-creators/evidence";
-/*
-  label saying all items are sorted from 
-*/
+import table from "./table.svg";
+
+// import { retrieveSubmission } from "../../../../../../store/action-creators/evidence";
+import { fetchUpdates } from "../../../../../../store/action-creators/homepage";
+import { SHOW_SUBMISSION_BY_TYPE_MODAL } from "../../../../../../store/actions/modal";
+import { showModal } from "../../../../../../store/action-creators/modal";
 
 const UpdateRow = styled.div`
+
+.evidence-img{
+  width: 100%;
+  margin: 1em 0 0;
+  height: 11em;
+  object-fit: cover;
+  background: #fafafa;
+}
+
+.table{
+  height: 11em;
+  background: #0A2C56;
+  text-align: center;
+  margin-top: 1em;
+
+  img{
+    display: block;
+    margin: 0 auto 1em;
+    height: 50px;
+    width: 50px;
+  }
+
+  p{
+    font-size: 0.75em;
+    color: white;
+    margin: 0;
+    line-height: 1.35em;
+    padding: 0 1em;
+  }
+}
+
+label{
+  font-size: 0.8em;
+    color: #777;
+}
+
+@media(min-width: 768px){
+  .proposal-name, .proposal-milestone{
+    float: left;
+  }
+  .proposal-name{
+    padding-right: 1em;
+  }
+  
+  .proposal-milestone{
+    border-left: 1px solid #eee;
+    padding-left: 1em;
+  }
+}
+
+@media(max-width: 767px){
+  .proposal-name, .proposal-milestone{
+    display: block;
+    padding-bottom: 1em;
+  }
+}
+
+.tasks{
+  .proposal-task{
+    border-bottom: 1px solid #eee;
+    margin: 1.5em 0;
+    display: block;
+    padding-bottom: 1em;
+    cursor: pointer;
+    label{
+      margin-top: 0.5em;
+      display: block;
+      &.d-s{
+        margin-top: 0 !important;
+      }
+    }
+    p{
+      margin: 0;
+    }
+  }
+}
+
+h3,h4,h5{
+  margin: 0.15em 0;
+}
+
 padding: 1em 0;
 .bar {
   margin: 0.5em 0 1em;
@@ -46,7 +129,6 @@ span {
 p.desc {
   font-family: Acumin Pro;
   font-size: 0.9em;
-  line-height: 2em;
   color: #3D4851;
   margin: 1em 0;
   font-weight: 300;
@@ -107,204 +189,270 @@ const UpdatesWrapper = styled.div`
   }
 `;
 
-const Update = ({ name,description, datatype, evaluation_submissions }) => {
- 
-  let MediaElements = evaluation_submissions.map((d, i) => {
-    return ( <MediaElement key={i} src={d.evidence} status={d.status} type={datatype} name={d.name} /> );
-  });
+const WrapImage = styled.div`
+  position: fixed;
+  top: 0;
+  bottom: 0;
+  left: 0;
+  right: 0;
+  z-index: 100000000;
+  min-height: 100vh;
+  width: 100vw;
+  overflow: auto;
+  background: rgba(0,0,0,0.8);
 
+  .close{
+    height: 2.5em;
+    width: 2.5em;
+    border: 0;
+    border-radius: 2.5em;
+    background: #F2994A;
+    color: white;
+    font-size: 1em;
+    line-height: 2em;
+    padding: 0;
+    margin: 1em;
+    transition: 250ms;
+    &:hover{
+      background: tomato;
+    }
+  }
+  img{
+    height: 40em;
+    width: 100vw;
+    object-fit: contain;
+    margin: auto;
+  }
+`;
+
+ const ViewImage = ({image, closeViewImage})=>{
   return (
-    <UpdateRow className="xs-12">
-
-      <div className="xs-12">
-        <h4 className="name"> {name} </h4>
-        {/* <span className='date'>{moment(deadline).format("MMM D, YYYY")} </span> */}
-        <p className="desc">{description}</p>
+    <WrapImage>
+      <div className='c-w i-h'>
+        <div className='c i-h t-c'>
+          <button className='close' onClick={closeViewImage}>&times;</button>
+          <img src={image} alt=""/>
+        </div>      
       </div>
-
-      <div className="xs-12" id="eval-subs">
-        <div className="xs-12 ">{MediaElements}</div>
-      </div>
-     
-    </UpdateRow>
+    </WrapImage>
   );
-};
+}
 
-class Updates extends React.Component{
-
+const Update = connect()(
+  class ConnectUpdate extends Component{
   constructor(props){
     super(props);
     this.state = {
-      tasksData: []
-  }
+      showViewImage: false,
+      imageToShow: ""
+    };
+    this.closeViewImage = this.closeViewImage.bind(this);
   }
 
-  componentWillMount(){
-    if(this.props.proposals.length){
-      this.setState({
-        fetched: true
-      },()=>{
-        this.props.dispatch(
-          retrieveSubmission({
-          projectId: this.props.id,
-          proposalId: this.props.proposals[0]._id,
-          level: 'project'
-        }));
+  closeViewImage(){
+    this.setState({ showViewImage: false });
+  }
 
-        this.props.dispatch(
-          retrieveSubmission({
-          projectId: this.props.id,
-          proposalId: this.props.proposals[0]._id,
-          level: 'task'
-        }));
-      })
+  mergeSubmissions(arr){
+    let temp = [];
+
+    arr.forEach(element => {
+      let elementsWithSameKeys = arr.filter(obj => obj.kpiTitle === element.kpiTitle);
+      // if the element has not been stored already, process it
+      let check = temp.some(obj => obj.kpiTitle === element.kpiTitle);
+    
+      if( check === false && elementsWithSameKeys.length > 1 ){
+        // so hold the first element.
+        let firstElement = elementsWithSameKeys[0];
+        // then merge the submission array of each of em.
+        let submissions = [];
+
+        elementsWithSameKeys.forEach(element=>{
+          submissions = [...submissions, ...element.submissions];
+        });
+        // then replace the firstElement's submissions' array with the merged one.
+        firstElement.submissions = submissions;
+        // add it to the array
+        temp.push(firstElement);
+      }else{
+        if(elementsWithSameKeys.length === 1 ){
+          temp.push(element);
+        }
+      }
+    });
+
+    temp = temp.map(element=>{
+      // remove duplicates
+      element.submissions = [...new Set(element.submissions)];
+      return element;
+    });
+
+    return temp;
+  }
+
+  setImage = image => {
+    this.setState({
+      imageToShow: image,
+      showViewImage: true
+    });
+  }
+
+  launchTableModal = ({type, mode, submissionData}) => {
+    this.props.dispatch( showModal( SHOW_SUBMISSION_BY_TYPE_MODAL,
+      { submissionModalType: type, submissionData: {...submissionData, mode} }))
+  }
+  
+  render(){
+    const {data} = this.props;
+
+    return (
+      <Fragment>
+        {this.state.showViewImage === true && <ViewImage image={this.state.imageToShow} closeViewImage={this.closeViewImage}/>}
+        <UpdateRow className="xs-12">
+        <div className="xs-12">
+          <div className='proposal-name'>
+            <label>Proposal name</label>
+            <h4 className='name'>{data.proposalName}</h4>
+          </div>
+          <div className='proposal-milestone'>
+            <label>Milestone name</label>
+            <h4 className="name"> {data.milestoneTitle}</h4>
+          </div>
+  
+          <div className='xs-12 tasks'>
+            { data.tasks && data.tasks.filter(t => Boolean(t.data.length)).map((taskdata,i)=>{
+              
+              let data_of_taskdata =[]; 
+  
+              taskdata.data.forEach(element => {
+                data_of_taskdata.push(element);
+              });
+  
+              data_of_taskdata = this.mergeSubmissions(data_of_taskdata);
+  
+              return <div className='proposal-task xs-12' key={i}>
+              <div className='xs-12'>
+                <label>Task name</label>
+                <h4 className='name'>{taskdata.name}</h4>
+                <label>Task Description</label>
+                <p className="desc">{taskdata.description}</p>
+              </div>
+              <div className='xs-12'>
+                {
+                  data_of_taskdata && Boolean(data_of_taskdata.length) && data_of_taskdata.filter((o,i)=> i < 5).map((kpidata,y)=>{
+                    
+                  if(kpidata.datatype === 'image'){
+                    return kpidata.submissions && Boolean(kpidata.submissions.length) && kpidata.submissions.sort((a,b)=>{
+                      var dateA = new Date(a.Date), dateB = new Date(b.Date);
+                      return dateB - dateA;
+                    }).map((kpidatum,x) => {
+                      return <div className='xs-6 sm-3 lg-2' key={x}>
+                        <div className='xs-11'>
+                          <img src={kpidatum.evidence} alt="" className='evidence-img' onClick={()=>this.setImage(kpidatum.evidence)}/>
+                          <span>Date submitted</span>
+                          <label className='d-s'>{moment(kpidatum.Date).format('DD MMM, YYYY - HH:mm a')}</label>
+                        </div>
+                      </div>
+                    })
+                  }
+
+                    return <div className='xs-6 sm-3 lg-2' key={y}>
+                    <div className='xs-11 table' onClick={() => this.launchTableModal({
+                      type: 'table', mode: 'view', submissionData: kpidata} )}>
+                      <div className='c-w i-h'>
+                        <div className='c t-c i-h'>
+                          <img src={table} alt='table'/>
+                          <p>{kpidata.kpiTitle}</p>
+                        </div>
+                      </div>
+                    </div>
+                  </div>
+                  
+                })}
+              </div>
+            </div>  
+            })}
+          </div>      
+        </div>
+      </UpdateRow>
+      </Fragment>
+    );
+  }
+});
+
+class Updates extends React.Component{
+  constructor(props){
+    super(props);
+    this.state = {
+      tasksData: [],
+      projectData: [],
+      inView: []
     }
+    this.props.fetchUpdates(this.props.id);
   }
 
   componentWillReceiveProps(nextProps){
     if(this.props !== nextProps){
-      
-      if(nextProps.proposals && nextProps.proposals.length > 0 && Boolean(this.state.fetched) === false  ){
-        this.setState({
-          fetched: true
-        },()=>{
-          nextProps.dispatch(
-            retrieveSubmission({
-            projectId: nextProps.id,
-            proposalId: nextProps.proposals[0]._id,
-            level: 'project'
-          }));
-
-          nextProps.dispatch(
-            retrieveSubmission({
-            projectId: nextProps.id,
-            proposalId: nextProps.proposals[0]._id,
-            level: 'task'
-          }));
-        })
-      };
-
-      if( nextProps.submissions.projectLevelSubmissions && Boolean(this.state.mergedProjectLevel) === false ){
-        this.setState(p =>{
-          const { others, requested } = nextProps.submissions.projectLevelSubmissions;
-
-          let temp = {
-            tasksData: [ ...p.tasksData ],
-            mergedProjectLevel: true
-          };
-
-          if(others && Boolean(others.length)){
-            temp.tasksData = [...temp.tasksData, ...others];
-          }
-
-          if(requested && Boolean(requested.length)){
-            temp.tasksData = [...temp.tasksData, ...requested];
-          }
-
-          return temp;
-
-        });
+      if(nextProps.updates){
+        const {projectLevelSubmissions, taskLevelSubmissions} = nextProps.updates;
+        if(projectLevelSubmissions && taskLevelSubmissions){
+          this.setState({
+            projectData: projectLevelSubmissions,
+            tasksData: taskLevelSubmissions,
+            inView: [ ...projectLevelSubmissions || [], ...taskLevelSubmissions||[]]
+          });
+        }
       }
-
-      if( nextProps.submissions.taskLevelSubmissions.length > 0 && Boolean(this.state.mergedTaskLevel) === false ){
-        
-        this.setState(p =>{
-
-          const { taskLevelSubmissions } = nextProps.submissions;
-
-          let temp = {
-            tasksData: [ ...p.tasksData ],
-            mergedTaskLevel: true
-          };
-
-
-          if(taskLevelSubmissions && Boolean(taskLevelSubmissions.length)){
-            temp.tasksData = [...temp.tasksData, ...taskLevelSubmissions];
-          }
-
-          return temp;
-        });
-      }
-
     }
   }
 
-  static Tasks = ({ tasksData = [] }) => {
-    
-    let tasks = tasksData.map(t=>{
-      return t.tasks;
-    });
+  selectUpdates = e =>{
+    const v = e.target.value;
+    let inView = [];
+    if(v === "all"){
+      inView = [...this.state.projectData, ...this.state.tasksData];
+    }
+    if(v === "projects"){
+      inView = this.state.projectData;
+    }
+    if(v === "tasks"){
+      inView = this.state.tasksData;
+    }
 
-
-    tasks = tasks.map((t) => {
-      let newT = t.map(deeperT => {
-        let joined = [];
-
-        if(Array.isArray(deeperT.others)){
-          deeperT.others = deeperT.others.map(g=>{
-            g.description = deeperT.description;
-            return g;
-          })
-          joined = [...deeperT.others, ...joined];
-        } 
-  
-        if(Array.isArray(deeperT.requested)){
-          deeperT.requested = deeperT.requested.map(g=>{
-            g.description = deeperT.description;
-            return g;
-          })
-          joined = [...deeperT.requested, ...joined];
-        } 
-        return joined;
-      });
-     
-      return newT;
-    });
-
-    let mush = [].concat.apply( [], ...tasks );
-
-
-    mush = mush.filter(t => t.submissions.length > 0).map(t => { 
-      let temp =  {
-        name: t.title,
-        description: t.description,
-        datatype: t.datatype,
-        evaluation_submissions: t.datatype !== 'table' ? t.submissions : []
-      };
-      return temp;
-    });
-
-    return mush.filter(v => v.datatype !== 'table').map((t, i) => {
-      return <Update {...t} key={i} />;
+    this.setState({
+      inView
     })
-  };
-
+  }
 
   render(){  
-
-    const { tasksData } = this.state;
-
+    const { inView } = this.state;
     return (
       <UpdatesWrapper className="xs-12">
         <div className="xs-10 xs-off-1">
-          <div className="xs-12 md-8 sm-10 container">
+          <div className="xs-12 sm-10 container">
             <div className='xs-12'>
-              <select className='form-control' name='option'>
-                <option value="All">All Updates</option>
+              <select className='form-control' name='option' onChange={this.selectUpdates}>
+                <option value="all">All Updates</option>
+                <option value = "projects">Project Updates</option>
+                <option value = "tasks">Task Updates</option>
               </select>
             </div>
-            <Updates.Tasks tasksData ={tasksData}/>
+            {
+              inView.map((obj,i)=>{
+                return <Update data = {obj} key={i} />
+              })
+            }
           </div>
         </div>
       </UpdatesWrapper>
     );
-    
   }
 
 }
 
 const mapStateToProps = state => {
   return {
+    updates: state.home.updates,
     submissions: state.evidence.submissions,
     selectedTaskSubmissions: state.evidence.selectedTaskSubmissions || {},
     proposals: state.home.project.proposals || state.proposal.proposals,
@@ -313,52 +461,12 @@ const mapStateToProps = state => {
   }
 };
 
-export default connect(mapStateToProps)(Updates);
+const mapDispatchToProps = dispatch => {
+  return{
+    fetchUpdates: id => dispatch(fetchUpdates(id))
+  }
+}
 
-// export default connect()(({ id, project, dispatch }) => {
-
-//   console.log(id, project);
-//   const retrieve =  obj => dispatch( retrieveSubmission(obj) );
-//   retrieve();
-
-//   const tasksData = [
-//     {
-//       deadline: new Date(),
-//       status: "DORMANT",
-//       name: "A Test Project Task",
-//       description:
-//         "This is where the brief description of the task goes. This is where the brief description of the task goes. This is where the brief description of the task goes. This is where the brief description of the task goes. This is where the brief description of the task goes. ",
-//       evaluation_submissions: [
-//         {
-//           src:
-//             "http://commondatastorage.googleapis.com/gtv-videos-bucket/sample/ElephantsDream.mp4",
-//           status: "IN-PROGRESS",
-//           type: "video",
-//           name: "Test"
-//         }
-//       ]
-//     }
-//   ];
-
-//   let Tasks = tasksData.map((t, i) => {
-//     return <Update {...t} key={i} />;
-//   });
-
-//   return (
-//     <UpdatesWrapper className="xs-12">
-//       <div className="xs-10 xs-off-1">
-//         <div className="xs-12 md-8 sm-10 container">
-//           <div className='xs-12'>
-//             <select className='form-control' name='option'>
-//               <option value="All">All Updates</option>
-//             </select>
-//           </div>
-//         {Tasks}
-//         </div>
-//       </div>
-//     </UpdatesWrapper>
-//   );
-
-// });
+export default connect(mapStateToProps, mapDispatchToProps)(Updates);
 
 

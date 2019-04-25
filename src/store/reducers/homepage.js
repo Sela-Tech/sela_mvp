@@ -191,7 +191,8 @@ export default (state = init, payload) => {
       case homepageActions.GET_PUBLIC_UPDATES_S:
       return {
         ...state,
-        action: homepageActions.GET_PUBLIC_UPDATES_S
+        action: homepageActions.GET_PUBLIC_UPDATES_S,
+        updates: payload.data
       }
 
       case homepageActions.GET_PUBLIC_UPDATES_F:

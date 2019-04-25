@@ -92,22 +92,21 @@ export const fetchProject = id => {
       });
   };
 };
-export const updates = () => {
+export const fetchUpdates = id => {
   return dispatch => {
-    dispatch({ type: hA.GET_PUBLIC_UPDATES_R })
+    dispatch({ type: hA.GET_PUBLIC_UPDATES_R });
     ax({
       method: "GET",
-      url: endpoints.public_updates
+      url: endpoints.public_updates(id)
     }).then(res=>{
-      dispatch({ type: hA.GET_PUBLIC_UPDATES_S })
+      dispatch({ type: hA.GET_PUBLIC_UPDATES_S, data: res.data });
 
     }).catch(res=>{
-      dispatch({ type: hA.GET_PUBLIC_UPDATES_F })
+      dispatch({ type: hA.GET_PUBLIC_UPDATES_F });
 
     })
   }
 }
-
 export const get_public_transactions = id => {
   return dispatch => {
     dispatch({ type: hA.GET_PUBLIC_TRANSACTIONS_R })

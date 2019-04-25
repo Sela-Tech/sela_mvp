@@ -109,8 +109,8 @@ export default {
   fetch_tasks: b + "projects", //:id/tasks
   proposals,
   evidence,
-  public_updates: (id)=>  b + `updates`,
-  public_transactions: (id)=> b +  `projects/${id}/transaction-history/public`
+  public_updates: id =>  b + `project/${id}/updates/submissions`,
+  public_transactions: id => b +  `projects/${id}/transaction-history/public`
   // fetch_proposals: (project_id) => proposals('fetch', { project_id }),
   // create_a_proposal: proposals
 };

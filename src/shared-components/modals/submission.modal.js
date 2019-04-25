@@ -364,9 +364,12 @@ const Router = ({ submissionModalType,data, mode, dispatch })=>{
 
 class SubmissionModal extends Component{
     render(){
+
+      console.log(this.props);
+      
         return <FormWrapper className ='xs-12 full'>
             <div className="xs-12 t-c grayed">
-                <h3> Submissions For {this.props.data.title || 'Submission Request' } </h3>
+                <h3> Submissions For {this.props.data.kpiTitle || this.props.data.title || 'Submission Request' } </h3>
             </div>
 
           {this.props.submissionModalType === 'table' ?
