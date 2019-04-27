@@ -129,3 +129,8 @@ a {
   height: 12em;
   width: 12em;
 }
+
+
+*{
+  -webkit-overflow-scrolling: touch;
+}
