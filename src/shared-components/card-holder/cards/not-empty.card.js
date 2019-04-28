@@ -45,33 +45,41 @@ const NotEmptyCard = ({ p, history, showMap }) => {
                 <h4>{p.name}</h4>
               </div>
 
-              <div className="tasks xs-12">
-                <Line
-                  percent={
-                    p.percentage_raised
-                  }
-                  strokeWidth="4"
-                  trailWidth="4"
-                  strokeColor="#F2994A"
-                  trailColor="rgba(242, 153, 74, 0.15)"
-                />
-            </div>
-              
-              <div className='xs-6 sp'>
-                <h3>{p.goal }</h3>
-                <label className='funding-label'>Funding goal</label>
-              </div>
-             
-              <div className='xs-6 sp'>
-                <h3>{ p.raised }</h3>
-                <label className='funding-label'>Funding raised</label>
-              </div>
+              {p._id !== "5ca8a10d35b915002208c730" &&
+                <div className="tasks xs-12">
+                
+                  <div className="tasks xs-12">
+                    <Line
+                      percent={
+                        p.percentage_raised
+                      }
+                      strokeWidth="4"
+                      trailWidth="4"
+                      strokeColor="#F2994A"
+                      trailColor="rgba(242, 153, 74, 0.15)"
+                    />
+                  </div>
+                
+                  <div className='xs-6 sp'>
+                    <h3>{p.goal }</h3>
+                    <label className='funding-label'>Funding goal</label>
+                  </div>
+                
+                  <div className='xs-6 sp'>
+                    <h3>{ p.raised }</h3>
+                    <label className='funding-label'>Funding raised</label>
+                  </div>
+                  
+                </div>
+              }
               
             </div>
         
             <button className={`has-radius ${p.status.toLowerCase()}`}>
-            {p.status.toLowerCase()} 
-            <span><img src={help} className={p.status.toLowerCase()} alt="" data-tip data-for={p.status.toLowerCase()} /></span>
+              {p.status.toLowerCase()} 
+              <span>
+                <img src={help} className={p.status.toLowerCase()} alt="" data-tip data-for={p.status.toLowerCase()} />
+              </span>
             </button>
 
             <ReactTooltip place="bottom" type="info" effect="solid" id='completed'>

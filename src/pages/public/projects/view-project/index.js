@@ -97,7 +97,9 @@ class ViewProject extends React.Component {
   render() {
     const { id, project } = this.state;
     const { goal, raised, percentage_raised } = project;
-  
+    
+    console.log(project);
+    
     return (
       <React.Fragment>
         <Navbar />
@@ -142,16 +144,21 @@ class ViewProject extends React.Component {
                         strokeColor="#F2994A"
                         trailColor="rgba(242, 153, 74, 0.15)"
                       />
+                    
+                    { 
+                      project._id !== "5ca8a10d35b915002208c730" && <div className='xs-12'>
+                        <div className='xs-6 sp'>
+                          <h3>{ goal }</h3>
+                          <label className='funding-label'>Funding goal</label>
+                        </div>
+                      
+                        <div className='xs-6 sp'>
+                          <h3>{ raised }</h3>
+                          <label className='funding-label'>Funding raised</label>
+                        </div>
+                      </div>
+                    }
 
-                    <div className='xs-6 sp'>
-                      <h3>{ goal }</h3>
-                      <label className='funding-label'>Funding goal</label>
-                    </div>
-                  
-                    <div className='xs-6 sp'>
-                      <h3>{ raised }</h3>
-                      <label className='funding-label'>Funding raised</label>
-                    </div>
                     {
                       project.status &&
                       <div className='xs-12'>
