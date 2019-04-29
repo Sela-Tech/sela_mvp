@@ -435,9 +435,7 @@ class Wallet extends Component {
                         </div>                
                     </div>
 
-                    <div className='xs-9' style={{
-                            height: '100%', overflow: 'auto'
-                    }}>
+                    <div className='xs-9' style={{ height: '100%', overflow: 'auto'}}>
                         <Token {...this.props}/>
                     </div>
         

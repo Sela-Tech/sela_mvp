@@ -114,6 +114,7 @@ background: #FFFFFF;
     }
     
 }`;
+
 export default styled.div`
     ${plain}
 `;
