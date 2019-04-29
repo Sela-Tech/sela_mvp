@@ -15,6 +15,7 @@ import notifications_actions from "./store/actions/notifications";
 import ToastContainer from 'react-toastify/lib/components/ToastContainer';
 import ErrorSize from "./pages/errorSize";
 import {connect} from 'react-redux';
+import {toast} from 'react-toastify';
 
 window.moneyFormat = function(value, currency){
   if(isNaN(value)){
@@ -134,7 +135,7 @@ const ResponsiveContainer = connect((state)=>{
 
 ReactDOM.render(
    <React.Fragment>
-      <ToastContainer/>
+      <ToastContainer position={toast.POSITION.BOTTOM_LEFT}/>
       <Provider store={store}>
          <ResponsiveContainer/>
       </Provider>

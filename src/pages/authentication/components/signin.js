@@ -167,7 +167,7 @@ class Login extends React.Component {
               </React.Fragment>
             ) : (
               <React.Fragment>
-                <h2> Sign in to Sela </h2>
+                {/* <h2> Sign in to Sela </h2> */}
                 {/* <div className="test-cred xs-12">
                   <p>Test Username: si@sela-labs.co</p>
                   <p>Test Password: password@1</p>
@@ -176,7 +176,7 @@ class Login extends React.Component {
             )}
           </div>
 
-          <div className="xs-12">
+          <div className="xs-10 xs-off-1">
             <form
               className="xs-10 xs-off-1 sm-6 sm-off-3 md-4 md-off-4"
               onSubmit={this.onSubmit}

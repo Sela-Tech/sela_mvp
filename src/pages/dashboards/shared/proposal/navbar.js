@@ -56,7 +56,6 @@ const NavStyle = styled.nav`
   }
   
   a {
-
     &#add {
       text-align: center;
       height: 45px;
@@ -64,7 +63,7 @@ const NavStyle = styled.nav`
       color: white;
       font-weight: 300;
       font-size: 14px;
-      background: linear-gradient(151.17deg, #C13C1E 0%, #F2994A 100%);
+      background: #F2994A;
       border-radius: 5px;
 
       &:hover {

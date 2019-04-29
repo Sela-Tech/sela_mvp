@@ -38,6 +38,7 @@ const CardHolder = ({ projects, heading, type, action }) => {
                 </Link>
               )}
           </div> */}
+          
         </CardHolderStyle>
       );
 

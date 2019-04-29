@@ -134,3 +134,7 @@ a {
 *{
   -webkit-overflow-scrolling: touch;
 }
+
+.Toastify__toast--success{
+  background: #156edc !important;
+}

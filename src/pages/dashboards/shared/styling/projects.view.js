@@ -5,29 +5,29 @@ export default styled.div`
 .wrap-img{
     width: 100%;
     width: 100%;
-    height: 135px; 
+    height: 10em; 
     position: relative;
 
     button{
         position: absolute;
         bottom: 8px;
         left: 8px;
-        border-radius: 50px;
-        height: 20px;
+        border-radius: 0.25em;
+        height: 2.5em;
         width: 100px;
-        border: 0;
         color: white;
         text-transform: Capitalize;
         font-weight:300;
+        border: 1px solid white;
 
         &.proposed, &.dormant{
-            background: #201D41;
+            background: #0000008a;
         }
         &.in-progress{
-            background: #F2C94C;
+            background: #0c9864d4;
         }
         &.completed{
-            background: #369C05;
+            background: #156edccc;
         }
         &.terminated{
             background: #BC1717;
@@ -40,11 +40,11 @@ section{
 }
 padding: 3%;
 label{
-    font-weight: 300;
+    font-weight: 500;
     font-family: Acumin Pro;
     line-height: 22px;
     font-size: 15px;
-    color: #696F74;
+    color: #4d6273;
     padding-bottom: 5px;
     display: block;
 }
@@ -91,7 +91,7 @@ label{
     border: 1px dashed #B1BAD2;
     box-sizing: border-box;
     border-radius: 5px;
-    height: 224px;
+    height: 272px;
     line-height: 21px;
     font-size: 14px;
     text-align: center; 

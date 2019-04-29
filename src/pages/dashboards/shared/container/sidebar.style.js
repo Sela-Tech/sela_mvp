@@ -38,7 +38,7 @@ const shared_user_styling=`
   p {
     font-size: 14px;
     color: #ADB5BD;
-    font-weight: 100;
+    font-weight: 300;
 
   }
 }
@@ -52,8 +52,7 @@ export const WebSidebar=styled.div` ${
 padding: 3em 0 0;
 position: relative;
 height: 100%;
-background: #201D41;
-
+background: #101314;
 
 button#top,
 #create-btn {
@@ -153,7 +152,7 @@ button#top,
 
   #line-break {
     padding: 0.5em 0;
-    border-top: 1px solid #37485E;
+    border-top: 1px solid #1d1c1c;
     display: block;
     width: 100%;
     margin 1em 0;

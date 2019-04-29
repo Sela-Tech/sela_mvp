@@ -8,6 +8,7 @@ import SharedViewWrapper from "../../shared/styling/projects.view";
 import HomeCard from "../../shared/card.dashboard";
 import { SHOW_INTERESTS_MODAL } from "../../../../store/actions/modal";
 import Joyride from 'react-joyride';
+import { defaultSliderSettings } from "../../shared/others";
 
 
 let exportMe = null;
@@ -52,13 +53,7 @@ exportMe = class extends React.Component{
             content: <p>This represents the base balance of the currency used by the sela system to perform actions on the platform, actions range from simple project creation to transfering tokens between stakeholders on a project etc.</p>
         }],
         projects: this.props.projects || {},
-        settings:{
-          infinite: false,
-          slidesToShow: 4,
-          spaceBetween: 5,
-          clientXonMouseDown: null,
-          clientYonMouseDown: null
-        }
+        settings: defaultSliderSettings
       }
     }
 
@@ -84,7 +79,7 @@ exportMe = class extends React.Component{
       if (window.innerWidth > 768 && window.innerWidth < 1023) {
         temp = 3;
       } else if (window.innerWidth > 1024) {
-        temp = 4;
+        temp = 5;
       } else if (window.innerWidth < 767) {
         temp = 2;
       }
@@ -107,14 +102,16 @@ exportMe = class extends React.Component{
       const { steps } = this.state;
 
       const { settings, projects }= this.state;      
-      const { createdProjects, fundedProjects,savedProjects, 
+      const { createdProjects, fundedProjects,
+        // savedProjects, 
          areasOfInterest
        } = projects;
 
      return <SharedViewWrapper className="xs-12">
       <Joyride steps={steps} />
-      <section className='xs-12'>
-        <label>Projects you initiated</label>
+        
+        <section className='xs-12'>
+          <label>Projects you initiated</label>
         { 
           createdProjects && createdProjects.docs.length > 0 ?
             <Slider 
@@ -130,21 +127,29 @@ exportMe = class extends React.Component{
             }
             </Slider>
           :
-          <div className='xs-12 sm-3' id="initiated">
-            <div className='empty-box inner'>
+          <Slider 
+          {...settings}
+          containerClass="xs-12"
+          className="xs-12 slider">
+ 
+           <div className='xs-12 sm-3 edit-interest' id='intiated'>
+            <div className='empty-box inner-not-proj' style={{height: '5em'}}> 
               <div className='c-w xs-12'>
                 <div className='c t-c'>
-                  <p>You have not initiated any project</p>
+                  <p>You Have Not Initiated A Project</p>
                 </div>
               </div>
             </div>
           </div>
+    
+          </Slider>
         }
       </section>
 
-      <section className='xs-12'>
+      {
+        fundedProjects && fundedProjects.docs.length > 0 && 
+        <section className='xs-12'>
         <label>Projects you got invited to</label>
-
 
         { 
           fundedProjects && fundedProjects.docs.length > 0 ?
@@ -172,9 +177,10 @@ exportMe = class extends React.Component{
           </div>
         }
         </section>
+      }
 
-        <section className='xs-12'>
-      <label>Projects in your areas of interest</label>
+      <section className='xs-12'>
+        <label>Projects in your areas of interest</label>
     
             <Slider 
             {...settings}
@@ -182,7 +188,8 @@ exportMe = class extends React.Component{
             className="xs-12 slider">
    
              <div className='xs-12 sm-3 edit-interest' id='interest-selector' onClick={this.launch_edit_interest_modal}>
-              <div className='empty-box inner-not-proj'>
+              <div className='empty-box inner-not-proj' style={{height: Boolean(areasOfInterest 
+              && areasOfInterest.docs.length > 0) === false && "5em"}}>
                 <div className='c-w xs-12'>
                   <div className='c t-c'>
                     <p><strong>+</strong>Edit Interests</p>
@@ -200,7 +207,8 @@ exportMe = class extends React.Component{
             })
             :        
             <div className='xs-12 sm-3'>
-              <div className='empty-box inner-not-proj'>
+              <div className='empty-box inner-not-proj' style={{height: Boolean(areasOfInterest 
+              && areasOfInterest.docs.length > 0) === false && "5em"}}>
                 <div className='c-w xs-12'>
                   <div className='c t-c'>
                     <p>There are no projects in your area of interest</p>
@@ -212,7 +220,7 @@ exportMe = class extends React.Component{
             </Slider>
      </section>
 
-      <section className='xs-12'>
+      {/* <section className='xs-12'>
         <label>Saved projects</label>
 
         { 
@@ -241,7 +249,7 @@ exportMe = class extends React.Component{
           </div>
         }
       </section>
-     
+      */}
      </SharedViewWrapper>
     }
   }

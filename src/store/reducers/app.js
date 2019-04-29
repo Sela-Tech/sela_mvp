@@ -31,7 +31,7 @@ export default (state = init, payload) => {
     case app.NEW_TOAST:
     let options = payload.options || {};
     let element = payload.element || <p style={{color: 'white'}}>{payload.message}</p>
-    notify( element,payload.status,options )
+    notify( element,payload.status, options )
     return state;
 
     default:

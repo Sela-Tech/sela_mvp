@@ -33,9 +33,8 @@ const append = () => {
   const script = document.createElement("script");
   script.src = "https://maps.googleapis.com/maps/api/js?key=AIzaSyDRMWoNjCQp00UvNO7xWxK4DWy_H34Ov8I&libraries=places";
   script.async = true;
-  // script.onload = () => this.scriptLoaded();
   document.body.appendChild(script);
-}
+};
 
 const App = class extends Component{
   constructor(props){

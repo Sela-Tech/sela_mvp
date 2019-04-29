@@ -33,7 +33,7 @@ export default styled.div`
         h5{
             margin: 5px 0 0 0;
             font-weight: 400;
-            font-size: 16px;
+            font-size: 1em;
             text-align: left;
             color: #201D41;
             line-height: 40px;

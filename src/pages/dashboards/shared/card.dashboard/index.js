@@ -3,12 +3,12 @@ import {Link} from "react-router-dom";
 import styled from 'styled-components';
 
 const HomeCardWrapper = styled.div`
-min-height: 250px;
+min-height: 18.5em;
 .in{
     width: 95%;
-    border-radius: 5px;
+    border-radius: 2.5px;
     overflow: hidden;
-    box-shadow: 0px 2.5px 5px rgba(0, 0, 0, 0.04);
+    box-shadow: 0px 0.5px 10px rgba(0,0,0,0.04);
     display: block;
     text-decoration: none;
 }
@@ -27,6 +27,7 @@ img{
 .white{
     padding: 15px;
     background: white;
+    height: 7em;
     span{
         display: block;
         font-size: 10.5px;
@@ -37,7 +38,7 @@ img{
         margin: 8px 0;
         font-weight: 300;
         margin: 5px 0;
-        font-size: 0.95em;
+        font-size: 0.85em;
         text-transform: Capitalize;
     }
     h3{
@@ -45,7 +46,7 @@ img{
         margin: 0;
         font-weight: 400;
         margin: 5px 0;
-        font-size: 14px;
+        font-size: 0.8em;
         letter-spacing: 0.65px;
     }
 }
