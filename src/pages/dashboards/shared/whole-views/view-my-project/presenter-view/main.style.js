@@ -28,11 +28,10 @@ overflow: auto;
      padding: 0.25em;
      display: block;
       a {
-
         display: inline-block;
         font-family: Acumin Pro;
         line-height: 20px;
-        font-size: 0.95em;
+        font-size: 0.875em;
         font-weight: 300;
         text-align: center;
         color: #828282;
@@ -44,9 +43,9 @@ overflow: auto;
         }
 
         &.active{
-          background:#201D41;
+          background: #d88859;
           color: white;
-          border-radius: 4px;
+          border-radius: 2px;
         }
       }
     }

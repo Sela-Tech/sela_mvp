@@ -460,10 +460,7 @@ class Token extends Component {
                         </div> 
                     } */}
 
-                    { this.state.path === "transactions" && <div className='xs-12 transactions'> Howdy</div>
-                    }
-
-                    {/* <div className='xs-12 transactions'>
+                    { this.state.path === "transactions" &&  <div className='xs-12 transactions'>
                             <div className='top xs-12'>
                                 <div className='f-l'>
                                     <h3>Transaction History</h3>
@@ -536,7 +533,7 @@ class Token extends Component {
                             }
                         </div>
                             </div>
-                     */}
+                    }
 
                 </TokenWrapper>
                 
