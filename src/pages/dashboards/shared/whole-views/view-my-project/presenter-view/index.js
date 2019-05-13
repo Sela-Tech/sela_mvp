@@ -40,7 +40,7 @@ const View = ({ id, view, info,readOnly }) => {
     case "evidence":
     return <C Component ={Evidence} id={id} readOnly={readOnly}/>;
 
-    case "proposals":
+    case "milestones":
     return <C Component ={Proposals} id={id} readOnly={readOnly}/>;
     
     default:
@@ -76,8 +76,8 @@ const ProjectComponent = ({ match,history, info, readOnly }) => {
               <NavLink
                 className={`side-stack ${pathname.indexOf("proposals") !== -1 ? "active":""}`}
                 activeClassName="active"
-                exact to={`/dashboard/project/${id}/proposals`}>
-                Proposals
+                exact to={`/dashboard/project/${id}/milestones`}>
+                Milestones
               </NavLink>
 
               <NavLink
@@ -93,13 +93,6 @@ const ProjectComponent = ({ match,history, info, readOnly }) => {
                 exact to={`/dashboard/project/${id}/evidence`}>
                 Evidence
               </NavLink>
-
-              {/* <NavLink
-                className={`side-stack ${pathname.indexOf("transactions") !== -1 ? "active":""}`}
-                activeClassName="active"
-                exact to={`/dashboard/project/${id}/transactions`}>
-                Transactions
-              </NavLink> */}
 
               <NavLink
                  className={`side-stack ${pathname.indexOf("uploads") !== -1 ? "active":""}`}

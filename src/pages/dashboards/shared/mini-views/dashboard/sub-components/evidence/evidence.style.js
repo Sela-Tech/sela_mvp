@@ -9,8 +9,12 @@ export default styled.div`
   .active{
     .opt{
       color: #201D41;
+      opacity: 0.8;
+      font-size: 1em;
+      font-weight: 500;
+      border-bottom: 1px solid #201D41;
+    
     }
-    border-bottom: 2px solid #201D41;
   }
 }
 .opt{
@@ -20,8 +24,8 @@ export default styled.div`
   border: 0;
   background: transparent;
   padding-bottom: 1em;
-  text-align: center; 
-  width: 100%;
+  text-align: left; 
+  width: unset;
 }
 
 .content{
@@ -69,7 +73,7 @@ border-radius: 4px;
   padding-top: 2em;
 }
 
-.form-group.proposal{
+.form-group.milestone{
   margin: 1em 0 0 0;
   padding: 1em;
   label{

@@ -24,3 +24,19 @@ export const isLiveNet = ( id, state = process.env.REACT_APP_STELLAR_MODE === 'l
   }
 
 };
+
+let overrideToggler = {
+  proposal: true,
+  milestone: true,
+  updates: true
+};
+
+export const applyOverrideContainer =  ({ view, alt_option =  "" }) => {
+  if(view === "proposal" || view === 'milestone' || view === "updates"){
+    if(overrideToggler[view]){
+      return "5ca8a10d35b915002208c730";
+    }else{
+      return alt_option;
+    }
+  }
+};

@@ -5,10 +5,10 @@ import Comments from './comments';
 import { showModal } from '../../../../store/action-creators/modal';
 import moment from 'moment';
 import trash from '../../../../assets/icons/delete.svg';
-import { create_milestone, set_milestone_name, delete_milestone, clear, attach_contractor, set_proposal_name } from '../../../../store/action-creators/proposal';
+import { create_milestone, set_milestone_name, delete_milestone, clear, attach_contractor, set_proposal_name } from '../../../../store/action-creators/milestone';
 import { SHOW_ADD_TASK_MODAL, SHOW_EDIT_TASK_MODAL } from '../../../../store/actions/modal';
 import StakeholderLoader from "../../../../shared-components/unique/user-loader";
-import proposal from '../../../../store/actions/proposal';
+import milestone from '../../../../store/actions/milestone';
 import Wrap from "./style";
 
 class Proposal extends Component{
@@ -42,7 +42,7 @@ class Proposal extends Component{
     
     componentWillReceiveProps(nextProps){
         if(this.props !== nextProps){
-            if(nextProps.type === proposal.SUBMIT_PROPOSAL_S){
+            if(nextProps.type === milestone.SUBMIT_PROPOSAL_S){
                 const {project_id} = nextProps.match.params;
                 
                 nextProps.history.push( 
@@ -132,23 +132,23 @@ class Proposal extends Component{
         <div className='xs-12 i-h'>
             
             {  showProposalView &&
-            <div className='xs-12 md-7 proposal-left i-h'>
+            <div className='xs-12 md-7 milestone-left i-h'>
                 
                 <div className='xs-12'>
-                    <label id='prop-name'>Proposal name</label>
-                    <input id = "proposal-name" name = 'name' className = 'form-control' placeholder = 'Enter proposal name'  onChange={this.setProposalName}/>
+                    <label id='prop-name'>Milestone name</label>
+                    <input id = "milestone-name" name = 'name' className = 'form-control' placeholder = 'Enter milestone name'  onChange={this.setProposalName}/>
                 </div>
                 
                 <div className='xs-12 p-t'>
                     
                     <div className='xs-6 t-l'>
-                        <h5>Tasks and milestones</h5>
+                        <h5>Tasks</h5>
                     </div>
                     
                     <div className='xs-6 t-r'>
                         <button className={
                             milestoneBtnActive ? "active": "not-active"
-                        } id='create-milestone' onClick={this.createMilestone}>Create milestone</button>
+                        } id='create-milestone' onClick={this.createMilestone}>Create Grouping</button>
                     </div>
                 </div>
 
@@ -173,7 +173,7 @@ class Proposal extends Component{
                                     <button className='milestone-id'>{i + 1}</button>
                                     <input className='milestone-name xs-12 sm-10' name={`milestone-name-${i}`} value={this.state.milestone_names[milestone.milestoneId]} 
                                     onChange={e=>this.setMilestoneName(e, milestone.milestoneId)}
-                                    placeholder="Add milestone title (optional)"/> 
+                                    placeholder="Add grouping title (optional)"/> 
                                 </div>
                                 <div className='xs-6 t-r'>
                                     <p className='milestone-amount'>${amount}</p>
@@ -202,7 +202,7 @@ class Proposal extends Component{
                             <div className='xs-12 trash f-r'>
                                 <button onClick={()=>this.deleteMilestone(milestone.milestoneId)}>
                                     <img src={trash} alt='trash'/>
-                                    <span>Delete Milestone</span>
+                                    <span>Delete Grouping</span>
                                     <label> You won't lose your tasks </label>
                                 </button>
                             </div>
@@ -268,14 +268,16 @@ const mapStateToProps = state => {
     return {
         self_info: {id,fullName: firstName + " " + lastName,isContractor},
         source: state.projects.single.info.stakeholders,
-        tasks: state.proposal.tasks,
-        milestones: state.proposal.milestones,
-        type: state.proposal.type,
-        message: state.proposal.message,
-        showCommentSection: state.proposal.view === "comments"
+        tasks: state.milestone.tasks,
+        milestones: state.milestone.milestones,
+        type: state.milestone.type,
+        message: state.milestone.message,
+        showCommentSection: state.milestone.view === "comments"
     }
 }
 
 
 export default connect(mapStateToProps)(Proposal);
 
+
+//2014A419D

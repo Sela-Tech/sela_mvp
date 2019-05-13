@@ -97,9 +97,6 @@ class ViewProject extends React.Component {
   render() {
     const { id, project } = this.state;
     const { goal, raised, percentage_raised } = project;
-    
-    console.log(project);
-    
     return (
       <React.Fragment>
         <Navbar />

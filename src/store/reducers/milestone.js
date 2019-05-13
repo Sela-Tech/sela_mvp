@@ -1,4 +1,4 @@
-import proposal_actions from "../actions/proposal";
+import proposal_actions from "../actions/milestone";
 
 const init = {
     tasks: [],
@@ -15,7 +15,7 @@ const init = {
     },
     type: "",
     message: "",
-    view: "proposal"
+    view: "milestone"
 }
 
 export default (state = init, payload)=>{
@@ -53,7 +53,7 @@ export default (state = init, payload)=>{
         return {
             ...state,
             type: proposal_actions.GET_ONE_PROPOSAL_S,
-            proposal_in_view: payload.proposal
+            proposal_in_view: payload.milestone
         }
 
         case proposal_actions.GET_ONE_PROPOSAL_F:
@@ -87,7 +87,7 @@ export default (state = init, payload)=>{
         case proposal_actions.SWITCH_VIEW:
             return {
                 ...state,
-                view: state.view === "proposal" ? "comments":"proposal"
+                view: state.view === "milestone" ? "comments":"milestone"
             }
 
         case proposal_actions.CREATE_TASK:
@@ -160,7 +160,7 @@ export default (state = init, payload)=>{
 
             let milestone = {
                 milestoneId,
-                name: `Milestone ${state.milestones.length + 1}`
+                name: `Grouping ${state.milestones.length + 1}`
             }
 
             return {

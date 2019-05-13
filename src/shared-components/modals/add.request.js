@@ -24,7 +24,7 @@ const mapStateToProps = state => {
     })
 
   return {
-    proposals: state.proposal.proposals,
+    proposals: state.milestone.proposals,
     projectId: state.projects.single.info._id,
     endDate: state.projects.single.info.endDate,
     startDate: state.projects.single.info.startDate,
@@ -51,7 +51,7 @@ export default connect(mapStateToProps, mapDispatchToProps)(
         date: moment(props.startDate).toISOString(),
         requestTitle: '',
         title: '', responseType: '',
-        proposal: '',task:"",taskObject: { name: "", id: "" },
+        milestone: '',task:"",taskObject: { name: "", id: "" },
         type:'table', instructio: '',
         stakeholders:"",price: '1',
         observationBudget: props.observationBudget
@@ -215,7 +215,7 @@ export default connect(mapStateToProps, mapDispatchToProps)(
         });
 
         const selected_proposal = this.state.proposals.filter(p=>{
-            return p._id === this.state.proposal
+            return p._id === this.state.milestone
         })[0];
 
         let tasks = [];
@@ -269,9 +269,9 @@ export default connect(mapStateToProps, mapDispatchToProps)(
                         <Fragment>
                             
                             <div className='xs-12 form-group'>
-                                <label>Proposal</label>    
-                                <select name='proposal' onChange={this.handleChange}  value={this.state.proposal}>
-                                    <option value="" hidden> Select the proposal the task belongs to </option>
+                                <label>Milestone</label>    
+                                <select name='milestone' onChange={this.handleChange}  value={this.state.milestone}>
+                                    <option value="" hidden> Select the milestone the task belongs to </option>
                                     {proposals.map((v,i)=>{
                                         return <option value={v.id} key={i}> {v.name} </option>
                                     })}

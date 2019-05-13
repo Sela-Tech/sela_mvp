@@ -3,19 +3,19 @@ import {connect} from 'react-redux';
 import Navbar from './navbar';
 import Comments from './comments';
 import moment from 'moment';
-import { clear, get_proposal } from '../../../../store/action-creators/proposal';
+import { clear, get_proposal } from '../../../../store/action-creators/milestone';
 import Wrap from "./style";
 import { showModal } from '../../../../store/action-creators/modal';
 import { SHOW_VIEW_TASK_MODAL } from '../../../../store/actions/modal';
-import proposal from '../../../../store/actions/proposal';
+import milestone from '../../../../store/actions/milestone';
 import StakeholderLoader from "../../../../shared-components/unique/user-loader";
 
 class Proposal extends Component{
     constructor(props){
         super(props);
-        props.dispatch(get_proposal(props.match.params.proposal_id))
+        props.dispatch(get_proposal(props.match.params.milestone_id))
         this.state  = {
-            proposal: props.proposal,
+            milestone: props.milestone,
             isBigScreen: window.innerWidth > 1023,
             showCommentSection: props.showCommentSection ||  window.innerWidth > 1023
         }
@@ -35,8 +35,9 @@ class Proposal extends Component{
     
     componentWillReceiveProps(nextProps){
         if(this.props !== nextProps){
+            console.log(nextProps)
             this.setState({
-                proposal: nextProps.proposal,
+                milestone: nextProps.milestone,
                 showCommentSection: nextProps.showCommentSection ||  window.innerWidth > 1023
             })
         }
@@ -48,13 +49,13 @@ class Proposal extends Component{
                 task_id: id
             }
         ))
-        this.props.dispatch({ type: proposal.VIEW_TASK, id })
+        this.props.dispatch({ type: milestone.VIEW_TASK, id })
     }
 
     render(){
 
-        const { proposal, isBigScreen, showCommentSection } = this.state;
-        const { milestones } = proposal;
+        const { milestone, isBigScreen, showCommentSection } = this.state;
+        const { milestones } = milestone;
         let showProposalView = showCommentSection === false || isBigScreen;
 
         return <Wrap className='xs-12'>
@@ -63,16 +64,16 @@ class Proposal extends Component{
             <div className='xs-12 i-h'>
             
             {  showProposalView &&
-            <div className='xs-12 md-7 proposal-left i-h'>
+            <div className='xs-12 md-7 milestone-left i-h'>
 
                 <div className='xs-12'>
-                    <label id='prop-name'>Proposal name</label>
-                    <input id = "proposal-name" name = 'name' className = 'form-control' placeholder = 'proposal name' defaultValue={proposal.proposal_name} disabled/>
+                    <label id='prop-name'>Milestone name</label>
+                    <input id = "milestone-name" name = 'name' className = 'form-control' placeholder = 'milestone name' defaultValue={milestone.proposal_name} disabled/>
                 </div>
 
                 <div className='xs-12'>
                     <div className='xs-6 t-l'>
-                        <h5>Tasks and milestones</h5>
+                        <h5>Tasks</h5>
                     </div>
                 </div>
 
@@ -116,13 +117,13 @@ class Proposal extends Component{
                 <div className='xs-12 md-5 i-h' id='comments'>
                     <div className='xs-12 stakeholder-bit'>
                         <div className='xs-10 xs-off-1'>
-                            <StakeholderLoader addStakeholders= {this.addStakeholders} isNotEditable={true} defaultValue={proposal.assignedTo}/>
+                            <StakeholderLoader addStakeholders= {this.addStakeholders} isNotEditable={true} defaultValue={milestone.assignedTo}/>
                             <span className='line xs-12'/>
                    
                         </div>
                     </div>
 
-                    <Comments isNotEditable={true} comments={proposal.comments}/>
+                    <Comments isNotEditable={true} comments={milestone.comments}/>
                 </div>
             }
 
@@ -144,10 +145,10 @@ class Proposal extends Component{
 
 const mapStateToProps = state => {
     return {
-        proposal: state.proposal.proposal_in_view,
-        type: state.proposal.type,
-        message: state.proposal.message,
-        showCommentSection: state.proposal.view === "comments"
+        milestone: state.milestone.proposal_in_view,
+        type: state.milestone.type,
+        message: state.milestone.message,
+        showCommentSection: state.milestone.view === "comments"
     }
 }
 

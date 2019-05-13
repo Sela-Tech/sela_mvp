@@ -1,7 +1,7 @@
 import React from 'react';
 import styled from 'styled-components';
 import arrow from "../../../../../assets/icons/arrow.svg";
-import { create_comment } from '../../../../../store/action-creators/proposal';
+import { create_comment } from '../../../../../store/action-creators/milestone';
 import {connect} from 'react-redux';
 
 const CommentWrap = styled.div`
@@ -220,7 +220,7 @@ const mapStateToProps = state => {
     const {firstName, lastName, profilePhoto} = state.auth.credentials;
 
     return {
-        myComments: state.proposal.comments.map(comment=>{
+        myComments: state.milestone.comments.map(comment=>{
             return {
                 profilePhoto,
                 fullName: firstName + " " + lastName,

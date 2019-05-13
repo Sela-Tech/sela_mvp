@@ -8,7 +8,7 @@ import { showModal } from "../../../../store/action-creators/modal";
 import MenuNotifier from "../../shared/notify";
 import { withRouter } from "react-router";
 import lar from "../../../../assets/left-arrow.svg";
-import { switch_view, create_proposal } from "../../../../store/action-creators/proposal";
+import { switch_view, create_proposal } from "../../../../store/action-creators/milestone";
 
 const NavStyle = styled.nav`
   background: white;
@@ -127,7 +127,7 @@ const Navigator = withRouter(({...props})=>{
 
 const ProposalViewNavigator = ({ switchView, showCommentSection })=>{
   return <div className='xs-12' id='navigator'>
-     <button id='other-dir' onClick={switchView}>{ showCommentSection ? "Proposal":"Comments"}<img src={lar} alt=""/></button>
+     <button id='other-dir' onClick={switchView}>{ showCommentSection ? "Milestones":"Comments"}<img src={lar} alt=""/></button>
   </div>
 };
 
@@ -214,13 +214,13 @@ class ProposalNavbar extends React.Component {
           case "edit":
             return <NavLink className= {`xs-12 ${ can_send === false ? `cannot_send`: `` }`} to="#"
             id="add" onClick={ this.submitProposal }>
-            Update Proposal
+            Update Milestone
           </NavLink>
 
           default:
             return <NavLink className= {`xs-12 ${ can_send === false ? `cannot_send`: `` }`} to="#"
             id="add" onClick={ this.submitProposal }>
-            Submit Proposal
+            Submit Milestone
           </NavLink>   
         }
       }
@@ -251,13 +251,13 @@ class ProposalNavbar extends React.Component {
             case "edit":
               return <NavLink className= {`xs-12 sm-6 f-r ${ can_send === false ? `cannot_send`: `` }`} to="#"
               id="add" onClick={ this.submitProposal }>
-              Update Proposal
+              Update Milestone
               </NavLink>
             
             default:
               return <NavLink className= {`xs-12 sm-6 f-r ${ can_send === false ? `cannot_send`: `` }`} to="#"
               id="add" onClick={ this.submitProposal }>
-              Submit Proposal
+              Submit Milestone
             </NavLink>
             
           }
@@ -284,12 +284,12 @@ class ProposalNavbar extends React.Component {
 const mapStateToProps = state => {
   const { isFunder, isEvaluator, isContractor } = state.auth.credentials;
   return {
-    showCommentSection: state.proposal.view === "comments",
-    milestones: state.proposal.milestones,
-    tasks: state.proposal.tasks,
-    comments: state.proposal.comments,
-    contractor: state.proposal.contractor,
-    proposal_name: state.proposal.proposal_name,
+    showCommentSection: state.milestone.view === "comments",
+    milestones: state.milestone.milestones,
+    tasks: state.milestone.tasks,
+    comments: state.milestone.comments,
+    contractor: state.milestone.contractor,
+    proposal_name: state.milestone.proposal_name,
     userType:
       (isFunder === true && "Funder") ||
       (isEvaluator === true && "Evaluator") ||

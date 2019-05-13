@@ -8,7 +8,7 @@ export default styled.div`
     .p-t{
         padding-top: 1.5em;
     }
-    #proposal-name{
+    #milestone-name{
         height: 40px;
         width: 80%;
         border-radius: 4px;
@@ -24,7 +24,7 @@ export default styled.div`
         overflow: hidden;
     }
 
-    .proposal-left{
+    .milestone-left{
         padding: 1em;
         overflow: auto;
         padding-bottom: 5em;

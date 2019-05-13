@@ -343,11 +343,16 @@ export default styled.div`
   margin-top: 2em;
   border-radius: 3px;
   padding: 0.85em 2em;
-  color: white;
-  background: #F2994A;
+  color: #F2994A;
+  background: white;
   font-size: 1em;
-  border: 0;
+  border: 1px solid #F2994A;
   display: inline-block;
+
+  &:hover{
+    background: #F2994A;
+    color: white;
+  }
 }
 
 `;

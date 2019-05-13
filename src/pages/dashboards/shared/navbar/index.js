@@ -158,12 +158,12 @@ class Navbar extends React.Component {
             
             
             <div className="xs-12 sm-4">
-            <NavLink
+              <NavLink
                 className="xs-12 sm-6 f-r"
                 to="#"
                 id="add"
                 onClick={ this.props.showModal }>
-                + Propose Project
+                + Add Project
               </NavLink>
               
               <MenuNotifier className={"xs-12 sm-3 f-r"}/>

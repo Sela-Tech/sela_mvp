@@ -217,14 +217,14 @@ const App = class extends Component{
 
                       <PrivateRoute
                         exact
-                        path="/dashboard/proposal/new/:project_id"
+                        path="/dashboard/milestone/new/:project_id"
                         isAuthenticated={isAuthenticated}
                         component={dashboard_decider}
                       />
 
                       <PrivateRoute
                         exact
-                        path="/dashboard/proposal/new/:project_id/s"
+                        path="/dashboard/milestone/new/:project_id/s"
                         isAuthenticated={isAuthenticated}
                         component={dashboard_decider}
                       />
@@ -232,7 +232,7 @@ const App = class extends Component{
 
                       <PrivateRoute
                         exact
-                        path="/dashboard/proposal/:proposal_id"
+                        path="/dashboard/milestone/:milestone_id"
                         isAuthenticated={isAuthenticated}
                         component={dashboard_decider}
                       />

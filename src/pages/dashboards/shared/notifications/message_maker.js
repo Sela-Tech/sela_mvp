@@ -64,7 +64,7 @@ export default connect()(({data, dispatch})=>{
             </div>
 
             <div className="xs-8 sm-9 md-11">
-                <p>You've been assigned a proposal by <Link to="#" onClick={user_link}><strong>{name}</strong></Link> for the <a  href={project_link}><strong>{project_name}</strong></a> Project</p>
+                <p>You've been assigned a milestone by <Link to="#" onClick={user_link}><strong>{name}</strong></Link> for the <a  href={project_link}><strong>{project_name}</strong></a> Project</p>
                 <span> {Timediff(date)} </span>
             </div>
         </div>
@@ -76,7 +76,7 @@ export default connect()(({data, dispatch})=>{
                 </div>
 
                 <div className="xs-8 sm-9 md-11">
-                    <p>You now have an approved proposal with <Link to="#" onClick={user_link}><strong>{name}</strong></Link> for the <a  href={project_link}><strong>{project_name}</strong></a> Project</p>
+                    <p>You now have an approved milestone with <Link to="#" onClick={user_link}><strong>{name}</strong></Link> for the <a  href={project_link}><strong>{project_name}</strong></a> Project</p>
                     <span> {Timediff(date)} </span>
                 </div>
             </div>
@@ -102,7 +102,7 @@ export default connect()(({data, dispatch})=>{
 
 
         <div className="xs-8 sm-9 md-11">
-            <p><Link to="#" onClick={user_link}><strong>{name}</strong></Link> sent a proposal for the <a  href={project_link}><strong>{project_name}</strong></a> Project</p>
+            <p><Link to="#" onClick={user_link}><strong>{name}</strong></Link> sent a milestone for the <a  href={project_link}><strong>{project_name}</strong></a> Project</p>
             <span> {Timediff(date)} </span>
         </div>
 

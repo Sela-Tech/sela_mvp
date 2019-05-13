@@ -113,7 +113,7 @@ export default styled.div`
         }
     }
 
-    .btn-proposal{
+    .btn-milestone{
         
         border:0;
         padding: 1.25em 0;

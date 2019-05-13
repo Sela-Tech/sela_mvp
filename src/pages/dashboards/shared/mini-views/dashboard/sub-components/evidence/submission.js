@@ -1,6 +1,6 @@
 import React,{ Component } from 'react';
 import {connect} from 'react-redux';
-import ProposalTypeStyling from "../../../../proposal/style";
+import ProposalTypeStyling from "../../../../milestone/style";
 import {SubmissionWrap} from "./evidence.style";
 import moment from 'moment';
 import { retrieveSubmission, selectTask, clearSub } from '../../../../../../../store/action-creators/evidence';
@@ -258,11 +258,11 @@ class SubmissionEvidence extends Component{
                 <div className='xs-12'>
                     <div className='xs-6 tasks-view'>
                         <ProposalTypeStyling className='xs-12' style={{height: "unset"}}>
-                            <div className='xs-12 form-group proposal'>
-                                <label>Select proposal</label>
-                                <select name='proposal' value={proposalId} className='select-proposal form-control'
+                            <div className='xs-12 form-group milestone'>
+                                <label>Select milestone</label>
+                                <select name='milestone' value={proposalId} className='select-milestone form-control'
                                 onChange={e => this.loadData( e.target.value )}>
-                                    <option hidden>Select a proposal</option>
+                                    <option hidden>Select a milestone</option>
                                     {proposals.map((p,i)=>{
                                         return <option value={p._id} key={i}>{p.proposal_name || p.proposalName}</option>
                                     })}
@@ -435,7 +435,7 @@ const mapStateToProps = state => {
   return {
         submissions: state.evidence.submissions,
         selectedTaskSubmissions: state.evidence.selectedTaskSubmissions || {},
-        proposals: state.home.project.proposals || state.proposal.proposals,
+        proposals: state.home.project.proposals || state.milestone.proposals,
         type: state.evidence.type,
         projectId: state.projects.single.info._id
     }

@@ -3,13 +3,11 @@ import styled from "styled-components";
 // import Transactions from "../../../../../dashboards/shared/mini-views/dashboard/sub-components/transactions";
 import {connect} from 'react-redux';
 import { get_public_transactions } from "../../../../../../store/action-creators/homepage";
-import TableWrapper from "../../../../../dashboards/shared/styling/table";
-import moment from 'moment';
 import { SHOW_STAKEHOLDER_MODAL } from "../../../../../../store/actions/modal";
 import { showModal } from "../../../../../../store/action-creators/modal";
 import pilotData from "./pilot.data";
-import { isLiveNet } from "../../../../../../startupMode.config";
 import { ShowDisclaimer } from "../../../../../../startupMode.config";
+import TransactionTable from "../../../../../../shared-components/unique/transaction.table";
 
 const TokenWrapper = styled.div`
     overflow: auto;
@@ -212,84 +210,8 @@ const Token = connect(mapStateToPropsForTokenClass, mapDispatchToPropsForTokenCl
             }
        
           </div>
-              <TableWrapper className='xs-12'>
 
-                    <div className='top xs-12'>
-
-                        <div className='f-l'>
-                            <h3>Transaction History</h3>
-                        </div>
-                        
-                        <div className='f-r t-options'>
-                            <a href={`https://${ isLiveNet(info.distributorPublicKey) === false ? 'testnet.': ''}steexp.com/account/${info.distributorPublicKey}`} target="_blank" rel ='noopener noreferrer' className='view-on-block'>View All On Explorer</a>
-                        </div>
-
-                    </div>
-
-                    <div className='headings xs-12'>
-
-                        <div className='xs-3'>
-                            <h3>From</h3>
-                            </div>
-                            <div className='xs-3'>
-                            <h3> To</h3>
-                            </div>
-                            <div className='xs-3'>
-                            <h3> Amount</h3>
-                            <label>{
-                                info.createdToken && info.createdToken.distributor 
-                                && info.createdToken.distributor.distributionAccountBalances.map((token,i)=>{
-                                    return token.type !== 'native' && token.token
-                                })}</label>
-                            </div>
-                            <div className='xs-3'>
-                            <h3>Proof</h3>
-                            </div>
-                        </div>
-
-                    <div className='content xs-12'>
-                        { 
-                            info.transactions.map(t=>{
-                                return t;
-                            }).map((transaction,i)=>{
-                                return <div className='row xs-12' key={i}>
-                                    
-                                    <div className='xs-3 col-row'> 
-                                        <button className='stakeholder' key={i} 
-                                        onClick={()=>this.showSH(transaction.sender._id)}>
-                                            <img src={transaction.sender.profilePhoto} alt=""/>
-                                            {`${transaction.sender.firstName} ${transaction.sender.lastName}`}
-                                        </button>
-                                    </div>
-
-                                    <div className='xs-3 col-row'> 
-                                        <button className='stakeholder' key={i} 
-                                        onClick={()=>this.showSH(transaction.receiver._id)}>
-                                            <img src={transaction.receiver.profilePhoto} alt=""/>
-                                            {`${transaction.receiver.firstName} ${transaction.receiver.lastName}`}
-                                        </button>
-                                    </div>
-
-                                    <div className='xs-3 col-row'> 
-                                        <p>{ window.moneyFormat( parseFloat(transaction.value),
-                                        ``)}</p>
-                                        <label style = {{fontSize: "0.8em", color:"#999"}}>{moment(transaction.createdAt).format("DD MMMM YYYY, HH:mm")}</label>
-
-                                    </div>
-
-                                    <div className='xs-3 col-row'>
-                                    <a href={`
-                                    ${process.env.REACT_APP_STELLAR_MODE === 'testnet' && this.props.overwrite === false ?
-                                    `https://testnet.steexp.com/tx/`:`https://steexp.com/tx/`}${transaction.hash}
-                                    `} target="_blank" rel="noopener noreferrer">View On Explorer</a>
-                                    </div>
-
-                                </div>
-                            })
-                        }
-                    </div>
-
-                </TableWrapper>
+            <TransactionTable info = {info} />
             </TokenWrapper>
           </Fragment>
         )

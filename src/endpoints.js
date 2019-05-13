@@ -4,7 +4,7 @@ let b = "https://sela-develop.herokuapp.com/";
 const proposals = (type, data)=>{
   switch (type) {
     case "fetch_one_proposal":
-    return  b + `proposal/${data.proposal_id}`; 
+    return  b + `proposal/${data.milestone_id}`; 
     case 'fetch':
     return b +  `project/${data.project_id}/proposals`;
     default:

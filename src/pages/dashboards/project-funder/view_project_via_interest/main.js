@@ -87,10 +87,10 @@ class MainViewForPreviewingProject extends Component{
                         <div className='xs-12 sm-10 document'>
                             {
                                 documents.map((doc,i)=>{
-                                let type = doc.filetype.split("/")[0];
-                                if(type !== 'image' && type !== 'video' && type !== 'audio'){
-                                    type = 'document';
-                                }
+                                    let type = doc.filetype.split("/")[0];
+                                    if(type !== 'image' && type !== 'video' && type !== 'audio'){
+                                        type = 'document';
+                                    }
                                 return <div className='xs-12 inner' key={i}>
                                     <div className={`img preview-${type} xs-3 sm-2`}/>
                                     <div className='text xs-6 sm-7'>
@@ -141,21 +141,13 @@ class MainViewForPreviewingProject extends Component{
                 </div>
                 
                 <div className='xs-12 md-2 pad'>
-                    <Link to={`#`} className='btn-proposal' style={{
+                    <Link to={`#`} className='btn-milestone' style={{
                         cursor: 'not-allowed',
                         background: "grey"
                     }}>Request Invite</Link>
                 </div>
 
-                {/* {this.props.self !== true &&    
-                    <div className='xs-12 md-2 pad'>
-                    { hasSubmitted ?
-                        <Link to={`/dashboard/proposal/${proposalId}`} className='btn-proposal inverse'>View Proposal</Link>
-                    : 
-                        <Link to={`/dashboard/proposal/new/${project_id}/s`} className='btn-proposal'>Submit Proposal</Link>
-                    }
-                    </div>
-                 } */}
+          
             </div>
         </WrapStyle>
     }

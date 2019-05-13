@@ -8,7 +8,18 @@ import SharedViewWrapper from "../../shared/styling/projects.view";
 import HomeCard from "../../shared/card.dashboard";
 import { SHOW_INTERESTS_MODAL } from "../../../../store/actions/modal";
 import Joyride from 'react-joyride';
-import { defaultSliderSettings } from "../../shared/others";
+import { defaultSliderSettings, metricsSettings } from "../../shared/others";
+
+import fish from "../../../../assets/dashboard-landing/fish.svg";
+import drop from "../../../../assets/dashboard-landing/drop.svg";
+import money from "../../../../assets/dashboard-landing/money.svg";
+import pollution from "../../../../assets/dashboard-landing/pollution.svg";
+import jobs from "../../../../assets/dashboard-landing/jobs.svg";
+
+import rise from "../../../../assets/dashboard-landing/rise.svg";
+import rocket from "../../../../assets/dashboard-landing/rocket.svg";
+import metres from "../../../../assets/dashboard-landing/metres.svg";
+import mapping from "../../../../mapping";
 
 
 let exportMe = null;
@@ -53,7 +64,8 @@ exportMe = class extends React.Component{
             content: <p>This represents the base balance of the currency used by the sela system to perform actions on the platform, actions range from simple project creation to transfering tokens between stakeholders on a project etc.</p>
         }],
         projects: this.props.projects || {},
-        settings: defaultSliderSettings
+        settings: defaultSliderSettings,
+        mSettings: metricsSettings
       }
     }
 
@@ -75,20 +87,28 @@ exportMe = class extends React.Component{
     }
   
     resizer = () => {
-      let temp;
+      let temp, mtemp;
+
       if (window.innerWidth > 768 && window.innerWidth < 1023) {
-        temp = 3;
+        temp = 2;
+        mtemp = 2;
       } else if (window.innerWidth > 1024) {
         temp = 5;
+        mtemp= 2;
       } else if (window.innerWidth < 767) {
         temp = 2;
+        mtemp = 2;
       }
   
       this.setState({
         settings: {
           ...this.state.settings,
           slidesToShow: temp
-        }
+        },
+         mSettings: {
+           ...this.state.mSettings,
+           slidesToShow: mtemp
+         }
       });
     };
 
@@ -99,17 +119,158 @@ exportMe = class extends React.Component{
     go = id => this.props.history.push("/dashboard/project/" + id + "/overview");
 
     render(){
+
       const { steps } = this.state;
-
-      const { settings, projects }= this.state;      
-      const { createdProjects, fundedProjects,
-        // savedProjects, 
-         areasOfInterest
-       } = projects;
-
+      const { settings, mSettings, projects }= this.state;      
+      const { createdProjects, fundedProjects  } = projects;
+     
      return <SharedViewWrapper className="xs-12">
       <Joyride steps={steps} />
-        
+
+      <section className='xs-12'>
+          <label>Portfolio Metrics</label>
+        { 
+          <Slider 
+            {...mSettings}
+            containerClass="xs-12"
+            className="xs-12 slider metrics">
+
+              <div className='one shared'>
+                <div className='xs-6'>
+                  <img src={money} alt=""/>
+                  <h3>$250,000</h3>
+                  <p>Total portfolio funds</p>
+                  <span className="percentage"> 
+                  {/* <img src={greenarrow} alt=""/> */}
+                   3%</span>
+                </div>
+                <div className='xs-6'>
+                  <img src={rocket} alt=""/>
+                  <h3>$220,000</h3>
+                  <p>Total portfolio funds deployed</p>
+                </div>
+              </div>
+
+              <div className='xs-12 two shared'>
+              <div className='xs-6'>
+                <img src={metres} alt=""/>
+                <h3>$9,100</h3>
+                <p>Cubic meters cleaned</p>
+              </div>
+              <div className='xs-6'>
+              {
+                [ "Clean Water & Sanitation", "Life Below Water"].map((sdg,i)=>{
+                return <div key={i} className={'f-l'}>
+                  <button className='sdg-btn'>
+                      <img src={mapping[sdg]} alt="sdg"/>
+                  </button>
+                </div>
+              })
+              }
+              </div>
+            </div>
+
+            <div className='xs-12 three shared'>
+              <div className='xs-6'>
+                <img src={drop} alt=""/>
+                <h3>$1,500</h3>
+                <p>People with access to drinking water</p>
+              </div>
+              <div className='xs-6'>
+              {
+                [ "Clean Water & Sanitation", "Sustainable Cities", "Life on Land", "Life Below Water" ].map((sdg,i)=>{
+                  return <div key={i} className={'f-l'}>
+                    <button className='sdg-btn'>
+                        <img src={mapping[sdg]} alt="sdg"/>
+                    </button>
+                  </div>
+                })
+              }
+              </div>
+            </div>
+
+            <div className='xs-12 four shared'>
+              <div className='xs-6'>
+                <img src={rise} alt=""/>
+                <h3>~$5,400<span>/quarter</span></h3>
+                <p>Community revenue generated</p>
+              </div>
+            
+              <div className='xs-6'>
+              {
+                [ "No Poverty", "Zero Hunger", "Life Below Water" ].map((sdg,i)=>{
+                  return <div key={i} className={'f-l'}>
+                    <button className='sdg-btn'>
+                        <img src={mapping[sdg]} alt="sdg"/>
+                    </button>
+                  </div>
+                })
+              }
+              </div>
+            </div>
+
+            <div className='xs-12 five shared'>
+              <div className='xs-6'>
+                <img src={fish} alt=""/>
+                <h3>2,000 fish/quarter</h3>
+                <p>Fish added to food supply</p>
+              </div>
+              <div className='xs-6'>
+                {
+                  [ "No Poverty", "Zero Hunger", "Life Below Water" ].map((sdg,i)=>{
+                    return <div key={i} className={'f-l'}>
+                      <button className='sdg-btn'>
+                          <img src={mapping[sdg]} alt="sdg"/>
+                      </button>
+                    </div>
+                  })
+                }
+              </div>
+            </div>
+
+            <div className='xs-12 six shared'>
+              <div className='xs-6'>
+                <img src={pollution} alt=""/>
+                <h3>50%</h3>
+                <p>Decrease in pollution</p>
+              </div>
+              <div className='xs-6'>
+              {
+                  [ "Clean Water & Sanitation", "Life Below Water" ].map((sdg,i)=>{
+                    return <div key={i} className={'f-l'}>
+                      <button className='sdg-btn'>
+                          <img src={mapping[sdg]} alt="sdg"/>
+                      </button>
+                    </div>
+                  })
+                }
+              </div>
+            </div>
+
+            <div className='xs-12 seven shared'>
+              <div className='xs-6'>
+                <img src={jobs} alt=""/>
+                <h3>420</h3>
+                <p>Jobs Created</p>
+              </div>
+              <div className='xs-6'>
+              {
+                  [  "Sustainable Cities" ].map((sdg,i)=>{
+                    return <div key={i} className={'f-l'}>
+                      <button className='sdg-btn'>
+                          <img src={mapping[sdg]} alt="sdg"/>
+                      </button>
+                    </div>
+                  })
+                }
+              </div>
+            </div>
+
+          </Slider>
+        }
+      </section>
+
+
         <section className='xs-12'>
           <label>Projects you initiated</label>
         { 
@@ -179,7 +340,7 @@ exportMe = class extends React.Component{
         </section>
       }
 
-      <section className='xs-12'>
+      {/* <section className='xs-12'>
         <label>Projects in your areas of interest</label>
     
             <Slider 
@@ -218,7 +379,7 @@ exportMe = class extends React.Component{
             </div>
             }
             </Slider>
-     </section>
+     </section> */}
 
       {/* <section className='xs-12'>
         <label>Saved projects</label>

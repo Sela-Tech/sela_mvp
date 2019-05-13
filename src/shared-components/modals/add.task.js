@@ -4,7 +4,7 @@ import DatePicker from "react-datepicker";
 import moment from "moment";
 import "react-datepicker/dist/react-datepicker.css";
 import { connect } from "react-redux";
-import { create_task } from "../../store/action-creators/proposal";
+import { create_task } from "../../store/action-creators/milestone";
 import AddTaskWrapper from "./styles.modals/dash-task";
 
 const mapStateToProps = state => {
@@ -12,7 +12,7 @@ const mapStateToProps = state => {
   const { previousTaskDeadline } = state.tasks.add;
   let allocated = 0;
 
-  state.proposal.tasks.map(task => {
+  state.milestone.tasks.map(task => {
     allocated = allocated + parseFloat(task.amount);
     return 1;
   })
@@ -133,7 +133,7 @@ export default connect(mapStateToProps)(
                       </div>
 
                       <div className='xs-12'>
-                          <button id='save' type='submit' disabled={ this.state.amount <= 0 }> Add Task To Proposal</button>
+                          <button id='save' type='submit' disabled={ this.state.amount <= 0 }> Add Task To Milestone</button>
                       </div>
                       
                     </form>

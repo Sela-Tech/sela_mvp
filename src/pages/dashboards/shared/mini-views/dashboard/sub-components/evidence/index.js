@@ -7,19 +7,21 @@ import {
 import {  SHOW_ADD_REQUEST_MODAL, SHOW_SUBMISSION_BY_TYPE_MODAL, SHOW_STAKEHOLDER_MODAL } from "../../../../../../../store/actions/modal";
 import EvidenceWrap from "./evidence.style";
 import TableWrap from "../../../../styling/table";
-import { get_proposals } from '../../../../../../../store/action-creators/proposal';
-import SubmissionEvidence from "./submission";
+import { get_proposals } from '../../../../../../../store/action-creators/milestone';
+// import SubmissionEvidence from "./submission";
 import { getKPIs } from "../../../../../../../store/action-creators/evidence";
 import { SUBMIT_EVIDENCE_S } from "../../../../../../../store/actions/evidence";
+import Updates from "../../../../../../public/projects/view-project/subs/updates";
+import {applyOverrideContainer} from "../../../../../../../startupMode.config";
 
 class Evidence extends React.Component {
   constructor(props){
     super(props);
-    props.get_proposals(props.id);
-    props.get_kpis(props.id);
+    props.get_proposals( applyOverrideContainer({view: "milestone",alt_option: props.id }));
+    props.get_kpis( applyOverrideContainer({view: "milestone",alt_option: props.id }));
     this.state = {
       date: "",
-      selected: "request",
+      selected: "updates",
       evidence: []
   };
   }
@@ -36,7 +38,7 @@ class Evidence extends React.Component {
       });
 
       if(nextProps.evidence_type === SUBMIT_EVIDENCE_S){
-        nextProps.get_kpis(nextProps.id)
+        nextProps.get_kpis(nextProps.id);
       }
     }
   }
@@ -51,13 +53,17 @@ class Evidence extends React.Component {
     return (
       <EvidenceWrap className="xs-12">
 
-        <div className='xs-12 sm-6 border-butt'>
-          <div className={`xs-6 ${this.state.selected === 'request' ? 'active':''}`}>
-            <button onClick={()=>this.setSelected('request')} className = 'opt'> Requests </button>
+        <div className='xs-12 sm-8 md-5 border-butt'>
+          <div className={`xs-4 t-l ${this.state.selected === 'updates' ? 'active':''}`}>
+            <button onClick={()=>this.setSelected('updates')} className = 'opt'>Updates</button>
           </div>
-          <div className={`xs-6 ${this.state.selected === 'submission' ? 'active':''}`}>
-            <button onClick={()=>this.setSelected('submission')} className = 'opt'>Submissions </button>
+          
+          <div className={`xs-4 t-l ${this.state.selected === 'request' ? 'active':''}`}>
+            <button onClick={()=>this.setSelected('request')} className = 'opt'> Requests</button>
           </div>
+          {/* <div className={`xs-4  t-l ${this.state.selected === 'submission' ? 'active':''}`}>
+            <button onClick={()=>this.setSelected('submission')} className = 'opt'>Submissions</button>
+          </div> */}
         </div>
         
         <div className='xs-12 container'>
@@ -144,8 +150,6 @@ class Evidence extends React.Component {
               
                       { 
                         this.props.iMadeThisProject === false &&
-                        // evidence.stakeholders.some(
-                        //   ev=> ( ev.hasSubmitted === false && ev.user._id === this.props.my_id )) &&
                         <button className='view' onClick={()=>this.props.showSubmissionByType({
                         type: evidence.datatype, submissionData: { fields: evidence.fields, mode: 'submit', evidenceRequestId: evidence._id }} )}> 
                           Submit
@@ -167,11 +171,17 @@ class Evidence extends React.Component {
             </div> 
           }
 
-          { this.state.selected === "submission" &&
+          {/* { this.state.selected === "submission" &&
             <SubmissionEvidence showSubmissionByType={this.props.showSubmissionByType}/>
           }
-          
+           */}
         </div>
+
+        {
+          this.state.selected === "updates" && 
+          <Updates freeMode={true} id={this.props.id} project={this.props.project} />
+        }
+        
       </EvidenceWrap>
     );
   }
@@ -183,6 +193,7 @@ const mapStateToProps = state => {
     
   let obj = {
       my_id: state.auth.credentials.id,
+      project: state.projects.single.info,
       projectId: state.projects.single.info._id,
       documents: state.projects.single.info.documents,
       kpis: state.evidence.kpis,

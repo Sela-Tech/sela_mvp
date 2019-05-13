@@ -64,7 +64,7 @@ class Walkthrough extends React.Component{
                 <div className='c i-h t-c'>
                     <div className='white xs-10 xs-off-1 sm-6 sm-off-3 '>
                         <h3>Walkthrough Tutorial Video</h3>
-                        <iframe title="demo" className='video' src="https://www.youtube.com/embed/QwL53ub8QUc" frameborder="0" allow="accelerometer; autoplay; encrypted-media; gyroscope; picture-in-picture" allowfullscreen></iframe>
+                        <iframe title="demo" className='video' src="https://www.youtube.com/embed/QwL53ub8QUc" frameBorder="0" allow="accelerometer; autoplay; encrypted-media; gyroscope; picture-in-picture" allowFullScreen></iframe>
                     </div>
                     <div className='xs-12 t-c'>
                         <button id='close' onClick={this.close}>Close</button>

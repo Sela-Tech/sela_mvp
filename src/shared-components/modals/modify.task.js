@@ -4,12 +4,12 @@ import DatePicker from "react-datepicker";
 import moment from "moment";
 import "react-datepicker/dist/react-datepicker.css";
 import { connect } from "react-redux";
-import { update_task, delete_task } from "../../store/action-creators/proposal";
+import { update_task, delete_task } from "../../store/action-creators/milestone";
 import AddTaskWrapper from "./styles.modals/dash-task";
 
 const mapStateToProps = state => {
   const { type, message } = state.tasks.add.action;
-  const { milestones, tasks } = state.proposal;
+  const { milestones, tasks } = state.milestone;
 
   return {
     message,

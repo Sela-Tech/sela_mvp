@@ -36,6 +36,9 @@ class MainViewForPreviewingProject extends Component{
 
         const observationBudget = typeof(info.observationBudget) === "string"? info.observationBudget : window.moneyFormat(info.observationBudget, "$");
 
+        const totalBudget = implementationBudget && observationBudget ? 
+        window.moneyFormat(info.implementationBudget + info.observationBudget, "$"): implementationBudget;
+        
         let sdgs = info.sdgs || info.tags;
         let location = "";
         const title = info.title || info.name;
@@ -55,8 +58,8 @@ class MainViewForPreviewingProject extends Component{
         });
 
         const Boxes = sdgs.map((sdg,i)=>{
-            return <div key={i} className={'xs-4 sm-3 md-4'}>
-                <button className={`${'xs-10 xs-off-1 '} sdg-btn`}>
+            return <div key={i} className={'f-l'}>
+                <button className='sdg-btn'>
                     <img src={mapping[sdg]} alt="sdg"/>
                 </button>
             </div>
@@ -67,12 +70,12 @@ class MainViewForPreviewingProject extends Component{
                 <img id='header' src={image} alt={info.image} />
             </div>
             <div className='xs-12 contain'>
-                <div className='xs-12 md-6 pad'>
+                <div className='xs-12 md-6 lg-5 pad'>
                     <div className="xs-12 sm-9 text">
                         <h2>{title}</h2> 
                     </div>
                     <div className="xs-12 sm-3">
-                        <button id='status'> {info.status} </button>                    
+                        <button id='status'> {info.status === "PROPOSED" ? "IN PROGRESS": info.status} </button>                    
                     </div>
                     <div className='xs-12 bg-text'>
                     <p>{withBreaks}</p>
@@ -132,7 +135,7 @@ class MainViewForPreviewingProject extends Component{
                     </div>
                 </div>
 
-                <div className='xs-12 md-4 pad' id='initiated'>
+                <div className='xs-12 md-3 lg-3 pad' id='initiated'>
                     {this.props.self !== true && 
                     <Fragment>
                         <h3>Initiated By</h3>
@@ -147,32 +150,37 @@ class MainViewForPreviewingProject extends Component{
                         </div>
                     </Fragment>
                     }
+
                     <div className='xs-12 p-text'>
                         <div className='xs-12'>
-                            <span id="location"/><p>{location}</p>
+                        <label className='xs-12'><span id="location"/> Location</label>
+                          <p>{location}</p>
                         </div>
+
                         <div className='xs-12'>
-                            <label style={{fontSize: '0.7em', display: "block", color: "#888"}}>Implementation Budget</label>
-                            <span id="money"/><p>{ implementationBudget }</p>
-                            <label style={{fontSize: '0.7em', display: "block", color: "#888"}}>Observation Budget</label>
-                            <span id="money"/><p>{ observationBudget }</p>
+                        <label className='xs-12'><span id="money"/> Total Budget</label>
+                         
+                            <p>{ totalBudget}</p>
                             
                         </div>
                         <div className='xs-12'>
-                            <span id="duration"/><p>{duration}</p>
+                            <label className='xs-12'><span id="duration"/> Timeline </label>
+                                <p>{duration}</p>
                         </div>
-                    </div>
-                    <div className='xs-12'>
-                        {Boxes}
                     </div>
                 </div>
                 
+                <div className='xs-12 md-3 lg-4 impact-metrics'>
+                    <label className='xs-12'>Impact Metrics</label>
+                    {Boxes}
+                </div>
+
                 {this.props.self !== true &&    
                     <div className='xs-12 md-2 pad'>
                     { hasSubmitted ?
-                        <Link to={`/dashboard/proposal/${proposalId}`} className='btn-proposal inverse'>View Proposal</Link>
+                        <Link to={`/dashboard/milestone/${proposalId}`} className='btn-milestone inverse'>View Milestones</Link>
                     : 
-                        <Link to={`/dashboard/proposal/new/${project_id}/s`} className='btn-proposal'>Submit Proposal</Link>
+                        <Link to={`/dashboard/milestone/new/${project_id}/s`} className='btn-milestone'>Submit Milestones</Link>
                     }
                     </div>
                  }

@@ -8,7 +8,7 @@ import ContractorHome from "./contractor/view_home";
 import FunderHome from "./project-funder/view_home";
 
 import Settings from "./shared/whole-views/dashboard-settings";
-import Proposal from "./shared/proposal";
+import Proposal from "./shared/milestone";
 import Project from "./shared/whole-views/view-my-project";
 
 import Notifications from "./shared/notifications/index.js";
@@ -28,18 +28,18 @@ const DashboardRouter =  withRouter(({ userType, ...props }) => {
 
   switch (pathname) {
 
-    case "/dashboard/proposal/new/:project_id/s":
-    return <DashboardWrapper viewName={viewname ? viewname: "New Proposal"}>
+    case "/dashboard/milestone/new/:project_id/s":
+    return <DashboardWrapper viewName={viewname ? viewname: "New Milestone"}>
       <Proposal {...props} mode={ 'self' }/>
    </DashboardWrapper>
 
-    case "/dashboard/proposal/new/:project_id":
-    return <DashboardWrapper viewName={viewname ? viewname: "New Proposal"}>
+    case "/dashboard/milestone/new/:project_id":
+    return <DashboardWrapper viewName={viewname ? viewname: "New Milestone"}>
       <Proposal {...props} mode={ 'new' }/>
    </DashboardWrapper>
 
-    case "/dashboard/proposal/:proposal_id":
-    return <DashboardWrapper viewName={viewname ? viewname: "View Proposal"}>
+    case "/dashboard/milestone/:milestone_id":
+    return <DashboardWrapper viewName={viewname ? viewname: "View Milestone"}>
       <Proposal {...props} mode="view"/>
     </DashboardWrapper>
    

@@ -11,7 +11,7 @@ import document from "./project-funder/document";
 import app from "./app";
 import notification_state from "./notifications";
 import contractor from "./contractor/project";
-import proposal from "./proposal";
+import milestone from "./milestone";
 import evidence from './evidence';
 import wallet from "./wallet";
 
@@ -21,7 +21,7 @@ export default combineReducers({
   admin,
   projects,
   modal,
-  proposal,
+  milestone,
   tasks,
   transactions,
   home,

@@ -1,4 +1,4 @@
-import proposal_actions from "../actions/proposal";
+import proposal_actions from "../actions/milestone";
 import Axios from "axios";
 import { retrieveToken } from "../../helpers/TokenManager";
 import endpoints from "../../endpoints";
@@ -89,25 +89,25 @@ export const create_proposal = obj =>{
             }
         }).then(res=>{
             dispatch({ type: proposal_actions.SUBMIT_PROPOSAL_S, response: res.data });
-            dispatch({ type: "NEW_TOAST", status: "success", message: "Proposal Created Successfully."})
+            dispatch({ type: "NEW_TOAST", status: "success", message: "Milestone Created Successfully."})
         }).catch(res=>{
             dispatch({ type: proposal_actions.SUBMIT_PROPOSAL_F, response: res.data });
-            dispatch({ type: "NEW_TOAST", status: "error", message: "Could Not Create Proposal."})
+            dispatch({ type: "NEW_TOAST", status: "error", message: "Could Not Create Milestone."})
         })
     }
 }
 
-export const get_proposal = proposal_id => {
+export const get_proposal = milestone_id => {
     return dispatch =>{
-        dispatch({ type: proposal_actions.GET_ONE_PROPOSAL_R })
+        dispatch({ type: proposal_actions.GET_ONE_PROPOSAL_R });
         Axios({
-            url: endpoints.proposals('fetch_one_proposal',{ proposal_id }),
+            url: endpoints.proposals('fetch_one_proposal',{ milestone_id }),
             method: "GET",
             headers:{
                 authorization: retrieveToken()
             }
         }).then(res=>{
-            dispatch({ type: proposal_actions.GET_ONE_PROPOSAL_S, proposal: res.data.proposal })
+            dispatch({ type: proposal_actions.GET_ONE_PROPOSAL_S, milestone: res.data.proposal })
         }).catch(res=>{
             dispatch({ type: proposal_actions.GET_ONE_PROPOSAL_F })
             dispatch({ type: "NEW_TOAST", status: "error", message: extractMessage(res) })

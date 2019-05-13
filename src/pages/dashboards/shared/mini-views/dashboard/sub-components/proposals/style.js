@@ -20,7 +20,7 @@ export default styled.div`
     margin: 0.25em;
 }
 
-#create-proposal{
+#create-milestone{
     text-align: center;
     padding: 0 1.5em;
     height: 45px;

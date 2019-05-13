@@ -9,8 +9,14 @@ import table from "./table.svg";
 import { fetchUpdates } from "../../../../../../store/action-creators/homepage";
 import { SHOW_SUBMISSION_BY_TYPE_MODAL } from "../../../../../../store/actions/modal";
 import { showModal } from "../../../../../../store/action-creators/modal";
+import TransactionTable from "../../../../../../shared-components/unique/transaction.table";
+import {applyOverrideContainer} from "../../../../../../startupMode.config";
 
 const UpdateRow = styled.div`
+
+.transaction-table{
+  margin: 2em 0;
+}
 
 .evidence-img{
   width: 100%;
@@ -48,28 +54,28 @@ label{
 }
 
 @media(min-width: 768px){
-  .proposal-name, .proposal-milestone{
+  .milestone-name, .milestone-milestone{
     float: left;
   }
-  .proposal-name{
+  .milestone-name{
     padding-right: 1em;
   }
   
-  .proposal-milestone{
+  .milestone-milestone{
     border-left: 1px solid #eee;
     padding-left: 1em;
   }
 }
 
 @media(max-width: 767px){
-  .proposal-name, .proposal-milestone{
+  .milestone-name, .milestone-milestone{
     display: block;
     padding-bottom: 1em;
   }
 }
 
 .tasks{
-  .proposal-task{
+  .milestone-task{
     border-bottom: 1px solid #eee;
     margin: 1.5em 0;
     display: block;
@@ -310,17 +316,18 @@ const Update = connect()(
         {this.state.showViewImage === true && <ViewImage image={this.state.imageToShow} closeViewImage={this.closeViewImage}/>}
         <UpdateRow className="xs-12">
         <div className="xs-12">
-          <div className='proposal-name'>
-            <label>Proposal name</label>
+          <div className='milestone-name'>
+            <label>Milestone name</label>
             <h4 className='name'>{data.proposalName}</h4>
           </div>
-          <div className='proposal-milestone'>
+          <div className='milestone-milestone'>
             <label>Milestone name</label>
             <h4 className="name"> {data.milestoneTitle}</h4>
           </div>
   
           <div className='xs-12 tasks'>
-            { data.tasks && data.tasks.filter(t => Boolean(t.data.length)).map((taskdata,i)=>{
+            { Boolean(data.tasks.length) && 
+             data.tasks.filter(t => Boolean(t.data.length)).map((taskdata,i)=>{
               
               let data_of_taskdata =[]; 
   
@@ -330,13 +337,15 @@ const Update = connect()(
   
               data_of_taskdata = this.mergeSubmissions(data_of_taskdata);
   
-              return <div className='proposal-task xs-12' key={i}>
+              return <div className='milestone-task xs-12' key={i}>
+              
               <div className='xs-12'>
                 <label>Task name</label>
                 <h4 className='name'>{taskdata.name}</h4>
                 <label>Task Description</label>
                 <p className="desc">{taskdata.description}</p>
               </div>
+
               <div className='xs-12'>
                 {
                   data_of_taskdata && Boolean(data_of_taskdata.length) && data_of_taskdata.filter((o,i)=> i < 5).map((kpidata,y)=>{
@@ -370,8 +379,16 @@ const Update = connect()(
                   
                 })}
               </div>
+                
+              
+              <div className='xs-12 transaction-table'>
+                <TransactionTable info={{transactions: []}}/>
+              </div>
+
             </div>  
-            })}
+            })
+            
+          }
           </div>      
         </div>
       </UpdateRow>
@@ -388,7 +405,8 @@ class Updates extends React.Component{
       projectData: [],
       inView: []
     }
-    this.props.fetchUpdates(this.props.id);
+    console.log( applyOverrideContainer({ view: "updates", alt_option: props.id }) );
+    this.props.fetchUpdates( applyOverrideContainer({ view: "updates", alt_option: props.id }) );
   }
 
   componentWillReceiveProps(nextProps){
@@ -428,8 +446,8 @@ class Updates extends React.Component{
     const { inView } = this.state;
     return (
       <UpdatesWrapper className="xs-12">
-        <div className="xs-10 xs-off-1">
-          <div className="xs-12 sm-10 container">
+        <div className={ this.props.freeMode === true ? "xs-12":"xs-10 xs-off-1"}>
+          <div className= { this.props.freeMode === true ?  "xs-12 container": "xs-12 sm-10 container" }>
             <div className='xs-12'>
               <select className='form-control' name='option' onChange={this.selectUpdates}>
                 <option value="all">All Updates</option>
@@ -438,9 +456,14 @@ class Updates extends React.Component{
               </select>
             </div>
             {
-              inView.map((obj,i)=>{
+              Boolean(inView.length) ?
+               inView.map((obj,i)=>{
                 return <Update data = {obj} key={i} />
               })
+              :
+              <div className='milestone-task xs-12'>
+              <p>No Updates.</p>
+            </div>
             }
           </div>
         </div>
@@ -455,7 +478,7 @@ const mapStateToProps = state => {
     updates: state.home.updates,
     submissions: state.evidence.submissions,
     selectedTaskSubmissions: state.evidence.selectedTaskSubmissions || {},
-    proposals: state.home.project.proposals || state.proposal.proposals,
+    proposals: state.home.project.proposals || state.milestone.proposals,
     type: state.evidence.type,
     projectId: state.projects.single.info._id
   }

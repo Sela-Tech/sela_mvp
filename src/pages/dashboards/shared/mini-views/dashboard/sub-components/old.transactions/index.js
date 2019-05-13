@@ -56,7 +56,7 @@ class Transactions extends React.Component {
                     transactions.map((p,index)=>{
                         return <div className='row xs-12' key={index}>
                         <div className='xs-3 col-row'>
-                            <Link to={`/dashboard/proposal/${p._id}`}>{""}</Link>
+                            <Link to={`/dashboard/milestone/${p._id}`}>{""}</Link>
                         </div>
                         <div className='xs-3 col-row'>
                             <button onClick={()=>this.showSH(3102)}><img src="http://placehold.it/50" alt=""/>{""} </button>

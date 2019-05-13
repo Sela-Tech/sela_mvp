@@ -50,7 +50,17 @@ export default styled.div`
             margin: 10px 0 0;
         }
     }
+
+    .impact-metrics{
+        margin-top: 1em;
+        label{
+            margin-bottom: 1em;
+            display: block;
+        }
+    }
+
     #initiated{
+      
         h3{
             line-height: 21px;
             font-size: 16px;
@@ -113,7 +123,7 @@ export default styled.div`
         }
     }
 
-    .btn-proposal{ 
+    .btn-milestone{ 
         border:0;
         padding: 1.25em 0;
         width: 100%;
@@ -216,10 +226,12 @@ export default styled.div`
         background: transparent;
         border: 0;
         text-align: left;
+        padding: 0;
+        margin: 0.25em 0.35em;
         
         img{
-            width: 100%;
-            height: 100px;
+            width: 10em;
+            height: 10em;
             object-fit: contain;
             object-position: left;
         }

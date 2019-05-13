@@ -1,6 +1,20 @@
 import styled from 'styled-components';
 
 export default styled.div`
+.percentage{
+    display: block;
+    width: 100%;
+    text-align: center;
+    color: #00C48C;
+
+    img{
+       height: 10px !important;
+       width: 10px !important;
+       object-fit: contain !important;
+       display: inline-block !important;
+       margin-right: 1em !important; 
+    }
+}
 
 .wrap-img{
     width: 100%;
@@ -108,6 +122,60 @@ label{
     p{
         font-weight: 300;
         padding: 0 2em;
+    }
+}
+
+
+
+.metrics{
+    margin: 1em 0;
+
+    .shared{
+        background: white;
+        margin: 1em 0;
+        padding: 2em 1em;
+        width: 95% !important;
+        min-height: 17.5em; 
+        box-shadow: 0px 0px 5px rgba(30, 34, 37, 0.02);
+        border-radius: 4px;
+    }
+
+    img{
+        height: 7em;
+        width: 7em;
+        margin: 0.25em auto 0.75em;
+        border-radius: 7em;
+        display: block;
+    }
+    
+    h3,p{
+        margin: 0.25em 0;
+    }
+    h3{
+        font-size: 1.5em;
+        line-height: 1.1em;
+        font-weight: 600;
+        text-align: center;
+        color: #142225;
+    }
+    
+    p{
+        font-family: Acumin Pro;
+        font-size: 1em;
+        line-height: 1.25em;
+        text-align: center;
+        color: #475259;
+    }
+}
+
+.sdg-btn{
+    background: white;
+    border: 0;
+    object-fit: contain;
+    img{
+        height: 7.5em;
+        width: 7.5em;
+        border-radius: 0;
     }
 }
 `;

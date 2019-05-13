@@ -2,28 +2,28 @@ import React from 'react';
 import Wrap from './style';
 import {connect} from 'react-redux';
 // import noproposal from "../../../../../../../assets/icons/empty.svg";
-import { get_proposals } from '../../../../../../../store/action-creators/proposal';
+import { get_proposals } from '../../../../../../../store/action-creators/milestone';
 import { Link } from 'react-router-dom';
 import { showModal } from '../../../../../../../store/action-creators/modal';
 import { SHOW_ADD_STAKEHOLDER_MODAL, SHOW_STAKEHOLDER_MODAL } from '../../../../../../../store/actions/modal';
-import proposal from '../../../../../../../store/actions/proposal';
+import milestone from '../../../../../../../store/actions/milestone';
 import TableWrap from "../../../../styling/table";
+import {applyOverrideContainer} from "../../../../../../../startupMode.config";
 
 class Proposals extends React.Component{
     constructor(props){
         super(props);
-        props.get_proposals(props.id);
+        props.get_proposals( applyOverrideContainer({view: "proposal", alt_option: props.id }) );
         this.state = {
-            proposals: props.proposals,
-            isLoading: true
-        }
+            proposals: props.proposals, isLoading: true
+        };
     }
 
     componentWillReceiveProps(nextProps){
         if(this.props !== nextProps){
             this.setState({
                 proposals: nextProps.proposals,
-                isLoading: nextProps.type === proposal.GET_PROPOSALS_R
+                isLoading: nextProps.type === milestone.GET_PROPOSALS_R
             })
         }
     }
@@ -38,13 +38,13 @@ class Proposals extends React.Component{
                 <div className='top xs-12'>
     
                     <div className='f-l'>
-                        <h3>Proposals</h3>
+                        <h3>Milestones</h3>
                         <span id='info'>Values in the <strong>Title, Created By, Assigned To </strong> columns can be clicked on</span>
                     </div>
                     
                     <div className='f-r'>
                         {this.props.readOnly !== true &&
-                            <Link className='button' to={ "/dashboard/proposal/new/" + id }>Create proposal</Link>
+                            <Link className='button' to={ "/dashboard/milestone/new/" + id }>Create Grouping</Link>
                         }
                     </div>
                 </div>
@@ -99,7 +99,7 @@ class Proposals extends React.Component{
 
                             return <div className='row xs-12' key={index}>
                             <div className='xs-3 col-row'>
-                                <Link to={`/dashboard/proposal/${p._id}`}>{title}</Link>
+                                <Link to={`/dashboard/milestone/${p._id}`}>{title}</Link>
                             </div>
                             <div className='xs-3 col-row'>
                                 <button onClick={()=>this.showSH(pById)}><img src={pProfilePhoto} alt=""/>{proposedBy} </button>
@@ -115,7 +115,7 @@ class Proposals extends React.Component{
                     : <div className='row xs-12'>
                         <p style={{
                             padding: '1em'
-                        }}>No Proposals Found.</p>
+                        }}>No Milestones Found.</p>
                     </div>
                 }
                     
@@ -133,7 +133,7 @@ const mapStateToProps = state =>{
     
     let obj = {
         type: action.type,
-        proposals: state.proposal.proposals,
+        proposals: state.milestone.proposals,
         my_id: state.auth.credentials.id
     }
     

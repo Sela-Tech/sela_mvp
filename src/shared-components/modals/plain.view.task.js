@@ -8,7 +8,7 @@ import AddTaskWrapper from "./styles.modals/dash-task";
 
 const mapStateToProps = state => {
     return {
-        task: state.proposal.task_in_view
+        task: state.milestone.task_in_view
     }
 };
 
