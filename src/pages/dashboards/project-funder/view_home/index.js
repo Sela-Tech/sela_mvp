@@ -127,25 +127,28 @@ exportMe = class extends React.Component{
      return <SharedViewWrapper className="xs-12">
       <Joyride steps={steps} />
 
-      <section className='xs-12 md-6 md-off-3 t-c'>
-        <div className="shared xs-12" style={{background: "white"}}>
-          <div className='xs-6'>
-          <img src={glass} alt="" style={{
-            height: "9em",
-            width: "9em",
-            margin: "auto",
-            borderRadius:"unset"
-          }}/>
-          </div>
-          <div className='xs-6' style={{marginTop: "2em"}}>
-            <h3>25 / 50</h3>
-            <p>Milestones Completed</p>
-          </div>
-        </div>
-      </section>
+   
       
       <section className='xs-12'>
           <label>Portfolio Metrics</label>
+
+        <section className='xs-12 md-6 md-off-3 t-c'>
+          <div className="shared xs-12" style={{background: "white"}}>
+            <div className='xs-6'>
+            <img src={glass} alt="" style={{
+              height: "9em",
+              width: "9em",
+              margin: "auto",
+              borderRadius:"unset"
+            }}/>
+            </div>
+            <div className='xs-6' style={{marginTop: "2em"}}>
+              <h3>25 / 50</h3>
+              <p>Milestones Completed</p>
+            </div>
+          </div>
+        </section>
+        
         { 
           <div 
             {...mSettings}
