@@ -278,17 +278,31 @@ exportMe = class extends React.Component{
             </div>
             </div>
 
+            <section className='xs-12 md-6 md-off-3 t-c'>
+        <div className="shared xs-12" style={{background: "white"}}>
+          <div className='xs-6'>
+          <img src={glass} alt="" style={{
+            height: "9em",
+            width: "9em",
+            margin: "auto",
+            borderRadius:"unset"
+          }}/>
           </div>
-        }
+          <div className='xs-6' style={{marginTop: "2em"}}>
+            <h3>25 / 50</h3>
+            <p>Milestones Completed</p>
+          </div>
+        </div>
       </section>
 
-      <section className='xs-12 t-c'>
-        <img src={glass} alt="" style={{
-          height: "9em",
-          width: "9em",
-          margin: "auto"
-        }}/>
+          </div>
+        }
+
+     
+
       </section>
+
+
 
       <section className='xs-12'>
           <label>Projects you initiated</label>
