@@ -4,7 +4,7 @@ import { ProjectWrapper, } from "./main.style";
 import NavLink from "react-router-dom/NavLink";
 import withRouter from "react-router-dom/withRouter";
 import Stakeholders from "../../../../shared/mini-views/dashboard/sub-components/stakeholders";
-import Proposals from "../../../../shared/mini-views/dashboard/sub-components/proposals";
+// import Proposals from "../../../../shared/mini-views/dashboard/sub-components/proposals";
 
 import Milestones from "../../../../shared/mini-views/dashboard/sub-components/milestones";
 
@@ -44,7 +44,7 @@ const View = ({ id, view, info,readOnly }) => {
     return <C Component ={Evidence} id={id} readOnly={readOnly}/>;
 
     case "milestones":
-    return <C Component ={Proposals} id={id} readOnly={readOnly}/>;
+    return <C Component ={Milestones} id={id} readOnly={readOnly}/>;
     
     default:
     return <Overview id={id} info={info} self={true}/>;
