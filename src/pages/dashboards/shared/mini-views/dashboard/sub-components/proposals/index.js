@@ -1,7 +1,6 @@
 import React from 'react';
 import Wrap from './style';
 import {connect} from 'react-redux';
-// import noproposal from "../../../../../../../assets/icons/empty.svg";
 import { get_proposals } from '../../../../../../../store/action-creators/milestone';
 import { Link } from 'react-router-dom';
 import { showModal } from '../../../../../../../store/action-creators/modal';
@@ -24,15 +23,17 @@ class Proposals extends React.Component{
             this.setState({
                 proposals: nextProps.proposals,
                 isLoading: nextProps.type === milestone.GET_PROPOSALS_R
-            })
+            });
         }
     }
     
   showSH = id => this.props.showSH(id)
 
     render(){
+        
         const { proposals } = this.state,
         { id } = this.props;
+
         return <Wrap className='xs-12'>
             <TableWrap className='xs-12'>
                 <div className='top xs-12'>

@@ -10,15 +10,15 @@ import { SHOW_INTERESTS_MODAL } from "../../../../store/actions/modal";
 import Joyride from 'react-joyride';
 import { defaultSliderSettings, metricsSettings } from "../../shared/others";
 
-import fish from "../../../../assets/dashboard-landing/fish.svg";
-import drop from "../../../../assets/dashboard-landing/drop.svg";
-import money from "../../../../assets/dashboard-landing/money.svg";
-import pollution from "../../../../assets/dashboard-landing/pollution.svg";
-import jobs from "../../../../assets/dashboard-landing/jobs.svg";
+// import fish from "../../../../assets/dashboard-landing/fish.svg";
+// import drop from "../../../../assets/dashboard-landing/drop.svg";
+// import money from "../../../../assets/dashboard-landing/money.svg";
+// import pollution from "../../../../assets/dashboard-landing/pollution.svg";
+// import jobs from "../../../../assets/dashboard-landing/jobs.svg";
 
-import rise from "../../../../assets/dashboard-landing/rise.svg";
-import rocket from "../../../../assets/dashboard-landing/rocket.svg";
-import metres from "../../../../assets/dashboard-landing/metres.svg";
+// import rise from "../../../../assets/dashboard-landing/rise.svg";
+// import rocket from "../../../../assets/dashboard-landing/rocket.svg";
+// import metres from "../../../../assets/dashboard-landing/metres.svg";
 import mapping from "../../../../mapping";
 
 let exportMe = null;
@@ -129,90 +129,78 @@ exportMe = class extends React.Component{
       <section className='xs-12'>
           <label>Portfolio Metrics</label>
         { 
-          <Slider 
+          <div 
             {...mSettings}
             containerClass="xs-12"
-            className="xs-12 sm-8 sm-off-2 slider metrics">
+            className="xs-12 slider metrics">
+              
+              <div className='xs-12'>
+                <div className='one shared full xs-12'>
+                  <div className='xs-6'>
+                    {/* <img src={money} alt=""/> */}
+                    <h3>$250,000</h3>
+                    <p>Total portfolio funds</p>
+                    <span className="percentage">3%</span>
+                  </div>
+                  <div className='xs-6'>
+                    {/* <img src={rocket} alt=""/> */}
+                    <h3>$220,000</h3>
+                    <p>Total portfolio funds deployed</p>
+                  </div>
+                </div>
+              </div>
 
-              <div className='one shared'>
+              <div className='xs-12 sm-6'>
+                <div className='xs-12 two shared'>
                 <div className='xs-6'>
-                  <img src={money} alt=""/>
-                  <h3>$250,000</h3>
-                  <p>Total portfolio funds</p>
-                  <span className="percentage">3%</span>
+                  {/* <img src={metres} alt=""/> */}
+                  <h3>$9,100</h3>
+                  <p>Cubic meters cleaned</p>
                 </div>
                 <div className='xs-6'>
-                  <img src={rocket} alt=""/>
-                  <h3>$220,000</h3>
-                  <p>Total portfolio funds deployed</p>
-                </div>
-              </div>
-
-              <div className='xs-12 two shared'>
-              <div className='xs-6'>
-                <img src={metres} alt=""/>
-                <h3>$9,100</h3>
-                <p>Cubic meters cleaned</p>
-              </div>
-              <div className='xs-6'>
-              {
-                [ "Clean Water & Sanitation", "Life Below Water"].map((sdg,i)=>{
-                return <div key={i} className={'f-l'}>
-                  <button className='sdg-btn'>
-                      <img src={mapping[sdg]} alt="sdg"/>
-                  </button>
-                </div>
-              })
-              }
-              </div>
-            </div>
-
-            <div className='xs-12 three shared'>
-              <div className='xs-6'>
-                <img src={drop} alt=""/>
-                <h3>$1,500</h3>
-                <p>People with access to drinking water</p>
-              </div>
-              <div className='xs-6'>
-              {
-                [ "Clean Water & Sanitation", "Sustainable Cities", "Life on Land", "Life Below Water" ].map((sdg,i)=>{
+                {
+                  [ "Clean Water & Sanitation", "Life Below Water"].map((sdg,i)=>{
                   return <div key={i} className={'f-l'}>
                     <button className='sdg-btn'>
                         <img src={mapping[sdg]} alt="sdg"/>
                     </button>
                   </div>
                 })
-              }
+                }
+                </div>
               </div>
             </div>
-
-            <div className='xs-12 four shared'>
-              <div className='xs-6'>
-                <img src={rise} alt=""/>
-                <h3>~$5,400<span>/quarter</span></h3>
-                <p>Community revenue generated</p>
-              </div>
             
-              <div className='xs-6'>
-              {
-                [ "No Poverty", "Zero Hunger", "Life Below Water" ].map((sdg,i)=>{
-                  return <div key={i} className={'f-l'}>
-                    <button className='sdg-btn'>
-                        <img src={mapping[sdg]} alt="sdg"/>
-                    </button>
-                  </div>
-                })
-              }
+            <div className='xs-12 sm-6'>
+              <div className='xs-12 three shared sm-6'>
+                <div className='xs-6'>
+                  {/* <img src={drop} alt=""/> */}
+                  <h3>$1,500</h3>
+                  <p>People with access to drinking water</p>
+                </div>
+                <div className='xs-6'>
+                {
+                  [ "Clean Water & Sanitation", "Life on Land", "Life Below Water" ].map((sdg,i)=>{
+                    return <div key={i} className={'f-l'}>
+                      <button className='sdg-btn'>
+                          <img src={mapping[sdg]} alt="sdg"/>
+                      </button>
+                    </div>
+                  })
+                }
+                </div>
               </div>
             </div>
 
-            <div className='xs-12 five shared'>
-              <div className='xs-6'>
-                <img src={fish} alt=""/>
-                <h3>2,000 fish/quarter</h3>
-                <p>Fish added to food supply</p>
-              </div>
-              <div className='xs-6'>
+            <div className='xs-12 sm-6'>
+              <div className='xs-12 four shared sm-6'>
+                <div className='xs-6'>
+                  {/* <img src={rise} alt=""/> */}
+                  <h3>~$5,400<span>/quarter</span></h3>
+                  <p>Community revenue generated</p>
+                </div>
+              
+                <div className='xs-6'>
                 {
                   [ "No Poverty", "Zero Hunger", "Life Below Water" ].map((sdg,i)=>{
                     return <div key={i} className={'f-l'}>
@@ -222,48 +210,74 @@ exportMe = class extends React.Component{
                     </div>
                   })
                 }
+                </div>
+              </div>
+            </div>
+            
+            <div className='xs-12 sm-6'>
+              <div className='xs-12 five shared sm-6'>
+                <div className='xs-6'>
+                  {/* <img src={fish} alt=""/> */}
+                  <h3>2,000 fish/quarter</h3>
+                  <p>Fish added to food supply</p>
+                </div>
+                <div className='xs-6'>
+                  {
+                    [ "No Poverty", "Zero Hunger", "Life Below Water" ].map((sdg,i)=>{
+                      return <div key={i} className={'f-l'}>
+                        <button className='sdg-btn'>
+                            <img src={mapping[sdg]} alt="sdg"/>
+                        </button>
+                      </div>
+                    })
+                  }
+                </div>
               </div>
             </div>
 
-            <div className='xs-12 six shared'>
-              <div className='xs-6'>
-                <img src={pollution} alt=""/>
-                <h3>50%</h3>
-                <p>Decrease in pollution</p>
-              </div>
-              <div className='xs-6'>
-              {
-                  [ "Clean Water & Sanitation", "Life Below Water" ].map((sdg,i)=>{
-                    return <div key={i} className={'f-l'}>
-                      <button className='sdg-btn'>
-                          <img src={mapping[sdg]} alt="sdg"/>
-                      </button>
-                    </div>
-                  })
-                }
-              </div>
-            </div>
-
-            <div className='xs-12 seven shared'>
-              <div className='xs-6'>
-                <img src={jobs} alt=""/>
-                <h3>420</h3>
-                <p>Jobs Created</p>
-              </div>
-              <div className='xs-6'>
-              {
-                  [  "Sustainable Cities" ].map((sdg,i)=>{
-                    return <div key={i} className={'f-l'}>
-                      <button className='sdg-btn'>
-                          <img src={mapping[sdg]} alt="sdg"/>
-                      </button>
-                    </div>
-                  })
-                }
+            <div className='xs-12 sm-6'>
+              <div className='xs-12 six shared sm-6'>
+                <div className='xs-6'>
+                  {/* <img src={pollution} alt=""/> */}
+                  <h3>50%</h3>
+                  <p>Decrease in pollution</p>
+                </div>
+                <div className='xs-6'>
+                {
+                    [ "Clean Water & Sanitation", "Life Below Water" ].map((sdg,i)=>{
+                      return <div key={i} className={'f-l'}>
+                        <button className='sdg-btn'>
+                            <img src={mapping[sdg]} alt="sdg"/>
+                        </button>
+                      </div>
+                    })
+                  }
+                </div>
               </div>
             </div>
 
-          </Slider>
+            <div className='xs-12 sm-6'>            
+              <div className='xs-12 seven shared sm-6'>
+                <div className='xs-6'>
+                  {/* <img src={jobs} alt=""/> */}
+                  <h3>420</h3>
+                  <p>Jobs Created</p>
+                </div>
+                <div className='xs-6'>
+                {
+                    [  "Sustainable Cities" ].map((sdg,i)=>{
+                      return <div key={i} className={'f-l'}>
+                        <button className='sdg-btn'>
+                            <img src={mapping[sdg]} alt="sdg"/>
+                        </button>
+                      </div>
+                    })
+                  }
+                </div>
+            </div>
+            </div>
+
+          </div>
         }
       </section>
 

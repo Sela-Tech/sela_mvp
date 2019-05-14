@@ -137,9 +137,13 @@ label{
         margin: 1em 0;
         padding: 2em 1em;
         width: 95% !important;
-        min-height: 17.5em; 
+        // min-height: 12em; 
         box-shadow: 0px 0px 5px rgba(30, 34, 37, 0.02);
         border-radius: 4px;
+
+        &.full{
+            width: 97.5% !important;
+        }
     }
 
     img{
