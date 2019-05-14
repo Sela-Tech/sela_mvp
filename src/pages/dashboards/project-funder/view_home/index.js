@@ -9,6 +9,7 @@ import HomeCard from "../../shared/card.dashboard";
 import { SHOW_INTERESTS_MODAL } from "../../../../store/actions/modal";
 import Joyride from 'react-joyride';
 import { defaultSliderSettings, metricsSettings } from "../../shared/others";
+import glass from "../../../..//assets/milestone/half.svg";
 
 // import fish from "../../../../assets/dashboard-landing/fish.svg";
 // import drop from "../../../../assets/dashboard-landing/drop.svg";
@@ -281,8 +282,15 @@ exportMe = class extends React.Component{
         }
       </section>
 
+      <section className='xs-12 t-c'>
+        <img src={glass} alt="" style={{
+          height: "5em",
+          width: "5em",
+          margin: "auto"
+        }}/>
+      </section>
 
-        <section className='xs-12'>
+      <section className='xs-12'>
           <label>Projects you initiated</label>
         { 
           createdProjects && createdProjects.docs.length > 0 ?
