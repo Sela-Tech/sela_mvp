@@ -284,8 +284,8 @@ exportMe = class extends React.Component{
 
       <section className='xs-12 t-c'>
         <img src={glass} alt="" style={{
-          height: "5em",
-          width: "5em",
+          height: "9em",
+          width: "9em",
           margin: "auto"
         }}/>
       </section>
