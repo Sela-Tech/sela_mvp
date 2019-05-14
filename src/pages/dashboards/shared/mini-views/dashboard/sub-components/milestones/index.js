@@ -23,6 +23,36 @@ const MilestoneWrapper = styled.div`
     font-weight: 300;
     margin: 2em 0;
   }
+
+  .container{
+    .row{
+      background: white;
+      .top{
+        padding: 1em;
+        border: 1px solid #E7EDF3;
+        h3,p{
+          margin: 0;
+        }
+      }
+    }
+    .heading{
+      font-size: 1em;
+      font-weight: 400; 
+    }
+    .heading-text{
+      img{
+        margin-right: 1em;
+        float:left;
+      }
+      span{
+        float:left;
+        margin-top: 1em;
+      }
+      strong{
+
+      }
+    }
+  }
 `;
 
 class Milestones extends Component{
@@ -45,14 +75,15 @@ class Milestones extends Component{
 
       <div className='xs-12'>
         <div className='xs-12 container'>
-          <div className='xs-12'>
-            <div className='xs-12 sm-6 t-l'>
-              <h3>Milestone title goes here</h3>
+          <div className='xs-12 row'>
+            <div className='top xs-12'>
+              <div className='xs-12 sm-6 t-l'>
+                <h3 className='heading'>Milestone title goes here</h3>
+              </div>
+              <div className='xs-12 sm-6 t-r'>
+                <p className='heading-text'><img src={almost} alt=""/><span><strong>2</strong> of 3 tasks completed</span> </p>
+              </div>
             </div>
-            <div className='xs-12 sm-6 t-r'>
-              <p><img src={almost} alt=""/><span><strong>2</strong> of 3 tasks completed</span> </p>
-            </div>
-            
           </div>
         </div>
       </div>
