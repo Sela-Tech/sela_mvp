@@ -3,9 +3,9 @@ import styled from "styled-components";
 export default styled.div`
   .graph-container{
     height: auto;
-    margin-top: 2em;
+    margin-top: 0em;
     background-color: white;
-    padding: 3em 1.5em;
+    padding: 1.5em;
     border-radius: 5px;
 
     > p{
@@ -19,7 +19,6 @@ export default styled.div`
     .one, .two{
       height: 500px;
     }
-
 
   }
 

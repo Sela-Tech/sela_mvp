@@ -181,7 +181,7 @@ class ViewProject extends React.Component {
                     {
                       project.status !== "COMPLETED" &&
                       <div className='xs-12'>
-                        <a href='http://www.sustainability-international.org/donate/' target='_blank' rel="noopener noreferrer" className='invest'>Sponsor This Project</a> </div>
+                        <a href={'http://www.sustainability-international.org/projects/' +project._id+"/description" } target='_blank' rel="noopener noreferrer" className='invest'>Sponsor This Project</a> </div>
                     }
                     
                   </div>

@@ -128,7 +128,9 @@ label{
 
 
 .metrics{
-    margin: 1em 0;
+    margin-top: 1em;
+    margin-bottom: 1em;
+    
 
     .shared{
         background: white;

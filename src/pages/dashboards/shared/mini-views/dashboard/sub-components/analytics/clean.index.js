@@ -50,15 +50,15 @@ class Analytics extends React.Component {
     return (
 
       <AStyle className="xs-12">
+
         <div className="xs-12" id="top">
           <div className="xs-12">
             <div className="f-l c-sm-screen">
               <h3>Project Health Overview</h3>
-            </div>
-
-      
+            </div>      
           </div>
         </div>
+        
         <div className="xs-12" id="cards">
             <div className="xs-12 sm-6 md-3">
               <div className="xs-12 sm-11">

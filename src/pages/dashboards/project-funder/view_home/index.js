@@ -21,7 +21,6 @@ import rocket from "../../../../assets/dashboard-landing/rocket.svg";
 import metres from "../../../../assets/dashboard-landing/metres.svg";
 import mapping from "../../../../mapping";
 
-
 let exportMe = null;
 exportMe = class extends React.Component{
     constructor(props){
@@ -91,13 +90,13 @@ exportMe = class extends React.Component{
 
       if (window.innerWidth > 768 && window.innerWidth < 1023) {
         temp = 2;
-        mtemp = 2;
+        mtemp = 1;
       } else if (window.innerWidth > 1024) {
         temp = 5;
-        mtemp= 2;
+        mtemp= 1;
       } else if (window.innerWidth < 767) {
         temp = 2;
-        mtemp = 2;
+        mtemp = 1;
       }
   
       this.setState({
@@ -133,16 +132,14 @@ exportMe = class extends React.Component{
           <Slider 
             {...mSettings}
             containerClass="xs-12"
-            className="xs-12 slider metrics">
+            className="xs-12 sm-8 sm-off-2 slider metrics">
 
               <div className='one shared'>
                 <div className='xs-6'>
                   <img src={money} alt=""/>
                   <h3>$250,000</h3>
                   <p>Total portfolio funds</p>
-                  <span className="percentage"> 
-                  {/* <img src={greenarrow} alt=""/> */}
-                   3%</span>
+                  <span className="percentage">3%</span>
                 </div>
                 <div className='xs-6'>
                   <img src={rocket} alt=""/>
@@ -280,7 +277,7 @@ exportMe = class extends React.Component{
             containerClass="xs-12"
             className="xs-12 slider">
             { 
-              createdProjects.docs.map((p,i)=>{
+              createdProjects.docs.reverse().map((p,i)=>{
                 return <div className="xs-12 sm-3" key={i}>
                 <HomeCard info={p} type='mine'/>
                 </div>
@@ -292,7 +289,6 @@ exportMe = class extends React.Component{
           {...settings}
           containerClass="xs-12"
           className="xs-12 slider">
- 
            <div className='xs-12 sm-3 edit-interest' id='intiated'>
             <div className='empty-box inner-not-proj' style={{height: '5em'}}> 
               <div className='c-w xs-12'>
@@ -302,7 +298,6 @@ exportMe = class extends React.Component{
               </div>
             </div>
           </div>
-    
           </Slider>
         }
       </section>

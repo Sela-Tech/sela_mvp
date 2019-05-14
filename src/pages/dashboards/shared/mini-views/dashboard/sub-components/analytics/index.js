@@ -1,9 +1,9 @@
 import React, { Fragment } from "react";
 import AStyle from "./a.styles";
 import moment from "moment";
-import {Line} from "rc-progress";
-import  {BarChart} from "recharts";
-import {Bar} from "recharts";
+// import {Line} from "rc-progress";
+// import  {BarChart} from "recharts";
+// import {Bar} from "recharts";
 
 import connect from "react-redux/lib/connect/connect";
 import { ResponsiveLine } from '@nivo/line'
@@ -313,16 +313,17 @@ class Analytics extends React.Component {
 
       <AStyle className="xs-12">
         
-      <div className="xs-12" id="top">
-
+      {/* <div className="xs-12" id="top"> */}
+{/* 
         <div className="xs-12">
           <div className="f-l c-sm-screen">
             <h3>Project Health Overview</h3>
           </div>
-        </div>
-      </div>
+        </div> */}
 
-      <div className="xs-12" id="cards">
+      {/* </div> */}
+
+      {/* <div className="xs-12" id="cards">
           <div className="xs-12 sm-6 md-3">
             <div className="xs-12 sm-11">
               <div className="xs-12 a-info-card">
@@ -437,7 +438,7 @@ class Analytics extends React.Component {
             <h3>Visualizations</h3>
           </div>
         </div>
-      </div>
+      </div> */}
 
       <section className='xs-12 graphs'>
         { 
