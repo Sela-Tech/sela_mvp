@@ -2,12 +2,12 @@ import React from "react";
 import { connect } from "react-redux";
 import StakeStyle from "./styles.modals/view.stakeholder";
 import cal from "./assets/cal.svg";
-import Swiper from "react-id-swiper";
+// import Swiper from "react-id-swiper";
 import Spinners from "../spinners";
 import { fetchStakeholderInfo } from "../../store/action-creators/homepage";
 import moment from "moment";
 import home from "../../store/actions/home";
-import { Link } from "react-router-dom";
+// import { Link } from "react-router-dom";
 
 const mapStateToProps = state => {
   const { citizenData, action, message } = state.home;
@@ -22,10 +22,10 @@ const mapStateToProps = state => {
   };
 };
 
-const params = {
-  slidesPerView: 2,
-  spaceBetween: 5
-};
+// const params = {
+//   slidesPerView: 2,
+//   spaceBetween: 5
+// };
 
 export default connect(mapStateToProps)(
   class ViewStakeHolder extends React.Component {
@@ -55,13 +55,15 @@ export default connect(mapStateToProps)(
     }
 
     render() {
-      const { citizenData, action, ignoreProjectWithID } = this.state;
+      const { citizenData, action, 
+        // ignoreProjectWithID
+       } = this.state;
 
       switch (action) {
         case home.GET_CITIZEN_INFO_S:
-          let projects = citizenData.projects.filter(p => {
-            return p._id !== ignoreProjectWithID;
-          });
+          // let projects = citizenData.projects.filter(p => {
+          //   return p._id !== ignoreProjectWithID;
+          // });
 
           return (
             <StakeStyle className="xs-12">
@@ -129,7 +131,7 @@ export default connect(mapStateToProps)(
                       </p>
                     </div>
 
-                    <div className="xs-12" id="other-projects">
+                    {/* <div className="xs-12" id="other-projects">
                       <p className="l">
                         Projects By {citizenData.userInfo.firstName}
                       </p>
@@ -157,7 +159,9 @@ export default connect(mapStateToProps)(
                         )}
                       </div>
                     </div>
+             */}
                   </div>
+                  
                 </div>
               </div>
             </StakeStyle>

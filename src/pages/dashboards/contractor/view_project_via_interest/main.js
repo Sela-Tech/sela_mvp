@@ -108,9 +108,11 @@ class MainViewForPreviewingProject extends Component{
                         </div>
 
                     </div>
+
                     <div className='xs-12 add-doc'>
+                       {documents && documents.length && 
                         <h5>Additional documents</h5>
-                        
+                       }
                         <div className='xs-12 sm-10 document'>
                             {
                                 documents.map((doc,i)=>{

@@ -134,7 +134,6 @@ class Navbar extends React.Component {
                 </div>
               </div>
           </div>
-          
         </NavStyle>
       );
 
@@ -149,15 +148,15 @@ class Navbar extends React.Component {
 
             <div className="xs-8 sm-5 md-6">
                 <div className="xs-12 sm-8">
-                  <div className="xs-12" id="well">
-                  <div className="xs-2 t-c"><Icon name="search"/></div>
-                    <input name='search' placeholder="Search For Projects" id="search" className="xs-10"/>
-                  </div>
+                  {/* <div className="xs-12" id="well"> */}
+                  {/* <div className="xs-2 t-c"><Icon name="search"/></div> */}
+                    {/* <input name='search' placeholder="Search For Projects" id="search" className="xs-10"/> */}
+                  {/* </div> */}
                 </div>
             </div>
             
             
-            <div className="xs-12 sm-4">
+            <div className="xs-12 sm-off-6 sm-4">
               <NavLink
                 className="xs-12 sm-6 f-r"
                 to="#"
@@ -165,9 +164,7 @@ class Navbar extends React.Component {
                 onClick={ this.props.showModal }>
                 + Add Project
               </NavLink>
-              
               <MenuNotifier className={"xs-12 sm-3 f-r"}/>
-        
             </div>
           </NavStyle>
         );

@@ -34,7 +34,7 @@ class Documents extends React.Component {
       <TableWrap className='xs-12'>
       <div className='top xs-12'>
         <div className='f-l'>
-            <h3>Uploads</h3>
+            <h3>Resources</h3>
             {/* <span id='info'>Values in the <strong>Title, Created By, Assigned To </strong> columns can be clicked on</span> */}
         </div>
         
@@ -90,7 +90,7 @@ class Documents extends React.Component {
                     : <div className='row xs-12'>
                         <p style={{
                             padding: '1em'
-                        }}>No Uploads Found.</p>
+                        }}>No Resource Found.</p>
                     </div>
                 }
                     

@@ -25,7 +25,7 @@ const C = ({Component, ...rest })=>{
 
 const View = ({ id, view, info,readOnly }) => {
   switch (view) {
-    case "uploads":
+    case "resources":
     return <C Component ={Uploads} id={id} readOnly={readOnly} />;
 
     case "stakeholders":
@@ -98,12 +98,12 @@ const ProjectComponent = ({ match,history, info, readOnly }) => {
               </NavLink>
 
               <NavLink
-                 className={`side-stack ${pathname.indexOf("uploads") !== -1 ? "active":""}`}
+                 className={`side-stack ${pathname.indexOf("resources") !== -1 ? "active":""}`}
                  activeClassName="active"
                 exact
-                to={`/dashboard/project/${id}/uploads`}
+                to={`/dashboard/project/${id}/resources`}
               >
-                Uploads
+                Resources
               </NavLink>
 
               <NavLink

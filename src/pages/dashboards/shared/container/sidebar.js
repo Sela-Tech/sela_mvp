@@ -6,7 +6,7 @@ import settings from "../../../../assets/icons/settings.svg";
 import folder from "../../../../assets/icons/folder.svg";
 import help from "../../../../assets/icons/question.svg";
 import logout from "../../../../assets/icons/power.svg";
-import wallet from "../../../../assets/icons/wallet.svg";
+// import wallet from "../../../../assets/icons/wallet.svg";
 
 import  connect from "react-redux/lib/connect/connect";
 import { showModal } from "../../../../store/action-creators/modal";
@@ -91,12 +91,12 @@ const MobileDashboardSidebar = ({
             </NavLink>
           </li>
 
-          <li id="wallet">
+          {/* <li id="wallet">
             <NavLink exact to="/dashboard/wallet" >
               <img src={wallet} alt="wallet" />
               <span>Wallet</span>
             </NavLink>
-          </li>
+          </li> */}
 
           <li>
             <NavLink exact to="/dashboard/settings" >
@@ -145,12 +145,12 @@ const WebDashboardSidebar = ({ dispatch, user }) => {
               <span>Projects</span>
             </NavLink>
           </li>
-          <li id="wallet">
+          {/* <li id="wallet">
             <NavLink exact to="/dashboard/wallet" >
               <img src={wallet} alt="wallet" />
               <span>Wallet</span>
             </NavLink>
-          </li>
+          </li> */}
 
           <li>
             <NavLink exact to="/dashboard/settings">

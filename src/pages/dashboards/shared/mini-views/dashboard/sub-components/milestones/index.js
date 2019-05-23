@@ -2,11 +2,11 @@ import React, { Component } from "react";
 import {connect} from 'react-redux';
 import styled from 'styled-components';
 import almost from "../../../../../../../assets/milestone/almost.svg";
-import half from "../../../../../../../assets/milestone/half.svg";
-import empty from "../../../../../../../assets/milestone/empty.svg";
+// import half from "../../../../../../../assets/milestone/half.svg";
+// import empty from "../../../../../../../assets/milestone/empty.svg";
 import downarrow from "../../../../../../../assets/milestone/downarrow.svg";
 import uparrow from "../../../../../../../assets/milestone/arrowup.svg";
-import {Link} from 'react-router-dom';
+// import {Link} from 'react-router-dom';
 
 const MilestoneWrapper = styled.div`
   .create-mil{
@@ -143,12 +143,22 @@ class Milestones extends Component{
   constructor(props){
     super(props);
     this.state = {
-
+      toggled: new Set()
     };
+    this.toggleMilestoneTaskView = this.toggleMilestoneTaskView.bind(this);
+  }
+
+  toggleMilestoneTaskView(id){
+    this.setState(p=>{
+      const temp = p.toggled;
+      temp.has(id) ? temp.delete(id): temp.add(id);
+      return {
+      toggled: temp
+    };
+  });
   }
 
   render(){
-
     const tasks = [{
       title: " This is where the task title goes",
       assignedTo: {
@@ -183,6 +193,29 @@ class Milestones extends Component{
       status: "Ongoing"
     }];
 
+
+    const milestones = [
+      {
+      id: "demo-13301",
+      title: "Milestone Title Goes Here",
+      tasks,
+      completed: 2
+    },
+    {
+      id: "demo-13302",
+      title: "Milestone Title Goes Here",
+      tasks,
+      completed: 3
+    },
+    {
+      id: "demo-13303",
+      title: "Milestone Title Goes Here",
+      tasks,
+      completed: 4
+    }
+  ];
+
+
     return <MilestoneWrapper className='xs-12'>
       
       <div className='xs-12'>
@@ -191,78 +224,84 @@ class Milestones extends Component{
 
       <div className='xs-12'>
         <div className='xs-12 container'>
+          {
+            milestones && milestones.map((milestone,i)=>{
+              return <div className='xs-12 row' key={i}>
 
-          <div className='xs-12 row'>
-
-            <div className='top xs-12'>
-              <div className='xs-12 sm-6 t-l'>
-                <h3 className='heading'>Milestone title goes here</h3>
-              </div>
-              <div className='xs-12 sm-6 t-r'>
-                <div className='f-r'>
-                  <p className='heading-text'><img src={almost} alt=""/><span className='numbers'><strong>2</strong> of 3</span>  <span className='t-comp'>tasks completed</span></p>
-                  <button className='toggle'><img src={uparrow} alt="down"/></button>
+              <div className='top xs-12'>
+                <div className='xs-12 sm-6 t-l'>
+                  <h3 className='heading'>{milestone.title}</h3>
                 </div>
-              </div>
-            </div>
-
-            <div className='task xs-12'>
-              <div className='xs-12 sm-6'>
-                <button className='new-task'> + New Task</button>
-              </div>
-
-              <div className='xs-12 sm-6'>
-                <div className='f-r'>
-                  <Link to="#" disabled className='view'>View uploads and transactions</Link>
+                <div className='xs-12 sm-6 t-r'>
+                  <div className='f-r'>
+                    <p className='heading-text'><img src={almost} alt=""/><span className='numbers'><strong>{milestone.completed}</strong> of {milestone.tasks.length}</span>  <span className='t-comp'>tasks completed</span></p>
+                    <button className='toggle' onClick={()=> this.toggleMilestoneTaskView(milestone.id)}>
+                      { this.state.toggled.has(milestone.id) ?  <img src={uparrow} alt="up"/> :<img src={downarrow} alt="down"/>  }
+                    </button>
+                  </div>
                 </div>
               </div>
-            </div>
-
-            <div className='xs-12 table'>
-              <div className='xs-12 header'>
-                <div className='xs-4'>
-                  <p>Task title</p>
+  
+              <div className='task xs-12'>
+                <div className='xs-12 sm-6'>
+                  <button className='new-task'> + New Task</button>
                 </div>
-                <div className='xs-2'>
-                <p>Assigned to</p>
+  
+                <div className='xs-12 sm-6'>
+                  <div className='f-r'>
+                    {/* <Link to="#" disabled className='view'>View uploads and transactions</Link> */}
+                  </div>
                 </div>
-                <div className='xs-2'>
-                <p>Cost</p>
-                </div>
-                <div className='xs-2'>
-                <p>Deadline</p>
-                </div>
-                <div className='xs-2'>
-                <p>Status</p>
-                </div>
+  
               </div>
-
-              { tasks && tasks.map((task,i)=>{
-                return (
-                <div className='xs-12 row'>
+              
+              {this.state.toggled.has(milestone.id) &&
+              <div className='xs-12 table'>
+                <div className='xs-12 header'>
                   <div className='xs-4'>
-                    <p>{task.title}</p>
+                    <p>Task title</p>
                   </div>
                   <div className='xs-2'>
-                    <p><img src={task.assignedTo.img} alt=""/> <span>{task.assignedTo.value}</span> </p>
+                  <p>Assigned to</p>
                   </div>
                   <div className='xs-2'>
-                  <p>{task.cost}</p>
+                  <p>Cost</p>
                   </div>
                   <div className='xs-2'>
-                  <p>{task.deadline}</p>
+                  <p>Deadline</p>
                   </div>
                   <div className='xs-2'>
-                  <p>{task.status}</p>
+                  <p>Status</p>
                   </div>
                 </div>
-              )})}
+  
+                { milestone.tasks && milestone.tasks.map((task,y)=>{
+                  return (
+                  <div className='xs-12 row' key={y}>
+                    <div className='xs-4'>
+                      <p>{task.title}</p>
+                    </div>
+                    <div className='xs-2'>
+                      <p><img src={task.assignedTo.img} alt=""/> <span>{task.assignedTo.value}</span> </p>
+                    </div>
+                    <div className='xs-2'>
+                    <p>{task.cost}</p>
+                    </div>
+                    <div className='xs-2'>
+                    <p>{task.deadline}</p>
+                    </div>
+                    <div className='xs-2'>
+                    <p>{task.status}</p>
+                    </div>
+                  </div>
+                )})}
+              </div>
+              }
+            </div>  
+            })
+          }
           
-          
-            </div>
-
-          </div>
-     
+          {/*      
           <div className='xs-12 row'>
 
             <div className='top xs-12'>
@@ -310,7 +349,7 @@ class Milestones extends Component{
             </div>
 
           </div>
-     
+      */}
         </div>
       </div>
 

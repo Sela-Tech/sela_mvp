@@ -125,7 +125,7 @@ exportMe = class extends React.Component{
       const { createdProjects, fundedProjects  } = projects;
      
      return <SharedViewWrapper className="xs-12">
-      <Joyride steps={steps} />
+      {/* <Joyride steps={steps} /> */}
 
    
       
