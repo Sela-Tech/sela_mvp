@@ -39,7 +39,6 @@ const append = () => {
 const App = class extends Component{
   constructor(props){
     super(props); 
-    
     if(props.isAuthenticated){      
       if(window.location.pathname !== "/"){
         if(!window.google){
@@ -48,7 +47,8 @@ const App = class extends Component{
           append();
         }
       }
-    } 
+    }
+
    if(pulled_organization === false){
       this.props.dispatch(fetchOrganizations());
       pulled_organization = true;
@@ -70,20 +70,23 @@ const App = class extends Component{
   }
 
   render(){
+    
     const { isAuthenticated, actionType, isEvaluator } = this.props;
+
     switch (isEvaluator && isAuthenticated) {
       case true:
-    return <Router>
-        <Suspense fallback={<NotLoggedIn/>}>
-        <Switch>
-          <Route component={withRouter(evaluator_default_page)}/>
-        </Switch>
-        </Suspense>
-      </Router>    
-        
+      return (
+        <Router>
+            <Suspense fallback={<NotLoggedIn/>}>
+              <Switch>
+                <Route component={withRouter(evaluator_default_page)}/>
+              </Switch>
+            </Suspense>
+        </Router>
+      )    
+          
       default:
       return (
-        
             <Router>
               <React.Fragment>
                 <ErrorBoundary>
@@ -169,11 +172,13 @@ const App = class extends Component{
                         isAuthenticated={isAuthenticated}
                         component={dashboard_decider}
                       />
+
                       <PrivateRoute
                         path="/dashboard/wallet/native/:id"
                         isAuthenticated={isAuthenticated}
                         component={dashboard_decider}
                       />
+
                       <PrivateRoute
                         path="/dashboard/wallet"
                         isAuthenticated={isAuthenticated}
@@ -238,8 +243,10 @@ const App = class extends Component{
                       />
                       
                       <Route component={Error404} />
+
                     </Switch>
                   )}
+                  
                 </Suspense>
                 </ErrorBoundary>
                 {isAuthenticated &&

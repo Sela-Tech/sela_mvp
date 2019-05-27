@@ -1,3 +1,3 @@
-R - REQUEST
-F- FAILED
-S- SUCCESSFUl
+- Legacy Codebase - Swim Carefully.
+- Yarn install
+- Yarn start

@@ -7,7 +7,7 @@ import Slider from "react-slick";
 import SharedViewWrapper from "../../shared/styling/projects.view";
 import HomeCard from "../../shared/card.dashboard";
 import { SHOW_INTERESTS_MODAL } from "../../../../store/actions/modal";
-import Joyride from 'react-joyride';
+// import Joyride from 'react-joyride';
 import { defaultSliderSettings, metricsSettings } from "../../shared/others";
 import glass from "../../../..//assets/milestone/glass.svg";
 
@@ -120,7 +120,7 @@ exportMe = class extends React.Component{
 
     render(){
 
-      const { steps } = this.state;
+      // const { steps } = this.state;
       const { settings, mSettings, projects }= this.state;      
       const { createdProjects, fundedProjects  } = projects;
      

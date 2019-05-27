@@ -1,6 +1,5 @@
 let b = process.env.REACT_APP_ENDPOINT_URL;
 
-
 const proposals = (type, data)=>{
   switch (type) {
     case "fetch_one_proposal":
@@ -10,7 +9,7 @@ const proposals = (type, data)=>{
     default:
       return  b + "proposals";
   }
-}
+};
 
 const evidence = (type, obj)=>{
   switch (type) {
@@ -41,7 +40,7 @@ const fake_wallet_endpoints = (type,projectId, userId)=>{
     default:
     return c + "wallet";
   }
-}
+};
 
 const wallet_endpoints = (type, projectId) => {
   switch (type) {
@@ -64,7 +63,7 @@ const wallet_endpoints = (type, projectId) => {
     default:
       return b;
   }
-}
+};
 
 export default {
   b,
@@ -111,7 +110,5 @@ export default {
   evidence,
   public_updates: id =>  b + `project/${id}/updates/submissions`,
   public_transactions: id => b +  `projects/${id}/transaction-history/public`
-  // fetch_proposals: (project_id) => proposals('fetch', { project_id }),
-  // create_a_proposal: proposals
 };
 

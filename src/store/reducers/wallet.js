@@ -12,7 +12,7 @@ const init = {
     }
 }
 
-export default ( state = init, payload ) => {
+export default ( state = init, payload = {} ) => {
     switch (payload.type) {
 
         case wallet.CLEAR_WALLET:
@@ -96,7 +96,7 @@ export default ( state = init, payload ) => {
         case wallet.TRANSFER_ASSET_F:
         return {
             ...state, type: wallet.TRANSFER_ASSET_F
-        }
+        };
 
         default:
             return state;
