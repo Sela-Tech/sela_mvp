@@ -175,7 +175,7 @@ exportMe = class extends React.Component{
                 <div className='xs-12 two shared'>
                 <div className='xs-6'>
                   {/* <img src={metres} alt=""/> */}
-                  <h3>$9,100</h3>
+                  <h3>9,100</h3>
                   <p>Cubic meters cleaned</p>
                 </div>
                 <div className='xs-6'>
@@ -196,7 +196,7 @@ exportMe = class extends React.Component{
               <div className='xs-12 three shared sm-6'>
                 <div className='xs-6'>
                   {/* <img src={drop} alt=""/> */}
-                  <h3>$1,500</h3>
+                  <h3>1,500</h3>
                   <p>People with access to drinking water</p>
                 </div>
                 <div className='xs-6'>
