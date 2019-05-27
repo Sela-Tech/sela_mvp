@@ -1,4 +1,4 @@
-let b = "https://sela-develop.herokuapp.com/";
+let b = process.env.REACT_APP_ENDPOINT_URL;
 
 
 const proposals = (type, data)=>{
