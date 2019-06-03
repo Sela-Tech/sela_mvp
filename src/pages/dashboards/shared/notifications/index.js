@@ -9,7 +9,9 @@ import Messagemaker from './message_maker';
 class Notifications extends React.Component{
     constructor(props){
         super(props);
-        props.get();
+        // if(Boolean(props.notifications.length) === false){
+        //     props.get();
+        // }
         this.state = {
             notifications: props.notifications || [],
             performed_initial_fetch: Boolean(props.notifications.length) 
@@ -25,8 +27,13 @@ class Notifications extends React.Component{
 
             if(nextProps.type === notifications.GET_INIT_NOTIFICATIONS_S){
                 this.setState({
-                    notifications: nextProps.notifications,
                     performed_initial_fetch: true
+                })
+            }
+            
+            if(nextProps.notifications !== this.props.notifications){
+                this.setState({
+                    notifications: nextProps.notifications,
                 },()=>{
                     if(nextProps.unreadNIds.length > 0){
                         nextProps.mark_viewed(nextProps.unreadNIds)
@@ -44,29 +51,37 @@ class Notifications extends React.Component{
     }
 
     render(){
-        const {notifications, performed_initial_fetch} = this.state;
+        const {notifications
+            // performed_initial_fetch
+        } = this.state;
         return <NotificationsStyle className="xs-12">
         <Navbar/>
             <div className="xs-10 xs-off-1">
-                    
+                <div className='f-r'>
+                    <button id='refresh' onClick={this.props.get}>Refresh</button>
+                </div>
                 <div className="xs-12 white">
                     <h3>Notifications</h3>
-                    
+                    {/*                     
                     { performed_initial_fetch === false && 
                         <div className='xs-12 row'>
                             <p>Fetching Notifications...</p>
                         </div>
-                    }
+                    } 
+                    */}
 
-                    { performed_initial_fetch === true && notifications.length === 0 &&
+                    { 
+                        // performed_initial_fetch === true &&
+                     notifications.length === 0 &&
                         <div className='xs-12 row'>
                             <p>No Notifications</p>
                         </div>
-                
                     }
                     
                     <div className='xs-12 notif'>
-                        { performed_initial_fetch === true && notifications.map((d,i)=>{
+                        { 
+                        // performed_initial_fetch === true &&
+                         notifications.map((d,i)=>{
                             return <Messagemaker data={d} key={i}/>
                         })}
                     </div>

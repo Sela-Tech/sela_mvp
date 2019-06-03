@@ -33,7 +33,7 @@ export const StyledWrapperElem = styled.div`
     background: #fbfbfb;
     height: auto;
     @media (max-width: 1023px) {
-      min-height: calc(100vh - 95px);
+      min-height: calc(100vh - 60px);
       margin-top: 60px;
     }
 

@@ -80,36 +80,31 @@ export default () => {
         <div className="xs-12 md-4 soc-media">
           <a
             href="https://www.youtube.com/channel/UC0gmyPpmWLMmJeSsgbCizNg"
-            target="_blank"
-            rel="noopener noreferrer"
+            target="_blank" rel="noopener noreferrer"
           >
             <img src={Youtube} alt="youtube" className="social-media" />
           </a>
           <a
             href="https://t.me/joinchat/Fv7QHxBSvTTzLftEWtBNSA"
-            target="_blank"
-            rel="noopener noreferrer"
+            target="_blank" rel="noopener noreferrer"
           >
             <img src={Telegram} alt="telegram" className="social-media" />
           </a>
           <a
             href="http://twitter.com/sela_labs"
-            target="_blank"
-            rel="noopener noreferrer"
+            target="_blank" rel="noopener noreferrer"
           >
             <img src={Twitter} alt="twitter" className="social-media" />
           </a>
           <a
             href="http://instagram.com/sela"
-            target="_blank"
-            rel="noopener noreferrer"
+            target="_blank" rel="noopener noreferrer"
           >
             <img src={Instagram} className="social-media" alt="instagram" />
           </a>
           <a
             href="http://medium.com/sela-labs"
-            target="_blank"
-            rel="noopener noreferrer"
+            target="_blank" rel="noopener noreferrer"
           >
             <img src={Medium} alt="medium" className="social-media" />
           </a>

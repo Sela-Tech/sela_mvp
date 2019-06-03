@@ -1,12 +1,45 @@
 import styled from "styled-components";
 export default styled.div`
+.white{
+  .sp{
+    margin: 0.5em 0;
+  }
+  .location{
+    display: block;
+    font-size: 10.5px;
+    font-weight: 300;
+    color: black;
+  }
+  h3{
+    color: #222829;
+    font-weight: 600;
+    margin: 5px 0;
+    font-size: 14px;
+    letter-spacing: 0.65px;
+  }
+  h4{
+    font-weight: 300;
+    margin: 5px 0;
+    font-size: 0.9em;
+    text-transform: Capitalize;
+  }
+  .tag{
+    margin: 0.15em;
+    border-radius: 2px;
+    font-size: 0.75em;
+    padding: 0.25em 0.75em;
+    display: inline-block;
+    color: white;
+  }
+
+}
   img {
     object-fit: cover;
     object-position: center;
   }
 
   .card-wrapper {
-    margin-bottom: 2em;
+    margin-bottom: 1em;
   }
 
   #heading {

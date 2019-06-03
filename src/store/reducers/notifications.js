@@ -30,13 +30,14 @@ export default (state=init, payload)=>{
         return {
             ...state,
             type: actions.GET_INIT_NOTIFICATIONS_R,
+            notifications: []
         };
       
         case actions.UPDATE_NOTIFICATIONS_S:            
         return {
             ...state, 
             type: actions.UPDATE_NOTIFICATIONS_S,
-            notifications: payload.notifications.reverse(),
+            notifications: [ ...state.notifications, ...payload.notifications ],
             unreadNIds: payload.unreadNIds
         };
 
@@ -44,7 +45,7 @@ export default (state=init, payload)=>{
         return {
             ...state,
             type: actions.GET_INIT_NOTIFICATIONS_S,
-            notifications: payload.notifications.reverse(),
+            notifications: payload.notifications,
             unreadNIds: payload.unreadNIds
         };
 

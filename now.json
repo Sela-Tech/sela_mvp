@@ -1,6 +1,7 @@
 {
     "version": 2,
     "name": "sela-test",
+    "alias": ["app.sela-labs.co"],
     "builds": [
         { "src": "package.json", "use": "@now/static-build" }
     ],

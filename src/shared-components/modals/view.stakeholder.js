@@ -1,19 +1,17 @@
 import React from "react";
 import { connect } from "react-redux";
 import StakeStyle from "./styles.modals/view.stakeholder";
-import whitelogo from "../../assets/icons/sela-circle-white.svg";
-// import larrow from "./assets/left-arrow.svg";
 import cal from "./assets/cal.svg";
-import Swiper from "react-id-swiper";
+// import Swiper from "react-id-swiper";
 import Spinners from "../spinners";
 import { fetchStakeholderInfo } from "../../store/action-creators/homepage";
 import moment from "moment";
 import home from "../../store/actions/home";
-import { Link } from "react-router-dom";
+// import { Link } from "react-router-dom";
 
 const mapStateToProps = state => {
   const { citizenData, action, message } = state.home;
-  const id = state.dashboard.stakeholder;
+  const id = state.modal.stakeholder;
   const ignoreId = state.home.ignoreProjectWithID;
   return {
     citizenData,
@@ -24,10 +22,10 @@ const mapStateToProps = state => {
   };
 };
 
-const params = {
-  slidesPerView: 2,
-  spaceBetween: 5
-};
+// const params = {
+//   slidesPerView: 2,
+//   spaceBetween: 5
+// };
 
 export default connect(mapStateToProps)(
   class ViewStakeHolder extends React.Component {
@@ -57,13 +55,15 @@ export default connect(mapStateToProps)(
     }
 
     render() {
-      const { citizenData, action, ignoreProjectWithID } = this.state;
+      const { citizenData, action, 
+        // ignoreProjectWithID
+       } = this.state;
 
       switch (action) {
         case home.GET_CITIZEN_INFO_S:
-          let projects = citizenData.projects.filter(p => {
-            return p._id !== ignoreProjectWithID;
-          });
+          // let projects = citizenData.projects.filter(p => {
+          //   return p._id !== ignoreProjectWithID;
+          // });
 
           return (
             <StakeStyle className="xs-12">
@@ -71,15 +71,8 @@ export default connect(mapStateToProps)(
                 <div className="b-img">
                   <div className="rl">
                     <div className="xs-10 xs-off-1" id="text-info">
-                      {/* <div className="f-l">
-                    <button>
-                      <img src={larrow} alt="" />
-                    </button>
-
-                    <p>SELA CITIZEN CARD</p>
-                  </div>
-                   */}
-                      <div className="f-r">
+                     
+                      {/* <div className="f-r">
                         <img
                           src={whitelogo}
                           alt=""
@@ -88,6 +81,7 @@ export default connect(mapStateToProps)(
                           id="s-logo"
                         />
                       </div>
+                       */}
                     </div>
                     <div className="xs-12 t-c">
                       <img
@@ -103,13 +97,13 @@ export default connect(mapStateToProps)(
               <div className="bottom xs-12">
                 <div className="xs-10 xs-off-1">
                   <div className="xs-12 t-c">
-                    <h4>
-                      {citizenData.userInfo.lastName}{" "}
-                      {citizenData.userInfo.firstName}
+                    <h4 style={{textTransform: "capitalize"}}>
+                    {citizenData.userInfo.firstName}{" "}
+                      {citizenData.userInfo.lastName}
                     </h4>
-                    <p>
+                    {/* <p>
                       Reputation Score: {citizenData.userInfo.reputationScore}%
-                    </p>
+                    </p> */}
 
                     <div className="xs-10 xs-off-1 s3">
                       <div className="xs-4 t-c">
@@ -137,9 +131,9 @@ export default connect(mapStateToProps)(
                       </p>
                     </div>
 
-                    <div className="xs-12" id="other-projects">
+                    {/* <div className="xs-12" id="other-projects">
                       <p className="l">
-                        Other Projects With {citizenData.userInfo.firstName}
+                        Projects By {citizenData.userInfo.firstName}
                       </p>
 
                       <div className="xs-12">
@@ -165,7 +159,9 @@ export default connect(mapStateToProps)(
                         )}
                       </div>
                     </div>
+             */}
                   </div>
+                  
                 </div>
               </div>
             </StakeStyle>
@@ -177,23 +173,6 @@ export default connect(mapStateToProps)(
                 <div className="b-img">
                   <div className="rl">
                     <div className="xs-10 xs-off-1" id="text-info">
-                      {/* <div className="f-l">
-                     <button>
-                       <img src={larrow} alt="" />
-                     </button>
-
-                     <p>SELA CITIZEN CARD</p>
-                   </div>
-                    */}
-                      <div className="f-r">
-                        <img
-                          src={whitelogo}
-                          alt=""
-                          height="60"
-                          width="60"
-                          id="s-logo"
-                        />
-                      </div>
                     </div>
                     <div className="xs-12 t-c">
                       <img src={"http://placehold.it/100"} alt="" id="avatar" />
@@ -206,7 +185,7 @@ export default connect(mapStateToProps)(
                 <div className="xs-10 xs-off-1">
                   <div className="xs-12 t-c">
                     <h4 id="pl"> </h4>
-                    <p>Reputation Score: - %</p>
+                    {/* <p>Reputation Score: - %</p> */}
 
                     <div className="xs-10 xs-off-1 s3">
                       <div className="xs-4 t-c">

@@ -1,9 +1,9 @@
 import ax from "axios";
-import dA from "../../actions/project-funder/dashboard";
+import dA from "../../actions/dashboard";
 import e from "../../../endpoints";
 import { retrieveToken } from "../../../helpers/TokenManager";
 import { extractMessage } from "../../../helpers/utils";
-import modal from "../../actions/modal";
+import { CLOSE_MODAL_FORM } from "../../actions/modal";
 import { fetchProject } from "../project";
 
 export const addStakeholder = obj => {
@@ -24,14 +24,14 @@ export const addStakeholder = obj => {
           type: dA.ADD_STAKEHOLDER_S,
           message: data.message
         });
-        dispatch({ type: "NEW_TOAST", status: "success", message: "Stakeholder Added Succesfully"})
-        dispatch({type: modal.CLOSE_MODAL_FORM});
+        dispatch({ type: "NEW_TOAST", status: "success", message: "Stakeholder(s) Added Succesfully"})
+        dispatch({type: CLOSE_MODAL_FORM});
         dispatch(fetchProject(obj.id));
       })
       .catch((res) => {
   
         dispatch({ type: dA.ADD_STAKEHOLDER_F });
-        dispatch({ type: "NEW_TOAST", status: "error", message: extractMessage(res) || "Could Not Remove Stakeholder."})
+        dispatch({ type: "NEW_TOAST", status: "error", message: extractMessage(res) || "Could Not Remove Stakeholder(s)."})
 
       });
   };

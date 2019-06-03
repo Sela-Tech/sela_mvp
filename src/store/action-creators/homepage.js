@@ -2,6 +2,7 @@ import ax from "axios";
 import hA from "../actions/home";
 import e from "../../endpoints";
 import { extractMessage } from "../../helpers/utils";
+import endpoints from "../../endpoints";
 
 export const showMap = {
   type: hA.SHOW_MAP
@@ -43,7 +44,7 @@ export const fetchStakeholderInfo = id => {
   };
 };
 export const fetchProjects = (query = "") => {
-  let url = `${e.fetch_projects}${query !== "" ? "limit=12&" + query : "limit=12"}`;
+  let url = `${e.fetch_projects}${query !== "" ? "limit=500&" + query : "limit=500"}`;
 
   return dispatch => {
     dispatch({ type: hA.GET_HOMEPAGE_PROJS_R });
@@ -91,3 +92,33 @@ export const fetchProject = id => {
       });
   };
 };
+export const fetchUpdates = id => {
+  return dispatch => {
+    dispatch({ type: hA.GET_PUBLIC_UPDATES_R });
+    ax({
+      method: "GET",
+      url: endpoints.public_updates(id)
+    }).then(res=>{
+      dispatch({ type: hA.GET_PUBLIC_UPDATES_S, data: res.data });
+
+    }).catch(res=>{
+      dispatch({ type: hA.GET_PUBLIC_UPDATES_F });
+
+    })
+  }
+}
+export const get_public_transactions = id => {
+  return dispatch => {
+    dispatch({ type: hA.GET_PUBLIC_TRANSACTIONS_R })
+    ax({
+      method: "GET",
+      url: endpoints.public_transactions(id)
+    }).then(res=>{
+      dispatch({ type: hA.GET_PUBLIC_TRANSACTIONS_S, data: res.data })
+
+    }).catch(res=>{
+      dispatch({ type: hA.GET_PUBLIC_TRANSACTIONS_F })
+
+    })
+  }
+}

@@ -1,11 +1,23 @@
 import styled from 'styled-components';
 
 export default styled.div`
+
+#refresh{
+    height: 30px;
+    background: #1f1e42;
+    border-radius: 5px;
+    border: 0;
+    font-weight: 300;
+    letter-spacing: 0.6px;
+    margin-top: 20px;
+    color: white;
+}
+
 .accept{
     height: 30px;
     margin: 1em 0.5em;
     width: 100px;
-    font-size: 13px;
+    font-size: 0.95em;
     font-weight: 300;
     background: #1f1e42;
     border: 0px solid #bbb;
@@ -16,7 +28,7 @@ export default styled.div`
     height: 30px;
     margin: 1em 0.5em;
     width: 100px;
-    font-size: 13px;
+    font-size: 0.95em;
     font-weight: 300;
     background: #f44336;
     border: 0px solid #bbb;
@@ -31,7 +43,7 @@ export default styled.div`
 
 .white{
     background: white;
-    margin-top: 6%;
+    margin-top: 2.75%;
     background: #FFFFFF;
     border: 1px solid #EAEDF3;
     box-sizing: border-box;
@@ -41,7 +53,7 @@ export default styled.div`
         padding: 1.25em;
         margin:0;
         border-bottom: 1px solid #F5F5F8;
-        font-family: ProximaNova;
+        font-family: Acumin Pro;
         font-weight: 400;
         line-height: 22px;
         font-size: 17px;
@@ -70,7 +82,7 @@ export default styled.div`
         }
         
         p,a{
-            font-family: ProximaNova;
+            font-family: Acumin Pro;
             line-height: 20px;
             font-size: 15px;
             color: #201D41;
@@ -86,7 +98,7 @@ export default styled.div`
         }
 
         span{
-            font-family: ProximaNova;
+            font-family: Acumin Pro;
             line-height: 14px;
             font-size: 12px;
             font-weight: 300;
@@ -97,4 +109,19 @@ export default styled.div`
         }
 
     }
-}`;
+}
+
+
+.text {
+    font-size: 0.95em !important;
+        margin-top: 10px !important;
+        font-weight: 900 !important;
+    &.accepted{
+        color: teal !important;
+    }
+    &.rejected{
+        color: #f44336 !important;
+    }
+}
+
+`;

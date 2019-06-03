@@ -4,21 +4,15 @@ import DatePicker from "react-datepicker";
 import moment from "moment";
 import "react-datepicker/dist/react-datepicker.css";
 import { connect } from "react-redux";
-import {
-  addProject,
-  // fetchProjects
-} from "../../store/action-creators/project";
-import dA from "../../store/actions/project-funder/dashboard";
-import { Form } from "./styles.modals/add";
-// import {  clearAddModal } from "../../store/action-creators/modal";
-import AsyncButton from "../unique/async-button";
+import { addProject } from "../../store/action-creators/project";
+import dA from "../../store/actions/dashboard";
 import LocationLoader from "./sub-components/location-loader";
 import GeoSuggest from "react-geosuggest";
 import ReactS3Uploader from "react-s3-uploader";
 import endpoints from "../../endpoints";
 import SdgPicker from "./sub-components/sdg-picker";
-import GenericLoader from "./sub-components/user-loader";
-// import { fetch_projects_for_contractor } from "../../store/action-creators/contractor/project";
+import Icon from "react-fa";
+import FormWrapper from "./styles.modals/new.standard";
 
 const mapStateToProps = state => {
   const { type, message } = state.projects.add.action;
@@ -31,7 +25,7 @@ const mapStateToProps = state => {
     add_project_in_progress: type === dA.ADD_PROJ_R,
     message,
     type,
-    selected: state.projects.funders.selected
+    selected: state.projects.stakeholders.selected
   };
 };
 
@@ -46,11 +40,15 @@ export default connect(mapStateToProps, mapDispatchToProps)(
     constructor(props) {
       super(props);
       this.state = {
+        add_view: "one",
+        projectType: "",
+        add_project_in_progress: false,
         "end-date-unformatted": moment().add(1, "d"),
         "start-date-unformatted": moment(),
         "project-avatar": {},
         uploading: 0,
         form: {
+          crowdfundable: false,
           startDate: moment().format("MM-DD-YYYY"),
           endDate: moment()
             .add(1, "d")
@@ -58,14 +56,11 @@ export default connect(mapStateToProps, mapDispatchToProps)(
           defaultEndDate: moment()
             .add(1, "d")
             .format("MM-DD-YYYY"),
-          location: {}
+          location: {},
+          extra: {}
         }
       };
     }
-
-    // componentWillMount() {
-    //   this.props.clear_add_form();
-    // }
 
     handleSubmit = e => {
       e.preventDefault();
@@ -84,11 +79,20 @@ export default connect(mapStateToProps, mapDispatchToProps)(
         });
       }
 
+      let extra = [{size: this.state.form.extra}];
+
+      if( this.state.projectType === 'environmental' ){
+        formData.extra = extra;
+      }else{
+        delete formData.extra
+      };
+
       if (this.state["project-avatar"].file) {
         this.next(this.state["project-avatar"].file);
       } else {
         this.props.add_project(formData);
       }
+
     };
 
     forceFocus = name => {
@@ -117,6 +121,32 @@ export default connect(mapStateToProps, mapDispatchToProps)(
       });
     };
 
+    handleOptionChange = e => {
+      const { value, name } = e.target;
+      
+      this.setState(p => {
+
+        let extra = p.form.extra || {};
+        let splitup = name.split("-");
+        let option = splitup[0];
+
+        if(splitup[1] === "fieldValue"){
+          extra[option] = value;
+        } else if(splitup[1] === "fieldUnit"){
+          extra.unit = value;
+        }
+  
+      return {
+          message: undefined,
+          form: {
+            ...this.state.form,
+            extra
+          }
+        }
+
+      });
+    };
+
     handleNumberChange = e => {
       e.persist();
       let value = e.target.value;
@@ -125,7 +155,7 @@ export default connect(mapStateToProps, mapDispatchToProps)(
         message: undefined,
         form: {
           ...this.state.form,
-          goal: value.indexOf(0) === 0 ? 1: value
+          implementationBudget: value.indexOf(0) === 0 ? 1: value
         }
       });
     };
@@ -201,25 +231,19 @@ export default connect(mapStateToProps, mapDispatchToProps)(
 
     componentWillReceiveProps(nextProps) {
       if (this.props !== nextProps) {
-        // pull fresh projects after adding
-        
-        // if (nextProps.type === dA.ADD_PROJ_S) {
-
-        //     if(nextProps.isFunder === true){
-        //       nextProps.fetch_projects_as_funder();
-        //     }
-
-        //     if(nextProps.isContractor === true){
-        //       nextProps.fetch_projects_as_contractors();
-        //     }
-            
-        // }
-
         this.setState({
           type: nextProps.type,
           message: nextProps.message,
           add_project_in_progress: nextProps.add_project_in_progress
         });
+
+        if(nextProps.add_project_in_progress){
+          setTimeout(()=>{
+           this.setState({
+            nextView: true
+           }) 
+          },2000)
+        }
       }
     }
 
@@ -244,190 +268,236 @@ export default connect(mapStateToProps, mapDispatchToProps)(
       });
     };
 
-    render() {
-      let fd = this.state.form,
-        endDate = this.state["end-date-unformatted"],
-        startDate = this.state["start-date-unformatted"],
-        disabled = endDate < startDate;
+    toggleCrowdfund = () => {
+      this.setState(p => {
+        return {
+          form: {
+            ...p.form,
+            crowdfundable: !p.form.crowdfundable
+          }
+        }
+      })
+    }
 
+    typeSelect = e => {
+      this.setState({
+          projectType: e.target.value
+      })
+    }
+
+    render() {
+      const { add_project_in_progress, form, add_view } = this.state;
+      
+      // const {crowdfundable} = form;
       return (
-        <React.Fragment>
-          <div className="xs-12">
-            {/* <p className="below-text">
-              Add your funded development project and relevant contractors and
-              collaborators.
-            </p> */}
+        <FormWrapper className='xs-12'>
+          <div className="xs-12 t-c grayed">
+            <h3>Add New Project</h3>
           </div>
-          <Form onSubmit={this.handleSubmit} className="xs-12">
-            <div className="xs-12 sm-6">
-              <div className="xs-12 sm-11">
-                <div className="form-control">
-                  <label> Project Avatar</label>
-                  <label htmlFor="avatar" id="label-image">
-                    <img src={this.state["project-avatar"].preview} alt="" />
-                    <div className="c-w">
-                      <div className="c t-c">
-                        <p>+</p>
+
+          <div className='xs-12 white'>
+            <div className='xs-10 xs-off-1'>
+              { add_project_in_progress && this.state.nextView ?
+                <div className='xs-12' style={{padding: "2em 0"}}>
+                  <p style={{padding: '1em', fontWeight:"normal" }}>Project Creation <strong>Takes A While</strong>...</p>
+                  <Icon name='spinner' spin/>
+                </div>
+              : 
+              <form onSubmit={this.handleSubmit} className='xs-12'>
+                { add_view === "one" && 
+                <div className='xs-12'>
+
+                <div className='xs-12 sm-6 pad-right'>
+
+                <div className='xs-12 form-group'>
+                <label>Enter project name</label>
+                <input name='name' placeholder='Project name' onChange={this.handleChange} required/>
+                </div>
+
+                <div className='xs-12 form-group'>
+                <label>Add a description of your project</label>
+                <textarea name='description' onChange={this.handleChange} placeholder='Project description (140 word min; 280 words max)'></textarea>
+                </div>
+
+                <div className='xs-12 form-group'>
+                <label>Enter the estimated <strong>Implementation Budget</strong></label>
+                <input name='implementationBudget' onChange={this.handleChange} placeholder='Amount in USD' min={1} type='number' required/>
+                {/* <em>Amount can be adjusted later</em> */}
+                </div>
+
+                <div className='xs-12 form-group'>
+                <label>Enter the estimated <strong>Observation Budget</strong></label>
+                <input name='observationBudget'  onChange={this.handleChange} placeholder='Amount in USD' min={1} type='number' required/>
+                {/* <em>Amount can be adjusted later</em> */}
+                </div>
+                
+                <div className='xs-12 form-group'>
+                  <label>Select the <strong>Type</strong> that best describes the project</label>
+                  <select className="projectType" onChange={this.typeSelect}>
+                    <option value=""> Please select a project type</option>
+                    <option value="environmental">Pond Cleanup</option>
+                  </select>
+                </div>
+
+                {
+                  this.state.projectType === "environmental" &&
+                  <div className='xs-12'>
+                    
+                    <div className='xs-12'>
+                      <div className='xs-9'>
+                        <label> Pond Size</label>
+                        
+                        <input className = 'xs-4' style={{ width: "30%" }} placeholder="Length" 
+                        name = {"length-fieldValue"} type='string' onChange={ this.handleOptionChange } />
+                        
+                        <input className = 'xs-4' style={{ width: "30%", marginLeft: "2.5%" }} placeholder="Width" 
+                        name = {"width-fieldValue"} type='string' onChange={ this.handleOptionChange } />
+                        
+                        <input className = 'xs-4' style={{ width: "30%", marginLeft: "2.5%" }}  placeholder="Depth" 
+                        name = {"depth-fieldValue"} type='string' onChange={ this.handleOptionChange } />
+
                       </div>
+
+                      <div className='xs-3'>
+                      <label> Unit </label>
+                        <select placeholder="Unit" 
+                        name={"size-fieldUnit"} onChange={ this.handleOptionChange }>
+                          <option value=""> Select Unit  </option>  
+                          <option value="Kilometers"> Kilometers  </option>  
+                          <option value="Meters"> Meters  </option>  
+                          <option value="Centimeters"> Centimeters  </option>  
+                          <option value="Feet"> Feet  </option>  
+                          <option value="Miles"> Miles  </option>  
+                          <option value="Inches"> Inches  </option>  
+                        </select>
                     </div>
 
-                    <ReactS3Uploader
-                      id="avatar"
-                      name="project-avatar"
-                      server={endpoints.b}
-                      signingUrl="s3/sign"
-                      signingUrlMethod="GET"
-                      accept="image/*"
-                      s3path="project-avatars/"
-                      preprocess={this.handleImageChange}
-                      onSignedUrl={this.onSignedUrl}
-                      onProgress={this.onUploadProgress}
-                      onError={this.onUploadError}
-                      onFinish={this.onUploadFinish}
-                      uploadRequestHeaders={{ "x-amz-acl": "public-read" }} // this is the default
-                      contentDisposition="auto"
-                      scrubFilename={filename =>
-                        filename.replace(/[^\w\d_\-.]+/gi, "")
-                      }
-                      autoUpload={true}
-                    />
-                  </label>
-                </div>
-                <div className="form-control">
-                  <label> Name your project </label>
-                  <input
-                    type="text"
-                    name="name"
-                    placeholder="Project Name"
-                    value={fd["name"] || ""}
-                    onChange={this.handleChange}
-                    required
-                  />
+                    </div>
+
+                
+
+                  </div>
+                }
+
+                <div className='xs-12 form-group'>
+                <SdgPicker onChange={this.handleSDG} />
                 </div>
 
-                <div className="form-control">
-                  <label> Financial Goal (USD) </label>
-                  <input
-                    type="number"
-                    name="goal"
-                    placeholder="Amount you expect to raise"
-                    value={fd["goal"] || ""}
-                    onChange={this.handleNumberChange}
-                    required
-                  />
                 </div>
-              </div>
-            </div>
 
-            <div className="xs-12 sm-6">
-              <div className="form-control">
+                <div className='xs-12 sm-6 pad-left'>
+
+                <div className="xs-12 form-group">
                 <label> Set the location </label>
                 <LocationLoader>
-                  <GeoSuggest
-                    ref={el => (this.geoSuggest = el)}
-                    onSuggestSelect={this.onSuggestSelect}
-                  />
-                </LocationLoader>
-              </div>
-
-              <div className="form-control">
-                <label> Add a project description </label>
-
-                <textarea
-                  type="text"
-                  name="description"
-                  placeholder="Project Description"
-                  value={fd["description"] || ""}
-                  onChange={this.handleChange}
-                  required
+                <GeoSuggest
+                ref={el => (this.geoSuggest = el)}
+                onSuggestSelect={this.onSuggestSelect}
+                required
                 />
-              </div>
+                </LocationLoader>
+                </div>
 
-              <SdgPicker onChange={this.handleSDG} />
-              
-              <GenericLoader addStakeholders= {this.addStakeholders}/>
-              
-              <div className="form-control xs-12" id="date-part">
-                <div className={"xs-12 sm-5 date-wrpr show"}>
-                  <label
-                    onClick={() => this.forceFocus("show-start-date")}
-                    className="xs-10"
-                  >
-                    Start Date
-                  </label>
-                  <div className="xs-10 adjusted">
-                    <DatePicker
-                      type="date"
-                      name="start-date"
-                      id="start-date"
-                      ref="start-date"
-                      selected={this.state["start-date-unformatted"]}
-                      onChange={this.handleStartDatePick}
-                      minDate={moment()}
-                    />
-                  </div>
+                <div className="form-group xs-12" id="date-part">
 
-                  <div className="xs-2" id="c-one">
-                    <img src={calendericon} alt="calender-icon" />
+                <label
+                onClick={() => this.forceFocus("show-start-date")}
+                className="xs-10"> Set your project timeline </label>
+
+                <div className={"xs-12 sm-6 date-wrpr show"}>
+                <div className='xs-12 sm-11 border'>
+                <div className="xs-10 adjusted">
+                <DatePicker
+                type="date"
+                name="start-date"
+                id="start-date"
+                ref="start-date"
+                selected={this.state["start-date-unformatted"]}
+                onChange={this.handleStartDatePick}
+                minDate={moment()}
+                required />
+                </div>
+
+                <div className="xs-2" id="c-one">
+                <img src={calendericon} alt="calender-icon" />
+                </div>
+                </div>
+                </div>
+
+                  <div className={"xs-12 sm-6 date-wrpr show"}>
+                    <div className='xs-12 sm-11 border sm-off-1'>
+                      <div className="xs-10 adjusted">
+                        <DatePicker
+                        type="date"
+                        name="end-date"
+                        id="end-date"
+                        ref="end-date"
+                        selected={this.state["end-date-unformatted"]}
+                        onChange={this.handleEndDatePick}
+                        minDate={this.state["end-date-unformatted"]}
+                        required
+                        />
+                      </div>
+
+                      <div className="xs-2" id="c-one">
+                        <img src={calendericon} alt="calender-icon" />
+                      </div>
+                    </div>
                   </div>
                 </div>
 
-                <span className="xs-12 sm-2">
-                  <p id="dash">-</p>
-                </span>
+                <div className="xs-12 form-group">
+                  <label>Upload a picture to represent your project</label>
+                    <label htmlFor="avatar" id="label-image">
+                      <img src={this.state["project-avatar"].preview} alt="" />
 
-                <div className={"xs-12 sm-5 date-wrpr show"}>
-                  <label
-                    onClick={() => this.forceFocus("show-end-date")}
-                    className="xs-10 "
-                  >
-                    End Date
-                  </label>
+                      <div className="c-w">
+                        <div className="c t-c">
+                          <p>+</p>
+                        </div>
+                      </div>
 
-                  <div className="xs-10 adjusted">
-                    <DatePicker
-                      type="date"
-                      name="end-date"
-                      id="end-date"
-                      ref="end-date"
-                      selected={this.state["end-date-unformatted"]}
-                      onChange={this.handleEndDatePick}
-                      minDate={this.state["end-date-unformatted"]}
-                    />
+                      <ReactS3Uploader
+                        id="avatar"
+                        name="project-avatar"
+                        server={endpoints.b}
+                        signingUrl="s3/sign"
+                        signingUrlMethod="GET"
+                        accept="image/*"
+                        s3path="project-avatars/"
+                        preprocess={this.handleImageChange}
+                        onSignedUrl={this.onSignedUrl}
+                        onProgress={this.onUploadProgress}
+                        onError={this.onUploadError}
+                        onFinish={this.onUploadFinish}
+                        uploadRequestHeaders={{ "x-amz-acl": "public-read" }} // this is the default
+                        contentDisposition="auto"
+                        scrubFilename={filename =>
+                        filename.replace(/[^\w\d_\-.]+/gi, "")
+                        }
+                        autoUpload={true}
+                      />
+                    </label>
                   </div>
 
-                  <div className="xs-2" id="c-one">
-                    <img src={calendericon} alt="calender-icon" />
+                </div>
+
+                <div className='xs-12'>
+                  <div className='xs-12'>
+                    <button id='save' type='submit' disabled={add_project_in_progress}>
+                    { add_project_in_progress ?  <Icon name = 'spinner' spin/> : 'Create Project' }
+                    </button>
                   </div>
                 </div>
-              </div>
-              <div className="form-control xs-12">
-                <AsyncButton
-                  attempt={this.state.add_project_in_progress}
-                  type="submit"
-                  id="create-project-btn"
-                  disabled={disabled}
-                >
-                  Create Project
-                </AsyncButton>
-
-                {Boolean(this.state.uploading) && (
-                  <label
-                    style={{
-                      display: "block",
-                      marginTop: "5px"
-                    }}
-                  >
-                    Uploading Picture: {this.state.uploading}%
-                  </label>
-                )}
-              </div>
+                </div>
+                }
+              </form>
+              }
             </div>
-            
-         
-          </Form>
-        </React.Fragment>
+          </div>
+        </FormWrapper>
       );
     }
+
   }
 );

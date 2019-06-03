@@ -3,7 +3,7 @@ import styled from "styled-components";
 import NavLink from "react-router-dom/NavLink";
 import  connect  from "react-redux/lib/connect/connect";
 
-import modals from "../../../../store/actions/modal";
+import { SHOW_ADD_PROJECT_MODAL } from "../../../../store/actions/modal";
 import { showModal } from "../../../../store/action-creators/modal";
 import Icon from 'react-fa';
 import MenuNotifier from "../notify";
@@ -51,7 +51,7 @@ const NavStyle = styled.nav`
       color: white;
       font-weight: 300;
       font-size: 14px;
-      background: linear-gradient(151.17deg, #C13C1E 0%, #F2994A 100%);
+      background: #F2994A;
       border-radius: 5px;
 
       &:hover {
@@ -70,8 +70,9 @@ const NavStyle = styled.nav`
       margin: 0;
       font-weight: 400;
       line-height: 46px;
-      font-size: 16.5px;
+      font-size: 14.5px;
       color: #201D41;
+      background: unset;
     }
 
     button {
@@ -92,7 +93,7 @@ const Navigator = withRouter(({...props})=>{
   return <div className='xs-12' id='navigator'>
    {pathname === "/dashboard" 
    ? <h4>Projects</h4>
-   : <button onClick={props.history.goBack}><img src={lar} alt=""/>Back</button> }
+   : <button onClick={()=>props.history.push("/dashboard")}><img src={lar} alt=""/>Back</button> }
   </div>
 });
 
@@ -133,7 +134,6 @@ class Navbar extends React.Component {
                 </div>
               </div>
           </div>
-          
         </NavStyle>
       );
 
@@ -148,25 +148,23 @@ class Navbar extends React.Component {
 
             <div className="xs-8 sm-5 md-6">
                 <div className="xs-12 sm-8">
-                  <div className="xs-12" id="well">
-                  <div className="xs-2 t-c"><Icon name="search"/></div>
-                    <input name='search' placeholder="Search For Projects" id="search" className="xs-10"/>
-                  </div>
+                  {/* <div className="xs-12" id="well"> */}
+                  {/* <div className="xs-2 t-c"><Icon name="search"/></div> */}
+                    {/* <input name='search' placeholder="Search For Projects" id="search" className="xs-10"/> */}
+                  {/* </div> */}
                 </div>
             </div>
             
             
-            <div className="xs-12 sm-4">
-            <NavLink
+            <div className="xs-12 sm-off-6 sm-4">
+              <NavLink
                 className="xs-12 sm-6 f-r"
                 to="#"
                 id="add"
                 onClick={ this.props.showModal }>
-                + Propose Project
+                + Add Project
               </NavLink>
-              
               <MenuNotifier className={"xs-12 sm-3 f-r"}/>
-        
             </div>
           </NavStyle>
         );
@@ -186,7 +184,7 @@ const mapStateToProps = state => {
 
 const mapDispatchToProps = dispatch => {
   return {
-    showModal: ()=>dispatch(showModal(modals.add_project))
+    showModal: () => dispatch( showModal( SHOW_ADD_PROJECT_MODAL ))
   }
 }
 export default connect(mapStateToProps, mapDispatchToProps)(Navbar);

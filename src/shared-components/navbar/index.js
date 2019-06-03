@@ -1,5 +1,5 @@
 import React from "react";
-import Top from "./nabar.style";
+import Top from "./navbar.style";
 import { Link, NavLink } from "react-router-dom";
 import LogoOrange from "../../assets/icons/full-logo.png";
 import Hamburger from "../unique/harmburger";

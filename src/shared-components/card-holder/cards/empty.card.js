@@ -1,7 +1,7 @@
 import React from "react";
 import { Link } from "react-router-dom";
 import { EmptyCardStyling } from "./card.style";
-import Progressbar from "../../unique/progressbar";
+// import Progressbar from "../../unique/progressbar";
 
 import { connect } from "react-redux";
 
@@ -10,8 +10,8 @@ const EmptyCard = ({ showMap }) => {
     <EmptyCardStyling
       className={
         showMap === true
-          ? "xs-12 sm-6  card-wrapper"
-          : "xs-12 sm-6 md-4  card-wrapper"
+          ? "xs-12 sm-6 md-4 lg-3 card-wrapper"
+          : "xs-12 sm-6 md-4 lg-3 card-wrapper"
       }
     >
       <Link to={`#`}>
@@ -27,7 +27,7 @@ const EmptyCard = ({ showMap }) => {
             <span className="loading-funder" />
           </div>
 
-          <Progressbar percentage={10} />
+          {/* <Progressbar percentage={10} /> */}
         </div>
       </Link>
     </EmptyCardStyling>

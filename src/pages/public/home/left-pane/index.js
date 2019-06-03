@@ -1,18 +1,13 @@
 import React from "react";
 import LeftPaneStyle from "./left.pane.style";
 import { connect } from "react-redux";
-import {
-  fetchProjects,
-  fetchLocations,
-  showMap
-} from "../../../../store/action-creators/homepage";
+import { fetchProjects, fetchLocations, showMap } from "../../../../store/action-creators/homepage";
 import CardHolder from "../../../../shared-components/card-holder";
 import  withRouter from "react-router/withRouter";
 import { getQueryString } from "../../../../helpers/utils";
-
 import map from "./map.png";
 
-const statuses = ["DORMANT", "ACCEPTED", "STARTED", "TERMINATED", "COMPLETED"];
+const statuses = ["Proposed", "In-Progress", "Completed"];
 
 class LeftPane extends React.Component {
   constructor(props) {
@@ -139,74 +134,77 @@ class LeftPane extends React.Component {
         onMouseLeave={this.unfreezeRoot}
         onScroll={this.handleScroll}
       >
-        <div className="xs-10 xs-off-1">
-          <h2 id="projects-h2">Projects</h2>
-          <div className={showMap ? "xs-12" : "xs-12 sm-8"}>
-            <div className="xs-12 sm-5 md-5">
-              <label>Select Location</label>
-              <select
-                className="boma-select xs-12 sm-11"
-                name="location"
-                onChange={this.handleSelect}
-                value={location}
-              >
-                <option value="Unspecified"> Unspecified</option>
-                {locations.map((l, i) => {
-                  return (
-                    <option value={l.name} key={i}>
-                      {l.name}
-                    </option>
-                  );
-                })}
-              </select>
-            </div>
-            <div className="xs-12 sm-5 md-5">
-              <label>Select Project Status</label>
 
-              <select
-                className="boma-select xs-12 sm-11"
-                name="status"
-                onChange={this.handleSelect}
-                value={status}
-              >
-                <option value="Unspecified"> Unspecified</option>
-
-                {statuses.map((s, i) => {
-                  return (
-                    <option value={s} key={i}>
-                      {s}
-                    </option>
-                  );
-                })}
-              </select>
-            </div>
-
-            { showMap && isBigScreen && (
-              <div className="sm-2 t-c">
-                <button
-                  id="show-map"
-                  name="show-map"
-                  onClick={toggleMap}
+        <div className="xs-12 custom-white">
+          <div className='xs-10 xs-off-1'>
+            <div className={showMap ? "xs-12" : "xs-12 sm-8"}>
+              <div className='xs-12 sm-2 md-2'>
+                <h3 id='projects-title'>Projects</h3>
+              </div>
+              <div className="xs-12 sm-5 md-4">
+                <select
+                  className="boma-select xs-12 sm-11"
+                  name="status"
+                  onChange={this.handleSelect}
+                  value={status}
                 >
-                  <img src={map} alt="" />
+                  <option value="Unspecified"> Filter By Project Status</option>
+
+                  {statuses.map((s, i) => {
+                    return (
+                      <option value={s.toUpperCase()} key={i}>
+                        {s}
+                      </option>
+                    );
+                  })}
+                </select>
+              </div>
+
+              <div className="xs-12 sm-5 md-4">
+                <select
+                  className="boma-select xs-12 sm-11"
+                  name="location"
+                  onChange={this.handleSelect}
+                  value={location}
+                >
+                  <option value="Unspecified"> Filter By Location </option>
+                  {locations.map((l, i) => {
+                    return (
+                      <option value={l.name} key={i}>
+                        {l.name}
+                      </option>
+                    );
+                  })}
+                </select>
+              </div>
+             
+              { showMap && isBigScreen && (
+                <div className="sm-2 t-c">
+                  <button
+                    id="show-map"
+                    name="show-map"
+                    onClick={toggleMap}
+                  >
+                    <img src={map} alt="" /><span> Close Map</span>
+                  </button>
+                </div>
+              )}
+            </div>
+
+            {!showMap && isBigScreen && (
+              <div className="xs-4">
+                <div className="xs-off-7 xs-5 t-c">
+                  <button
+                    id="show-map"
+                    name="show-map"
+                    onClick={toggleMap}
+                  >
+                    <img src={map} alt="" /><span>View Map</span>
                 </button>
+                </div>
               </div>
             )}
           </div>
-
-          {!showMap && isBigScreen && (
-            <div className="xs-4">
-              <div className="xs-off-8 xs-4 t-c">
-                <button
-                  id="show-map"
-                  name="show-map"
-                  onClick={toggleMap}
-                >
-                  <img src={map} alt="" />
-                </button>
-              </div>
-            </div>
-          )}
         </div>
 
         <CardHolder projects={projects} action={action} />

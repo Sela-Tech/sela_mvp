@@ -1,10 +1,29 @@
 import styled from "styled-components";
 
 export default styled.div`
+
+.pad-white{
+  padding: 1.5em;
+  border-radius: 3px;
+  background: white;
+  margin-bottom: 1em;
+
+  @media(min-width: 768px){
+    width: 95%;
+  }
+
+  p,label{
+    color: #666;
+    font-weight: 400;
+  }
+}
+
+.content{
+  padding: 2.5em 0;
+}
   .long-loader,
   .short-loader {
-    text-align: center;
-    margin: auto;
+    text-align: left;
     display: block;
     height: 9px;
     background: #ccc;
@@ -17,22 +36,21 @@ export default styled.div`
   }
   #header {
     padding: 2em 0 3em;
-    background: #fbfbfb;
+    background: white;
 
     h1 {
-      font-family: Cabin;
+      font-family: Acumin Pro;
       font-style: normal;
-      font-weight: 500;
-      line-height: normal;
-      font-size: 24px;
-      text-align: center;
-      letter-spacing: 0.04em;
-      color: #3d4851;
+      font-weight: 600;
+      font-size: 1.35em;
+      letter-spacing: 0.02em;
+      color: #222829;
       margin: 10px 0;
       padding: 0;
     }
+
     p {
-      font-family: ProximaNova;
+      font-family: Acumin Pro;
       line-height: normal;
       font-size: 18px;
       text-align: center;
@@ -42,18 +60,69 @@ export default styled.div`
       margin-top: 5px;
       margin-bottom: 25px;
     }
+
     video,
-    img {
+    img,.no-image {
       width: 100%;
-      height: 250px;
+      height: 25em;
       display: block;
       background: #e3e4e4;
       object-fit: cover;
       object-position: center;
     }
+
+    
+    #arrow{
+      height: 1em;
+      width: 1em;
+      object-fit:contain;
+      background: transparent;
+      transform: rotate(-180deg);
+      display: inline-block;
+      margin-right: 1em;
+    }
+
     .info {
+      @media(min-width: 768px){
+        padding: 1em 2.5em; 
+      }
+      @media(max-width: 767px){
+        padding: 2em 0em; 
+      }
+
+      .line{
+        margin: 2em 0;
+      }
+      
+      label{
+        font-size: 1em;
+        line-height: normal;
+        color: #67747C;
+      }
+      
+      h3{
+        color: #222829 !important;
+        font-weight: 600 !important;
+        font-size: 1.35em !important;
+        margin-bottom: 0.5em;
+      }
+
+      .dw{
+        background: #212D40;
+        border-radius: 50px;
+        height: 2.25em;
+        width: auto;
+        padding: 0 1em;
+        line-height: 2.35em;
+        display: inline-block;
+        color: white;
+        font-size: 0.55em;
+        font-weight: 300;
+        margin-left: 1em;
+        letter-spacing: 0px;
+      }
       h3 {
-        font-family: ProximaNova;
+        font-family: Acumin Pro;
         line-height: normal;
         font-size: 22px;
         letter-spacing: 0.02em;
@@ -68,10 +137,9 @@ export default styled.div`
       }
 
       h4 {
-        font-family: ProximaNova;
+        font-family: Acumin Pro;
         line-height: normal;
         font-size: 18px;
-        text-align: center;
         letter-spacing: 0.02em;
         color: #3d4851;
         margin: 15px 0 5px;
@@ -84,15 +152,23 @@ export default styled.div`
     }
   }
 
+  @media(max-width: 767px){
+    #tabs{
+      display: none !important;
+    }
+  }
+  
+  
   #tabs {
     border-bottom: 2px solid rgba(135, 149, 161, 0.05);
+    border-top: 2px solid rgba(135, 149, 161, 0.05);
     padding: 1em 0;
+
     a {
-      font-family: Cabin;
-      font-style: normal;
-      font-weight: 300;
+      font-family: Acumin Pro;
+      font-weight: 500;
       line-height: normal;
-      font-size: 13.75px;
+      font-size: 0.9em;
       color: #8795a1;
       display: inline-block;
       padding: 1em 0;
@@ -102,7 +178,7 @@ export default styled.div`
       &:active,
       &:focus,
       &:hover {
-        color: #156edc;
+        color: #101010;
       }
     }
 
@@ -117,14 +193,16 @@ export default styled.div`
 
   .variable {
     padding: 2em 0;
+    background: #fafafa;
+
     h3 {
-      font-family: Cabin;
-      font-style: normal;
-      font-weight: 600;
-      line-height: normal;
-      font-size: 24px;
-      letter-spacing: 0.02em;
-      color: #156edc;
+      // font-family: Acumin Pro;
+      // font-style: normal;
+      // font-weight: 600;
+      // line-height: normal;
+      // font-size: 24px;
+      // letter-spacing: 0.02em;
+      // color: #156edc;
     }
 
     .card {
@@ -137,11 +215,12 @@ export default styled.div`
         width: 95%;
       }
 
-      margin: 16px 0;
+      margin: 0 0 1em 0;
       padding: 1em;
       border: 1px solid rgba(135, 149, 161, 0.25);
       box-sizing: border-box;
       border-radius: 5px;
+      background: white;
 
       img {
         height: 50px;
@@ -154,8 +233,7 @@ export default styled.div`
       span,
       a {
         margin: 0;
-        margin-bottom: 0.35em;
-        font-family: ProximaNova;
+        font-family: Acumin Pro;
       }
 
       h4 {
@@ -173,10 +251,108 @@ export default styled.div`
       }
 
       span {
-        font-size: 15px;
+        font-size: 0.8em;
         color: #8795a1;
-        font-weight: 100;
+        font-weight: 300;
+      }
+    }
+  } 
+
+  #sdgs{
+    margin: 1em 0;
+    img{
+      height: 6em;
+      width: 6em;
+      margin: 0.25em 0.5em 0.25em 0em;
+      object-fit: contain;
+      object-position: center;
+      display: inline-block;
+      cursor: pointer;
+
+      &:hover{
+        filter: contrast(80%);
       }
     }
   }
+
+
+
+
+.has-radius{
+
+  color: #0145BE;
+  text-transform: Capitalize;
+  font-size: 1em;
+  border: 0;
+  background: transparent;
+  padding: 0;
+  margin: 2em 0 1em;
+
+  span{
+    display: inline-block;
+  }
+
+  &.proposed, &.dormant{
+    color: #0145BE;
+  }
+  &.in-progress{
+    color: #F2C94C;
+  }
+  &.completed{
+    color: #369C05;
+  }
+  &.terminated{
+    color: #BC1717;
+  }
+
+  img{
+    object-fit: contain;
+    background: white;
+    height: 1.25em !important;
+    width: 1.25em !important;
+    margin-left: 0.5em;
+    display: block;
+    position: relative;
+    top: 0.35em;
+    background: transparent !important;
+  }
+}
+
+.__react_component_tooltip#completed{
+  background-color: #369C05;
+  span{
+    color: white;
+  }
+}
+
+.__react_component_tooltip#in-progress{
+  background-color: #F2C94C;
+  span{
+    color: black;
+  }
+}
+
+.__react_component_tooltip#proposed{
+  background-color: #0145BE;
+  span{
+    color: white;
+  }
+}
+
+.invest{
+  margin-top: 2em;
+  border-radius: 3px;
+  padding: 0.85em 2em;
+  color: #F2994A;
+  background: white;
+  font-size: 1em;
+  border: 1px solid #F2994A;
+  display: inline-block;
+
+  &:hover{
+    background: #F2994A;
+    color: white;
+  }
+}
+
 `;

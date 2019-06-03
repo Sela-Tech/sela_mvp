@@ -15,7 +15,7 @@ const shared_user_styling=`
 
   h3,
   p {
-    font-family: ProximaNova;
+    font-family: Acumin Pro;
     margin: 1px 0;
     text-transform: Capitalize;
 
@@ -38,7 +38,7 @@ const shared_user_styling=`
   p {
     font-size: 14px;
     color: #ADB5BD;
-    font-weight: 100;
+    font-weight: 300;
 
   }
 }
@@ -52,8 +52,7 @@ export const WebSidebar=styled.div` ${
 padding: 3em 0 0;
 position: relative;
 height: 100%;
-background: #201D41;
-
+background: #101314;
 
 button#top,
 #create-btn {
@@ -153,7 +152,7 @@ button#top,
 
   #line-break {
     padding: 0.5em 0;
-    border-top: 1px solid #37485E;
+    border-top: 1px solid #1d1c1c;
     display: block;
     width: 100%;
     margin 1em 0;
@@ -209,7 +208,7 @@ button#top,
           padding: 0 1em 0.35em;
           display: inline-block;
           color: #ffffffd9;
-          font-family: ProximaNova;
+          font-family: Acumin Pro;
         }
       }
     }
@@ -259,7 +258,7 @@ export const MobileSidebar=styled.div` ${
     }
     
     h3{
-      font-size: 13px;
+      font-size: 0.95em;
       margin-left: 0;
       margin-top: 10px;
 
@@ -360,7 +359,7 @@ export const MobileSidebar=styled.div` ${
           padding: 0 1em 0.35em;
           display: inline-block;
           color: white;
-          font-family: ProximaNova;
+          font-family: Acumin Pro;
         }
       }
     }

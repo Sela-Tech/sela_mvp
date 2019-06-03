@@ -2,7 +2,7 @@ import React from "react";
 import ReactDOM from "react-dom";
  import App from "./App";
 //  import registerServiceWorker from './registerServiceWorker';
- import {unregister} from './registerServiceWorker';
+ import { unregister } from './registerServiceWorker';
  
 import store from "./store";
 import Provider from "react-redux/lib/components/Provider";
@@ -13,6 +13,24 @@ import io from 'socket.io-client';
 import ends from "./endpoints";
 import notifications_actions from "./store/actions/notifications";
 import ToastContainer from 'react-toastify/lib/components/ToastContainer';
+import ErrorSize from "./pages/errorSize";
+import {connect} from 'react-redux';
+import {toast} from 'react-toastify';
+
+window.moneyFormat = function(value, currency){
+  if(isNaN(value)){
+    return "-";
+  }
+  
+  if(typeof(value) === 'string'){
+    value = parseFloat(value);
+  }
+
+  if( typeof(value) === 'number' ){
+  return `${currency}${value.toFixed(2).replace(/\d(?=(\d{3})+\.)/g, '$&,')}`;
+  }
+
+} 
 
 if (retrieveToken()) {
   store.dispatch(verify_user_token());
@@ -31,8 +49,8 @@ if (retrieveToken()) {
       }
 
       let retrieved_token = Boolean(retrieveToken());
-    
-      if ( retrieved_token === true && loop_stop === false ){  
+      if ( retrieved_token === true && loop_stop === false &&
+        store.getState().auth.isAuthenticated === true){  
         loop_stop = true;
         
         store.dispatch(get_notifications());
@@ -44,7 +62,6 @@ if (retrieveToken()) {
 
         if( Boolean(obj.userId) && Boolean(obj.socketId)){      
             socket.emit("user",obj);
-            console.log({obj})
         };
 
         store.dispatch(store_socket_data(data));
@@ -75,11 +92,52 @@ if (retrieveToken()) {
 
   });
 
+const ResponsiveContainer = connect((state)=>{
+  return { isAuthenticated: state.auth.isAuthenticated }
+})(class extends React.Component{
+
+  constructor(props){
+    super(props);
+    this.state = {
+      isSmallScreen: window.innerWidth < 1023,
+      isAuthenticated: props.isAuthenticated
+    }
+  }
+
+  componentWillReceiveProps(nextProps){
+    if(this.props !== nextProps){
+      this.setState({
+        isAuthenticated: nextProps.isAuthenticated
+      })
+    }
+  }
+
+  resizer = ()=>{
+    this.setState({
+      isSmallScreen: window.innerWidth < 1023
+    });
+  }
+
+  componentWillMount(){
+    this.resizer();
+    window.addEventListener("resize", this.resizer);
+  }
+
+  componentWillUnmount(){
+    window.removeEventListener("resize", this.resizer);
+  }
+
+  render(){
+    const {isSmallScreen, isAuthenticated} = this.state;
+    return isSmallScreen && isAuthenticated ? <ErrorSize/> : <App/> 
+  }
+});
+
 ReactDOM.render(
    <React.Fragment>
-      <ToastContainer/>
+      <ToastContainer position={toast.POSITION.BOTTOM_LEFT}/>
       <Provider store={store}>
-          <App />
+         <ResponsiveContainer/>
       </Provider>
     </React.Fragment>,
   document.getElementById("root")

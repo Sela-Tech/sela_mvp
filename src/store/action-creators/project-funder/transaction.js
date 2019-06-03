@@ -1,10 +1,10 @@
 import ax from "axios";
-import dA from "../../actions/project-funder/dashboard";
+import dA from "../../actions/dashboard";
 import e from "../../../endpoints";
 import { retrieveToken } from "../../../helpers/TokenManager";
 import { extractMessage } from "../../../helpers/utils";
-import modal from "../../actions/modal";
 import { fetchProject } from "../project";
+import { CLOSE_MODAL_FORM } from "../../actions/modal";
 
 export const addTransaction = obj => {
   return dispatch => {
@@ -22,7 +22,7 @@ export const addTransaction = obj => {
           dispatch({
             type: dA.ADD_TRANSACTION_S
           });
-          dispatch({type: modal.CLOSE_MODAL_FORM})
+          dispatch({type: CLOSE_MODAL_FORM})
           dispatch({ type: "NEW_TOAST", status: "success", message: "Transaction Added Succesfully"})
           dispatch(fetchProject(obj.id));
 

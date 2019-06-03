@@ -2,12 +2,15 @@ import React from "react";
 
 import { connect } from "react-redux";
 import withRouter from "react-router-dom/withRouter";
-import Link from "react-router-dom/Link";
+// import Link from "react-router-dom/Link";
 
 import Slider from "react-slick";
-import { showSetInterestsModal } from "../../../../store/action-creators/modal";
+import { showModal } from "../../../../store/action-creators/modal";
 
 import SharedViewWrapper from "../../shared/styling/projects.view";
+import HomeCard from "../../shared/card.dashboard";
+import { SHOW_INTERESTS_MODAL } from "../../../../store/actions/modal";
+import { defaultSliderSettings } from "../../shared/others";
 
   let exportMe = null;
 
@@ -16,35 +19,12 @@ import SharedViewWrapper from "../../shared/styling/projects.view";
       super(props);
       this.state={
         projects: props.projects,
-        settings:{
-          infinite: false,
-          slidesToShow: 4,
-          spaceBetween: 5,
-          clientXonMouseDown: null,
-          clientYonMouseDown: null
-        }
+        settings: defaultSliderSettings
       }
     }
     
-    handleOnClick (e) {
-      e.stopPropagation()
-      if (this.state.clientXonMouseDown !== e.clientX || 
-          this.state.clientYonMouseDown !== e.clientY) {
-        // prevent link click if the element was dragged
-        e.preventDefault()
-      }
-    }
-
-    handleOnMouseDown (e) {
-      this.setState({
-        clientXonMouseDown: e.clientX,
-        clientYonMouseDown: e.clientY
-      })
-      e.preventDefault() // stops weird link dragging effect
-    }
-
     componentWillMount() {
-      // this.resizer();
+       this.resizer();
       window.addEventListener("resize", this.resizer);
     }
   
@@ -54,6 +34,7 @@ import SharedViewWrapper from "../../shared/styling/projects.view";
 
     componentWillReceiveProps(nextProps){
       if(this.props !== nextProps){
+        console.log(nextProps)
         const { projects} = nextProps
         this.setState({
           projects
@@ -61,14 +42,16 @@ import SharedViewWrapper from "../../shared/styling/projects.view";
       }
     }
     
-    launch_edit_interest_modal = ()=>this.props.dispatch(showSetInterestsModal())
+    launch_edit_interest_modal = ()=>this.props.dispatch(showModal(
+      SHOW_INTERESTS_MODAL
+    ))
     
     resizer = () => {
       let temp;
-      if (window.innerWidth > 768 && window.innerWidth < 1023) {
+      if (window.innerWidth > 768 && window.innerWidth < 1239) {
         temp = 3;
-      } else if (window.innerWidth > 1024) {
-        temp = 4;
+      } else if (window.innerWidth > 1240) {
+        temp = 5;
       } else if (window.innerWidth < 767) {
         temp = 2;
       }
@@ -85,50 +68,46 @@ import SharedViewWrapper from "../../shared/styling/projects.view";
 
     render(){      
       const {settings, projects }= this.state;      
-      const {createdProjects, joinedProjects,savedProjects, areasOfInterest} = projects;
+      const {createdProjects, joinedProjects,
+        // savedProjects, 
+        // areasOfInterest
+      } = projects;
 
      return <SharedViewWrapper className="xs-12">
      <section className='xs-12'>
-      <label>Projects you initiated</label>
-      
+      <p>Your projects</p>
+      <label>Initiated by you</label>
       { 
           createdProjects && createdProjects.docs.length > 0 ?
      
-      <Slider 
-       ref={slider => (this.one_slider = slider)}
-       {...settings}
-       containerClass="xs-12"
-       className="xs-12 slider">
-
+      <Slider ref={slider => (this.one_slider = slider)} {...settings} containerClass="xs-12" className="xs-12 slider">
         { createdProjects.docs.map((p,i)=>{
-         return <div className="xs-12 sm-3" key={i}>
-         <Link className="xs-12 inner"
-          onMouseDown={e => this.handleOnMouseDown(e)}
-          onClick={e => this.handleOnClick(e)}
-
-        to={`/dashboard/project/${p._id}/overview`}>
-          <p> {p.name} </p>
-          <img src={p["project-avatar"]} alt=""/>
-        </Link>
-        </div>
+          return <div className="xs-12 sm-3" key={i}>
+          <HomeCard info={p} type='mine'/>
+          </div>
         })}
-        </Slider>
-      
-      :
-      <div className='xs-12 sm-3'>
-      <div className='empty-box inner'>
-        <div className='c-w xs-12'>
-          <div className='c t-c'>
-          <p>You have not initiated any project</p>
+
+        </Slider> : <Slider ref={slider => (this.one_slider = slider)} {...settings} 
+        containerClass="xs-12" className="xs-12 slider">
+
+        <div className='xs-12 sm-3'>
+        <div className='empty-box inner' style={{background: "transparent", color: "#201d41", height: "5em"}}>
+          <div className='c-w xs-12'>
+            <div className='c t-c'>
+            <p style={{ position: "relative", background: 'transparent',
+              margin: 0, color: '#101314' }}>You Have Not Initiated A Project</p>
+            </div>
           </div>
         </div>
-      </div>
-      </div> 
+        </div> 
+      </Slider>
+
       }
      </section>
 
      <section className='xs-12'>
-     
+     <label>Initiated by others</label>
+
      { 
           joinedProjects && joinedProjects.docs.length > 0 ?
           <Slider 
@@ -138,16 +117,9 @@ import SharedViewWrapper from "../../shared/styling/projects.view";
           className="xs-12 slider">
 
             { joinedProjects.docs.map((p,i)=>{
-            return <div className="xs-12 sm-3" key={i}>
-            <Link className="xs-12 inner"
-              onMouseDown={e => this.handleOnMouseDown(e)}
-              onClick={e => this.handleOnClick(e)}
-
-            to={`/dashboard/project/preview/${p._id}`}>
-              <p> {p.name} </p>
-              <img src={p["project-avatar"]} alt=""/>
-            </Link>
-          </div>
+           return <div className="xs-12 sm-3" key={i}>
+                <HomeCard info={p} type="joined" />
+           </div>
             })}
         
           </Slider>
@@ -158,7 +130,7 @@ import SharedViewWrapper from "../../shared/styling/projects.view";
       <div className='empty-box inner'>
         <div className='c-w xs-12'>
           <div className='c t-c'>
-          <p>You have not joined any project</p>
+          <p>You have not joined or been added to any project</p>
           </div>
         </div>
       </div>
@@ -167,7 +139,7 @@ import SharedViewWrapper from "../../shared/styling/projects.view";
      }
      </section>
 
-     <section className='xs-12'>
+     {/* <section className='xs-12'>
       <label>Projects in your areas of interest</label>
     
             <Slider 
@@ -187,19 +159,13 @@ import SharedViewWrapper from "../../shared/styling/projects.view";
             
             { areasOfInterest && areasOfInterest.docs.length > 0 ?
               areasOfInterest.docs.map((p,i)=>{
-              return <div className="xs-12 sm-3" key={i}>
-                <Link className="xs-12 inner"
-                onMouseDown={e => this.handleOnMouseDown(e)}
-                onClick={e => this.handleOnClick(e)}
-                to={`/dashboard/project/preview/${p._id}`}>
-                <p> {p.name} </p>
-                  <img src={p["project-avatar"]} alt=""/>
-                </Link>
-              </div>
+                return <div className="xs-12 sm-3" key={i}>
+                <HomeCard info={p} type = "interests" />
+                </div>
             })
             :        
             <div className='xs-12 sm-3'>
-              <div className='empty-box inner'>
+              <div className='empty-box inner-not-proj'>
                 <div className='c-w xs-12'>
                   <div className='c t-c'>
                     <p>There are no projects in your area of interest</p>
@@ -209,9 +175,9 @@ import SharedViewWrapper from "../../shared/styling/projects.view";
             </div>
             }
             </Slider>
-     </section>
+     </section> */}
 
-     <section className='xs-12'>
+     {/* <section className='xs-12'>
         <label>Saved projects</label>
 
         { 
@@ -223,14 +189,8 @@ import SharedViewWrapper from "../../shared/styling/projects.view";
             { 
             savedProjects.docs.map((p,i)=>{
               return <div className="xs-12 sm-3" key={i}>
-                <Link className="xs-12 inner"
-                onMouseDown={e => this.handleOnMouseDown(e)}
-                onClick={e => this.handleOnClick(e)}
-                to={`/dashboard/project/preview/${p._id}`}>
-                <p> {p.name} </p>
-                  <img src={p["project-avatar"]} alt=""/>
-                </Link>
-              </div>
+                <HomeCard info={p}/>
+                </div>
             })
             }
             </Slider>
@@ -245,7 +205,7 @@ import SharedViewWrapper from "../../shared/styling/projects.view";
           </div>
           </div>
         }
-      </section>
+      </section> */}
      
      
      </SharedViewWrapper>
@@ -259,4 +219,4 @@ import SharedViewWrapper from "../../shared/styling/projects.view";
       projects
     }
   };
-export default connect(mapStateToProps)(withRouter(exportMe));
+export default withRouter(connect(mapStateToProps)(exportMe));

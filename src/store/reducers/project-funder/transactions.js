@@ -1,4 +1,4 @@
-import dA from "../../actions/project-funder/dashboard";
+import dA from "../../actions/dashboard";
 const initstate = {
   type: "",
   message: "",

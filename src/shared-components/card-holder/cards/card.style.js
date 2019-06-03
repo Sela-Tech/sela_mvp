@@ -2,7 +2,7 @@ import styled from "styled-components";
 
 export const NotEmptyCardStyling = styled.div`
   .project-picture {
-    height: 10em;
+    height: 13em;
     width: 100%;
     background: grey;
     display: block;
@@ -10,7 +10,7 @@ export const NotEmptyCardStyling = styled.div`
 
   .no-image {
     background: rgba(242, 153, 74, 0.97);
-    height: 10em;
+    height: 13em;
 
     h1 {
       margin: 0;
@@ -58,11 +58,13 @@ export const NotEmptyCardStyling = styled.div`
       color: #3d4852;
     }
   }
+
+
 `;
 
 export const EmptyCardStyling = styled.div`
   .project-picture {
-    height: 10em;
+    height: 13em;
     width: 100%;
     background: grey;
     display: block;
@@ -136,13 +138,21 @@ export const EmptyCardStyling = styled.div`
 `;
 
 export const NotEmptyCardStyling2 = styled.div`
+
+  .funding-label{
+    font-size: 0.8em;
+    font-weight: 300;
+    color: #67747C;
+  }
+
   .container {
     margin-bottom: 1.5em;
     position: relative;
   }
+
   .no-image {
     background: rgba(242, 153, 74, 0.97);
-    height: 10em;
+    height: 13em;
 
     h1 {
       margin: 0;
@@ -185,11 +195,11 @@ export const NotEmptyCardStyling2 = styled.div`
   }
   .box {
     background: #ffffff;
-    border-radius: 9px;
+    border-radius: 4px;
     overflow: auto;
     transition: 250ms;
     cursor: pointer;
-    min-height:325px;
+    min-height: 275px;
     &:hover {
       border-color: #156edc;
       #add {
@@ -207,7 +217,7 @@ export const NotEmptyCardStyling2 = styled.div`
     }
 
     img {
-      height: 10em;
+      height: 13em;
       width: 100%;
       display: block;
       object-fit: cover;
@@ -238,6 +248,7 @@ export const NotEmptyCardStyling2 = styled.div`
       }
 
       .tasks {
+        margin: 0.35em 0;
         .dw {
           margin: 0.95em 0 0.75em;
         }
@@ -253,4 +264,115 @@ export const NotEmptyCardStyling2 = styled.div`
       }
     }
   }
+
+.wrap-img{
+  position: relative;
+  .dw{
+    position: absolute;
+    top: 0;
+    left: 0;
+    margin: 0.5em;
+    background: #212D40;
+    border-radius: 50px;
+    height: 1.75em;
+    width: auto;
+    padding: 0 1em;
+    line-height: 1.75em;
+
+    
+   p{
+     color: white;
+     margin: 0;
+     font-size: 0.7em;
+     display: inline-block;
+   } 
+  
+  }
+
+  // button{
+  //     position: absolute;
+  //     bottom: 8px;
+  //     left: 8px;
+  //     border-radius: 50px;
+  //     height: 20px;
+  //     width: 100px;
+  //     border: 0;
+  //     color: white;
+  //     text-transform: Capitalize;
+  //     font-weight:300;
+
+  //     &.proposed, &.dormant{
+  //         background: #201D41;
+  //     }
+  //     &.in-progress{
+  //         background: #F2C94C;
+  //     }
+  //     &.completed{
+  //         background: #369C05;
+  //     }
+  //     &.terminated{
+  //         background: #BC1717;
+  //     }
+  // }
+}
+
+
+.has-radius{
+  color: #0145BE;
+  text-transform: Capitalize;
+  font-size: 0.8em;
+  border: 0;
+  background: transparent;
+  padding: 0;
+  margin: 2em 0 1em;
+  span{
+    display: inline-block;
+  }
+
+  &.proposed, &.dormant{
+    color: #0145BE;
+  }
+  &.in-progress{
+    color: #F2C94C;
+  }
+  &.completed{
+    color: #369C05;
+  }
+  &.terminated{
+    color: #BC1717;
+  }
+
+  img{
+    object-fit: contain;
+    background: white;
+    height: 1.25em;
+    width: 1.25em;
+    margin-left: 0.5em;
+    display: block;
+    position: relative;
+    top: 0.35em;
+  }
+}
+
+.__react_component_tooltip#completed{
+  background-color: #369C05;
+  span{
+    color: white;
+  }
+}
+
+.__react_component_tooltip#in-progress{
+  background-color: #F2C94C;
+  span{
+    color: black;
+  }
+}
+
+.__react_component_tooltip#proposed{
+  background-color: #0145BE;
+  span{
+    color: white;
+  }
+}
+
 `;

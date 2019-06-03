@@ -100,7 +100,6 @@ const ADW = styled.div`
       object-fit: contain;
     }
     h3 {
-      font-family: ProximaNova;
       line-height: normal;
       font-size: 20px;
       letter-spacing: 0.02em;
@@ -113,7 +112,6 @@ const ADW = styled.div`
   }
 
   h2#fa {
-    font-family: ProximaNova;
     line-height: normal;
     font-size: 24px;
     letter-spacing: 0.02em;
@@ -128,8 +126,7 @@ const ADW = styled.div`
       display: inline-block;
       height: 60px;
       line-height: 40px;
-      font-family: ProximaNova;
-
+      
       font-size: 15.5px;
       background: transparent;
       text-align: left;
@@ -204,7 +201,7 @@ const ADW = styled.div`
   #activate,
   #revoke {
     margin: 4px;
-    font-size: 13px;
+    font-size: 0.95em;
   }
 `;
 
@@ -451,8 +448,8 @@ class AdminDashboard extends React.Component {
                       <div className="xs-2">
                         {moment(u.createdOn).format("YYYY-MM-DD")}
                       </div>
-                      <div className="xs-3">{`${u.lastName} ${
-                        u.firstName
+                      <div className="xs-3">{`${u.firstName} ${
+                        u.lastName
                       }`}</div>
                       <div className="xs-3">{u.email}</div>
                       <div className="xs-2">

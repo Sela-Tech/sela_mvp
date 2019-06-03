@@ -7,12 +7,15 @@ const init = {
   errorBoundaryKey: 0,
   sdgs: [
     "No Poverty", "Zero Hunger",
-    "Health & Well-being", "Education",
-    "Gender Equality","Water & Sanitation",
-    "Clean Energy","Economic Growth",
-    "Infrastructure", "Reduced Inequality",
-    "Sustainable Cities", "Climate Action", "Life Below Water",
-    "Life on Land", "Responsible Consumption & Production"
+    "Health & Well-being", "Quality Education",
+    "Gender Equality", "Clean Water & Sanitation",
+    "Clean Energy", "Economic Growth",
+    "Infrastructure",
+    "Reduced Inequality", "Sustainable Cities",
+    "Climate Action", "Life Below Water",
+    "Life on Land", "Responsible Consumption & Production",
+    "Peace, Justice And Strong Institutions",
+    "Partnership For The Goals"
   ]
 };
 
@@ -28,7 +31,7 @@ export default (state = init, payload) => {
     case app.NEW_TOAST:
     let options = payload.options || {};
     let element = payload.element || <p style={{color: 'white'}}>{payload.message}</p>
-    notify( element,payload.status,options )
+    notify( element,payload.status, options )
     return state;
 
     default:

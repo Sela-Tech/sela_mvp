@@ -151,15 +151,14 @@ input.dont-match{
     }
 
     #submit-btn {
-      background: linear-gradient(119.81deg, #C13C1E 0%, #F2994A 100%);
-      border-radius: 4px;
-      padding: 1.5em 0;
-      max-width: 15em;
+      background: #f0954e;
+      border-radius: 2px;
+      padding: 0.85em 0;
+      max-width: 10em;
       width: 100%;
       font-size: 1em;
       color: white;
       border: 0;
-      font-weight: 300;
     }
 
     .extremes {

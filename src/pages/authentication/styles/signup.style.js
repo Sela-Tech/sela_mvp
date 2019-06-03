@@ -1,6 +1,14 @@
 import styled from "styled-components";
 
 export default styled.div`
+input.form-control{
+  font-size: 16px;
+
+}
+.ReactPasswordStrength  {
+  border: 0 !important;
+}
+
 #sign-in{
   background: linear-gradient(119.81deg, #C13C1E 0%, #F2994A 100%);
   color: white;

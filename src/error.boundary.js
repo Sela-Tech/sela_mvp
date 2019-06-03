@@ -20,7 +20,6 @@ class ErrorBoundary extends React.Component {
   }
 
   componentWillReceiveProps(nextProps){
-      console.log(nextProps.errorBoundaryKey)
       if(this.props.errorBoundaryKey !== nextProps.errorBoundaryKey){
         nextProps.history.goBack();
       }
